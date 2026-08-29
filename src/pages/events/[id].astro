@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatWhen } from '../../lib/content';
+import { sitePath } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((event) => ({ params: { id: event.data.id }, props: { event } }));
+}
+
+const { event } = Astro.props;
+---
+<BaseLayout title={`${event.data.headline} · AMS Signals`}>
+  <article class="record-page">
+    <a class="back-link" href={sitePath('')}>← Timeline</a>
+    <p class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</p>
+    <h1>{event.data.headline}</h1>
+    <p class="record-fact">{event.data.fact}</p>
+
+    <section>
+      <h2>Sources</h2>
+      <div class="source-list">
+        {event.data.sources.map((source) => (
+          <article class="source-card">
+            <h3><a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a></h3>
+            <p>{source.summary}</p>
+            <p class="source-meta">Checked {source.checkedAt}</p>
+            {source.archiveUrl && <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archived source ↗</a>}
+          </article>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
