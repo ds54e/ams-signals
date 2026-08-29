@@ -1,0 +1,231 @@
+---
+import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
+import { dateNumber, eventYear, formatWhen, sortEvents } from '../lib/content';
+import { sitePath } from '../lib/paths';
+
+interface Props {
+  events: EventEntry[];
+  companies: CompanyEntry[];
+  people: PersonEntry[];
+}
+
+const { events, companies, people } = Astro.props;
+const ordered = sortEvents(events);
+const years = ordered.map(eventYear);
+const minYear = years.length ? Math.min(...years) : new Date().getUTCFullYear();
+const maxYear = years.length ? Math.max(...years) : minYear;
+const axisStart = Date.UTC(minYear, 0, 1);
+const axisEnd = Date.UTC(maxYear + 1, 0, 1);
+const span = Math.max(axisEnd - axisStart, 1);
+const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
+const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
+const companyIds = [...new Set(ordered.flatMap((event) => event.data.companies))];
+const personIds = [...new Set(ordered.flatMap((event) => event.data.people))];
+const yearTicks = Array.from({ length: maxYear - minYear + 1 }, (_, index) => minYear + index);
+const position = (event: EventEntry) => ((dateNumber(event.data.when.start) - axisStart) / span) * 100;
+const searchText = (event: EventEntry) => [
+  event.data.headline,
+  event.data.fact,
+  ...event.data.sources.flatMap((source) => [source.title, source.summary]),
+  ...event.data.companies.map((id) => companyMap.get(id) ?? id),
+  ...event.data.people.map((id) => personMap.get(id) ?? id),
+].join(' ').normalize('NFKC').toLowerCase();
+const serialized = ordered.map((event) => ({
+  id: event.data.id,
+  kind: event.data.kind,
+  headline: event.data.headline,
+  fact: event.data.fact,
+  when: formatWhen(event),
+  search: searchText(event),
+  sourceTitle: event.data.sources[0]?.title ?? '',
+  sourceUrl: event.data.sources[0]?.url ?? '',
+  eventUrl: sitePath(`events/${event.data.id}/`),
+}));
+---
+<section class="timeline-app" data-timeline-root>
+  <div class="timeline-controls" aria-label="Timeline controls">
+    <label>
+      <span>Search public events</span>
+      <input data-search type="search" placeholder="model validation" autocomplete="off" />
+    </label>
+    <label>
+      <span>View</span>
+      <select data-view>
+        <option value="companies">Companies</option>
+        <option value="people">People</option>
+        <option value="both">Companies + People</option>
+      </select>
+    </label>
+    <label>
+      <span>Kind</span>
+      <select data-kind>
+        <option value="all">All</option>
+        <option value="hiring">Jobs</option>
+        <option value="publication">Publications</option>
+        <option value="conference">Conferences</option>
+        <option value="affiliation_change">People moves</option>
+        <option value="organization">Organization</option>
+        <option value="business">Business</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="timeline-status" data-status aria-live="polite"></div>
+
+  <div class="desktop-timeline" aria-label="Timeline">
+    <div class="timeline-axis">
+      <div class="lane-label"></div>
+      <div class="axis-track">
+        {yearTicks.map((year, index) => <span style={`left:${(index / Math.max(yearTicks.length, 1)) * 100}%`}>{year}</span>)}
+      </div>
+    </div>
+
+    <div data-group="companies">
+      {companyIds.map((companyId) => {
+        const laneEvents = ordered.filter((event) => event.data.companies.includes(companyId));
+        return (
+          <div class="timeline-lane" data-lane>
+            <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
+            <div class="lane-track">
+              {laneEvents.map((event) => (
+                <button
+                  type="button"
+                  class={`event-dot event-kind-${event.data.kind}`}
+                  style={`left:${position(event)}%`}
+                  data-event-id={event.data.id}
+                  data-kind={event.data.kind}
+                  data-search-text={searchText(event)}
+                  aria-label={`${formatWhen(event)}: ${event.data.headline}`}
+                ></button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div data-group="people" hidden>
+      {personIds.length === 0 ? <p class="empty-note">No people milestones are indexed yet.</p> : personIds.map((personId) => {
+        const laneEvents = ordered.filter((event) => event.data.people.includes(personId));
+        return (
+          <div class="timeline-lane" data-lane>
+            <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
+            <div class="lane-track">
+              {laneEvents.map((event) => (
+                <button
+                  type="button"
+                  class={`event-dot event-kind-${event.data.kind}`}
+                  style={`left:${position(event)}%`}
+                  data-event-id={event.data.id}
+                  data-kind={event.data.kind}
+                  data-search-text={searchText(event)}
+                  aria-label={`${formatWhen(event)}: ${event.data.headline}`}
+                ></button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <div class="mobile-timeline">
+    {ordered.slice().reverse().map((event) => (
+      <article class="mobile-event" data-event-id={event.data.id} data-kind={event.data.kind} data-search-text={searchText(event)}>
+        <div class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</div>
+        <h2>{event.data.headline}</h2>
+        <p>{event.data.fact}</p>
+        <a href={sitePath(`events/${event.data.id}/`)}>Open event</a>
+      </article>
+    ))}
+  </div>
+
+  <aside class="event-detail" data-detail>
+    <p class="event-meta" data-detail-meta>Select an event.</p>
+    <h2 data-detail-title>Timeline details appear here.</h2>
+    <p data-detail-fact></p>
+    <div class="detail-actions">
+      <a data-detail-event hidden>Open event</a>
+      <a data-detail-source target="_blank" rel="noreferrer" hidden>Open source ↗</a>
+    </div>
+  </aside>
+
+  <script type="application/json" data-events-json set:html={JSON.stringify(serialized)}></script>
+</section>
+
+<script>
+  const root = document.querySelector('[data-timeline-root]');
+  if (root && !root.hasAttribute('data-initialized')) {
+    root.setAttribute('data-initialized', 'true');
+    const jsonNode = root.querySelector('[data-events-json]');
+    const events = JSON.parse(jsonNode?.textContent || '[]');
+    const byId = new Map(events.map((event) => [event.id, event]));
+    const search = root.querySelector('[data-search]');
+    const view = root.querySelector('[data-view]');
+    const kind = root.querySelector('[data-kind]');
+    const status = root.querySelector('[data-status]');
+    const detail = root.querySelector('[data-detail]');
+    const normalized = (value) => value.normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
+
+    const showDetail = (id) => {
+      const event = byId.get(id);
+      if (!event || !detail) return;
+      detail.querySelector('[data-detail-meta]').textContent = `${event.when} · ${event.kind.replace('_', ' ')}`;
+      detail.querySelector('[data-detail-title]').textContent = event.headline;
+      detail.querySelector('[data-detail-fact]').textContent = event.fact;
+      const eventLink = detail.querySelector('[data-detail-event]');
+      eventLink.href = event.eventUrl;
+      eventLink.hidden = false;
+      const sourceLink = detail.querySelector('[data-detail-source]');
+      if (event.sourceUrl) {
+        sourceLink.href = event.sourceUrl;
+        sourceLink.textContent = `${event.sourceTitle || 'Source'} ↗`;
+        sourceLink.hidden = false;
+      } else {
+        sourceLink.hidden = true;
+      }
+    };
+
+    const apply = () => {
+      const terms = normalized(search.value);
+      const kindValue = kind.value;
+      const visibleIds = new Set();
+      root.querySelectorAll('[data-event-id]').forEach((node) => {
+        const text = node.getAttribute('data-search-text') || '';
+        const matchesText = terms.every((term) => text.includes(term));
+        const matchesKind = kindValue === 'all' || node.getAttribute('data-kind') === kindValue;
+        const visible = matchesText && matchesKind;
+        node.hidden = !visible;
+        if (visible) visibleIds.add(node.getAttribute('data-event-id'));
+      });
+      root.querySelectorAll('[data-lane]').forEach((lane) => {
+        lane.hidden = ![...lane.querySelectorAll('[data-event-id]')].some((node) => !node.hidden);
+      });
+      const companyGroup = root.querySelector('[data-group="companies"]');
+      const peopleGroup = root.querySelector('[data-group="people"]');
+      companyGroup.hidden = view.value === 'people';
+      peopleGroup.hidden = view.value === 'companies';
+      status.textContent = `${visibleIds.size} public event${visibleIds.size === 1 ? '' : 's'} shown`;
+
+      const params = new URLSearchParams(window.location.search);
+      search.value ? params.set('q', search.value) : params.delete('q');
+      kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
+      view.value !== 'companies' ? params.set('view', view.value) : params.delete('view');
+      const next = params.toString();
+      history.replaceState(null, '', `${location.pathname}${next ? `?${next}` : ''}`);
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('q')) search.value = params.get('q');
+    if ([...kind.options].some((option) => option.value === params.get('kind'))) kind.value = params.get('kind');
+    if ([...view.options].some((option) => option.value === params.get('view'))) view.value = params.get('view');
+
+    root.querySelectorAll('.event-dot').forEach((button) => button.addEventListener('click', () => showDetail(button.getAttribute('data-event-id'))));
+    search.addEventListener('input', apply);
+    kind.addEventListener('change', apply);
+    view.addEventListener('change', apply);
+    apply();
+    if (events.length) showDetail(events[events.length - 1].id);
+  }
+</script>
