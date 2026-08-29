@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map((person) => ({ params: { id: person.data.id }, props: { person } }));
+}
+
+const { person } = Astro.props;
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const personEvents = events.filter((event) => event.data.people.includes(person.data.id));
+---
+<BaseLayout title={`${person.data.name} · AMS Signals`}>
+  <section class="intro compact">
+    <p class="eyebrow">PEOPLE TIMELINE</p>
+    <h1>{person.data.name}</h1>
+    <p class="lede">Public technical and affiliation milestones indexed by this site.</p>
+  </section>
+  <Timeline events={personEvents} companies={companies} people={people} />
+</BaseLayout>
