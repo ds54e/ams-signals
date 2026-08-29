@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import { sitePath } from '../lib/paths';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'AMS Signals',
+  description = 'Public signals in RNM and mixed-signal verification.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={sitePath('')}>AMS Signals</a>
+      <nav aria-label="Primary">
+        <a href={sitePath('')}>Timeline</a>
+      </nav>
+    </header>
+    <main class="page-shell">
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "id": "apple-2026-04-pmu-dms",
+  "when": {
+    "start": "2026-04-23",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple posts a PMU Digital Mixed Signal Modeling role",
+  "fact": "Apple posted a PMU modeling role whose description lists SystemVerilog real-number modeling, model-versus-schematic simulation, standalone model validation, full-chip DMS integration, model-library reuse, model accuracy metrics, regression, Python automation, and correlation with transistor-level simulation and silicon bring-up.",
+  "sources": [
+    {
+      "title": "Digital Mixed Signal Modeling Engineer",
+      "url": "https://jobs.apple.com/en-us/details/200659736",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple PMU DMS job description listing RNM, validation, full-chip integration, regression, reuse, automation, and correlation responsibilities."
+    }
+  ]
+}

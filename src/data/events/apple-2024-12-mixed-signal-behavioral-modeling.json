@@ -1,0 +1,20 @@
+{
+  "id": "apple-2024-12-mixed-signal-behavioral-modeling",
+  "when": {
+    "start": "2024-12-03",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple posts a Mixed-Signal Behavioral Modeling Engineer role",
+  "fact": "Apple posted a mixed-signal behavioral-modeling role whose description includes translating custom mixed-signal schematics into SystemVerilog behavioral models, checking models against circuit behavior, and building automation around the modeling flow.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Behavioral Modeling Engineer",
+      "url": "https://jobs.apple.com/en-sa/details/200581671/mixed-signal-behavioral-modeling-engineer",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple job description for mixed-signal behavioral modeling, model checking, and automation."
+    }
+  ]
+}

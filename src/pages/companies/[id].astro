@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+
+export async function getStaticPaths() {
+  const companies = await getCollection('companies');
+  return companies.map((company) => ({ params: { id: company.data.id }, props: { company } }));
+}
+
+const { company } = Astro.props;
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const companyEvents = events.filter((event) => event.data.companies.includes(company.data.id));
+---
+<BaseLayout title={`${company.data.name} · AMS Signals`}>
+  <section class="intro compact">
+    <p class="eyebrow">COMPANY TIMELINE</p>
+    <h1>{company.data.name}</h1>
+    {company.data.lastReviewed && <p class="lede">Last researched {company.data.lastReviewed}. Public events shown here describe observable source material, not total internal activity.</p>}
+  </section>
+  <Timeline events={companyEvents} companies={companies} people={people} />
+</BaseLayout>
