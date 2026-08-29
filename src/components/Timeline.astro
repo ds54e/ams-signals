@@ -39,6 +39,7 @@ const serialized = ordered.map((event) => ({
   search: searchText(event),
   sourceTitle: event.data.sources[0]?.title ?? '',
   sourceUrl: event.data.sources[0]?.url ?? '',
+  sourceStatus: event.data.sources[0]?.status ?? 'available',
   eventUrl: sitePath(`events/${event.data.id}/`),
 }));
 ---
@@ -180,7 +181,9 @@ const serialized = ordered.map((event) => ({
       const sourceLink = detail.querySelector('[data-detail-source]');
       if (event.sourceUrl) {
         sourceLink.href = event.sourceUrl;
-        sourceLink.textContent = `${event.sourceTitle || 'Source'} ↗`;
+        sourceLink.textContent = event.sourceStatus === 'unavailable'
+          ? `${event.sourceTitle || 'Original source'} (unavailable on last check) ↗`
+          : `${event.sourceTitle || 'Source'} ↗`;
         sourceLink.hidden = false;
       } else {
         sourceLink.hidden = true;

@@ -25,7 +25,9 @@ const { event } = Astro.props;
           <article class="source-card">
             <h3><a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a></h3>
             <p>{source.summary}</p>
-            <p class="source-meta">Checked {source.checkedAt}</p>
+            <p class="source-meta">
+              Checked {source.checkedAt}{source.status === 'unavailable' ? ' · original URL unavailable on last check' : ''}
+            </p>
             {source.archiveUrl && <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archived source ↗</a>}
           </article>
         ))}
