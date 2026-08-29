@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
+
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+---
+<BaseLayout>
+  <section class="intro">
+    <p class="eyebrow">FACTUAL PUBLIC TIMELINE</p>
+    <h1>Public signals in RNM & mixed-signal verification</h1>
+    <p class="lede">Browse dated public events. Search is the lens; the Golden timeline does not assign technology tags, maturity scores, or inferred rankings.</p>
+  </section>
+  <Timeline events={events} companies={companies} people={people} />
+</BaseLayout>
