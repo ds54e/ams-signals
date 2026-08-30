@@ -13,7 +13,7 @@ const [events, companies, people] = await Promise.all([
   <section class="intro">
     <p class="eyebrow">FACTUAL PUBLIC TIMELINE</p>
     <h1>Public signals in RNM & mixed-signal verification</h1>
-    <p class="lede">Browse dated public events. Search is the lens; the Golden timeline does not assign technology tags, maturity scores, or inferred rankings.</p>
+    <p class="lede">Compare dated records, search public evidence, and inspect every source. No technology tags, maturity scores, or inferred rankings.</p>
   </section>
-  <Timeline events={events} companies={companies} people={people} />
+  <Timeline events={events} companies={companies} people={people} context="global" />
 </BaseLayout>
