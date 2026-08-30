@@ -1,0 +1,20 @@
+{
+  "id": "hitachi-2015-rnm-full-chip-mixed-signal-verification",
+  "when": {
+    "start": "2015-02-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["hitachi", "cadence"],
+  "people": [],
+  "headline": "Cadence reports Hitachi used RNM for full-design verification of a mixed-signal backplane signal conditioner",
+  "fact": "A Cadence press release reports that Hitachi used Virtuoso AMS Designer with real-number modeling to simulate the entire design of a backplane signal-conditioner mixed-signal chip, reducing verification from days to 30 minutes. Cadence says Hitachi presented the design and RNM results at ISSCC 2015 on February 23; this is a vendor-published customer report.",
+  "sources": [
+    {
+      "title": "日立、ケイデンスのVirtuoso AMS Designerを採用し、ミックスシグナル・チップの検証時間を短縮",
+      "url": "https://www.cadence.com/ja_JP/home/company/newsroom/press-releases/pr-jp/2015/post952-2015-02-26.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence's vendor-published customer release reports Hitachi's full-design RNM simulation, the days-to-30-minutes reduction, and the February 23 ISSCC presentation."
+    }
+  ]
+}

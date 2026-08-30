@@ -1,0 +1,20 @@
+{
+  "id": "sitime-2023-keiichi-kajino-japan-verification-manager",
+  "when": {
+    "start": "2023-07",
+    "precision": "month"
+  },
+  "kind": "organizational",
+  "companies": ["sitime"],
+  "people": ["keiichi-kajino"],
+  "headline": "Keiichi Kajino's profile dates his SiTime verification-manager role to July 2023",
+  "fact": "Keiichi Kajino's public professional profile dates the start of his SiTime Manager of Verification role to July 2023 and identifies him as Manager, Japan Verification. His profile separately describes mixed-signal verification experience including mixed-mode simulation, analog and digital assertions, Verilog-A/Verilog-AMS, SystemVerilog RNM, and UVM-based mixed-signal testbenches.",
+  "sources": [
+    {
+      "title": "Keiichi Kajino — LinkedIn",
+      "url": "https://jp.linkedin.com/in/keiichi-kajino-91378810b",
+      "checkedAt": "2026-08-30",
+      "summary": "Kajino's public profile dates his SiTime verification-management role to July 2023 and separately describes his career-level mixed-signal verification experience."
+    }
+  ]
+}

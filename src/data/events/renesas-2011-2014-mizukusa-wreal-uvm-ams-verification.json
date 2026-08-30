@@ -1,0 +1,21 @@
+{
+  "id": "renesas-2011-2014-mizukusa-wreal-uvm-ams-verification",
+  "when": {
+    "start": "2011-04",
+    "end": "2014-11",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": ["renesas"],
+  "people": ["tomokatsu-mizukusa"],
+  "headline": "Tomokatsu Mizukusa's profile describes whole-chip Wreal and UVM-AMS verification work at Renesas",
+  "fact": "Tomokatsu Mizukusa's public professional profile describes his 2011–2014 Renesas role as developing EDA and design methodology for mixed-signal and analog systems. It specifically reports MCU and SoC whole-chip mixed-signal functional and connectivity verification using Verilog Wreal, along with SystemVerilog discrete-real modeling and UVM-AMS.",
+  "sources": [
+    {
+      "title": "Tomokatsu Mizukusa — LinkedIn",
+      "url": "https://jp.linkedin.com/in/tomokatsu-mizukusa-b2943724",
+      "checkedAt": "2026-08-30",
+      "summary": "Mizukusa's public profile directly associates whole-chip Wreal verification, SystemVerilog discrete-real modeling, and UVM-AMS with his April 2011–November 2014 Renesas role."
+    }
+  ]
+}
