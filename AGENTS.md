@@ -1,5 +1,11 @@
 # AMS Signals — Agent Instructions
 
+## Start here
+
+Before making research or product-design decisions, read `PROJECT_CONTEXT.md`. It captures the durable product intent and the rationale behind the timeline-first, fact-first, tagless, bounded-growth design.
+
+Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add task-specific context but do not override this file or `PROJECT_CONTEXT.md`.
+
 ## Purpose
 
 AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal verification activity across companies and people.
