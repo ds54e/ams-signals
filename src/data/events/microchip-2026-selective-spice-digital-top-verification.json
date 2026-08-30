@@ -1,0 +1,23 @@
+{
+  "id": "microchip-2026-selective-spice-digital-top-verification",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "microchip",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Microchip and Siemens authors report selective-SPICE digital-top verification with RTL and UPF",
+  "fact": "A Microchip and Siemens DAC 2026 presentation reports a digital-on-top mixed-signal flow combining selected SPICE blocks with RTL and UPF power intent. The presentation describes AI-accelerated Solido analysis and reports more than 22× acceleration for the presented case. This preserves the customer/vendor presentation modality and does not imply the result applies to every Microchip design.",
+  "sources": [
+    {
+      "title": "Comprehensive SoC Power System Verification Using Optimized Mixed-Signal Verification Methodology",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST281&sess=sess296",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2026 record identifies Microchip and Siemens authors and describes the selective-SPICE, RTL, UPF, and AI-accelerated flow with a reported greater-than-22× result."
+    }
+  ]
+}

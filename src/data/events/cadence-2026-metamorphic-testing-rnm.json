@@ -1,0 +1,28 @@
+{
+  "id": "cadence-2026-metamorphic-testing-rnm",
+  "when": {
+    "start": "2026-03-03",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Cadence author applies metamorphic testing to a SystemVerilog RNM receiver model",
+  "fact": "A Cadence DVCon U.S. 2026 paper applies metamorphic testing to a SystemVerilog real-number model of a receiver baseband, ADC, and automatic-gain-control system where a detailed test oracle is impractical. It defines relations for doubled or halved input, constant ADC magnitude, and plus-or-minus 6 dB RSSI changes and exercises them with randomized stimuli. This is a reported case study, not an AI method or a company-wide deployment claim.",
+  "sources": [
+    {
+      "title": "Application of Metamorphic Testing to Mixed-Signal Systems with Behavioral Models",
+      "url": "https://dvcon-proceedings.org/document/application-of-metamorphic-testing-to-mixed-signal-systems-with-behavioral-models/",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings record identifies Daniel Cross of Cadence and dates the presentation to March 3, 2026."
+    },
+    {
+      "title": "Application of Metamorphic Testing to Mixed-Signal Systems with Behavioral Models — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/submission_23.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The paper describes the SystemVerilog RNM receiver case, the four metamorphic relations, randomized stimuli, and reported outcomes."
+    }
+  ]
+}

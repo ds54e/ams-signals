@@ -1,0 +1,24 @@
+{
+  "id": "texas-instruments-2026-ana-modelgen-ams-model-generation",
+  "when": {
+    "start": "2026-07-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "aadhar-sharma"
+  ],
+  "headline": "TI authors report ANA-MODELGEN automation for AMS models and self-checking testbenches",
+  "fact": "A Texas Instruments DAC 2026 presentation describes ANA-MODELGEN, an automated flow that generates analog behavioral models and self-checking testbenches from specifications, then checks model equivalence against SPICE. The presentation says the flow was deployed in production SoC verification flows. This records the authors' reported deployment and scope; it does not generalize the result beyond the presented TI flow.",
+  "sources": [
+    {
+      "title": "ANA-MODELGEN: Automating Analog IP Model Generation and Validation for Efficient Mixed-Signal Verification",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPRES367&sess=sess295",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2026 record identifies the TI presentation and describes automated model and self-checking-testbench generation, SPICE-equivalence checking, and reported deployment in production SoC verification flows."
+    }
+  ]
+}

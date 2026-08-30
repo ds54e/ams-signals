@@ -1,0 +1,30 @@
+{
+  "id": "nxp-2025-sigma-delta-model-evaluation-acceleration",
+  "when": {
+    "start": "2025-05-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp"
+  ],
+  "people": [
+    "stijn-ringeling"
+  ],
+  "headline": "NXP and university authors report accelerated sigma-delta modulator linearity evaluation",
+  "fact": "An ISCAS 2025 paper by Eindhoven University of Technology and NXP authors reports a model-based method for evaluating fourth-order sigma-delta-modulator linearity in Simulink. For the presented study, the authors report comparable linearity accuracy using 5,000× fewer bitstream samples and describe the resulting gain in statistical coverage. This is a bounded joint research result, not evidence of deployment across NXP programs.",
+  "sources": [
+    {
+      "title": "Quantization Noise Cancellation Through Modelling of Non-Linearities in Sigma-Delta Modulators",
+      "url": "https://research.tue.nl/en/publications/quantization-noise-cancellation-through-modelling-of-non-linearit/",
+      "checkedAt": "2026-08-31",
+      "summary": "The university publication record identifies Stijn Ringeling, the TU/e and NXP coauthors, and the reported 5,000× reduction in required bitstream samples."
+    },
+    {
+      "title": "ISCAS 2025 technical program",
+      "url": "https://confcats-event-sessions.s3.us-east-1.amazonaws.com/iscas25/uploads/ISCAS_2025_Program_v24.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official program dates the paper's presentation to May 28, 2025 and identifies the author affiliations."
+    }
+  ]
+}
