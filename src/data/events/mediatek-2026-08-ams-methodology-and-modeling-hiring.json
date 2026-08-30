@@ -1,0 +1,32 @@
+{
+  "id": "mediatek-2026-08-ams-methodology-and-modeling-hiring",
+  "when": {
+    "start": "2026-08-30",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["mediatek"],
+  "people": [],
+  "headline": "MediaTek's careers site shows dedicated AMS modeling and verification methodology groups",
+  "fact": "On August 30, 2026, MediaTek's careers site listed roles in dedicated AMS modeling and verification methodology groups responsible for modeling and verification platforms, coding and validation processes, experiments, deployment, UVM, assertions, coverage closure, and automation. A related modeling role calls for SystemVerilog RNM models of oscillators, voltage references and meters, LDOs, and temperature sensors, with model-versus-schematic verification, coverage, assertions, and Python.",
+  "sources": [
+    {
+      "title": "Analog/Mixed-Signal Modeling Methodology Development Engineer",
+      "url": "https://careers.mediatek.com/en/jobs/MTK120231030000",
+      "checkedAt": "2026-08-30",
+      "summary": "Official MediaTek role for a dedicated group establishing behavioral-modeling, coding, validation, integration, and deployment processes and a modeling platform."
+    },
+    {
+      "title": "Analog/Mixed-Signal Design Verification Methodology Development Engineer",
+      "url": "https://careers.mediatek.com/en/jobs/MTK120231030001",
+      "checkedAt": "2026-08-30",
+      "summary": "Official MediaTek role for a dedicated AMS DV methodology group supporting UVM, assertions, coverage, automation, and deployment across IP and chip teams."
+    },
+    {
+      "title": "Analog Modeling Engineer",
+      "url": "https://careers.mediatek.com/en/jobs/MUS120260701001",
+      "checkedAt": "2026-08-30",
+      "summary": "Official MediaTek role for supply- and process-aware SystemVerilog RNM models, model-to-schematic verification, coverage, assertions, and Python."
+    }
+  ]
+}

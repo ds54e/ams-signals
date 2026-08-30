@@ -1,0 +1,26 @@
+{
+  "id": "renesas-2026-04-pmic-ams-dms-hiring",
+  "when": {
+    "start": "2026-04-16",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["renesas"],
+  "people": [],
+  "headline": "Renesas lists PMIC verification roles spanning AMS, DMS, RNM, UVM, correlation, and sign-off",
+  "fact": "Renesas listed related PMIC verification roles for battery chargers, switching regulators, and analog power IP. The descriptions cover chip-level AMS and full-chip DMS, SystemVerilog RNM and Verilog-AMS models integrated with RTL and UVM, model correlation to specifications and schematics, coverage closure and sign-off, and support for correlation to silicon bench measurements.",
+  "sources": [
+    {
+      "title": "Senior Staff Mixed Signal Verification Engineer",
+      "url": "https://jobs.renesas.com/job/senior-staff-mixed-signal-verification-engineer-in-chandler-arizona-united-states-jid-5987",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Renesas requisition dated April 16, 2026, for PMIC AMS/DMS verification, RNM/VAMS modeling, coverage, sign-off, and schematic and bench correlation."
+    },
+    {
+      "title": "Staff AMS Verification Engineer",
+      "url": "https://jobs.renesas.com/job/staff-ams-verification-engineer-in-bengaluru-ka-india-jid-4702",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Renesas requisition dated April 28, 2026, for reusable UVM/RNM PMIC verification from blocks through full-chip and silicon correlation."
+    }
+  ]
+}

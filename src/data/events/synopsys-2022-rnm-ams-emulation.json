@@ -1,0 +1,20 @@
+{
+  "id": "synopsys-2022-rnm-ams-emulation",
+  "when": {
+    "start": "2022-11-21",
+    "precision": "day"
+  },
+  "kind": "publication",
+  "companies": ["synopsys"],
+  "people": [],
+  "headline": "Synopsys reports real-number-model support in an AMS emulation prototype",
+  "fact": "A Synopsys publication reports that four years of DARPA POSH work produced an AMS emulation prototype capable of running digital logic, real-number analog models, and software together. It reports a 97-fold speedup over simulation on one customer design and says commercialization was planned for 2023; it does not establish that the planned product release occurred.",
+  "sources": [
+    {
+      "title": "What Is AMS Verification?",
+      "url": "https://www.synopsys.com/blogs/chip-design/what-is-ams-verification.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Synopsys's November 2022 account of DARPA POSH work on RNM-capable AMS emulation, a reported customer benchmark, and a planned 2023 commercialization."
+    }
+  ]
+}

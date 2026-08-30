@@ -1,0 +1,20 @@
+{
+  "id": "siemens-eda-2026-02-analogport-symphony-customer",
+  "when": {
+    "start": "2026-02-20",
+    "precision": "day"
+  },
+  "kind": "publication",
+  "companies": ["siemens-eda"],
+  "people": [],
+  "headline": "Siemens publishes an AnalogPort mixed-signal die-to-die verification case study",
+  "fact": "A Siemens EDA customer story reports that AnalogPort applied UVM to a 32 Gbps full-duplex die-to-die interface with 16 transmitters and 16 receivers. The story describes using Symphony Pro with Questa digital simulation and Solido SPICE simulation, automated boundary insertion, selective data recording, and MS Visualizer; this is a vendor-published customer report.",
+  "sources": [
+    {
+      "title": "How Symphony Pro Is Defining the Future of Mixed-Signal Verification for High-Speed Die-to-Die Interfaces: A Case Study by AnalogPort",
+      "url": "https://blogs.sw.siemens.com/cicv/2026/02/20/how-symphony-pro-is-defining-the-future-of-mixed-signal-verification-for-high-speed-die-to-die-interfaces-a-case-study-by-analogport/",
+      "checkedAt": "2026-08-30",
+      "summary": "Siemens EDA's February 2026 customer story on AnalogPort's UVM-based verification of a high-speed die-to-die interface."
+    }
+  ]
+}

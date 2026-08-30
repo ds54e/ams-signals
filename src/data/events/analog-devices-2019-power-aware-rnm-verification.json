@@ -1,0 +1,20 @@
+{
+  "id": "analog-devices-2019-power-aware-rnm-verification",
+  "when": {
+    "start": "2019",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices"],
+  "people": [],
+  "headline": "Analog Devices authors report power-aware RNM verification with schematic correlation",
+  "fact": "An Analog Devices-authored presentation reports power-aware RNM models used with UVM supply and interrupt agents and assertions. It describes validating models against schematics, scripting chip-top connectivity, and running RNM with RTL; the authors report finding isolation and sequencing bugs and closing coverage without mixed-signal co-simulation for those full-chip tests.",
+  "sources": [
+    {
+      "title": "Taking RNM Model to the Next Level: Power-Aware Verification of Mixed-Signal Designs",
+      "url": "https://dvcon-proceedings.org/document/taking-rnm-model-to-the-next-level-power-aware-verification-of-mixed-signal-designs/",
+      "checkedAt": "2026-08-30",
+      "summary": "2019 Analog Devices presentation on power-aware RNM, model-to-schematic validation, scripted integration, assertions, and coverage."
+    }
+  ]
+}

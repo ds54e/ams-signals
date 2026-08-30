@@ -1,0 +1,26 @@
+{
+  "id": "texas-instruments-2017-analog-assertions-and-pvt-ml",
+  "when": {
+    "start": "2017",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["texas-instruments"],
+  "people": [],
+  "headline": "TI authors report schematic-bound analog assertions and machine-learning-guided PVT exploration",
+  "fact": "Two TI-authored 2017 papers report methods for analog and mixed-signal verification. One binds assertions directly to electrical ports in a schematic; the other applies support vector machines and active learning to adaptively explore process, voltage, and temperature space for coverage and worst-case conditions.",
+  "sources": [
+    {
+      "title": "Assertion-Based Verification for Analog and Mixed-Signal Designs",
+      "url": "https://dvcon-proceedings.org/document/assertion-based-verification-for-analog-and-mixed-signal-designs/",
+      "checkedAt": "2026-08-30",
+      "summary": "TI-authored 2017 paper on binding assertions to schematic electrical ports for analog and mixed-signal verification."
+    },
+    {
+      "title": "Machine Learning-Based PVT Space Coverage and Worst-Case Exploration in Analog and Mixed-Signal Design Verification",
+      "url": "https://dvcon-proceedings.org/document/machine-learning-based-pvt-space-coverage-and-worst-case-exploration-in-analog-and-mixed-signal-design-verification-presentation/",
+      "checkedAt": "2026-08-30",
+      "summary": "TI-authored 2017 work applying support vector machines and active learning to PVT coverage and worst-case exploration."
+    }
+  ]
+}

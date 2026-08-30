@@ -1,0 +1,26 @@
+{
+  "id": "skyworks-2026-06-ams-verification-hiring",
+  "when": {
+    "start": "2026-06-08",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["skyworks"],
+  "people": [],
+  "headline": "Skyworks lists related AMS verification roles from behavioral models through full-chip simulation",
+  "fact": "Skyworks posted related AMS verification roles whose descriptions cover Verilog-A and SystemVerilog RNM behavioral models, model-versus-schematic equivalence, AMS and DMS verification, and block-to-full-chip RFIC work. The roles name PLLs, ADCs, DACs, LDOs, oscillators, power-aware verification, and flow automation, while emphasizing scalable, reusable, and portable environments.",
+  "sources": [
+    {
+      "title": "Staff AMS Verification Engineer",
+      "url": "https://careers.skyworksinc.com/job/Sr_-Electrical-Engineer/77439-en_US/",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Skyworks role posted June 8, 2026, covering Verilog-A, SV-RNM, equivalence, AMS/DMS, and RFIC block-to-full-chip verification."
+    },
+    {
+      "title": "Audio AMS Verification Engineer",
+      "url": "https://careers.skyworksinc.com/job/Sr_-Electrical-Engineer/77675-en_US/",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Skyworks role posted June 24, 2026, adding PLL, converter, LDO, power-aware, chip-level performance, and automation scope."
+    }
+  ]
+}

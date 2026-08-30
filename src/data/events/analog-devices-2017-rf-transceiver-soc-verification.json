@@ -1,0 +1,20 @@
+{
+  "id": "analog-devices-2017-rf-transceiver-soc-verification",
+  "when": {
+    "start": "2017",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices"],
+  "people": [],
+  "headline": "Analog Devices authors report RNM and generated UVM testbenches for a 2.4 GHz transceiver SoC",
+  "fact": "An Analog Devices-authored paper reports verification of a 2.4 GHz BLE and proprietary-mode transceiver SoC using UVM RF agents, real-number models, randomized packet parameters and blockers, and full-system pads-to-RTL simulation. The paper also describes Veri-DSP, an internal flow that generated UVM block testbenches and integrated Python post-processing for DSP verification.",
+  "sources": [
+    {
+      "title": "Advances in RF Transceiver SoC Verification",
+      "url": "https://dvcon-proceedings.org/document/advances-in-rf-transceiver-soc-verification-a-walk-through-over-a-2-4-ghz-multi-modal-integrated-transceiver-verification-cycle/",
+      "checkedAt": "2026-08-30",
+      "summary": "2017 Analog Devices paper covering UVM, RF agents, RNM, full-system verification, and the Veri-DSP testbench-generation flow."
+    }
+  ]
+}

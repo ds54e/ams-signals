@@ -1,0 +1,26 @@
+{
+  "id": "texas-instruments-2014-wreal-uvm-mixed-signal-soc",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["texas-instruments"],
+  "people": [],
+  "headline": "TI authors report wreal and UVM methods in two mixed-signal SoC case studies",
+  "fact": "Two TI-authored 2014 papers report mixed-signal SoC verification using higher-level analog abstractions. One describes wreal models and digital-regression reuse on a 45 nm secure SoC, including functional and design-for-test integration issues; the other describes a UVM environment for an RF transceiver SoC using wreal and Verilog-AMS models, constrained-random stimulus, assertions, coverage, and a MATLAB reference-model checker.",
+  "sources": [
+    {
+      "title": "Efficient SoC-Level Mixed-Signal Frontend Verification Using Wreal Models",
+      "url": "https://dvcon-proceedings.org/document/efficient-soc-level-mixed-signal-frontend-verification-using-wreal-models/",
+      "checkedAt": "2026-08-30",
+      "summary": "TI-authored 2014 case study on wreal-based frontend verification and digital-regression reuse for a 45 nm secure SoC."
+    },
+    {
+      "title": "Advanced Functional Verification Methodology Using UVM for Complex DSP Algorithms in Mixed-Signal RF SoCs",
+      "url": "https://dvcon-proceedings.org/document/advanced-functional-verification-methodology-using-uvm-for-complex-dsp-algorithms-in-mixed-signal-rf-socs/",
+      "checkedAt": "2026-08-30",
+      "summary": "TI-authored 2014 paper on a UVM environment with wreal and Verilog-AMS models, assertions, coverage, and MATLAB-based checking for an RF transceiver SoC."
+    }
+  ]
+}

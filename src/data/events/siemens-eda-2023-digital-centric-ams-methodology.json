@@ -1,0 +1,26 @@
+{
+  "id": "siemens-eda-2023-digital-centric-ams-methodology",
+  "when": {
+    "start": "2023-02-27",
+    "precision": "day"
+  },
+  "kind": "conference",
+  "companies": ["siemens-eda"],
+  "people": [],
+  "headline": "Siemens EDA presents a digital-centric mixed-signal verification workshop",
+  "fact": "At DVCon U.S. on February 27, 2023, Siemens EDA presented a workshop describing digital-centric mixed-signal verification methods. Its program covers real-number modeling, constrained-random verification, assertions, functional coverage, formal techniques, low-power verification, and automated debug; the evidence documents vendor methodology advocacy rather than customer adoption.",
+  "sources": [
+    {
+      "title": "Democratizing Digital-Centric Mixed-Signal Verification Methodologies",
+      "url": "https://dvcon-proceedings.org/document/democratizing-digital-centric-mixed-signal-verification-methodologies/",
+      "checkedAt": "2026-08-30",
+      "summary": "Siemens EDA's DVCon U.S. 2023 workshop materials on digital-centric mixed-signal verification methods."
+    },
+    {
+      "title": "DVCon U.S. 2023 Proceedings",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-US-2023_Proceedings.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The conference program dates the Siemens EDA workshop to February 27, 2023."
+    }
+  ]
+}

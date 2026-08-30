@@ -1,0 +1,20 @@
+{
+  "id": "nvidia-2026-08-cell-modeling-verification-hiring",
+  "when": {
+    "start": "2026-08-14",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["nvidia"],
+  "people": [],
+  "headline": "NVIDIA posts a mixed-signal cell modeling and verification role",
+  "fact": "On August 14, 2026, NVIDIA posted a role to develop behavioral models and verification environments for custom mixed-signal cells used across NVIDIA products. The listing names Verilog, SystemVerilog, Perl, and Python, and covers cells including PLLs and high-speed interconnects, emulation and prototyping, and library- and chip-level integration.",
+  "sources": [
+    {
+      "title": "Senior Cell Modeling and Verification Engineer",
+      "url": "https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Cell-Modeling-and-Verification-Engineer_JR2015659",
+      "checkedAt": "2026-08-30",
+      "summary": "Official NVIDIA role for behavioral modeling and verification of custom mixed-signal cells, including PLL and high-speed-interconnect applications."
+    }
+  ]
+}

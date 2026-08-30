@@ -1,0 +1,20 @@
+{
+  "id": "microchip-2026-06-chiplet-ams-verification-hiring",
+  "when": {
+    "start": "2026-06-14",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["microchip"],
+  "people": [],
+  "headline": "Microchip lists system-level AMS verification across full-chip and chiplet boundaries",
+  "fact": "Microchip posted a Technical Staff Engineer role for system-level AMS verification and power and signal integrity on SoCs and chiplet platforms. The description covers subsystem, full-chip, and cross-chiplet AMS and SPICE simulation, mature-node analog integrated with advanced-node digital, multi-voltage domains, methodology development, silicon bring-up, and simulation-to-silicon correlation.",
+  "sources": [
+    {
+      "title": "Technical Staff Engineer - AMS Verification",
+      "url": "https://microchiphr.wd5.myworkdayjobs.com/en-US/External/job/AZ---Chandler/Technical-Staff-Engineer---AMS-Verification_R1531-26",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Microchip Workday role dated June 14, 2026, for system-level AMS, full-chip and chiplet simulation, methodology, and silicon correlation."
+    }
+  ]
+}

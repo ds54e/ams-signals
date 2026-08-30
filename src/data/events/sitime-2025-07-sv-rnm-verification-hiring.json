@@ -1,0 +1,26 @@
+{
+  "id": "sitime-2025-07-sv-rnm-verification-hiring",
+  "when": {
+    "start": "2025-07-18",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["sitime"],
+  "people": [],
+  "headline": "SiTime lists an SV-RNM verification role spanning UVM, assertions, coverage, and digital-top sign-off",
+  "fact": "SiTime posted a verification role whose responsibilities included developing SystemVerilog real-number models, a digital-top SystemVerilog verification plan, UVM scoreboards, monitors, and sequencers, SVA, functional coverage, simulation debug, and tape-out sign-off. The listing named wreal/V-AMS, UVM-AMS, and formal property verification as relevant experience.",
+  "sources": [
+    {
+      "title": "SiTime Sr. Engineer, Verifications — official application",
+      "url": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?ccId=19000101_000001&cid=555e77b2-029a-4357-8712-1dd910b41621&jobId=575717&lang=en_US",
+      "checkedAt": "2026-08-30",
+      "summary": "Official SiTime ADP application for job 575717 in the mixed-signal verification role family."
+    },
+    {
+      "title": "Sr. Engineer, Verifications — recovered posting",
+      "url": "https://jobs.spacecapital.com/companies/sitime/jobs/54672927-sr-engineer-verifications",
+      "checkedAt": "2026-08-30",
+      "summary": "Secondary recovery copy dated July 18, 2025, preserving the role's SV-RNM, UVM, SVA, coverage, digital-top, and sign-off responsibilities."
+    }
+  ]
+}

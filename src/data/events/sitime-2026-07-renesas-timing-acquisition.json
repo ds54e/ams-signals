@@ -1,0 +1,20 @@
+{
+  "id": "sitime-2026-07-renesas-timing-acquisition",
+  "when": {
+    "start": "2026-07-01",
+    "precision": "day"
+  },
+  "kind": "business",
+  "companies": ["sitime", "renesas"],
+  "people": [],
+  "headline": "SiTime completes its acquisition of the Renesas clock products and timing solutions business",
+  "fact": "SiTime announced that it completed its acquisition of the clock products and timing solutions business from Renesas Electronics. The completion release says the transaction added more than 550 timing products to SiTime's portfolio; it does not describe a transfer of verification methodology.",
+  "sources": [
+    {
+      "title": "SiTime completes acquisition of Renesas timing business",
+      "url": "https://www.sitime.com/company/newsroom/press-release/sitime-completes-acquisition-renesas-timing-business",
+      "checkedAt": "2026-08-30",
+      "summary": "Official July 1, 2026, completion release describing the acquired clock and timing portfolio."
+    }
+  ]
+}

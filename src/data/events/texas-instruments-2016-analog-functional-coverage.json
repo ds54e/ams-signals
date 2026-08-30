@@ -1,0 +1,20 @@
+{
+  "id": "texas-instruments-2016-analog-functional-coverage",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["texas-instruments"],
+  "people": [],
+  "headline": "TI authors propose a handoff from schematic annotations to analog functional coverage",
+  "fact": "A TI-authored paper proposes an Analog Coverage Collector through which analog designers mark internal schematic and device threshold information for use by chip-level verification engineers. The paper describes turning that information into top-level covergroups and coverage data to coordinate analog design and verification work.",
+  "sources": [
+    {
+      "title": "Functional Coverage Collection for Analog Circuits: Enabling Seamless Collaboration Between Design and Verification",
+      "url": "https://dvcon-proceedings.org/document/functional-coverage-collection-for-analog-circuits-enabling-seamless-collaboration-between-design-and-verification/",
+      "checkedAt": "2026-08-30",
+      "summary": "TI-authored 2016 paper proposing schematic-level annotations that feed top-level analog functional coverage."
+    }
+  ]
+}

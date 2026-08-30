@@ -1,0 +1,20 @@
+{
+  "id": "broadcom-2026-07-dms-modeling-hiring",
+  "when": {
+    "start": "2026-07-07",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["broadcom"],
+  "people": [],
+  "headline": "Broadcom lists DMS modeling for touch, wireless-power, health-sensing, and satellite analog front ends",
+  "fact": "Broadcom posted an Analog/Mixed Signal Verilog Modeling Design Engineer role for touch-controller, wireless-power, health-sensing, and satellite analog front ends. The description calls for SystemVerilog DMS models, UDT/UDR nettypes including wreal or EEnet, model-versus-schematic verification, and experience using Cursor or chipAgents to generate analog SystemVerilog models and testbenches.",
+  "sources": [
+    {
+      "title": "Analog/Mixed Signal Verilog Modeling Design Engineer",
+      "url": "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/USA-CA-Irvine-Alton-Parkway-Bldg-1/Analog-Mixed-Signal-Verilog-Modeling-Design-Engineer_R024672",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Broadcom role dated July 7, 2026, for product-scoped DMS modeling, nettypes, schematic correlation, and AI-assisted generation experience."
+    }
+  ]
+}
