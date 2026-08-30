@@ -17,7 +17,10 @@ const [companies, people] = await Promise.all([
 const companyMap = new Map(companies.map((company) => [company.data.id, company.data.name]));
 const personMap = new Map(people.map((person) => [person.data.id, person.data.name]));
 ---
-<BaseLayout title={`${event.data.headline} · AMS Signals`}>
+<BaseLayout
+  title={`${event.data.headline} · AMS Signals`}
+  description={`Factual public record and representative sources for ${event.data.headline}.`}
+>
   <article class="record-page">
     <a class="back-link" href={sitePath('')}>← Timeline</a>
     <p class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</p>

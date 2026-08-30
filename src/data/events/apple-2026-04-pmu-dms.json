@@ -16,6 +16,12 @@
       "checkedAt": "2026-08-30",
       "status": "unavailable",
       "summary": "Official Apple PMU DMS job description listing RNM, validation, full-chip integration, regression, reuse, automation, and correlation responsibilities."
+    },
+    {
+      "title": "Digital Mixed Signal Modeling Engineer — recovery copy",
+      "url": "https://tryjeremy.com/jobs/apple-digital-mixed-signal-modeling-engineer-019dbbc8fba3",
+      "checkedAt": "2026-08-30",
+      "summary": "Recovery copy of Apple role 200659736 preserving the PMU scope and the model validation, full-chip integration, library reuse, regression, automation, and correlation responsibilities."
     }
   ]
 }
