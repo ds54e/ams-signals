@@ -1,0 +1,32 @@
+{
+  "id": "renesas-2023-sv-udn-rnm-power-switched-capacitor-modeling",
+  "when": {
+    "start": "2023-11-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["renesas"],
+  "people": [],
+  "headline": "Renesas presents SystemVerilog UDN RNM techniques for power and switched-capacitor models",
+  "fact": "Two Renesas-authored papers presented in one DVCon Europe session report SystemVerilog UDN techniques for real-number modeling. One says Renesas had used Voltage-Current-Resistance UDNs for current-limited LDOs, smart chargers, and DCDC converters, then introduces a Voltage-Charge-Capacitance form for a switched-capacitor crystal oscillator and reports a 90,000x simulation-speed boost benefiting block design and chip-level integration verification. The companion paper models an LDO with current limiting and load capacitance using a self-triggering VIR-UDN mechanism and reports 84x fewer events for similar behavior, or about 778x at a coarser voltage step.",
+  "sources": [
+    {
+      "title": "SV VQC UDN for Modeling Switch-Capacitor-based Circuits",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/91186.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Renesas-authored paper defining the VQC UDN form, applying it to a 40 MHz switched-capacitor crystal oscillator, and reporting the 90,000x simulation-speed result."
+    },
+    {
+      "title": "Self-Triggering Mechanism for Modeling a Low-Dropout Regulator with Load Capacitor",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/91829.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Renesas-authored companion paper on a self-triggering VIR-UDN LDO model with current limiting, load capacitance, and reduced event counts."
+    },
+    {
+      "title": "DVCon Europe 2023 program grid",
+      "url": "https://archive.dvcon-europe.org/2023-program-grid/",
+      "checkedAt": "2026-08-30",
+      "summary": "Official archived program placing both Renesas papers together in second-day session P2.1 on November 15, 2023."
+    }
+  ]
+}

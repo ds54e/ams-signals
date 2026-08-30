@@ -1,0 +1,20 @@
+{
+  "id": "rohm-2022-model-based-mixed-signal-ic-verification",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": ["rohm"],
+  "people": [],
+  "headline": "ROHM authors report SystemVerilog DPI-C model reuse in model-based mixed-signal IC verification",
+  "fact": "ROHM authors report using Model-Based Design for mixed-signal IC development and early specification verification. For MEMS and sensor IC work, they describe generating a SystemVerilog DPI-C model from a Simulink MEMS model and using it in the Cadence environment to validate an IC containing analog amplifiers, ADCs, and digital processing logic before sign-off. The article also describes an internal Model-Based Design Group that maintains reusable modeling assets and guidance.",
+  "sources": [
+    {
+      "title": "Improving the Efficiency of IC Development with Model-Based Design",
+      "url": "https://www.mathworks.com/company/technical-articles/improving-the-efficiency-of-ic-development-with-model-based-design.html",
+      "checkedAt": "2026-08-30",
+      "summary": "ROHM-authored 2022 technical article on its mixed-signal Model-Based Design flow, SystemVerilog DPI-C reuse, pre-sign-off IC validation, and internal enablement group."
+    }
+  ]
+}
