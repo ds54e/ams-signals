@@ -1,0 +1,30 @@
+{
+  "id": "coseda-2025-systemc-ams-assertion-library",
+  "when": {
+    "start": "2025-08-20",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "coseda-technologies"
+  ],
+  "people": [
+    "thilo-voertler"
+  ],
+  "headline": "COSEDA authors present a C++ assertion library for SystemC AMS verification",
+  "fact": "A DVCon Japan 2025 presentation by COSEDA Technologies authors describes a pure-C++ assertion library for SystemC AMS using templates and operator overloading to provide SVA-like expression of temporal properties, including support for timed-data-flow models. This records a presented library and its stated capabilities, not a semiconductor-customer deployment.",
+  "sources": [
+    {
+      "title": "DVCon Japan 2025 program",
+      "url": "https://sd050c3c4da464d85.jimcontent.com/download/version/1755625126/module/14890744927/name/2025-ProgramGrid.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official program identifies the COSEDA SystemC AMS assertion-library presentation and dates it to August 20, 2025."
+    },
+    {
+      "title": "DVCon Japan 2025 proceedings",
+      "url": "https://www.dvcon-jpn.org/app/download/14898192527/DVCon-JP-2025-Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings identify Thilo Vörtler with COSEDA Technologies and describe the pure-C++ library, template and operator-overloading implementation, SVA-like expression, and timed-data-flow support."
+    }
+  ]
+}

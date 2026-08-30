@@ -1,0 +1,24 @@
+{
+  "id": "texas-instruments-2024-adaptive-ams-glitch-checkers",
+  "when": {
+    "start": "2024-09",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "aadhar-sharma"
+  ],
+  "headline": "TI authors report adaptive Verilog-AMS glitch checkers for earlier silicon-bug detection",
+  "fact": "A Texas Instruments DVCon India 2024 paper reports a compact Verilog-AMS checker and assertion library for adaptive detection of kickback and frequency glitches across SPICE and behavioral-model verification. The paper describes automated checker insertion and execution-flow optimization. The word intelligent appears in the paper title, but the supported implementation is an adaptive checker flow rather than a demonstrated generative-AI system.",
+  "sources": [
+    {
+      "title": "Accelerating Silicon Bug Detection and Optimizing Execution Flow through Intelligent Adaptive Glitch Detectors in AMS Verification",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/4A1-DVCon_India_2024_Final_Paper_0639.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The full paper identifies Aadhar Sharma with Texas Instruments and describes the Verilog-AMS checker library, automated insertion, kickback and frequency cases, and SPICE/behavioral-model scope."
+    }
+  ]
+}

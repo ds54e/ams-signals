@@ -1,0 +1,32 @@
+{
+  "id": "ulkasemi-2024-full-chip-uvm-analog-verification",
+  "when": {
+    "start": "2024-03-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ulkasemi",
+    "designers-guide-consulting"
+  ],
+  "people": [
+    "simul-barua",
+    "henry-chang"
+  ],
+  "headline": "Ulkasemi and Designer's Guide authors report a UVM full-chip flow with analog behavioral models",
+  "fact": "A DVCon U.S. 2024 paper by Ulkasemi and Designer's Guide Consulting authors describes validating analog behavioral models against schematics and then integrating them into a full-chip UVM environment. The paper discusses complementary AMS and digital mixed-signal tradeoffs and presents the method as a reusable verification architecture, not as proof that behavioral abstraction replaces circuit-level verification.",
+  "sources": [
+    {
+      "title": "Advanced UVM-Based Chip Verification Methodologies with Full Analog Functionality",
+      "url": "https://dvcon-proceedings.org/document/advanced-uvm-based-chip-verification-methodologies-with-full-analog-functionality/",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings record identifies Simul Barua with Ulkasemi, Henry Chang with Designer's Guide Consulting, and the March 6, 2024 presentation."
+    },
+    {
+      "title": "Advanced UVM-Based Chip Verification Methodologies with Full Analog Functionality — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1112.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The paper describes schematic validation of analog behavioral models and their integration into a full-chip UVM verification environment."
+    }
+  ]
+}

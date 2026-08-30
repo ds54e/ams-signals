@@ -1,0 +1,28 @@
+{
+  "id": "stmicroelectronics-2025-upf-rnm-sram-verification",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics"
+  ],
+  "people": [],
+  "headline": "ST authors report voltage-aware RNM and UPF verification of an SRAM subsystem",
+  "fact": "An STMicroelectronics DVCon Europe 2025 paper reports a voltage-aware SRAM verification flow using SystemVerilog real-valued supply modeling and UPF supply-net types for retention memory and bias-generator behavior. For the presented case, the paper contrasts roughly two to three hours of SPICE simulation with 10 to 12 seconds in the digital flow. It also states limitations including PVT representation and simulator-specific UPF behavior.",
+  "sources": [
+    {
+      "title": "Voltage-Aware Functional Verification of SRAM Subsystems Using UPF and Real-Number Models",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_131.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The full paper describes the SystemVerilog-real and UPF modeling, retention-memory and bias-generator cases, reported runtime comparison, and stated limitations."
+    },
+    {
+      "title": "DVCon Europe 2025 proceedings program",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2025_Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings program dates the ST presentation to October 15, 2025."
+    }
+  ]
+}
