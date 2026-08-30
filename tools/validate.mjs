@@ -16,7 +16,7 @@ const events = readJsonDir('src/data/events');
 const companyIds = new Set(companies.map(({ data }) => data.id));
 const peopleIds = new Set(people.map(({ data }) => data.id));
 const errors = [];
-const allowedKinds = new Set(['hiring', 'publication', 'conference', 'affiliation_change', 'organization', 'business', 'other']);
+const allowedKinds = new Set(['technical', 'organizational']);
 const allowedPrecision = new Set(['year', 'month', 'day']);
 
 for (const { name, data } of [...companies, ...people, ...events]) {
@@ -32,7 +32,6 @@ for (const { name, data } of events) {
   for (const id of data.people ?? []) if (!peopleIds.has(id)) errors.push(`${name}: unknown person id ${id}.`);
   if (data.affiliationChange) {
     const move = data.affiliationChange;
-    if (data.kind !== 'affiliation_change') errors.push(`${name}: affiliationChange requires kind=affiliation_change.`);
     if (!peopleIds.has(move.person)) errors.push(`${name}: unknown affiliationChange person ${move.person}.`);
     for (const company of [move.from, move.to].filter(Boolean)) if (!companyIds.has(company)) errors.push(`${name}: unknown affiliationChange company ${company}.`);
   }

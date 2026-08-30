@@ -4,7 +4,7 @@
     "start": "2012",
     "precision": "year"
   },
-  "kind": "conference",
+  "kind": "technical",
   "companies": ["cadence"],
   "people": ["prabal-bhattacharya"],
   "headline": "Cadence author presents real-valued SystemVerilog covergroups for mixed-signal functional coverage",

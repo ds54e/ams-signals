@@ -4,7 +4,7 @@
     "start": "2016",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices"],
   "people": [],
   "headline": "Analog Devices authors report UVM regression for SV-RNM model-to-netlist validation",

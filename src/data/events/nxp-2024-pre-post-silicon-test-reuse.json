@@ -4,7 +4,7 @@
     "start": "2024",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["nxp"],
   "people": ["marcel-oosterhuis"],
   "headline": "NXP authors report reusing AMS verification tests in post-silicon validation",

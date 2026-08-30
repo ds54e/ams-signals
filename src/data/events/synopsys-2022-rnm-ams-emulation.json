@@ -4,7 +4,7 @@
     "start": "2022-11-21",
     "precision": "day"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["synopsys"],
   "people": [],
   "headline": "Synopsys reports real-number-model support in an AMS emulation prototype",

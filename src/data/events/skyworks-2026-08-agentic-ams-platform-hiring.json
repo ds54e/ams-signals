@@ -4,7 +4,7 @@
     "start": "2026-08-24",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["skyworks"],
   "people": [],
   "headline": "Skyworks lists a role for an agentic analog and mixed-signal design and verification platform",

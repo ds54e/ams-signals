@@ -4,7 +4,7 @@
     "start": "2021",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["microchip"],
   "people": ["chuck-mcclish"],
   "headline": "Microchip author reports reusable UVM agents for UDN and UPF analog stimulus",

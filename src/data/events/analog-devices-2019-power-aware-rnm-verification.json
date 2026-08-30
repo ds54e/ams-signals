@@ -4,7 +4,7 @@
     "start": "2019",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices"],
   "people": ["jakub-dudek"],
   "headline": "Analog Devices authors report power-aware RNM verification with schematic correlation",

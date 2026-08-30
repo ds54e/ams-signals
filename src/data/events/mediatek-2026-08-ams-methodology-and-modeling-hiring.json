@@ -4,7 +4,7 @@
     "start": "2026-08-30",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["mediatek"],
   "people": [],
   "headline": "MediaTek's careers site shows dedicated AMS modeling and verification methodology groups",

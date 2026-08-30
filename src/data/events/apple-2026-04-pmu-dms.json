@@ -4,7 +4,7 @@
     "start": "2026-04-23",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["apple"],
   "people": [],
   "headline": "Apple posts a PMU Digital Mixed Signal Modeling role",

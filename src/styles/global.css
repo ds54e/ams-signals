@@ -11,13 +11,8 @@
   --accent: #086b57;
   --accent-ink: #064c40;
   --accent-soft: #dcece6;
-  --hiring: #376b94;
-  --publication: #a16824;
-  --conference: #75558b;
-  --affiliation: #08745e;
-  --organization: #985066;
-  --business: #756244;
-  --other: #6e716d;
+  --technical: #386f93;
+  --organizational: #9a5c4d;
   --danger-muted: #8b4b43;
   --max: 1360px;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -36,13 +31,8 @@
     --accent: #79c9b2;
     --accent-ink: #a0ddcc;
     --accent-soft: #183c31;
-    --hiring: #78a8ce;
-    --publication: #d0a05e;
-    --conference: #b093c2;
-    --affiliation: #6fc7ad;
-    --organization: #cf8598;
-    --business: #bea77c;
-    --other: #aeb3ae;
+    --technical: #79acd0;
+    --organizational: #d38b79;
     --danger-muted: #d29489;
   }
 }
@@ -104,7 +94,8 @@ h1 {
 .event-explorer { min-width: 0; }
 .event-filters {
   position: relative;
-  z-index: 5;
+  z-index: 100;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(320px, 1fr) 170px 190px auto;
   gap: 12px;
@@ -171,26 +162,19 @@ h1 {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 100;
   padding: 18px;
   background: var(--surface-raised);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   box-shadow: 0 18px 45px color-mix(in srgb, #000 18%, transparent);
 }
-.company-picker-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 13px;
-}
-.company-picker-heading p { margin: 0; color: var(--muted); font-size: 0.82rem; }
 .company-picker-actions {
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
+  justify-content: flex-end;
   gap: 7px;
+  margin-bottom: 11px;
   color: var(--border-strong);
   font-size: 0.78rem;
 }
@@ -247,11 +231,17 @@ h1 {
 .event-filter-summary p { margin: 0; }
 .event-filter-status { font-weight: 680; color: var(--text); }
 .axis-note { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.timeline-summary-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 16px;
+}
 .kind-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 15px;
-  margin: 5px 0 14px;
+  gap: 8px 14px;
   color: var(--muted);
   font-size: 0.72rem;
 }
@@ -259,6 +249,9 @@ h1 {
 .legend-mark { width: 10px; height: 10px; display: inline-block; border-radius: 50%; }
 
 .timeline-workspace {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(310px, 365px);
   gap: 24px;
@@ -266,6 +259,9 @@ h1 {
 }
 .timeline-visual { min-width: 0; }
 .timeline-scroll {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -297,30 +293,9 @@ h1 {
 }
 .timeline-lane {
   height: 46px;
-  border-bottom: 1px solid var(--border);
 }
-.timeline-lane:last-child { border-bottom: 0; }
 .timeline-lane:hover { background: color-mix(in srgb, var(--surface-tint) 42%, transparent); }
-.lane-group-row {
-  width: calc(var(--lane-label-width) + var(--timeline-width));
-  min-width: 100%;
-  color: var(--muted);
-  background: var(--surface-tint);
-  border-bottom: 1px solid var(--border);
-}
-.lane-group-label {
-  margin: 0;
-  position: sticky;
-  left: 0;
-  z-index: 4;
-  width: var(--lane-label-width);
-  padding: 9px 14px;
-  background: var(--surface-tint);
-  box-shadow: 1px 0 0 var(--border);
-  font: 720 0.67rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
+.lane-group.has-group-gap { padding-top: 12px; }
 .lane-label {
   position: sticky;
   left: 0;
@@ -375,14 +350,6 @@ h1 {
 }
 .timeline-segment-grid span { border-right: 1px solid color-mix(in srgb, var(--border) 72%, transparent); }
 .timeline-segment-grid span:last-child { border-right: 0; }
-.lane-track::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  border-top: 1px solid var(--border-strong);
-}
 .event-mark {
   position: absolute;
   left: var(--x);
@@ -403,17 +370,10 @@ h1 {
   z-index: 5;
   box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent);
 }
-.event-mark.event-kind-hiring { border-radius: 3px; }
-.event-mark.event-kind-conference { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); border-radius: 0; }
-.event-mark.event-kind-affiliation_change { border-radius: 50% 50% 2px 50%; }
-.event-mark.event-kind-business { border-radius: 7px; }
-.event-kind-hiring { background-color: var(--hiring); }
-.event-kind-publication { background-color: var(--publication); }
-.event-kind-conference { background-color: var(--conference); }
-.event-kind-affiliation_change { background-color: var(--affiliation); }
-.event-kind-organization { background-color: var(--organization); }
-.event-kind-business { background-color: var(--business); }
-.event-kind-other { background-color: var(--other); }
+.event-mark.event-kind-organizational,
+.legend-mark.event-kind-organizational { border-radius: 3px; }
+.event-kind-technical { background-color: var(--technical); }
+.event-kind-organizational { background-color: var(--organizational); }
 .empty-note { color: var(--muted); padding: 18px; margin: 0; }
 
 .event-detail {
@@ -474,9 +434,7 @@ h1 {
 .archive-link { font-size: 0.75rem; font-weight: 650; }
 .event-permalink { display: inline-block; margin-top: 16px; color: var(--accent-ink); font-size: 0.82rem; font-weight: 700; }
 
-.result-section { max-width: 980px; margin-top: 24px; }
-.result-heading { margin-bottom: 10px; }
-.result-heading h2 { margin: 5px 0 0; font-size: 1.55rem; letter-spacing: -0.025em; }
+.result-section { max-width: 980px; }
 .result-list { border-bottom: 1px solid var(--border); }
 .result-event {
   display: grid;
@@ -677,7 +635,6 @@ h1 {
   .company-picker { grid-column: 1 / -1; }
   .reset-button { justify-self: start; min-height: 36px; padding: 3px 0; }
   .company-picker-panel { position: static; margin-top: 8px; padding: 12px; box-shadow: none; }
-  .company-picker-heading { align-items: flex-start; flex-direction: column; gap: 9px; }
   .company-picker fieldset { grid-template-columns: 1fr; }
   .company-picker fieldset label { border-right: 0; }
   .event-filter-summary { align-items: flex-start; flex-direction: column; gap: 2px; padding-top: 12px; }

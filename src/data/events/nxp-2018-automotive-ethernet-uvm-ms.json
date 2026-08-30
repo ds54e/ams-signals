@@ -4,7 +4,7 @@
     "start": "2018",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["nxp"],
   "people": ["marcel-oosterhuis"],
   "headline": "NXP authors extend one UVM environment across the digital and analog sides of an automotive Ethernet PHY",

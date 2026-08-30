@@ -1,7 +1,14 @@
 ---
 import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
-import { eventYear, formatWhen, orderCompaniesByGoldenEventCount, sortEvents } from '../lib/content';
+import {
+  eventKindLabel,
+  formatWhen,
+  orderCompaniesByGoldenEventCount,
+  sortEvents,
+  sortEventsNewestFirst,
+} from '../lib/content';
 import { sitePath } from '../lib/paths';
+import { buildTimelineGeometry } from '../lib/timeline';
 
 type ExplorerContext = 'global' | 'company' | 'person';
 type ExplorerSurface = 'timeline' | 'events';
@@ -17,7 +24,7 @@ interface Props {
 
 const { events, goldenEvents, companies, people, context = 'global', surface = 'timeline' } = Astro.props;
 const ordered = sortEvents(events);
-const newestFirst = ordered.slice().reverse();
+const newestFirst = sortEventsNewestFirst(events);
 const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
 const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
 const byPersonName = (left: string, right: string) =>
@@ -35,72 +42,17 @@ const companyEventCount = new Map(orderedCompanyRecords.map(({ company, eventCou
 const defaultView = context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
-
-const HISTORICAL_CUTOFF = 2020;
-const HISTORICAL_SLOT_WIDTH = 20;
-const EVENT_SLOT_WIDTH = 34;
-const SEGMENT_INLINE_PADDING = 26;
-const MIN_SEGMENT_WIDTH = 116;
-
-const segmentGroups = new Map<string, { key: string; label: string; year: number; events: EventEntry[] }>();
-for (const event of ordered) {
-  const year = eventYear(event);
-  const isHistorical = year <= HISTORICAL_CUTOFF;
-  const key = isHistorical ? 'through-2020' : String(year);
-  if (!segmentGroups.has(key)) {
-    segmentGroups.set(key, {
-      key,
-      label: isHistorical ? '≤2020' : String(year),
-      year: isHistorical ? HISTORICAL_CUTOFF : year,
-      events: [],
-    });
-  }
-  segmentGroups.get(key)?.events.push(event);
-}
-
-let timelineOffset = 0;
-const timelineSegments = [...segmentGroups.values()]
-  .sort((left, right) => left.year - right.year)
-  .map((segment) => {
-    const slotWidth = segment.key === 'through-2020' ? HISTORICAL_SLOT_WIDTH : EVENT_SLOT_WIDTH;
-    const width = Math.max(
-      MIN_SEGMENT_WIDTH,
-      (SEGMENT_INLINE_PADDING * 2) + (segment.events.length * slotWidth),
-    );
-    const positioned = {
-      ...segment,
-      width,
-      offset: timelineOffset,
-      slotWidth,
-      slotInset: (width - (segment.events.length * slotWidth)) / 2,
-    };
-    timelineOffset += width;
-    return positioned;
-  });
-const timelineWidth = Math.max(timelineOffset, MIN_SEGMENT_WIDTH);
-const timelineColumns = timelineSegments.map((segment) => `${segment.width}px`).join(' ');
-const timelinePositionByEventId = new Map<string, { x: number; segmentKey: string; slot: number }>();
-for (const segment of timelineSegments) {
-  segment.events.forEach((event, slot) => {
-    timelinePositionByEventId.set(event.data.id, {
-      x: segment.offset + segment.slotInset + ((slot + 0.5) * segment.slotWidth),
-      segmentKey: segment.key,
-      slot,
-    });
-  });
-}
+const timelineGeometry = buildTimelineGeometry(events);
+const timelineSegments = timelineGeometry.segments;
+const timelineWidth = timelineGeometry.width;
+const timelineColumns = timelineGeometry.columns;
+const timelinePositionByEventId = timelineGeometry.positionByEventId;
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
-  hiring: 'Hiring',
-  publication: 'Publication',
-  conference: 'Conference',
-  affiliation_change: 'Affiliation change',
-  organization: 'Organization',
-  business: 'Business',
-  other: 'Other',
+  technical: 'Technical',
+  organizational: 'Organizational',
 };
-const kindOrder = ['hiring', 'publication', 'conference', 'affiliation_change', 'organization', 'business', 'other'] as const;
-const usedKinds = kindOrder.filter((kind) => ordered.some((event) => event.data.kind === kind));
+const kindOrder = ['technical', 'organizational'] as const;
 
 const normalizeSearch = (value: string) => value
   .normalize('NFKC')
@@ -120,12 +72,12 @@ const searchFields = (event: EventEntry) => [
   ...event.data.people.map((id) => ({ label: 'person', value: personMap.get(id) ?? id })),
 ];
 
-const serialized = ordered.map((event) => {
+const serialized = newestFirst.map((event) => {
   const fields = searchFields(event);
   return {
     id: event.data.id,
     kind: event.data.kind,
-    kindLabel: kindLabels[event.data.kind],
+    kindLabel: eventKindLabel(event.data.kind),
     headline: event.data.headline,
     fact: event.data.fact,
     when: formatWhen(event),
@@ -154,9 +106,14 @@ const serialized = ordered.map((event) => {
   };
 });
 
-const marksForLane = (laneEvents: EventEntry[]) => sortEvents(laneEvents).map((event) => ({
+const marksForLane = (laneEvents: EventEntry[]) => sortEventsNewestFirst(laneEvents).map((event) => ({
   event,
-  ...(timelinePositionByEventId.get(event.data.id) ?? { x: 0, segmentKey: '', slot: 0 }),
+  ...(timelinePositionByEventId.get(event.data.id) ?? {
+    x: 0,
+    segmentKey: '',
+    band: 0,
+    microSlot: 0,
+  }),
 }));
 
 const renderContextLinks = (event: EventEntry) => [
@@ -196,16 +153,11 @@ const renderContextLinks = (event: EventEntry) => [
     )}
 
     <label class="select-control">
-      <span>Event form</span>
+      <span>Signal type</span>
       <select data-kind>
-        <option value="all">All forms</option>
-        <option value="hiring">Hiring</option>
-        <option value="publication">Publication</option>
-        <option value="conference">Conference</option>
-        <option value="affiliation_change">Affiliation change</option>
-        <option value="organization">Organization</option>
-        <option value="business">Business</option>
-        <option value="other">Other</option>
+        <option value="all">All signals</option>
+        <option value="technical">Technical</option>
+        <option value="organizational">Organizational</option>
       </select>
     </label>
 
@@ -216,13 +168,10 @@ const renderContextLinks = (event: EventEntry) => [
           <strong data-company-summary>All {companyIds.length} active companies</strong>
         </summary>
         <div class="company-picker-panel">
-          <div class="company-picker-heading">
-            <p>Select companies to focus. Shared Events remain one factual record.</p>
-            <div class="company-picker-actions" role="group" aria-label="Company focus selection actions">
-              <button type="button" class="text-button" data-select-all-companies>All companies</button>
-              <span aria-hidden="true">|</span>
-              <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
-            </div>
+          <div class="company-picker-actions" role="group" aria-label="Company focus selection actions">
+            <button type="button" class="text-button" data-select-all-companies>All companies</button>
+            <span aria-hidden="true">|</span>
+            <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
           </div>
           <fieldset data-company-options>
             <legend class="visually-hidden">Companies included in this view</legend>
@@ -243,18 +192,17 @@ const renderContextLinks = (event: EventEntry) => [
 
   <div class="event-filter-summary">
     <p class="event-filter-status" data-status aria-live="polite"></p>
-    {showTimeline
-      ? <p class="axis-note">Chronological · density-adjusted · fixed while filtering</p>
-      : <p>Newest first · one row per unique Event</p>}
+    {showTimeline ? (
+      <div class="timeline-summary-detail">
+        <p class="axis-note">Newest first · density-adjusted</p>
+        <div class="kind-legend" aria-label="Signal type legend">
+          {kindOrder.map((kind) => (
+            <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
+          ))}
+        </div>
+      </div>
+    ) : <p>Newest first</p>}
   </div>
-
-  {showTimeline && usedKinds.length > 0 && (
-    <div class="kind-legend" aria-label="Event form legend">
-      {usedKinds.map((kind) => (
-        <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
-      ))}
-    </div>
-  )}
 
   {showTimeline && <div class="timeline-workspace">
     <div class="timeline-visual">
@@ -262,7 +210,7 @@ const renderContextLinks = (event: EventEntry) => [
         class="timeline-scroll"
         data-timeline-scroll
         role="region"
-        aria-label="Density-adjusted chronological Timeline"
+        aria-label="Newest-first density-adjusted Timeline"
         tabindex="0"
       >
         <div
@@ -271,7 +219,7 @@ const renderContextLinks = (event: EventEntry) => [
           style={`--timeline-width:${timelineWidth}px;--timeline-columns:${timelineColumns}`}
         >
           <div class="timeline-axis">
-            <div class="lane-label axis-label">Record</div>
+            <div class="lane-label axis-label" aria-hidden="true"></div>
             <div class="axis-track" data-timeline-axis>
               {timelineSegments.map((segment) => (
                 <span
@@ -286,8 +234,7 @@ const renderContextLinks = (event: EventEntry) => [
             </div>
           </div>
 
-          <div data-group="companies" hidden={defaultView === 'people'}>
-            <div class="lane-group-row" data-group-label><p class="lane-group-label">Companies</p></div>
+          <div class="lane-group" data-group="companies" hidden={defaultView === 'people'}>
             {companyIds.map((companyId) => {
               const marks = marksForLane(ordered.filter((event) => event.data.companies.includes(companyId)));
               return (
@@ -297,7 +244,7 @@ const renderContextLinks = (event: EventEntry) => [
                     <div class="timeline-segment-grid" aria-hidden="true">
                       {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
                     </div>
-                    {marks.map(({ event, x, segmentKey, slot }) => (
+                    {marks.map(({ event, x, segmentKey, band, microSlot }) => (
                       <button
                         type="button"
                         class={`event-mark event-kind-${event.data.kind}`}
@@ -307,7 +254,8 @@ const renderContextLinks = (event: EventEntry) => [
                         data-event-date={event.data.when.start}
                         data-event-x={x}
                         data-segment-key={segmentKey}
-                        data-slot={slot}
+                        data-band={band}
+                        data-micro-slot={microSlot}
                         aria-pressed="false"
                         aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
                       ><span class="visually-hidden">Inspect event</span></button>
@@ -318,8 +266,7 @@ const renderContextLinks = (event: EventEntry) => [
             })}
           </div>
 
-          <div data-group="people" hidden={defaultView === 'companies'}>
-            <div class="lane-group-row" data-group-label><p class="lane-group-label">People</p></div>
+          <div class="lane-group" data-group="people" hidden={defaultView === 'companies'}>
             {personIds.length === 0 ? (
               <p class="empty-note">No People milestones match this record.</p>
             ) : personIds.map((personId) => {
@@ -331,7 +278,7 @@ const renderContextLinks = (event: EventEntry) => [
                     <div class="timeline-segment-grid" aria-hidden="true">
                       {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
                     </div>
-                    {marks.map(({ event, x, segmentKey, slot }) => (
+                    {marks.map(({ event, x, segmentKey, band, microSlot }) => (
                       <button
                         type="button"
                         class={`event-mark event-kind-${event.data.kind}`}
@@ -341,7 +288,8 @@ const renderContextLinks = (event: EventEntry) => [
                         data-event-date={event.data.when.start}
                         data-event-x={x}
                         data-segment-key={segmentKey}
-                        data-slot={slot}
+                        data-band={band}
+                        data-micro-slot={microSlot}
                         aria-pressed="false"
                         aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
                       ><span class="visually-hidden">Inspect event</span></button>
@@ -382,13 +330,7 @@ const renderContextLinks = (event: EventEntry) => [
     </aside>
   </div>}
 
-  {surface === 'events' && <section class="result-section" aria-labelledby="result-heading">
-    <div class="result-heading">
-      <div>
-        <p class="eyebrow">CHRONOLOGICAL RECORD</p>
-        <h2 id="result-heading">Visible events</h2>
-      </div>
-    </div>
+  {surface === 'events' && <section class="result-section" aria-label="Events">
     <div class="result-list" data-result-list>
       {newestFirst.map((event) => {
         const contexts = renderContextLinks(event);
@@ -431,7 +373,7 @@ const renderContextLinks = (event: EventEntry) => [
     </div>
     <div class="filtered-empty" data-filtered-empty hidden>
       <h3>No events match these filters</h3>
-      <p>Try a different phrase, restore all companies, or reset the event form.</p>
+      <p>Try a different phrase, restore all companies, or reset the signal type.</p>
       <button type="button" class="text-button" data-empty-reset>Reset filters</button>
     </div>
   </section>}
@@ -464,6 +406,14 @@ const renderContextLinks = (event: EventEntry) => [
     const timelineScroll = root.querySelector('[data-timeline-scroll]');
     let activeId = null;
     let visibleIds = new Set();
+    const legacyKindAliases = new Map([
+      ['publication', 'technical'],
+      ['conference', 'technical'],
+      ['hiring', 'organizational'],
+      ['affiliation_change', 'organizational'],
+      ['organization', 'organizational'],
+      ['business', 'organizational'],
+    ]);
 
     const normalize = (value) => String(value || '')
       .normalize('NFKC')
@@ -723,11 +673,13 @@ const renderContextLinks = (event: EventEntry) => [
       const peopleGroup = root.querySelector('[data-group="people"]');
       if (companyGroup) companyGroup.hidden = viewValue === 'people';
       if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
-      root.querySelectorAll('[data-group-label]').forEach((label) => {
-        label.hidden = viewValue !== 'both';
-      });
+      const hasVisibleLane = (group) => Boolean(group?.querySelector('[data-lane]:not([hidden])'));
+      peopleGroup?.classList.toggle(
+        'has-group-gap',
+        viewValue === 'both' && hasVisibleLane(companyGroup) && hasVisibleLane(peopleGroup),
+      );
 
-      status.textContent = `${visibleIds.size} of ${events.length} unique public ${events.length === 1 ? 'event' : 'events'} shown`;
+      status.textContent = `${visibleIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
       if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
       updateCompanySummary(selected);
       updateUrl(selected, kindValue, viewValue);
@@ -735,7 +687,7 @@ const renderContextLinks = (event: EventEntry) => [
       if (isTimeline) {
         const detailTerms = termsFor(search.value);
         if (!activeId || !visibleIds.has(activeId)) {
-          activeId = visibleEvents.at(-1)?.id || null;
+          activeId = visibleEvents[0]?.id || null;
         }
         if (activeId) renderDetail(byId.get(activeId), detailTerms);
         else {
@@ -758,7 +710,9 @@ const renderContextLinks = (event: EventEntry) => [
 
     const params = new URLSearchParams(window.location.search);
     if (params.get('q')) search.value = params.get('q');
-    if ([...kind.options].some((option) => option.value === params.get('kind'))) kind.value = params.get('kind');
+    const requestedKind = params.get('kind');
+    const canonicalKind = legacyKindAliases.get(requestedKind) || requestedKind;
+    if ([...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
     if (view && [...view.options].some((option) => option.value === params.get('view'))) view.value = params.get('view');
 
     if (context === 'global' && params.has('companies')) {
@@ -795,9 +749,29 @@ const renderContextLinks = (event: EventEntry) => [
 
     apply();
     if (isTimeline && timelineScroll) {
-      const latestPosition = Math.max(timelineScroll.scrollWidth - timelineScroll.clientWidth, 0);
-      if (latestPosition > 0) timelineScroll.scrollLeft = latestPosition;
-      timelineScroll.setAttribute('data-initial-scroll', 'complete');
+      requestAnimationFrame(() => {
+        timelineScroll.scrollLeft = 0;
+        const activeMark = [...root.querySelectorAll('[data-event-mark]:not([hidden])')]
+          .find((mark) => mark.getAttribute('data-event-id') === activeId);
+        if (activeMark) {
+          const markBounds = activeMark.getBoundingClientRect();
+          const scrollBounds = timelineScroll.getBoundingClientRect();
+          const timeline = timelineScroll.querySelector('.desktop-timeline');
+          const laneLabelWidth = timeline
+            ? Number.parseFloat(getComputedStyle(timeline).getPropertyValue('--lane-label-width')) || 0
+            : 0;
+          const availableTrackWidth = Math.max(timelineScroll.clientWidth - laneLabelWidth, 0);
+          const obscuredLeft = scrollBounds.left + laneLabelWidth;
+          const outsideInitialViewport = markBounds.left < obscuredLeft || markBounds.right > scrollBounds.right;
+          if (outsideInitialViewport && timelineScroll.scrollWidth > timelineScroll.clientWidth) {
+            const eventX = Number(activeMark.getAttribute('data-event-x'));
+            const maximum = Math.max(timelineScroll.scrollWidth - timelineScroll.clientWidth, 0);
+            timelineScroll.scrollLeft = Math.min(Math.max(eventX - (availableTrackWidth / 2), 0), maximum);
+            timelineScroll.setAttribute('data-initial-reveal', activeId);
+          }
+        }
+        timelineScroll.setAttribute('data-initial-scroll', 'complete');
+      });
     }
   }
 </script>
