@@ -1,18 +1,19 @@
 ---
 import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
-import { dateNumber, eventYear, formatWhen, sortEvents } from '../lib/content';
+import { dateNumber, eventYear, formatWhen, orderCompaniesByGoldenEventCount, sortEvents } from '../lib/content';
 import { sitePath } from '../lib/paths';
 
 type TimelineContext = 'global' | 'company' | 'person';
 
 interface Props {
   events: EventEntry[];
+  goldenEvents: EventEntry[];
   companies: CompanyEntry[];
   people: PersonEntry[];
   context?: TimelineContext;
 }
 
-const { events, companies, people, context = 'global' } = Astro.props;
+const { events, goldenEvents, companies, people, context = 'global' } = Astro.props;
 const ordered = sortEvents(events);
 const newestFirst = ordered.slice().reverse();
 const years = ordered.map(eventYear);
@@ -23,16 +24,18 @@ const axisEnd = Date.UTC(maxYear + 1, 0, 1);
 const span = Math.max(axisEnd - axisStart, 1);
 const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
 const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
-const byCompanyName = (left: string, right: string) =>
-  (companyMap.get(left) ?? left).localeCompare(companyMap.get(right) ?? right, 'en');
 const byPersonName = (left: string, right: string) =>
   (personMap.get(left) ?? left).localeCompare(personMap.get(right) ?? right, 'en');
-const companyIds = [...new Set(ordered.flatMap((event) => event.data.companies))].sort(byCompanyName);
+const activeCompanyIds = new Set(ordered.flatMap((event) => event.data.companies));
+const orderedCompanyRecords = orderCompaniesByGoldenEventCount(companies, goldenEvents);
+const companyIds = orderedCompanyRecords
+  .filter(({ company }) => activeCompanyIds.has(company.data.id))
+  .map(({ company }) => company.data.id);
 const personIds = [...new Set(ordered.flatMap((event) => event.data.people))].sort(byPersonName);
-const companyRecords = [...companies].sort((left, right) => left.data.name.localeCompare(right.data.name, 'en'));
-const companyEventCount = new Map(companyRecords.map((company) => [
+const companyRecords = orderedCompanyRecords.map(({ company }) => company);
+const companyEventCount = new Map(orderedCompanyRecords.map(({ company, eventCount }) => [
   company.data.id,
-  ordered.filter((event) => event.data.companies.includes(company.data.id)).length,
+  eventCount,
 ]));
 const yearTicks = Array.from({ length: maxYear - minYear + 1 }, (_, index) => minYear + index);
 const position = (event: EventEntry) => ((dateNumber(event.data.when.start) - axisStart) / span) * 100;
