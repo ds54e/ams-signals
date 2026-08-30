@@ -110,9 +110,11 @@ Important interactions include:
 - simple text search as a lens over the timeline;
 - event details with source links;
 - stable event permalinks usable from Analysis columns;
-- a readable mobile chronological view.
+- a dedicated chronological Events view for reading matching factual records.
 
 A reader should be able to notice a pattern before reading an interpretation of it.
+
+Desktop is the reference experience. Mobile and narrow-screen usability are best-effort and must not constrain the desktop information architecture. In particular, keep the horizontal Timeline and its Evidence Inspector focused on temporal exploration rather than maintaining a separate mobile-only chronology there; the Events view owns chronological textual reading. Narrow viewports may scroll horizontally when the Timeline needs its desktop spatial structure, and should avoid obviously broken rendering without requiring feature parity.
 
 The visual style should feel like a modern technical research publication/tool: clear hierarchy, restrained styling, generous spacing, and readable timelines. Avoid decorative dashboards and metric cards that imply precision the source material cannot support.
 

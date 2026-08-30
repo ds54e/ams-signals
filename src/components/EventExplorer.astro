@@ -3,17 +3,19 @@ import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
 import { dateNumber, eventYear, formatWhen, orderCompaniesByGoldenEventCount, sortEvents } from '../lib/content';
 import { sitePath } from '../lib/paths';
 
-type TimelineContext = 'global' | 'company' | 'person';
+type ExplorerContext = 'global' | 'company' | 'person';
+type ExplorerSurface = 'timeline' | 'events';
 
 interface Props {
   events: EventEntry[];
   goldenEvents: EventEntry[];
   companies: CompanyEntry[];
   people: PersonEntry[];
-  context?: TimelineContext;
+  context?: ExplorerContext;
+  surface?: ExplorerSurface;
 }
 
-const { events, goldenEvents, companies, people, context = 'global' } = Astro.props;
+const { events, goldenEvents, companies, people, context = 'global', surface = 'timeline' } = Astro.props;
 const ordered = sortEvents(events);
 const newestFirst = ordered.slice().reverse();
 const years = ordered.map(eventYear);
@@ -43,6 +45,7 @@ const tickPosition = (year: number) => ((Date.UTC(year, 0, 1) - axisStart) / spa
 const axisLabel = minYear === maxYear ? String(minYear) : `${minYear}–${maxYear}`;
 const defaultView = context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
+const showTimeline = surface === 'timeline';
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
   hiring: 'Hiring',
@@ -132,16 +135,17 @@ const renderContextLinks = (event: EventEntry) => [
 ];
 ---
 <section
-  class="timeline-app"
-  data-timeline-root
+  class="event-explorer"
+  data-event-explorer-root
+  data-timeline-root={showTimeline ? '' : undefined}
   data-context={context}
   data-default-view={defaultView}
+  data-surface={surface}
 >
-  <div class="timeline-controls" role="group" aria-label="Timeline controls">
+  <div class="event-filters" role="group" aria-label="Event filters">
     <label class="search-control">
       <span>Search the factual record</span>
       <input data-search type="search" placeholder="model validation, PLL, real-number…" autocomplete="off" />
-      <small>Lexical search across events, evidence, companies, and people.</small>
     </label>
 
     {showGlobalControls && (
@@ -177,11 +181,11 @@ const renderContextLinks = (event: EventEntry) => [
         </summary>
         <div class="company-picker-panel">
           <div class="company-picker-heading">
-            <p>Select companies to compare. Shared events remain one factual record.</p>
+            <p>Select companies to focus. Shared Events remain one factual record.</p>
             <button type="button" class="text-button" data-select-all-companies>All companies</button>
           </div>
           <fieldset data-company-options>
-            <legend class="visually-hidden">Companies shown in the timeline</legend>
+            <legend class="visually-hidden">Companies included in this view</legend>
             {companyIds.map((companyId) => (
               <label>
                 <input type="checkbox" value={companyId} checked />
@@ -197,12 +201,14 @@ const renderContextLinks = (event: EventEntry) => [
     <button type="button" class="reset-button" data-reset>Reset filters</button>
   </div>
 
-  <div class="timeline-summary">
-    <p class="timeline-status" data-status aria-live="polite"></p>
-    <p class="axis-note">Time axis: {axisLabel}, fixed while filtering</p>
+  <div class="event-filter-summary">
+    <p class="event-filter-status" data-status aria-live="polite"></p>
+    {showTimeline
+      ? <p class="axis-note">Time axis: {axisLabel}, fixed while filtering</p>
+      : <p>Newest first · one row per unique Event</p>}
   </div>
 
-  {usedKinds.length > 0 && (
+  {showTimeline && usedKinds.length > 0 && (
     <div class="kind-legend" aria-label="Event form legend">
       {usedKinds.map((kind) => (
         <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
@@ -210,7 +216,7 @@ const renderContextLinks = (event: EventEntry) => [
     </div>
   )}
 
-  <div class="timeline-workspace">
+  {showTimeline && <div class="timeline-workspace">
     <div class="timeline-visual">
       <div class="desktop-timeline" role="region" aria-label={`Timeline from ${minYear} through ${maxYear}`}>
         <div class="timeline-axis">
@@ -275,14 +281,14 @@ const renderContextLinks = (event: EventEntry) => [
         </div>
       </div>
 
-      <noscript><p class="empty-note">JavaScript is required for timeline filtering. Every event remains available from its stable Event page.</p></noscript>
+      <noscript><p class="empty-note">JavaScript is required for Timeline filtering. Every Event remains available in the <a href={sitePath('events/')}>chronological Events view</a>.</p></noscript>
     </div>
 
     <aside class="event-detail" data-detail aria-label="Event evidence inspector" aria-live="polite" tabindex="-1">
       <div class="detail-placeholder" data-detail-placeholder>
         <p class="eyebrow">EVIDENCE INSPECTOR</p>
-        <h2>Select a visible event</h2>
-        <p>Choose a timeline mark or chronological result to inspect the factual record and all representative sources.</p>
+        <h2>Select a Timeline Event</h2>
+        <p>Choose a Timeline mark to inspect the factual record and all representative sources.</p>
       </div>
       <div data-detail-content hidden>
         <p class="event-meta" data-detail-meta></p>
@@ -301,15 +307,14 @@ const renderContextLinks = (event: EventEntry) => [
         <a class="event-permalink" data-detail-event>Open stable Event record →</a>
       </div>
     </aside>
-  </div>
+  </div>}
 
-  <section class="result-section" aria-labelledby="result-heading">
+  {surface === 'events' && <section class="result-section" aria-labelledby="result-heading">
     <div class="result-heading">
       <div>
         <p class="eyebrow">CHRONOLOGICAL RECORD</p>
         <h2 id="result-heading">Visible events</h2>
       </div>
-      <p>Newest first · one row per unique Event</p>
     </div>
     <div class="result-list" data-result-list>
       {newestFirst.map((event) => {
@@ -317,11 +322,11 @@ const renderContextLinks = (event: EventEntry) => [
         return (
           <article class="result-event" data-event-result data-event-id={event.data.id}>
             <div class="result-date">
-              <time>{formatWhen(event)}</time>
+              <time datetime={event.data.when.start}>{formatWhen(event)}</time>
               <span class={`kind-badge event-kind-${event.data.kind}`}>{kindLabels[event.data.kind]}</span>
             </div>
             <div class="result-body">
-              <h3><button type="button" data-select-event>{event.data.headline}</button></h3>
+              <h3><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
               {contexts.length > 0 && (
                 <p class="result-context">
                   {contexts.map((entry, index) => (
@@ -356,7 +361,7 @@ const renderContextLinks = (event: EventEntry) => [
       <p>Try a different phrase, restore all companies, or reset the event form.</p>
       <button type="button" class="text-button" data-empty-reset>Reset filters</button>
     </div>
-  </section>
+  </section>}
 
   {showGlobalControls && (
     <details class="company-records">
@@ -382,7 +387,7 @@ const renderContextLinks = (event: EventEntry) => [
 </section>
 
 <script>
-  const root = document.querySelector('[data-timeline-root]');
+  const root = document.querySelector('[data-event-explorer-root]');
 
   if (root && !root.hasAttribute('data-initialized')) {
     root.setAttribute('data-initialized', 'true');
@@ -392,6 +397,7 @@ const renderContextLinks = (event: EventEntry) => [
     const byId = new Map(events.map((event) => [event.id, event]));
     const context = root.getAttribute('data-context') || 'global';
     const defaultView = root.getAttribute('data-default-view') || 'companies';
+    const isTimeline = root.getAttribute('data-surface') === 'timeline';
     const search = root.querySelector('[data-search]');
     const view = root.querySelector('[data-view]');
     const kind = root.querySelector('[data-kind]');
@@ -555,20 +561,13 @@ const renderContextLinks = (event: EventEntry) => [
         mark.classList.toggle('is-active', active);
         mark.setAttribute('aria-pressed', String(active));
       });
-      root.querySelectorAll('[data-event-result]').forEach((result) => {
-        result.classList.toggle('is-active', result.getAttribute('data-event-id') === activeId && !result.hidden);
-      });
     };
 
-    const setActive = (id, { focusDetail = false } = {}) => {
+    const setActive = (id) => {
       if (!id || !visibleIds.has(id)) return;
       activeId = id;
       renderDetail(byId.get(id), termsFor(search.value));
       updateActiveMarks();
-      if (focusDetail && window.matchMedia('(max-width: 760px)').matches && getComputedStyle(detail).display !== 'none') {
-        detail.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        detail.focus({ preventScroll: true });
-      }
     };
 
     const selectedCompanyIds = () => new Set(companyChecks.filter((check) => check.checked).map((check) => check.value));
@@ -587,7 +586,17 @@ const renderContextLinks = (event: EventEntry) => [
       }
     };
 
-    const updateUrl = (terms, selected, kindValue, viewValue) => {
+    const updateViewLinks = (params) => {
+      document.querySelectorAll('[data-filter-view-link]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const url = new URL(href, window.location.href);
+        url.search = params.toString();
+        link.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
+      });
+    };
+
+    const updateUrl = (selected, kindValue, viewValue) => {
       const params = new URLSearchParams(window.location.search);
       search.value.trim() ? params.set('q', search.value.trim()) : params.delete('q');
       kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
@@ -608,6 +617,7 @@ const renderContextLinks = (event: EventEntry) => [
 
       const next = params.toString();
       history.replaceState(null, '', `${location.pathname}${next ? `?${next}` : ''}`);
+      updateViewLinks(params);
     };
 
     const apply = () => {
@@ -664,20 +674,22 @@ const renderContextLinks = (event: EventEntry) => [
       });
 
       status.textContent = `${visibleIds.size} of ${events.length} unique public ${events.length === 1 ? 'event' : 'events'} shown`;
-      resultEmpty.hidden = visibleIds.size !== 0;
+      if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
       updateCompanySummary(selected);
-      updateUrl(terms, selected, kindValue, viewValue);
+      updateUrl(selected, kindValue, viewValue);
 
-      const detailTerms = termsFor(search.value);
-      if (!activeId || !visibleIds.has(activeId)) {
-        activeId = visibleEvents.at(-1)?.id || null;
+      if (isTimeline) {
+        const detailTerms = termsFor(search.value);
+        if (!activeId || !visibleIds.has(activeId)) {
+          activeId = visibleEvents.at(-1)?.id || null;
+        }
+        if (activeId) renderDetail(byId.get(activeId), detailTerms);
+        else {
+          detail.querySelector('[data-detail-placeholder]').hidden = false;
+          detail.querySelector('[data-detail-content]').hidden = true;
+        }
+        updateActiveMarks();
       }
-      if (activeId) renderDetail(byId.get(activeId), detailTerms);
-      else {
-        detail.querySelector('[data-detail-placeholder]').hidden = false;
-        detail.querySelector('[data-detail-content]').hidden = true;
-      }
-      updateActiveMarks();
     };
 
     const reset = () => {
@@ -706,9 +718,6 @@ const renderContextLinks = (event: EventEntry) => [
 
     root.querySelectorAll('[data-event-mark]').forEach((button) => {
       button.addEventListener('click', () => setActive(button.getAttribute('data-event-id')));
-    });
-    root.querySelectorAll('[data-select-event]').forEach((button) => {
-      button.addEventListener('click', () => setActive(button.closest('[data-event-result]').getAttribute('data-event-id'), { focusDetail: true }));
     });
     search.addEventListener('input', apply);
     kind.addEventListener('change', apply);

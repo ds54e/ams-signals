@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Timeline from '../../components/Timeline.astro';
+import EventExplorer from '../../components/EventExplorer.astro';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -25,5 +25,5 @@ const personEvents = events.filter((event) => event.data.people.includes(person.
     <h1>{person.data.name}</h1>
     <p class="lede">Public technical and affiliation milestones indexed by this site.</p>
   </section>
-  <Timeline events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
+  <EventExplorer events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
 </BaseLayout>
