@@ -1,0 +1,20 @@
+{
+  "id": "sony-semiconductor-solutions-2022-cis-rnm-spec-verification",
+  "when": {
+    "start": "2022-06-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["sony-semiconductor-solutions"],
+  "people": [],
+  "headline": "Sony reports SystemVerilog RNM verification for CIS analog/digital specification consistency",
+  "fact": "A Sony Semiconductor Solutions DVCon Japan presentation reports a CIS verification flow that models analog circuits as SystemVerilog Real Number Models to check analog/digital specification consistency early. The presentation reports a 3000x speedup compared with conventional SPICE and logic-simulator co-simulation.",
+  "sources": [
+    {
+      "title": "DVCon Japan 2022 Conference Proceedings",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-JP-2022-Proceedings.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Official proceedings for the June 23, 2022 conference, including Sony's CIS SystemVerilog RNM flow and its reported 3000x speedup over SPICE and logic-simulator co-simulation."
+    }
+  ]
+}
