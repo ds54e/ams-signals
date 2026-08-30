@@ -39,7 +39,9 @@ const companyEventCount = new Map(orderedCompanyRecords.map(({ company, eventCou
   company.data.id,
   eventCount,
 ]));
-const defaultView = context === 'person' ? 'people' : 'companies';
+const defaultView = context === 'global'
+  ? 'both'
+  : context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
 const timelineGeometry = buildTimelineGeometry(events);
@@ -147,7 +149,7 @@ const renderContextLinks = (event: EventEntry) => [
         <select data-view>
           <option value="companies">Companies</option>
           <option value="people">People</option>
-          <option value="both">Companies + People</option>
+          <option value="both" selected={defaultView === 'both'}>Companies + People</option>
         </select>
       </label>
     )}
@@ -391,7 +393,7 @@ const renderContextLinks = (event: EventEntry) => [
     const events = JSON.parse(jsonNode?.textContent || '[]');
     const byId = new Map(events.map((event) => [event.id, event]));
     const context = root.getAttribute('data-context') || 'global';
-    const defaultView = root.getAttribute('data-default-view') || 'companies';
+    const defaultView = root.getAttribute('data-default-view') || 'both';
     const isTimeline = root.getAttribute('data-surface') === 'timeline';
     const search = root.querySelector('[data-search]');
     const view = root.querySelector('[data-view]');
@@ -673,11 +675,6 @@ const renderContextLinks = (event: EventEntry) => [
       const peopleGroup = root.querySelector('[data-group="people"]');
       if (companyGroup) companyGroup.hidden = viewValue === 'people';
       if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
-      const hasVisibleLane = (group) => Boolean(group?.querySelector('[data-lane]:not([hidden])'));
-      peopleGroup?.classList.toggle(
-        'has-group-gap',
-        viewValue === 'both' && hasVisibleLane(companyGroup) && hasVisibleLane(peopleGroup),
-      );
 
       status.textContent = `${visibleIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
       if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
