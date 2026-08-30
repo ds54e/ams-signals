@@ -100,9 +100,12 @@ npm run lint:facts
 npm run check:duplicates
 npm run check:analysis-links
 npm run build
+npm run check:internal-links
 ```
 
 Schema or fact-lint failures must be fixed. Duplicate warnings require judgment: merge or cluster when appropriate.
+
+`npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`.
 
 ## Technology choices
 

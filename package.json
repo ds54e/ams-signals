@@ -1,7 +1,7 @@
 {
   "name": "ams-signals",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -11,9 +11,14 @@
     "lint:facts": "node tools/fact-lint.mjs",
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:analysis-links": "node tools/analysis-link-check.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run check:analysis-links && npm run build"
+    "check:internal-links": "node tools/internal-link-check.mjs",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run check:analysis-links && npm run build && npm run check:internal-links",
+    "test:smoke": "npm run build && playwright test"
   },
   "dependencies": {
     "astro": "7.2.9"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
   }
 }
