@@ -1,52 +1,51 @@
 # AMS Signals
 
-AMS Signals is a factual timeline of publicly observable RNM and mixed-signal verification activity across companies and people.
+AMS Signals is a factual timeline of publicly observable RNM and mixed-signal verification activity across companies and people. It helps technical readers compare dated signals, inspect representative public sources, and form their own conclusions without company rankings or maturity scores.
 
-The central design principle is simple: **research can be inferential; the Golden timeline is factual.** Users should be able to inspect dated public events and source links, compare trajectories, and draw their own conclusions. Interpretation belongs in a separate analysis layer.
+## Evidence and interpretation
 
-## Current state
+The Golden Timeline is factual. Every Event has a stable record with the date, source modality, linked companies or people, and one to three representative source summaries. Available originals are linked directly; retired originals remain visibly labeled as unavailable when the Event was responsibly verified.
 
-The repository is private while v1.0 is being built. Public deployment is intentionally deferred until the repository is ready to be made public.
+Analysis is a separate Markdown publication layer. Columns are explicitly inferential and link important foundations back to Golden Event permalinks so a reader can follow:
 
-## Stack
+`Analysis claim → Golden Event → original evidence`
 
-- Astro 7
-- JSON Golden events
-- Markdown Analysis columns
-- plain CSS
-- small client-side JavaScript for timeline/search interaction
-- GitHub Actions for validation/build
+An absent Golden Event means only that the current public-source review did not produce a timeline milestone. It is not evidence that a company lacks internal RNM or AMS activity.
 
-## Content model
+## Maintaining the record
 
-Golden events live in `src/data/events/*.json` and intentionally contain no technology tags, maturity scores, or inference fields.
+Golden Events live in `src/data/events/*.json`; Analysis columns live in `src/content/analysis/*.md`. Research starts from the existing timeline, follows public evidence, challenges attractive hypotheses, clusters duplicate or repeated signals, and promotes only compact milestones that add factual information. `AGENTS.md` contains the durable research, source-modality, and fact-versus-Analysis rules.
 
-Each event records:
+Source availability is intentionally lightweight. URLs can disappear, redirect, require login, or block automated clients after an Event is published. The repository records the last responsible check and availability state, but it is not an evidence archive or a real-time external-link monitor.
 
-- when
-- company/person references
-- event form (`kind`)
-- a short factual headline
-- a factual description
-- 1-3 public source links with a short factual summary
+## Local development and checks
 
-Analysis columns live in `src/content/analysis/*.md`. They use minimal frontmatter and ordinary Markdown, remain visibly separate from the factual surfaces, and link important foundations to stable Golden Event permalinks. `npm run check:analysis-links` verifies that those references still resolve to current Event IDs.
-
-See `AGENTS.md` for the research and Golden-update rules.
-
-## Local development
+CI uses Node.js 24. Install the locked dependency tree and start Astro with:
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Before committing content:
+Run deterministic content, schema, duplicate, Analysis-reference, build, and built-link checks with:
 
 ```bash
 npm run check
 ```
 
-## Deployment
+Browser smoke tests are deliberately separate from the fast content check. They build the production site and exercise the preview under `/ams-signals/`:
 
-Deployment is not enabled yet. When the repository is made public, add or enable a GitHub Pages workflow and select GitHub Actions as the Pages source. The Astro config is already prepared for the repository path `/ams-signals`.
+```bash
+npx playwright install chromium
+npm run test:smoke
+```
+
+## Publication policy
+
+Publication is intentionally owner-controlled. The checked-in GitHub Pages workflow runs only by manual dispatch; repository visibility, Pages configuration, deployment, and the v1.0 tag/release are separate actions. The generated site retains `noindex, nofollow`: this limits intentional search-engine indexing, but it is not access control and does not make a public repository undiscoverable.
+
+See `RELEASING.md` for the short human publication sequence and post-deployment verification.
+
+## License
+
+No code or content reuse license has been selected. If the repository is made public in this state, it is publicly viewable, but public visibility alone does not grant permission to reuse the software, Golden compilation, or Analysis writing.
