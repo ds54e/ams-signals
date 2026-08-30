@@ -28,17 +28,17 @@ RNM/AMS adoption is rarely a binary state. Public signals can evolve from behavi
 
 For that reason, the product should help users see trajectories rather than assign static maturity scores.
 
-Company timelines and People timelines are especially important. A future combined view should make it possible to visually compare company events and relevant public people movements without implying causation.
+Company timelines and People timelines are especially important. The combined view makes it possible to visually compare company events and relevant public people movements without implying causation.
 
-## Facts first, interpretation separate
+## Facts first, interpretation downstream
 
 The core public viewer is factual.
 
 A Golden event should state what a public source actually establishes, with its date and source link.
 
-The site should not tell users that a company is "advanced", "leading", "mature", or moving in a strategic direction unless that statement belongs in a clearly separate Analysis/Column artifact.
+The site should not tell users that a company is "advanced", "leading", "mature", or moving in a strategic direction. Those are interpretations for readers or downstream tools to form from the factual record.
 
-Analysis may be opinionated and inferential, but it should link back to Golden factual events so readers can inspect the record and disagree or reinterpret it.
+AMS Signals itself is the evidence layer and does not publish a static editorial interpretation layer. Stable Event records and the generated factual export let a reader or user-selected tool inspect the evidence and reach different conclusions.
 
 The goal is not "trust our conclusion". The goal is "inspect the public record and draw your own conclusion".
 
@@ -50,7 +50,7 @@ During research, form hypotheses, follow people, compare organizations, inspect 
 
 Actively look for evidence that narrows, contradicts, or breaks an attractive narrative.
 
-Inference is an engine for discovery. It is not automatically Golden content.
+Inference is an engine for discovery and may also be useful in downstream interpretation. It is not Golden content.
 
 ## Search instead of taxonomy
 
@@ -82,6 +82,12 @@ The project is not intended to become a WARC/PDF/screenshot archive.
 
 If a URL later disappears, the factual event can remain if it was responsibly verified when added; source availability can be shown explicitly. Stronger replacement or archive links may be added when convenient.
 
+## One machine-readable factual export
+
+The site generates one deterministic `/export.json` endpoint directly from the validated Company, People, and Golden Event collections. It exists so readers can use their own tools to query the factual corpus without creating another hand-maintained dataset.
+
+The export contains source records and stable Event URLs, but no generated summaries, inference, scores, or build-time timestamp.
+
 ## People are technical signals, not an employee directory
 
 People timelines are valuable because public technical expertise and affiliation changes can reveal useful historical context and generate new research leads.
@@ -106,13 +112,13 @@ Important interactions include:
 
 - time-based company comparison;
 - time-based people views;
-- eventually, company + people together;
+- company + people together;
 - simple text search as a lens over the timeline;
 - event details with source links;
-- stable event permalinks usable from Analysis columns;
+- stable event permalinks usable by readers and downstream tools;
 - a dedicated chronological Events view for reading matching factual records.
 
-A reader should be able to notice a pattern before reading an interpretation of it.
+A reader should be able to notice a pattern, inspect the underlying evidence, and then form or request an interpretation outside the Golden record.
 
 Desktop is the reference experience. Mobile and narrow-screen usability are best-effort and must not constrain the desktop information architecture. In particular, keep the horizontal Timeline and its Evidence Inspector focused on temporal exploration rather than maintaining a separate mobile-only chronology there; the Events view owns chronological textual reading. Narrow viewports may scroll horizontally when the Timeline needs its desktop spatial structure, and should avoid obviously broken rendering without requiring feature parity.
 
@@ -131,7 +137,7 @@ The long-lived asset should remain readable if the web framework is replaced yea
 Current choices intentionally favor:
 
 - JSON Golden events;
-- Markdown Analysis;
+- a deterministic generated JSON export;
 - Astro static generation;
 - plain CSS;
 - small client-side JavaScript/TypeScript;
@@ -142,7 +148,7 @@ Framework code is replaceable. The factual timeline is the asset.
 
 ## v1 direction
 
-The initial deep reference company is Apple because public material is rich enough to stress the research model, timeline model, People leads, internships/named projects, source lifecycle, and Fact-vs-Analysis boundary.
+The initial deep reference company is Apple because public material is rich enough to stress the research model, timeline model, People leads, internships/named projects, source lifecycle, and factual-versus-inferential boundary.
 
 After Apple is strong, SiTime and Skyworks are natural next comparisons because they provide different levels and types of public visibility.
 

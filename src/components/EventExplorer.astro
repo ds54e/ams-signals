@@ -194,16 +194,11 @@ const renderContextLinks = (event: EventEntry) => [
 
   <div class="event-filter-summary">
     <p class="event-filter-status" data-status aria-live="polite"></p>
-    {showTimeline ? (
-      <div class="timeline-summary-detail">
-        <p class="axis-note">Newest first · density-adjusted</p>
-        <div class="kind-legend" aria-label="Signal type legend">
-          {kindOrder.map((kind) => (
-            <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
-          ))}
-        </div>
-      </div>
-    ) : <p>Newest first</p>}
+    {showTimeline && <div class="kind-legend" aria-label="Signal type legend">
+      {kindOrder.map((kind) => (
+        <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
+      ))}
+    </div>}
   </div>
 
   {showTimeline && <div class="timeline-workspace">
@@ -212,7 +207,7 @@ const renderContextLinks = (event: EventEntry) => [
         class="timeline-scroll"
         data-timeline-scroll
         role="region"
-        aria-label="Newest-first density-adjusted Timeline"
+        aria-label="Timeline"
         tabindex="0"
       >
         <div

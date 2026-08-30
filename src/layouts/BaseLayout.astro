@@ -11,9 +11,8 @@ const {
   title = 'AMS Signals',
   description = 'Public signals in RNM and mixed-signal verification.',
 } = Astro.props;
-const inAnalysis = Astro.url.pathname.startsWith(sitePath('analysis/'));
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
-const inTimeline = !inAnalysis && !inEvents;
+const inTimeline = !inEvents;
 ---
 <!doctype html>
 <html lang="en">
@@ -30,7 +29,6 @@ const inTimeline = !inAnalysis && !inEvents;
       <nav aria-label="Primary">
         <a href={sitePath('')} data-filter-view-link aria-current={inTimeline ? 'page' : undefined}>Timeline</a>
         <a href={sitePath('events/')} data-filter-view-link aria-current={inEvents ? 'page' : undefined}>Events</a>
-        <a href={sitePath('analysis/')} aria-current={inAnalysis ? 'page' : undefined}>Analysis</a>
       </nav>
     </header>
     <main class="page-shell">
