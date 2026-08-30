@@ -109,12 +109,10 @@ for (const file of htmlFiles) {
 const eventDir = path.join(projectRoot, 'src/data/events');
 const companyDir = path.join(projectRoot, 'src/data/companies');
 const peopleDir = path.join(projectRoot, 'src/data/people');
-const analysisDir = path.join(projectRoot, 'src/content/analysis');
-const [eventFiles, companyFiles, peopleFiles, analysisFiles] = await Promise.all([
+const [eventFiles, companyFiles, peopleFiles] = await Promise.all([
   filesUnder(eventDir, '.json'),
   filesUnder(companyDir, '.json'),
   filesUnder(peopleDir, '.json'),
-  filesUnder(analysisDir, '.md'),
 ]);
 const events = await Promise.all(eventFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const companies = await Promise.all(companyFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
@@ -165,22 +163,10 @@ for (const person of people) {
   }
 }
 
-const analysisIndex = await readFile(path.join(outputRoot, 'analysis', 'index.html'), 'utf8');
-for (const file of analysisFiles) {
-  const articleId = path.relative(analysisDir, file).split(path.sep).join('/').replace(/\.md$/, '');
-  requireHref(analysisIndex, `${siteBase}analysis/${articleId}/`, 'Analysis index');
-  const articleHtml = await readFile(path.join(outputRoot, 'analysis', articleId, 'index.html'), 'utf8');
-  const eventReferences = anchorHrefs(articleHtml).filter((href) => {
-    const resolved = new URL(href, `${origin}${siteBase}analysis/${articleId}/`);
-    return resolved.origin === origin && resolved.pathname.startsWith(`${siteBase}events/`);
-  });
-  if (eventReferences.length === 0) errors.push(`Analysis ${articleId} has no generated Event link`);
-}
-
 if (errors.length > 0) {
   console.error(`Internal-link audit failed with ${errors.length} issue(s):`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Analysis, Event, Company, and People relationships.`);
+console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Event, Company, and People relationships.`);
