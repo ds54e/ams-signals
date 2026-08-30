@@ -2,9 +2,13 @@ import type { CompanyEntry, EventEntry, PersonEntry } from './content';
 import { dateNumber, eventYear, sortEventsNewestFirst } from './content';
 
 export const ACTIVITY_MATRIX_MIN_TRACK_WIDTH = 620;
-export const ACTIVITY_MATRIX_COLLISION_FOOTPRINT = 18;
+export const ACTIVITY_MATRIX_BUNDLE_PROXIMITY = 32;
+export const ACTIVITY_MATRIX_BUNDLE_CELL_SIZE = 16;
+export const ACTIVITY_MATRIX_BUNDLE_GAP = 2;
+export const ACTIVITY_MATRIX_BUNDLE_COLLISION_FOOTPRINT = 34;
 export const ACTIVITY_MATRIX_BASE_ROW_HEIGHT = 28;
-export const ACTIVITY_MATRIX_COLLISION_SLOT_PITCH = 14;
+export const ACTIVITY_MATRIX_ROW_PADDING = 5;
+export const ACTIVITY_MATRIX_COLLISION_SLOT_GAP = 4;
 
 export type ActivityEntityType = 'company' | 'person';
 
@@ -36,18 +40,30 @@ export interface OrderedActivityEntity<T extends CompanyEntry | PersonEntry> {
   stats: RecentActivityStats;
 }
 
-export interface ActivityMatrixAnchor {
+export interface ActivityMatrixBundleMember {
+  event: EventEntry;
+  eventId: string;
+  kind: EventEntry['data']['kind'];
+  originalX: number;
+  placementTimestamp: number;
+}
+
+export interface ActivityMatrixBundle {
   key: string;
   x: number;
-  placementTimestamp: number;
-  events: EventEntry[];
+  members: ActivityMatrixBundleMember[];
   eventIds: string[];
-  kinds: Array<EventEntry['data']['kind']>;
+  minOriginalX: number;
+  maxOriginalX: number;
+  maxOriginalDisplacement: number;
+  rowCount: number;
+  height: number;
   slot: number;
+  top: number;
 }
 
 export interface ActivityMatrixRow<T extends CompanyEntry | PersonEntry> extends OrderedActivityEntity<T> {
-  anchors: ActivityMatrixAnchor[];
+  bundles: ActivityMatrixBundle[];
   slotCount: number;
   height: number;
 }
@@ -187,49 +203,84 @@ export function compareActivityEntities(
     || left.entityType.localeCompare(right.entityType, 'en');
 }
 
-export function activityAnchorKey(event: EventEntry): string {
-  return `${event.data.when.precision}:${event.data.when.start}`;
+function bundleHeight(memberCount: number): number {
+  const rowCount = Math.max(Math.ceil(memberCount / 2), 1);
+  return (rowCount * ACTIVITY_MATRIX_BUNDLE_CELL_SIZE)
+    + ((rowCount - 1) * ACTIVITY_MATRIX_BUNDLE_GAP);
 }
 
-function buildAnchors(events: EventEntry[], domain: ActivityMatrixDomain): ActivityMatrixAnchor[] {
-  const clustered = new Map<string, EventEntry[]>();
-
-  for (const event of events) {
-    const key = activityAnchorKey(event);
-    const members = clustered.get(key) ?? [];
-    members.push(event);
-    clustered.set(key, members);
-  }
-
-  const anchors = [...clustered.entries()].map(([key, members]): ActivityMatrixAnchor => {
-    const orderedMembers = sortEventsNewestFirst(members);
-    const placementTimestamp = eventVisualPlacementTimestamp(orderedMembers[0]);
+function buildBundles(events: EventEntry[], domain: ActivityMatrixDomain): ActivityMatrixBundle[] {
+  const members = events.map((event): ActivityMatrixBundleMember => {
+    const placementTimestamp = eventVisualPlacementTimestamp(event);
     return {
-      key,
-      x: activityMatrixX(placementTimestamp, domain),
+      event,
+      eventId: event.data.id,
+      kind: event.data.kind,
+      originalX: activityMatrixX(placementTimestamp, domain),
       placementTimestamp,
-      events: orderedMembers,
-      eventIds: orderedMembers.map((event) => event.data.id),
-      kinds: [...new Set(orderedMembers.map((event) => event.data.kind))].sort(),
-      slot: 0,
     };
   }).sort((left, right) => (
-    left.x - right.x
-    || left.key.localeCompare(right.key, 'en')
-    || left.eventIds[0].localeCompare(right.eventIds[0], 'en')
+    left.originalX - right.originalX
+    || left.eventId.localeCompare(right.eventId, 'en')
   ));
 
-  const minimumSeparation = (ACTIVITY_MATRIX_COLLISION_FOOTPRINT / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
-  const latestXBySlot: number[] = [];
+  const bundleWindow = (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
+  const memberGroups: ActivityMatrixBundleMember[][] = [];
 
-  for (const anchor of anchors) {
-    let slot = latestXBySlot.findIndex((latestX) => anchor.x - latestX >= minimumSeparation);
-    if (slot === -1) slot = latestXBySlot.length;
-    anchor.slot = slot;
-    latestXBySlot[slot] = anchor.x;
+  for (const member of members) {
+    const current = memberGroups.at(-1);
+    if (!current || member.originalX - current[0].originalX > bundleWindow) {
+      memberGroups.push([member]);
+    } else {
+      current.push(member);
+    }
   }
 
-  return anchors;
+  const bundles = memberGroups.map((bundleMembers): ActivityMatrixBundle => {
+    const x = bundleMembers.reduce((sum, member) => sum + member.originalX, 0) / bundleMembers.length;
+    const minOriginalX = bundleMembers[0].originalX;
+    const maxOriginalX = bundleMembers.at(-1)?.originalX ?? minOriginalX;
+    const eventIds = bundleMembers.map(({ eventId }) => eventId);
+    const rowCount = Math.max(Math.ceil(bundleMembers.length / 2), 1);
+    return {
+      key: eventIds.join('|'),
+      x,
+      members: bundleMembers,
+      eventIds,
+      minOriginalX,
+      maxOriginalX,
+      maxOriginalDisplacement: Math.max(...bundleMembers.map((member) => Math.abs(member.originalX - x))),
+      rowCount,
+      height: bundleHeight(bundleMembers.length),
+      slot: 0,
+      top: ACTIVITY_MATRIX_ROW_PADDING,
+    };
+  });
+
+  const minimumSeparation = (
+    ACTIVITY_MATRIX_BUNDLE_COLLISION_FOOTPRINT / ACTIVITY_MATRIX_MIN_TRACK_WIDTH
+  ) * 100;
+  const latestXBySlot: number[] = [];
+
+  for (const bundle of bundles) {
+    let slot = latestXBySlot.findIndex((latestX) => bundle.x - latestX >= minimumSeparation);
+    if (slot === -1) slot = latestXBySlot.length;
+    bundle.slot = slot;
+    latestXBySlot[slot] = bundle.x;
+  }
+
+  const slotHeights = latestXBySlot.map((_, slot) => Math.max(
+    ...bundles.filter((bundle) => bundle.slot === slot).map((bundle) => bundle.height),
+  ));
+  const slotTops: number[] = [];
+  let nextTop = ACTIVITY_MATRIX_ROW_PADDING;
+  for (const slotHeight of slotHeights) {
+    slotTops.push(nextTop);
+    nextTop += slotHeight + ACTIVITY_MATRIX_COLLISION_SLOT_GAP;
+  }
+  for (const bundle of bundles) bundle.top = slotTops[bundle.slot];
+
+  return bundles;
 }
 
 function buildRows<T extends CompanyEntry | PersonEntry>(
@@ -237,14 +288,17 @@ function buildRows<T extends CompanyEntry | PersonEntry>(
   domain: ActivityMatrixDomain,
 ): Array<ActivityMatrixRow<T>> {
   return orderedEntities.map((orderedEntity) => {
-    const anchors = buildAnchors(orderedEntity.events, domain);
-    const slotCount = Math.max(...anchors.map(({ slot }) => slot), 0) + 1;
+    const bundles = buildBundles(orderedEntity.events, domain);
+    const slotCount = Math.max(...bundles.map(({ slot }) => slot), 0) + 1;
+    const occupiedHeight = Math.max(
+      ...bundles.map((bundle) => bundle.top + bundle.height + ACTIVITY_MATRIX_ROW_PADDING),
+      ACTIVITY_MATRIX_BASE_ROW_HEIGHT,
+    );
     return {
       ...orderedEntity,
-      anchors,
+      bundles,
       slotCount,
-      height: ACTIVITY_MATRIX_BASE_ROW_HEIGHT
-        + ((slotCount - 1) * ACTIVITY_MATRIX_COLLISION_SLOT_PITCH),
+      height: occupiedHeight,
     };
   });
 }
