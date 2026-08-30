@@ -18,12 +18,12 @@ const personEvents = events.filter((event) => event.data.people.includes(person.
 ---
 <BaseLayout
   title={`${person.data.name} · AMS Signals`}
-  description={`Public technical and affiliation milestones linked to ${person.data.name}.`}
+  description={`Public technical and organizational Events linked to ${person.data.name}.`}
 >
   <section class="intro compact">
-    <p class="eyebrow">PEOPLE TIMELINE</p>
+    <p class="eyebrow">PERSON TIMELINE</p>
     <h1>{person.data.name}</h1>
-    <p class="lede">Public technical and affiliation milestones indexed by this site.</p>
+    <p class="lede">Public technical and organizational events indexed by this site.</p>
   </section>
   <EventExplorer events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
 </BaseLayout>

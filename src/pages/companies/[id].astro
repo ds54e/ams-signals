@@ -31,10 +31,10 @@ const companyEvents = events.filter((event) => event.data.companies.includes(com
   ) : (
     <section class="sparse-state" aria-labelledby="sparse-heading">
       <p class="eyebrow">RESEARCHED SPARSE RECORD</p>
-      <h2 id="sparse-heading">No Golden events are currently indexed</h2>
+      <h2 id="sparse-heading">No events are currently indexed</h2>
       {company.data.lastReviewed && <p class="last-reviewed">Last researched {company.data.lastReviewed}</p>}
-      <p>This means the current public-source review did not produce a milestone for the factual timeline. It does not imply that {company.data.name} has no internal RNM or AMS activity.</p>
-      <a href={sitePath('')}>Return to the all-company timeline →</a>
+      <p>This means the current public-source review did not produce an event for the Timeline. It does not imply that {company.data.name} has no internal RNM or AMS activity.</p>
+      <a href={sitePath('')}>Return to Timeline →</a>
     </section>
   )}
 </BaseLayout>
