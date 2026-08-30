@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sitePath } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('analysis');
+  return articles.map((article) => ({ params: { id: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const published = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${article.data.date}T00:00:00Z`));
+---
+<BaseLayout title={`${article.data.title} · AMS Signals`} description={article.data.description}>
+  <article class="analysis-article">
+    <nav class="analysis-breadcrumbs" aria-label="Article navigation">
+      <a href={sitePath('analysis/')}>← All Analysis</a>
+      <a href={sitePath('')}>Timeline</a>
+    </nav>
+
+    <header class="analysis-header">
+      <p class="eyebrow">ANALYSIS · INTERPRETATION</p>
+      <h1>{article.data.title}</h1>
+      <p class="analysis-dek">{article.data.description}</p>
+      <p class="analysis-date"><time datetime={article.data.date}>{published}</time></p>
+      <aside class="analysis-boundary" aria-label="Analysis and factual record distinction">
+        <strong>This column contains interpretation and inference.</strong>{' '}
+        Linked Golden Events are the factual record. Inspect those Events and their original sources; the same record can support a different conclusion.
+      </aside>
+    </header>
+
+    <div class="analysis-prose">
+      <Content />
+    </div>
+
+    <footer class="analysis-footer">
+      <p>The factual timeline remains interpretation-free.</p>
+      <div>
+        <a href={sitePath('analysis/')}>More Analysis</a>
+        <a href={sitePath('')}>Inspect the Timeline</a>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>

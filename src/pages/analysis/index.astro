@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sitePath } from '../../lib/paths';
+
+const articles = (await getCollection('analysis')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const formatDate = (value: string) => new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${value}T00:00:00Z`));
+---
+<BaseLayout title="Analysis · AMS Signals" description="Interpretive columns grounded in the AMS Signals factual timeline.">
+  <section class="intro analysis-intro">
+    <p class="eyebrow">ANALYSIS · INTERPRETATION</p>
+    <h1>Columns grounded in the public record</h1>
+    <p class="lede">These essays interpret patterns in the Golden Timeline. They are arguments, not factual Event records; each important foundation links to the underlying Event and its public sources.</p>
+  </section>
+
+  <aside class="analysis-boundary" aria-label="Analysis and factual record distinction">
+    <strong>Read critically.</strong>{' '}
+    Linked Golden Events preserve the factual record. The interpretation here is deliberately separate, and another reader may reach a different conclusion from the same evidence.
+  </aside>
+
+  <section class="analysis-index" aria-labelledby="analysis-list-heading">
+    <h2 id="analysis-list-heading" class="visually-hidden">Published analysis</h2>
+    <ol class="analysis-list">
+      {articles.map((article) => (
+        <li>
+          <time datetime={article.data.date}>{formatDate(article.data.date)}</time>
+          <div>
+            <h2><a href={sitePath(`analysis/${article.id}/`)}>{article.data.title}</a></h2>
+            <p>{article.data.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+</BaseLayout>

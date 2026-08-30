@@ -11,6 +11,7 @@ const {
   title = 'AMS Signals',
   description = 'Public signals in RNM and mixed-signal verification.',
 } = Astro.props;
+const inAnalysis = Astro.url.pathname.startsWith(sitePath('analysis/'));
 ---
 <!doctype html>
 <html lang="en">
@@ -25,7 +26,8 @@ const {
     <header class="site-header">
       <a class="brand" href={sitePath('')}>AMS Signals</a>
       <nav aria-label="Primary">
-        <a href={sitePath('')}>Timeline</a>
+        <a href={sitePath('')} aria-current={!inAnalysis ? 'page' : undefined}>Timeline</a>
+        <a href={sitePath('analysis/')} aria-current={inAnalysis ? 'page' : undefined}>Analysis</a>
       </nav>
     </header>
     <main class="page-shell">
