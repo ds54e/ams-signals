@@ -22,5 +22,5 @@ const personEvents = events.filter((event) => event.data.people.includes(person.
     <h1>{person.data.name}</h1>
     <p class="lede">Public technical and affiliation milestones indexed by this site.</p>
   </section>
-  <Timeline events={personEvents} companies={companies} people={people} />
+  <Timeline events={personEvents} companies={companies} people={people} context="person" />
 </BaseLayout>
