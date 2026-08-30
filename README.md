@@ -12,6 +12,7 @@ The repository is private while v1.0 is being built. Public deployment is intent
 
 - Astro 7
 - JSON Golden events
+- Markdown Analysis columns
 - plain CSS
 - small client-side JavaScript for timeline/search interaction
 - GitHub Actions for validation/build
@@ -28,6 +29,8 @@ Each event records:
 - a short factual headline
 - a factual description
 - 1-3 public source links with a short factual summary
+
+Analysis columns live in `src/content/analysis/*.md`. They use minimal frontmatter and ordinary Markdown, remain visibly separate from the factual surfaces, and link important foundations to stable Golden Event permalinks. `npm run check:analysis-links` verifies that those references still resolve to current Event IDs.
 
 See `AGENTS.md` for the research and Golden-update rules.
 

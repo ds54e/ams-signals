@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 export type EventEntry = CollectionEntry<'events'>;
 export type CompanyEntry = CollectionEntry<'companies'>;
 export type PersonEntry = CollectionEntry<'people'>;
+export type AnalysisEntry = CollectionEntry<'analysis'>;
 
 export function dateNumber(value: string): number {
   const [year, month = '01', day = '01'] = value.split('-');
