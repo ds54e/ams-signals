@@ -20,6 +20,16 @@ export function sortEvents(events: EventEntry[]): EventEntry[] {
     || a.data.id.localeCompare(b.data.id, 'en'));
 }
 
+export function sortEventsNewestFirst(events: EventEntry[]): EventEntry[] {
+  return [...events].sort((a, b) =>
+    dateNumber(b.data.when.start) - dateNumber(a.data.when.start)
+    || a.data.id.localeCompare(b.data.id, 'en'));
+}
+
+export function eventKindLabel(kind: EventEntry['data']['kind']): string {
+  return kind === 'technical' ? 'Technical' : 'Organizational';
+}
+
 export function orderCompaniesByGoldenEventCount(
   companies: CompanyEntry[],
   events: EventEntry[],

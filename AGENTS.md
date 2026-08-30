@@ -44,7 +44,7 @@ Each Golden event should answer only:
 
 Do not add technology tags, maturity scores, confidence scores, strategic direction, disclosure scores, or inferred organization-wide conclusions to factual events.
 
-`kind` is event form, not technology classification. Keep the allowed values small and stable.
+`kind` is an intentionally coarse public-signal type, not a technology classification. Use only `technical` for principally technical or standards milestones and `organizational` for principally organizational, business, or workforce milestones. Keep `affiliationChange` as independent optional metadata when responsibly supported.
 
 ### Preserve source modality
 

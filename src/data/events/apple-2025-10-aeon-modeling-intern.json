@@ -4,7 +4,7 @@
     "start": "2025-10-01",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": [
     "apple"
   ],

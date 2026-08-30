@@ -4,7 +4,7 @@
     "start": "2026-06-08",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["skyworks"],
   "people": [],
   "headline": "Skyworks lists related AMS verification roles from behavioral models through full-chip simulation",

@@ -4,7 +4,7 @@
     "start": "2026-06-14",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["microchip"],
   "people": [],
   "headline": "Microchip lists system-level AMS verification across full-chip and chiplet boundaries",

@@ -4,7 +4,7 @@
     "start": "2025-02-04",
     "precision": "day"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["cadence", "siemens-eda", "synopsys", "nxp", "qualcomm", "renesas"],
   "people": ["peter-grove"],
   "headline": "Accellera releases UVM-MS 1.0 with participation from six tracked companies",

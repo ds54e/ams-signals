@@ -4,7 +4,7 @@
     "start": "2025-07-18",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["sitime"],
   "people": [],
   "headline": "SiTime lists an SV-RNM verification role spanning UVM, assertions, coverage, and digital-top sign-off",

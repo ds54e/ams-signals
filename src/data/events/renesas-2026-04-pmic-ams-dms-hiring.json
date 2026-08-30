@@ -4,7 +4,7 @@
     "start": "2026-04-16",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["renesas"],
   "people": [],
   "headline": "Renesas lists PMIC verification roles spanning AMS, DMS, RNM, UVM, correlation, and sign-off",
