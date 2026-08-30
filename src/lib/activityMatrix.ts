@@ -30,6 +30,7 @@ export interface RecentActivityStats {
 }
 
 export interface OrderedActivityEntity<T extends CompanyEntry | PersonEntry> {
+  entityType: ActivityEntityType;
   entity: T;
   events: EventEntry[];
   stats: RecentActivityStats;
@@ -56,6 +57,7 @@ export interface ActivityMatrixGeometry {
   ticks: ActivityMatrixTick[];
   companyRows: Array<ActivityMatrixRow<CompanyEntry>>;
   peopleRows: Array<ActivityMatrixRow<PersonEntry>>;
+  combinedRows: Array<ActivityMatrixRow<CompanyEntry | PersonEntry>>;
 }
 
 function utcParts(value: string): { year: number; month: number; day: number } {
@@ -156,6 +158,7 @@ export function orderEntitiesByRecentActivity<T extends CompanyEntry | PersonEnt
       )));
       const latestEvent = linkedEvents[0];
       return {
+        entityType,
         entity,
         events: linkedEvents,
         stats: {
@@ -168,14 +171,20 @@ export function orderEntitiesByRecentActivity<T extends CompanyEntry | PersonEnt
       };
     })
     .filter(({ stats }) => stats.total > 0)
-    .sort((left, right) => (
-      right.stats.recent3 - left.stats.recent3
-      || right.stats.recent5 - left.stats.recent5
-      || right.stats.latestStartTimestamp - left.stats.latestStartTimestamp
-      || right.stats.total - left.stats.total
-      || left.entity.data.name.localeCompare(right.entity.data.name, 'en')
-      || left.entity.data.id.localeCompare(right.entity.data.id, 'en')
-    ));
+    .sort(compareActivityEntities);
+}
+
+export function compareActivityEntities(
+  left: OrderedActivityEntity<CompanyEntry | PersonEntry>,
+  right: OrderedActivityEntity<CompanyEntry | PersonEntry>,
+): number {
+  return right.stats.recent3 - left.stats.recent3
+    || right.stats.recent5 - left.stats.recent5
+    || right.stats.latestStartTimestamp - left.stats.latestStartTimestamp
+    || right.stats.total - left.stats.total
+    || left.entity.data.name.localeCompare(right.entity.data.name, 'en')
+    || left.entity.data.id.localeCompare(right.entity.data.id, 'en')
+    || left.entityType.localeCompare(right.entityType, 'en');
 }
 
 export function activityAnchorKey(event: EventEntry): string {
@@ -246,10 +255,13 @@ export function buildActivityMatrixGeometry(
   people: PersonEntry[],
 ): ActivityMatrixGeometry {
   const domain = deriveActivityMatrixDomain(events);
+  const companyRows = buildRows(orderEntitiesByRecentActivity(companies, events, 'company'), domain);
+  const peopleRows = buildRows(orderEntitiesByRecentActivity(people, events, 'person'), domain);
   return {
     domain,
     ticks: generateActivityMatrixTicks(domain),
-    companyRows: buildRows(orderEntitiesByRecentActivity(companies, events, 'company'), domain),
-    peopleRows: buildRows(orderEntitiesByRecentActivity(people, events, 'person'), domain),
+    companyRows,
+    peopleRows,
+    combinedRows: [...companyRows, ...peopleRows].sort(compareActivityEntities),
   };
 }

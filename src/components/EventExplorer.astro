@@ -56,7 +56,7 @@ const companyEventCount = new Map(countOrderedCompanyRecords.map(({ company, eve
   eventCount,
 ]));
 const defaultView = context === 'global'
-  ? 'companies'
+  ? 'both'
   : context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
@@ -69,6 +69,12 @@ const timelinePositionByEventId = timelineGeometry?.positionByEventId ?? new Map
 const activityTicks = activityMatrixGeometry?.ticks ?? [];
 const activityCompanyRows = activityMatrixGeometry?.companyRows ?? [];
 const activityPeopleRows = activityMatrixGeometry?.peopleRows ?? [];
+const activityCombinedRows = activityMatrixGeometry?.combinedRows ?? [];
+const activityGroups = [
+  { id: 'both', rows: activityCombinedRows },
+  { id: 'companies', rows: activityCompanyRows },
+  { id: 'people', rows: activityPeopleRows },
+];
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
   technical: 'Technical',
@@ -183,7 +189,8 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
       <label class="select-control">
         <span>View</span>
         <select data-view>
-          <option value="companies" selected={defaultView === 'companies'}>Companies</option>
+          <option value="both" selected={defaultView === 'both'}>Companies + People</option>
+          <option value="companies">Companies</option>
           <option value="people">People</option>
         </select>
       </label>
@@ -237,8 +244,8 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
     {showActivityMatrix && (
       <p
         class="activity-order-note"
-        title="Ordered by records in the latest 3 years, then latest 5 years, then latest record."
-      >Rows prioritize recent public records.</p>
+        title="Rows are ordered by records in the latest 3 years, then latest 5 years, then latest record."
+      >Timeline emphasizes recurring public signals. Events contains the complete record.</p>
     )}
   </div>
 
@@ -279,115 +286,67 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
               data-domain-latest-year={activityMatrixGeometry?.domain.latestYear}
               data-min-track-width={ACTIVITY_MATRIX_MIN_TRACK_WIDTH}
             >
-              <div class="activity-matrix-group" data-group="companies" hidden={defaultView === 'people'}>
-                {activityCompanyRows.map((row, rowIndex) => (
-                <div
-                  class="activity-matrix-row"
-                  style={`--matrix-row-height:${row.height}px`}
-                  data-lane
-                  data-matrix-row
-                  data-row-order={rowIndex}
-                  data-lane-type="company"
-                  data-entity-id={row.entity.data.id}
-                  data-recent3={row.stats.recent3}
-                  data-recent5={row.stats.recent5}
-                  data-latest-start={row.stats.latestStart}
-                  data-total-events={row.stats.total}
-                  data-collision-slots={row.slotCount}
-                >
-                  <a
-                    class="matrix-entity-label"
-                    href={sitePath(`companies/${row.entity.data.id}/`)}
-                    title={row.entity.data.name}
-                  >{row.entity.data.name}</a>
-                  <div class="activity-row-track" data-matrix-track>
-                    <div class="activity-guides" aria-hidden="true">
-                      {activityTicks.map((tick) => <span style={`--tick-x:${tick.x}%`}></span>)}
+              {activityGroups.map((group) => (
+                <div class="activity-matrix-group" data-group={group.id} hidden={group.id !== defaultView}>
+                  {group.rows.length === 0 ? (
+                    <p class="empty-note">No milestones match this entity view.</p>
+                  ) : group.rows.map((row, rowIndex) => (
+                    <div
+                      class="activity-matrix-row"
+                      style={`--matrix-row-height:${row.height}px`}
+                      data-lane
+                      data-matrix-row
+                      data-row-order={rowIndex}
+                      data-lane-type={row.entityType}
+                      data-entity-type={row.entityType}
+                      data-entity-id={row.entity.data.id}
+                      data-singleton={String(row.stats.total === 1)}
+                      data-recent3={row.stats.recent3}
+                      data-recent5={row.stats.recent5}
+                      data-latest-start={row.stats.latestStart}
+                      data-total-events={row.stats.total}
+                      data-collision-slots={row.slotCount}
+                    >
+                      <a
+                        class:list={['matrix-entity-label', `matrix-entity-${row.entityType}`]}
+                        href={sitePath(`${row.entityType === 'company' ? 'companies' : 'people'}/${row.entity.data.id}/`)}
+                        title={row.entity.data.name}
+                        data-entity-type={row.entityType}
+                        aria-label={`${row.entityType === 'company' ? 'Company' : 'Person'}: ${row.entity.data.name}`}
+                      >{row.entity.data.name}</a>
+                      <div class="activity-row-track" data-matrix-track>
+                        <div class="activity-guides" aria-hidden="true">
+                          {activityTicks.map((tick) => <span style={`--tick-x:${tick.x}%`}></span>)}
+                        </div>
+                        {row.anchors.map((anchor) => (
+                          <button
+                            type="button"
+                            class={matrixMarkClass(anchor.events)}
+                            style={`--event-x:${anchor.x}%;--collision-slot:${anchor.slot}`}
+                            data-event-mark
+                            data-matrix-mark
+                            data-event-id={anchor.eventIds[0]}
+                            data-event-ids={JSON.stringify(anchor.eventIds)}
+                            data-visible-event-ids={JSON.stringify(anchor.eventIds)}
+                            data-visible-kinds={anchor.kinds.join(',')}
+                            data-event-date={anchor.events[0].data.when.start}
+                            data-event-x={anchor.x}
+                            data-anchor-key={anchor.key}
+                            data-collision-slot={anchor.slot}
+                            aria-pressed="false"
+                            aria-label={matrixMarkLabel(anchor.events)}
+                          >
+                            <span class="activity-glyph" aria-hidden="true">
+                              <span data-cluster-count hidden={anchor.events.length === 1}>{anchor.events.length}</span>
+                            </span>
+                            <span class="visually-hidden" data-mark-label>{matrixMarkLabel(anchor.events)}</span>
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    {row.anchors.map((anchor) => (
-                      <button
-                        type="button"
-                        class={matrixMarkClass(anchor.events)}
-                        style={`--event-x:${anchor.x}%;--collision-slot:${anchor.slot}`}
-                        data-event-mark
-                        data-matrix-mark
-                        data-event-id={anchor.eventIds[0]}
-                        data-event-ids={JSON.stringify(anchor.eventIds)}
-                        data-visible-event-ids={JSON.stringify(anchor.eventIds)}
-                        data-visible-kinds={anchor.kinds.join(',')}
-                        data-event-date={anchor.events[0].data.when.start}
-                        data-event-x={anchor.x}
-                        data-anchor-key={anchor.key}
-                        data-collision-slot={anchor.slot}
-                        aria-pressed="false"
-                        aria-label={matrixMarkLabel(anchor.events)}
-                      >
-                        <span class="activity-glyph" aria-hidden="true">
-                          <span data-cluster-count hidden={anchor.events.length === 1}>{anchor.events.length}</span>
-                        </span>
-                        <span class="visually-hidden" data-mark-label>{matrixMarkLabel(anchor.events)}</span>
-                      </button>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-                ))}
-              </div>
-
-              <div class="activity-matrix-group" data-group="people" hidden={defaultView === 'companies'}>
-                {activityPeopleRows.length === 0 ? (
-                  <p class="empty-note">No People milestones match this record.</p>
-                ) : activityPeopleRows.map((row, rowIndex) => (
-                <div
-                  class="activity-matrix-row"
-                  style={`--matrix-row-height:${row.height}px`}
-                  data-lane
-                  data-matrix-row
-                  data-row-order={rowIndex}
-                  data-lane-type="person"
-                  data-entity-id={row.entity.data.id}
-                  data-recent3={row.stats.recent3}
-                  data-recent5={row.stats.recent5}
-                  data-latest-start={row.stats.latestStart}
-                  data-total-events={row.stats.total}
-                  data-collision-slots={row.slotCount}
-                >
-                  <a
-                    class="matrix-entity-label"
-                    href={sitePath(`people/${row.entity.data.id}/`)}
-                    title={row.entity.data.name}
-                  >{row.entity.data.name}</a>
-                  <div class="activity-row-track" data-matrix-track>
-                    <div class="activity-guides" aria-hidden="true">
-                      {activityTicks.map((tick) => <span style={`--tick-x:${tick.x}%`}></span>)}
-                    </div>
-                    {row.anchors.map((anchor) => (
-                      <button
-                        type="button"
-                        class={matrixMarkClass(anchor.events)}
-                        style={`--event-x:${anchor.x}%;--collision-slot:${anchor.slot}`}
-                        data-event-mark
-                        data-matrix-mark
-                        data-event-id={anchor.eventIds[0]}
-                        data-event-ids={JSON.stringify(anchor.eventIds)}
-                        data-visible-event-ids={JSON.stringify(anchor.eventIds)}
-                        data-visible-kinds={anchor.kinds.join(',')}
-                        data-event-date={anchor.events[0].data.when.start}
-                        data-event-x={anchor.x}
-                        data-anchor-key={anchor.key}
-                        data-collision-slot={anchor.slot}
-                        aria-pressed="false"
-                        aria-label={matrixMarkLabel(anchor.events)}
-                      >
-                        <span class="activity-glyph" aria-hidden="true">
-                          <span data-cluster-count hidden={anchor.events.length === 1}>{anchor.events.length}</span>
-                        </span>
-                        <span class="visually-hidden" data-mark-label>{matrixMarkLabel(anchor.events)}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -585,7 +544,7 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
     const events = JSON.parse(jsonNode?.textContent || '[]');
     const byId = new Map(events.map((event) => [event.id, event]));
     const context = root.getAttribute('data-context') || 'global';
-    const defaultView = root.getAttribute('data-default-view') || 'companies';
+    const defaultView = root.getAttribute('data-default-view') || 'both';
     const isTimeline = root.getAttribute('data-surface') === 'timeline';
     const isActivityMatrix = root.hasAttribute('data-activity-matrix');
     const search = root.querySelector('[data-search]');
@@ -603,6 +562,7 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
     let activeId = null;
     let activeMark = null;
     let visibleIds = new Set();
+    let representedTimelineIds = new Set();
     const legacyKindAliases = new Map([
       ['publication', 'technical'],
       ['conference', 'technical'],
@@ -815,7 +775,8 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
     };
 
     const setActive = (id, sourceMark = activeMark) => {
-      if (!id || !visibleIds.has(id)) return;
+      const eligibleIds = isActivityMatrix ? representedTimelineIds : visibleIds;
+      if (!id || !eligibleIds.has(id)) return;
       activeId = id;
       if (sourceMark && markIsRendered(sourceMark) && visibleEventIdsForMark(sourceMark).includes(id)) {
         activeMark = sourceMark;
@@ -939,6 +900,7 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
         const matchesKind = kindValue === 'all' || event.kind === kindValue;
         const matchesCompany = context !== 'global' || event.companies.some((company) => selected.has(company.id));
         const matchesView = context !== 'global'
+          || viewValue === 'both'
           || (viewValue === 'companies' ? event.companies.length > 0 : event.people.length > 0);
         return matchesText && matchesKind && matchesCompany && matchesView;
       });
@@ -975,16 +937,35 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
         }
       });
 
+      const explicitDiscovery = terms.length > 0 || selected.size !== companyChecks.length;
       root.querySelectorAll('[data-lane]').forEach((lane) => {
-        lane.hidden = ![...lane.querySelectorAll('[data-event-mark]')].some((mark) => !mark.hidden);
+        const hasVisibleMark = [...lane.querySelectorAll('[data-event-mark]')].some((mark) => !mark.hidden);
+        const suppressSingleton = isActivityMatrix
+          && lane.getAttribute('data-singleton') === 'true'
+          && !explicitDiscovery;
+        lane.hidden = !hasVisibleMark || suppressSingleton;
       });
 
+      const combinedGroup = root.querySelector('[data-group="both"]');
       const companyGroup = root.querySelector('[data-group="companies"]');
       const peopleGroup = root.querySelector('[data-group="people"]');
-      if (companyGroup) companyGroup.hidden = viewValue === 'people';
-      if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
+      if (isActivityMatrix) {
+        if (combinedGroup) combinedGroup.hidden = viewValue !== 'both';
+        if (companyGroup) companyGroup.hidden = viewValue !== 'companies';
+        if (peopleGroup) peopleGroup.hidden = viewValue !== 'people';
+      } else {
+        if (companyGroup) companyGroup.hidden = viewValue === 'people';
+        if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
+      }
 
-      status.textContent = `${visibleIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
+      representedTimelineIds = isActivityMatrix
+        ? new Set([...root.querySelectorAll('[data-matrix-mark]')]
+            .filter(markIsRendered)
+            .flatMap(visibleEventIdsForMark))
+        : new Set(visibleIds);
+
+      const statusIds = isActivityMatrix ? representedTimelineIds : visibleIds;
+      status.textContent = `${statusIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
       if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
       updateCompanySummary(selected);
       updateUrl(selected, kindValue, viewValue);
@@ -992,7 +973,7 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
       if (isTimeline) {
         const detailTerms = termsFor(search.value);
         if (isActivityMatrix) {
-          if (!activeId || !visibleIds.has(activeId)) {
+          if (!activeId || !representedTimelineIds.has(activeId)) {
             const selection = firstVisibleMatrixSelection();
             activeId = selection?.id ?? null;
             activeMark = selection?.mark ?? null;
@@ -1037,8 +1018,7 @@ const matrixMarkLabel = (eventsAtAnchor: EventEntry[]) => eventsAtAnchor.length 
     const canonicalKind = legacyKindAliases.get(requestedKind) || requestedKind;
     if ([...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
     const requestedView = params.get('view');
-    const canonicalView = requestedView === 'both' ? 'companies' : requestedView;
-    if (view && [...view.options].some((option) => option.value === canonicalView)) view.value = canonicalView;
+    if (view && [...view.options].some((option) => option.value === requestedView)) view.value = requestedView;
 
     if (context === 'global' && params.has('companies')) {
       const raw = params.get('companies');

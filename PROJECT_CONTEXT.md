@@ -28,7 +28,7 @@ RNM/AMS adoption is rarely a binary state. Public signals can evolve from behavi
 
 For that reason, the product should help users see trajectories rather than assign static maturity scores.
 
-Company timelines and People timelines are especially important. Separate global Company and People views make temporal patterns readable without implying causation between organizational and individual trajectories.
+Company timelines and People timelines are especially important. The global view may place Company and People activity in one temporal field to support comparison, but shared placement must not imply causation between organizational and individual trajectories.
 
 ## Facts first, interpretation downstream
 
@@ -123,7 +123,9 @@ Desktop is the reference experience. Mobile and narrow-screen usability are best
 
 The visual style should feel like a modern technical research publication/tool: clear hierarchy, restrained styling, generous spacing, and readable timelines. Avoid decorative dashboards and metric cards that imply precision the source material cannot support.
 
-The global Timeline is a continuous-time Activity Matrix. Companies are the default rows and People are an alternate view; the global surface does not combine the two row types. Rows use a deterministic, full-corpus recent-public-record heuristic (latest three years, then latest five years, then latest record and lifetime count) to improve discovery without implying rank, maturity, or capability. Filtering may hide marks and empty rows but never reorders the surviving entities.
+The global Timeline is a continuous-time Activity Matrix for recurring public signals, trajectories, recent activity patterns, and the overall landscape. Its default Companies + People view interleaves both entity types with the same deterministic, full-corpus recent-public-record ordering (latest three years, then latest five years, then latest record and lifetime count); Company and Person labels use restrained, distinct text treatments without giving either type an ordering advantage. Company-only and People-only views remain available. Filtering may hide marks and empty rows but never reorders the surviving entities.
+
+Normal global Timeline browsing shows entities linked to at least two full-corpus Golden Events so the Matrix emphasizes minimal trajectories rather than filling the surface with isolated marks. This is only a visualization-density rule, not a quality, confidence, importance, maturity, or capability judgment. A non-empty Search or narrowed Company Focus reveals matching singleton entities in their immutable full-corpus order. Singleton evidence always remains available through Events, the complete factual record, as well as Company, Person, and Event pages and `/export.json`.
 
 Global Activity Matrix time runs linearly from newest-left to oldest-right with sparse year ticks derived from the full corpus. Exact-anchor Events remain independent Golden records but share a compact visual cluster, and nearby non-identical anchors may use deterministic vertical collision slots without changing their date-derived x positions. Company and Person detail pages retain the existing segmented, chronologically packed Timeline geometry.
 
