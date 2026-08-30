@@ -350,6 +350,14 @@ h1 {
 }
 .timeline-segment-grid span { border-right: 1px solid color-mix(in srgb, var(--border) 72%, transparent); }
 .timeline-segment-grid span:last-child { border-right: 0; }
+.lane-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px solid var(--border-strong);
+}
 .event-mark {
   position: absolute;
   left: var(--x);

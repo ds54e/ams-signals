@@ -481,27 +481,46 @@ test('Timeline starts at newest-left, reveals an initial older match once, and p
   expect(await page.locator('[data-timeline-scroll]').evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
 });
 
-test('Timeline removes group rows and ruled baselines while retaining segment guides and conditional group space', async ({ page }) => {
+test('Timeline renders centered lane baselines without row borders while retaining segment guides and conditional group space', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
 
   await expect(page.locator('.lane-group-row, .lane-group-label, [data-group-label]')).toHaveCount(0);
   await expect(page.locator('.timeline-axis .axis-label')).toHaveText('');
   await expect(page.getByText('Record', { exact: true })).toHaveCount(0);
-  const guides = await page.locator('[data-lane]').first().evaluate((lane) => ({
-    laneBorderWidth: getComputedStyle(lane).borderBottomWidth,
-    laneBorderStyle: getComputedStyle(lane).borderBottomStyle,
-    baselineContent: getComputedStyle(lane.querySelector('.lane-track'), '::before').content,
-    segmentBorderWidth: getComputedStyle(lane.querySelector('.timeline-segment-grid span')).borderRightWidth,
-    segmentBorderStyle: getComputedStyle(lane.querySelector('.timeline-segment-grid span')).borderRightStyle,
-  }));
-  expect(guides.laneBorderWidth).toBe('0px');
-  expect(guides.laneBorderStyle).toBe('none');
-  expect(guides.baselineContent).toBe('none');
-  expect(guides.segmentBorderWidth).toBe('1px');
-  expect(guides.segmentBorderStyle).toBe('solid');
-
   await page.locator('[data-view]').selectOption('both');
+  const guides = await page.locator('[data-lane-type="company"]:visible, [data-lane-type="person"]:visible').evaluateAll((lanes) => (
+    ['company', 'person'].map((laneType) => {
+      const lane = lanes.find((candidate) => candidate.dataset.laneType === laneType);
+      const laneStyle = getComputedStyle(lane);
+      const baselineStyle = getComputedStyle(lane.querySelector('.lane-track'), '::before');
+      const segmentStyle = getComputedStyle(lane.querySelector('.timeline-segment-grid span'));
+      return {
+        laneType,
+        laneBorderWidth: laneStyle.borderBottomWidth,
+        laneBorderStyle: laneStyle.borderBottomStyle,
+        baselineContent: baselineStyle.content,
+        baselineTop: baselineStyle.top,
+        baselineBorderWidth: baselineStyle.borderTopWidth,
+        baselineBorderStyle: baselineStyle.borderTopStyle,
+        baselineBorderColor: baselineStyle.borderTopColor,
+        segmentBorderWidth: segmentStyle.borderRightWidth,
+        segmentBorderStyle: segmentStyle.borderRightStyle,
+      };
+    })
+  ));
+  for (const guide of guides) {
+    expect(guide.laneBorderWidth, `${guide.laneType} lane bottom border`).toBe('0px');
+    expect(guide.laneBorderStyle, `${guide.laneType} lane bottom border`).toBe('none');
+    expect(guide.baselineContent, `${guide.laneType} lane baseline content`).toBe('""');
+    expect(guide.baselineTop, `${guide.laneType} lane baseline position`).toBe('23px');
+    expect(guide.baselineBorderWidth, `${guide.laneType} lane baseline width`).toBe('1px');
+    expect(guide.baselineBorderStyle, `${guide.laneType} lane baseline style`).toBe('solid');
+    expect(guide.baselineBorderColor, `${guide.laneType} lane baseline color`).not.toBe('rgba(0, 0, 0, 0)');
+    expect(guide.segmentBorderWidth, `${guide.laneType} segment guide width`).toBe('1px');
+    expect(guide.segmentBorderStyle, `${guide.laneType} segment guide style`).toBe('solid');
+  }
+
   const peopleGroup = page.locator('[data-group="people"]');
   await expect(peopleGroup).toHaveClass(/has-group-gap/);
   const groupGap = await page.evaluate(() => {
