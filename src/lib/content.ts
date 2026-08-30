@@ -18,6 +18,26 @@ export function sortEvents(events: EventEntry[]): EventEntry[] {
   return [...events].sort((a, b) => dateNumber(a.data.when.start) - dateNumber(b.data.when.start));
 }
 
+export function orderCompaniesByGoldenEventCount(
+  companies: CompanyEntry[],
+  events: EventEntry[],
+): Array<{ company: CompanyEntry; eventCount: number }> {
+  const eventCounts = new Map<string, number>();
+
+  for (const event of events) {
+    for (const companyId of new Set(event.data.companies)) {
+      eventCounts.set(companyId, (eventCounts.get(companyId) ?? 0) + 1);
+    }
+  }
+
+  return companies
+    .map((company) => ({ company, eventCount: eventCounts.get(company.data.id) ?? 0 }))
+    .sort((left, right) =>
+      right.eventCount - left.eventCount
+      || left.company.data.name.localeCompare(right.company.data.name, 'en')
+      || left.company.data.id.localeCompare(right.company.data.id, 'en'));
+}
+
 export function formatWhen(event: EventEntry): string {
   const { start, end, precision } = event.data.when;
   const format = (value: string) => {
