@@ -100,9 +100,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(17);
+  expect(payload.companies).toHaveLength(19);
   expect(payload.people).toHaveLength(8);
-  expect(payload.events).toHaveLength(43);
+  expect(payload.events).toHaveLength(47);
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
     payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
@@ -114,8 +114,16 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
   )).map(({ id }) => id));
 
-  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(23);
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(27);
   expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(20);
+  expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining(['kioxia', 'toppan']));
+  const japanWaveEventIds = [
+    'sony-semiconductor-solutions-2022-cis-rnm-spec-verification',
+    'sony-semiconductor-solutions-2024-automotive-cis-analog-fault-verification',
+    'kioxia-2025-flash-memory-ams-cosim-verification',
+    'toppan-2025-cis-full-chip-mixed-signal-verification',
+  ];
+  expect(payload.events.map(({ id }) => id)).toEqual(expect.arrayContaining(japanWaveEventIds));
   for (const event of payload.events) {
     expect(event).toEqual(expect.objectContaining({
       id: expect.any(String),
@@ -180,8 +188,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('43 of 43 events');
-  await expect(page.locator('.event-filter-summary')).toHaveText('43 of 43 events');
+  await expect(page.locator('[data-status]')).toHaveText('47 of 47 events');
+  await expect(page.locator('.event-filter-summary')).toHaveText('47 of 47 events');
   await expect(page.locator('.event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
@@ -264,7 +272,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 43 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 47 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -275,7 +283,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'All companies', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 43 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 47 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -295,17 +303,20 @@ test('full-corpus company discovery order is shared and never changes while filt
     { id: 'analog-devices', name: 'Analog Devices', count: '6 events' },
     { id: 'renesas', name: 'Renesas Electronics', count: '6 events' },
     { id: 'nxp', name: 'NXP Semiconductors', count: '5 events' },
+    { id: 'siemens-eda', name: 'Siemens EDA', count: '5 events' },
     { id: 'texas-instruments', name: 'Texas Instruments', count: '5 events' },
     { id: 'cadence', name: 'Cadence Design Systems', count: '4 events' },
-    { id: 'siemens-eda', name: 'Siemens EDA', count: '4 events' },
     { id: 'microchip', name: 'Microchip Technology', count: '3 events' },
     { id: 'skyworks', name: 'Skyworks Solutions', count: '3 events' },
     { id: 'synopsys', name: 'Synopsys', count: '3 events' },
     { id: 'broadcom', name: 'Broadcom', count: '2 events' },
     { id: 'qualcomm', name: 'Qualcomm', count: '2 events' },
     { id: 'sitime', name: 'SiTime', count: '2 events' },
+    { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions', count: '2 events' },
+    { id: 'kioxia', name: 'KIOXIA', count: '1 event' },
     { id: 'mediatek', name: 'MediaTek', count: '1 event' },
     { id: 'nvidia', name: 'NVIDIA', count: '1 event' },
+    { id: 'toppan', name: 'TOPPAN', count: '1 event' },
   ];
 
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
@@ -335,11 +346,10 @@ test('zero-Event researched Company pages still build without primary Timeline l
   await page.goto('./');
   await expectExplorerReady(page);
   await expect(page.locator('a[href$="/companies/omnivision/"]')).toHaveCount(0);
-  await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]')).toHaveCount(0);
+  await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]')).toHaveCount(1);
 
   for (const company of [
     { id: 'omnivision', name: 'OMNIVISION' },
-    { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions' },
   ]) {
     await page.goto(`./companies/${company.id}/`);
     await expect(page).toHaveTitle(`${company.name} · AMS Signals`);
@@ -361,9 +371,9 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
     width: Number(node.getAttribute('data-segment-width')),
   })));
   expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '2020–2012']);
-  expect(segments.map(({ count }) => count)).toEqual([15, 4, 3, 4, 2, 2, 13]);
-  expect(segments.map(({ width }) => width)).toEqual([212, 84, 84, 84, 84, 84, 170]);
-  expect(timelineWidth).toBe(802);
+  expect(segments.map(({ count }) => count)).toEqual([15, 6, 4, 4, 3, 2, 13]);
+  expect(segments.map(({ width }) => width)).toEqual([212, 99, 84, 84, 84, 84, 170]);
+  expect(timelineWidth).toBe(817);
   expect(segments.filter(({ key }) => key === 'through-2020')).toHaveLength(1);
   expect(segments.at(-1).key).toBe('through-2020');
   expect(segments.some(({ label }) => /^20(?:1[2-9]|20)$/.test(label))).toBe(false);
@@ -412,8 +422,8 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
     });
     return [...unique.values()];
   });
-  expect(orderedSlots).toHaveLength(43);
-  expect(new Set(orderedSlots.map(({ x }) => x)).size, 'different Event IDs have unique x positions').toBe(43);
+  expect(orderedSlots).toHaveLength(47);
+  expect(new Set(orderedSlots.map(({ x }) => x)).size, 'different Event IDs have unique x positions').toBe(47);
   expect(timelineWidth, 'packed track is narrower than one 34px slot per Event').toBeLessThan(orderedSlots.length * 34);
   for (const segment of segments) {
     const entries = orderedSlots.filter((entry) => entry.segment === segment.key);
@@ -477,7 +487,7 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
   await expectExplorerReady(page);
 
   const summary = page.locator('.event-filter-summary');
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('43 of 43 events');
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('47 of 47 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > *')).toHaveCount(2);
@@ -743,9 +753,9 @@ test('Signal type taxonomy is binary, shape-distinct, canonical, and legacy-quer
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(43);
+  expect(serializedKinds).toHaveLength(47);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(23);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(27);
   expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(20);
 
   const legend = page.locator('.kind-legend');
@@ -760,9 +770,9 @@ test('Signal type taxonomy is binary, shape-distinct, canonical, and legacy-quer
   expect(shapes[0].backgroundColor).not.toBe(shapes[1].backgroundColor);
 
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('23 of 43 events');
+  await expect(page.locator('[data-status]')).toHaveText('27 of 47 events');
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('20 of 43 events');
+  await expect(page.locator('[data-status]')).toHaveText('20 of 47 events');
   const organizationalMark = page.locator('[data-event-mark].event-kind-organizational:visible').first();
   await organizationalMark.click();
   await expect(page.locator('[data-detail-meta]')).toContainText('Organizational');

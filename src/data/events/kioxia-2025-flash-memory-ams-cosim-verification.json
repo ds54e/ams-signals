@@ -1,0 +1,26 @@
+{
+  "id": "kioxia-2025-flash-memory-ams-cosim-verification",
+  "when": {
+    "start": "2025-09-19",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["kioxia"],
+  "people": [],
+  "headline": "KIOXIA reports AMS co-simulation in flash-memory SPICE verification",
+  "fact": "A KIOXIA SNUG Japan presentation reports that flash-memory control uses many analog circuits and is repeatedly verified with SPICE simulation including AMS co-simulation. It describes applying PrimeSim HT and a VC Execution Manager utility in product development to reduce verification time and optimize simulation-job execution within limited computing resources.",
+  "sources": [
+    {
+      "title": "SNUG Japan 2025 Session Timetable",
+      "url": "https://www.event-entry.net/snugjapan2025/timetable.php",
+      "checkedAt": "2026-08-30",
+      "summary": "Official session abstract on KIOXIA's product-development use of SPICE with AMS co-simulation, PrimeSim HT, and VC Execution Manager for flash-memory verification."
+    },
+    {
+      "title": "SNUG Japan 2025",
+      "url": "https://www.zuken.co.jp/news/snug2025/",
+      "checkedAt": "2026-08-30",
+      "summary": "Zuken's event notice identifies September 19, 2025 as the SNUG Japan 2025 conference date."
+    }
+  ]
+}
