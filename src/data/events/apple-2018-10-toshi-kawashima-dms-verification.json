@@ -1,0 +1,29 @@
+{
+  "id": "apple-2018-10-toshi-kawashima-dms-verification",
+  "when": {
+    "start": "2018-10",
+    "precision": "month"
+  },
+  "kind": "affiliation_change",
+  "companies": [
+    "apple"
+  ],
+  "people": [
+    "toshi-kawashima"
+  ],
+  "headline": "Toshi Kawashima's profile dates an Apple DMS verification role to October 2018",
+  "fact": "Toshi Kawashima's public professional profile dates the start of his Apple role as Manager, DMS (Digital Mixed-Signal) Design Verification to October 2018 and says he leads a team responsible for DMS and AMS verification and methodology work across mixed-signal LSI projects.",
+  "sources": [
+    {
+      "title": "Toshi Kawashima — LinkedIn",
+      "url": "https://jp.linkedin.com/in/toshi532",
+      "checkedAt": "2026-08-30",
+      "summary": "Kawashima's public professional profile dates his Apple DMS design-verification manager role to October 2018 and describes the team's verification and methodology responsibilities."
+    }
+  ],
+  "affiliationChange": {
+    "person": "toshi-kawashima",
+    "from": null,
+    "to": "apple"
+  }
+}
