@@ -1,0 +1,20 @@
+{
+  "id": "nxp-2024-pre-post-silicon-test-reuse",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["nxp"],
+  "people": [],
+  "headline": "NXP authors report reusing AMS verification tests in post-silicon validation",
+  "fact": "An NXP-authored paper reports reusing pre-silicon AMS functional tests in post-silicon validation with matching stimulus timing and side-by-side waveform visualization. The methodology uses Jupyter and Python around a reusable environment for product variants; the authors report deployment across multiple projects and products and one-day silicon bring-up.",
+  "sources": [
+    {
+      "title": "Analog Mixed Signal Verification and Validation Methodology: Bridging Pre- and Post-Silicon",
+      "url": "https://dvcon-proceedings.org/document/analog-mixed-signal-verification-and-validationvv-methodology-bridging-the-gap-between-pre-silicon-verification-and-post-silicon-validation/",
+      "checkedAt": "2026-08-30",
+      "summary": "2024 NXP paper on reusable AMS tests, Python/Jupyter orchestration, product variants, and pre- to post-silicon correlation."
+    }
+  ]
+}
