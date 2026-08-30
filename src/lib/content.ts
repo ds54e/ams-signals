@@ -15,7 +15,9 @@ export function eventYear(event: EventEntry): number {
 }
 
 export function sortEvents(events: EventEntry[]): EventEntry[] {
-  return [...events].sort((a, b) => dateNumber(a.data.when.start) - dateNumber(b.data.when.start));
+  return [...events].sort((a, b) =>
+    dateNumber(a.data.when.start) - dateNumber(b.data.when.start)
+    || a.data.id.localeCompare(b.data.id, 'en'));
 }
 
 export function orderCompaniesByGoldenEventCount(
