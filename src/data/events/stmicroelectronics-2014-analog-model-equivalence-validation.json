@@ -1,0 +1,29 @@
+{
+  "id": "stmicroelectronics-2014-analog-model-equivalence-validation",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics",
+    "mentor-graphics"
+  ],
+  "people": [],
+  "headline": "STMicroelectronics and Mentor authors report equivalence validation of analog behavioral models",
+  "fact": "A DVCon 2014 paper by STMicroelectronics and Mentor Graphics authors describes a verification-plan-driven equivalence-validation component that applies common tests to analog implementations and behavioral models, produces pass/fail results and waivers, and can be reused across projects. The paper reports use by ST's high-speed serial-links group across HDMI, USB, and D-PHY work and says it exposed functional, connectivity, and test-mode differences before models were delivered to SoC teams.",
+  "sources": [
+    {
+      "title": "Equivalence Validation of Analog Behavioral Models",
+      "url": "https://dvcon-proceedings.org/document/equivalence-validation-of-analog-behavioral-models/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the STMicroelectronics and Mentor Graphics authors and the analog-model equivalence-validation topic."
+    },
+    {
+      "title": "Equivalence Validation of Analog Behavioral Models — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/equivalence-validation-of-analog-behavioral-models.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the reusable validation component, pass/fail and waiver workflow, ST application context, and reported model differences."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "analog-devices-2021-upf-dms-low-power-verification",
+  "when": {
+    "start": "2021",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "Analog Devices authors report UPF-based low-power verification in a digital mixed-signal flow",
+  "fact": "A DVCon 2021 paper by Analog Devices authors describes combining SystemVerilog real-number models, RTL, and Unified Power Format for low-power digital mixed-signal verification. The environment checked supplies, isolation, level shifting, and power sequencing, and the authors report that it exposed a power-domain defect involving memory built-in self-test and a test-data register.",
+  "sources": [
+    {
+      "title": "Digital Mixed-Signal Low-Power Verification with Unified Power Format (UPF)",
+      "url": "https://dvcon-proceedings.org/document/digital-mixed-signal-low-power-verification-with-unified-power-format-upf/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Analog Devices paper on combining digital mixed-signal verification with UPF."
+    },
+    {
+      "title": "Digital Mixed-Signal Low-Power Verification with Unified Power Format — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/digital-mixed-signal-low-power-verification-with-unified-power-format-upf.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the SV-RNM, RTL, and UPF environment, low-power checks, and reported power-domain defect."
+    }
+  ]
+}

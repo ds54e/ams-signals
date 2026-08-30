@@ -1,0 +1,31 @@
+{
+  "id": "dialog-semiconductor-2020-unified-rtl-dms-ams-testbench",
+  "when": {
+    "start": "2020",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "dialog-semiconductor",
+    "cadence"
+  ],
+  "people": [
+    "peter-grove"
+  ],
+  "headline": "Dialog Semiconductor and Cadence report a unified RTL, DMS, and AMS testbench flow",
+  "fact": "At CadenceLIVE Europe 2020, Dialog Semiconductor's Peter Grove described work with Cadence R&D on a unified testbench and an LRM-compliant SystemVerilog netlister spanning RTL, digital mixed-signal, and analog/mixed-signal simulation. This is a dated Dialog Semiconductor record and does not imply methodology transfer to Grove's later affiliations.",
+  "sources": [
+    {
+      "title": "CadenceLIVE Europe 2020 Proceedings",
+      "url": "https://www.cadence.com/en_US/home/cadence-live/2020/europe/repository.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence's conference repository lists Peter Grove of Dialog Semiconductor and the unified RTL, DMS, and AMS testbench presentation."
+    },
+    {
+      "title": "A Mixed-Signal Universal Testbench for RTL/DMS/AMS (UTB)",
+      "url": "https://www.tessolve.com/a-mixed-signal-universal-testbench-for-rtl-dms-ams-utb/",
+      "checkedAt": "2026-08-30",
+      "summary": "Grove's later technical article describes the unified testbench, Cadence R&D collaboration, SystemVerilog netlister, and common RTL/DMS/AMS flow."
+    }
+  ]
+}

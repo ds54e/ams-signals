@@ -5,10 +5,10 @@
     "precision": "year"
   },
   "kind": "technical",
-  "companies": ["cadence"],
-  "people": ["prabal-bhattacharya"],
-  "headline": "Cadence author presents real-valued SystemVerilog covergroups for mixed-signal functional coverage",
-  "fact": "At DVCon 2012, Cadence's Prabal K. Bhattacharya and coauthors proposed extending SystemVerilog coverpoints to accept real-valued data for analog and mixed-signal functional coverage. The work reports a prototype following a year-long Cadence research-and-development effort and addresses real-valued bins and ranges, range precision, coverage scoring, cross coverage, and remaining floating-point issues.",
+  "companies": ["cadence", "intel"],
+  "people": ["prabal-bhattacharya", "scott-little"],
+  "headline": "Cadence and Intel authors present real-valued SystemVerilog covergroups for mixed-signal functional coverage",
+  "fact": "At DVCon 2012, Cadence's Prabal K. Bhattacharya, Intel's Scott Little, and coauthors proposed extending SystemVerilog coverpoints to accept real-valued data for analog and mixed-signal functional coverage. The work reports a prototype following a year-long Cadence research-and-development effort and addresses real-valued bins and ranges, range precision, coverage scoring, cross coverage, and remaining floating-point issues. The affiliations are specific to this paper and do not imply methodology transfer between the companies.",
   "sources": [
     {
       "title": "DVCon 2012: Bringing Continuous Domain into SystemVerilog Covergroups",

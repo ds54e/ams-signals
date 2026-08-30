@@ -1,0 +1,29 @@
+{
+  "id": "ibm-2013-wreal-rnm-mixed-signal-verification",
+  "when": {
+    "start": "2013",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "ibm",
+    "cadence"
+  ],
+  "people": [],
+  "headline": "IBM and Cadence authors report wreal modeling and digital mixed-signal regressions on an IBM project",
+  "fact": "A DVCon 2013 paper by IBM and Cadence authors reports that IBM created and deployed Verilog-AMS wreal models on a mixed-signal project. The authors describe correlation against circuit-level simulations, approximately 40x simulation speedup for a representative case, and digital mixed-signal regressions that could run overnight.",
+  "sources": [
+    {
+      "title": "Real Number Modeling",
+      "url": "https://dvcon-proceedings.org/document/real-number-modeling/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies IBM and Cadence authors for the real-number-modeling methodology paper."
+    },
+    {
+      "title": "Real Number Modeling — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/real-number-modeling.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper describes IBM's wreal model development, correlation, reported speed comparison, and overnight regression use."
+    }
+  ]
+}

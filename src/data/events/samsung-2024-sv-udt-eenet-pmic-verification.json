@@ -1,0 +1,24 @@
+{
+  "id": "samsung-2024-sv-udt-eenet-pmic-verification",
+  "when": {
+    "start": "2024-06-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [
+    "vijay-kumar"
+  ],
+  "headline": "Samsung authors present SystemVerilog EEnet models for PMIC loading verification",
+  "fact": "At DAC 2024, Samsung authors presented a digital mixed-signal verification approach that combines lower-level behavioral models with a SystemVerilog user-defined EEnet to represent electrical loading in power-management IC verification. The presentation describes extending the DMS verification checklist to performance and loading behaviors beyond voltage-only interfaces.",
+  "sources": [
+    {
+      "title": "Accelerating PMIC Verification Using Digital Mixed Signal Methodology",
+      "url": "https://61dac.conference-program.com/presentation/?id=ETPOST217&sess=sess232",
+      "checkedAt": "2026-08-30",
+      "summary": "The official DAC 2024 schedule identifies Samsung authors including Vijay Kumar, dates the presentation to June 24, and describes its SystemVerilog UDT/EEnet PMIC focus."
+    }
+  ]
+}
