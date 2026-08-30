@@ -58,26 +58,17 @@ const companyEventCount = new Map(countOrderedCompanyRecords.map(({ company, eve
   company.data.id,
   eventCount,
 ]));
-const defaultView = context === 'global'
-  ? 'both'
-  : context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
 const showActivityMatrix = showTimeline && context === 'global';
+const showSignalTypeControl = !showActivityMatrix;
 const timelineGeometry = showTimeline && !showActivityMatrix ? buildTimelineGeometry(events) : null;
 const timelineSegments = timelineGeometry?.segments ?? [];
 const timelineWidth = timelineGeometry?.width ?? 0;
 const timelineColumns = timelineGeometry?.columns ?? '';
 const timelinePositionByEventId = timelineGeometry?.positionByEventId ?? new Map();
 const activityTicks = activityMatrixGeometry?.ticks ?? [];
-const activityCompanyRows = activityMatrixGeometry?.companyRows ?? [];
-const activityPeopleRows = activityMatrixGeometry?.peopleRows ?? [];
 const activityCombinedRows = activityMatrixGeometry?.combinedRows ?? [];
-const activityGroups = [
-  { id: 'both', rows: activityCombinedRows },
-  { id: 'companies', rows: activityCompanyRows },
-  { id: 'people', rows: activityPeopleRows },
-];
 const activityBundleWindow = (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
@@ -175,7 +166,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
   data-event-explorer-root
   data-timeline-root={showTimeline ? '' : undefined}
   data-context={context}
-  data-default-view={defaultView}
   data-surface={surface}
   data-activity-matrix={showActivityMatrix ? '' : undefined}
 >
@@ -185,25 +175,16 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       <input data-search type="search" placeholder="model validation, PLL, real-number…" autocomplete="off" />
     </label>
 
-    {showGlobalControls && (
+    {showSignalTypeControl && (
       <label class="select-control">
-        <span>Entity type</span>
-        <select data-view>
-          <option value="both" selected={defaultView === 'both'}>All types</option>
-          <option value="companies">Companies</option>
-          <option value="people">People</option>
+        <span>Signal type</span>
+        <select data-kind>
+          <option value="all">All types</option>
+          <option value="technical">Technical</option>
+          <option value="organizational">Organizational</option>
         </select>
       </label>
     )}
-
-    <label class="select-control">
-      <span>Signal type</span>
-      <select data-kind>
-        <option value="all">All types</option>
-        <option value="technical">Technical</option>
-        <option value="organizational">Organizational</option>
-      </select>
-    </label>
 
     {showGlobalControls && (
       <details class="company-picker" data-company-picker>
@@ -218,7 +199,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
             <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
           </div>
           <fieldset data-company-options>
-            <legend class="visually-hidden">Companies included in this view</legend>
+            <legend class="visually-hidden">Companies included by this filter</legend>
             {companyIds.map((companyId) => (
               <label>
                 <input type="checkbox" value={companyId} checked />
@@ -290,11 +271,10 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
               data-domain-latest-year={activityMatrixGeometry?.domain.latestYear}
               data-min-track-width={ACTIVITY_MATRIX_MIN_TRACK_WIDTH}
             >
-              {activityGroups.map((group) => (
-                <div class="activity-matrix-group" data-group={group.id} hidden={group.id !== defaultView}>
-                  {group.rows.length === 0 ? (
-                    <p class="empty-note">No events match this entity type.</p>
-                  ) : group.rows.map((row, rowIndex) => (
+              <div class="activity-matrix-group" data-group="both">
+                  {activityCombinedRows.length === 0 ? (
+                    <p class="empty-note">No events match these filters.</p>
+                  ) : activityCombinedRows.map((row, rowIndex) => (
                     <div
                       class="activity-matrix-row"
                       style={`--matrix-row-height:${row.height}px`}
@@ -369,8 +349,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                       </div>
                     </div>
                   ))}
-                </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
@@ -403,7 +382,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
               </div>
             </div>
 
-            <div class="lane-group" data-group="companies" hidden={defaultView === 'people'}>
+            <div class="lane-group" data-group="companies" hidden={context === 'person'}>
               {companyIds.map((companyId) => {
                 const marks = marksForLane(ordered.filter((event) => event.data.companies.includes(companyId)));
                 return (
@@ -435,9 +414,9 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
               })}
             </div>
 
-            <div class="lane-group" data-group="people" hidden={defaultView === 'companies'}>
+            <div class="lane-group" data-group="people" hidden={context !== 'person'}>
               {personIds.length === 0 ? (
-                <p class="empty-note">No people events match this record.</p>
+                <p class="empty-note">No people events match these filters.</p>
               ) : personIds.map((personId) => {
                 const marks = marksForLane(ordered.filter((event) => event.data.people.includes(personId)));
                 return (
@@ -561,11 +540,9 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     const events = JSON.parse(jsonNode?.textContent || '[]');
     const byId = new Map(events.map((event) => [event.id, event]));
     const context = root.getAttribute('data-context') || 'global';
-    const defaultView = root.getAttribute('data-default-view') || 'both';
     const isTimeline = root.getAttribute('data-surface') === 'timeline';
     const isActivityMatrix = root.hasAttribute('data-activity-matrix');
     const search = root.querySelector('[data-search]');
-    const view = root.querySelector('[data-view]');
     const kind = root.querySelector('[data-kind]');
     const status = root.querySelector('[data-status]');
     const resetButtons = root.querySelectorAll('[data-reset], [data-empty-reset]');
@@ -790,23 +767,26 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       }
     };
 
-    const updateViewLinks = (params) => {
+    const updateSurfaceLinks = (params) => {
       document.querySelectorAll('[data-filter-view-link]').forEach((link) => {
         const href = link.getAttribute('href');
         if (!href) return;
         const url = new URL(href, window.location.href);
-        url.search = params.toString();
+        const targetParams = new URLSearchParams(params);
+        targetParams.delete('view');
+        if (link.getAttribute('data-filter-surface') === 'timeline') targetParams.delete('kind');
+        url.search = targetParams.toString();
         link.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
       });
     };
 
-    const updateUrl = (selected, kindValue, viewValue) => {
+    const updateUrl = (selected, kindValue) => {
       const params = new URLSearchParams(window.location.search);
       search.value.trim() ? params.set('q', search.value.trim()) : params.delete('q');
-      kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
+      kind && kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
+      params.delete('view');
 
       if (context === 'global') {
-        viewValue !== defaultView ? params.set('view', viewValue) : params.delete('view');
         if (selected.size === companyChecks.length) {
           params.delete('companies');
         } else if (selected.size === 0) {
@@ -814,14 +794,11 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
         } else {
           params.set('companies', [...selected].sort().join(','));
         }
-      } else {
-        params.delete('view');
-        params.delete('companies');
-      }
+      } else params.delete('companies');
 
       const next = params.toString();
       history.replaceState(null, '', `${location.pathname}${next ? `?${next}` : ''}`);
-      updateViewLinks(params);
+      updateSurfaceLinks(params);
     };
 
     const updateMatrixBundles = () => {
@@ -865,18 +842,14 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
 
     const apply = () => {
       const terms = termsFor(search.value);
-      const kindValue = kind.value;
-      const viewValue = view?.value || defaultView;
+      const kindValue = kind?.value || 'all';
       const selected = selectedCompanyIds();
       const visibleEvents = events.filter((event) => {
         const eventTokens = tokensFor(event.search);
         const matchesText = terms.every((term) => hasTerm(eventTokens, term));
         const matchesKind = kindValue === 'all' || event.kind === kindValue;
         const matchesCompany = context !== 'global' || event.companies.some((company) => selected.has(company.id));
-        const matchesView = context !== 'global'
-          || viewValue === 'both'
-          || (viewValue === 'companies' ? event.companies.length > 0 : event.people.length > 0);
-        return matchesText && matchesKind && matchesCompany && matchesView;
+        return matchesText && matchesKind && matchesCompany;
       });
       visibleIds = new Set(visibleEvents.map((event) => event.id));
 
@@ -914,18 +887,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
         lane.hidden = !hasVisibleMark || suppressSingleton;
       });
 
-      const combinedGroup = root.querySelector('[data-group="both"]');
-      const companyGroup = root.querySelector('[data-group="companies"]');
-      const peopleGroup = root.querySelector('[data-group="people"]');
-      if (isActivityMatrix) {
-        if (combinedGroup) combinedGroup.hidden = viewValue !== 'both';
-        if (companyGroup) companyGroup.hidden = viewValue !== 'companies';
-        if (peopleGroup) peopleGroup.hidden = viewValue !== 'people';
-      } else {
-        if (companyGroup) companyGroup.hidden = viewValue === 'people';
-        if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
-      }
-
       representedTimelineIds = isActivityMatrix
         ? new Set([...root.querySelectorAll('[data-matrix-mark]')]
             .filter(markIsRendered)
@@ -937,7 +898,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       status.textContent = `${statusIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
       if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
       updateCompanySummary(selected);
-      updateUrl(selected, kindValue, viewValue);
+      updateUrl(selected, kindValue);
 
       if (isTimeline) {
         const detailTerms = termsFor(search.value);
@@ -969,8 +930,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
 
     const reset = () => {
       search.value = '';
-      kind.value = 'all';
-      if (view) view.value = defaultView;
+      if (kind) kind.value = 'all';
       companyChecks.forEach((check) => { check.checked = true; });
       if (companyPicker) companyPicker.open = false;
       apply();
@@ -981,9 +941,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     if (params.get('q')) search.value = params.get('q');
     const requestedKind = params.get('kind');
     const canonicalKind = legacyKindAliases.get(requestedKind) || requestedKind;
-    if ([...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
-    const requestedView = params.get('view');
-    if (view && [...view.options].some((option) => option.value === requestedView)) view.value = requestedView;
+    if (kind && [...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
 
     if (context === 'global' && params.has('companies')) {
       const raw = params.get('companies');
@@ -1000,8 +958,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       });
     });
     search.addEventListener('input', apply);
-    kind.addEventListener('change', apply);
-    view?.addEventListener('change', apply);
+    kind?.addEventListener('change', apply);
     companyChecks.forEach((check) => check.addEventListener('change', apply));
     root.querySelector('[data-select-all-companies]')?.addEventListener('click', () => {
       companyChecks.forEach((check) => { check.checked = true; });
