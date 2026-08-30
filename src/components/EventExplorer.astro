@@ -844,11 +844,15 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       const terms = termsFor(search.value);
       const kindValue = kind?.value || 'all';
       const selected = selectedCompanyIds();
+      const allCompaniesSelected = selected.size === companyChecks.length;
       const visibleEvents = events.filter((event) => {
         const eventTokens = tokensFor(event.search);
         const matchesText = terms.every((term) => hasTerm(eventTokens, term));
         const matchesKind = kindValue === 'all' || event.kind === kindValue;
-        const matchesCompany = context !== 'global' || event.companies.some((company) => selected.has(company.id));
+        const matchesCompany = context !== 'global'
+          || (event.companies.length === 0
+            ? allCompaniesSelected
+            : event.companies.some((company) => selected.has(company.id)));
         return matchesText && matchesKind && matchesCompany;
       });
       visibleIds = new Set(visibleEvents.map((event) => event.id));
