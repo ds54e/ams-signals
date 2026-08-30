@@ -43,11 +43,15 @@ test('company focus and lexical searches survive URL reload', async ({ page }) =
   await expectTimelineReady(page);
   await expect(page.locator('[data-search]')).toHaveValue('RNM');
 
+  const selectedInDiscoveryOrder = await page.locator('[data-company-options] input:checked').evaluateAll((inputs) => inputs.map((input) => input.value));
+  expect(selectedInDiscoveryOrder).toEqual(['apple', 'skyworks', 'sitime']);
   const selectedCompanies = await page.locator('[data-company-options] input:checked').evaluateAll((inputs) => inputs.map((input) => input.value).sort());
   expect(selectedCompanies).toEqual(['apple', 'sitime', 'skyworks']);
   await page.reload();
   await expectTimelineReady(page);
   await expect(page.locator('[data-search]')).toHaveValue('RNM');
+  const reloadedInDiscoveryOrder = await page.locator('[data-company-options] input:checked').evaluateAll((inputs) => inputs.map((input) => input.value));
+  expect(reloadedInDiscoveryOrder).toEqual(['apple', 'skyworks', 'sitime']);
   const reloadedCompanies = await page.locator('[data-company-options] input:checked').evaluateAll((inputs) => inputs.map((input) => input.value).sort());
   expect(reloadedCompanies).toEqual(['apple', 'sitime', 'skyworks']);
 
@@ -55,6 +59,59 @@ test('company focus and lexical searches survive URL reload', async ({ page }) =
     await page.locator('[data-search]').fill(query);
     await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
     expect(new URL(page.url()).searchParams.get('q')).toBe(query);
+  }
+});
+
+test('company discovery order uses full-corpus Event counts and stays fixed while filtering', async ({ page }) => {
+  const expectedRecords = [
+    { id: 'apple', name: 'Apple', count: '9 events' },
+    { id: 'analog-devices', name: 'Analog Devices', count: '5 events' },
+    { id: 'renesas', name: 'Renesas Electronics', count: '5 events' },
+    { id: 'nxp', name: 'NXP Semiconductors', count: '3 events' },
+    { id: 'siemens-eda', name: 'Siemens EDA', count: '3 events' },
+    { id: 'skyworks', name: 'Skyworks Solutions', count: '3 events' },
+    { id: 'texas-instruments', name: 'Texas Instruments', count: '3 events' },
+    { id: 'broadcom', name: 'Broadcom', count: '2 events' },
+    { id: 'cadence', name: 'Cadence Design Systems', count: '2 events' },
+    { id: 'sitime', name: 'SiTime', count: '2 events' },
+    { id: 'synopsys', name: 'Synopsys', count: '2 events' },
+    { id: 'mediatek', name: 'MediaTek', count: '1 event' },
+    { id: 'microchip', name: 'Microchip Technology', count: '1 event' },
+    { id: 'nvidia', name: 'NVIDIA', count: '1 event' },
+    { id: 'qualcomm', name: 'Qualcomm', count: '1 event' },
+    { id: 'omnivision', name: 'OMNIVISION', count: 'No Golden events currently indexed' },
+    { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions', count: 'No Golden events currently indexed' },
+  ];
+  const expectedActive = expectedRecords.slice(0, -2);
+
+  const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
+    id: label.querySelector('input')?.value,
+    name: label.querySelector('span')?.textContent?.trim(),
+    count: label.querySelector('small')?.textContent?.trim(),
+  })));
+  const laneOrder = () => page.locator('[data-group="companies"] [data-lane]').evaluateAll((lanes) => lanes.map((lane) => lane.getAttribute('data-entity-id')));
+  const recordOrder = () => page.locator('.company-records li').evaluateAll((rows) => rows.map((row) => {
+    const link = row.querySelector('a');
+    return {
+      id: link?.getAttribute('href')?.match(/companies\/([^/]+)\//)?.[1],
+      name: link?.textContent?.trim(),
+      count: row.querySelector('span')?.textContent?.trim(),
+    };
+  }));
+
+  await page.goto('./');
+  await expectTimelineReady(page);
+
+  expect(await pickerOrder()).toEqual(expectedActive);
+  expect(await laneOrder()).toEqual(expectedActive.map(({ id }) => id));
+  expect(await recordOrder()).toEqual(expectedRecords);
+
+  for (const query of ['RNM', 'PLL']) {
+    await page.locator('[data-search]').fill(query);
+    await expect.poll(() => new URL(page.url()).searchParams.get('q')).toBe(query);
+    expect(await pickerOrder()).toEqual(expectedActive);
+    expect(await laneOrder()).toEqual(expectedActive.map(({ id }) => id));
+    expect(await recordOrder()).toEqual(expectedRecords);
   }
 });
 
@@ -132,6 +189,8 @@ test('mobile chronology has no document overflow and light/dark modes remain dis
   await page.goto('./?companies=apple,sitime,skyworks&q=RNM');
   await expectTimelineReady(page);
   await expect(page.locator('.result-section')).toBeVisible();
+  const selectedInDiscoveryOrder = await page.locator('[data-company-options] input:checked').evaluateAll((inputs) => inputs.map((input) => input.value));
+  expect(selectedInDiscoveryOrder).toEqual(['apple', 'skyworks', 'sitime']);
 
   const lightBackground = await page.locator('html').evaluate((html) => getComputedStyle(html).backgroundColor);
   const overflow = await page.evaluate(() => ({

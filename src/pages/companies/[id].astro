@@ -27,7 +27,7 @@ const companyEvents = events.filter((event) => event.data.companies.includes(com
     {company.data.lastReviewed && <p class="lede">Last researched {company.data.lastReviewed}. Public events shown here describe observable source material, not total internal activity.</p>}
   </section>
   {companyEvents.length > 0 ? (
-    <Timeline events={companyEvents} companies={companies} people={people} context="company" />
+    <Timeline events={companyEvents} goldenEvents={events} companies={companies} people={people} context="company" />
   ) : (
     <section class="sparse-state" aria-labelledby="sparse-heading">
       <p class="eyebrow">RESEARCHED SPARSE RECORD</p>
