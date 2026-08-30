@@ -78,4 +78,17 @@ const people = defineCollection({
   }).strict(),
 });
 
-export const collections = { events, companies, people };
+const analysis = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/analysis',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
+  schema: z.object({
+    title: z.string().min(1),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    description: z.string().min(1).max(300),
+  }).strict(),
+});
+
+export const collections = { events, companies, people, analysis };

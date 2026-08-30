@@ -84,6 +84,12 @@ Do not build employee directories. Do not treat a person who merely shares a job
 
 Interpretation is allowed only in a clearly separate analysis/column area. Analysis should link back to factual event permalinks so readers can inspect the underlying record and draw different conclusions.
 
+- Label Analysis as inferential and keep it out of Golden Event, Company, People, and Timeline surfaces.
+- Link important factual foundations to stable Golden Event permalinks.
+- Preserve evidence modality: reported practice, hiring or organizational mandates, patents, and ecosystem context do not support the same claims.
+- Treat alternative explanations and unknowns as first-class parts of the reasoning.
+- Do not add maturity scores, rankings, or hidden technology taxonomies to Analysis.
+
 ## Data discipline
 
 Before committing:
@@ -92,6 +98,7 @@ Before committing:
 npm run validate
 npm run lint:facts
 npm run check:duplicates
+npm run check:analysis-links
 npm run build
 ```
 
