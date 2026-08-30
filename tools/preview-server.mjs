@@ -4,8 +4,10 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const server = await preview({
   root,
-  host: '127.0.0.1',
-  port: 4321,
+  server: {
+    host: '127.0.0.1',
+    port: 4321,
+  },
 });
 
 let stopping = false;
