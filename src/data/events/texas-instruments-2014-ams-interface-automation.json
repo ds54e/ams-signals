@@ -1,0 +1,23 @@
+{
+  "id": "texas-instruments-2014-ams-interface-automation",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments",
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Texas Instruments and Cadence authors report automating supply-aware AMS interface handling",
+  "fact": "A DVCon 2014 paper by Texas Instruments, IIT, and Cadence authors compares connect-module and interface-element methods for analog/mixed-signal boundaries and describes automation for true supply sensitivity. The authors state that the methods were applied on several commercial mixed-signal SoCs and present practical tradeoffs and guidelines for automating supply-sensitive interface handling.",
+  "sources": [
+    {
+      "title": "Efficient Methods for Analog Mixed-Signal Verification: Interface Handling Methods, Trade-offs and Guidelines",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/efficient-methods-for-analog-mixed-signal-verification-interface-handling-methods-trade-offs-and-guidelines.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper compares AMS interface approaches and reports application of automated, supply-sensitive interface handling on commercial mixed-signal SoCs."
+    }
+  ]
+}

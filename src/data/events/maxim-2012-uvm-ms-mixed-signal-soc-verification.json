@@ -1,0 +1,31 @@
+{
+  "id": "maxim-2012-uvm-ms-mixed-signal-soc-verification",
+  "when": {
+    "start": "2012",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "maxim-integrated",
+    "cadence"
+  ],
+  "people": [
+    "neyaz-khan"
+  ],
+  "headline": "Maxim and Cadence authors report UVM-MS verification of a complex mixed-signal SoC",
+  "fact": "A DVCon 2012 paper by Maxim Integrated and Cadence authors reports applying a UVM-MS methodology to a complex noise-cancelling receiver SoC. The case study describes an executable verification plan, wreal behavioral models, constrained-random stimulus, assertions, functional coverage, and verification closure supporting first-pass success.",
+  "sources": [
+    {
+      "title": "From Spec to Verification Closure: Applying UVM-MS for First-Pass Success to a Complex Mixed-Signal SoC",
+      "url": "https://dvcon-proceedings.org/document/from-spec-to-verification-closure-a-case-study-of-applying-uvm-ms-for-first-pass-success-to-a-complex-ms-soc-design/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Maxim and Cadence case study on UVM-MS verification of a complex mixed-signal receiver SoC."
+    },
+    {
+      "title": "From Spec to Verification Closure — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/from-spec-to-verification-closure-a-case-study-of-applying-uvm-ms-for-first-pass-success-to-a-complex-mixed-signal-soc-design.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the executable plan, wreal models, constrained-random tests, assertions, coverage, and reported first-pass outcome."
+    }
+  ]
+}

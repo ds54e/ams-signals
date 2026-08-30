@@ -1,0 +1,24 @@
+{
+  "id": "freescale-2011-realtime-ams-assertions",
+  "when": {
+    "start": "2011",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "freescale-semiconductor"
+  ],
+  "people": [
+    "scott-little"
+  ],
+  "headline": "Freescale coauthor proposes realtime regular expressions for analog and mixed-signal assertions",
+  "fact": "At FMCAD 2011, John Havlicek and Freescale Semiconductor's Scott Little presented syntax and semantics for realtime regular expressions that extend SystemVerilog Assertion-style regular expressions to describe continuous-time analog and mixed-signal properties. The paper says the work was influenced by the Accellera analog-assertions effort; it does not claim an internal Freescale deployment.",
+  "sources": [
+    {
+      "title": "FMCAD 2011 Proceedings: Realtime Regular Expressions for Analog and Mixed-Signal Assertions",
+      "url": "https://www.cs.utexas.edu/~hunt/fmcad/FMCAD11/papers/fmcad-2011-proceedings.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The proceedings list Scott Little with Freescale Semiconductor and present realtime regular expressions for specifying continuous-time analog and mixed-signal properties."
+    }
+  ]
+}

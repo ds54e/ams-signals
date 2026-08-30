@@ -1,0 +1,38 @@
+{
+  "id": "lsi-2011-2012-hdd-preamplifier-rnm-verification",
+  "when": {
+    "start": "2011",
+    "end": "2012",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "lsi",
+    "cadence"
+  ],
+  "people": [
+    "neyaz-khan"
+  ],
+  "headline": "LSI and Cadence records describe RNM verification of a hard-disk-drive preamplifier",
+  "fact": "A 2011 DVCon paper by LSI and Cadence authors describes real-number models for mixed-signal verification of a hard-disk-drive preamplifier and reports roughly 24x speedup over the referenced SPICE simulation with about 0.3% gain inaccuracy. A later Cadence-authored report describes LSI applying the models in mixed-signal SoC verification, reporting roughly 600x speedup, 95% accuracy, full functional coverage, and no functional bugs in first silicon. These performance and outcome statements retain their respective paper and vendor-report modalities.",
+  "sources": [
+    {
+      "title": "Metric Driven Verification of Mixed Signal Designs",
+      "url": "https://dvcon-proceedings.org/document/metric-driven-verification-of-mixed-signal-designs/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies LSI and Cadence authors for the HDD-preamplifier real-number-modeling case study."
+    },
+    {
+      "title": "Metric Driven Verification of Mixed Signal Designs — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/metric-driven-verification-of-mixed-signal-designs.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper reports the RNM architecture, simulation-speed comparison, accuracy result, and chip-level verification option."
+    },
+    {
+      "title": "Real Number Model Development and Application in Mixed-Signal SoC Verification",
+      "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/cdnlive-real-number-model-development-and-application-in-mixed-signal-soc-verification",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence's 2012 account reports LSI's application results, including its stated speed, accuracy, coverage, and first-silicon outcomes."
+    }
+  ]
+}

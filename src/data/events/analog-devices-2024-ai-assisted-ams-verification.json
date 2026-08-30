@@ -1,0 +1,28 @@
+{
+  "id": "analog-devices-2024-ai-assisted-ams-verification",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "Analog Devices and university authors evaluate an AI-generated SystemVerilog model in an AMS workflow",
+  "fact": "A DVCon Europe 2024 paper by University College Cork and Analog Devices authors evaluates an experimental workflow that learns from analog simulation data and generates a SystemVerilog inference model. For an RC demonstration, the paper reports 16 seconds for analog simulation, 15 seconds for a non-AI SystemVerilog model, and 14 seconds for the AI model, and says the approach was evaluated at ADI with promising results. It does not establish production deployment.",
+  "sources": [
+    {
+      "title": "A New Approach to Integrating AI into Analog/Mixed-Signal Verification Workflow",
+      "url": "https://dvcon-proceedings.org/document/a-new-approach-to-integrated-ai-into-analog-mixed-signal-verification-workflow/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the University College Cork and Analog Devices experimental AI-assisted AMS verification paper."
+    },
+    {
+      "title": "A New Approach to Integrating AI into Analog/Mixed-Signal Verification Workflow — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/164-A-new-approach-to-integrated-AI-into-analogmixed-signal-verification-workflow.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper describes the learned SystemVerilog model, RC timing comparison, and experimental evaluation wording."
+    }
+  ]
+}

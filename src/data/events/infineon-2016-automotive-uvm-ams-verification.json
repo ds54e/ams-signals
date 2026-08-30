@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2016-automotive-uvm-ams-verification",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon author reports UVM-based AMS verification of automotive mixed-signal requirements",
+  "fact": "A DVCon 2016 paper by Infineon's Silvia Strähle describes UVM-based verification of an automotive mixed-signal design with more than 1,000 requirements. The environment could exchange a VHDL behavioral model for a transistor-level netlist where needed and checked analog quantities and operating conditions including temperature, overcurrent, and overtemperature behavior.",
+  "sources": [
+    {
+      "title": "AMS Verification in a UVM Environment",
+      "url": "https://dvcon-proceedings.org/document/ams-verification-in-a-uvm-environment/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies Silvia Strähle of Infineon and the UVM-based AMS verification paper."
+    },
+    {
+      "title": "AMS Verification in a UVM Environment — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/ams-verification-in-a-uvm-environment-paper.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the automotive requirements context, behavioral-model and netlist substitution, and analog-condition checks."
+    }
+  ]
+}

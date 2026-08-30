@@ -100,9 +100,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(24);
-  expect(payload.people).toHaveLength(14);
-  expect(payload.events).toHaveLength(57);
+  expect(payload.companies).toHaveLength(42);
+  expect(payload.people).toHaveLength(18);
+  expect(payload.events).toHaveLength(90);
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
     payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
@@ -114,8 +114,8 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
   )).map(({ id }) => id));
 
-  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(34);
-  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(23);
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(65);
+  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(25);
   expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining([
     'bosch-sensortec',
     'cirrus-logic',
@@ -179,6 +179,104 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect([...overseasPeopleWaveEvents.values()].every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
   expect(payload.events.filter(({ people }) => people.includes('felix-assmann')).map(({ id }) => id))
     .toEqual(['bosch-sensortec-2015-uvm-wreal-full-chip-mixed-signal-verification']);
+
+  const globalWaveCompanyIds = [
+    'ams-osram',
+    'freescale-semiconductor',
+    'google',
+    'hewlett-packard',
+    'ibm',
+    'infineon',
+    'intel',
+    'lsi',
+    'mathworks',
+    'maxim-integrated',
+    'medtronic',
+    'mentor-graphics',
+    'meta',
+    'roche-sequencing-solutions',
+    'samsung',
+    'stmicroelectronics',
+    'toshiba-electronic-devices-storage',
+    'xilinx',
+  ];
+  const globalWavePeopleIds = [
+    'neyaz-khan',
+    'scott-little',
+    'sebastian-simon',
+    'vijay-kumar',
+  ];
+  const globalWaveEventIds = [
+    'freescale-2010-trace-generated-ams-models',
+    'freescale-2011-realtime-ams-assertions',
+    'medtronic-2011-metric-driven-mixed-signal-verification',
+    'lsi-2011-2012-hdd-preamplifier-rnm-verification',
+    'maxim-2012-uvm-ms-mixed-signal-soc-verification',
+    'ibm-2013-wreal-rnm-mixed-signal-verification',
+    'infineon-2014-analog-uvm-model-validation',
+    'stmicroelectronics-2014-analog-model-equivalence-validation',
+    'texas-instruments-2014-specification-driven-ams-testbench-automation',
+    'infineon-2014-upf-power-aware-mixed-signal-verification',
+    'texas-instruments-2014-ams-interface-automation',
+    'xilinx-2015-octave-rnm-uvm-verification',
+    'hewlett-packard-2015-digital-centric-serdes-ams-verification',
+    'analog-devices-2016-automatic-real-number-abstraction',
+    'infineon-2016-automotive-uvm-ams-verification',
+    'texas-instruments-2016-cpf-ams-power-verification',
+    'infineon-2018-automated-rnm-generation-validation',
+    'texas-instruments-2019-eenet-loading-verification',
+    'roche-2019-complex-udn-mixed-signal-verification',
+    'dialog-semiconductor-2020-chip-level-analog-regressions',
+    'dialog-semiconductor-2020-unified-rtl-dms-ams-testbench',
+    'analog-devices-2021-upf-dms-low-power-verification',
+    'toshiba-2021-accu-rom-automotive-verification',
+    'samsung-2022-ssd-pmic-sv-rnm-verification',
+    'samsung-2023-oled-pmic-uvm-mixed-signal-verification',
+    'meta-2024-dv-uvm-ams-co-simulation',
+    'analog-devices-2024-ai-assisted-ams-verification',
+    'samsung-2024-display-pmic-uvm-ams-spice-verification',
+    'samsung-2024-sv-udt-eenet-pmic-verification',
+    'ams-osram-2025-ams-dms-functional-coverage',
+    'cirrus-logic-2025-system-model-reuse-mixed-signal-verification',
+    'google-2026-high-speed-phy-rnm-verification-hiring',
+    'nxp-2026-advanced-power-ams-verification-lead-hiring',
+  ];
+  expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining(globalWaveCompanyIds));
+  expect(payload.people.map(({ id }) => id)).toEqual(expect.arrayContaining(globalWavePeopleIds));
+  expect(payload.events.map(({ id }) => id)).toEqual(expect.arrayContaining(globalWaveEventIds));
+
+  const globalWaveEvents = payload.events.filter(({ id }) => globalWaveEventIds.includes(id));
+  expect(globalWaveEvents).toHaveLength(33);
+  expect(globalWaveEvents.filter(({ kind }) => kind === 'technical')).toHaveLength(31);
+  expect(globalWaveEvents.filter(({ kind }) => kind === 'organizational')).toHaveLength(2);
+  expect(globalWaveEvents.every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
+  expect(globalWaveEvents.flatMap(({ sources }) => sources).every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
+  expect(payload.events.find(({ id }) => id === 'cadence-2012-real-valued-systemverilog-coverage')).toEqual(
+    expect.objectContaining({
+      companies: ['cadence', 'intel'],
+      people: ['prabal-bhattacharya', 'scott-little'],
+    }),
+  );
+  expect(new Set(payload.events.filter(({ people }) => people.includes('neyaz-khan')).map(({ id }) => id))).toEqual(
+    new Set([
+      'lsi-2011-2012-hdd-preamplifier-rnm-verification',
+      'maxim-2012-uvm-ms-mixed-signal-soc-verification',
+    ]),
+  );
+  expect(new Set(payload.events.filter(({ people }) => people.includes('sebastian-simon')).map(({ id }) => id))).toEqual(
+    new Set([
+      'infineon-2014-analog-uvm-model-validation',
+      'infineon-2018-automated-rnm-generation-validation',
+    ]),
+  );
+  expect(new Set(payload.events.filter(({ people }) => people.includes('vijay-kumar')).map(({ id }) => id))).toEqual(
+    new Set([
+      'samsung-2022-ssd-pmic-sv-rnm-verification',
+      'samsung-2023-oled-pmic-uvm-mixed-signal-verification',
+      'samsung-2024-sv-udt-eenet-pmic-verification',
+    ]),
+  );
+
   expect(payload.events.map(({ id }) => id)).not.toContain('sitime-2026-07-renesas-timing-acquisition');
   for (const event of payload.events) {
     expect(event).toEqual(expect.objectContaining({
@@ -244,8 +342,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('57 of 57 events');
-  await expect(page.locator('.event-filter-summary')).toHaveText('57 of 57 events');
+  await expect(page.locator('[data-status]')).toHaveText('90 of 90 events');
+  await expect(page.locator('.event-filter-summary')).toHaveText('90 of 90 events');
   await expect(page.locator('.event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
@@ -328,7 +426,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 57 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 90 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -339,7 +437,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'All companies', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 57 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 90 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -355,29 +453,47 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
 test('full-corpus company discovery order is shared and never changes while filtering', async ({ page }) => {
   const expectedActive = [
+    { id: 'cadence', name: 'Cadence Design Systems', count: '12 events' },
     { id: 'apple', name: 'Apple', count: '10 events' },
+    { id: 'analog-devices', name: 'Analog Devices', count: '9 events' },
+    { id: 'texas-instruments', name: 'Texas Instruments', count: '9 events' },
     { id: 'renesas', name: 'Renesas Electronics', count: '7 events' },
-    { id: 'analog-devices', name: 'Analog Devices', count: '6 events' },
-    { id: 'cadence', name: 'Cadence Design Systems', count: '6 events' },
-    { id: 'nxp', name: 'NXP Semiconductors', count: '5 events' },
+    { id: 'nxp', name: 'NXP Semiconductors', count: '6 events' },
     { id: 'siemens-eda', name: 'Siemens EDA', count: '5 events' },
-    { id: 'texas-instruments', name: 'Texas Instruments', count: '5 events' },
+    { id: 'dialog-semiconductor', name: 'Dialog Semiconductor', count: '4 events' },
+    { id: 'infineon', name: 'Infineon Technologies', count: '4 events' },
+    { id: 'samsung', name: 'Samsung', count: '4 events' },
     { id: 'microchip', name: 'Microchip Technology', count: '3 events' },
     { id: 'skyworks', name: 'Skyworks Solutions', count: '3 events' },
     { id: 'synopsys', name: 'Synopsys', count: '3 events' },
     { id: 'bosch-sensortec', name: 'Bosch Sensortec', count: '2 events' },
     { id: 'broadcom', name: 'Broadcom', count: '2 events' },
-    { id: 'dialog-semiconductor', name: 'Dialog Semiconductor', count: '2 events' },
+    { id: 'cirrus-logic', name: 'Cirrus Logic', count: '2 events' },
+    { id: 'freescale-semiconductor', name: 'Freescale Semiconductor', count: '2 events' },
+    { id: 'mentor-graphics', name: 'Mentor Graphics', count: '2 events' },
     { id: 'qualcomm', name: 'Qualcomm', count: '2 events' },
     { id: 'sitime', name: 'SiTime', count: '2 events' },
     { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions', count: '2 events' },
-    { id: 'cirrus-logic', name: 'Cirrus Logic', count: '1 event' },
+    { id: 'ams-osram', name: 'ams OSRAM', count: '1 event' },
+    { id: 'google', name: 'Google', count: '1 event' },
+    { id: 'hewlett-packard', name: 'Hewlett-Packard', count: '1 event' },
     { id: 'hitachi', name: 'Hitachi', count: '1 event' },
+    { id: 'ibm', name: 'IBM', count: '1 event' },
+    { id: 'intel', name: 'Intel', count: '1 event' },
     { id: 'kioxia', name: 'KIOXIA', count: '1 event' },
+    { id: 'lsi', name: 'LSI Corporation', count: '1 event' },
+    { id: 'mathworks', name: 'MathWorks', count: '1 event' },
+    { id: 'maxim-integrated', name: 'Maxim Integrated', count: '1 event' },
     { id: 'mediatek', name: 'MediaTek', count: '1 event' },
+    { id: 'medtronic', name: 'Medtronic', count: '1 event' },
+    { id: 'meta', name: 'Meta', count: '1 event' },
     { id: 'nvidia', name: 'NVIDIA', count: '1 event' },
+    { id: 'roche-sequencing-solutions', name: 'Roche Sequencing Solutions', count: '1 event' },
     { id: 'rohm', name: 'ROHM', count: '1 event' },
+    { id: 'stmicroelectronics', name: 'STMicroelectronics', count: '1 event' },
     { id: 'toppan', name: 'TOPPAN', count: '1 event' },
+    { id: 'toshiba-electronic-devices-storage', name: 'Toshiba Electronic Devices & Storage', count: '1 event' },
+    { id: 'xilinx', name: 'Xilinx', count: '1 event' },
   ];
 
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
@@ -431,10 +547,10 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
     count: Number(node.getAttribute('data-event-count')),
     width: Number(node.getAttribute('data-segment-width')),
   })));
-  expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '2020–2011']);
-  expect(segments.map(({ count }) => count)).toEqual([17, 6, 4, 6, 4, 2, 18]);
-  expect(segments.map(({ width }) => width)).toEqual([246, 99, 84, 99, 84, 84, 221]);
-  expect(timelineWidth).toBe(917);
+  expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '2020–2010']);
+  expect(segments.map(({ count }) => count)).toEqual([19, 8, 8, 7, 5, 4, 39]);
+  expect(segments.map(({ width }) => width)).toEqual([264, 117, 117, 108, 84, 84, 528]);
+  expect(timelineWidth).toBe(1302);
   expect(segments.filter(({ key }) => key === 'through-2020')).toHaveLength(1);
   expect(segments.at(-1).key).toBe('through-2020');
   expect(segments.some(({ label }) => /^20(?:1[1-9]|20)$/.test(label))).toBe(false);
@@ -483,8 +599,8 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
     });
     return [...unique.values()];
   });
-  expect(orderedSlots).toHaveLength(57);
-  expect(new Set(orderedSlots.map(({ x }) => x)).size, 'different Event IDs have unique x positions').toBe(57);
+  expect(orderedSlots).toHaveLength(90);
+  expect(new Set(orderedSlots.map(({ x }) => x)).size, 'different Event IDs have unique x positions').toBe(90);
   expect(timelineWidth, 'packed track is narrower than one 34px slot per Event').toBeLessThan(orderedSlots.length * 34);
   for (const segment of segments) {
     const entries = orderedSlots.filter((entry) => entry.segment === segment.key);
@@ -534,7 +650,7 @@ test('historical range label derives from the oldest Event on each Timeline surf
   await page.goto('./');
   await expectExplorerReady(page);
   await expect(page.locator('[data-timeline-segment][data-segment-key="through-2020"]'))
-    .toHaveAttribute('data-segment-label', '2020–2011');
+    .toHaveAttribute('data-segment-label', '2020–2010');
 
   await page.goto('./companies/apple/');
   await expectExplorerReady(page);
@@ -548,7 +664,7 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
   await expectExplorerReady(page);
 
   const summary = page.locator('.event-filter-summary');
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('57 of 57 events');
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('90 of 90 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > *')).toHaveCount(2);
@@ -814,10 +930,10 @@ test('Signal type taxonomy is binary, shape-distinct, canonical, and legacy-quer
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(57);
+  expect(serializedKinds).toHaveLength(90);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(34);
-  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(23);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(65);
+  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(25);
 
   const legend = page.locator('.kind-legend');
   await expect(legend.locator('span')).toHaveCount(2);
@@ -831,9 +947,9 @@ test('Signal type taxonomy is binary, shape-distinct, canonical, and legacy-quer
   expect(shapes[0].backgroundColor).not.toBe(shapes[1].backgroundColor);
 
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('34 of 57 events');
+  await expect(page.locator('[data-status]')).toHaveText('65 of 90 events');
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('23 of 57 events');
+  await expect(page.locator('[data-status]')).toHaveText('25 of 90 events');
   const organizationalMark = page.locator('[data-event-mark].event-kind-organizational:visible').first();
   await organizationalMark.click();
   await expect(page.locator('[data-detail-meta]')).toContainText('Organizational');
