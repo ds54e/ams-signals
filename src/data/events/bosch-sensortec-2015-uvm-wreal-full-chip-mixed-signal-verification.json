@@ -1,0 +1,25 @@
+{
+  "id": "bosch-sensortec-2015-uvm-wreal-full-chip-mixed-signal-verification",
+  "when": {
+    "start": "2015",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "bosch-sensortec",
+    "cadence"
+  ],
+  "people": [
+    "felix-assmann"
+  ],
+  "headline": "Bosch Sensortec and Cadence authors report extending UVM and wreal to analog-centric full-chip verification",
+  "fact": "A Bosch Sensortec and Cadence DVCon Europe paper reports extending an existing digital UVM verification environment to address analog and full-chip verification in one mixed-signal testbench. The paper describes the architecture and implementation of the reusable approach and explicitly identifies wreal as part of the methodology.",
+  "sources": [
+    {
+      "title": "A concept for expanding a UVM testbench to the analog-centric toplevel",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/a-concept-for-expanding-a-uvm-testbench-to-the-analog-centric-toplevel.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The 2015 DVCon Europe paper identifies Felix Assmann and Axel Strobel with Bosch Sensortec and Hans Zander with Cadence, and reports a reusable UVM/wreal testbench spanning analog, digital, and full-chip verification."
+    }
+  ]
+}
