@@ -47,6 +47,10 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page).toHaveTitle('AMS Signals');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RNM|mixed-signal/i);
+  await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Timeline');
+  await expect(page.locator('main > .intro')).toHaveCount(0);
+  await expect(page.getByText('FACTUAL PUBLIC TIMELINE', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Public signals in RNM & mixed-signal verification', { exact: true })).toHaveCount(0);
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
@@ -55,6 +59,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-detail]')).toHaveCount(1);
   await expect(page.locator('.result-section')).toHaveCount(0);
+  await expect(page.locator('.company-records')).toHaveCount(0);
   await expect(page.getByText('Visible events', { exact: true })).toHaveCount(0);
   await expect(page.getByText('CHRONOLOGICAL RECORD', { exact: true })).toHaveCount(0);
 
@@ -85,9 +90,15 @@ test('Events is the chronological textual view without a Timeline or inspector',
 
   expect(new URL(page.url()).pathname).toBe(`${basePath}events/`);
   await expect(page).toHaveTitle('Events · AMS Signals');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Chronological factual Events/i);
+  await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Events');
+  await expect(page.locator('main > .intro')).toHaveCount(0);
+  await expect(page.getByText('FACTUAL CHRONOLOGICAL RECORD', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Read the indexed public Events', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('.desktop-timeline')).toHaveCount(0);
   await expect(page.locator('[data-detail]')).toHaveCount(0);
+  await expect(page.locator('.company-records')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Visible events' })).toBeVisible();
   await expect(page.locator('.result-section')).toBeVisible();
 
@@ -150,8 +161,52 @@ test('Timeline and Events navigation preserves the current query lens', async ({
   expect(await visibleTimelineEventIds(page)).toEqual(timelineIds);
 });
 
+test('Company Focus exposes immediate All companies and Clear all actions', async ({ page }) => {
+  for (const path of ['./', './events/']) {
+    const surface = path.includes('events') ? 'events' : 'timeline';
+    await page.goto(path);
+    await expectExplorerReady(page, surface);
+
+    await page.locator('[data-search]').fill('RNM');
+    await page.locator('[data-kind]').selectOption('publication');
+    await page.locator('[data-view]').selectOption('both');
+    await page.locator('[data-company-picker] summary').click();
+
+    const checks = page.locator('[data-company-options] input');
+    const checked = page.locator('[data-company-options] input:checked');
+    const totalCompanies = await checks.count();
+    await expect(page.getByRole('button', { name: 'All companies', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+    await expect(checked).toHaveCount(0);
+    await expect(page.locator('[data-status]')).toHaveText('0 of 43 unique public events shown');
+    expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
+    if (surface === 'timeline') {
+      await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
+    } else {
+      await expect(page.locator('[data-event-result]:visible')).toHaveCount(0);
+      await expect(page.locator('[data-filtered-empty]')).toBeVisible();
+    }
+
+    await page.getByRole('button', { name: 'All companies', exact: true }).click();
+    await expect(checked).toHaveCount(totalCompanies);
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 43 unique public events shown');
+    expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+
+    await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+    await page.locator('[data-company-picker] summary').click();
+    await page.locator('[data-reset]').click();
+    await expect(checked).toHaveCount(totalCompanies);
+    await expect(page.locator('[data-search]')).toHaveValue('');
+    await expect(page.locator('[data-kind]')).toHaveValue('all');
+    await expect(page.locator('[data-view]')).toHaveValue('companies');
+    expect(new URL(page.url()).search).toBe('');
+  }
+});
+
 test('full-corpus company discovery order is shared and never changes while filtering', async ({ page }) => {
-  const expectedRecords = [
+  const expectedActive = [
     { id: 'apple', name: 'Apple', count: '9 events' },
     { id: 'analog-devices', name: 'Analog Devices', count: '6 events' },
     { id: 'renesas', name: 'Renesas Electronics', count: '6 events' },
@@ -167,41 +222,202 @@ test('full-corpus company discovery order is shared and never changes while filt
     { id: 'sitime', name: 'SiTime', count: '2 events' },
     { id: 'mediatek', name: 'MediaTek', count: '1 event' },
     { id: 'nvidia', name: 'NVIDIA', count: '1 event' },
-    { id: 'omnivision', name: 'OMNIVISION', count: 'No Golden events currently indexed' },
-    { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions', count: 'No Golden events currently indexed' },
   ];
-  const expectedActive = expectedRecords.slice(0, -2);
 
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
     id: label.querySelector('input')?.value,
     name: label.querySelector('span')?.textContent?.trim(),
     count: label.querySelector('small')?.textContent?.trim(),
   })));
-  const recordOrder = () => page.locator('.company-records li').evaluateAll((rows) => rows.map((row) => {
-    const link = row.querySelector('a');
-    return {
-      id: link?.getAttribute('href')?.match(/companies\/([^/]+)\//)?.[1],
-      name: link?.textContent?.trim(),
-      count: row.querySelector('span')?.textContent?.trim(),
-    };
-  }));
 
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     expect(await pickerOrder()).toEqual(expectedActive);
-    expect(await recordOrder()).toEqual(expectedRecords);
+    await expect(page.locator('.company-records')).toHaveCount(0);
 
     await page.locator('[data-search]').fill('RNM');
     await expect.poll(() => new URL(page.url()).searchParams.get('q')).toBe('RNM');
     expect(await pickerOrder()).toEqual(expectedActive);
-    expect(await recordOrder()).toEqual(expectedRecords);
   }
 
   await page.goto('./');
   await expectExplorerReady(page);
   const lanes = await page.locator('[data-group="companies"] [data-lane]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-entity-id')));
   expect(lanes).toEqual(expectedActive.map(({ id }) => id));
+});
+
+test('zero-Event researched Company pages still build without primary Timeline links', async ({ page }) => {
+  await page.goto('./');
+  await expectExplorerReady(page);
+  await expect(page.locator('a[href$="/companies/omnivision/"]')).toHaveCount(0);
+  await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]')).toHaveCount(0);
+
+  for (const company of [
+    { id: 'omnivision', name: 'OMNIVISION' },
+    { id: 'sony-semiconductor-solutions', name: 'Sony Semiconductor Solutions' },
+  ]) {
+    await page.goto(`./companies/${company.id}/`);
+    await expect(page).toHaveTitle(`${company.name} · AMS Signals`);
+    await expect(page.getByRole('heading', { name: company.name, exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'No Golden events are currently indexed' })).toBeVisible();
+  }
+});
+
+test('Timeline uses fixed density-adjusted segments and one-row shared Event slots', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  const segments = await page.locator('[data-timeline-segment]').evaluateAll((nodes) => nodes.map((node) => ({
+    label: node.getAttribute('data-segment-label'),
+    key: node.getAttribute('data-segment-key'),
+    count: Number(node.getAttribute('data-event-count')),
+    width: Number(node.getAttribute('data-segment-width')),
+  })));
+  expect(segments.map(({ label }) => label)).toEqual(['≤2020', '2021', '2022', '2023', '2024', '2025', '2026']);
+  expect(segments.map(({ count }) => count)).toEqual([13, 2, 2, 4, 3, 4, 15]);
+  expect(segments.filter(({ key }) => key === 'through-2020')).toHaveLength(1);
+  expect(segments.some(({ label }) => /^20(?:1[2-9]|20)$/.test(label))).toBe(false);
+  expect(segments.find(({ label }) => label === '2026').width)
+    .toBeGreaterThan(segments.find(({ label }) => label === '2021').width * 3);
+  const historicalWidth = segments.find(({ label }) => label === '≤2020').width;
+  const latestWidth = segments.find(({ label }) => label === '2026').width;
+  expect(historicalWidth).toBeGreaterThanOrEqual(300);
+  expect(historicalWidth).toBeLessThanOrEqual(330);
+  expect(latestWidth).toBeGreaterThanOrEqual(550);
+  expect(latestWidth).toBeLessThanOrEqual(570);
+  expect(historicalWidth).toBeLessThan(latestWidth * 0.6);
+
+  const lanes = await page.locator('[data-group="companies"] [data-lane]').evaluateAll((nodes) => nodes.map((lane) => ({
+    entity: lane.getAttribute('data-entity-id'),
+    height: lane.getBoundingClientRect().height,
+    inlineStyle: lane.getAttribute('style') || '',
+  })));
+  expect(new Set(lanes.map(({ height }) => height))).toEqual(new Set([46]));
+  expect(lanes.every(({ inlineStyle }) => !inlineStyle.includes('lane-rows'))).toBe(true);
+  expect(lanes.find(({ entity }) => entity === 'apple').height)
+    .toBe(lanes.find(({ entity }) => entity === 'nvidia').height);
+
+  const sharedMarks = page.locator('[data-group="companies"] [data-event-mark][data-event-id="ecosystem-2025-02-uvm-ms-1-standard"]');
+  expect(await sharedMarks.count()).toBeGreaterThan(1);
+  const sharedPositions = await sharedMarks.evaluateAll((nodes) => nodes.map((node) => ({
+    x: node.getAttribute('data-event-x'),
+    offsetLeft: node.offsetLeft,
+  })));
+  expect(new Set(sharedPositions.map(({ x }) => x)).size).toBe(1);
+  expect(new Set(sharedPositions.map(({ offsetLeft }) => offsetLeft)).size).toBe(1);
+
+  const orderedSlots = await page.locator('[data-event-mark]').evaluateAll((nodes) => {
+    const unique = new Map();
+    nodes.forEach((node) => {
+      const id = node.getAttribute('data-event-id');
+      if (!unique.has(id)) {
+        unique.set(id, {
+          id,
+          date: node.getAttribute('data-event-date'),
+          segment: node.getAttribute('data-segment-key'),
+          x: Number(node.getAttribute('data-event-x')),
+        });
+      }
+    });
+    return [...unique.values()];
+  });
+  expect(orderedSlots).toHaveLength(43);
+  const historicalSlots = orderedSlots
+    .filter((entry) => entry.segment === 'through-2020')
+    .sort((left, right) => left.x - right.x);
+  const historicalGaps = historicalSlots.slice(1).map((entry, index) => entry.x - historicalSlots[index].x);
+  expect(historicalSlots).toHaveLength(13);
+  expect(Math.min(...historicalGaps)).toBeGreaterThanOrEqual(20);
+  for (const segment of segments) {
+    const entries = orderedSlots.filter((entry) => entry.segment === segment.key);
+    const chronologicalIds = entries.slice().sort((left, right) => (
+      left.date.localeCompare(right.date) || left.id.localeCompare(right.id)
+    )).map(({ id }) => id);
+    const positionedIds = entries.slice().sort((left, right) => left.x - right.x).map(({ id }) => id);
+    expect(positionedIds, `slot order in ${segment.label}`).toEqual(chronologicalIds);
+  }
+});
+
+test('search and Company Focus filtering never change Timeline geometry', async ({ page }) => {
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  const geometry = () => page.locator('[data-timeline-root]').evaluate((root) => ({
+    width: root.querySelector('.desktop-timeline')?.getAttribute('data-timeline-width'),
+    segments: [...root.querySelectorAll('[data-timeline-segment]')].map((segment) => ({
+      key: segment.getAttribute('data-segment-key'),
+      width: segment.getAttribute('data-segment-width'),
+    })),
+    lanes: [...root.querySelectorAll('[data-lane]')].map((lane) => `${lane.getAttribute('data-lane-type')}:${lane.getAttribute('data-entity-id')}`),
+    marks: [...root.querySelectorAll('[data-event-mark]')].map((mark) => ({
+      lane: mark.closest('[data-lane]')?.getAttribute('data-entity-id'),
+      id: mark.getAttribute('data-event-id'),
+      x: mark.getAttribute('data-event-x'),
+      segment: mark.getAttribute('data-segment-key'),
+      slot: mark.getAttribute('data-slot'),
+    })),
+  }));
+  const initial = await geometry();
+
+  await page.locator('[data-search]').fill('RNM');
+  expect(await geometry()).toEqual(initial);
+  await page.locator('[data-search]').fill('PLL');
+  expect(await geometry()).toEqual(initial);
+
+  await page.locator('[data-company-picker] summary').click();
+  await page.locator('[data-company-options] input[value="apple"]').uncheck();
+  expect(await geometry()).toEqual(initial);
+});
+
+test('Timeline scrolling is local, opens on recent Events, and preserves user position', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  const scroller = page.locator('[data-timeline-scroll]');
+  await expect(scroller).toHaveAttribute('data-initial-scroll', 'complete');
+  const initial = await scroller.evaluate((node) => ({
+    clientWidth: node.clientWidth,
+    scrollWidth: node.scrollWidth,
+    scrollLeft: node.scrollLeft,
+  }));
+  expect(initial.scrollWidth).toBeGreaterThan(initial.clientWidth);
+  expect(initial.scrollLeft).toBeGreaterThan(0);
+  expect(Math.abs(initial.scrollLeft - (initial.scrollWidth - initial.clientWidth))).toBeLessThanOrEqual(1);
+  const recentVisibility = await page.locator('[data-timeline-scroll]').evaluate((node) => {
+    const scroller = node.getBoundingClientRect();
+    return ['2025', '2026'].map((label) => {
+      const segment = node.querySelector(`[data-segment-label="${label}"]`)?.getBoundingClientRect();
+      return Boolean(segment && segment.right > scroller.left && segment.left < scroller.right);
+    });
+  });
+  expect(recentVisibility).toEqual([true, true]);
+  expect(await page.locator('[data-timeline-scroll] [data-detail]').count()).toBe(0);
+  await expect(page.locator('[data-detail]')).toBeVisible();
+
+  const label = page.locator('[data-lane][data-entity-id="apple"] .lane-label');
+  const labelLeft = (await label.boundingBox()).x;
+  await scroller.evaluate((node) => { node.scrollLeft = 400; });
+  expect(Math.abs((await label.boundingBox()).x - labelLeft)).toBeLessThanOrEqual(1);
+  await page.locator('[data-search]').fill('RNM');
+  const afterFilter = await scroller.evaluate((node) => node.scrollLeft);
+  expect(Math.abs(afterFilter - 400)).toBeLessThanOrEqual(1);
+
+  const documentWidth = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(documentWidth.scrollWidth).toBe(documentWidth.clientWidth);
+
+  await page.locator('[data-view]').selectOption('people');
+  await expect(page.locator('[data-group="people"]')).toBeVisible();
+  const peopleHeights = await page.locator('[data-group="people"] [data-lane]:visible').evaluateAll((nodes) => (
+    nodes.map((node) => node.getBoundingClientRect().height)
+  ));
+  expect(peopleHeights.length).toBeGreaterThan(0);
+  expect(new Set(peopleHeights)).toEqual(new Set([46]));
 });
 
 test('shared Events remain one list record and one inspector record', async ({ page }) => {
@@ -306,7 +522,7 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-detail]')).toBeVisible();
   await expect(page.locator('.result-section')).toHaveCount(0);
-  const timelineWidths = await page.locator('.timeline-visual').evaluate((element) => ({
+  const timelineWidths = await page.locator('[data-timeline-scroll]').evaluate((element) => ({
     clientWidth: element.clientWidth,
     scrollWidth: element.scrollWidth,
   }));

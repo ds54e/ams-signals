@@ -1,6 +1,6 @@
 ---
 import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
-import { dateNumber, eventYear, formatWhen, orderCompaniesByGoldenEventCount, sortEvents } from '../lib/content';
+import { eventYear, formatWhen, orderCompaniesByGoldenEventCount, sortEvents } from '../lib/content';
 import { sitePath } from '../lib/paths';
 
 type ExplorerContext = 'global' | 'company' | 'person';
@@ -18,12 +18,6 @@ interface Props {
 const { events, goldenEvents, companies, people, context = 'global', surface = 'timeline' } = Astro.props;
 const ordered = sortEvents(events);
 const newestFirst = ordered.slice().reverse();
-const years = ordered.map(eventYear);
-const minYear = years.length ? Math.min(...years) : new Date().getUTCFullYear();
-const maxYear = years.length ? Math.max(...years) : minYear;
-const axisStart = Date.UTC(minYear, 0, 1);
-const axisEnd = Date.UTC(maxYear + 1, 0, 1);
-const span = Math.max(axisEnd - axisStart, 1);
 const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
 const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
 const byPersonName = (left: string, right: string) =>
@@ -34,18 +28,67 @@ const companyIds = orderedCompanyRecords
   .filter(({ company }) => activeCompanyIds.has(company.data.id))
   .map(({ company }) => company.data.id);
 const personIds = [...new Set(ordered.flatMap((event) => event.data.people))].sort(byPersonName);
-const companyRecords = orderedCompanyRecords.map(({ company }) => company);
 const companyEventCount = new Map(orderedCompanyRecords.map(({ company, eventCount }) => [
   company.data.id,
   eventCount,
 ]));
-const yearTicks = Array.from({ length: maxYear - minYear + 1 }, (_, index) => minYear + index);
-const position = (event: EventEntry) => ((dateNumber(event.data.when.start) - axisStart) / span) * 100;
-const tickPosition = (year: number) => ((Date.UTC(year, 0, 1) - axisStart) / span) * 100;
-const axisLabel = minYear === maxYear ? String(minYear) : `${minYear}–${maxYear}`;
 const defaultView = context === 'person' ? 'people' : 'companies';
 const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
+
+const HISTORICAL_CUTOFF = 2020;
+const HISTORICAL_SLOT_WIDTH = 20;
+const EVENT_SLOT_WIDTH = 34;
+const SEGMENT_INLINE_PADDING = 26;
+const MIN_SEGMENT_WIDTH = 116;
+
+const segmentGroups = new Map<string, { key: string; label: string; year: number; events: EventEntry[] }>();
+for (const event of ordered) {
+  const year = eventYear(event);
+  const isHistorical = year <= HISTORICAL_CUTOFF;
+  const key = isHistorical ? 'through-2020' : String(year);
+  if (!segmentGroups.has(key)) {
+    segmentGroups.set(key, {
+      key,
+      label: isHistorical ? '≤2020' : String(year),
+      year: isHistorical ? HISTORICAL_CUTOFF : year,
+      events: [],
+    });
+  }
+  segmentGroups.get(key)?.events.push(event);
+}
+
+let timelineOffset = 0;
+const timelineSegments = [...segmentGroups.values()]
+  .sort((left, right) => left.year - right.year)
+  .map((segment) => {
+    const slotWidth = segment.key === 'through-2020' ? HISTORICAL_SLOT_WIDTH : EVENT_SLOT_WIDTH;
+    const width = Math.max(
+      MIN_SEGMENT_WIDTH,
+      (SEGMENT_INLINE_PADDING * 2) + (segment.events.length * slotWidth),
+    );
+    const positioned = {
+      ...segment,
+      width,
+      offset: timelineOffset,
+      slotWidth,
+      slotInset: (width - (segment.events.length * slotWidth)) / 2,
+    };
+    timelineOffset += width;
+    return positioned;
+  });
+const timelineWidth = Math.max(timelineOffset, MIN_SEGMENT_WIDTH);
+const timelineColumns = timelineSegments.map((segment) => `${segment.width}px`).join(' ');
+const timelinePositionByEventId = new Map<string, { x: number; segmentKey: string; slot: number }>();
+for (const segment of timelineSegments) {
+  segment.events.forEach((event, slot) => {
+    timelinePositionByEventId.set(event.data.id, {
+      x: segment.offset + segment.slotInset + ((slot + 0.5) * segment.slotWidth),
+      segmentKey: segment.key,
+      slot,
+    });
+  });
+}
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
   hiring: 'Hiring',
@@ -111,17 +154,10 @@ const serialized = ordered.map((event) => {
   };
 });
 
-const layoutLane = (laneEvents: EventEntry[]) => {
-  const rowEnds: number[] = [];
-  const marks = sortEvents(laneEvents).map((event) => {
-    const x = position(event);
-    let row = rowEnds.findIndex((lastX) => x - lastX >= 1.8);
-    if (row === -1) row = rowEnds.length;
-    rowEnds[row] = x;
-    return { event, x, row };
-  });
-  return { marks, rows: Math.max(rowEnds.length, 1) };
-};
+const marksForLane = (laneEvents: EventEntry[]) => sortEvents(laneEvents).map((event) => ({
+  event,
+  ...(timelinePositionByEventId.get(event.data.id) ?? { x: 0, segmentKey: '', slot: 0 }),
+}));
 
 const renderContextLinks = (event: EventEntry) => [
   ...event.data.companies.map((id) => ({
@@ -182,7 +218,11 @@ const renderContextLinks = (event: EventEntry) => [
         <div class="company-picker-panel">
           <div class="company-picker-heading">
             <p>Select companies to focus. Shared Events remain one factual record.</p>
-            <button type="button" class="text-button" data-select-all-companies>All companies</button>
+            <div class="company-picker-actions" role="group" aria-label="Company focus selection actions">
+              <button type="button" class="text-button" data-select-all-companies>All companies</button>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+            </div>
           </div>
           <fieldset data-company-options>
             <legend class="visually-hidden">Companies included in this view</legend>
@@ -204,7 +244,7 @@ const renderContextLinks = (event: EventEntry) => [
   <div class="event-filter-summary">
     <p class="event-filter-status" data-status aria-live="polite"></p>
     {showTimeline
-      ? <p class="axis-note">Time axis: {axisLabel}, fixed while filtering</p>
+      ? <p class="axis-note">Chronological · density-adjusted · fixed while filtering</p>
       : <p>Newest first · one row per unique Event</p>}
   </div>
 
@@ -218,66 +258,99 @@ const renderContextLinks = (event: EventEntry) => [
 
   {showTimeline && <div class="timeline-workspace">
     <div class="timeline-visual">
-      <div class="desktop-timeline" role="region" aria-label={`Timeline from ${minYear} through ${maxYear}`}>
-        <div class="timeline-axis">
-          <div class="lane-label axis-label">Record</div>
-          <div class="axis-track">
-            {yearTicks.map((year) => (
-              <span style={`--x:${tickPosition(year)}%`}><b>{year}</b></span>
-            ))}
+      <div
+        class="timeline-scroll"
+        data-timeline-scroll
+        role="region"
+        aria-label="Density-adjusted chronological Timeline"
+        tabindex="0"
+      >
+        <div
+          class="desktop-timeline"
+          data-timeline-width={timelineWidth}
+          style={`--timeline-width:${timelineWidth}px;--timeline-columns:${timelineColumns}`}
+        >
+          <div class="timeline-axis">
+            <div class="lane-label axis-label">Record</div>
+            <div class="axis-track" data-timeline-axis>
+              {timelineSegments.map((segment) => (
+                <span
+                  class="timeline-segment"
+                  data-timeline-segment
+                  data-segment-key={segment.key}
+                  data-segment-label={segment.label}
+                  data-segment-width={segment.width}
+                  data-event-count={segment.events.length}
+                ><b>{segment.label}</b></span>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div data-group="companies" hidden={defaultView === 'people'}>
-          <p class="lane-group-label" data-group-label>Companies</p>
-          {companyIds.map((companyId) => {
-            const lane = layoutLane(ordered.filter((event) => event.data.companies.includes(companyId)));
-            return (
-              <div class="timeline-lane" data-lane data-lane-type="company" data-entity-id={companyId} style={`--lane-rows:${lane.rows}`}>
-                <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
-                <div class="lane-track">
-                  {lane.marks.map(({ event, x, row }) => (
-                    <button
-                      type="button"
-                      class={`event-mark event-kind-${event.data.kind}`}
-                      style={`--x:${x}%;--row:${row}`}
-                      data-event-mark
-                      data-event-id={event.data.id}
-                      aria-pressed="false"
-                      aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
-                    ><span class="visually-hidden">Inspect event</span></button>
-                  ))}
+          <div data-group="companies" hidden={defaultView === 'people'}>
+            <div class="lane-group-row" data-group-label><p class="lane-group-label">Companies</p></div>
+            {companyIds.map((companyId) => {
+              const marks = marksForLane(ordered.filter((event) => event.data.companies.includes(companyId)));
+              return (
+                <div class="timeline-lane" data-lane data-lane-type="company" data-entity-id={companyId}>
+                  <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
+                  <div class="lane-track">
+                    <div class="timeline-segment-grid" aria-hidden="true">
+                      {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
+                    </div>
+                    {marks.map(({ event, x, segmentKey, slot }) => (
+                      <button
+                        type="button"
+                        class={`event-mark event-kind-${event.data.kind}`}
+                        style={`--x:${x}px`}
+                        data-event-mark
+                        data-event-id={event.data.id}
+                        data-event-date={event.data.when.start}
+                        data-event-x={x}
+                        data-segment-key={segmentKey}
+                        data-slot={slot}
+                        aria-pressed="false"
+                        aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                      ><span class="visually-hidden">Inspect event</span></button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
 
-        <div data-group="people" hidden={defaultView === 'companies'}>
-          <p class="lane-group-label" data-group-label>People</p>
-          {personIds.length === 0 ? (
-            <p class="empty-note">No People milestones match this record.</p>
-          ) : personIds.map((personId) => {
-            const lane = layoutLane(ordered.filter((event) => event.data.people.includes(personId)));
-            return (
-              <div class="timeline-lane" data-lane data-lane-type="person" data-entity-id={personId} style={`--lane-rows:${lane.rows}`}>
-                <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
-                <div class="lane-track">
-                  {lane.marks.map(({ event, x, row }) => (
-                    <button
-                      type="button"
-                      class={`event-mark event-kind-${event.data.kind}`}
-                      style={`--x:${x}%;--row:${row}`}
-                      data-event-mark
-                      data-event-id={event.data.id}
-                      aria-pressed="false"
-                      aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
-                    ><span class="visually-hidden">Inspect event</span></button>
-                  ))}
+          <div data-group="people" hidden={defaultView === 'companies'}>
+            <div class="lane-group-row" data-group-label><p class="lane-group-label">People</p></div>
+            {personIds.length === 0 ? (
+              <p class="empty-note">No People milestones match this record.</p>
+            ) : personIds.map((personId) => {
+              const marks = marksForLane(ordered.filter((event) => event.data.people.includes(personId)));
+              return (
+                <div class="timeline-lane" data-lane data-lane-type="person" data-entity-id={personId}>
+                  <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
+                  <div class="lane-track">
+                    <div class="timeline-segment-grid" aria-hidden="true">
+                      {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
+                    </div>
+                    {marks.map(({ event, x, segmentKey, slot }) => (
+                      <button
+                        type="button"
+                        class={`event-mark event-kind-${event.data.kind}`}
+                        style={`--x:${x}px`}
+                        data-event-mark
+                        data-event-id={event.data.id}
+                        data-event-date={event.data.when.start}
+                        data-event-x={x}
+                        data-segment-key={segmentKey}
+                        data-slot={slot}
+                        aria-pressed="false"
+                        aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                      ><span class="visually-hidden">Inspect event</span></button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -363,26 +436,6 @@ const renderContextLinks = (event: EventEntry) => [
     </div>
   </section>}
 
-  {showGlobalControls && (
-    <details class="company-records">
-      <summary>
-        Company records
-        <span>{companyRecords.length} researched · {companyIds.length} with indexed events</span>
-      </summary>
-      <ul>
-        {companyRecords.map((company) => {
-          const count = companyEventCount.get(company.data.id) ?? 0;
-          return (
-            <li>
-              <a href={sitePath(`companies/${company.data.id}/`)}>{company.data.name}</a>
-              <span>{count === 0 ? 'No Golden events currently indexed' : `${count} ${count === 1 ? 'event' : 'events'}`}</span>
-            </li>
-          );
-        })}
-      </ul>
-    </details>
-  )}
-
   <script type="application/json" data-events-json set:html={JSON.stringify(serialized)}></script>
 </section>
 
@@ -408,6 +461,7 @@ const renderContextLinks = (event: EventEntry) => [
     const companyPicker = root.querySelector('[data-company-picker]');
     const resultEmpty = root.querySelector('[data-filtered-empty]');
     const detail = root.querySelector('[data-detail]');
+    const timelineScroll = root.querySelector('[data-timeline-scroll]');
     let activeId = null;
     let visibleIds = new Set();
 
@@ -727,6 +781,10 @@ const renderContextLinks = (event: EventEntry) => [
       companyChecks.forEach((check) => { check.checked = true; });
       apply();
     });
+    root.querySelector('[data-clear-all-companies]')?.addEventListener('click', () => {
+      companyChecks.forEach((check) => { check.checked = false; });
+      apply();
+    });
     resetButtons.forEach((button) => button.addEventListener('click', reset));
     companyPicker?.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
@@ -736,5 +794,10 @@ const renderContextLinks = (event: EventEntry) => [
     });
 
     apply();
+    if (isTimeline && timelineScroll) {
+      const latestPosition = Math.max(timelineScroll.scrollWidth - timelineScroll.clientWidth, 0);
+      if (latestPosition > 0) timelineScroll.scrollLeft = latestPosition;
+      timelineScroll.setAttribute('data-initial-scroll', 'complete');
+    }
   }
 </script>
