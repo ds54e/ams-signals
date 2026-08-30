@@ -118,6 +118,8 @@ Desktop is the reference experience. Mobile and narrow-screen usability are best
 
 The visual style should feel like a modern technical research publication/tool: clear hierarchy, restrained styling, generous spacing, and readable timelines. Avoid decorative dashboards and metric cards that imply precision the source material cannot support.
 
+Timeline geometry is chronological but density-adjusted: horizontal space supports readable Event placement rather than measuring elapsed time, and filtering never recomputes that geometry.
+
 ## Long-term engineering philosophy
 
 Prefer boring, portable technology.
