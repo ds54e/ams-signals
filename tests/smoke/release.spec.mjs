@@ -522,6 +522,54 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator('[data-event-result]:visible').first().locator('[data-result-match]')).toContainText('Matched in');
 });
 
+test('People-only Events remain in the unfiltered corpus and obey narrowed Company filters', async ({ page }) => {
+  const thesisEventId = 'stijn-ringeling-2026-ml-sigma-delta-evaluation';
+  const nxpEventId = 'nxp-2025-sigma-delta-model-evaluation-acceleration';
+
+  const payload = await (await page.request.get('./export.json')).json();
+  expect(payload.events.find(({ id }) => id === thesisEventId)).toEqual(
+    expect.objectContaining({ companies: [], people: ['stijn-ringeling'] }),
+  );
+
+  await page.goto('./');
+  await expectExplorerReady(page);
+  const stijnRow = page.locator(
+    '[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="stijn-ringeling"]',
+  );
+  const thesisMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${thesisEventId}"]`);
+  const nxpMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${nxpEventId}"]`);
+  await expect(stijnRow).toBeVisible();
+  await expect(thesisMark).toBeVisible();
+
+  await page.goto('./events/');
+  await expectExplorerReady(page, 'events');
+  const thesisResult = page.locator(`[data-event-result][data-event-id="${thesisEventId}"]`);
+  const nxpResult = page.locator(`[data-event-result][data-event-id="${nxpEventId}"]`);
+  await expect(thesisResult).toBeVisible();
+  await expect(nxpResult).toBeVisible();
+
+  await page.locator('[data-company-picker] summary').click();
+  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+  await page.locator('[data-company-options] input[value="nxp"]').check();
+  await expect.poll(() => new URL(page.url()).searchParams.get('companies')).toBe('nxp');
+  await expect(thesisResult).toBeHidden();
+  await expect(nxpResult).toBeVisible();
+
+  await page.locator('[data-reset]').click();
+  await expect(thesisResult).toBeVisible();
+  expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+  await page.locator('[data-search]').fill('transfer learning transistor-level');
+  await expect(thesisResult).toBeVisible();
+
+  await page.goto('./?companies=nxp');
+  await expectExplorerReady(page);
+  await expect(stijnRow).toBeVisible();
+  await expect(thesisMark).toBeHidden();
+  await expect(nxpMark).toBeVisible();
+  await page.locator('[data-reset]').click();
+  await expect(thesisMark).toBeVisible();
+});
+
 test('global Timeline Event sets remain subsets of the complete Events record', async ({ page }) => {
   const lenses = [
     '',
