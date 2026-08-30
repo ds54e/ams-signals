@@ -1,0 +1,24 @@
+{
+  "id": "dialog-semiconductor-2014-selcuk-talay-ams-top-level-dv-lead",
+  "when": {
+    "start": "2014-12-02",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "dialog-semiconductor"
+  ],
+  "people": [
+    "selcuk-talay"
+  ],
+  "headline": "An ITU seminar identifies Selcuk Talay as Dialog Semiconductor's AMS top-level design and verification lead",
+  "fact": "An Istanbul Technical University seminar listing dated December 2, 2014 identifies Selcuk Talay of Dialog Semiconductor as AMS Toplevel Design and Verification Lead. The record establishes his publicly identified role at that time; it does not establish when the role began.",
+  "sources": [
+    {
+      "title": "EHB111 Dersi — December 2, 2014 seminar listing",
+      "url": "https://web.itu.edu.tr/~yalcinmust/ehb111.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Istanbul Technical University's dated seminar page identifies Dr. Selçuk Talay of Dialog Semiconductor as AMS Toplevel Design and Verification Lead on December 2, 2014."
+    }
+  ]
+}
