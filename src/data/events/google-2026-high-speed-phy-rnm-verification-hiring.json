@@ -1,0 +1,22 @@
+{
+  "id": "google-2026-high-speed-phy-rnm-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "google"
+  ],
+  "people": [],
+  "headline": "Google careers posting seeks RNM and AMS verification expertise for high-speed PHY work",
+  "fact": "A Google careers posting for a senior verification engineer in Israel lists ownership of verification for 112G and 224G high-speed PHY signal-processing designs. The role includes real-number-model or SystemVerilog-AMS flows across analog-front-end and DSP boundaries and verification of adaptive-algorithm stability, tracking, and process-voltage-temperature behavior. This is evidence of a public hiring requirement, not proof of a deployed internal methodology.",
+  "sources": [
+    {
+      "title": "Senior Verification Engineer, Digital Signal Processing, Google Cloud",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/102258000768443078-senior-verification-engineer-digital-signal-processing-google-cloud",
+      "checkedAt": "2026-08-30",
+      "summary": "Google's careers page lists the high-speed-PHY scope, RNM or SystemVerilog-AMS experience, AFE-to-DSP verification, adaptive algorithms, and Israel locations."
+    }
+  ]
+}

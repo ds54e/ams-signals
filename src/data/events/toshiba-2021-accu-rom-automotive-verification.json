@@ -1,0 +1,28 @@
+{
+  "id": "toshiba-2021-accu-rom-automotive-verification",
+  "when": {
+    "start": "2021-09-21",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "toshiba-electronic-devices-storage"
+  ],
+  "people": [],
+  "headline": "Toshiba reports a reduced-order mixed-signal model for automotive heat and electromagnetic-interference verification",
+  "fact": "Toshiba Electronic Devices & Storage published an automotive verification case using its Accu-ROM reduced-order modeling method to derive a VHDL-AMS model from SPICE behavior for an electric-power-steering system. Toshiba reports reducing the reference simulation from 32 hours 51 minutes to 3 hours 27 minutes while reproducing the compared motor-current, temperature, and electromagnetic-interference behavior.",
+  "sources": [
+    {
+      "title": "Toshiba Develops Mixed-Signal Simulation Technology for Automotive Semiconductors",
+      "url": "https://toshiba.semicon-storage.com/jp/company/news/news-topics/2021/09/automotive-20210921-1.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Toshiba's September 2021 announcement describes its Accu-ROM mixed-signal simulation technology and automotive application."
+    },
+    {
+      "title": "Fast Mixed-Signal Simulation Technology Using Reduced-Order Modeling",
+      "url": "https://toshiba.semicon-storage.com/content/dam/toshiba-ss-v3/master/en/company/technical-review/pdf/76-05_F02_E_r.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Toshiba's technical review documents the VHDL-AMS reduced-order model, electric-power-steering case, timing comparison, and correlated behaviors."
+    }
+  ]
+}

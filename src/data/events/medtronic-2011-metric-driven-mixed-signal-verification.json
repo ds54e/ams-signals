@@ -1,0 +1,28 @@
+{
+  "id": "medtronic-2011-metric-driven-mixed-signal-verification",
+  "when": {
+    "start": "2011",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "medtronic"
+  ],
+  "people": [],
+  "headline": "Medtronic author reports plan- and metric-driven mixed-signal verification for a medical-device IC",
+  "fact": "A DVCon 2011 paper by Medtronic's Gregg Sarkinen reports applying an integrated analog/digital verification environment to a mixed-signal medical-device IC prototype. The flow used a verification plan, constrained-random stimulus, checkers, reusable models, and coverage closure. The paper reports more than 3,000 mixed-signal simulations with automated pass/fail results.",
+  "sources": [
+    {
+      "title": "Plan- & Metric-Driven Mixed-Signal Verification for Medical Devices",
+      "url": "https://dvcon-proceedings.org/document/plan-metric-driven-mixed-signal-verification-for-medical-devices/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record describes Medtronic's plan- and metric-driven mixed-signal verification case study for a medical-device IC."
+    },
+    {
+      "title": "Plan- & Metric-Driven Mixed-Signal Verification for Medical Devices — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/plan-metric-driven-mixed-signal-verification-for-medical-devices.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the integrated test environment, constrained-random stimulus, checkers, model reuse, coverage, and reported simulation volume."
+    }
+  ]
+}

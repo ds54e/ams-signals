@@ -1,0 +1,28 @@
+{
+  "id": "dialog-semiconductor-2020-chip-level-analog-regressions",
+  "when": {
+    "start": "2020",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "dialog-semiconductor"
+  ],
+  "people": [],
+  "headline": "Dialog Semiconductor author reports production chip-level analog regressions",
+  "fact": "A 2020 CadenceLIVE paper by Dialog Semiconductor's Yi Wang describes a programmable Verilog-AMS testbench with SystemVerilog Assertions and an asynchronous state machine for chip-level analog regressions. The paper reports more than 30 scenarios and 156 runs completing in 9.5 hours for daily signoff; Cadence's conference repository says the simulated results were subsequently supported by silicon measurements.",
+  "sources": [
+    {
+      "title": "CadenceLIVE Europe 2020 Proceedings",
+      "url": "https://www.cadence.com/en_US/home/cadence-live/2020/europe/repository.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence's conference repository lists Yi Wang of Dialog Semiconductor and summarizes the chip-level analog-regression work and silicon-measurement follow-up."
+    },
+    {
+      "title": "Chip-Level Analog Regressions in Production",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/chiplevel-analog-regressions-in-production-paper.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The Dialog paper documents the programmable testbench, assertions, scenario count, regression volume, and reported runtime."
+    }
+  ]
+}
