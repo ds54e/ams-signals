@@ -1,0 +1,22 @@
+{
+  "id": "synopsys-2026-serdes-ams-verification-manager-hiring",
+  "when": {
+    "start": "2026-06-08",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "Synopsys job posting seeks a senior manager for distributed SERDES mixed-signal verification",
+  "fact": "A Synopsys careers posting seeks a senior verification manager to lead and grow distributed SERDES PHY mixed-signal verification work spanning UVM, co-simulation, emulation, and laboratory correlation. It also asks the manager to drive AI-assisted regression triage where measurable. This is evidence of a public leadership and hiring mandate, not proof that all listed methods or AI-assisted triage were already deployed.",
+  "sources": [
+    {
+      "title": "Synopsys Careers: Senior Verification Manager, SERDES PHY",
+      "url": "https://careers.synopsys.com/job/mississauga/senior-verification-manager-serdes-phy/44408/96193430288",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Synopsys posting, dated June 8, 2026, describes the distributed SERDES mixed-signal verification leadership scope and the requested, measurability-bounded AI-assisted regression-triage responsibility."
+    }
+  ]
+}

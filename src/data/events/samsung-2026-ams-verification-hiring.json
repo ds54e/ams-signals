@@ -1,0 +1,22 @@
+{
+  "id": "samsung-2026-ams-verification-hiring",
+  "when": {
+    "start": "2026-08-20",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung job posting seeks AMS verification for converter, LDO, and PMIC designs",
+  "fact": "A Samsung careers posting in Bengaluru seeks an AMS verification engineer to create behavioral real-number models for converters and LDOs and work on PMIC verification using UVM, assertions, and automation. This is evidence of a public hiring mandate and its requested scope, not proof that every listed technique was already deployed on a shipped design.",
+  "sources": [
+    {
+      "title": "Samsung Careers: AMS Verification Engineer",
+      "url": "https://sec.wd3.myworkdayjobs.com/Samsung_Careers/job/SSIR-Goldstone-Bangalore-India/AMS-Verification-Engineer_R119757",
+      "checkedAt": "2026-08-31",
+      "summary": "Official Samsung requisition R119757, posted August 20, 2026, describes behavioral real-number modeling for converters and LDOs plus PMIC, UVM, assertion, and automation responsibilities."
+    }
+  ]
+}
