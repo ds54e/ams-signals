@@ -91,7 +91,7 @@ export function buildTimelineGeometry(events: EventEntry[]): TimelineGeometry {
     if (!groups.has(key)) {
       groups.set(key, {
         key,
-        label: historical ? '≤2020' : String(year),
+        label: historical ? String(TIMELINE_HISTORICAL_CUTOFF) : String(year),
         year: historical ? TIMELINE_HISTORICAL_CUTOFF : year,
         events: [],
       });
@@ -105,6 +105,12 @@ export function buildTimelineGeometry(events: EventEntry[]): TimelineGeometry {
     .sort((left, right) => right.year - left.year)
     .map((group): TimelineSegment => {
       const historical = group.key === 'through-2020';
+      const oldestHistoricalYear = historical
+        ? Math.min(...group.events.map(eventYear))
+        : group.year;
+      const label = historical && oldestHistoricalYear < TIMELINE_HISTORICAL_CUTOFF
+        ? `${TIMELINE_HISTORICAL_CUTOFF}–${oldestHistoricalYear}`
+        : group.label;
       const microSlotPitch = historical
         ? TIMELINE_HISTORICAL_MICRO_SLOT_PITCH
         : TIMELINE_RECENT_MICRO_SLOT_PITCH;
@@ -121,6 +127,7 @@ export function buildTimelineGeometry(events: EventEntry[]): TimelineGeometry {
       const contentInset = (width - packedWidth) / 2;
       const segment: TimelineSegment = {
         ...group,
+        label,
         bands,
         width,
         offset: timelineOffset,

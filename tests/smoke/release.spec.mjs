@@ -54,7 +54,8 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveAttribute('href', `${basePath}analysis/`);
+  await expect(page.locator('.site-header nav a')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveCount(0);
 
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-detail]')).toHaveCount(1);
@@ -68,6 +69,78 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
     .map((anchor) => anchor.getAttribute('href'))
     .filter((href) => href?.startsWith('/')));
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
+});
+
+test('Analysis routes and stale internal links are absent', async ({ page }) => {
+  for (const path of ['./', './events/']) {
+    await page.goto(path);
+    await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
+    await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
+    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events']);
+  }
+
+  const indexResponse = await page.request.get('./analysis/');
+  const articleResponse = await page.request.get('./analysis/from-behavioral-models-to-managed-verification-assets/');
+  expect(indexResponse.status()).toBe(404);
+  expect(articleResponse.status()).toBe(404);
+});
+
+test('canonical JSON export contains the complete factual corpus', async ({ page }) => {
+  const response = await page.request.get('./export.json');
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/json');
+
+  const payload = await response.json();
+  expect(Object.keys(payload)).toEqual(['schemaVersion', 'project', 'companies', 'people', 'events']);
+  expect(payload.schemaVersion).toBe(1);
+  expect(payload.project).toEqual({
+    name: 'AMS Signals',
+    scope: 'Public factual signals in RNM and mixed-signal verification.',
+    notes: expect.any(Array),
+  });
+  expect(payload.project.notes).toHaveLength(4);
+  expect(payload).not.toHaveProperty('analysis');
+  expect(payload.companies).toHaveLength(17);
+  expect(payload.people).toHaveLength(8);
+  expect(payload.events).toHaveLength(43);
+
+  expect(payload.companies.map(({ name }) => name)).toEqual(
+    payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
+  );
+  expect(payload.people.map(({ name }) => name)).toEqual(
+    payload.people.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
+  );
+  expect(payload.events.map(({ id }) => id)).toEqual(payload.events.slice().sort((left, right) => (
+    right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
+  )).map(({ id }) => id));
+
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(23);
+  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(20);
+  for (const event of payload.events) {
+    expect(event).toEqual(expect.objectContaining({
+      id: expect.any(String),
+      when: expect.any(Object),
+      kind: expect.stringMatching(/^(technical|organizational)$/),
+      companies: expect.any(Array),
+      people: expect.any(Array),
+      headline: expect.any(String),
+      fact: expect.any(String),
+      sources: expect.any(Array),
+      recordUrl: `https://ds54e.github.io${basePath}events/${event.id}/`,
+    }));
+    expect(event.sources.length).toBeGreaterThan(0);
+    for (const source of event.sources) {
+      expect(source).toEqual(expect.objectContaining({
+        title: expect.any(String),
+        url: expect.stringMatching(/^https?:\/\//),
+        checkedAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+        summary: expect.any(String),
+        status: expect.stringMatching(/^(available|unavailable)$/),
+      }));
+      expect(Object.hasOwn(source, 'archiveUrl')).toBe(true);
+      expect(source.archiveUrl === null || /^https?:\/\//.test(source.archiveUrl)).toBe(true);
+    }
+  }
 });
 
 test('selecting a Timeline mark updates the Evidence Inspector', async ({ page }) => {
@@ -108,7 +181,10 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
   await expect(page.locator('[data-status]')).toHaveText('43 of 43 events');
-  await expect(page.locator('.event-filter-summary')).toContainText('Newest first');
+  await expect(page.locator('.event-filter-summary')).toHaveText('43 of 43 events');
+  await expect(page.locator('.event-filter-summary > *')).toHaveCount(1);
+  await expect(page.locator('.event-filter-summary .kind-legend')).toHaveCount(0);
+  await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
 
   const ids = await page.locator('[data-event-result]').evaluateAll((events) => events.map((event) => event.getAttribute('data-event-id')));
   expect(ids.length).toBeGreaterThan(0);
@@ -284,11 +360,21 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
     count: Number(node.getAttribute('data-event-count')),
     width: Number(node.getAttribute('data-segment-width')),
   })));
-  expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '≤2020']);
+  expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '2020–2012']);
   expect(segments.map(({ count }) => count)).toEqual([15, 4, 3, 4, 2, 2, 13]);
+  expect(segments.map(({ width }) => width)).toEqual([212, 84, 84, 84, 84, 84, 170]);
+  expect(timelineWidth).toBe(802);
   expect(segments.filter(({ key }) => key === 'through-2020')).toHaveLength(1);
   expect(segments.at(-1).key).toBe('through-2020');
   expect(segments.some(({ label }) => /^20(?:1[2-9]|20)$/.test(label))).toBe(false);
+
+  const axisLabelStyle = await page.locator('[data-timeline-segment] b').first().evaluate((label) => {
+    const style = getComputedStyle(label);
+    return { fontSize: Number.parseFloat(style.fontSize), fontWeight: Number(style.fontWeight) };
+  });
+  expect(axisLabelStyle.fontSize).toBeGreaterThanOrEqual(12);
+  expect(axisLabelStyle.fontSize).toBeLessThanOrEqual(13);
+  expect(axisLabelStyle.fontWeight).toBeGreaterThanOrEqual(600);
 
   const lanes = await page.locator('[data-group="companies"] [data-lane]').evaluateAll((nodes) => nodes.map((lane) => ({
     entity: lane.getAttribute('data-entity-id'),
@@ -371,6 +457,52 @@ test('Timeline uses newest-first chronological packing with immutable shared Eve
   expect(firstCompanyLaneIds).toEqual(firstCompanyLaneIds.slice().sort((left, right) => (
     right.date.localeCompare(left.date) || left.id.localeCompare(right.id)
   )));
+});
+
+test('historical range label derives from the oldest Event on each Timeline surface', async ({ page }) => {
+  await page.goto('./');
+  await expectExplorerReady(page);
+  await expect(page.locator('[data-timeline-segment][data-segment-key="through-2020"]'))
+    .toHaveAttribute('data-segment-label', '2020–2012');
+
+  await page.goto('./companies/apple/');
+  await expectExplorerReady(page);
+  await expect(page.locator('[data-timeline-segment][data-segment-key="through-2020"]'))
+    .toHaveAttribute('data-segment-label', '2020–2018');
+});
+
+test('Timeline summary keeps count and legend compact and left aligned', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  const summary = page.locator('.event-filter-summary');
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('43 of 43 events');
+  await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
+  await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
+  await expect(summary.locator(':scope > *')).toHaveCount(2);
+  await expect(page.locator('.axis-note, .timeline-summary-detail')).toHaveCount(0);
+  await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
+  await expect(page.getByText(/density-adjusted/i)).toHaveCount(0);
+
+  const layout = await summary.evaluate((node) => {
+    const style = getComputedStyle(node);
+    const status = node.querySelector('[data-status]').getBoundingClientRect();
+    const legend = node.querySelector('.kind-legend').getBoundingClientRect();
+    return {
+      justifyContent: style.justifyContent,
+      flexWrap: style.flexWrap,
+      statusLeft: status.left,
+      statusRight: status.right,
+      statusTop: status.top,
+      legendLeft: legend.left,
+      legendTop: legend.top,
+    };
+  });
+  expect(layout.justifyContent).toBe('flex-start');
+  expect(layout.flexWrap).toBe('wrap');
+  expect(layout.legendLeft).toBeGreaterThan(layout.statusRight);
+  expect(Math.abs(layout.legendTop - layout.statusTop)).toBeLessThanOrEqual(1);
 });
 
 test('search and Company Focus filtering never change Timeline geometry', async ({ page }) => {
@@ -705,7 +837,7 @@ test('unavailable originals remain labels and Event permalinks remain live', asy
   await expect(cards.nth(1).locator('h3 a')).toHaveAttribute('href', /^https:\/\//);
 });
 
-test('Company-first, People-first, and Analysis-to-Event behavior remains intact', async ({ page }) => {
+test('Company-first and People-first behavior remains intact', async ({ page }) => {
   const contextGeometry = () => page.locator('[data-timeline-root]').evaluate((root) => ({
     width: root.querySelector('.desktop-timeline')?.getAttribute('data-timeline-width'),
     segments: [...root.querySelectorAll('[data-timeline-segment]')].map((segment) => (
@@ -740,16 +872,6 @@ test('Company-first, People-first, and Analysis-to-Event behavior remains intact
   const prabalGeometry = await contextGeometry();
   await page.locator('[data-search]').fill('Skyworks');
   expect(await contextGeometry()).toEqual(prabalGeometry);
-
-  await page.goto('./analysis/');
-  await page.getByRole('link', { name: 'From Behavioral Models to Managed Verification Assets?' }).click();
-  await expect(page.locator('.analysis-boundary')).toContainText('interpretation and inference');
-  const eventLink = page.locator('.analysis-prose a[href*="events/"]').first();
-  await expect(eventLink).toBeVisible();
-  await eventLink.click();
-  expect(new URL(page.url()).pathname).toMatch(/^\/ams-signals\/events\/[^/]+\/$/);
-  await expect(page.locator('.record-fact')).toBeVisible();
-  await expect(page.locator('.source-card h3 a').first()).toHaveAttribute('href', /^https:\/\//);
 });
 
 test('search controls are compact and aligned on Timeline and Events', async ({ page }) => {
@@ -797,5 +919,5 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toBeVisible();
+  await expect(page.locator('.site-header nav a')).toHaveCount(2);
 });

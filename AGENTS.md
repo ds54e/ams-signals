@@ -30,7 +30,7 @@ When committing Golden events, preserve only directly supportable public facts.
 6. Cluster duplicate/reposted sources rather than accumulating them.
 7. Promote only timeline milestones that materially add new factual information.
 8. Update an existing event when a new source only strengthens the same milestone.
-9. Discard research material that does not improve the Golden timeline or a separately requested analysis column.
+9. Discard research material that does not improve the Golden timeline.
 10. Stop when the Golden timeline can be responsibly reassessed. Do not attempt to exhaust the web.
 
 ## Golden event rules
@@ -63,7 +63,7 @@ Avoid:
 - `This suggests ...`
 - `The company likely ...`
 
-Inference belongs in analysis, not the factual timeline.
+Inference may guide research or downstream interpretation. It does not belong in Golden factual content.
 
 ## Bounded growth
 
@@ -80,15 +80,15 @@ Create people records only when a person's public technical activity or affiliat
 
 Do not build employee directories. Do not treat a person who merely shares a job posting as a participant in that event.
 
-## Analysis
+## Interpretation boundary
 
-Interpretation is allowed only in a clearly separate analysis/column area. Analysis should link back to factual event permalinks so readers can inspect the underlying record and draw different conclusions.
+AMS Signals is the factual evidence layer. Readers and downstream tools may interpret the record, compare explanations, and ask custom questions; the repository does not publish a static interpretation layer.
 
-- Label Analysis as inferential and keep it out of Golden Event, Company, People, and Timeline surfaces.
-- Link important factual foundations to stable Golden Event permalinks.
+- Research may use hypotheses and inference to decide what to investigate next.
+- Commit only directly supportable facts to Golden Events.
 - Preserve evidence modality: reported practice, hiring or organizational mandates, patents, and ecosystem context do not support the same claims.
-- Treat alternative explanations and unknowns as first-class parts of the reasoning.
-- Do not add maturity scores, rankings, or hidden technology taxonomies to Analysis.
+- Never infer methodology transfer from employer changes, acquisitions, or standards participation alone.
+- Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
 
 ## Data discipline
 
@@ -98,7 +98,6 @@ Before committing:
 npm run validate
 npm run lint:facts
 npm run check:duplicates
-npm run check:analysis-links
 npm run build
 npm run check:internal-links
 ```
@@ -113,7 +112,7 @@ Keep the implementation deliberately small:
 
 - Astro static output
 - JSON for Golden structured data
-- Markdown for future analysis columns
+- one generated JSON export of the validated factual corpus
 - plain CSS
 - small vanilla TypeScript/JavaScript where interaction is needed
 - no database or backend
