@@ -26,6 +26,36 @@ The question to investigate is whether the public record across several companie
 
 The title intentionally remains a question. The article should not claim that every company follows the same progression or that public disclosure is a direct measure of internal maturity.
 
+### Important challenge to the working thesis
+
+Do not force the evidence into a simple chronological story.
+
+The current Golden record already shows relatively sophisticated management practices much earlier than the recent hiring wave. Analog Devices' 2014 record includes verification planning, regression, functional coverage, and metric sign-off; its 2016 record explicitly reports SV-RNM model-to-netlist validation in UVM regression. Broadcom reports reusable full-chip UVM DMS/AMS methodology in 2019.
+
+Therefore a stronger and more defensible interpretation may be something like:
+
+> Managed validation, reuse, and regression are not new in the public record. What becomes more explicit in recent public material is organizational specialization: dedicated model-verification roles, modeling-software/platform work, central AMS verification mandates, methodology groups, and cross-domain ownership.
+
+Treat that as a hypothesis to test, not a required conclusion. If the evidence supports an even narrower conclusion, use it.
+
+A useful article may answer the title with “not exactly.” That is preferable to manufacturing a clean maturity narrative.
+
+## Keep evidence modalities distinct
+
+A major analytical risk is mixing historical papers that report completed work with recent job postings that describe responsibilities or capabilities to be built.
+
+Preserve this distinction throughout the article.
+
+At minimum, reason separately about:
+
+- **reported practice** — company-affiliated papers, conference material, or customer cases describing work that was performed;
+- **hiring / organizational mandate** — roles describing responsibilities, desired capability, planned ownership, or platforms a team is expected to build;
+- **ecosystem context** — standards and EDA-vendor material that shape terminology or methods but do not establish semiconductor-company deployment.
+
+An article-local evidence table or concise labels are acceptable if they help the reader see this distinction. Do not turn them into permanent Golden taxonomy or scores.
+
+Do not compare a published deployment and a hiring mandate as if they were equivalent evidence of internal practice.
+
 ## Evidence already in Golden
 
 Use the existing timeline as the primary evidence base. Important anchors include, but are not limited to:
@@ -67,17 +97,29 @@ Use the existing timeline as the primary evidence base. Important anchors includ
 
 Treat ecosystem material as context, not proof that a semiconductor company deployed a specific method.
 
+Do not cite every available Event merely because it exists. Prefer roughly 8–12 strong anchors that materially advance the reasoning, with additional Events only where they change or challenge the conclusion.
+
 ## Analytical structure
 
 Use a structure similar to the following. Exact headings may change if the article reads better, but preserve the reasoning functions.
 
-### 1. Observed public record
+### 1. Answer the question early
+
+Within the opening few paragraphs, state the provisional answer in calibrated language.
+
+Do not make the reader wait until the conclusion to learn whether the public record supports the working thesis.
+
+A plausible answer to test is that the evidence does **not** show a simple evolution from unmanaged behavioral models to managed assets; instead, managed practices appear historically, while explicit organizational/platform ownership becomes more visible in recent public hiring.
+
+### 2. Observed public record
 
 Summarize the factual sequence without interpretation-heavy wording.
 
-Show readers what is actually visible in the Golden record before offering a thesis.
+Show readers what is actually visible in the Golden record before expanding the thesis.
 
-### 2. Interpretation
+Keep historical reported deployments and recent hiring mandates visibly distinguishable.
+
+### 3. Interpretation
 
 Explain the strongest interpretation supported by the record.
 
@@ -85,13 +127,13 @@ A plausible thesis to test is:
 
 > Public AMS/RNM evidence increasingly describes models not only as simulation substitutes, but as managed verification assets with explicit validation, regression, reuse, correlation, platform ownership, and organizational governance.
 
-Do not assume this thesis is true. Narrow or modify it based on the evidence.
+Challenge the word “increasingly.” The historical evidence may show that several of those properties were already present years earlier. Narrow the thesis to what actually appears newer in the public record.
 
-### 3. What seems to be changing
+### 4. What seems to be changing
 
 Possible dimensions to examine include:
 
-- model creation -> model validation;
+- model creation -> explicit model validation;
 - individual/project models -> reusable model libraries/assets;
 - block verification -> full-chip / system / chiplet use;
 - simulation-only checks -> schematic / transistor / bench / silicon correlation;
@@ -101,7 +143,11 @@ Possible dimensions to examine include:
 
 These are analytical dimensions for the article, not permanent Golden tags or a maturity model.
 
-### 4. Cross-company differences
+Do not imply that every dimension moved in the same direction at the same time.
+
+Treat AI/agentic wording as a secondary edge signal, not the core proof of the thesis. Current evidence is mostly hiring language and is too limited to establish a broad operational shift.
+
+### 5. Cross-company differences
 
 Do not flatten the companies into one storyline.
 
@@ -116,7 +162,7 @@ For example:
 
 Keep source modality visible in the reasoning.
 
-### 5. Alternative explanations
+### 6. Alternative explanations
 
 This section is required.
 
@@ -127,9 +173,10 @@ Discuss at least:
 - conference-active companies may look historically richer simply because they publish more;
 - separate product organizations may independently use similar language without sharing infrastructure;
 - standards/vendor activity can influence terminology without proving internal adoption;
-- recent AI/agentic wording may represent experimentation or hiring intent rather than established production flows.
+- recent AI/agentic wording may represent experimentation or hiring intent rather than established production flows;
+- apparent recent “centralization” may be a visibility effect: organizational labels are easier to observe in recruiting than they were in older technical papers.
 
-### 6. Unknowns and falsification
+### 7. Unknowns and falsification
 
 Make the remaining uncertainty useful.
 
@@ -142,7 +189,8 @@ Examples:
 - repeated papers or talks showing the same internal platform across years;
 - post-silicon correlation results tied to the same model infrastructure;
 - evidence that supposedly related Apple/Skyworks/Renesas roles belong to unrelated organizations;
-- older evidence showing the same organization-scale behavior long before the apparent recent shift.
+- older evidence showing the same organization-scale behavior long before the apparent recent shift;
+- evidence that central/platform roles were temporary recruiting experiments rather than durable organizations.
 
 ## Citation / linking discipline
 
@@ -153,6 +201,10 @@ Each important factual foundation should link to one or more relevant Golden Eve
 A reader should be able to move:
 
 Analysis claim -> Golden Event -> original evidence.
+
+Use a simple durable Markdown link convention. Prefer relative links from the article route to stable Event permalinks rather than hard-coding a deployment hostname. Do not introduce MDX merely to make links dynamic.
+
+Add a lightweight automated validation step that checks every Analysis reference to an AMS Signals Event points to an existing Golden Event ID. Include it in `npm run check` if practical. This protects the long-lived Analysis -> Golden evidence chain when Event files evolve.
 
 Do not fabricate footnote numbering manually if a simpler, durable inline-link or reference-list pattern works better.
 
@@ -172,20 +224,23 @@ The article page should visibly state that:
 
 Do not mix Analysis prose into Company pages, Event facts, or timeline marks.
 
+Do not add automatic “Analysis says…” backlinks to Golden Event pages in v1; keep the factual Event surface interpretation-free.
+
 ## Analysis data model
 
 Keep it small and Markdown-based.
 
 Use ordinary Markdown, not MDX, unless a concrete requirement makes MDX unavoidable.
 
-A minimal frontmatter model is sufficient, for example:
+A minimal frontmatter model is sufficient:
 
 - title;
 - date;
-- short description/dek;
-- optional status such as `published` if genuinely useful.
+- short description/dek.
 
-Do not create author databases, topic taxonomies, scoring fields, or CMS-style metadata.
+Do not add draft/status, author databases, topic taxonomies, scoring fields, or CMS-style metadata unless an actual workflow need appears.
+
+Use Git branches/PRs as the publication workflow for now.
 
 ## Navigation / UI
 
@@ -211,7 +266,8 @@ Requirements:
 - explicitly surface unknowns;
 - make strong claims proportional to the evidence;
 - prefer a narrower defensible conclusion over a broad exciting one;
-- keep the article concise enough to read in one sitting.
+- keep the article concise enough to read in one sitting, roughly 1,500–2,500 words unless the evidence genuinely requires otherwise;
+- avoid turning the article into a catalog of every Golden Event.
 
 Do not write a generic essay about RNM. The article must be anchored in the current AMS Signals corpus.
 
@@ -226,6 +282,8 @@ Exercise at least:
 5. Mobile long-form reading.
 6. Dark and light mode.
 7. Broken-link check for every internal Event reference used by the article.
+8. Raw Markdown review: the article should remain understandable without the rendered site.
+9. Confirm that no Analysis prose appears on Timeline, Company, People, or Event factual surfaces.
 
 ## Durable rules to fold back after this pass
 
@@ -235,6 +293,7 @@ If the first article works well, update `AGENTS.md` with the minimum durable Ana
 - important claims link to Golden Event permalinks;
 - alternative explanations and unknowns are first-class;
 - job/paper/patent modality remains visible even in interpretation;
+- reported practice and hiring/organizational mandates should not be treated as equivalent evidence;
 - no maturity scoring or hidden taxonomy.
 
 Do not copy this entire temporary brief into `AGENTS.md`.
@@ -247,6 +306,7 @@ Open a reviewable PR that:
 - publishes the first column;
 - links claims back to existing Golden Event permalinks;
 - keeps Golden research data unchanged unless a genuine factual defect is found;
+- adds lightweight Analysis-to-Event link validation if practical;
 - folds only durable Analysis rules into `AGENTS.md` if warranted;
 - runs `npm run check` successfully.
 
