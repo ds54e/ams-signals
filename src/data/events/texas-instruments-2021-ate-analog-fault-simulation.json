@@ -1,0 +1,20 @@
+{
+  "id": "texas-instruments-2021-ate-analog-fault-simulation",
+  "when": {
+    "start": "2021",
+    "precision": "year"
+  },
+  "kind": "conference",
+  "companies": ["texas-instruments"],
+  "people": ["jun-yan"],
+  "headline": "TI presenter runs an actual C++ ATE program in analog fault simulation",
+  "fact": "A CadenceLIVE presentation by TI's Jun Yan describes running C++ automatic-test-equipment test logic in analog fault simulation through the SystemVerilog DPI-C interface. The flow runs faults at sub-block level, parses simulation logs, presents pass-or-fail results in the Cadence environment, and is described as a joint effort among design verification, ATE, and design teams.",
+  "sources": [
+    {
+      "title": "Check Analog Fault Simulation with Actual ATE Program",
+      "url": "https://www.cadence.com/ko_KR/home/cadence-live/2021/korea/repository.html",
+      "checkedAt": "2026-08-30",
+      "summary": "CadenceLIVE 2021 program entry and abstract for Jun Yan's TI presentation on connecting an actual C++ ATE program to analog fault simulation."
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["texas-instruments"],
-  "people": [],
+  "people": ["zhipeng-ye"],
   "headline": "TI authors propose a handoff from schematic annotations to analog functional coverage",
   "fact": "A TI-authored paper proposes an Analog Coverage Collector through which analog designers mark internal schematic and device threshold information for use by chip-level verification engineers. The paper describes turning that information into top-level covergroups and coverage data to coordinate analog design and verification work.",
   "sources": [

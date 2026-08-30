@@ -6,15 +6,27 @@
   },
   "kind": "hiring",
   "companies": ["skyworks"],
-  "people": [],
+  "people": ["prabal-bhattacharya"],
   "headline": "Skyworks posts a director role to found a Central AMS Verification team",
-  "fact": "Skyworks posted a Director, Central AMS Verification role to found and lead a central AMS SoC verification team. The mandate includes an enterprise-wide UVM/RNM/AMS platform, common model and verification-IP libraries, coverage, assertions, convergence, and automation. AI/ML-assisted harness and model generation, root-cause analysis, and agentic flows are listed as capabilities the role is expected to build.",
+  "fact": "Skyworks posted a Director, Central AMS Verification role to found and lead a central AMS SoC verification team. The mandate includes an enterprise-wide UVM/RNM/AMS platform, common model and verification-IP libraries, coverage, assertions, convergence, and automation. Prabal K. Bhattacharya's public profile identifies him as leading global EDA at Skyworks, and his public post says he is hiring for this role to raise AMS verification across the company. These records establish the leadership connection and hiring mandate, not that the team is staffed or the platform deployed.",
   "sources": [
     {
       "title": "Director, Central AMS Verification",
       "url": "https://careers.skyworksinc.com/job/Director%2C-Central-AMS-Verification/76940-en_US/",
       "checkedAt": "2026-08-30",
       "summary": "Official Skyworks role posted July 6, 2026, with a mandate to found a central team and build common AMS verification infrastructure."
+    },
+    {
+      "title": "Prabal Bhattacharya public professional profile",
+      "url": "https://www.linkedin.com/in/prabalbhattacharya",
+      "checkedAt": "2026-08-30",
+      "summary": "Public professional profile identifying Bhattacharya as the leader of global EDA at Skyworks."
+    },
+    {
+      "title": "Prabal Bhattacharya public hiring post",
+      "url": "https://www.linkedin.com/posts/prabalbhattacharya_i-am-hiring-for-this-verification-leadership-activity-7444950236587945984--IZT",
+      "checkedAt": "2026-08-30",
+      "summary": "Public post in which Bhattacharya says he is hiring for the verification leadership role and describes its company-wide AMS verification purpose."
     }
   ]
 }
