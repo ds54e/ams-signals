@@ -149,9 +149,9 @@ test('Timeline and Events navigation preserves the current query lens', async ({
     companies: 'apple,renesas',
     kind: 'technical',
     q: 'PLL',
-    view: 'both',
+    view: 'companies',
   };
-  await page.goto('./?companies=apple,renesas&kind=technical&q=PLL&view=both');
+  await page.goto('./?companies=apple,renesas&kind=technical&q=PLL&view=companies');
   await expectExplorerReady(page);
   expect(queryState(page.url())).toEqual(expected);
   const timelineIds = await visibleTimelineEventIds(page);
@@ -208,7 +208,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
     await expect(checked).toHaveCount(totalCompanies);
     await expect(page.locator('[data-search]')).toHaveValue('');
     await expect(page.locator('[data-kind]')).toHaveValue('all');
-    await expect(page.locator('[data-view]')).toHaveValue('companies');
+    await expect(page.locator('[data-view]')).toHaveValue('both');
     expect(new URL(page.url()).search).toBe('');
   }
 });
@@ -481,14 +481,17 @@ test('Timeline starts at newest-left, reveals an initial older match once, and p
   expect(await page.locator('[data-timeline-scroll]').evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
 });
 
-test('Timeline renders centered lane baselines without row borders while retaining segment guides and conditional group space', async ({ page }) => {
+test('Timeline defaults to a continuous Company and People lane stack with centered baselines', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
 
+  await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-default-view', 'both');
+  await expect(page.locator('[data-view]')).toHaveValue('both');
+  await expect(page.locator('[data-group="companies"]')).toBeVisible();
+  await expect(page.locator('[data-group="people"]')).toBeVisible();
   await expect(page.locator('.lane-group-row, .lane-group-label, [data-group-label]')).toHaveCount(0);
   await expect(page.locator('.timeline-axis .axis-label')).toHaveText('');
   await expect(page.getByText('Record', { exact: true })).toHaveCount(0);
-  await page.locator('[data-view]').selectOption('both');
   const guides = await page.locator('[data-lane-type="company"]:visible, [data-lane-type="person"]:visible').evaluateAll((lanes) => (
     ['company', 'person'].map((laneType) => {
       const lane = lanes.find((candidate) => candidate.dataset.laneType === laneType);
@@ -522,18 +525,46 @@ test('Timeline renders centered lane baselines without row borders while retaini
   }
 
   const peopleGroup = page.locator('[data-group="people"]');
-  await expect(peopleGroup).toHaveClass(/has-group-gap/);
+  await expect(peopleGroup).not.toHaveClass(/has-group-gap/);
+  await expect(peopleGroup).toHaveCSS('padding-top', '0px');
   const groupGap = await page.evaluate(() => {
     const companyLanes = [...document.querySelectorAll('[data-group="companies"] [data-lane]:not([hidden])')];
     const personLane = document.querySelector('[data-group="people"] [data-lane]:not([hidden])');
     return personLane.getBoundingClientRect().top - companyLanes.at(-1).getBoundingClientRect().bottom;
   });
-  expect(groupGap).toBeGreaterThanOrEqual(10);
-  expect(groupGap).toBeLessThanOrEqual(14);
+  expect(Math.abs(groupGap)).toBeLessThanOrEqual(1);
+});
 
-  await page.locator('[data-search]').fill('Aeon');
-  await expect(page.locator('[data-group="people"] [data-lane]:visible')).toHaveCount(0);
-  await expect(peopleGroup).not.toHaveClass(/has-group-gap/);
+test('global explorer supports every explicit view and resets to both', async ({ page }) => {
+  for (const path of ['./', './events/']) {
+    const surface = path.includes('events') ? 'events' : 'timeline';
+
+    await page.goto(path);
+    await expectExplorerReady(page, surface);
+    await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-default-view', 'both');
+    await expect(page.locator('[data-view]')).toHaveValue('both');
+    expect(new URL(page.url()).searchParams.has('view')).toBe(false);
+
+    for (const view of ['companies', 'people', 'both']) {
+      await page.goto(`${path}?view=${view}`);
+      await expectExplorerReady(page, surface);
+      await expect(page.locator('[data-view]')).toHaveValue(view);
+
+      if (surface === 'timeline') {
+        if (view === 'people') await expect(page.locator('[data-group="companies"]')).toBeHidden();
+        else await expect(page.locator('[data-group="companies"]')).toBeVisible();
+
+        if (view === 'companies') await expect(page.locator('[data-group="people"]')).toBeHidden();
+        else await expect(page.locator('[data-group="people"]')).toBeVisible();
+      }
+    }
+
+    await page.locator('[data-search]').fill('PLL');
+    await page.locator('[data-view]').selectOption('companies');
+    await page.locator('[data-reset]').click();
+    await expect(page.locator('[data-view]')).toHaveValue('both');
+    expect(new URL(page.url()).search).toBe('');
+  }
 });
 
 test('Company Focus panel owns overlapping pixels above every Timeline stacking context', async ({ page }) => {
@@ -743,7 +774,7 @@ test('search controls are compact and aligned on Timeline and Events', async ({ 
     expect(new URL(page.url()).search).toBe('');
     await expect(page.locator('[data-search]')).toHaveValue('');
     await expect(page.locator('[data-kind]')).toHaveValue('all');
-    await expect(page.locator('[data-view]')).toHaveValue('companies');
+    await expect(page.locator('[data-view]')).toHaveValue('both');
     await expect(page.locator('[data-company-options] input:checked')).toHaveCount(await page.locator('[data-company-options] input').count());
   }
 });

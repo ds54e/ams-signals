@@ -295,7 +295,6 @@ h1 {
   height: 46px;
 }
 .timeline-lane:hover { background: color-mix(in srgb, var(--surface-tint) 42%, transparent); }
-.lane-group.has-group-gap { padding-top: 12px; }
 .lane-label {
   position: sticky;
   left: 0;
