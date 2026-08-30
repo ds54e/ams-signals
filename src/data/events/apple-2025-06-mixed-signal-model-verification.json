@@ -1,0 +1,29 @@
+{
+  "id": "apple-2025-06-mixed-signal-model-verification",
+  "when": {
+    "start": "2025-06-18",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple lists dedicated Mixed-Signal Model Verification roles",
+  "fact": "Apple listed Mixed-Signal Model Verification Engineer roles whose description includes self-checking SystemVerilog testbenches that compare behavioral models with source circuits, functional checks against specifications, assertions, formal logical equivalence, lint and timing checks, and flow automation across mixed-signal design teams.",
+  "sources": [
+    {
+      "title": "Apple Analog and Digital Design search results (historical)",
+      "url": "https://jobs.apple.com/en-us/search?location=United-States-USA&team=Analog-and-Digital-Design-HRDWR-ADD",
+      "checkedAt": "2026-08-30",
+      "status": "unavailable",
+      "summary": "Apple's historical search results dated Cupertino and Austin variants of the role to June 18, 2025; those results are no longer present at the last check."
+    },
+    {
+      "title": "Mixed-Signal Model Verification Engineer — Fairygodboss mirror",
+      "url": "https://fairygodboss.com/jobs/apple/mixed-signal-model-verification-engineer-c2bf9efb051278cfbef08721089aa3de",
+      "checkedAt": "2026-08-30",
+      "summary": "Mirror of Apple's Cupertino role 200581653 describing circuit comparison, functional tests, assertions, formal equivalence, lint, timing checks, and automation."
+    }
+  ]
+}

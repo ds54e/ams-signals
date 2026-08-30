@@ -1,0 +1,22 @@
+{
+  "id": "apple-2026-08-cad-ams-simulation-methodology",
+  "when": {
+    "start": "2026-08-27",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple posts a senior CAD role to own cross-team AMS simulation methodology",
+  "fact": "Apple posted a Senior CAD Automation and Mixed-Signal Simulation Engineer role whose description assigns ownership of AMS simulation methodology across analog, RF, interconnect, PMIC, and memory teams, spanning circuit and RTL simulation, behavioral modeling, analog-digital co-simulation, logic equivalence, signoff, and automation. The posting also names wreal, real-number modeling, user-defined nets, and connect modules among the relevant methodology experience.",
+  "sources": [
+    {
+      "title": "Senior CAD Automation and Mixed-Signal Simulation Engineer",
+      "url": "https://jobs.apple.com/fr-ch/details/200680373-3956/senior-cad-automation-and-mixed-signal-simulation-engineer?team=HRDWR",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple role dated August 27, 2026, covering ownership of AMS simulation methodology, cross-team CAD automation, co-simulation and signoff flows, and wreal, RNM, UDN, and connect-module implementation."
+    }
+  ]
+}

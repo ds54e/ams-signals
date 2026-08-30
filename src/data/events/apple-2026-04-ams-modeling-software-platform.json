@@ -1,0 +1,22 @@
+{
+  "id": "apple-2026-04-ams-modeling-software-platform",
+  "when": {
+    "start": "2026-04-14",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple posts an Analog Mixed-Signal Modeling Software role",
+  "fact": "Apple posted an Analog Mixed-Signal Modeling Software Engineer role whose description covers multi-simulator platforms, scientific-software and automation frameworks, custom model libraries, simulation frameworks, domain-specific languages, and web interfaces for AMS circuit design.",
+  "sources": [
+    {
+      "title": "Analog Mixed-Signal Modeling Software Engineer (m/f/d)",
+      "url": "https://jobs.apple.com/en-us/details/200656891-1731/analog-mixed-signal-modeling-software-engineer-m-f-d",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple role dated April 14, 2026, for AMS modeling tools, multi-simulator platforms, model libraries, frameworks, domain-specific languages, and designer-facing interfaces."
+    }
+  ]
+}

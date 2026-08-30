@@ -1,0 +1,23 @@
+{
+  "id": "apple-2025-10-aeon-modeling-intern",
+  "when": {
+    "start": "2025-10-01",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple posts an Aeon Modeling Intern role",
+  "fact": "Apple posted an Aeon Modeling Intern role in Munich. Its description places the internship in an AMS modeling software team and lists behavioral and electrical models for SerDes, PLLs, memory interfaces, and data converters; comparison with circuit simulations and measurements; modeling methods and automation; simulation-accuracy tradeoffs; and LLM-assisted model and software-framework development.",
+  "sources": [
+    {
+      "title": "Aeon Modeling Intern (m/f/d)",
+      "url": "https://jobs.apple.com/en-gb/details/200623839-1731/aeon-modeling-intern-m-f-d?team=STDNT",
+      "checkedAt": "2026-08-30",
+      "status": "unavailable",
+      "summary": "Original Apple role dated October 1, 2025, describing AMS interface models, circuit and measurement comparison, methodology, automation, accuracy-performance tradeoffs, and LLM-assisted development; the page is no longer available at the last check."
+    }
+  ]
+}

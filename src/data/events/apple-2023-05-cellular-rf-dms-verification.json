@@ -1,0 +1,35 @@
+{
+  "id": "apple-2023-05-cellular-rf-dms-verification",
+  "when": {
+    "start": "2023-05-17",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple posts a cellular RF Digital-Mixed-Signal Verification role",
+  "fact": "Apple posted a Digital-Mixed-Signal Verification Engineer role for cellular RF work whose description covers SystemVerilog behavioral models for LNA, PLL, ADC, DAC, and mixer blocks at multiple abstraction levels, matching models to schematic specifications, assertions, and UVM-based sub-system and system verification.",
+  "sources": [
+    {
+      "title": "Digital-Mixed-Signal Verification Engineer (original Apple role)",
+      "url": "https://jobs.apple.com/en-us/details/200480187/digital-mixed-signal-verification-engineer-m-f-d",
+      "checkedAt": "2026-08-30",
+      "status": "unavailable",
+      "summary": "Original Apple URL for role 200480187; the posting is no longer available on Apple at the last check."
+    },
+    {
+      "title": "Digital-Mixed-Signal Verification Engineer — LinkedIn mirror",
+      "url": "https://at.linkedin.com/jobs/view/digital-mixed-signal-verification-engineer-m-f-d-at-apple-3605182756",
+      "checkedAt": "2026-08-30",
+      "summary": "Mirror of Apple's role 200480187 describing SystemVerilog analog models, schematic matching, assertions, and sub-system and system verification."
+    },
+    {
+      "title": "Digital-Mixed-Signal Verification Engineer — RapidJob mirror",
+      "url": "https://www.rapidjob.de/job/7jjk4bu/",
+      "checkedAt": "2026-08-30",
+      "summary": "Mirror of the Apple role with a May 17, 2023 posting date and cellular RF transceiver context."
+    }
+  ]
+}
