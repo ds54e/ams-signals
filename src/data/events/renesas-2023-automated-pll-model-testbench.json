@@ -4,7 +4,7 @@
     "start": "2023",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["renesas"],
   "people": ["jun-yan"],
   "headline": "Renesas authors report automated model-versus-schematic testbenches across four PLL abstractions",

@@ -4,7 +4,7 @@
     "start": "2023",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["microchip"],
   "people": ["chuck-mcclish"],
   "headline": "Microchip author introduces an Analog Information Model abstraction for SystemVerilog RNM",

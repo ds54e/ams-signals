@@ -4,7 +4,7 @@
     "start": "2026-07-07",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["broadcom"],
   "people": [],
   "headline": "Broadcom lists DMS modeling for touch, wireless-power, health-sensing, and satellite analog front ends",

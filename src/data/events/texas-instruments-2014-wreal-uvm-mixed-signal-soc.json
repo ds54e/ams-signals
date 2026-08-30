@@ -4,7 +4,7 @@
     "start": "2014",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["texas-instruments"],
   "people": [],
   "headline": "TI authors report wreal and UVM methods in two mixed-signal SoC case studies",

@@ -4,7 +4,7 @@
     "start": "2014",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices"],
   "people": [],
   "headline": "Analog Devices teams report two metric-driven mixed-signal verification deployments",

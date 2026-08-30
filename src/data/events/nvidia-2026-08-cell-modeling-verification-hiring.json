@@ -4,7 +4,7 @@
     "start": "2026-08-14",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["nvidia"],
   "people": [],
   "headline": "NVIDIA posts a mixed-signal cell modeling and verification role",

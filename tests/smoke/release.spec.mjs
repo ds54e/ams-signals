@@ -20,7 +20,7 @@ async function expectExplorerReady(page, surface = 'timeline') {
   const explorer = page.locator('[data-event-explorer-root]');
   await expect(explorer).toHaveAttribute('data-initialized', 'true');
   await expect(explorer).toHaveAttribute('data-surface', surface);
-  await expect(page.locator('[data-status]')).toContainText('unique public');
+  await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?/);
 }
 
 async function visibleTimelineEventIds(page) {
@@ -58,6 +58,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
 
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-detail]')).toHaveCount(1);
+  await expect(page.locator('[data-detail-title]')).toContainText("MediaTek's careers site");
   await expect(page.locator('.result-section')).toHaveCount(0);
   await expect(page.locator('.company-records')).toHaveCount(0);
   await expect(page.getByText('Visible events', { exact: true })).toHaveCount(0);
@@ -99,8 +100,15 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator('.desktop-timeline')).toHaveCount(0);
   await expect(page.locator('[data-detail]')).toHaveCount(0);
   await expect(page.locator('.company-records')).toHaveCount(0);
-  await expect(page.getByRole('heading', { name: 'Visible events' })).toBeVisible();
-  await expect(page.locator('.result-section')).toBeVisible();
+  await expect(page.getByText('CHRONOLOGICAL RECORD', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Visible events', { exact: true })).toHaveCount(0);
+  await expect(page.locator('.result-heading')).toHaveCount(0);
+  const resultSection = page.locator('.result-section[aria-label="Events"]');
+  await expect(resultSection).toBeVisible();
+  await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
+  expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
+  await expect(page.locator('[data-status]')).toHaveText('43 of 43 events');
+  await expect(page.locator('.event-filter-summary')).toContainText('Newest first');
 
   const ids = await page.locator('[data-event-result]').evaluateAll((events) => events.map((event) => event.getAttribute('data-event-id')));
   expect(ids.length).toBeGreaterThan(0);
@@ -139,11 +147,11 @@ test('Timeline and Events return identical Event sets for shared filters', async
 test('Timeline and Events navigation preserves the current query lens', async ({ page }) => {
   const expected = {
     companies: 'apple,renesas',
-    kind: 'publication',
+    kind: 'technical',
     q: 'PLL',
     view: 'both',
   };
-  await page.goto('./?companies=apple,renesas&kind=publication&q=PLL&view=both');
+  await page.goto('./?companies=apple,renesas&kind=technical&q=PLL&view=both');
   await expectExplorerReady(page);
   expect(queryState(page.url())).toEqual(expected);
   const timelineIds = await visibleTimelineEventIds(page);
@@ -168,7 +176,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
     await expectExplorerReady(page, surface);
 
     await page.locator('[data-search]').fill('RNM');
-    await page.locator('[data-kind]').selectOption('publication');
+    await page.locator('[data-kind]').selectOption('technical');
     await page.locator('[data-view]').selectOption('both');
     await page.locator('[data-company-picker] summary').click();
 
@@ -180,7 +188,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 43 unique public events shown');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 43 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -191,7 +199,7 @@ test('Company Focus exposes immediate All companies and Clear all actions', asyn
 
     await page.getByRole('button', { name: 'All companies', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 43 unique public events shown');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 43 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -264,30 +272,23 @@ test('zero-Event researched Company pages still build without primary Timeline l
   }
 });
 
-test('Timeline uses fixed density-adjusted segments and one-row shared Event slots', async ({ page }) => {
+test('Timeline uses newest-first chronological packing with immutable shared Event positions', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
 
+  const timelineWidth = Number(await page.locator('.desktop-timeline').getAttribute('data-timeline-width'));
   const segments = await page.locator('[data-timeline-segment]').evaluateAll((nodes) => nodes.map((node) => ({
     label: node.getAttribute('data-segment-label'),
     key: node.getAttribute('data-segment-key'),
     count: Number(node.getAttribute('data-event-count')),
     width: Number(node.getAttribute('data-segment-width')),
   })));
-  expect(segments.map(({ label }) => label)).toEqual(['≤2020', '2021', '2022', '2023', '2024', '2025', '2026']);
-  expect(segments.map(({ count }) => count)).toEqual([13, 2, 2, 4, 3, 4, 15]);
+  expect(segments.map(({ label }) => label)).toEqual(['2026', '2025', '2024', '2023', '2022', '2021', '≤2020']);
+  expect(segments.map(({ count }) => count)).toEqual([15, 4, 3, 4, 2, 2, 13]);
   expect(segments.filter(({ key }) => key === 'through-2020')).toHaveLength(1);
+  expect(segments.at(-1).key).toBe('through-2020');
   expect(segments.some(({ label }) => /^20(?:1[2-9]|20)$/.test(label))).toBe(false);
-  expect(segments.find(({ label }) => label === '2026').width)
-    .toBeGreaterThan(segments.find(({ label }) => label === '2021').width * 3);
-  const historicalWidth = segments.find(({ label }) => label === '≤2020').width;
-  const latestWidth = segments.find(({ label }) => label === '2026').width;
-  expect(historicalWidth).toBeGreaterThanOrEqual(300);
-  expect(historicalWidth).toBeLessThanOrEqual(330);
-  expect(latestWidth).toBeGreaterThanOrEqual(550);
-  expect(latestWidth).toBeLessThanOrEqual(570);
-  expect(historicalWidth).toBeLessThan(latestWidth * 0.6);
 
   const lanes = await page.locator('[data-group="companies"] [data-lane]').evaluateAll((nodes) => nodes.map((lane) => ({
     entity: lane.getAttribute('data-entity-id'),
@@ -318,26 +319,58 @@ test('Timeline uses fixed density-adjusted segments and one-row shared Event slo
           date: node.getAttribute('data-event-date'),
           segment: node.getAttribute('data-segment-key'),
           x: Number(node.getAttribute('data-event-x')),
+          band: Number(node.getAttribute('data-band')),
+          microSlot: Number(node.getAttribute('data-micro-slot')),
         });
       }
     });
     return [...unique.values()];
   });
   expect(orderedSlots).toHaveLength(43);
-  const historicalSlots = orderedSlots
-    .filter((entry) => entry.segment === 'through-2020')
-    .sort((left, right) => left.x - right.x);
-  const historicalGaps = historicalSlots.slice(1).map((entry, index) => entry.x - historicalSlots[index].x);
-  expect(historicalSlots).toHaveLength(13);
-  expect(Math.min(...historicalGaps)).toBeGreaterThanOrEqual(20);
+  expect(new Set(orderedSlots.map(({ x }) => x)).size, 'different Event IDs have unique x positions').toBe(43);
+  expect(timelineWidth, 'packed track is narrower than one 34px slot per Event').toBeLessThan(orderedSlots.length * 34);
   for (const segment of segments) {
     const entries = orderedSlots.filter((entry) => entry.segment === segment.key);
     const chronologicalIds = entries.slice().sort((left, right) => (
-      left.date.localeCompare(right.date) || left.id.localeCompare(right.id)
+      right.date.localeCompare(left.date) || left.id.localeCompare(right.id)
     )).map(({ id }) => id);
     const positionedIds = entries.slice().sort((left, right) => left.x - right.x).map(({ id }) => id);
-    expect(positionedIds, `slot order in ${segment.label}`).toEqual(chronologicalIds);
+    expect(positionedIds, `newest-first packed order in ${segment.label}`).toEqual(chronologicalIds);
   }
+
+  const lanePacking = await page.locator('[data-lane]').evaluateAll((laneNodes) => laneNodes.map((lane) => {
+    const marks = [...lane.querySelectorAll('[data-event-mark]')].map((mark) => ({
+      id: mark.getAttribute('data-event-id'),
+      segment: mark.getAttribute('data-segment-key'),
+      band: mark.getAttribute('data-band'),
+      left: mark.getBoundingClientRect().left,
+      right: mark.getBoundingClientRect().right,
+    }));
+    return {
+      lane: `${lane.getAttribute('data-lane-type')}:${lane.getAttribute('data-entity-id')}`,
+      marks,
+    };
+  }));
+  for (const lane of lanePacking) {
+    for (const segment of segments) {
+      const marks = lane.marks.filter((mark) => mark.segment === segment.key);
+      expect(new Set(marks.map(({ band }) => band)).size, `${lane.lane} has one Event per packed band`)
+        .toBe(marks.length);
+      const positioned = marks.slice().sort((left, right) => left.left - right.left);
+      for (let index = 1; index < positioned.length; index += 1) {
+        expect(positioned[index].left, `${lane.lane} marks do not overlap`).toBeGreaterThanOrEqual(positioned[index - 1].right);
+      }
+    }
+  }
+
+  const firstCompanyLaneIds = await page.locator('[data-group="companies"] [data-lane]').first()
+    .locator('[data-event-mark]').evaluateAll((marks) => marks.map((mark) => ({
+      id: mark.getAttribute('data-event-id'),
+      date: mark.getAttribute('data-event-date'),
+    })));
+  expect(firstCompanyLaneIds).toEqual(firstCompanyLaneIds.slice().sort((left, right) => (
+    right.date.localeCompare(left.date) || left.id.localeCompare(right.id)
+  )));
 });
 
 test('search and Company Focus filtering never change Timeline geometry', async ({ page }) => {
@@ -356,7 +389,8 @@ test('search and Company Focus filtering never change Timeline geometry', async 
       id: mark.getAttribute('data-event-id'),
       x: mark.getAttribute('data-event-x'),
       segment: mark.getAttribute('data-segment-key'),
-      slot: mark.getAttribute('data-slot'),
+      band: mark.getAttribute('data-band'),
+      microSlot: mark.getAttribute('data-micro-slot'),
     })),
   }));
   const initial = await geometry();
@@ -366,12 +400,20 @@ test('search and Company Focus filtering never change Timeline geometry', async 
   await page.locator('[data-search]').fill('PLL');
   expect(await geometry()).toEqual(initial);
 
+  await page.locator('[data-kind]').selectOption('technical');
+  expect(await geometry()).toEqual(initial);
+
   await page.locator('[data-company-picker] summary').click();
   await page.locator('[data-company-options] input[value="apple"]').uncheck();
   expect(await geometry()).toEqual(initial);
+
+  await page.locator('[data-view]').selectOption('people');
+  expect(await geometry()).toEqual(initial);
+  await page.locator('[data-view]').selectOption('both');
+  expect(await geometry()).toEqual(initial);
 });
 
-test('Timeline scrolling is local, opens on recent Events, and preserves user position', async ({ page }) => {
+test('Timeline starts at newest-left, reveals an initial older match once, and preserves user scroll', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
@@ -384,26 +426,37 @@ test('Timeline scrolling is local, opens on recent Events, and preserves user po
     scrollLeft: node.scrollLeft,
   }));
   expect(initial.scrollWidth).toBeGreaterThan(initial.clientWidth);
-  expect(initial.scrollLeft).toBeGreaterThan(0);
-  expect(Math.abs(initial.scrollLeft - (initial.scrollWidth - initial.clientWidth))).toBeLessThanOrEqual(1);
+  expect(initial.scrollLeft).toBe(0);
   const recentVisibility = await page.locator('[data-timeline-scroll]').evaluate((node) => {
     const scroller = node.getBoundingClientRect();
-    return ['2025', '2026'].map((label) => {
+    return ['2026'].map((label) => {
       const segment = node.querySelector(`[data-segment-label="${label}"]`)?.getBoundingClientRect();
       return Boolean(segment && segment.right > scroller.left && segment.left < scroller.right);
     });
   });
-  expect(recentVisibility).toEqual([true, true]);
+  expect(recentVisibility).toEqual([true]);
   expect(await page.locator('[data-timeline-scroll] [data-detail]').count()).toBe(0);
   await expect(page.locator('[data-detail]')).toBeVisible();
 
   const label = page.locator('[data-lane][data-entity-id="apple"] .lane-label');
   const labelLeft = (await label.boundingBox()).x;
-  await scroller.evaluate((node) => { node.scrollLeft = 400; });
+  const userPosition = await scroller.evaluate((node) => {
+    const position = Math.max((node.scrollWidth - node.clientWidth) / 2, 1);
+    node.scrollLeft = position;
+    return node.scrollLeft;
+  });
+  expect(userPosition).toBeGreaterThan(0);
   expect(Math.abs((await label.boundingBox()).x - labelLeft)).toBeLessThanOrEqual(1);
   await page.locator('[data-search]').fill('RNM');
   const afterFilter = await scroller.evaluate((node) => node.scrollLeft);
-  expect(Math.abs(afterFilter - 400)).toBeLessThanOrEqual(1);
+  expect(Math.abs(afterFilter - userPosition)).toBeLessThanOrEqual(1);
+  await page.locator('[data-kind]').selectOption('technical');
+  expect(Math.abs(await scroller.evaluate((node) => node.scrollLeft) - userPosition)).toBeLessThanOrEqual(1);
+  await page.locator('[data-company-picker] summary').click();
+  await page.locator('[data-company-options] input[value="apple"]').uncheck();
+  expect(Math.abs(await scroller.evaluate((node) => node.scrollLeft) - userPosition)).toBeLessThanOrEqual(1);
+  await page.locator('[data-view]').selectOption('people');
+  expect(Math.abs(await scroller.evaluate((node) => node.scrollLeft) - userPosition)).toBeLessThanOrEqual(1);
 
   const documentWidth = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
@@ -418,6 +471,147 @@ test('Timeline scrolling is local, opens on recent Events, and preserves user po
   ));
   expect(peopleHeights.length).toBeGreaterThan(0);
   expect(new Set(peopleHeights)).toEqual(new Set([46]));
+
+  await page.goto('./?q=floating-point');
+  await expectExplorerReady(page);
+  await expect(page.locator('[data-timeline-scroll]')).toHaveAttribute(
+    'data-initial-reveal',
+    'cadence-2012-real-valued-systemverilog-coverage',
+  );
+  expect(await page.locator('[data-timeline-scroll]').evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
+});
+
+test('Timeline removes group rows and ruled baselines while retaining segment guides and conditional group space', async ({ page }) => {
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  await expect(page.locator('.lane-group-row, .lane-group-label, [data-group-label]')).toHaveCount(0);
+  await expect(page.locator('.timeline-axis .axis-label')).toHaveText('');
+  await expect(page.getByText('Record', { exact: true })).toHaveCount(0);
+  const guides = await page.locator('[data-lane]').first().evaluate((lane) => ({
+    laneBorderWidth: getComputedStyle(lane).borderBottomWidth,
+    laneBorderStyle: getComputedStyle(lane).borderBottomStyle,
+    baselineContent: getComputedStyle(lane.querySelector('.lane-track'), '::before').content,
+    segmentBorderWidth: getComputedStyle(lane.querySelector('.timeline-segment-grid span')).borderRightWidth,
+    segmentBorderStyle: getComputedStyle(lane.querySelector('.timeline-segment-grid span')).borderRightStyle,
+  }));
+  expect(guides.laneBorderWidth).toBe('0px');
+  expect(guides.laneBorderStyle).toBe('none');
+  expect(guides.baselineContent).toBe('none');
+  expect(guides.segmentBorderWidth).toBe('1px');
+  expect(guides.segmentBorderStyle).toBe('solid');
+
+  await page.locator('[data-view]').selectOption('both');
+  const peopleGroup = page.locator('[data-group="people"]');
+  await expect(peopleGroup).toHaveClass(/has-group-gap/);
+  const groupGap = await page.evaluate(() => {
+    const companyLanes = [...document.querySelectorAll('[data-group="companies"] [data-lane]:not([hidden])')];
+    const personLane = document.querySelector('[data-group="people"] [data-lane]:not([hidden])');
+    return personLane.getBoundingClientRect().top - companyLanes.at(-1).getBoundingClientRect().bottom;
+  });
+  expect(groupGap).toBeGreaterThanOrEqual(10);
+  expect(groupGap).toBeLessThanOrEqual(14);
+
+  await page.locator('[data-search]').fill('Aeon');
+  await expect(page.locator('[data-group="people"] [data-lane]:visible')).toHaveCount(0);
+  await expect(peopleGroup).not.toHaveClass(/has-group-gap/);
+});
+
+test('Company Focus panel owns overlapping pixels above every Timeline stacking context', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  await page.locator('[data-company-picker] summary').click();
+  const panel = page.locator('.company-picker-panel');
+  await expect(panel).toBeVisible();
+  await expect(page.getByText('Select companies to focus. Shared Events remain one factual record.', { exact: true })).toHaveCount(0);
+
+  const overlap = await page.evaluate(() => {
+    const pickerPanel = document.querySelector('.company-picker-panel');
+    const timeline = document.querySelector('.timeline-scroll');
+    const panelRect = pickerPanel.getBoundingClientRect();
+    const timelineRect = timeline.getBoundingClientRect();
+    const left = Math.max(panelRect.left, timelineRect.left);
+    const right = Math.min(panelRect.right, timelineRect.right);
+    const top = Math.max(panelRect.top, timelineRect.top);
+    const bottom = Math.min(panelRect.bottom, timelineRect.bottom);
+    const x = left + Math.min(24, Math.max((right - left) / 2, 1));
+    const y = top + Math.min(24, Math.max((bottom - top) / 2, 1));
+    const topElement = document.elementFromPoint(x, y);
+    return {
+      hasOverlap: right > left && bottom > top,
+      x,
+      y,
+      topElement: topElement?.tagName,
+      insidePanel: Boolean(topElement?.closest('.company-picker-panel')),
+    };
+  });
+  expect(overlap.hasOverlap).toBe(true);
+  expect(overlap.insidePanel, `elementFromPoint(${overlap.x}, ${overlap.y}) was ${overlap.topElement}`).toBe(true);
+});
+
+test('Signal type taxonomy is binary, shape-distinct, canonical, and legacy-query compatible', async ({ page }) => {
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  await expect(page.getByText('fixed while filtering', { exact: true })).toHaveCount(0);
+  const options = await page.locator('[data-kind] option').allTextContents();
+  expect(options).toEqual(['All signals', 'Technical', 'Organizational']);
+  const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
+    JSON.parse(node.textContent).map((event) => event.kind)
+  ));
+  expect(serializedKinds).toHaveLength(43);
+  expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(23);
+  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(20);
+
+  const legend = page.locator('.kind-legend');
+  await expect(legend.locator('span')).toHaveCount(2);
+  expect(await legend.locator('span').allTextContents()).toEqual(['Technical', 'Organizational']);
+  const shapes = await legend.locator('.legend-mark').evaluateAll((marks) => marks.map((mark) => ({
+    kind: mark.classList.contains('event-kind-technical') ? 'technical' : 'organizational',
+    borderRadius: getComputedStyle(mark).borderRadius,
+    backgroundColor: getComputedStyle(mark).backgroundColor,
+  })));
+  expect(shapes[0].borderRadius).not.toBe(shapes[1].borderRadius);
+  expect(shapes[0].backgroundColor).not.toBe(shapes[1].backgroundColor);
+
+  await page.locator('[data-kind]').selectOption('technical');
+  await expect(page.locator('[data-status]')).toHaveText('23 of 43 events');
+  await page.locator('[data-kind]').selectOption('organizational');
+  await expect(page.locator('[data-status]')).toHaveText('20 of 43 events');
+  const organizationalMark = page.locator('[data-event-mark].event-kind-organizational:visible').first();
+  await organizationalMark.click();
+  await expect(page.locator('[data-detail-meta]')).toContainText('Organizational');
+
+  const aliases = new Map([
+    ['publication', 'technical'],
+    ['conference', 'technical'],
+    ['hiring', 'organizational'],
+    ['affiliation_change', 'organizational'],
+    ['organization', 'organizational'],
+    ['business', 'organizational'],
+  ]);
+  for (const [legacy, canonical] of aliases) {
+    await page.goto(`./?kind=${legacy}`);
+    await expectExplorerReady(page);
+    await expect(page.locator('[data-kind]')).toHaveValue(canonical);
+    expect(new URL(page.url()).searchParams.get('kind')).toBe(canonical);
+  }
+
+  await page.goto('./?kind=other');
+  await expectExplorerReady(page);
+  await expect(page.locator('[data-kind]')).toHaveValue('all');
+  expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
+
+  await page.goto('./events/');
+  await expectExplorerReady(page, 'events');
+  expect(new Set(await page.locator('.kind-badge').allTextContents())).toEqual(new Set(['Technical', 'Organizational']));
+  await page.goto('./events/ecosystem-2025-02-uvm-ms-1-standard/');
+  await expect(page.locator('.event-meta')).toContainText('Technical');
+  await page.goto('./events/sitime-2026-07-renesas-timing-acquisition/');
+  await expect(page.locator('.event-meta')).toContainText('Organizational');
 });
 
 test('shared Events remain one list record and one inspector record', async ({ page }) => {
@@ -462,6 +656,16 @@ test('unavailable originals remain labels and Event permalinks remain live', asy
 });
 
 test('Company-first, People-first, and Analysis-to-Event behavior remains intact', async ({ page }) => {
+  const contextGeometry = () => page.locator('[data-timeline-root]').evaluate((root) => ({
+    width: root.querySelector('.desktop-timeline')?.getAttribute('data-timeline-width'),
+    segments: [...root.querySelectorAll('[data-timeline-segment]')].map((segment) => (
+      `${segment.getAttribute('data-segment-key')}:${segment.getAttribute('data-segment-width')}`
+    )),
+    marks: [...root.querySelectorAll('[data-event-mark]')].map((mark) => (
+      `${mark.getAttribute('data-event-id')}:${mark.getAttribute('data-event-x')}:${mark.getAttribute('data-band')}:${mark.getAttribute('data-micro-slot')}`
+    )),
+  }));
+
   await page.goto('./companies/apple/');
   await expectExplorerReady(page);
   await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-context', 'company');
@@ -469,6 +673,10 @@ test('Company-first, People-first, and Analysis-to-Event behavior remains intact
   await expect(page.locator('[data-group="companies"]')).toBeVisible();
   await expect(page.locator('[data-group="people"]')).toBeHidden();
   await expect(page.locator('.result-section')).toHaveCount(0);
+  const appleGeometry = await contextGeometry();
+  await page.locator('[data-search]').fill('PMU');
+  await page.locator('[data-kind]').selectOption('organizational');
+  expect(await contextGeometry()).toEqual(appleGeometry);
 
   await page.goto('./people/toshi-kawashima/');
   await expectExplorerReady(page);
@@ -476,6 +684,12 @@ test('Company-first, People-first, and Analysis-to-Event behavior remains intact
   await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-default-view', 'people');
   await expect(page.locator('[data-group="people"]')).toBeVisible();
   await expect(page.locator('[data-group="companies"]')).toBeHidden();
+
+  await page.goto('./people/prabal-bhattacharya/');
+  await expectExplorerReady(page);
+  const prabalGeometry = await contextGeometry();
+  await page.locator('[data-search]').fill('Skyworks');
+  expect(await contextGeometry()).toEqual(prabalGeometry);
 
   await page.goto('./analysis/');
   await page.getByRole('link', { name: 'From Behavioral Models to Managed Verification Assets?' }).click();
@@ -492,7 +706,7 @@ test('search controls are compact and aligned on Timeline and Events', async ({ 
   const removedCopy = 'Lexical search across events, evidence, companies, and people.';
 
   for (const path of ['./', './events/']) {
-    await page.goto(`${path}?companies=apple,renesas&kind=publication&q=PLL&view=both`);
+    await page.goto(`${path}?companies=apple,renesas&kind=technical&q=PLL&view=both`);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.getByText(removedCopy, { exact: true })).toHaveCount(0);
 

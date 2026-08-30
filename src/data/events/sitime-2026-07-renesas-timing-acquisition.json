@@ -4,7 +4,7 @@
     "start": "2026-07-01",
     "precision": "day"
   },
-  "kind": "business",
+  "kind": "organizational",
   "companies": ["sitime", "renesas"],
   "people": [],
   "headline": "SiTime completes its acquisition of the Renesas clock products and timing solutions business",

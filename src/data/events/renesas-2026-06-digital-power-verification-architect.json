@@ -4,7 +4,7 @@
     "start": "2026-06-16",
     "precision": "day"
   },
-  "kind": "hiring",
+  "kind": "organizational",
   "companies": ["renesas"],
   "people": [],
   "headline": "Renesas posts an architect role to define cross-domain verification for digital power products",

@@ -4,7 +4,7 @@
     "start": "2021",
     "precision": "year"
   },
-  "kind": "conference",
+  "kind": "technical",
   "companies": ["texas-instruments"],
   "people": ["jun-yan"],
   "headline": "TI presenter runs an actual C++ ATE program in analog fault simulation",
