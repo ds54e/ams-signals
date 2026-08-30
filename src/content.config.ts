@@ -3,15 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const datePrecision = z.enum(['year', 'month', 'day']);
-const eventKind = z.enum([
-  'hiring',
-  'publication',
-  'conference',
-  'affiliation_change',
-  'organization',
-  'business',
-  'other',
-]);
+const eventKind = z.enum(['technical', 'organizational']);
 
 const whenSchema = z.object({
   start: z.string().min(4),

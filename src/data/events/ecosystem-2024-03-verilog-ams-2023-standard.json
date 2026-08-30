@@ -4,7 +4,7 @@
     "start": "2024-03-04",
     "precision": "day"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices", "cadence", "nxp", "qualcomm", "renesas", "siemens-eda", "synopsys", "texas-instruments"],
   "people": ["peter-grove"],
   "headline": "Accellera releases Verilog-AMS 2023 under working-group chair Peter Grove of Renesas",

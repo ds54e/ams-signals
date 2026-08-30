@@ -4,7 +4,7 @@
     "start": "2022",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices"],
   "people": [],
   "headline": "Analog Devices authors report complementary AMS and DMS verification under UVM",

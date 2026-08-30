@@ -4,7 +4,7 @@
     "start": "2019",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["broadcom"],
   "people": [],
   "headline": "Broadcom authors report a reusable full-chip UVM DMS/AMS methodology",

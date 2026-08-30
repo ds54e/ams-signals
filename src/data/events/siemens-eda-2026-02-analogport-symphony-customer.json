@@ -4,7 +4,7 @@
     "start": "2026-02-20",
     "precision": "day"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["siemens-eda"],
   "people": [],
   "headline": "Siemens publishes an AnalogPort mixed-signal die-to-die verification case study",

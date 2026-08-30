@@ -4,7 +4,7 @@
     "start": "2017",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["texas-instruments"],
   "people": ["zhipeng-ye"],
   "headline": "TI authors report schematic-bound analog assertions and machine-learning-guided PVT exploration",

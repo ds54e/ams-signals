@@ -20,7 +20,9 @@ for (const file of files) {
   for (const pattern of inferencePatterns) {
     if (pattern.test(data.fact)) errors.push(`${file}: fact contains inference-like wording matching ${pattern}.`);
   }
-  if (data.kind === 'hiring' && !/(posted|listed|role|job description|job posting|position)/i.test(data.fact)) {
+  const hiringSignal = data.kind === 'organizational'
+    && /(hiring|role|job|position|posts?|lists?)/i.test(data.headline);
+  if (hiringSignal && !/(posted|listed|role|job description|job posting|position|careers site)/i.test(data.fact)) {
     errors.push(`${file}: hiring facts should preserve source modality (for example, “posted a role…”).`);
   }
 }

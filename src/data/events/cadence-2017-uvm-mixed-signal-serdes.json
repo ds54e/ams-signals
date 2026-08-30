@@ -4,7 +4,7 @@
     "start": "2017",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["cadence"],
   "people": [],
   "headline": "Cadence authors describe reusing a digital UVM environment for mixed-signal SerDes verification",

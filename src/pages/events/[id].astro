@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { formatWhen } from '../../lib/content';
+import { eventKindLabel, formatWhen } from '../../lib/content';
 import { sitePath } from '../../lib/paths';
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ const personMap = new Map(people.map((person) => [person.data.id, person.data.na
 >
   <article class="record-page">
     <a class="back-link" href={sitePath('events/')}>← Events</a>
-    <p class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</p>
+    <p class="event-meta">{formatWhen(event)} · {eventKindLabel(event.data.kind)}</p>
     <h1>{event.data.headline}</h1>
     <div class="record-context" aria-label="Linked records">
       {event.data.companies.map((id) => <a href={sitePath(`companies/${id}/`)}>{companyMap.get(id) ?? id}</a>)}

@@ -118,7 +118,9 @@ Desktop is the reference experience. Mobile and narrow-screen usability are best
 
 The visual style should feel like a modern technical research publication/tool: clear hierarchy, restrained styling, generous spacing, and readable timelines. Avoid decorative dashboards and metric cards that imply precision the source material cannot support.
 
-Timeline geometry is chronological but density-adjusted: horizontal space supports readable Event placement rather than measuring elapsed time, and filtering never recomputes that geometry.
+Timeline geometry runs newest-left to oldest-right because the viewer is a current technical-intelligence tool rather than a historical teaching timeline. It is density-adjusted and chronologically packed: unrelated Events may share a compact band with distinct x positions, while every shared Golden Event keeps one global x position and same-lane Events never overlap. Filtering hides or shows marks and lanes without recomputing packing, segment widths, or Event coordinates.
+
+Golden Event `kind` is intentionally coarse. `technical` covers principally technical and standards milestones; `organizational` covers principally organizational, business, and workforce milestones. This is a source-signal distinction, not a technology taxonomy, maturity model, or scoring system. Optional `affiliationChange` metadata remains independent from `kind`.
 
 ## Long-term engineering philosophy
 

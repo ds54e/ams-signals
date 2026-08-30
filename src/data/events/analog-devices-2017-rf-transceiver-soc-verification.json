@@ -4,7 +4,7 @@
     "start": "2017",
     "precision": "year"
   },
-  "kind": "publication",
+  "kind": "technical",
   "companies": ["analog-devices"],
   "people": ["jakub-dudek"],
   "headline": "Analog Devices authors report RNM and generated UVM testbenches for a 2.4 GHz transceiver SoC",
