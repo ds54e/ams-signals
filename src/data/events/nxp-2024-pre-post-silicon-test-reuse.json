@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["nxp"],
-  "people": [],
+  "people": ["marcel-oosterhuis"],
   "headline": "NXP authors report reusing AMS verification tests in post-silicon validation",
   "fact": "An NXP-authored paper reports reusing pre-silicon AMS functional tests in post-silicon validation with matching stimulus timing and side-by-side waveform visualization. The methodology uses Jupyter and Python around a reusable environment for product variants; the authors report deployment across multiple projects and products and one-day silicon bring-up.",
   "sources": [

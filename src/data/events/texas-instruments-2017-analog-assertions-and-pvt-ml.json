@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["texas-instruments"],
-  "people": [],
+  "people": ["zhipeng-ye"],
   "headline": "TI authors report schematic-bound analog assertions and machine-learning-guided PVT exploration",
   "fact": "Two TI-authored 2017 papers report methods for analog and mixed-signal verification. One binds assertions directly to electrical ports in a schematic; the other applies support vector machines and active learning to adaptively explore process, voltage, and temperature space for coverage and worst-case conditions.",
   "sources": [

@@ -1,0 +1,20 @@
+{
+  "id": "nxp-2018-automotive-ethernet-uvm-ms",
+  "when": {
+    "start": "2018",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["nxp"],
+  "people": ["marcel-oosterhuis"],
+  "headline": "NXP authors extend one UVM environment across the digital and analog sides of an automotive Ethernet PHY",
+  "fact": "An NXP-authored paper reports verifying an IEEE 802.3bw 100BASE-T1 PHY with one UVM environment extended to handle its analog interface. The environment adds analog source and probe components, error injection, and analog-domain coverage while retaining the digital UVM register-model environment; the authors demonstrate the approach on a released automotive Ethernet PHY.",
+  "sources": [
+    {
+      "title": "Protocol Verification of an IEEE 802.3bw PHY: Application of Mixed-Signal Extensions to a UVM Verification Environment",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/protocol-verification-of-an-ieee-802-3bw-phy-application-of-mixed-signal-extensions-to-an-uvm-verification-environment.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "2018 NXP paper describing a UVM environment spanning the digital and analog interfaces of an automotive Ethernet PHY."
+    }
+  ]
+}

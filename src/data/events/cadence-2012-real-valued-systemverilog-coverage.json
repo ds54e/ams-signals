@@ -1,0 +1,26 @@
+{
+  "id": "cadence-2012-real-valued-systemverilog-coverage",
+  "when": {
+    "start": "2012",
+    "precision": "year"
+  },
+  "kind": "conference",
+  "companies": ["cadence"],
+  "people": ["prabal-bhattacharya"],
+  "headline": "Cadence author presents real-valued SystemVerilog covergroups for mixed-signal functional coverage",
+  "fact": "At DVCon 2012, Cadence's Prabal K. Bhattacharya and coauthors proposed extending SystemVerilog coverpoints to accept real-valued data for analog and mixed-signal functional coverage. The work reports a prototype following a year-long Cadence research-and-development effort and addresses real-valued bins and ranges, range precision, coverage scoring, cross coverage, and remaining floating-point issues.",
+  "sources": [
+    {
+      "title": "DVCon 2012: Bringing Continuous Domain into SystemVerilog Covergroups",
+      "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/dvcon-2012-bringing-continuous-domain-into-systemverilog-covergroups",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence-authored account of Bhattacharya's DVCon presentation and the research-and-development effort behind the real-valued covergroup prototype."
+    },
+    {
+      "title": "Bringing Continuous Domain into SystemVerilog Covergroups",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/bringing-continuous-domain-into-systemverilog-covergroups.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon 2012 paper specifying real-valued SystemVerilog coverpoints, binning, precision, scoring, and cross-coverage behavior."
+    }
+  ]
+}

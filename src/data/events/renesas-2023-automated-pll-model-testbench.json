@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["renesas"],
-  "people": [],
+  "people": ["jun-yan"],
   "headline": "Renesas authors report automated model-versus-schematic testbenches across four PLL abstractions",
   "fact": "A Renesas-authored paper compares AMS, open-loop RNM, closed-loop RNM without EEnet, and closed-loop RNM with EEnet representations of a PLL. It reports generating model testbenches from spreadsheet and symbol data with SKILL, a two-DUT mode for model-versus-schematic or model-versus-model comparison, and SystemVerilog stimulus and checkers alongside a Verilog-AMS hardware module.",
   "sources": [

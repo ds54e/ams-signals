@@ -1,0 +1,20 @@
+{
+  "id": "microchip-2021-uvm-udn-upf-agents",
+  "when": {
+    "start": "2021",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["microchip"],
+  "people": ["chuck-mcclish"],
+  "headline": "Microchip author reports reusable UVM agents for UDN and UPF analog stimulus",
+  "fact": "A Microchip-authored paper reports bidirectional UVM agents for SystemVerilog user-defined nettypes and UPF supply-net pins. The agents generate static and time-varying analog stimulus, monitor values, and are configured through reusable objects; the paper reports using the approach with the three largest simulators and discusses portability differences among them.",
+  "sources": [
+    {
+      "title": "Bi-Directional UVM Agents and Complex Stimulus Generation for UDN and UPF Pins",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/bi-directional-uvm-agents-and-complex-stimulus-generation-for-udn-and-upf-pins.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "2021 Microchip paper describing reusable UVM agents, analog waveform generation, monitoring, configuration, and simulator portability for UDN and UPF pins."
+    }
+  ]
+}
