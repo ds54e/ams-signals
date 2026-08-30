@@ -55,6 +55,25 @@ function requireHref(html, href, label) {
   if (!anchorHrefs(html).includes(href)) errors.push(`${label} is missing ${href}`);
 }
 
+function inspectorEventUrls(html, label) {
+  const match = html.match(/<script\b(?=[^>]*\bdata-events-json\b)[^>]*>([\s\S]*?)<\/script>/i);
+  if (!match) {
+    errors.push(`${label} is missing serialized Event inspector data`);
+    return new Set();
+  }
+
+  try {
+    return new Set(JSON.parse(match[1]).map((event) => event.eventUrl));
+  } catch (error) {
+    errors.push(`${label} has invalid serialized Event inspector data: ${error.message}`);
+    return new Set();
+  }
+}
+
+function requireInspectorEvent(urls, href, label) {
+  if (!urls.has(href)) errors.push(`${label} is missing ${href}`);
+}
+
 const htmlFiles = await filesUnder(outputRoot, '.html').catch(() => []);
 if (htmlFiles.length === 0) {
   console.error('No built HTML found in dist/. Run npm run build before check:internal-links.');
@@ -101,8 +120,14 @@ const events = await Promise.all(eventFiles.map(async (file) => JSON.parse(await
 const companies = await Promise.all(companyFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const people = await Promise.all(peopleFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const homeHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
+const eventsIndexHtml = await readFile(path.join(outputRoot, 'events', 'index.html'), 'utf8');
+const homeInspectorUrls = inspectorEventUrls(homeHtml, 'Timeline');
 
-for (const event of events) requireHref(homeHtml, `${siteBase}events/${event.id}/`, 'Timeline');
+for (const event of events) {
+  const eventPath = `${siteBase}events/${event.id}/`;
+  requireHref(eventsIndexHtml, eventPath, 'Events index');
+  requireInspectorEvent(homeInspectorUrls, eventPath, 'Timeline inspector data');
+}
 for (const company of companies) requireHref(homeHtml, `${siteBase}companies/${company.id}/`, 'Timeline');
 for (const person of people) requireHref(homeHtml, `${siteBase}people/${person.id}/`, 'Timeline');
 
@@ -118,15 +143,20 @@ for (const event of events) {
 
 for (const company of companies) {
   const companyHtml = await readFile(path.join(outputRoot, 'companies', company.id, 'index.html'), 'utf8');
-  for (const event of events.filter((entry) => entry.companies.includes(company.id))) {
-    requireHref(companyHtml, `${siteBase}events/${event.id}/`, `Company ${company.id}`);
+  const companyEvents = events.filter((entry) => entry.companies.includes(company.id));
+  const companyInspectorUrls = companyEvents.length > 0
+    ? inspectorEventUrls(companyHtml, `Company ${company.id}`)
+    : new Set();
+  for (const event of companyEvents) {
+    requireInspectorEvent(companyInspectorUrls, `${siteBase}events/${event.id}/`, `Company ${company.id} inspector data`);
   }
 }
 
 for (const person of people) {
   const personHtml = await readFile(path.join(outputRoot, 'people', person.id, 'index.html'), 'utf8');
+  const personInspectorUrls = inspectorEventUrls(personHtml, `Person ${person.id}`);
   for (const event of events.filter((entry) => entry.people.includes(person.id))) {
-    requireHref(personHtml, `${siteBase}events/${event.id}/`, `Person ${person.id}`);
+    requireInspectorEvent(personInspectorUrls, `${siteBase}events/${event.id}/`, `Person ${person.id} inspector data`);
   }
 }
 
@@ -148,4 +178,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Analysis, Event, Company, and People relationships.`);
+console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Analysis, Event, Company, and People relationships.`);

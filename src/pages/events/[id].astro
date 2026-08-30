@@ -22,7 +22,7 @@ const personMap = new Map(people.map((person) => [person.data.id, person.data.na
   description={`Factual public record and representative sources for ${event.data.headline}.`}
 >
   <article class="record-page">
-    <a class="back-link" href={sitePath('')}>← Timeline</a>
+    <a class="back-link" href={sitePath('events/')}>← Events</a>
     <p class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</p>
     <h1>{event.data.headline}</h1>
     <div class="record-context" aria-label="Linked records">
