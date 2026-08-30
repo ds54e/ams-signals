@@ -1,0 +1,26 @@
+{
+  "id": "ecosystem-2024-03-verilog-ams-2023-standard",
+  "when": {
+    "start": "2024-03-04",
+    "precision": "day"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices", "cadence", "nxp", "qualcomm", "renesas", "siemens-eda", "synopsys", "texas-instruments"],
+  "people": ["peter-grove"],
+  "headline": "Accellera releases Verilog-AMS 2023 under working-group chair Peter Grove of Renesas",
+  "fact": "Accellera approved Verilog-AMS 2023 for release on March 4, 2024. The update enhances analog constructs and adds compiler directives intended to support UVM-MS. Peter Grove of Renesas chaired the working group, and the standard's participant list names contributors affiliated with Analog Devices, Cadence, NXP, Qualcomm, Renesas, Siemens EDA, Synopsys, and Texas Instruments. Participation does not by itself establish company deployment.",
+  "sources": [
+    {
+      "title": "Accellera Approves Verilog-AMS 2023 Standard for Release",
+      "url": "https://www.accellera.org/news/press-releases/393-accellera-approves-verilog-ams-2023-standard-for-release",
+      "checkedAt": "2026-08-30",
+      "summary": "Official March 4, 2024, release announcement identifying Peter Grove as working-group chair and summarizing the standard's updates."
+    },
+    {
+      "title": "Verilog-AMS Language Reference Manual, Version 2.5",
+      "url": "https://www.accellera.org/images/downloads/standards/v-ams/VAMS-LRM-2023.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Released Verilog-AMS 2023 standard, including the participant list used to associate the tracked companies with this shared event."
+    }
+  ]
+}

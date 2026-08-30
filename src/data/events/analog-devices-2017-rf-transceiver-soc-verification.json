@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["analog-devices"],
-  "people": [],
+  "people": ["jakub-dudek"],
   "headline": "Analog Devices authors report RNM and generated UVM testbenches for a 2.4 GHz transceiver SoC",
   "fact": "An Analog Devices-authored paper reports verification of a 2.4 GHz BLE and proprietary-mode transceiver SoC using UVM RF agents, real-number models, randomized packet parameters and blockers, and full-system pads-to-RTL simulation. The paper also describes Veri-DSP, an internal flow that generated UVM block testbenches and integrated Python post-processing for DSP verification.",
   "sources": [

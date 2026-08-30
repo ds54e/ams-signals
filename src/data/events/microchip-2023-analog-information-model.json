@@ -1,0 +1,20 @@
+{
+  "id": "microchip-2023-analog-information-model",
+  "when": {
+    "start": "2023",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["microchip"],
+  "people": ["chuck-mcclish"],
+  "headline": "Microchip author introduces an Analog Information Model abstraction for SystemVerilog RNM",
+  "fact": "A Microchip-authored paper introduces an Analog Information Model that separates real-number model functionality from the SystemVerilog mechanism used to transport analog information. The proposed nodes and connectors provide a common interface across user-defined nets, UPF-based nets, and wreal, allowing stimulus and checking components to be reused while the underlying transport representation changes.",
+  "sources": [
+    {
+      "title": "Take AIM: Introducing the Analog Information Model",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1002-Take-AIM-Introducing-the-Analog-Information-Model.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "2023 Microchip paper defining an Analog Information Model abstraction over UDN, UPF, and wreal transport mechanisms."
+    }
+  ]
+}

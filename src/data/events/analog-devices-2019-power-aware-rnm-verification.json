@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["analog-devices"],
-  "people": [],
+  "people": ["jakub-dudek"],
   "headline": "Analog Devices authors report power-aware RNM verification with schematic correlation",
   "fact": "An Analog Devices-authored presentation reports power-aware RNM models used with UVM supply and interrupt agents and assertions. It describes validating models against schematics, scripting chip-top connectivity, and running RNM with RTL; the authors report finding isolation and sequencing bugs and closing coverage without mixed-signal co-simulation for those full-chip tests.",
   "sources": [

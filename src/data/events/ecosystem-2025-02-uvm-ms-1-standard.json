@@ -6,7 +6,7 @@
   },
   "kind": "publication",
   "companies": ["cadence", "siemens-eda", "synopsys", "nxp", "qualcomm", "renesas"],
-  "people": [],
+  "people": ["peter-grove"],
   "headline": "Accellera releases UVM-MS 1.0 with participation from six tracked companies",
   "fact": "On February 4, 2025, Accellera released UVM-MS 1.0, defining mixed-signal bridge and proxy components for driving and monitoring mixed-signal nets. The standard's participant list names active contributors from Cadence, Siemens EDA, Synopsys, NXP, Qualcomm, and Renesas; participation in the standard does not by itself establish deployment at those companies.",
   "sources": [
