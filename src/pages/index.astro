@@ -10,10 +10,6 @@ const [events, companies, people] = await Promise.all([
 ]);
 ---
 <BaseLayout>
-  <section class="intro">
-    <p class="eyebrow">FACTUAL PUBLIC TIMELINE</p>
-    <h1>Public signals in RNM & mixed-signal verification</h1>
-    <p class="lede">Compare dated records, search public evidence, and inspect every source. No technology tags, maturity scores, or inferred rankings.</p>
-  </section>
+  <h1 class="visually-hidden">AMS Signals Timeline</h1>
   <EventExplorer events={events} goldenEvents={events} companies={companies} people={people} context="global" />
 </BaseLayout>
