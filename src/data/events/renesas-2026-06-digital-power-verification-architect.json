@@ -1,0 +1,20 @@
+{
+  "id": "renesas-2026-06-digital-power-verification-architect",
+  "when": {
+    "start": "2026-06-16",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["renesas"],
+  "people": [],
+  "headline": "Renesas posts an architect role to define cross-domain verification for digital power products",
+  "fact": "Renesas posted a Mixed Signal Verification Architect role to define scalable verification and validation for digital power products used in AI, datacenter, and high-performance computing applications. The mandate connects requirements, behavioral models, RTL, AMS simulation, emulation, bench validation, and silicon through measurable criteria, coverage expectations, correlation methods, automation, and reusable evidence.",
+  "sources": [
+    {
+      "title": "Mixed Signal Verification Architect",
+      "url": "https://jobs.renesas.com/job/mixed-signal-verification-architect-in-austin-texas-united-states-jid-6393",
+      "checkedAt": "2026-08-30",
+      "summary": "Official expired Renesas requisition dated June 16, 2026, whose mandate was to define cross-domain digital-power verification and correlation methods."
+    }
+  ]
+}

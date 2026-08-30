@@ -1,0 +1,20 @@
+{
+  "id": "skyworks-2026-07-central-ams-verification-hiring",
+  "when": {
+    "start": "2026-07-06",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["skyworks"],
+  "people": [],
+  "headline": "Skyworks posts a director role to found a Central AMS Verification team",
+  "fact": "Skyworks posted a Director, Central AMS Verification role to found and lead a central AMS SoC verification team. The mandate includes an enterprise-wide UVM/RNM/AMS platform, common model and verification-IP libraries, coverage, assertions, convergence, and automation. AI/ML-assisted harness and model generation, root-cause analysis, and agentic flows are listed as capabilities the role is expected to build.",
+  "sources": [
+    {
+      "title": "Director, Central AMS Verification",
+      "url": "https://careers.skyworksinc.com/job/Director%2C-Central-AMS-Verification/76940-en_US/",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Skyworks role posted July 6, 2026, with a mandate to found a central team and build common AMS verification infrastructure."
+    }
+  ]
+}

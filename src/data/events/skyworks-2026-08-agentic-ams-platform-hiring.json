@@ -1,0 +1,20 @@
+{
+  "id": "skyworks-2026-08-agentic-ams-platform-hiring",
+  "when": {
+    "start": "2026-08-24",
+    "precision": "day"
+  },
+  "kind": "hiring",
+  "companies": ["skyworks"],
+  "people": [],
+  "headline": "Skyworks lists a role for an agentic analog and mixed-signal design and verification platform",
+  "fact": "Skyworks posted a design-automation role whose description says a central engineering team is building an AI-enabled analog and mixed-signal design and verification platform. The role covers agentic connections to EDA simulation, DRC, LVS, electromigration, and compute schedulers, a self-evolving flow, and support for real-number-modeling workflows.",
+  "sources": [
+    {
+      "title": "Sr. Design Automation Engineer",
+      "url": "https://careers.skyworksinc.com/job/Sr_-Design-Automation-Engineer/77976-en_US/",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Skyworks role posted August 24, 2026, describing an AI-enabled, agentic AMS design and verification platform under development."
+    }
+  ]
+}

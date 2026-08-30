@@ -1,0 +1,20 @@
+{
+  "id": "analog-devices-2022-ams-dms-complementary-verification",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices"],
+  "people": [],
+  "headline": "Analog Devices authors report complementary AMS and DMS verification under UVM",
+  "fact": "An Analog Devices-authored paper reports using DMS for full-chip functional verification and AMS for performance and detailed analog verification under a UVM-based approach. The paper states that model availability and quality determine partitioning between the flows and analyzes the coverage and bug classes each flow contributed.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Design Verification: Leveraging the Best of AMS and DMS",
+      "url": "https://dvcon-proceedings.org/document/mixed-signal-design-verification-leveraging-the-best-of-ams-and-dms/",
+      "checkedAt": "2026-08-30",
+      "summary": "2022 Analog Devices paper comparing complementary UVM-based AMS and DMS roles, coverage, and bug findings."
+    }
+  ]
+}

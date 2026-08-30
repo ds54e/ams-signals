@@ -1,0 +1,20 @@
+{
+  "id": "broadcom-2019-uvm-dms-ams-methodology",
+  "when": {
+    "start": "2019",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["broadcom"],
+  "people": [],
+  "headline": "Broadcom authors report a reusable full-chip UVM DMS/AMS methodology",
+  "fact": "A Broadcom-authored paper reports a full-chip, coverage-driven constrained-random UVM environment for mixed-signal SoCs. It describes selectable analog abstraction through SystemVerilog user-defined nettypes, Verilog-AMS, transistor-level, or mixed views, with interface UVCs, scoreboards, assertions, checkers, and coverage reused across configurations; the authors also report analog-digital and schematic bug findings.",
+  "sources": [
+    {
+      "title": "Scalable, Re-usable UVM DMS AMS Based Verification Methodology for Mixed-Signal SoCs",
+      "url": "https://dvcon-proceedings.org/document/scalable-re-usable-uvm-dms-ams-based-verification-methodology-for-mixed-signal-socs/",
+      "checkedAt": "2026-08-30",
+      "summary": "2019 DVCon paper by Broadcom authors describing reusable full-chip UVM environments across DMS, AMS, and transistor-level representations."
+    }
+  ]
+}

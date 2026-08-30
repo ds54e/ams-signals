@@ -1,0 +1,20 @@
+{
+  "id": "analog-devices-2016-sv-rnm-model-validation",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices"],
+  "people": [],
+  "headline": "Analog Devices authors report UVM regression for SV-RNM model-to-netlist validation",
+  "fact": "An Analog Devices-authored paper reports a block-level UVM constrained-random testbench run against both an SV-RNM behavioral model and the analog netlist. The same stimuli and checks provide one-to-one comparison, the tests can run in regular or nightly regressions, and the paper describes reusing the block-level agents in system-level verification.",
+  "sources": [
+    {
+      "title": "UVM Based Approach To Model Validation For SV-RNM Behavioral Models",
+      "url": "https://dvcon-proceedings.org/document/uvm-based-approach-to-model-validation-for-sv-rnm-behavioral-models/",
+      "checkedAt": "2026-08-30",
+      "summary": "2016 Analog Devices paper on shared-stimulus UVM regression against SV-RNM models and analog netlists."
+    }
+  ]
+}

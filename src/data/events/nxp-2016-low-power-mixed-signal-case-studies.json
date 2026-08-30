@@ -1,0 +1,20 @@
+{
+  "id": "nxp-2016-low-power-mixed-signal-case-studies",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["nxp"],
+  "people": [],
+  "headline": "NXP authors report low-power full-chip verification across Verilog, wreal, and Verilog-AMS abstractions",
+  "fact": "An NXP-authored paper reports low-power mixed-signal IoT case studies using CPF power intent, assertions, formal and connectivity checks, and self-checking verification while moving a verification database through Verilog, wreal, and Verilog-AMS abstraction levels. The examples include PMU, brownout detector, and LDO behavior at full-chip scope. The paper identifies evaluating UVM as a next step rather than reporting UVM deployment.",
+  "sources": [
+    {
+      "title": "Unique Verification Case Studies of Low Power Mixed Signal Chips",
+      "url": "https://dvcon-proceedings.org/document/unique-verification-case-studies-of-low-power-mixed-signal-chips/",
+      "checkedAt": "2026-08-30",
+      "summary": "2016 NXP paper on low-power mixed-signal abstraction switching, assertions, formal and connectivity checks, with UVM explicitly left as future evaluation."
+    }
+  ]
+}

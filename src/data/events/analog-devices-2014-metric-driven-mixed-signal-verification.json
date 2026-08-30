@@ -1,0 +1,26 @@
+{
+  "id": "analog-devices-2014-metric-driven-mixed-signal-verification",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["analog-devices"],
+  "people": [],
+  "headline": "Analog Devices teams report two metric-driven mixed-signal verification deployments",
+  "fact": "Two Analog Devices-affiliated 2014 papers report distinct deployments. The LMA team described its local organization's first heavily analog project staffed with dedicated DV engineers, using verification planning, self-checking and constrained-random testbenches, regressions, SPICE co-simulation, and SystemVerilog RNM. A Beijing ASSP team described UVM, assertions, real-number functional coverage, regression, and metric sign-off for a Cortex-M3 mixed-signal device.",
+  "sources": [
+    {
+      "title": "Digitizing Mixed Signal Verification on the LMA Project",
+      "url": "https://dvcon-proceedings.org/document/digitizing-mixed-signal-verification-digital-verification-techniques-applied-to-mixed-signal-and-analog-blocks-on-the-lma-project/",
+      "checkedAt": "2026-08-30",
+      "summary": "2014 Analog Devices presentation documenting local organizational heterogeneity and the LMA project's planning, automation, SPICE co-simulation, UVM, and RNM practices."
+    },
+    {
+      "title": "Metric Driven Mixed-Signal Verification Methodology and Practices for Complex Mixed-signal ASSPs",
+      "url": "https://dvcon-proceedings.org/document/metric-driven-mixed-signal-verification-methodology-and-practices-for-complex-mixed-signal-assps/",
+      "checkedAt": "2026-08-30",
+      "summary": "2014 paper from an Analog Devices Beijing team describing UVM, assertions, real-number coverage, regression, and metric sign-off on a mixed-signal ASSP."
+    }
+  ]
+}

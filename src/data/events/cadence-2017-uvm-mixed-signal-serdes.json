@@ -1,0 +1,26 @@
+{
+  "id": "cadence-2017-uvm-mixed-signal-serdes",
+  "when": {
+    "start": "2017",
+    "precision": "year"
+  },
+  "kind": "publication",
+  "companies": ["cadence"],
+  "people": [],
+  "headline": "Cadence authors describe reusing a digital UVM environment for mixed-signal SerDes verification",
+  "fact": "A Cadence-authored paper reports reusing a digital UVM environment for mixed-signal verification of a Type-C USB and SerDes design. It describes analog-parameter agents, scoreboards and checkers, and added functional coverage and verification-plan content; the evidence documents a vendor-authored methodology rather than customer adoption.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Verification Methodology to Verify Type-C USB",
+      "url": "https://dvcon-proceedings.org/document/mixed-signal-verification-methodology-to-verify-type-c-usb/",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence-authored 2017 paper on extending a digital UVM environment to mixed-signal Type-C USB and SerDes verification."
+    },
+    {
+      "title": "Efficient Verification of Mixed-Signal SerDes IP Using UVM",
+      "url": "https://www.cadence.com/en_US/home/resources/white-papers/efficient-verification-of-mixed-signal-series-ip-using-uvm-wp.html",
+      "checkedAt": "2026-08-30",
+      "summary": "Cadence's companion methodology page for UVM-based mixed-signal SerDes IP verification."
+    }
+  ]
+}
