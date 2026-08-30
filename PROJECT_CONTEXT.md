@@ -28,7 +28,7 @@ RNM/AMS adoption is rarely a binary state. Public signals can evolve from behavi
 
 For that reason, the product should help users see trajectories rather than assign static maturity scores.
 
-Company timelines and People timelines are especially important. The combined view makes it possible to visually compare company events and relevant public people movements without implying causation.
+Company timelines and People timelines are especially important. Separate global Company and People views make temporal patterns readable without implying causation between organizational and individual trajectories.
 
 ## Facts first, interpretation downstream
 
@@ -112,7 +112,6 @@ Important interactions include:
 
 - time-based company comparison;
 - time-based people views;
-- company + people together;
 - simple text search as a lens over the timeline;
 - event details with source links;
 - stable event permalinks usable by readers and downstream tools;
@@ -124,7 +123,9 @@ Desktop is the reference experience. Mobile and narrow-screen usability are best
 
 The visual style should feel like a modern technical research publication/tool: clear hierarchy, restrained styling, generous spacing, and readable timelines. Avoid decorative dashboards and metric cards that imply precision the source material cannot support.
 
-Timeline geometry runs newest-left to oldest-right because the viewer is a current technical-intelligence tool rather than a historical teaching timeline. It is density-adjusted and chronologically packed: unrelated Events may share a compact band with distinct x positions, while every shared Golden Event keeps one global x position and same-lane Events never overlap. Filtering hides or shows marks and lanes without recomputing packing, segment widths, or Event coordinates.
+The global Timeline is a continuous-time Activity Matrix. Companies are the default rows and People are an alternate view; the global surface does not combine the two row types. Rows use a deterministic, full-corpus recent-public-record heuristic (latest three years, then latest five years, then latest record and lifetime count) to improve discovery without implying rank, maturity, or capability. Filtering may hide marks and empty rows but never reorders the surviving entities.
+
+Global Activity Matrix time runs linearly from newest-left to oldest-right with sparse year ticks derived from the full corpus. Exact-anchor Events remain independent Golden records but share a compact visual cluster, and nearby non-identical anchors may use deterministic vertical collision slots without changing their date-derived x positions. Company and Person detail pages retain the existing segmented, chronologically packed Timeline geometry.
 
 Golden Event `kind` is intentionally coarse. `technical` covers principally technical and standards milestones; `organizational` covers principally organizational, business, and workforce milestones. This is a source-signal distinction, not a technology taxonomy, maturity model, or scoring system. Optional `affiliationChange` metadata remains independent from `kind`.
 
