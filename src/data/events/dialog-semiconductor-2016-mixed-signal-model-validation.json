@@ -1,0 +1,30 @@
+{
+  "id": "dialog-semiconductor-2016-mixed-signal-model-validation",
+  "when": {
+    "start": "2016-10-20",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "dialog-semiconductor"
+  ],
+  "people": [
+    "carsten-wegener"
+  ],
+  "headline": "Dialog Semiconductor author presents a model-validation process for chip-level mixed-signal verification",
+  "fact": "Dialog Semiconductor's Carsten Wegener, listed with PMIC Analog in Germering, presents a model-validation process for analog behavioral models used in event-driven chip-level mixed-signal verification. The paper argues that modeling requires an associated validation process and demonstrates the approach on a mixed-signal digital I/O buffer treated as a 1-bit DAC and ADC, using post-handoff model bugs and issues as one measure of model quality.",
+  "sources": [
+    {
+      "title": "Model Validation for Mixed-Signal Verification: The Importance of Being Earnest about Modeling",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/model-validation-for-mixed-signal-verification-the-importance-of-being-earnest-about-modeling.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "Wegener's DVCon Europe paper identifies his Dialog Semiconductor PMIC Analog affiliation in Germering and presents a validation process for behavioral models used in event-driven chip-level mixed-signal verification."
+    },
+    {
+      "title": "DVCon Europe 2016 conference program",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/2016-dvcon-eu-program.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The official program places Wegener's Dialog Semiconductor presentation in Session 8, Mixed-Signal Verification, on Thursday, October 20, 2016."
+    }
+  ]
+}
