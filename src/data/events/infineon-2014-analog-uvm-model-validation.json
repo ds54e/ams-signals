@@ -1,0 +1,36 @@
+{
+  "id": "infineon-2014-analog-uvm-model-validation",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "sebastian-simon"
+  ],
+  "headline": "Infineon authors report Analog UVM stimulus and automated behavioral-model comparison",
+  "fact": "Two Infineon DVCon 2014 papers describe an Analog UVM library for constrained-random analog transactions and automated comparison of analog behaviors. The model-validation flow uses an earth mover's distance implementation connected through SystemVerilog and C to convert waveform comparison into regression pass/fail results, reducing reliance on manual waveform inspection.",
+  "sources": [
+    {
+      "title": "Generation of Constraint-Random Transactions for Verification of Mixed-Signal Blocks",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/generation-of-constraint-random-transactions-for-verification-of-mixed-signal-blocks.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The Infineon paper presents an Analog UVM library and constrained-random analog transactions for mixed-signal block verification."
+    },
+    {
+      "title": "Automated Comparison of Analog Behavior in a UVM Environment",
+      "url": "https://dvcon-proceedings.org/document/automated-comparison-of-analog-behavior-in-a-uvm-environment/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Infineon model-comparison work and its UVM context."
+    },
+    {
+      "title": "Automated Comparison of Analog Behavior in a UVM Environment — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/automated-comparison-of-analog-behavior-in-a-uvm-environment.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details earth-mover-distance waveform comparison, SystemVerilog/C integration, and automated pass/fail regression use."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "hewlett-packard-2015-digital-centric-serdes-ams-verification",
+  "when": {
+    "start": "2015",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "hewlett-packard"
+  ],
+  "people": [],
+  "headline": "Hewlett-Packard authors report a digital-centric mixed-signal methodology for SerDes verification",
+  "fact": "A DVCon 2015 paper by Hewlett-Packard authors describes extending a mature digital UVM testbench to next-generation SerDes mixed-signal verification. The methodology supports model swapping and progressive refinement, allowing early link-training and equalization verification with behavioral models and later integration of schematics without refactoring the testbench.",
+  "sources": [
+    {
+      "title": "Advanced Digital-Centric Mixed-Signal Methodology",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/advanced-digital-centric-mixed-signal-methodology.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The Hewlett-Packard paper describes reuse of a digital UVM environment, progressive model refinement, and behavioral-to-schematic integration for SerDes verification."
+    }
+  ]
+}

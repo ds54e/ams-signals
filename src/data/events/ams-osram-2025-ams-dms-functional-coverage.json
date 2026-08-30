@@ -1,0 +1,28 @@
+{
+  "id": "ams-osram-2025-ams-dms-functional-coverage",
+  "when": {
+    "start": "2025",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "ams-osram"
+  ],
+  "people": [],
+  "headline": "ams OSRAM authors report shared functional coverage across DMS and AMS verification of analog IP",
+  "fact": "A DVCon Europe 2025 paper by ams OSRAM authors describes collecting analog-IP functional coverage from the same UVM top-level testbench for real-number models and transistor-level schematics. A common real-valued reference and mixed-signal sampler supported both modes; the authors report that AMS runs exposed effects such as glitch filtering that the real-number model did not reproduce.",
+  "sources": [
+    {
+      "title": "Implementing Functional Coverage for Analog IPs in Mixed-Signal Verification Environments",
+      "url": "https://dvcon-proceedings.org/document/implementing-functional-coverage-for-analog-ips-in-mixed-signal-verification-environments-2/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the ams OSRAM functional-coverage paper."
+    },
+    {
+      "title": "Implementing Functional Coverage for Analog IPs in Mixed-Signal Verification Environments — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_102.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper documents the shared UVM coverage approach across DMS and AMS modes and the analog effects observed only in schematic runs."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "freescale-2010-trace-generated-ams-models",
+  "when": {
+    "start": "2010",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "freescale-semiconductor"
+  ],
+  "people": [
+    "scott-little"
+  ],
+  "headline": "Freescale author reports generating mixed-signal abstraction models from circuit-simulation traces",
+  "fact": "A 2010 journal paper coauthored by Freescale Semiconductor's Scott Little proposes automatically generating abstraction models from transistor-level simulation traces for formal verification and system simulation. The paper demonstrates the approach on a switched-capacitor integrator and a PLL phase detector and evaluates how the generated models reproduce the observed circuit behaviors.",
+  "sources": [
+    {
+      "title": "Analog/Mixed-Signal Circuit Verification Using Models Generated from Simulation Traces",
+      "url": "https://doi.org/10.1142/S0129054110007209",
+      "checkedAt": "2026-08-30",
+      "summary": "The 2010 journal record identifies Scott Little with Freescale Semiconductor and describes automatic generation of abstraction models from transistor-level traces for formal verification and system simulation."
+    }
+  ]
+}

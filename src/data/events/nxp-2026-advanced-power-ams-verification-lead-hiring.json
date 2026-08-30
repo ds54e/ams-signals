@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-advanced-power-ams-verification-lead-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP job posting seeks an AMS verification leader for its Milan advanced-power team",
+  "fact": "An NXP-authored job posting for a Senior AMS Verification Leader in Milan lists ownership of verification strategy, plans, models, checkers, assertions, and reusable components for the Advanced Power System team. The requested skills include Verilog, SystemVerilog, UVM, SVA, Verilog-AMS, SystemC, wreal, and real-number modeling. This is evidence of a public hiring mandate, not proof that every listed method is already deployed.",
+  "sources": [
+    {
+      "title": "Senior AMS Verification Leader at NXP Semiconductors",
+      "url": "https://it.linkedin.com/jobs/view/senior-ams-verification-leader-at-nxp-semiconductors-4446526690",
+      "checkedAt": "2026-08-30",
+      "summary": "NXP's public LinkedIn job posting describes the Milan Advanced Power System team, leadership responsibilities, verification assets, and requested AMS/RNM skills."
+    }
+  ]
+}

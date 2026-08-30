@@ -1,0 +1,29 @@
+{
+  "id": "infineon-2014-upf-power-aware-mixed-signal-verification",
+  "when": {
+    "start": "2014",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon",
+    "mentor-graphics"
+  ],
+  "people": [],
+  "headline": "Infineon and Mentor authors report UPF-based power-aware mixed-signal verification of a sensor SoC",
+  "fact": "A DVCon 2014 paper by Infineon and Mentor Graphics authors reports applying UPF with RTL and SPICE content to power-aware mixed-signal verification of a tire-pressure-monitoring sensor SoC. The paper says the flow exposed power blackouts, sequencing errors, missing level shifters, and incorrect isolation polarity before gate-level verification.",
+  "sources": [
+    {
+      "title": "Power-Aware Verification in Mixed-Signal Simulation",
+      "url": "https://dvcon-proceedings.org/document/power-aware-verification-in-mixed-signal-simulation-presentation/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Infineon and Mentor Graphics power-aware mixed-signal verification presentation."
+    },
+    {
+      "title": "Power-Aware Verification in Mixed-Signal Simulation — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/power-aware-verification-in-mixed-signal-simulation.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper documents the UPF, RTL, and SPICE flow, its sensor-SoC context, and the classes of power-intent defects it reported."
+    }
+  ]
+}
