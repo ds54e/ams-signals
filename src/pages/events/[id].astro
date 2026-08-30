@@ -10,12 +10,22 @@ export async function getStaticPaths() {
 }
 
 const { event } = Astro.props;
+const [companies, people] = await Promise.all([
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const companyMap = new Map(companies.map((company) => [company.data.id, company.data.name]));
+const personMap = new Map(people.map((person) => [person.data.id, person.data.name]));
 ---
 <BaseLayout title={`${event.data.headline} · AMS Signals`}>
   <article class="record-page">
     <a class="back-link" href={sitePath('')}>← Timeline</a>
     <p class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</p>
     <h1>{event.data.headline}</h1>
+    <div class="record-context" aria-label="Linked records">
+      {event.data.companies.map((id) => <a href={sitePath(`companies/${id}/`)}>{companyMap.get(id) ?? id}</a>)}
+      {event.data.people.map((id) => <a href={sitePath(`people/${id}/`)}>{personMap.get(id) ?? id}</a>)}
+    </div>
     <p class="record-fact">{event.data.fact}</p>
 
     <section>
@@ -23,10 +33,16 @@ const { event } = Astro.props;
       <div class="source-list">
         {event.data.sources.map((source) => (
           <article class="source-card">
-            <h3><a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a></h3>
+            <h3>
+              {source.status === 'unavailable'
+                ? <span class="unavailable-source-title">{source.title}</span>
+                : <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>}
+            </h3>
             <p>{source.summary}</p>
-            <p class="source-meta">
-              Checked {source.checkedAt}{source.status === 'unavailable' ? ' · original URL unavailable on last check' : ''}
+            <p class={`source-meta source-availability ${source.status ?? 'available'}`}>
+              {source.status === 'unavailable'
+                ? `Original URL unavailable · checked ${source.checkedAt}`
+                : `Available · checked ${source.checkedAt}`}
             </p>
             {source.archiveUrl && <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archived source ↗</a>}
           </article>

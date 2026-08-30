@@ -3,14 +3,18 @@ import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
 import { dateNumber, eventYear, formatWhen, sortEvents } from '../lib/content';
 import { sitePath } from '../lib/paths';
 
+type TimelineContext = 'global' | 'company' | 'person';
+
 interface Props {
   events: EventEntry[];
   companies: CompanyEntry[];
   people: PersonEntry[];
+  context?: TimelineContext;
 }
 
-const { events, companies, people } = Astro.props;
+const { events, companies, people, context = 'global' } = Astro.props;
 const ordered = sortEvents(events);
+const newestFirst = ordered.slice().reverse();
 const years = ordered.map(eventYear);
 const minYear = years.length ? Math.min(...years) : new Date().getUTCFullYear();
 const maxYear = years.length ? Math.max(...years) : minYear;
@@ -19,216 +23,706 @@ const axisEnd = Date.UTC(maxYear + 1, 0, 1);
 const span = Math.max(axisEnd - axisStart, 1);
 const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
 const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
-const companyIds = [...new Set(ordered.flatMap((event) => event.data.companies))];
-const personIds = [...new Set(ordered.flatMap((event) => event.data.people))];
+const byCompanyName = (left: string, right: string) =>
+  (companyMap.get(left) ?? left).localeCompare(companyMap.get(right) ?? right, 'en');
+const byPersonName = (left: string, right: string) =>
+  (personMap.get(left) ?? left).localeCompare(personMap.get(right) ?? right, 'en');
+const companyIds = [...new Set(ordered.flatMap((event) => event.data.companies))].sort(byCompanyName);
+const personIds = [...new Set(ordered.flatMap((event) => event.data.people))].sort(byPersonName);
+const companyRecords = [...companies].sort((left, right) => left.data.name.localeCompare(right.data.name, 'en'));
+const companyEventCount = new Map(companyRecords.map((company) => [
+  company.data.id,
+  ordered.filter((event) => event.data.companies.includes(company.data.id)).length,
+]));
 const yearTicks = Array.from({ length: maxYear - minYear + 1 }, (_, index) => minYear + index);
 const position = (event: EventEntry) => ((dateNumber(event.data.when.start) - axisStart) / span) * 100;
-const searchText = (event: EventEntry) => [
-  event.data.headline,
-  event.data.fact,
-  ...event.data.sources.flatMap((source) => [source.title, source.summary]),
-  ...event.data.companies.map((id) => companyMap.get(id) ?? id),
-  ...event.data.people.map((id) => personMap.get(id) ?? id),
-].join(' ').normalize('NFKC').toLowerCase();
-const serialized = ordered.map((event) => ({
-  id: event.data.id,
-  kind: event.data.kind,
-  headline: event.data.headline,
-  fact: event.data.fact,
-  when: formatWhen(event),
-  search: searchText(event),
-  sourceTitle: event.data.sources[0]?.title ?? '',
-  sourceUrl: event.data.sources[0]?.url ?? '',
-  sourceStatus: event.data.sources[0]?.status ?? 'available',
-  eventUrl: sitePath(`events/${event.data.id}/`),
-}));
+const tickPosition = (year: number) => ((Date.UTC(year, 0, 1) - axisStart) / span) * 100;
+const axisLabel = minYear === maxYear ? String(minYear) : `${minYear}–${maxYear}`;
+const defaultView = context === 'person' ? 'people' : 'companies';
+const showGlobalControls = context === 'global';
+
+const kindLabels: Record<EventEntry['data']['kind'], string> = {
+  hiring: 'Hiring',
+  publication: 'Publication',
+  conference: 'Conference',
+  affiliation_change: 'Affiliation change',
+  organization: 'Organization',
+  business: 'Business',
+  other: 'Other',
+};
+const kindOrder = ['hiring', 'publication', 'conference', 'affiliation_change', 'organization', 'business', 'other'] as const;
+const usedKinds = kindOrder.filter((kind) => ordered.some((event) => event.data.kind === kind));
+
+const normalizeSearch = (value: string) => value
+  .normalize('NFKC')
+  .toLocaleLowerCase('en')
+  .replace(/[\p{P}\p{S}]+/gu, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const searchFields = (event: EventEntry) => [
+  { label: 'headline', value: event.data.headline },
+  { label: 'fact', value: event.data.fact },
+  ...event.data.sources.flatMap((source) => [
+    { label: 'source title', value: source.title },
+    { label: 'source summary', value: source.summary },
+  ]),
+  ...event.data.companies.map((id) => ({ label: 'company', value: companyMap.get(id) ?? id })),
+  ...event.data.people.map((id) => ({ label: 'person', value: personMap.get(id) ?? id })),
+];
+
+const serialized = ordered.map((event) => {
+  const fields = searchFields(event);
+  return {
+    id: event.data.id,
+    kind: event.data.kind,
+    kindLabel: kindLabels[event.data.kind],
+    headline: event.data.headline,
+    fact: event.data.fact,
+    when: formatWhen(event),
+    precision: event.data.when.precision,
+    companies: event.data.companies.map((id) => ({
+      id,
+      name: companyMap.get(id) ?? id,
+      url: sitePath(`companies/${id}/`),
+    })),
+    people: event.data.people.map((id) => ({
+      id,
+      name: personMap.get(id) ?? id,
+      url: sitePath(`people/${id}/`),
+    })),
+    sources: event.data.sources.map((source) => ({
+      title: source.title,
+      url: source.url,
+      checkedAt: source.checkedAt,
+      status: source.status ?? 'available',
+      summary: source.summary,
+      archiveUrl: source.archiveUrl ?? '',
+    })),
+    searchFields: fields,
+    search: normalizeSearch(fields.map((field) => field.value).join(' ')),
+    eventUrl: sitePath(`events/${event.data.id}/`),
+  };
+});
+
+const layoutLane = (laneEvents: EventEntry[]) => {
+  const rowEnds: number[] = [];
+  const marks = sortEvents(laneEvents).map((event) => {
+    const x = position(event);
+    let row = rowEnds.findIndex((lastX) => x - lastX >= 1.8);
+    if (row === -1) row = rowEnds.length;
+    rowEnds[row] = x;
+    return { event, x, row };
+  });
+  return { marks, rows: Math.max(rowEnds.length, 1) };
+};
+
+const renderContextLinks = (event: EventEntry) => [
+  ...event.data.companies.map((id) => ({
+    href: sitePath(`companies/${id}/`),
+    name: companyMap.get(id) ?? id,
+  })),
+  ...event.data.people.map((id) => ({
+    href: sitePath(`people/${id}/`),
+    name: personMap.get(id) ?? id,
+  })),
+];
 ---
-<section class="timeline-app" data-timeline-root>
-  <div class="timeline-controls" aria-label="Timeline controls">
-    <label>
-      <span>Search public events</span>
-      <input data-search type="search" placeholder="model validation" autocomplete="off" />
+<section
+  class="timeline-app"
+  data-timeline-root
+  data-context={context}
+  data-default-view={defaultView}
+>
+  <div class="timeline-controls" role="group" aria-label="Timeline controls">
+    <label class="search-control">
+      <span>Search the factual record</span>
+      <input data-search type="search" placeholder="model validation, PLL, real-number…" autocomplete="off" />
+      <small>Lexical search across events, evidence, companies, and people.</small>
     </label>
-    <label>
-      <span>View</span>
-      <select data-view>
-        <option value="companies">Companies</option>
-        <option value="people">People</option>
-        <option value="both">Companies + People</option>
-      </select>
-    </label>
-    <label>
-      <span>Kind</span>
+
+    {showGlobalControls && (
+      <label class="select-control">
+        <span>View</span>
+        <select data-view>
+          <option value="companies">Companies</option>
+          <option value="people">People</option>
+          <option value="both">Companies + People</option>
+        </select>
+      </label>
+    )}
+
+    <label class="select-control">
+      <span>Event form</span>
       <select data-kind>
-        <option value="all">All</option>
-        <option value="hiring">Jobs</option>
-        <option value="publication">Publications</option>
-        <option value="conference">Conferences</option>
-        <option value="affiliation_change">People moves</option>
+        <option value="all">All forms</option>
+        <option value="hiring">Hiring</option>
+        <option value="publication">Publication</option>
+        <option value="conference">Conference</option>
+        <option value="affiliation_change">Affiliation change</option>
         <option value="organization">Organization</option>
         <option value="business">Business</option>
         <option value="other">Other</option>
       </select>
     </label>
+
+    {showGlobalControls && (
+      <details class="company-picker" data-company-picker>
+        <summary>
+          <span>Company focus</span>
+          <strong data-company-summary>All {companyIds.length} active companies</strong>
+        </summary>
+        <div class="company-picker-panel">
+          <div class="company-picker-heading">
+            <p>Select companies to compare. Shared events remain one factual record.</p>
+            <button type="button" class="text-button" data-select-all-companies>All companies</button>
+          </div>
+          <fieldset data-company-options>
+            <legend class="visually-hidden">Companies shown in the timeline</legend>
+            {companyIds.map((companyId) => (
+              <label>
+                <input type="checkbox" value={companyId} checked />
+                <span>{companyMap.get(companyId) ?? companyId}</span>
+                <small>{companyEventCount.get(companyId)} {companyEventCount.get(companyId) === 1 ? 'event' : 'events'}</small>
+              </label>
+            ))}
+          </fieldset>
+        </div>
+      </details>
+    )}
+
+    <button type="button" class="reset-button" data-reset>Reset filters</button>
   </div>
 
-  <div class="timeline-status" data-status aria-live="polite"></div>
+  <div class="timeline-summary">
+    <p class="timeline-status" data-status aria-live="polite"></p>
+    <p class="axis-note">Time axis: {axisLabel}, fixed while filtering</p>
+  </div>
 
-  <div class="desktop-timeline" aria-label="Timeline">
-    <div class="timeline-axis">
-      <div class="lane-label"></div>
-      <div class="axis-track">
-        {yearTicks.map((year, index) => <span style={`left:${(index / Math.max(yearTicks.length, 1)) * 100}%`}>{year}</span>)}
+  {usedKinds.length > 0 && (
+    <div class="kind-legend" aria-label="Event form legend">
+      {usedKinds.map((kind) => (
+        <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
+      ))}
+    </div>
+  )}
+
+  <div class="timeline-workspace">
+    <div class="timeline-visual">
+      <div class="desktop-timeline" role="region" aria-label={`Timeline from ${minYear} through ${maxYear}`}>
+        <div class="timeline-axis">
+          <div class="lane-label axis-label">Record</div>
+          <div class="axis-track">
+            {yearTicks.map((year) => (
+              <span style={`--x:${tickPosition(year)}%`}><b>{year}</b></span>
+            ))}
+          </div>
+        </div>
+
+        <div data-group="companies" hidden={defaultView === 'people'}>
+          <p class="lane-group-label" data-group-label>Companies</p>
+          {companyIds.map((companyId) => {
+            const lane = layoutLane(ordered.filter((event) => event.data.companies.includes(companyId)));
+            return (
+              <div class="timeline-lane" data-lane data-lane-type="company" data-entity-id={companyId} style={`--lane-rows:${lane.rows}`}>
+                <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
+                <div class="lane-track">
+                  {lane.marks.map(({ event, x, row }) => (
+                    <button
+                      type="button"
+                      class={`event-mark event-kind-${event.data.kind}`}
+                      style={`--x:${x}%;--row:${row}`}
+                      data-event-mark
+                      data-event-id={event.data.id}
+                      aria-pressed="false"
+                      aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                    ><span class="visually-hidden">Inspect event</span></button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div data-group="people" hidden={defaultView === 'companies'}>
+          <p class="lane-group-label" data-group-label>People</p>
+          {personIds.length === 0 ? (
+            <p class="empty-note">No People milestones match this record.</p>
+          ) : personIds.map((personId) => {
+            const lane = layoutLane(ordered.filter((event) => event.data.people.includes(personId)));
+            return (
+              <div class="timeline-lane" data-lane data-lane-type="person" data-entity-id={personId} style={`--lane-rows:${lane.rows}`}>
+                <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
+                <div class="lane-track">
+                  {lane.marks.map(({ event, x, row }) => (
+                    <button
+                      type="button"
+                      class={`event-mark event-kind-${event.data.kind}`}
+                      style={`--x:${x}%;--row:${row}`}
+                      data-event-mark
+                      data-event-id={event.data.id}
+                      aria-pressed="false"
+                      aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                    ><span class="visually-hidden">Inspect event</span></button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
+      <noscript><p class="empty-note">JavaScript is required for timeline filtering. Every event remains available from its stable Event page.</p></noscript>
     </div>
 
-    <div data-group="companies">
-      {companyIds.map((companyId) => {
-        const laneEvents = ordered.filter((event) => event.data.companies.includes(companyId));
+    <aside class="event-detail" data-detail aria-label="Event evidence inspector" aria-live="polite" tabindex="-1">
+      <div class="detail-placeholder" data-detail-placeholder>
+        <p class="eyebrow">EVIDENCE INSPECTOR</p>
+        <h2>Select a visible event</h2>
+        <p>Choose a timeline mark or chronological result to inspect the factual record and all representative sources.</p>
+      </div>
+      <div data-detail-content hidden>
+        <p class="event-meta" data-detail-meta></p>
+        <h2 data-detail-title></h2>
+        <div class="detail-context" data-detail-context></div>
+        <p class="detail-shared-note" data-detail-shared hidden></p>
+        <p class="detail-fact" data-detail-fact></p>
+        <div class="detail-match" data-detail-match hidden>
+          <h3>Why this matched</h3>
+          <ul data-detail-match-list></ul>
+        </div>
+        <div class="detail-sources">
+          <h3 data-detail-sources-heading>Evidence</h3>
+          <div data-detail-sources></div>
+        </div>
+        <a class="event-permalink" data-detail-event>Open stable Event record →</a>
+      </div>
+    </aside>
+  </div>
+
+  <section class="result-section" aria-labelledby="result-heading">
+    <div class="result-heading">
+      <div>
+        <p class="eyebrow">CHRONOLOGICAL RECORD</p>
+        <h2 id="result-heading">Visible events</h2>
+      </div>
+      <p>Newest first · one row per unique Event</p>
+    </div>
+    <div class="result-list" data-result-list>
+      {newestFirst.map((event) => {
+        const contexts = renderContextLinks(event);
         return (
-          <div class="timeline-lane" data-lane>
-            <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
-            <div class="lane-track">
-              {laneEvents.map((event) => (
-                <button
-                  type="button"
-                  class={`event-dot event-kind-${event.data.kind}`}
-                  style={`left:${position(event)}%`}
-                  data-event-id={event.data.id}
-                  data-kind={event.data.kind}
-                  data-search-text={searchText(event)}
-                  aria-label={`${formatWhen(event)}: ${event.data.headline}`}
-                ></button>
-              ))}
+          <article class="result-event" data-event-result data-event-id={event.data.id}>
+            <div class="result-date">
+              <time>{formatWhen(event)}</time>
+              <span class={`kind-badge event-kind-${event.data.kind}`}>{kindLabels[event.data.kind]}</span>
             </div>
-          </div>
+            <div class="result-body">
+              <h3><button type="button" data-select-event>{event.data.headline}</button></h3>
+              {contexts.length > 0 && (
+                <p class="result-context">
+                  {contexts.map((entry, index) => (
+                    <><a href={entry.href}>{entry.name}</a>{index < contexts.length - 1 ? <span aria-hidden="true"> · </span> : null}</>
+                  ))}
+                </p>
+              )}
+              <p class="result-fact">{event.data.fact}</p>
+              <p class="result-match" data-result-match hidden></p>
+              <div class="result-links">
+                <a href={sitePath(`events/${event.data.id}/`)}>Event record</a>
+                {event.data.sources.map((source) => (
+                  source.status === 'unavailable' ? (
+                    <span class="inline-source-unavailable" title="Original URL unavailable on last check">{source.title} · unavailable</span>
+                  ) : (
+                    <a href={source.url} target="_blank" rel="noreferrer">
+                      {source.title} ↗ <span class="inline-availability">available</span>
+                    </a>
+                  )
+                ))}
+                {event.data.sources.filter((source) => source.archiveUrl).map((source) => (
+                  <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archive: {source.title} ↗</a>
+                ))}
+              </div>
+            </div>
+          </article>
         );
       })}
     </div>
-
-    <div data-group="people" hidden>
-      {personIds.length === 0 ? <p class="empty-note">No people milestones are indexed yet.</p> : personIds.map((personId) => {
-        const laneEvents = ordered.filter((event) => event.data.people.includes(personId));
-        return (
-          <div class="timeline-lane" data-lane>
-            <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
-            <div class="lane-track">
-              {laneEvents.map((event) => (
-                <button
-                  type="button"
-                  class={`event-dot event-kind-${event.data.kind}`}
-                  style={`left:${position(event)}%`}
-                  data-event-id={event.data.id}
-                  data-kind={event.data.kind}
-                  data-search-text={searchText(event)}
-                  aria-label={`${formatWhen(event)}: ${event.data.headline}`}
-                ></button>
-              ))}
-            </div>
-          </div>
-        );
-      })}
+    <div class="filtered-empty" data-filtered-empty hidden>
+      <h3>No events match these filters</h3>
+      <p>Try a different phrase, restore all companies, or reset the event form.</p>
+      <button type="button" class="text-button" data-empty-reset>Reset filters</button>
     </div>
-  </div>
+  </section>
 
-  <div class="mobile-timeline">
-    {ordered.slice().reverse().map((event) => (
-      <article class="mobile-event" data-event-id={event.data.id} data-kind={event.data.kind} data-search-text={searchText(event)}>
-        <div class="event-meta">{formatWhen(event)} · {event.data.kind.replace('_', ' ')}</div>
-        <h2>{event.data.headline}</h2>
-        <p>{event.data.fact}</p>
-        <a href={sitePath(`events/${event.data.id}/`)}>Open event</a>
-      </article>
-    ))}
-  </div>
-
-  <aside class="event-detail" data-detail>
-    <p class="event-meta" data-detail-meta>Select an event.</p>
-    <h2 data-detail-title>Timeline details appear here.</h2>
-    <p data-detail-fact></p>
-    <div class="detail-actions">
-      <a data-detail-event hidden>Open event</a>
-      <a data-detail-source target="_blank" rel="noreferrer" hidden>Open source ↗</a>
-    </div>
-  </aside>
+  {showGlobalControls && (
+    <details class="company-records">
+      <summary>
+        Company records
+        <span>{companyRecords.length} researched · {companyIds.length} with indexed events</span>
+      </summary>
+      <ul>
+        {companyRecords.map((company) => {
+          const count = companyEventCount.get(company.data.id) ?? 0;
+          return (
+            <li>
+              <a href={sitePath(`companies/${company.data.id}/`)}>{company.data.name}</a>
+              <span>{count === 0 ? 'No Golden events currently indexed' : `${count} ${count === 1 ? 'event' : 'events'}`}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </details>
+  )}
 
   <script type="application/json" data-events-json set:html={JSON.stringify(serialized)}></script>
 </section>
 
 <script>
   const root = document.querySelector('[data-timeline-root]');
+
   if (root && !root.hasAttribute('data-initialized')) {
     root.setAttribute('data-initialized', 'true');
+
     const jsonNode = root.querySelector('[data-events-json]');
     const events = JSON.parse(jsonNode?.textContent || '[]');
     const byId = new Map(events.map((event) => [event.id, event]));
+    const context = root.getAttribute('data-context') || 'global';
+    const defaultView = root.getAttribute('data-default-view') || 'companies';
     const search = root.querySelector('[data-search]');
     const view = root.querySelector('[data-view]');
     const kind = root.querySelector('[data-kind]');
     const status = root.querySelector('[data-status]');
+    const resetButtons = root.querySelectorAll('[data-reset], [data-empty-reset]');
+    const companyChecks = [...root.querySelectorAll('[data-company-options] input[type="checkbox"]')];
+    const companySummary = root.querySelector('[data-company-summary]');
+    const companyPicker = root.querySelector('[data-company-picker]');
+    const resultEmpty = root.querySelector('[data-filtered-empty]');
     const detail = root.querySelector('[data-detail]');
-    const normalized = (value) => value.normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
+    let activeId = null;
+    let visibleIds = new Set();
 
-    const showDetail = (id) => {
-      const event = byId.get(id);
+    const normalize = (value) => String(value || '')
+      .normalize('NFKC')
+      .toLocaleLowerCase('en')
+      .replace(/[\p{P}\p{S}]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const termsFor = (value) => normalize(value).split(' ').filter(Boolean);
+    const tokensFor = (value) => new Set(termsFor(value));
+    const hasTerm = (tokens, term) => term.length <= 2
+      ? tokens.has(term)
+      : [...tokens].some((token) => token.startsWith(term));
+    const unique = (values) => [...new Set(values)];
+    const precisionLabel = (precision) => `${precision.charAt(0).toUpperCase()}${precision.slice(1)} precision`;
+
+    const matchingFields = (event, terms) => {
+      if (!terms.length) return [];
+      return event.searchFields.filter((field) => {
+        const tokens = tokensFor(field.value);
+        return terms.some((term) => hasTerm(tokens, term));
+      });
+    };
+
+    const snippet = (value, term) => {
+      const clean = String(value).replace(/\s+/g, ' ').trim();
+      const normalizedValue = normalize(clean);
+      const normalizedTerm = normalize(term);
+      const normalizedTokens = normalizedValue.split(' ');
+      const tokenIndex = normalizedTokens.findIndex((token) => normalizedTerm.length <= 2
+        ? token === normalizedTerm
+        : token.startsWith(normalizedTerm));
+      const normalizedIndex = tokenIndex < 0
+        ? -1
+        : normalizedTokens.slice(0, tokenIndex).join(' ').length + (tokenIndex > 0 ? 1 : 0);
+      if (normalizedIndex < 0 || clean.length <= 170) return clean;
+      const ratio = normalizedIndex / Math.max(normalizedValue.length, 1);
+      const center = Math.round(clean.length * ratio);
+      const start = Math.max(center - 62, 0);
+      const end = Math.min(start + 154, clean.length);
+      return `${start > 0 ? '…' : ''}${clean.slice(start, end).trim()}${end < clean.length ? '…' : ''}`;
+    };
+
+    const addLinkedNames = (container, entries) => {
+      container.replaceChildren();
+      entries.forEach((entry, index) => {
+        const link = document.createElement('a');
+        link.href = entry.url;
+        link.textContent = entry.name;
+        container.append(link);
+        if (index < entries.length - 1) container.append(document.createTextNode(' · '));
+      });
+    };
+
+    const renderSources = (container, sources) => {
+      container.replaceChildren();
+      sources.forEach((source) => {
+        const card = document.createElement('article');
+        card.className = 'detail-source';
+
+        const heading = document.createElement('h4');
+        if (source.status === 'available') {
+          const link = document.createElement('a');
+          link.href = source.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = `${source.title} ↗`;
+          heading.append(link);
+        } else {
+          heading.textContent = source.title;
+        }
+        card.append(heading);
+
+        const sourceStatus = document.createElement('p');
+        sourceStatus.className = `source-availability ${source.status}`;
+        sourceStatus.textContent = source.status === 'available'
+          ? `Available · checked ${source.checkedAt}`
+          : `Original URL unavailable · checked ${source.checkedAt}`;
+        card.append(sourceStatus);
+
+        const summary = document.createElement('p');
+        summary.textContent = source.summary;
+        card.append(summary);
+
+        if (source.archiveUrl) {
+          const archive = document.createElement('a');
+          archive.className = 'archive-link';
+          archive.href = source.archiveUrl;
+          archive.target = '_blank';
+          archive.rel = 'noreferrer';
+          archive.textContent = 'Open archived source ↗';
+          card.append(archive);
+        }
+        container.append(card);
+      });
+    };
+
+    const renderMatch = (event, terms) => {
+      const match = detail.querySelector('[data-detail-match]');
+      const list = detail.querySelector('[data-detail-match-list]');
+      list.replaceChildren();
+      if (!terms.length) {
+        match.hidden = true;
+        return;
+      }
+
+      const fields = matchingFields(event, terms);
+      const shown = [];
+      fields.forEach((field) => {
+        const labelKey = `${field.label}:${field.value}`;
+        if (shown.includes(labelKey) || shown.length >= 4) return;
+        shown.push(labelKey);
+        const fieldTokens = tokensFor(field.value);
+        const matchingTerm = terms.find((term) => hasTerm(fieldTokens, term)) || terms[0];
+        const item = document.createElement('li');
+        const label = document.createElement('strong');
+        label.textContent = `${field.label}: `;
+        item.append(label, document.createTextNode(snippet(field.value, matchingTerm)));
+        list.append(item);
+      });
+      match.hidden = shown.length === 0;
+    };
+
+    const renderDetail = (event, terms) => {
       if (!event || !detail) return;
-      detail.querySelector('[data-detail-meta]').textContent = `${event.when} · ${event.kind.replace('_', ' ')}`;
+      detail.querySelector('[data-detail-placeholder]').hidden = true;
+      detail.querySelector('[data-detail-content]').hidden = false;
+      detail.querySelector('[data-detail-meta]').textContent = `${event.when} · ${event.kindLabel} · ${precisionLabel(event.precision)}`;
       detail.querySelector('[data-detail-title]').textContent = event.headline;
       detail.querySelector('[data-detail-fact]').textContent = event.fact;
+      addLinkedNames(detail.querySelector('[data-detail-context]'), [...event.companies, ...event.people]);
+
+      const shared = detail.querySelector('[data-detail-shared]');
+      shared.hidden = event.companies.length <= 1;
+      if (!shared.hidden) {
+        shared.textContent = `One factual Event linked to ${event.companies.length} company records. Every visible mark opens this same stable record.`;
+      }
+
+      renderMatch(event, terms);
+      detail.querySelector('[data-detail-sources-heading]').textContent = `Evidence · ${event.sources.length} ${event.sources.length === 1 ? 'source' : 'sources'}`;
+      renderSources(detail.querySelector('[data-detail-sources]'), event.sources);
       const eventLink = detail.querySelector('[data-detail-event]');
       eventLink.href = event.eventUrl;
-      eventLink.hidden = false;
-      const sourceLink = detail.querySelector('[data-detail-source]');
-      if (event.sourceUrl) {
-        sourceLink.href = event.sourceUrl;
-        sourceLink.textContent = event.sourceStatus === 'unavailable'
-          ? `${event.sourceTitle || 'Original source'} (unavailable on last check) ↗`
-          : `${event.sourceTitle || 'Source'} ↗`;
-        sourceLink.hidden = false;
-      } else {
-        sourceLink.hidden = true;
+    };
+
+    const updateActiveMarks = () => {
+      root.querySelectorAll('[data-event-mark]').forEach((mark) => {
+        const active = mark.getAttribute('data-event-id') === activeId && !mark.hidden;
+        mark.classList.toggle('is-active', active);
+        mark.setAttribute('aria-pressed', String(active));
+      });
+      root.querySelectorAll('[data-event-result]').forEach((result) => {
+        result.classList.toggle('is-active', result.getAttribute('data-event-id') === activeId && !result.hidden);
+      });
+    };
+
+    const setActive = (id, { focusDetail = false } = {}) => {
+      if (!id || !visibleIds.has(id)) return;
+      activeId = id;
+      renderDetail(byId.get(id), termsFor(search.value));
+      updateActiveMarks();
+      if (focusDetail && window.matchMedia('(max-width: 760px)').matches && getComputedStyle(detail).display !== 'none') {
+        detail.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        detail.focus({ preventScroll: true });
       }
     };
 
-    const apply = () => {
-      const terms = normalized(search.value);
-      const kindValue = kind.value;
-      const visibleIds = new Set();
-      root.querySelectorAll('[data-event-id]').forEach((node) => {
-        const text = node.getAttribute('data-search-text') || '';
-        const matchesText = terms.every((term) => text.includes(term));
-        const matchesKind = kindValue === 'all' || node.getAttribute('data-kind') === kindValue;
-        const visible = matchesText && matchesKind;
-        node.hidden = !visible;
-        if (visible) visibleIds.add(node.getAttribute('data-event-id'));
-      });
-      root.querySelectorAll('[data-lane]').forEach((lane) => {
-        lane.hidden = ![...lane.querySelectorAll('[data-event-id]')].some((node) => !node.hidden);
-      });
-      const companyGroup = root.querySelector('[data-group="companies"]');
-      const peopleGroup = root.querySelector('[data-group="people"]');
-      companyGroup.hidden = view.value === 'people';
-      peopleGroup.hidden = view.value === 'companies';
-      status.textContent = `${visibleIds.size} public event${visibleIds.size === 1 ? '' : 's'} shown`;
+    const selectedCompanyIds = () => new Set(companyChecks.filter((check) => check.checked).map((check) => check.value));
 
+    const updateCompanySummary = (selected) => {
+      if (!companySummary) return;
+      if (selected.size === companyChecks.length) {
+        companySummary.textContent = `All ${companyChecks.length} active companies`;
+      } else if (selected.size === 0) {
+        companySummary.textContent = 'No companies selected';
+      } else if (selected.size <= 2) {
+        const names = companyChecks.filter((check) => check.checked).map((check) => check.parentElement.querySelector('span').textContent);
+        companySummary.textContent = names.join(' + ');
+      } else {
+        companySummary.textContent = `${selected.size} companies selected`;
+      }
+    };
+
+    const updateUrl = (terms, selected, kindValue, viewValue) => {
       const params = new URLSearchParams(window.location.search);
-      search.value ? params.set('q', search.value) : params.delete('q');
+      search.value.trim() ? params.set('q', search.value.trim()) : params.delete('q');
       kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
-      view.value !== 'companies' ? params.set('view', view.value) : params.delete('view');
+
+      if (context === 'global') {
+        viewValue !== defaultView ? params.set('view', viewValue) : params.delete('view');
+        if (selected.size === companyChecks.length) {
+          params.delete('companies');
+        } else if (selected.size === 0) {
+          params.set('companies', 'none');
+        } else {
+          params.set('companies', [...selected].sort().join(','));
+        }
+      } else {
+        params.delete('view');
+        params.delete('companies');
+      }
+
       const next = params.toString();
       history.replaceState(null, '', `${location.pathname}${next ? `?${next}` : ''}`);
+    };
+
+    const apply = () => {
+      const terms = termsFor(search.value);
+      const kindValue = kind.value;
+      const viewValue = view?.value || defaultView;
+      const selected = selectedCompanyIds();
+      const visibleEvents = events.filter((event) => {
+        const eventTokens = tokensFor(event.search);
+        const matchesText = terms.every((term) => hasTerm(eventTokens, term));
+        const matchesKind = kindValue === 'all' || event.kind === kindValue;
+        const matchesCompany = context !== 'global' || event.companies.some((company) => selected.has(company.id));
+        const matchesView = context !== 'global'
+          || viewValue === 'both'
+          || (viewValue === 'companies' ? event.companies.length > 0 : event.people.length > 0);
+        return matchesText && matchesKind && matchesCompany && matchesView;
+      });
+      visibleIds = new Set(visibleEvents.map((event) => event.id));
+
+      root.querySelectorAll('[data-event-mark]').forEach((mark) => {
+        const lane = mark.closest('[data-lane]');
+        const selectedLane = context !== 'global'
+          || lane?.getAttribute('data-lane-type') !== 'company'
+          || selected.has(lane.getAttribute('data-entity-id'));
+        mark.hidden = !visibleIds.has(mark.getAttribute('data-event-id')) || !selectedLane;
+      });
+      root.querySelectorAll('[data-event-result]').forEach((result) => {
+        const id = result.getAttribute('data-event-id');
+        result.hidden = !visibleIds.has(id);
+        const matchNote = result.querySelector('[data-result-match]');
+        if (terms.length && visibleIds.has(id)) {
+          const fields = matchingFields(byId.get(id), terms);
+          const labels = unique(fields.map((field) => field.label));
+          const firstField = fields[0];
+          const firstFieldTokens = tokensFor(firstField?.value);
+          const matchingTerm = terms.find((term) => hasTerm(firstFieldTokens, term)) || terms[0];
+          matchNote.textContent = `Matched in ${labels.join(', ')}: ${snippet(firstField?.value || '', matchingTerm)}`;
+          matchNote.hidden = false;
+        } else {
+          matchNote.hidden = true;
+        }
+      });
+
+      root.querySelectorAll('[data-lane]').forEach((lane) => {
+        lane.hidden = ![...lane.querySelectorAll('[data-event-mark]')].some((mark) => !mark.hidden);
+      });
+
+      const companyGroup = root.querySelector('[data-group="companies"]');
+      const peopleGroup = root.querySelector('[data-group="people"]');
+      if (companyGroup) companyGroup.hidden = viewValue === 'people';
+      if (peopleGroup) peopleGroup.hidden = viewValue === 'companies';
+      root.querySelectorAll('[data-group-label]').forEach((label) => {
+        label.hidden = viewValue !== 'both';
+      });
+
+      status.textContent = `${visibleIds.size} of ${events.length} unique public ${events.length === 1 ? 'event' : 'events'} shown`;
+      resultEmpty.hidden = visibleIds.size !== 0;
+      updateCompanySummary(selected);
+      updateUrl(terms, selected, kindValue, viewValue);
+
+      const detailTerms = termsFor(search.value);
+      if (!activeId || !visibleIds.has(activeId)) {
+        activeId = visibleEvents.at(-1)?.id || null;
+      }
+      if (activeId) renderDetail(byId.get(activeId), detailTerms);
+      else {
+        detail.querySelector('[data-detail-placeholder]').hidden = false;
+        detail.querySelector('[data-detail-content]').hidden = true;
+      }
+      updateActiveMarks();
+    };
+
+    const reset = () => {
+      search.value = '';
+      kind.value = 'all';
+      if (view) view.value = defaultView;
+      companyChecks.forEach((check) => { check.checked = true; });
+      if (companyPicker) companyPicker.open = false;
+      apply();
+      search.focus();
     };
 
     const params = new URLSearchParams(window.location.search);
     if (params.get('q')) search.value = params.get('q');
     if ([...kind.options].some((option) => option.value === params.get('kind'))) kind.value = params.get('kind');
-    if ([...view.options].some((option) => option.value === params.get('view'))) view.value = params.get('view');
+    if (view && [...view.options].some((option) => option.value === params.get('view'))) view.value = params.get('view');
 
-    root.querySelectorAll('.event-dot').forEach((button) => button.addEventListener('click', () => showDetail(button.getAttribute('data-event-id'))));
+    if (context === 'global' && params.has('companies')) {
+      const raw = params.get('companies');
+      const requested = raw === 'none' ? new Set() : new Set(raw.split(',').filter(Boolean));
+      const validRequested = new Set([...requested].filter((id) => companyChecks.some((check) => check.value === id)));
+      if (raw === 'none' || validRequested.size > 0) {
+        companyChecks.forEach((check) => { check.checked = validRequested.has(check.value); });
+      }
+    }
+
+    root.querySelectorAll('[data-event-mark]').forEach((button) => {
+      button.addEventListener('click', () => setActive(button.getAttribute('data-event-id')));
+    });
+    root.querySelectorAll('[data-select-event]').forEach((button) => {
+      button.addEventListener('click', () => setActive(button.closest('[data-event-result]').getAttribute('data-event-id'), { focusDetail: true }));
+    });
     search.addEventListener('input', apply);
     kind.addEventListener('change', apply);
-    view.addEventListener('change', apply);
+    view?.addEventListener('change', apply);
+    companyChecks.forEach((check) => check.addEventListener('change', apply));
+    root.querySelector('[data-select-all-companies]')?.addEventListener('click', () => {
+      companyChecks.forEach((check) => { check.checked = true; });
+      apply();
+    });
+    resetButtons.forEach((button) => button.addEventListener('click', reset));
+    companyPicker?.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        companyPicker.open = false;
+        companyPicker.querySelector('summary').focus();
+      }
+    });
+
     apply();
-    if (events.length) showDetail(events[events.length - 1].id);
   }
 </script>
