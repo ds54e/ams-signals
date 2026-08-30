@@ -37,6 +37,7 @@ const showGlobalControls = context === 'global';
 const showTimeline = surface === 'timeline';
 
 const HISTORICAL_CUTOFF = 2020;
+const HISTORICAL_SLOT_WIDTH = 20;
 const EVENT_SLOT_WIDTH = 34;
 const SEGMENT_INLINE_PADDING = 26;
 const MIN_SEGMENT_WIDTH = 116;
@@ -61,15 +62,17 @@ let timelineOffset = 0;
 const timelineSegments = [...segmentGroups.values()]
   .sort((left, right) => left.year - right.year)
   .map((segment) => {
+    const slotWidth = segment.key === 'through-2020' ? HISTORICAL_SLOT_WIDTH : EVENT_SLOT_WIDTH;
     const width = Math.max(
       MIN_SEGMENT_WIDTH,
-      (SEGMENT_INLINE_PADDING * 2) + (segment.events.length * EVENT_SLOT_WIDTH),
+      (SEGMENT_INLINE_PADDING * 2) + (segment.events.length * slotWidth),
     );
     const positioned = {
       ...segment,
       width,
       offset: timelineOffset,
-      slotInset: (width - (segment.events.length * EVENT_SLOT_WIDTH)) / 2,
+      slotWidth,
+      slotInset: (width - (segment.events.length * slotWidth)) / 2,
     };
     timelineOffset += width;
     return positioned;
@@ -80,7 +83,7 @@ const timelinePositionByEventId = new Map<string, { x: number; segmentKey: strin
 for (const segment of timelineSegments) {
   segment.events.forEach((event, slot) => {
     timelinePositionByEventId.set(event.data.id, {
-      x: segment.offset + segment.slotInset + ((slot + 0.5) * EVENT_SLOT_WIDTH),
+      x: segment.offset + segment.slotInset + ((slot + 0.5) * segment.slotWidth),
       segmentKey: segment.key,
       slot,
     });
