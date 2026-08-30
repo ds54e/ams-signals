@@ -14,15 +14,45 @@ const inferencePatterns = [
   /\bwe (?:believe|think)\b/i,
   /\bis (?:mature|advanced|leading)\b/i,
 ];
+const hiringSourceTextPatterns = [
+  /\b(?:careers?|job)[ -]?(?:site|page|posting|description|listing)\b/i,
+  /\b(?:recruit(?:ing|ment)|requisition|hiring)\b/i,
+  /\b(?:posts?|posted|lists?|listed|advertises?|advertised|seeks?|sought)\b[^.!?\n]{0,120}\b(?:jobs?|roles?|positions?|intern(?:ship)?s?)\b/i,
+];
+
+function isHiringSourceUrl(url) {
+  try {
+    const parsed = new URL(url);
+    const hostname = parsed.hostname.toLowerCase();
+    const pathname = decodeURIComponent(parsed.pathname).toLowerCase();
+
+    return /(^|\.)(?:jobs|careers)\./.test(hostname)
+      || hostname.includes('workdayjobs.com')
+      || (hostname === 'workforcenow.adp.com' && pathname.includes('/recruitment/'))
+      || /\/(?:jobs?|careers?|recruitment|requisitions?)(?:\/|$)/.test(pathname);
+  } catch {
+    return false;
+  }
+}
+
+function isHiringSignal(data) {
+  if (data.kind !== 'organizational') return false;
+
+  const sourceText = [
+    data.headline,
+    ...(data.sources ?? []).flatMap((source) => [source.title, source.summary]),
+  ].filter(Boolean).join('\n');
+
+  return hiringSourceTextPatterns.some((pattern) => pattern.test(sourceText))
+    || (data.sources ?? []).some((source) => isHiringSourceUrl(source.url));
+}
 
 for (const file of files) {
   const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
   for (const pattern of inferencePatterns) {
     if (pattern.test(data.fact)) errors.push(`${file}: fact contains inference-like wording matching ${pattern}.`);
   }
-  const hiringSignal = data.kind === 'organizational'
-    && /(hiring|role|job|position|posts?|lists?)/i.test(data.headline);
-  if (hiringSignal && !/(posted|listed|role|job description|job posting|position|careers site)/i.test(data.fact)) {
+  if (isHiringSignal(data) && !/(posted|listed|role|job description|job posting|position|careers site)/i.test(data.fact)) {
     errors.push(`${file}: hiring facts should preserve source modality (for example, “posted a role…”).`);
   }
 }
