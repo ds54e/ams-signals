@@ -1,0 +1,24 @@
+{
+  "id": "cirrus-logic-2026-top-down-mixed-signal-verification",
+  "when": {
+    "start": "2026-03-31",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cirrus-logic"
+  ],
+  "people": [
+    "gautham-sathyan"
+  ],
+  "headline": "Cirrus Logic engineer describes a top-down flow spanning SystemVerilog RNM, DMS, and chip-level AMS verification",
+  "fact": "A TechWorks presentation by Cirrus Logic engineer Gautham Sathyan describes a top-down mixed-signal verification approach spanning early architectural modeling, analog/digital boundary definition, DMS bring-up, SystemVerilog real-number models for lower-level analog cells, and chip-level AMS simulation. His public event biography identifies him with Cirrus Logic's Newbury Mixed-Signal Modeling and Verification group.",
+  "sources": [
+    {
+      "title": "Designing the Future: Analogue Mixed Signal (AMS)",
+      "url": "https://techworks.org.uk/event/designing-the-future-analogue-mixed-signal-ams/",
+      "checkedAt": "2026-08-30",
+      "summary": "TechWorks' March 31, 2026 event page lists Sathyan's top-down mixed-signal verification session and identifies his Cirrus Logic Newbury group, architectural-modeling, DMS, SystemVerilog RNM, and chip-level AMS responsibilities."
+    }
+  ]
+}

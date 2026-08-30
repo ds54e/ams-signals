@@ -1,0 +1,36 @@
+{
+  "id": "apple-2026-pmu-ams-design-verification-team-hiring",
+  "when": {
+    "start": "2026-04-17",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [
+    "selcuk-talay"
+  ],
+  "headline": "Selcuk Talay publicly recruits for his Apple PMU AMS design-verification team",
+  "fact": "Apple posted a PMU Analog & Mixed-Signal Design Verification role for Cupertino and Austin covering full-chip mixed-signal verification, analog/RTL co-simulation, verification planning, assertions, coverage, and sign-off. Selcuk Talay publicly shared the role and described it as hiring for \"my AMS design verification team,\" directly connecting him to the recruiting team.",
+  "sources": [
+    {
+      "title": "PMU Design Verification Engineer: Analog & Mixed Signal Engineer — Cupertino",
+      "url": "https://jobs.apple.com/en-us/details/200658493-0836/pmu-design-verification-engineer-analog-mixed-signal-engineer",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple role 200658493 posted April 17, 2026 for Cupertino, with full-chip mixed-signal verification, analog/RTL co-simulation, planning, assertions, coverage, sign-off, and tape-out responsibilities."
+    },
+    {
+      "title": "PMU Design Verification Engineer: Analog & Mixed Signal Engineer — Austin",
+      "url": "https://jobs.apple.com/en-us/details/200658493-0157/pmu-design-verification-engineer-analog-mixed-signal-engineer",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Austin location variant of Apple role 200658493, posted April 17, 2026 with the same PMU analog and mixed-signal verification responsibilities."
+    },
+    {
+      "title": "Selcuk Talay public Apple PMU AMS-DV hiring post",
+      "url": "https://www.linkedin.com/posts/selcuk-talay-00556417_pmu-design-verification-engineer-analog-activity-7451732739050987520-3lUw",
+      "checkedAt": "2026-08-30",
+      "summary": "Talay's public post says he is hiring in Cupertino and Austin for his AMS design-verification team and links the Apple PMU Analog & Mixed Signal Engineer role."
+    }
+  ]
+}
