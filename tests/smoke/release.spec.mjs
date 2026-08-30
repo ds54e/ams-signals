@@ -281,8 +281,13 @@ test('Timeline uses fixed density-adjusted segments and one-row shared Event slo
   expect(segments.some(({ label }) => /^20(?:1[2-9]|20)$/.test(label))).toBe(false);
   expect(segments.find(({ label }) => label === '2026').width)
     .toBeGreaterThan(segments.find(({ label }) => label === '2021').width * 3);
-  expect(segments.find(({ label }) => label === '≤2020').width)
-    .toBeLessThan(segments.find(({ label }) => label === '2026').width);
+  const historicalWidth = segments.find(({ label }) => label === '≤2020').width;
+  const latestWidth = segments.find(({ label }) => label === '2026').width;
+  expect(historicalWidth).toBeGreaterThanOrEqual(300);
+  expect(historicalWidth).toBeLessThanOrEqual(330);
+  expect(latestWidth).toBeGreaterThanOrEqual(550);
+  expect(latestWidth).toBeLessThanOrEqual(570);
+  expect(historicalWidth).toBeLessThan(latestWidth * 0.6);
 
   const lanes = await page.locator('[data-group="companies"] [data-lane]').evaluateAll((nodes) => nodes.map((lane) => ({
     entity: lane.getAttribute('data-entity-id'),
@@ -319,6 +324,12 @@ test('Timeline uses fixed density-adjusted segments and one-row shared Event slo
     return [...unique.values()];
   });
   expect(orderedSlots).toHaveLength(43);
+  const historicalSlots = orderedSlots
+    .filter((entry) => entry.segment === 'through-2020')
+    .sort((left, right) => left.x - right.x);
+  const historicalGaps = historicalSlots.slice(1).map((entry, index) => entry.x - historicalSlots[index].x);
+  expect(historicalSlots).toHaveLength(13);
+  expect(Math.min(...historicalGaps)).toBeGreaterThanOrEqual(20);
   for (const segment of segments) {
     const entries = orderedSlots.filter((entry) => entry.segment === segment.key);
     const chronologicalIds = entries.slice().sort((left, right) => (
