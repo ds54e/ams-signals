@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventExplorer from '../../components/EventExplorer.astro';
+
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+---
+<BaseLayout
+  title="Events · AMS Signals"
+  description="Chronological factual Events and representative public evidence indexed by AMS Signals."
+>
+  <section class="intro">
+    <p class="eyebrow">FACTUAL CHRONOLOGICAL RECORD</p>
+    <h1>Read the indexed public Events</h1>
+    <p class="lede">Filter the factual corpus, read matching Events newest first, and follow each record to its representative public sources.</p>
+  </section>
+  <EventExplorer
+    events={events}
+    goldenEvents={events}
+    companies={companies}
+    people={people}
+    context="global"
+    surface="events"
+  />
+</BaseLayout>
