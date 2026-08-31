@@ -1,0 +1,22 @@
+{
+  "id": "infineon-2024-ams-rnm-verification-hiring",
+  "when": {
+    "start": "2024-11-15",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon verification role lists SV-RNM behavioral modeling and AMS verification for SoCs and IP",
+  "fact": "An Infineon job record for a Senior Engineer Verification role lists Verilog, wreal, or SV-RNM behavioral modeling; AMS verification for SoCs or IPs; test planning and debug; and independent mixed-signal-verification project and methodology-improvement responsibilities. It also names Verilog-AMS, SystemVerilog/UVM, and Cadence, Synopsys, and Mentor AMS tools. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "sources": [
+    {
+      "title": "Infineon: Senior Engineer Verification (HRC0968540)",
+      "url": "https://www.infineon.com/cms/pdflink/zh_CN/36335d6f-c1c6-11e6-9920-40f2e90e8d04/HRC0968540-Senior-Engineer-Verification.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Infineon requisition lists a November 15, 2024 start date and describes its behavioral-modeling, SoC/IP AMS-verification, planning, debug, methodology, language, and simulator scope."
+    }
+  ]
+}

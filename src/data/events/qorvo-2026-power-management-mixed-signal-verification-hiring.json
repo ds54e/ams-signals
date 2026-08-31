@@ -1,0 +1,22 @@
+{
+  "id": "qorvo-2026-power-management-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026-08-27",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "qorvo"
+  ],
+  "people": [],
+  "headline": "Qorvo posts mixed-signal verification leadership role for power-management products",
+  "fact": "Qorvo posted a manager role to grow and direct a mixed-signal verification team for power-loss protection, PMIC, motor-control, and battery-management products. Its responsibilities include metric-driven plans, constrained-random tests and automated checkers in a UVM environment, RNM or Verilog-AMS models, methodology improvement, and verification automation; SV-UDN/EEnet and AI-workflow familiarity are preferred. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "sources": [
+    {
+      "title": "Qorvo Careers: Sr. Mixed Signal Design Verification Manager (10286)",
+      "url": "https://careers.qorvo.com/job/Richardson-Sr_-Mixed-Signal-Design-Verification-Manager-TX-75081/1404687300/",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Qorvo page exposes an August 27, 2026 posting date and describes the team-growth, product, UVM, RNM/Verilog-AMS, methodology, automation, and preferred SV-UDN/EEnet and AI-workflow scope."
+    }
+  ]
+}
