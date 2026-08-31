@@ -1,0 +1,22 @@
+{
+  "id": "infineon-2025-ai-sv-rnm-modeling",
+  "when": {
+    "start": "2025-09-11",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon authors present AI-based mixed-signal modeling with SystemVerilog RNM",
+  "fact": "The official DVCon India 2025 agenda lists an Infineon presentation titled 'Scalable and cost-effective mixed signal modelling using AI with SV-RNM' by Sathyanarayana Ramamoorthy, Rutvikkumar Patel, Anand Rahul, Kranthi Kiran, and Hareesh Perumal. The public agenda establishes the presentation and its stated topic; without a retained paper, this Event does not assert a specific model-generation method, result, or deployment scope.",
+  "sources": [
+    {
+      "title": "DVCon India 2025 agenda",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCON_India_2025_Agenda.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official agenda dates the Infineon-authored presentation to September 11, 2025 and identifies its title, authors, affiliation, and SystemVerilog RNM and AI topic."
+    }
+  ]
+}
