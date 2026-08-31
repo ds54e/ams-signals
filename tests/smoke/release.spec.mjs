@@ -100,7 +100,9 @@ test('Articles publishes every authored document and keeps editorial links separ
   expect(new URL(page.url()).search).toBe('');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
   await expect(page).toHaveTitle('Articles · AMS Signals');
-  await expect(page.getByRole('heading', { name: 'Articles', exact: true, level: 1 })).toBeVisible();
+  await expect(page.locator('h1#articles-heading')).toHaveText('Articles');
+  await expect(page.locator('h1#articles-heading')).toHaveClass(/visually-hidden/);
+  await expect(page.locator('.article-index .eyebrow, .article-index-header')).toHaveCount(0);
   await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
   const articleLinks = page.locator('.article-list > li h2 a');
   const indexUrl = page.url();
@@ -122,6 +124,17 @@ test('Articles publishes every authored document and keeps editorial links separ
     expect(articleUrl.pathname).toMatch(new RegExp(`^${basePath}articles/[^/]+/$`));
   }
   expect(new Set(articles.map(({ href }) => href)).size).toBe(articles.length);
+  await expect(page.locator('.article-list > li > p')).toHaveCount(0);
+  const indexLayout = await page.locator('.article-index').evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return {
+      width: rect.width,
+      left: rect.left,
+      right: document.documentElement.clientWidth - rect.right,
+    };
+  });
+  expect(indexLayout.width).toBeLessThanOrEqual(920);
+  expect(Math.abs(indexLayout.left - indexLayout.right)).toBeLessThanOrEqual(1);
   await expect(page.locator('main article')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
@@ -135,9 +148,24 @@ test('Articles publishes every authored document and keeps editorial links separ
     expect(response?.status(), `HTTP status for ${article.href}`).toBe(200);
     await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
     await expect(page.getByRole('heading', { name: article.title, exact: true, level: 1 })).toBeVisible();
+    await expect(page.locator('.article-page > .back-link, .article-header .eyebrow')).toHaveCount(0);
     await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+
+    const articleLayout = await page.locator('.article-page').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      const title = element.querySelector('h1');
+      return {
+        width: rect.width,
+        left: rect.left,
+        right: document.documentElement.clientWidth - rect.right,
+        titleFontSize: Number.parseFloat(getComputedStyle(title).fontSize),
+      };
+    });
+    expect(articleLayout.width).toBeLessThanOrEqual(800);
+    expect(Math.abs(articleLayout.left - articleLayout.right)).toBeLessThanOrEqual(1);
+    expect(articleLayout.titleFontSize).toBeLessThanOrEqual(44);
 
     const relatedSection = page.locator('.article-related');
     const relatedSectionCount = await relatedSection.count();
@@ -2033,6 +2061,8 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expect(page.locator('.event-filters').getByText('Entity type', { exact: true })).toHaveCount(0);
     if (isEvents) {
       await expect(page.locator('label:has([data-kind]) > span')).toHaveText('Signal type');
+      await expect(page.locator('label:has([data-kind]) > span')).toHaveClass(/visually-hidden/);
+      await expect(page.getByRole('combobox', { name: 'Signal type', exact: true })).toBeVisible();
       await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
       expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
       await expect(page.locator('.event-filters > *')).toHaveCount(3);
