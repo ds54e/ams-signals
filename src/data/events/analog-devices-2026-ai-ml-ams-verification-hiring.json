@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2026-ai-ml-ams-verification-hiring",
+  "when": {
+    "start": "2026-06-11",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "Analog Devices job posting seeks AI/ML methods for mixed-signal design verification",
+  "fact": "Analog Devices posted a role for a Staff Design Verification Engineer that asks for applying AI/ML to failure clustering, regression triage, anomaly detection, and coverage optimization in mixed-signal and UVM verification across business units. This is evidence of an explicit public hiring mandate to investigate and apply those methods, not proof of existing production deployment or measured benefit.",
+  "sources": [
+    {
+      "title": "Analog Devices Careers: Staff Design Verification Engineer (AI/ML)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/en-US/External/job/Staff-Design-Verification-Engineer--AI-ML-_R263414",
+      "checkedAt": "2026-08-31",
+      "summary": "Official ADI requisition R263414, posted June 11, 2026, lists the mixed-signal/UVM scope and AI/ML applications in failure clustering, regression triage, anomaly detection, and coverage optimization."
+    }
+  ]
+}

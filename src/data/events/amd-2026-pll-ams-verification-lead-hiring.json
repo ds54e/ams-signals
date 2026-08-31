@@ -1,0 +1,22 @@
+{
+  "id": "amd-2026-pll-ams-verification-lead-hiring",
+  "when": {
+    "start": "2026-06-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "amd"
+  ],
+  "people": [],
+  "headline": "AMD job posting seeks leadership for complex PLL mixed-signal verification",
+  "fact": "AMD posted a role for a silicon design engineer that describes leading verification of complex PLLs across RTL, gate-level, and analog/mixed-signal simulation, with UVM, coverage, co-simulation, planning, and technical leadership responsibilities. This is evidence of a public hiring mandate, not proof that every requested flow was already deployed across AMD.",
+  "sources": [
+    {
+      "title": "AMD Careers requisition 87581",
+      "url": "https://careers.amd.com/careers-home/jobs/87581",
+      "checkedAt": "2026-08-31",
+      "summary": "Official AMD requisition 87581, posted June 30, 2026, describes the complex-PLL verification leadership scope across RTL, gate-level, AMS, UVM, coverage, and co-simulation."
+    }
+  ]
+}

@@ -103,9 +103,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(42);
-  expect(payload.people).toHaveLength(18);
-  expect(payload.events).toHaveLength(90);
+  expect(payload.companies).toHaveLength(50);
+  expect(payload.people).toHaveLength(25);
+  expect(payload.events).toHaveLength(121);
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
     payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
@@ -117,8 +117,8 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
   )).map(({ id }) => id));
 
-  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(65);
-  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(25);
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(89);
+  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(32);
   expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining([
     'bosch-sensortec',
     'cirrus-logic',
@@ -280,6 +280,72 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     ]),
   );
 
+  const leadingSignalsCompanyIds = [
+    'amd',
+    'coseda-technologies',
+    'designers-guide-consulting',
+    'innophase',
+    'micron',
+    'microsoft',
+    'thine-electronics',
+    'ulkasemi',
+  ];
+  const leadingSignalsPeopleIds = [
+    'aadhar-sharma',
+    'guha-lakshmanan',
+    'henry-chang',
+    'simul-barua',
+    'stijn-ringeling',
+    'thilo-voertler',
+    'venkateswaran-padmanabhan',
+  ];
+  const leadingSignalsEventIds = [
+    'amd-2026-pll-ams-verification-lead-hiring',
+    'ams-osram-2025-early-power-dms-modeling',
+    'analog-devices-2026-ai-ml-ams-verification-hiring',
+    'apple-2026-london-ams-dv-team-hiring',
+    'cadence-2026-generative-ai-rnm-internship',
+    'cadence-2026-metamorphic-testing-rnm',
+    'coseda-2022-systemc-ams-abv-library',
+    'coseda-2025-systemc-ams-assertion-library',
+    'innophase-2024-uvm-testbench-automation-ams',
+    'microchip-2026-selective-spice-digital-top-verification',
+    'micron-2026-ams-verification-ai-assisted-coding-hiring',
+    'microsoft-2025-additive-ai-bandgap-verification',
+    'nxp-2025-gyroscope-uvm-ms-modeling',
+    'nxp-2025-sigma-delta-model-evaluation-acceleration',
+    'nxp-2026-ai-high-sigma-analog-verification',
+    'samsung-2026-ams-verification-hiring',
+    'stijn-ringeling-2026-ml-sigma-delta-evaluation',
+    'stmicroelectronics-2025-ai-high-sigma-analog-verification',
+    'stmicroelectronics-2025-full-chip-spice-verification',
+    'stmicroelectronics-2025-upf-rnm-sram-verification',
+    'synopsys-2026-serdes-ams-verification-manager-hiring',
+    'texas-instruments-2023-ml-waveform-prediction',
+    'texas-instruments-2024-adaptive-ams-glitch-checkers',
+    'texas-instruments-2025-analog-assertion-coverage-toolbox',
+    'texas-instruments-2025-eenet-analog-test-bus',
+    'texas-instruments-2025-patent-ml-rnm-generation',
+    'texas-instruments-2026-ana-modelgen-ams-model-generation',
+    'texas-instruments-2026-uvm-ms-analog-vip',
+    'thine-electronics-2025-ai-phase-interpolator-verification',
+    'ulkasemi-2024-full-chip-uvm-analog-verification',
+    'ulkasemi-2025-amsv-uvm-utility',
+  ];
+  expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining(leadingSignalsCompanyIds));
+  expect(payload.people.map(({ id }) => id)).toEqual(expect.arrayContaining(leadingSignalsPeopleIds));
+  expect(payload.events.map(({ id }) => id)).toEqual(expect.arrayContaining(leadingSignalsEventIds));
+  const leadingSignalsEvents = payload.events.filter(({ id }) => leadingSignalsEventIds.includes(id));
+  expect(leadingSignalsEvents).toHaveLength(31);
+  expect(leadingSignalsEvents.filter(({ kind }) => kind === 'technical')).toHaveLength(24);
+  expect(leadingSignalsEvents.filter(({ kind }) => kind === 'organizational')).toHaveLength(7);
+  expect(leadingSignalsEvents.every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
+  expect(leadingSignalsEvents.flatMap(({ sources }) => sources)
+    .every(({ checkedAt }) => checkedAt === '2026-08-31')).toBe(true);
+  expect(payload.events.find(({ id }) => id === 'stijn-ringeling-2026-ml-sigma-delta-evaluation')).toEqual(
+    expect.objectContaining({ companies: [], people: ['stijn-ringeling'] }),
+  );
+
   expect(payload.events.map(({ id }) => id)).not.toContain('sitime-2026-07-renesas-timing-acquisition');
   for (const event of payload.events) {
     expect(event).toEqual(expect.objectContaining({
@@ -435,11 +501,14 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('90 of 90 events');
-  await expect(page.locator('.event-filter-summary')).toHaveText('90 of 90 events');
+  await expect(page.locator('[data-status]')).toHaveText('121 of 121 events');
+  await expect(page.locator('.event-filter-summary')).toHaveText('121 of 121 events');
   await expect(page.locator('.event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
+  await expect(page.locator(
+    '[data-event-result][data-event-id="stijn-ringeling-2026-ml-sigma-delta-evaluation"]',
+  )).toBeVisible();
 
   const ids = await page.locator('[data-event-result]').evaluateAll((events) => events.map((event) => event.getAttribute('data-event-id')));
   expect(ids.length).toBeGreaterThan(0);
@@ -451,6 +520,54 @@ test('Events is the chronological textual view without a Timeline or inspector',
 
   await page.locator('[data-search]').fill('PLL');
   await expect(page.locator('[data-event-result]:visible').first().locator('[data-result-match]')).toContainText('Matched in');
+});
+
+test('People-only Events remain in the unfiltered corpus and obey narrowed Company filters', async ({ page }) => {
+  const thesisEventId = 'stijn-ringeling-2026-ml-sigma-delta-evaluation';
+  const nxpEventId = 'nxp-2025-sigma-delta-model-evaluation-acceleration';
+
+  const payload = await (await page.request.get('./export.json')).json();
+  expect(payload.events.find(({ id }) => id === thesisEventId)).toEqual(
+    expect.objectContaining({ companies: [], people: ['stijn-ringeling'] }),
+  );
+
+  await page.goto('./');
+  await expectExplorerReady(page);
+  const stijnRow = page.locator(
+    '[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="stijn-ringeling"]',
+  );
+  const thesisMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${thesisEventId}"]`);
+  const nxpMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${nxpEventId}"]`);
+  await expect(stijnRow).toBeVisible();
+  await expect(thesisMark).toBeVisible();
+
+  await page.goto('./events/');
+  await expectExplorerReady(page, 'events');
+  const thesisResult = page.locator(`[data-event-result][data-event-id="${thesisEventId}"]`);
+  const nxpResult = page.locator(`[data-event-result][data-event-id="${nxpEventId}"]`);
+  await expect(thesisResult).toBeVisible();
+  await expect(nxpResult).toBeVisible();
+
+  await page.locator('[data-company-picker] summary').click();
+  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+  await page.locator('[data-company-options] input[value="nxp"]').check();
+  await expect.poll(() => new URL(page.url()).searchParams.get('companies')).toBe('nxp');
+  await expect(thesisResult).toBeHidden();
+  await expect(nxpResult).toBeVisible();
+
+  await page.locator('[data-reset]').click();
+  await expect(thesisResult).toBeVisible();
+  expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+  await page.locator('[data-search]').fill('transfer learning transistor-level');
+  await expect(thesisResult).toBeVisible();
+
+  await page.goto('./?companies=nxp');
+  await expectExplorerReady(page);
+  await expect(stijnRow).toBeVisible();
+  await expect(thesisMark).toBeHidden();
+  await expect(nxpMark).toBeVisible();
+  await page.locator('[data-reset]').click();
+  await expect(thesisMark).toBeVisible();
 });
 
 test('global Timeline Event sets remain subsets of the complete Events record', async ({ page }) => {
@@ -516,9 +633,9 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const singletonCompanyIds = [...companyTotals].filter(([, total]) => total === 1).map(([id]) => id);
   const activePersonIds = [...peopleTotals].filter(([, total]) => total > 0).map(([id]) => id);
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
-  expect(activeCompanyIds).toHaveLength(41);
-  expect(singletonCompanyIds).toHaveLength(20);
-  expect(activePersonIds).toHaveLength(18);
+  expect(activeCompanyIds).toHaveLength(49);
+  expect(singletonCompanyIds).toHaveLength(23);
+  expect(activePersonIds).toHaveLength(25);
   expect(singletonPersonIds).toHaveLength(6);
 
   const singletonCompany = payload.companies.find(({ id }) => id === 'google');
@@ -572,7 +689,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await expect(combinedPersonRow).toBeVisible();
 
   await page.locator('[data-reset]').click();
-  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(41);
+  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(49);
   await expect(combinedCompanyRow).toBeHidden();
   await expect(combinedPersonRow).toBeHidden();
 });
@@ -613,13 +730,13 @@ test('Company filter exposes immediate Select all and Clear all actions', async 
     const checks = page.locator('[data-company-options] input');
     const checked = page.locator('[data-company-options] input:checked');
     const totalCompanies = await checks.count();
-    expect(totalCompanies).toBe(41);
+    expect(totalCompanies).toBe(49);
     await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 90 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 121 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -630,7 +747,7 @@ test('Company filter exposes immediate Select all and Clear all actions', async 
 
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 90 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 121 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -680,15 +797,15 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
   const expectedIds = expectedCompanies.map(({ id }) => id);
   expect(expectedIds.slice(0, 10)).toEqual([
     'apple',
-    'renesas',
     'siemens-eda',
+    'texas-instruments',
     'nxp',
-    'skyworks',
-    'samsung',
-    'synopsys',
-    'analog-devices',
-    'cirrus-logic',
     'cadence',
+    'renesas',
+    'synopsys',
+    'samsung',
+    'analog-devices',
+    'skyworks',
   ]);
   const expectedPeople = payload.people.map((person) => {
     const linked = payload.events.filter((event) => event.people.includes(person.id)).sort((left, right) => (
@@ -707,16 +824,16 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
   }).filter(({ total }) => total > 0).sort(compareActivity);
   const expectedCombined = [...expectedCompanies, ...expectedPeople].sort(compareActivity);
   expect(expectedPeople.map(({ id }) => id).slice(0, 10)).toEqual([
+    'aadhar-sharma',
+    'henry-chang',
+    'stijn-ringeling',
+    'simul-barua',
     'peter-grove',
     'vijay-kumar',
+    'thilo-voertler',
+    'guha-lakshmanan',
+    'venkateswaran-padmanabhan',
     'prabal-bhattacharya',
-    'selcuk-talay',
-    'gautham-sathyan',
-    'marcel-oosterhuis',
-    'keiichi-kajino',
-    'chuck-mcclish',
-    'jun-yan',
-    'jakub-dudek',
   ]);
 
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
@@ -763,7 +880,7 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(33);
+  expect(defaultVisibleCombinedKeys).toHaveLength(45);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -878,7 +995,7 @@ test('global Activity Matrix preserves precise Event x metadata in deterministic
   expect(rows.some(({ slotCount }) => slotCount > 1)).toBe(true);
   expect(rows.some(({ height }) => height === 28)).toBe(true);
   expect(rows.some(({ height }) => height > 28)).toBe(true);
-  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBe(5);
+  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBe(6);
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
@@ -947,8 +1064,8 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
 
   const summary = page.locator('.event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(78);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('78 of 90 events');
+  expect(representedIds).toHaveLength(108);
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('108 of 121 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveText(
@@ -1313,7 +1430,7 @@ test('legacy Entity-view URLs canonicalize to the combined global surfaces', asy
         await expect(page.locator('[data-group="both"] [data-matrix-row][data-entity-type="person"]:visible').first())
           .toBeVisible();
       } else {
-        await expect(page.locator('[data-status]')).toHaveText(/of 90 events/);
+        await expect(page.locator('[data-status]')).toHaveText(/of 121 events/);
       }
     }
 
@@ -1365,10 +1482,10 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(90);
+  expect(serializedKinds).toHaveLength(121);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(65);
-  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(25);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(89);
+  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(32);
 
   const legend = page.locator('.kind-legend');
   await expect(legend.locator('span')).toHaveCount(2);
@@ -1386,7 +1503,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('78 of 90 events');
+    await expect(page.locator('[data-status]')).toHaveText('108 of 121 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
@@ -1395,14 +1512,14 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expectExplorerReady(page, 'events');
   await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('65 of 90 events');
+  await expect(page.locator('[data-status]')).toHaveText('89 of 121 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
   await expect(page.locator('.kind-badge.event-kind-organizational:visible')).toHaveCount(0);
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('25 of 90 events');
+  await expect(page.locator('[data-status]')).toHaveText('32 of 121 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('organizational');
   await expect(page.locator('[data-event-result]:visible .kind-badge')).toHaveText(
-    Array(25).fill('Organizational'),
+    Array(32).fill('Organizational'),
   );
 
   const aliases = new Map([
@@ -1571,7 +1688,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expect(page.locator('[data-search]')).toHaveValue('');
     if (isEvents) await expect(page.locator('[data-kind]')).toHaveValue('all');
     await expect(page.locator('[data-company-options] input:checked')).toHaveCount(await page.locator('[data-company-options] input').count());
-    await expect(page.locator('[data-company-summary]')).toHaveText('All 41 with events');
+    await expect(page.locator('[data-company-summary]')).toHaveText('All 49 with events');
   }
 });
 

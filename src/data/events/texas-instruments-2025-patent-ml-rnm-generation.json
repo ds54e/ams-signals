@@ -1,0 +1,25 @@
+{
+  "id": "texas-instruments-2025-patent-ml-rnm-generation",
+  "when": {
+    "start": "2025-04-10",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "venkateswaran-padmanabhan",
+    "guha-lakshmanan"
+  ],
+  "headline": "A TI patent publication describes machine-learning-assisted generation of real-number models",
+  "fact": "U.S. patent application US20250117560A1, assigned to Texas Instruments, describes obtaining analog-simulation logs, training a neural network, deriving a mathematical transfer function, and producing a SystemVerilog-compatible simulation kernel for real-number modeling. This Event records a published patent disclosure; publication does not establish product implementation, internal deployment, or the scope of any deployed flow.",
+  "sources": [
+    {
+      "title": "US20250117560A1 — Automated generation of real-number models",
+      "url": "https://patents.google.com/patent/US20250117560A1/en",
+      "checkedAt": "2026-08-31",
+      "summary": "The patent record identifies Texas Instruments as assignee, Venkateswaran Padmanabhan and Guha Lakshmanan among the inventors, the April 10, 2025 publication date, and the neural-network-to-SystemVerilog RNM disclosure."
+    }
+  ]
+}
