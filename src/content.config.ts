@@ -84,9 +84,7 @@ const people = defineCollection({
 
 const articles = defineCollection({
   loader: glob({
-    // Matching the tracked directory marker lets Astro evict a deleted final
-    // Article from its content cache while the collection is otherwise empty.
-    pattern: ['*.md', '.gitkeep'],
+    pattern: '*.md',
     base: './src/content/articles',
     generateId: ({ entry }) => entry.replace(/\.md$/, ''),
   }),
