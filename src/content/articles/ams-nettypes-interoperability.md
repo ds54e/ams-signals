@@ -1,5 +1,5 @@
 ---
-title: "AMSの「線」を自由にしたら、線同士がつながらなくなった"
+title: "「線」を自由にしたら、線同士がつながらなくなった"
 published: "2026-08-31"
 summary: "EEnet、VQC、c_enetからSV-MSIまで、SystemVerilog UDNでAMSの線を自由にした結果、異なるnettype同士の接続が標準化課題になった流れを追う。"
 sources:

@@ -104,11 +104,15 @@ test('Articles publishes every authored document and keeps editorial links separ
   await expect(page.locator('h1#articles-heading')).toHaveClass(/visually-hidden/);
   await expect(page.locator('.article-index .eyebrow, .article-index-header')).toHaveCount(0);
   await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
-  const articleLinks = page.locator('.article-list > li h2 a');
+  const articleRows = page.locator('.article-list > li');
+  const articleLinks = articleRows.locator('h2 a');
   const indexUrl = page.url();
-  const articleEntries = await articleLinks.evaluateAll((links) => links.map((link) => ({
-    title: link.textContent?.trim() ?? '',
-    href: link.getAttribute('href') ?? '',
+  const articleEntries = await articleRows.evaluateAll((rows) => rows.map((row) => ({
+    date: row.querySelector('time')?.textContent?.trim() ?? '',
+    datetime: row.querySelector('time')?.getAttribute('datetime') ?? '',
+    title: row.querySelector('h2 a')?.textContent?.trim() ?? '',
+    href: row.querySelector('h2 a')?.getAttribute('href') ?? '',
+    summary: row.querySelector('.article-list-body > p')?.textContent?.trim() ?? '',
   })));
   expect(articleEntries.length, 'Articles index should publish at least one Article').toBeGreaterThan(0);
 
@@ -118,23 +122,36 @@ test('Articles publishes every authored document and keeps editorial links separ
   }));
   for (const [index, article] of articles.entries()) {
     await expect(articleLinks.nth(index)).toBeVisible();
+    expect(articleEntries[index].date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(articleEntries[index].datetime).toBe(articleEntries[index].date);
     expect(article.title, `Article title for ${article.href}`).not.toBe('');
+    expect(articleEntries[index].summary, `Article summary for ${article.href}`).not.toBe('');
     const articleUrl = new URL(article.href);
     expect(articleUrl.origin).toBe(new URL(indexUrl).origin);
     expect(articleUrl.pathname).toMatch(new RegExp(`^${basePath}articles/[^/]+/$`));
   }
   expect(new Set(articles.map(({ href }) => href)).size).toBe(articles.length);
-  await expect(page.locator('.article-list > li > p')).toHaveCount(0);
+  await expect(page.locator('.article-list > li > .article-list-body > p')).toHaveCount(articles.length);
+  await expect(page.locator('.article-list a[href$="/articles/ams-nettypes-interoperability/"]'))
+    .toHaveText('「線」を自由にしたら、線同士がつながらなくなった');
+  await expect(page.getByText('AMSの「線」を自由にしたら、線同士がつながらなくなった', { exact: true }))
+    .toHaveCount(0);
   const indexLayout = await page.locator('.article-index').evaluate((element) => {
     const rect = element.getBoundingClientRect();
+    const firstRow = element.querySelector('.article-list > li');
+    const firstTitle = firstRow?.querySelector('h2');
     return {
       width: rect.width,
       left: rect.left,
       right: document.documentElement.clientWidth - rect.right,
+      rowDisplay: firstRow ? getComputedStyle(firstRow).display : '',
+      titleFontSize: firstTitle ? Number.parseFloat(getComputedStyle(firstTitle).fontSize) : 0,
     };
   });
   expect(indexLayout.width).toBeLessThanOrEqual(920);
   expect(Math.abs(indexLayout.left - indexLayout.right)).toBeLessThanOrEqual(1);
+  expect(indexLayout.rowDisplay).toBe('grid');
+  expect(indexLayout.titleFontSize).toBeLessThanOrEqual(18);
   await expect(page.locator('main article')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
@@ -164,7 +181,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     });
     expect(articleLayout.width).toBeLessThanOrEqual(800);
     expect(Math.abs(articleLayout.left - articleLayout.right)).toBeLessThanOrEqual(1);
-    expect(articleLayout.titleFontSize).toBeLessThanOrEqual(44);
+    expect(articleLayout.titleFontSize).toBeLessThanOrEqual(40);
 
     const sourceSection = page.locator('.article-sources');
     const sourceRows = sourceSection.locator(':scope > ol > li');
@@ -184,12 +201,14 @@ test('Articles publishes every authored document and keeps editorial links separ
         id: row.id,
         number: row.querySelector('.article-source-number')?.textContent?.trim() ?? '',
         href: row.querySelector('a')?.href ?? '',
+        publisherRendered: row.querySelector('p') !== null,
       })));
       expect(sources.length, `Source rows for ${article.href}`).toBeGreaterThan(0);
       expect(sources.map(({ id }) => id)).toEqual(sources.map((_, index) => `source-${index + 1}`));
       expect(sources.map(({ number }) => number)).toEqual(sources.map((_, index) => `[${index + 1}]`));
       expect(new Set(sources.map(({ id }) => id)).size).toBe(sources.length);
       expect(new Set(sources.map(({ href }) => href)).size).toBe(sources.length);
+      expect(sources.every(({ publisherRendered }) => !publisherRendered)).toBe(true);
 
       for (const source of sources) {
         const sourceUrl = new URL(source.href);
@@ -212,9 +231,13 @@ test('Articles publishes every authored document and keeps editorial links separ
     const relatedSection = page.locator('.article-related');
     const relatedSectionCount = await relatedSection.count();
     expect(relatedSectionCount, `Related events section count for ${article.href}`).toBeLessThanOrEqual(1);
-    const relatedEventHrefs = await relatedSection.locator('a[href]').evaluateAll((links) => (
-      links.map((link) => link.getAttribute('href') ?? '')
-    ));
+    const relatedRows = await relatedSection.locator(':scope > ol > li').evaluateAll((rows) => rows.map((row) => ({
+      year: row.querySelector('time')?.textContent?.trim() ?? '',
+      datetime: row.querySelector('time')?.getAttribute('datetime') ?? '',
+      title: row.querySelector('a')?.textContent?.trim() ?? '',
+      href: row.querySelector('a')?.getAttribute('href') ?? '',
+    })));
+    const relatedEventHrefs = relatedRows.map(({ href }) => href);
 
     if (relatedSectionCount === 0) {
       expect(relatedEventHrefs).toEqual([]);
@@ -222,6 +245,12 @@ test('Articles publishes every authored document and keeps editorial links separ
       await expect(relatedSection.getByRole('heading', { name: 'Related events', exact: true, level: 2 }))
         .toBeVisible();
       expect(relatedEventHrefs.length, `Related Event links for ${article.href}`).toBeGreaterThan(0);
+      for (const related of relatedRows) {
+        expect(related.year).toMatch(/^\d{4}$/);
+        expect(related.datetime.startsWith(related.year)).toBe(true);
+        expect(related.title).not.toBe('');
+        expect(related.title.endsWith('→')).toBe(false);
+      }
     }
 
     const normalizedEventHrefs = relatedEventHrefs.map((href) => new URL(href, article.href).href);
@@ -241,6 +270,16 @@ test('Articles publishes every authored document and keeps editorial links separ
           : section.classList.contains('article-related') ? 'related' : 'other')
       ));
       expect(terminalOrder.indexOf('sources')).toBeLessThan(terminalOrder.indexOf('related'));
+    }
+
+    if (new URL(article.href).pathname.endsWith('/articles/pll-metamorphic-testing/')) {
+      const tableHeaders = await page.locator('.article-body table').evaluateAll((tables) => tables.map((table) => (
+        [...table.querySelectorAll('thead th')].map((header) => header.textContent?.trim() ?? '')
+      )));
+      expect(tableHeaders.slice(0, 2)).toEqual([
+        ['テスト', 'リファレンス周波数', '期待される結果'],
+        ['入力の変更', 'ADC出力', 'RSSI'],
+      ]);
     }
 
     expect(
