@@ -5,7 +5,6 @@ export const ACTIVITY_MATRIX_BUNDLE_PROXIMITY = 32;
 export const ACTIVITY_MATRIX_BUNDLE_CELL_SIZE = 16;
 export const ACTIVITY_MATRIX_BUNDLE_GAP = 2;
 export const ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS = 3;
-export const ACTIVITY_MATRIX_MIN_COLLISION_WIDTH = 34;
 export const ACTIVITY_MATRIX_BASE_ROW_HEIGHT = 28;
 export const ACTIVITY_MATRIX_ROW_PADDING = 5;
 export const ACTIVITY_MATRIX_COLLISION_SLOT_GAP = 4;
@@ -460,7 +459,7 @@ export function buildActivityMatrixBundles(
       columnCount,
       rowCount,
       bundleWidthPx,
-      collisionWidthPx: Math.max(ACTIVITY_MATRIX_MIN_COLLISION_WIDTH, bundleWidthPx),
+      collisionWidthPx: bundleWidthPx,
       height: bundleHeight(bundleMembers.length),
       slot: 0,
       top: ACTIVITY_MATRIX_ROW_PADDING,
