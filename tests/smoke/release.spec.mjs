@@ -45,6 +45,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
 
   expect(new URL(page.url()).pathname).toBe(basePath);
   await expect(page).toHaveTitle('AMS Signals');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RNM|mixed-signal/i);
   await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Timeline');
@@ -54,7 +55,8 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.locator('.site-header nav a')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('href', `${basePath}articles/`);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles']);
   await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveCount(0);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
@@ -74,18 +76,38 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
 });
 
-test('Analysis routes and stale internal links are absent', async ({ page }) => {
+test('Articles is a separate zero-content editorial surface while retired Analysis routes stay absent', async ({ page }) => {
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
-    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events']);
+    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles']);
   }
 
   const indexResponse = await page.request.get('./analysis/');
   const articleResponse = await page.request.get('./analysis/from-behavioral-models-to-managed-verification-assets/');
   expect(indexResponse.status()).toBe(404);
   expect(articleResponse.status()).toBe(404);
+
+  await page.goto('./?q=PLL&companies=apple');
+  await expectExplorerReady(page);
+  const articlesLink = page.getByRole('link', { name: 'Articles', exact: true });
+  await expect(articlesLink).toHaveAttribute('href', `${basePath}articles/`);
+  await expect(articlesLink).not.toHaveAttribute('data-filter-view-link', '');
+  await articlesLink.click();
+
+  expect(new URL(page.url()).pathname).toBe(`${basePath}articles/`);
+  expect(new URL(page.url()).search).toBe('');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+  await expect(page).toHaveTitle('Articles · AMS Signals');
+  await expect(page.getByRole('heading', { name: 'Articles', exact: true, level: 1 })).toBeVisible();
+  await expect(page.getByText('No articles yet.', { exact: true })).toBeVisible();
+  await expect(page.locator('.article-list')).toHaveCount(0);
+  await expect(page.locator('main article')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  expect((await page.request.get('./articles/future-article/')).status()).toBe(404);
 });
 
 test('canonical JSON export contains the complete factual corpus', async ({ page }) => {
@@ -2014,6 +2036,7 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
   await page.goto(`./events/${eventId}/`);
   await expect(page.getByRole('heading', { name: 'Evidence', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Sources', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Related articles', exact: true })).toHaveCount(0);
   await expect(page.locator('.record-context')).toHaveAttribute('aria-label', 'Linked entities');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^Factual public Event and supporting evidence for /);
 });
@@ -2072,5 +2095,6 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toBeVisible();
+  await expect(page.locator('.site-header nav a')).toHaveCount(3);
 });

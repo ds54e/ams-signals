@@ -5,17 +5,20 @@ import { sitePath } from '../lib/paths';
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
 }
 
 const {
   title = 'AMS Signals',
   description = 'Public signals in RNM and mixed-signal verification.',
+  lang = 'en',
 } = Astro.props;
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
-const inTimeline = !inEvents;
+const inArticles = Astro.url.pathname.startsWith(sitePath('articles/'));
+const inTimeline = !inEvents && !inArticles;
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -29,6 +32,7 @@ const inTimeline = !inEvents;
       <nav aria-label="Primary">
         <a href={sitePath('')} data-filter-view-link data-filter-surface="timeline" aria-current={inTimeline ? 'page' : undefined}>Timeline</a>
         <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
+        <a href={sitePath('articles/')} aria-current={inArticles ? 'page' : undefined}>Articles</a>
       </nav>
     </header>
     <main class="page-shell">
