@@ -3,8 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sortArticlesNewestFirst } from '../../lib/articles';
 import { sitePath } from '../../lib/paths';
+import { englishAutoTranslationUrl } from '../../lib/translation';
 
 const articles = sortArticlesNewestFirst(await getCollection('articles'));
+if (!Astro.site) throw new Error('Astro site URL is required for Article translation links.');
+const translationUrl = englishAutoTranslationUrl(new URL(sitePath('articles/'), Astro.site));
 ---
 <BaseLayout
   title="Articles · AMS Signals"
@@ -13,6 +16,18 @@ const articles = sortArticlesNewestFirst(await getCollection('articles'));
 >
   <section class="listing-page article-index" aria-labelledby="articles-heading">
     <h1 id="articles-heading" class="visually-hidden">Articles</h1>
+
+    <p class="article-translation-utility" lang="en">
+      <span>Japanese original</span>
+      <span aria-hidden="true">·</span>
+      <a
+        class="article-translation-link"
+        href={translationUrl}
+        target="_blank"
+        rel="noreferrer"
+        title="Machine translation via Google Translate"
+      >English (auto-translate) ↗</a>
+    </p>
 
     {articles.length > 0 ? (
       <ol class="article-list">

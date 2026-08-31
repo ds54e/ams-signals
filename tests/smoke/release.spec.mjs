@@ -39,6 +39,15 @@ function queryState(url) {
   return Object.fromEntries([...new URL(url).searchParams.entries()].sort(([left], [right]) => left.localeCompare(right)));
 }
 
+function expectEnglishAutoTranslationUrl(href, expectedSourceUrl) {
+  const translationUrl = new URL(href);
+  expect(translationUrl.origin).toBe('https://translate.google.com');
+  expect(translationUrl.pathname).toBe('/translate');
+  expect(translationUrl.searchParams.get('sl')).toBe('ja');
+  expect(translationUrl.searchParams.get('tl')).toBe('en');
+  expect(translationUrl.searchParams.get('u')).toBe(expectedSourceUrl);
+}
+
 test('Timeline is the temporal view with filters and one Evidence Inspector', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
@@ -81,6 +90,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
+    await expect(page.getByRole('link', { name: 'English (auto-translate) ↗', exact: true })).toHaveCount(0);
     await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles']);
   }
 
@@ -104,6 +114,15 @@ test('Articles publishes every authored document and keeps editorial links separ
   await expect(page.locator('h1#articles-heading')).toHaveClass(/visually-hidden/);
   await expect(page.locator('.article-index .eyebrow, .article-index-header')).toHaveCount(0);
   await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Japanese original', { exact: true })).toBeVisible();
+  const indexTranslationLink = page.getByRole('link', { name: 'English (auto-translate) ↗', exact: true });
+  await expect(indexTranslationLink).toBeVisible();
+  await expect(indexTranslationLink).toHaveAttribute('target', '_blank');
+  await expect(indexTranslationLink).toHaveAttribute('rel', 'noreferrer');
+  expectEnglishAutoTranslationUrl(
+    await indexTranslationLink.getAttribute('href'),
+    'https://ds54e.github.io/ams-signals/articles/',
+  );
   const articleRows = page.locator('.article-list > li');
   const articleLinks = articleRows.locator('h2 a');
   const indexUrl = page.url();
@@ -168,6 +187,14 @@ test('Articles publishes every authored document and keeps editorial links separ
     await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+    const translationLink = page.getByRole('link', { name: 'English (auto-translate) ↗', exact: true });
+    await expect(translationLink).toBeVisible();
+    await expect(translationLink).toHaveAttribute('target', '_blank');
+    await expect(translationLink).toHaveAttribute('rel', 'noreferrer');
+    expectEnglishAutoTranslationUrl(
+      await translationLink.getAttribute('href'),
+      `https://ds54e.github.io${new URL(article.href).pathname}`,
+    );
 
     const articleLayout = await page.locator('.article-page').evaluate((element) => {
       const rect = element.getBoundingClientRect();
