@@ -12,7 +12,6 @@ import {
   ACTIVITY_MATRIX_BUNDLE_CELL_SIZE,
   ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_BUNDLE_PROXIMITY,
-  ACTIVITY_MATRIX_MIN_TRACK_WIDTH,
   buildActivityMatrixGeometry,
 } from '../lib/activityMatrix';
 import { sitePath } from '../lib/paths';
@@ -43,10 +42,10 @@ const activityMatrixGeometry = context === 'global'
   : null;
 const countOrderedCompanyRecords = orderCompaniesByGoldenEventCount(companies, goldenEvents);
 const orderedCompanyRecords = context === 'global'
-  ? activityMatrixGeometry?.companyRows.map(({ entity: company, stats }) => ({
-      company,
-      eventCount: stats.total,
-    })) ?? []
+  ? [...countOrderedCompanyRecords].sort((left, right) => (
+      left.company.data.name.localeCompare(right.company.data.name, 'en')
+      || left.company.data.id.localeCompare(right.company.data.id, 'en')
+    ))
   : countOrderedCompanyRecords;
 const companyIds = orderedCompanyRecords
   .filter(({ company }) => activeCompanyIds.has(company.data.id))
@@ -68,17 +67,16 @@ const timelineWidth = timelineGeometry?.width ?? 0;
 const timelineColumns = timelineGeometry?.columns ?? '';
 const timelinePositionByEventId = timelineGeometry?.positionByEventId ?? new Map();
 const activityTimeBands = activityMatrixGeometry?.timeBands ?? [];
-const activityTimeZones = activityMatrixGeometry?.timeZones ?? [];
 const activityBoundaries = activityMatrixGeometry?.boundaries ?? [];
 const activityCombinedRows = activityMatrixGeometry?.combinedRows ?? [];
-const activityBundleWindow = (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
-const activityPercent = (pixels: number) => (pixels / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
-const activityAxisDescription = activityTimeZones.map((zone) => (
-  `${zone.label === 'RECENT' ? 'Recent' : 'Earlier'}: ${activityTimeBands
-    .filter((band) => band.zone === zone.key)
-    .map((band) => band.ariaLabel)
-    .join(', ')}`
-)).join('. ');
+const activityTrackWidth = activityMatrixGeometry?.trackWidth ?? 0;
+const activityBundleWindow = activityTrackWidth > 0
+  ? (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / activityTrackWidth) * 100
+  : 0;
+const activityPercent = (pixels: number) => activityTrackWidth > 0
+  ? (pixels / activityTrackWidth) * 100
+  : 0;
+const activityAxisDescription = activityTimeBands.map((band) => band.ariaLabel).join(', ');
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
   technical: 'Technical',
@@ -165,10 +163,6 @@ const matrixMarkLabel = (event: EventEntry) => (
   `${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`
 );
 
-const matrixMemberGridStyle = (index: number, memberCount: number) => {
-  const isCenteredLast = memberCount % 2 === 1 && index === memberCount - 1;
-  return `grid-column:${isCenteredLast ? '1 / -1' : ((index % 2) + 1)};grid-row:${Math.floor(index / 2) + 1};justify-self:${isCenteredLast ? 'center' : 'stretch'}`;
-};
 ---
 <section
   class="event-explorer"
@@ -181,7 +175,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
   <div class="event-filters" role="group" aria-label="Event filters">
     <label class="search-control">
       <span>Search events</span>
-      <input data-search type="search" placeholder="model validation, PLL, real-number…" autocomplete="off" />
+      <input data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
     </label>
 
     {showSignalTypeControl && (
@@ -198,30 +192,35 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     {showGlobalControls && (
       <details class="company-picker" data-company-picker>
         <summary>
-          <span>Company filter</span>
-          <strong data-company-summary>All {companyIds.length} with events</strong>
+          <span>Companies</span>
+          <strong data-company-summary>All {companyIds.length}</strong>
         </summary>
         <div class="company-picker-panel">
-          <div class="company-picker-actions" role="group" aria-label="Company filter selection actions">
-            <button type="button" class="text-button" data-select-all-companies>Select all</button>
-            <span aria-hidden="true">|</span>
-            <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+          <div class="company-picker-header">
+            <strong>Companies</strong>
+            <div class="company-picker-actions" role="group" aria-label="Company filter selection actions">
+              <button type="button" class="text-button" data-select-all-companies>Select all</button>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+            </div>
           </div>
-          <fieldset data-company-options>
-            <legend class="visually-hidden">Companies included by this filter</legend>
+          <label class="company-picker-search">
+            <span class="visually-hidden">Filter companies</span>
+            <input data-company-search type="search" placeholder="Filter companies…" autocomplete="off" />
+          </label>
+          <div data-company-options role="group" aria-label="Companies included by this filter">
             {companyIds.map((companyId) => (
-              <label>
+              <label data-company-option data-company-name={companyMap.get(companyId) ?? companyId}>
                 <input type="checkbox" value={companyId} checked />
                 <span>{companyMap.get(companyId) ?? companyId}</span>
-                <small>{companyEventCount.get(companyId)} {companyEventCount.get(companyId) === 1 ? 'event' : 'events'}</small>
+                <small>{companyEventCount.get(companyId)}</small>
               </label>
             ))}
-          </fieldset>
+            <p class="company-picker-empty" data-company-options-empty hidden>No companies match.</p>
+          </div>
         </div>
       </details>
     )}
-
-    <button type="button" class="reset-button" data-reset>Reset filters</button>
   </div>
 
   <div class="event-filter-summary">
@@ -231,12 +230,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
         <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
       ))}
     </div>}
-    {showActivityMatrix && (
-      <p
-        class="activity-order-note"
-        title="Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Recent Events may be grouped by temporal proximity; earlier Events are grouped into broader periods. Exact dates remain available in the Inspector and Events view."
-      >Timeline emphasizes recent and recurring public signals. Earlier years are visually compressed into broader periods. Events contains the complete chronological record.</p>
-    )}
   </div>
 
   {showTimeline && <div class="timeline-workspace">
@@ -244,8 +237,9 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       {showActivityMatrix ? (
         <div
           class="activity-matrix-shell"
-          style={`--matrix-track-min-width:${ACTIVITY_MATRIX_MIN_TRACK_WIDTH}px;--bundle-cell-size:${ACTIVITY_MATRIX_BUNDLE_CELL_SIZE}px;--bundle-gap:${ACTIVITY_MATRIX_BUNDLE_GAP}px`}
+          style={`--matrix-track-min-width:${activityTrackWidth}px;--bundle-cell-size:${ACTIVITY_MATRIX_BUNDLE_CELL_SIZE}px;--bundle-gap:${ACTIVITY_MATRIX_BUNDLE_GAP}px`}
           data-bundle-proximity-px={ACTIVITY_MATRIX_BUNDLE_PROXIMITY}
+          data-matrix-track-width={activityTrackWidth}
         >
           <div class="activity-matrix-axis-viewport">
             <div class="activity-matrix-axis">
@@ -254,22 +248,13 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                 class="activity-axis-track"
                 data-activity-axis
                 role="img"
-                aria-label={`Activity Matrix time bands. ${activityAxisDescription}. Newest is left.`}
+                aria-label={`Activity Matrix time bands: ${activityAxisDescription}. Newest is left.`}
               >
                 <div class="activity-guides">
                   {activityBoundaries.map((boundary) => (
                     <span
-                      class:list={{ 'is-zone-boundary': boundary.isZoneBoundary }}
                       style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
                     ></span>
-                  ))}
-                </div>
-                <div class="activity-axis-zones" aria-hidden="true">
-                  {activityTimeZones.map((zone) => (
-                    <span
-                      class="activity-zone-label"
-                      style={`--zone-start:${activityPercent(zone.startPx)}%;--zone-width:${activityPercent(zone.widthPx)}%`}
-                    >{zone.label}</span>
                   ))}
                 </div>
                 <div class="activity-axis-bands" aria-hidden="true">
@@ -287,6 +272,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                       data-band-start-year={band.startYear}
                       data-band-end-year={band.endYear}
                       data-band-width-px={band.widthPx}
+                      data-band-max-events-per-row={band.maxEventsPerRow}
                       data-band-start-px={band.startPx}
                       data-band-end-px={band.endPx}
                     >{band.label}</span>
@@ -307,7 +293,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
               data-activity-matrix-surface
               data-domain-oldest-year={activityMatrixGeometry?.domain.oldestYear}
               data-domain-latest-year={activityMatrixGeometry?.domain.latestYear}
-              data-min-track-width={ACTIVITY_MATRIX_MIN_TRACK_WIDTH}
+              data-track-width={activityTrackWidth}
               data-time-band-count={activityTimeBands.length}
             >
               <div class="activity-matrix-group" data-group="both">
@@ -341,7 +327,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                         <div class="activity-guides" aria-hidden="true">
                           {activityBoundaries.map((boundary) => (
                             <span
-                              class:list={{ 'is-zone-boundary': boundary.isZoneBoundary }}
                               style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
                             ></span>
                           ))}
@@ -349,7 +334,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                         {row.bundles.map((bundle, bundleIndex) => (
                           <div
                             class="activity-bundle"
-                            style={`--bundle-x:${bundle.x}%;--bundle-top:${bundle.top}px;--bundle-height:${bundle.height}px;--visible-bundle-rows:${bundle.rowCount}`}
+                            style={`--bundle-x:${bundle.x}%;--bundle-top:${bundle.top}px;--bundle-height:${bundle.height}px;--bundle-width:${bundle.bundleWidthPx}px`}
                             data-matrix-bundle
                             data-bundle-index={bundleIndex}
                             data-bundle-key={bundle.key}
@@ -358,11 +343,17 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                             data-bundle-member-count={bundle.eventIds.length}
                             data-visible-member-count={bundle.eventIds.length}
                             data-bundle-x={bundle.x}
+                            data-bundle-x-px={bundle.xPx}
                             data-bundle-window={bundle.mode === 'proximity' ? activityBundleWindow : undefined}
                             data-bundle-window-px={bundle.mode === 'proximity' ? ACTIVITY_MATRIX_BUNDLE_PROXIMITY : undefined}
                             data-min-original-event-x={bundle.minOriginalX}
                             data-max-original-event-x={bundle.maxOriginalX}
                             data-max-original-displacement={bundle.maxOriginalDisplacement}
+                            data-max-original-displacement-px={bundle.maxOriginalDisplacementPx}
+                            data-bundle-columns={bundle.columnCount}
+                            data-bundle-rows={bundle.rowCount}
+                            data-bundle-width-px={bundle.bundleWidthPx}
+                            data-collision-width-px={bundle.collisionWidthPx}
                             data-collision-slot={bundle.slot}
                             data-bundle-top={bundle.top}
                             data-time-zone={bundle.timeZone}
@@ -375,7 +366,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                               <button
                                 type="button"
                                 class={`activity-mark event-kind-${member.kind}`}
-                                style={matrixMemberGridStyle(memberIndex, bundle.members.length)}
                                 data-event-mark
                                 data-matrix-mark
                                 data-bundle-member
@@ -575,8 +565,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     </div>
     <div class="filtered-empty" data-filtered-empty hidden>
       <h3>No events match these filters</h3>
-      <p>Try a different phrase, restore all companies, or reset the signal type.</p>
-      <button type="button" class="text-button" data-empty-reset>Reset filters</button>
+      <p>Clear the search, select more companies, or choose All types.</p>
     </div>
   </section>}
 
@@ -598,8 +587,10 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     const search = root.querySelector('[data-search]');
     const kind = root.querySelector('[data-kind]');
     const status = root.querySelector('[data-status]');
-    const resetButtons = root.querySelectorAll('[data-reset], [data-empty-reset]');
     const companyChecks = [...root.querySelectorAll('[data-company-options] input[type="checkbox"]')];
+    const companyOptions = [...root.querySelectorAll('[data-company-option]')];
+    const companySearch = root.querySelector('[data-company-search]');
+    const companyOptionsEmpty = root.querySelector('[data-company-options-empty]');
     const companySummary = root.querySelector('[data-company-summary]');
     const companyPicker = root.querySelector('[data-company-picker]');
     const resultEmpty = root.querySelector('[data-filtered-empty]');
@@ -809,15 +800,23 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     const updateCompanySummary = (selected) => {
       if (!companySummary) return;
       if (selected.size === companyChecks.length) {
-        companySummary.textContent = `All ${companyChecks.length} with events`;
+        companySummary.textContent = `All ${companyChecks.length}`;
       } else if (selected.size === 0) {
-        companySummary.textContent = 'No companies selected';
-      } else if (selected.size <= 2) {
-        const names = companyChecks.filter((check) => check.checked).map((check) => check.parentElement.querySelector('span').textContent);
-        companySummary.textContent = names.join(' + ');
+        companySummary.textContent = 'None';
       } else {
-        companySummary.textContent = `${selected.size} companies selected`;
+        companySummary.textContent = `${selected.size} selected`;
       }
+    };
+
+    const filterCompanyOptions = () => {
+      const query = normalize(companySearch?.value);
+      let visibleCount = 0;
+      companyOptions.forEach((option) => {
+        const matches = !query || normalize(option.getAttribute('data-company-name')).includes(query);
+        option.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+      if (companyOptionsEmpty) companyOptionsEmpty.hidden = visibleCount !== 0;
     };
 
     const updateSurfaceLinks = (params) => {
@@ -858,19 +857,13 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       root.querySelectorAll('[data-matrix-bundle]').forEach((bundle) => {
         const visibleMembers = [...bundle.querySelectorAll('[data-bundle-member]')]
           .filter((member) => !member.hidden);
-        const visibleRows = Math.max(Math.ceil(visibleMembers.length / 2), 1);
         bundle.hidden = visibleMembers.length === 0;
         bundle.setAttribute('data-visible-event-ids', JSON.stringify(
           visibleMembers.map((member) => member.getAttribute('data-event-id')),
         ));
         bundle.setAttribute('data-visible-member-count', String(visibleMembers.length));
-        bundle.style.setProperty('--visible-bundle-rows', String(visibleRows));
 
         visibleMembers.forEach((member, index) => {
-          const centeredLast = visibleMembers.length % 2 === 1 && index === visibleMembers.length - 1;
-          member.style.gridColumn = centeredLast ? '1 / -1' : String((index % 2) + 1);
-          member.style.gridRow = String(Math.floor(index / 2) + 1);
-          member.style.justifySelf = centeredLast ? 'center' : 'stretch';
           member.setAttribute('data-visible-index', String(index));
         });
       });
@@ -985,15 +978,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       }
     };
 
-    const reset = () => {
-      search.value = '';
-      if (kind) kind.value = 'all';
-      companyChecks.forEach((check) => { check.checked = true; });
-      if (companyPicker) companyPicker.open = false;
-      apply();
-      search.focus();
-    };
-
     const params = new URLSearchParams(window.location.search);
     if (params.get('q')) search.value = params.get('q');
     const requestedKind = params.get('kind');
@@ -1016,6 +1000,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     });
     search.addEventListener('input', apply);
     kind?.addEventListener('change', apply);
+    companySearch?.addEventListener('input', filterCompanyOptions);
     companyChecks.forEach((check) => check.addEventListener('change', apply));
     root.querySelector('[data-select-all-companies]')?.addEventListener('click', () => {
       companyChecks.forEach((check) => { check.checked = true; });
@@ -1025,7 +1010,6 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       companyChecks.forEach((check) => { check.checked = false; });
       apply();
     });
-    resetButtons.forEach((button) => button.addEventListener('click', reset));
     timelineScroll?.addEventListener('scroll', syncActivityAxis, { passive: true });
     companyPicker?.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
@@ -1034,6 +1018,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
       }
     });
 
+    filterCompanyOptions();
     apply();
     if (isTimeline && timelineScroll) {
       requestAnimationFrame(() => {
