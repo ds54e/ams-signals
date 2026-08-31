@@ -45,6 +45,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
 
   expect(new URL(page.url()).pathname).toBe(basePath);
   await expect(page).toHaveTitle('AMS Signals');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RNM|mixed-signal/i);
   await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Timeline');
@@ -54,7 +55,8 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.locator('.site-header nav a')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('href', `${basePath}articles/`);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles']);
   await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveCount(0);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
@@ -74,18 +76,116 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
 });
 
-test('Analysis routes and stale internal links are absent', async ({ page }) => {
+test('Articles publishes every authored document and keeps editorial links separate', async ({ page }) => {
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
-    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events']);
+    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles']);
   }
 
   const indexResponse = await page.request.get('./analysis/');
   const articleResponse = await page.request.get('./analysis/from-behavioral-models-to-managed-verification-assets/');
   expect(indexResponse.status()).toBe(404);
   expect(articleResponse.status()).toBe(404);
+
+  await page.goto('./?q=PLL&companies=apple');
+  await expectExplorerReady(page);
+  const articlesLink = page.getByRole('link', { name: 'Articles', exact: true });
+  await expect(articlesLink).toHaveAttribute('href', `${basePath}articles/`);
+  await expect(articlesLink).not.toHaveAttribute('data-filter-view-link', '');
+  await articlesLink.click();
+
+  expect(new URL(page.url()).pathname).toBe(`${basePath}articles/`);
+  expect(new URL(page.url()).search).toBe('');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+  await expect(page).toHaveTitle('Articles · AMS Signals');
+  await expect(page.getByRole('heading', { name: 'Articles', exact: true, level: 1 })).toBeVisible();
+  await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
+  const articleLinks = page.locator('.article-list > li h2 a');
+  const indexUrl = page.url();
+  const articleEntries = await articleLinks.evaluateAll((links) => links.map((link) => ({
+    title: link.textContent?.trim() ?? '',
+    href: link.getAttribute('href') ?? '',
+  })));
+  expect(articleEntries.length, 'Articles index should publish at least one Article').toBeGreaterThan(0);
+
+  const articles = articleEntries.map(({ title, href }) => ({
+    title,
+    href: new URL(href, indexUrl).href,
+  }));
+  for (const [index, article] of articles.entries()) {
+    await expect(articleLinks.nth(index)).toBeVisible();
+    expect(article.title, `Article title for ${article.href}`).not.toBe('');
+    const articleUrl = new URL(article.href);
+    expect(articleUrl.origin).toBe(new URL(indexUrl).origin);
+    expect(articleUrl.pathname).toMatch(new RegExp(`^${basePath}articles/[^/]+/$`));
+  }
+  expect(new Set(articles.map(({ href }) => href)).size).toBe(articles.length);
+  await expect(page.locator('main article')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  expect((await page.request.get('./articles/__nonexistent-smoke-route__/')).status()).toBe(404);
+
+  const relationshipsByEvent = new Map();
+  for (const article of articles) {
+    const errorCountBeforeNavigation = browserErrors.get(page).length;
+    const response = await page.goto(article.href);
+    expect(response?.status(), `HTTP status for ${article.href}`).toBe(200);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+    await expect(page.getByRole('heading', { name: article.title, exact: true, level: 1 })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+    await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
+    await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+
+    const relatedSection = page.locator('.article-related');
+    const relatedSectionCount = await relatedSection.count();
+    expect(relatedSectionCount, `Related events section count for ${article.href}`).toBeLessThanOrEqual(1);
+    const relatedEventHrefs = await relatedSection.locator('a[href]').evaluateAll((links) => (
+      links.map((link) => link.getAttribute('href') ?? '')
+    ));
+
+    if (relatedSectionCount === 0) {
+      expect(relatedEventHrefs).toEqual([]);
+    } else {
+      await expect(relatedSection.getByRole('heading', { name: 'Related events', exact: true, level: 2 }))
+        .toBeVisible();
+      expect(relatedEventHrefs.length, `Related Event links for ${article.href}`).toBeGreaterThan(0);
+    }
+
+    const normalizedEventHrefs = relatedEventHrefs.map((href) => new URL(href, article.href).href);
+    expect(new Set(normalizedEventHrefs).size, `Unique Related Event links for ${article.href}`)
+      .toBe(normalizedEventHrefs.length);
+    for (const eventHref of normalizedEventHrefs) {
+      const eventUrl = new URL(eventHref);
+      expect(eventUrl.origin).toBe(new URL(article.href).origin);
+      expect(eventUrl.pathname).toMatch(new RegExp(`^${basePath}events/[^/]+/$`));
+      const articleHrefs = relationshipsByEvent.get(eventHref) ?? new Set();
+      articleHrefs.add(article.href);
+      relationshipsByEvent.set(eventHref, articleHrefs);
+    }
+
+    expect(
+      browserErrors.get(page).slice(errorCountBeforeNavigation),
+      `browser console and page errors for ${article.href}`,
+    ).toEqual([]);
+  }
+
+  for (const [eventHref, articleHrefs] of relationshipsByEvent) {
+    const response = await page.goto(eventHref);
+    expect(response?.status(), `HTTP status for ${eventHref}`).toBe(200);
+    const relatedArticles = page.locator('.related-articles');
+    await expect(page.locator('.record-page > section > h2').first()).toHaveText('Evidence');
+    await expect(relatedArticles.getByRole('heading', { name: 'Related articles', exact: true, level: 2 }))
+      .toBeVisible();
+    const reverseArticleHrefs = await relatedArticles.locator('a[href]').evaluateAll((links) => (
+      links.map((link) => link.href)
+    ));
+    for (const articleHref of articleHrefs) {
+      expect(reverseArticleHrefs, `${eventHref} should link back to ${articleHref}`).toContain(articleHref);
+    }
+  }
 });
 
 test('canonical JSON export contains the complete factual corpus', async ({ page }) => {
@@ -2014,6 +2114,7 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
   await page.goto(`./events/${eventId}/`);
   await expect(page.getByRole('heading', { name: 'Evidence', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Sources', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Related articles', exact: true })).toHaveCount(0);
   await expect(page.locator('.record-context')).toHaveAttribute('aria-label', 'Linked entities');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^Factual public Event and supporting evidence for /);
 });
@@ -2072,5 +2173,6 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toBeVisible();
+  await expect(page.locator('.site-header nav a')).toHaveCount(3);
 });

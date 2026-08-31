@@ -1,14 +1,18 @@
 # AMS Signals
 
-AMS Signals is a factual timeline of publicly observable RNM and mixed-signal verification activity across companies and people. It helps technical readers compare dated signals, inspect representative public sources, and form their own conclusions without company rankings or maturity scores.
+AMS Signals combines a factual timeline of publicly observable RNM and mixed-signal verification activity with a separate layer of researched editorial Articles. It helps technical readers compare dated signals, inspect representative public sources, and form or examine technical interpretations without turning Golden Events into company rankings or maturity scores.
 
 ## Factual evidence layer
 
 The Golden Timeline is factual. Every Event has a stable record with the date, source modality, linked companies or people, and one to three representative source summaries. Available originals are linked directly; retired originals remain visibly labeled as unavailable when the Event was responsibly verified.
 
-AMS Signals is the evidence layer. Readers or external tools can interpret the record, compare explanations, and ask custom questions; inference is not committed into Golden Event facts.
+Timeline, Events, factual context pages, and the machine-readable export form the evidence layer. Readers or external tools can interpret that record and ask custom questions; inference is not committed into Golden Event facts.
 
 An absent Golden Event means only that the current public-source review did not produce a timeline milestone. It is not evidence that a company lacks internal RNM or AMS activity.
+
+## Researched Articles
+
+Articles are authored Markdown documents kept separately under `src/content/articles/`. They may synthesize and interpret public research beyond the Golden corpus while linking directly useful Golden Events where appropriate. Article-specific sources remain ordinary references in the Article, and neither those sources nor the Article's interpretations automatically become Golden facts.
 
 ## Maintaining the record
 
@@ -20,7 +24,7 @@ Source availability is intentionally lightweight. URLs can disappear, redirect, 
 
 The validated factual corpus is generated at [`https://ds54e.github.io/ams-signals/export.json`](https://ds54e.github.io/ams-signals/export.json). It contains the Company and People catalogs, every Golden Event and source record, and stable Event URLs in deterministic order.
 
-The URL can be supplied to ChatGPT or another external analysis tool for custom questions. The export contains no generated interpretation, scores, or build timestamp.
+The URL can be supplied to ChatGPT or another external analysis tool for custom questions. The export contains no Articles, generated interpretation, scores, or build timestamp.
 
 ## Local development and checks
 
