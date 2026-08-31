@@ -1,0 +1,32 @@
+{
+  "id": "ulkasemi-2025-amsv-uvm-utility",
+  "when": {
+    "start": "2025-02-26",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ulkasemi",
+    "designers-guide-consulting"
+  ],
+  "people": [
+    "simul-barua",
+    "henry-chang"
+  ],
+  "headline": "Ulkasemi and Designer's Guide authors report an AMSV utility for UVM mixed-signal verification",
+  "fact": "A DVCon U.S. 2025 paper by Ulkasemi and Designer's Guide Consulting authors reports an object-oriented UVM utility for mixed-signal verification that manages temperature, model parameters, fault injection, and reporting. The paper demonstrates PLL and temperature-sensor use cases and reports a roughly two-minute simulation for the presented setup. Although the paper discusses broader automation trends, it does not establish an AI-based implementation.",
+  "sources": [
+    {
+      "title": "A Reusable AMSV Utility for UVM-Based Mixed-Signal Verification",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1060.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The full paper identifies Simul Barua with Ulkasemi and Henry Chang with Designer's Guide Consulting, and describes the UVM/OOP utility, parameter and fault controls, use cases, and bounded runtime result."
+    },
+    {
+      "title": "DVCon U.S. 2025 proceedings program",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-U.S.-2025-Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings program dates the presentation to February 26, 2025."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "microsoft-2025-additive-ai-bandgap-verification",
+  "when": {
+    "start": "2025-06-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "microsoft",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Microsoft and Siemens authors report additive-AI high-sigma verification of a bandgap design",
+  "fact": "A Microsoft and Siemens DAC 2025 presentation reports additive-AI verification of a 17,000-device bandgap design to five sigma. For the presented case, the authors report 40.4× fewer simulations and 19.4× lower wall-clock time, from about six hours to 18 minutes. The result remains a bounded customer/vendor case and is not generalized to other designs.",
+  "sources": [
+    {
+      "title": "Accelerating Bandgap Reference High-Sigma Verification with Additive AI Technology",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPRES269&sess=sess222",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies Microsoft and Siemens authors and describes the 17,000-device, five-sigma bandgap case with reported simulation-count and wall-clock reductions."
+    }
+  ]
+}

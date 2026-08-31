@@ -1,0 +1,25 @@
+{
+  "id": "texas-instruments-2025-eenet-analog-test-bus",
+  "when": {
+    "start": "2025-06-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments",
+    "cadence"
+  ],
+  "people": [
+    "aadhar-sharma"
+  ],
+  "headline": "TI and Cadence authors report an EEnet analog test-bus verification method",
+  "fact": "A Texas Instruments and Cadence DAC 2025 presentation reports an EEnet-based analog test-bus method for checking voltage, current, loading, and coupling behavior. The authors describe using the real-number abstraction to reduce reliance on AMS simulation for the presented verification tasks. This is a reported customer/vendor method, not a claim that EEnet replaces circuit-level verification.",
+  "sources": [
+    {
+      "title": "Revolutionising SOC Verification through System Verilog EEnet-Enhanced Behavioural Model for Precision in Analog IP Characterisation",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPOST319&sess=sess263",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies TI and Cadence authors and describes EEnet-based voltage, current, loading, and coupling checks with reduced AMS-simulation dependence for the presented tasks."
+    }
+  ]
+}
