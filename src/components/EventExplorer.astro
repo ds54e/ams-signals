@@ -67,9 +67,18 @@ const timelineSegments = timelineGeometry?.segments ?? [];
 const timelineWidth = timelineGeometry?.width ?? 0;
 const timelineColumns = timelineGeometry?.columns ?? '';
 const timelinePositionByEventId = timelineGeometry?.positionByEventId ?? new Map();
-const activityTicks = activityMatrixGeometry?.ticks ?? [];
+const activityTimeBands = activityMatrixGeometry?.timeBands ?? [];
+const activityTimeZones = activityMatrixGeometry?.timeZones ?? [];
+const activityBoundaries = activityMatrixGeometry?.boundaries ?? [];
 const activityCombinedRows = activityMatrixGeometry?.combinedRows ?? [];
 const activityBundleWindow = (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
+const activityPercent = (pixels: number) => (pixels / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
+const activityAxisDescription = activityTimeZones.map((zone) => (
+  `${zone.label === 'RECENT' ? 'Recent' : 'Earlier'}: ${activityTimeBands
+    .filter((band) => band.zone === zone.key)
+    .map((band) => band.ariaLabel)
+    .join(', ')}`
+)).join('. ');
 
 const kindLabels: Record<EventEntry['data']['kind'], string> = {
   technical: 'Technical',
@@ -225,8 +234,8 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
     {showActivityMatrix && (
       <p
         class="activity-order-note"
-        title="Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Nearby Events may be grouped visually for readability; exact dates remain available in the Inspector and Events view."
-      >Timeline emphasizes recurring public signals. Events contains the complete record.</p>
+        title="Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Recent Events may be grouped by temporal proximity; earlier Events are grouped into broader periods. Exact dates remain available in the Inspector and Events view."
+      >Timeline emphasizes recent and recurring public signals. Earlier years are visually compressed into broader periods. Events contains the complete chronological record.</p>
     )}
   </div>
 
@@ -238,22 +247,51 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
           style={`--matrix-track-min-width:${ACTIVITY_MATRIX_MIN_TRACK_WIDTH}px;--bundle-cell-size:${ACTIVITY_MATRIX_BUNDLE_CELL_SIZE}px;--bundle-gap:${ACTIVITY_MATRIX_BUNDLE_GAP}px`}
           data-bundle-proximity-px={ACTIVITY_MATRIX_BUNDLE_PROXIMITY}
         >
-          <div class="activity-matrix-axis-viewport" aria-hidden="true">
+          <div class="activity-matrix-axis-viewport">
             <div class="activity-matrix-axis">
-              <div class="matrix-axis-spacer"></div>
-              <div class="activity-axis-track" data-activity-axis>
+              <div class="matrix-axis-spacer" aria-hidden="true"></div>
+              <div
+                class="activity-axis-track"
+                data-activity-axis
+                role="img"
+                aria-label={`Activity Matrix time bands. ${activityAxisDescription}. Newest is left.`}
+              >
                 <div class="activity-guides">
-                  {activityTicks.map((tick) => <span style={`--tick-x:${tick.x}%`}></span>)}
+                  {activityBoundaries.map((boundary) => (
+                    <span
+                      class:list={{ 'is-zone-boundary': boundary.isZoneBoundary }}
+                      style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
+                    ></span>
+                  ))}
                 </div>
-                {activityTicks.map((tick) => (
-                  <span
-                    class="activity-tick"
-                    style={`--tick-x:${tick.x}%`}
-                    data-activity-tick
-                    data-tick-year={tick.year}
-                    data-tick-x={tick.x}
-                  >{tick.label}</span>
-                ))}
+                <div class="activity-axis-zones" aria-hidden="true">
+                  {activityTimeZones.map((zone) => (
+                    <span
+                      class="activity-zone-label"
+                      style={`--zone-start:${activityPercent(zone.startPx)}%;--zone-width:${activityPercent(zone.widthPx)}%`}
+                    >{zone.label}</span>
+                  ))}
+                </div>
+                <div class="activity-axis-bands" aria-hidden="true">
+                  {activityTimeBands.map((band) => (
+                    <span
+                      class="activity-band-label"
+                      style={`--band-start:${activityPercent(band.startPx)}%;--band-width:${activityPercent(band.widthPx)}%`}
+                      title={band.ariaLabel}
+                      data-activity-time-band
+                      data-time-band={band.key}
+                      data-time-zone={band.zone}
+                      data-time-resolution={band.resolution}
+                      data-band-label={band.label}
+                      data-band-aria-label={band.ariaLabel}
+                      data-band-start-year={band.startYear}
+                      data-band-end-year={band.endYear}
+                      data-band-width-px={band.widthPx}
+                      data-band-start-px={band.startPx}
+                      data-band-end-px={band.endPx}
+                    >{band.label}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -270,6 +308,7 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
               data-domain-oldest-year={activityMatrixGeometry?.domain.oldestYear}
               data-domain-latest-year={activityMatrixGeometry?.domain.latestYear}
               data-min-track-width={ACTIVITY_MATRIX_MIN_TRACK_WIDTH}
+              data-time-band-count={activityTimeBands.length}
             >
               <div class="activity-matrix-group" data-group="both">
                   {activityCombinedRows.length === 0 ? (
@@ -300,7 +339,12 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                       >{row.entity.data.name}</a>
                       <div class="activity-row-track" data-matrix-track>
                         <div class="activity-guides" aria-hidden="true">
-                          {activityTicks.map((tick) => <span style={`--tick-x:${tick.x}%`}></span>)}
+                          {activityBoundaries.map((boundary) => (
+                            <span
+                              class:list={{ 'is-zone-boundary': boundary.isZoneBoundary }}
+                              style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
+                            ></span>
+                          ))}
                         </div>
                         {row.bundles.map((bundle, bundleIndex) => (
                           <div
@@ -314,13 +358,18 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                             data-bundle-member-count={bundle.eventIds.length}
                             data-visible-member-count={bundle.eventIds.length}
                             data-bundle-x={bundle.x}
-                            data-bundle-window={activityBundleWindow}
-                            data-bundle-window-px={ACTIVITY_MATRIX_BUNDLE_PROXIMITY}
+                            data-bundle-window={bundle.mode === 'proximity' ? activityBundleWindow : undefined}
+                            data-bundle-window-px={bundle.mode === 'proximity' ? ACTIVITY_MATRIX_BUNDLE_PROXIMITY : undefined}
                             data-min-original-event-x={bundle.minOriginalX}
                             data-max-original-event-x={bundle.maxOriginalX}
                             data-max-original-displacement={bundle.maxOriginalDisplacement}
                             data-collision-slot={bundle.slot}
                             data-bundle-top={bundle.top}
+                            data-time-zone={bundle.timeZone}
+                            data-time-band={bundle.timeBandKeys.join('|')}
+                            data-time-band-keys={JSON.stringify(bundle.timeBandKeys)}
+                            data-time-resolution={bundle.timeResolution}
+                            data-bundle-mode={bundle.mode}
                           >
                             {bundle.members.map((member, memberIndex) => (
                               <button
@@ -335,6 +384,10 @@ const matrixMemberGridStyle = (index: number, memberCount: number) => {
                                 data-event-x={bundle.x}
                                 data-original-event-x={member.originalX}
                                 data-original-placement-timestamp={member.placementTimestamp}
+                                data-time-zone={member.timeZone}
+                                data-time-band={member.timeBandKey}
+                                data-time-resolution={member.timeResolution}
+                                data-bundle-mode={bundle.mode}
                                 data-bundle-index={bundleIndex}
                                 data-visible-index={memberIndex}
                                 aria-pressed="false"
