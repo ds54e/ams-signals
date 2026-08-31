@@ -28,9 +28,9 @@ function event(id: string, start: string, precision: 'day' | 'month' | 'year' = 
 const currentDensity = new Map([
   ['year-2026', 6],
   ['year-2025', 4],
-  ['year-2024', 2],
+  ['year-2024', 3],
   ['year-2023', 2],
-  ['year-2022', 1],
+  ['year-2022', 2],
   ['years-2020-2021', 2],
   ['years-2015-2019', 4],
   ['through-2014', 5],
@@ -52,13 +52,13 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
   expect(bands.map(({ label }) => label)).toEqual([
     '2026', '2025', '2024', '2023', '2022', '2020–2021', '2015–2019', '≤2014',
   ]);
-  expect(bands.map(({ widthPx }) => widthPx)).toEqual([134, 114, 100, 52, 52, 76, 76, 68]);
-  expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([6, 4, 2, 2, 1, 2, 4, 5]);
+  expect(bands.map(({ widthPx }) => widthPx)).toEqual([134, 114, 104, 52, 52, 76, 76, 68]);
+  expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([6, 4, 3, 2, 2, 2, 4, 5]);
   expect(bands.map(({ resolution }) => resolution)).toEqual([
     'continuous', 'continuous', 'continuous',
     'bucket', 'bucket', 'bucket', 'bucket', 'bucket',
   ]);
-  expect(bands.at(-1)?.endPx).toBe(672);
+  expect(bands.at(-1)?.endPx).toBe(676);
 
   const futureBands = deriveActivityMatrixTimeBands(2027);
   expect(futureBands.map(({ key }) => key)).toEqual([

@@ -1,0 +1,28 @@
+{
+  "id": "analog-devices-2023-sip-connectivity-test-automation",
+  "when": {
+    "start": "2023-02-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "ADI authors report automated SystemVerilog connectivity-test generation for a mixed-signal SiP",
+  "fact": "Analog Devices authors report a Python flow that generates SystemVerilog connectivity tests from a human-readable spreadsheet for system-in-package analog/mixed-signal verification. On the reported Pin Driver ATE project, it generated checkers for more than 2,000 interface pins and completed almost 600 checks; the authors report reducing test creation from days to minutes while retaining reusable, hierarchy-aware checks.",
+  "sources": [
+    {
+      "title": "Automated Connectivity Test Creation for System-in-Package Analog Mixed-Signal Verification",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1043-Automated-Connectivity-Test-Creation-for-System-in-Package-Analog-Mixed-Signal-Verification.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The Analog Devices-authored paper describes the spreadsheet-to-SystemVerilog flow and reports its application to the SiP Pin Driver ATE project, more than 2,000 interface pins, almost 600 checks, and the reduced generation time."
+    },
+    {
+      "title": "DVCon U.S. 2023 proceedings",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-US-2023_Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings identify Samantha Pandez and Christopher Geen of Analog Devices and place the poster presentation on February 28, 2023."
+    }
+  ]
+}

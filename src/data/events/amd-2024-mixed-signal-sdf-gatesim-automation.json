@@ -1,0 +1,22 @@
+{
+  "id": "amd-2024-mixed-signal-sdf-gatesim-automation",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "amd"
+  ],
+  "people": [],
+  "headline": "AMD authors automate analog-boundary delay annotation for mixed-signal gate simulations",
+  "fact": "AMD authors report a flow that reads a Standard Delay Format file, generates a SystemVerilog specify block for analog-boundary IOPATH delays, and instantiates it in an analog behavioral model for back-annotated mixed-signal gate simulation. In two reported IP cases with about 40 analog-interface signals, the automated approach reduced manual effort and annotated all paths; the paper also reports uncovering a constraint issue in one project after complete delay annotation.",
+  "sources": [
+    {
+      "title": "Methodology for SDF back annotated Gatesims for a Mixed signal IP",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/P4-DVCon_India_2024_Final_Paper_2432.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The AMD-authored DVCon India paper describes specify-block generation from SDF, analog/digital boundary timing, the two approximately 40-signal cases, reduced manual effort, and the reported constraint issue."
+    }
+  ]
+}

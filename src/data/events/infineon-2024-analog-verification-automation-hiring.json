@@ -1,0 +1,22 @@
+{
+  "id": "infineon-2024-analog-verification-automation-hiring",
+  "when": {
+    "start": "2024-12-01",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon role targets centralized automation of analog and mixed-signal verification",
+  "fact": "An Infineon job record for its central design-flow department in Dresden describes developing and integrating methods and software extensions for analog and mixed-signal verification automation, including SPICE simulation, reliability, optimization, and regression tooling. The role also lists AI/ML knowledge as an advantage. This is evidence of a public hiring mandate, not proof that a specific automated or AI-assisted flow was already deployed.",
+  "sources": [
+    {
+      "title": "Infineon: Staff Engineer Analog Verification Software (HRC0958244)",
+      "url": "https://www.infineon.com/cms/pdflink/en/36335d6f-c1c6-11e6-9920-40f2e90e8d04/HRC0958244-Staff-Engineer-Analog-Verification-Software-f-m-div.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Infineon requisition lists a December 1, 2024 start date and describes the central design-flow role's verification-automation, tool, methodology, design-flow-integration, and AI/ML scope."
+    }
+  ]
+}

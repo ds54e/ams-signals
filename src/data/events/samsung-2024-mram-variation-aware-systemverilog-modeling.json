@@ -1,0 +1,22 @@
+{
+  "id": "samsung-2024-mram-variation-aware-systemverilog-modeling",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung Foundry authors add write-time and write-voltage variation to an MRAM SystemVerilog model",
+  "fact": "Samsung Foundry authors report a SystemVerilog embedded-MRAM behavior model that incorporates write-time and write-voltage variation into bit-cell test behavior. The reported simulations exercise random write time and voltage-dependent intended write failures, and the authors state that the variation-aware operation was verified with the Digital Nonvolatile-memory Assist IP used to control the MRAM for IP validation.",
+  "sources": [
+    {
+      "title": "Variation-Aware Modeling Method for MRAM Behavior Model using System-Verilog",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1091.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The Samsung Foundry paper describes the variation-aware SystemVerilog MRAM model, its write-time and write-voltage modes, and verification with the DNA IP for pre-silicon validation."
+    }
+  ]
+}

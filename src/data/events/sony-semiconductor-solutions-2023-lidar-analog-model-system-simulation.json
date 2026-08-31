@@ -1,0 +1,22 @@
+{
+  "id": "sony-semiconductor-solutions-2023-lidar-analog-model-system-simulation",
+  "when": {
+    "start": "2023-05-09",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "sony-semiconductor-solutions"
+  ],
+  "people": [],
+  "headline": "Sony profile documents analog models and system simulators for automotive LiDAR sensor verification",
+  "fact": "A Sony Semiconductor Solutions feature profiles an Automotive Business Division engineer whose work included developing analog models and system simulators to test SPAD ToF depth-sensor circuit and signal-processing designs. The profile says she designed and verified an analog sensor circuit in 2022 and moved into sensor-circuit evaluation in 2023.",
+  "sources": [
+    {
+      "title": "Driving toward a world free of road accidents: a story behind our original SPAD ToF Depth Sensor for Automotive LiDAR Applications",
+      "url": "https://www.sony-semicon.com/en/feature/2023050901.html",
+      "checkedAt": "2026-08-31",
+      "summary": "Sony Semiconductor Solutions' May 9, 2023 feature identifies the engineer, her Automotive Business Division affiliation, and the analog-model, system-simulator, circuit-verification, and sensor-evaluation work."
+    }
+  ]
+}

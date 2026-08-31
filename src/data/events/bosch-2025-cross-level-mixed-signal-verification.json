@@ -1,0 +1,28 @@
+{
+  "id": "bosch-2025-cross-level-mixed-signal-verification",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "bosch"
+  ],
+  "people": [],
+  "headline": "Bosch authors report cross-level verification across virtual, RTL, and mixed-signal representations",
+  "fact": "Robert Bosch authors report a cross-level verification flow that applies the same use-case scenarios across system specifications, virtual prototypes, RTL and mixed-signal design representations, and production software. The paper describes automated signal mapping and trace comparison and presents an automotive ASIC case study intended to expose inconsistencies among parallel representations and exercise mixed-signal hardware with real-field software scenarios.",
+  "sources": [
+    {
+      "title": "Automated Flow to Maintaining Consistency in Parallel Design Representations Using Cross-Level Verification",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_151.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The Bosch-authored paper describes the cross-level flow, its specification, virtual-prototype, RTL/mixed-signal, and production-software scope, and the automotive ASIC case study."
+    },
+    {
+      "title": "DVCon Europe 2025 proceedings",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2025_Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings identify Javier Castillo, Mohammad Badawi, and Jan-Hendrik Oetjens as the presenters and date the session to October 15, 2025."
+    }
+  ]
+}

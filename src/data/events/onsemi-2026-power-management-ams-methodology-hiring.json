@@ -1,0 +1,22 @@
+{
+  "id": "onsemi-2026-power-management-ams-methodology-hiring",
+  "when": {
+    "start": "2026-08-20",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "onsemi"
+  ],
+  "people": [],
+  "headline": "onsemi seeks product-level AMS ownership and methodology development for power-management ICs",
+  "fact": "onsemi posted a Principal AMS Verification Engineer role for new power-management products including DC-DC PMIC and point-of-load devices, multiphase controllers, DrMOS, AC-DC converters, LED and SiC drivers, switches, and eFuses. The role covers complete product verification ownership, behavioral-model requirements, SystemVerilog real, Verilog-AMS and Verilog-A models, configurable testbenches, checkers and coverage, and work in the methodology team to streamline AMS development and integration flows. This is a hiring mandate, not a claim that the methods are deployed across every product.",
+  "sources": [
+    {
+      "title": "onsemi Careers: Principal AMS Verification Engineer (2506068)",
+      "url": "https://hctz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2506068",
+      "checkedAt": "2026-08-31",
+      "summary": "The official onsemi Oracle recruiting record exposes an August 20, 2026 posting timestamp and describes full-product power-management AMS ownership, real/VAMS/Verilog-A modeling, configurable verification, coverage, and methodology development."
+    }
+  ]
+}
