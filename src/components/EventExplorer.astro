@@ -172,64 +172,66 @@ const matrixMarkLabel = (event: EventEntry) => (
   data-surface={surface}
   data-activity-matrix={showActivityMatrix ? '' : undefined}
 >
-  <div class="event-filters" role="group" aria-label="Event filters">
-    <label class="search-control">
-      <span>Search events</span>
-      <input data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
-    </label>
-
-    {showSignalTypeControl && (
-      <label class="select-control">
-        <span>Signal type</span>
-        <select data-kind>
-          <option value="all">All types</option>
-          <option value="technical">Technical</option>
-          <option value="organizational">Organizational</option>
-        </select>
+  <div class="event-filter-utility">
+    <div class="event-filters" role="group" aria-label="Event filters">
+      <label class="search-control">
+        <span class:list={[showGlobalControls && 'visually-hidden']}>Search events</span>
+        <input data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
       </label>
-    )}
 
-    {showGlobalControls && (
-      <details class="company-picker" data-company-picker>
-        <summary>
-          <span>Companies</span>
-          <strong data-company-summary>All {companyIds.length}</strong>
-        </summary>
-        <div class="company-picker-panel">
-          <div class="company-picker-header">
-            <strong>Companies</strong>
-            <div class="company-picker-actions" role="group" aria-label="Company filter selection actions">
-              <button type="button" class="text-button" data-select-all-companies>Select all</button>
-              <span aria-hidden="true">|</span>
-              <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+      {showSignalTypeControl && (
+        <label class="select-control">
+          <span>Signal type</span>
+          <select data-kind>
+            <option value="all">All types</option>
+            <option value="technical">Technical</option>
+            <option value="organizational">Organizational</option>
+          </select>
+        </label>
+      )}
+
+      {showGlobalControls && (
+        <details class="company-picker" data-company-picker>
+          <summary>
+            <span>Companies</span>
+            <strong data-company-summary>All {companyIds.length}</strong>
+          </summary>
+          <div class="company-picker-panel">
+            <div class="company-picker-header">
+              <strong>Companies</strong>
+              <div class="company-picker-actions" role="group" aria-label="Company filter selection actions">
+                <button type="button" class="text-button" data-select-all-companies>Select all</button>
+                <span aria-hidden="true">|</span>
+                <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+              </div>
+            </div>
+            <label class="company-picker-search">
+              <span class="visually-hidden">Filter companies</span>
+              <input data-company-search type="search" placeholder="Filter companies…" autocomplete="off" />
+            </label>
+            <div data-company-options role="group" aria-label="Companies included by this filter">
+              {companyIds.map((companyId) => (
+                <label data-company-option data-company-name={companyMap.get(companyId) ?? companyId}>
+                  <input type="checkbox" value={companyId} checked />
+                  <span>{companyMap.get(companyId) ?? companyId}</span>
+                  <small>{companyEventCount.get(companyId)}</small>
+                </label>
+              ))}
+              <p class="company-picker-empty" data-company-options-empty hidden>No companies match.</p>
             </div>
           </div>
-          <label class="company-picker-search">
-            <span class="visually-hidden">Filter companies</span>
-            <input data-company-search type="search" placeholder="Filter companies…" autocomplete="off" />
-          </label>
-          <div data-company-options role="group" aria-label="Companies included by this filter">
-            {companyIds.map((companyId) => (
-              <label data-company-option data-company-name={companyMap.get(companyId) ?? companyId}>
-                <input type="checkbox" value={companyId} checked />
-                <span>{companyMap.get(companyId) ?? companyId}</span>
-                <small>{companyEventCount.get(companyId)}</small>
-              </label>
-            ))}
-            <p class="company-picker-empty" data-company-options-empty hidden>No companies match.</p>
-          </div>
-        </div>
-      </details>
-    )}
-  </div>
+        </details>
+      )}
+    </div>
 
-  <div class="event-filter-summary">
-    <p class="event-filter-status" data-status aria-live="polite"></p>
-    {showTimeline && <div class="kind-legend" aria-label="Signal type legend">
-      {kindOrder.map((kind) => (
-        <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
-      ))}
-    </div>}
+    <div class="event-filter-summary">
+      <p class="event-filter-status" data-status aria-live="polite"></p>
+      {showTimeline && <div class="kind-legend" aria-label="Signal type legend">
+        {kindOrder.map((kind) => (
+          <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
+        ))}
+      </div>}
+    </div>
   </div>
 
   {showTimeline && <div class="timeline-workspace">

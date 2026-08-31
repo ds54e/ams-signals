@@ -373,7 +373,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
       'toshiba-electronic-devices-storage',
     ].includes(id))
     .map(({ id, name }) => [id, name]))).toEqual({
-    'analog-devices': 'ADI',
+    'analog-devices': 'Analog Devices',
     cadence: 'Cadence',
     'coseda-technologies': 'COSEDA',
     'designers-guide-consulting': "Designer's Guide",
@@ -386,8 +386,8 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     'roche-sequencing-solutions': 'Roche Sequencing',
     skyworks: 'Skyworks',
     'sony-semiconductor-solutions': 'Sony Semiconductor',
-    stmicroelectronics: 'ST',
-    'texas-instruments': 'TI',
+    stmicroelectronics: 'STMicroelectronics',
+    'texas-instruments': 'Texas Instruments',
     'thine-electronics': 'THine',
     'toshiba-electronic-devices-storage': 'Toshiba',
   });
@@ -591,11 +591,11 @@ test('Events is the chronological textual view without a Timeline or inspector',
   const resultSection = page.locator('.result-section[aria-label="Events"]');
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
-  expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-summary'))).toBe(true);
+  expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
   await expect(page.locator('[data-status]')).toHaveText('121 of 121 events');
-  await expect(page.locator('.event-filter-summary')).toHaveText('121 of 121 events');
-  await expect(page.locator('.event-filter-summary > *')).toHaveCount(1);
-  await expect(page.locator('.event-filter-summary .kind-legend')).toHaveCount(0);
+  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('121 of 121 events');
+  await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
+  await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
   await expect(page.locator(
     '[data-event-result][data-event-id="stijn-ringeling-2026-ml-sigma-delta-evaluation"]',
@@ -1205,6 +1205,18 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   expect(rows.some(({ height }) => height > 28)).toBe(true);
   expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBeGreaterThanOrEqual(4);
   expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ rowCount }) => rowCount)))).toBe(2);
+  const slotsByLane = Object.fromEntries(rows.map(({ lane, slotCount }) => [lane, slotCount]));
+  expect(Object.fromEntries([
+    'apple', 'siemens-eda', 'nxp', 'analog-devices', 'stmicroelectronics', 'ams-osram',
+  ].map((id) => [id, slotsByLane[`company:${id}`]]))).toEqual({
+    apple: 2,
+    'siemens-eda': 1,
+    nxp: 1,
+    'analog-devices': 1,
+    stmicroelectronics: 1,
+    'ams-osram': 1,
+  });
+  expect(rows.filter(({ slotCount }) => slotCount > 1).map(({ lane }) => lane)).toEqual(['company:apple']);
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
@@ -1241,7 +1253,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       expect(bundle.columns).toBe(Math.min(bundle.ids.length, 3));
       expect(bundle.rowCount).toBe(Math.ceil(bundle.ids.length / bundle.columns));
       expect(bundle.bundleWidthPx).toBe((bundle.columns * 16) + ((bundle.columns - 1) * 2));
-      expect(bundle.collisionWidthPx).toBe(Math.max(34, bundle.bundleWidthPx));
+      expect(bundle.collisionWidthPx).toBe(bundle.bundleWidthPx);
       expect(bundle.x, `${row.lane} bundle mean`).toBeCloseTo(
         bundle.members.reduce((sum, member) => sum + member.x, 0) / bundle.members.length,
         10,
@@ -1309,12 +1321,13 @@ test('global Matrix uses the corpus domain while context Timelines retain derive
     .toHaveAttribute('data-segment-label', '2020–2018');
 });
 
-test('Timeline summary keeps count and legend compact and left aligned', async ({ page }) => {
+test('Timeline utility bar places count and legend beside the compact controls', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
 
-  const summary = page.locator('.event-filter-summary');
+  const utility = page.locator('.event-filter-utility');
+  const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
   expect(representedIds).toHaveLength(110);
   await expect(summary.locator(':scope > .event-filter-status')).toHaveText('110 of 121 events');
@@ -1322,17 +1335,26 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
   await expect(summary.locator(':scope > *')).toHaveCount(2);
+  await expect(page.locator('.event-explorer > .event-filter-summary')).toHaveCount(0);
+  await expect(utility.locator(':scope + .timeline-workspace')).toHaveCount(1);
   await expect(page.locator('.axis-note, .timeline-summary-detail')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
   await expect(page.getByText(/density-adjusted/i)).toHaveCount(0);
 
-  const layout = await summary.evaluate((node) => {
-    const style = getComputedStyle(node);
+  const layout = await utility.evaluate((node) => {
+    const box = (element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, top: rect.top, width: rect.width };
+    };
+    const search = box(node.querySelector('[data-search]'));
+    const company = box(node.querySelector('[data-company-picker] summary'));
+    const summaryBox = box(node.querySelector('.event-filter-summary'));
     const status = node.querySelector('[data-status]').getBoundingClientRect();
     const legend = node.querySelector('.kind-legend').getBoundingClientRect();
     return {
-      justifyContent: style.justifyContent,
-      flexWrap: style.flexWrap,
+      search,
+      company,
+      summary: summaryBox,
       statusLeft: status.left,
       statusRight: status.right,
       statusTop: status.top,
@@ -1340,8 +1362,12 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
       legendTop: legend.top,
     };
   });
-  expect(layout.justifyContent).toBe('flex-start');
-  expect(layout.flexWrap).toBe('wrap');
+  expect(layout.search.width).toBeGreaterThanOrEqual(220);
+  expect(layout.search.width).toBeLessThanOrEqual(340);
+  expect(layout.company.left).toBeGreaterThan(layout.search.right);
+  expect(layout.summary.left).toBeGreaterThan(layout.company.right + 100);
+  expect(Math.abs(layout.search.top - layout.company.top)).toBeLessThanOrEqual(1);
+  expect(Math.abs(layout.summary.top - layout.company.top)).toBeLessThanOrEqual(1);
   expect(layout.legendLeft).toBeGreaterThan(layout.statusRight);
   expect(Math.abs(layout.legendTop - layout.statusTop)).toBeLessThanOrEqual(1);
 });
@@ -1614,10 +1640,10 @@ test('global Matrix is one accessible interleaved view with restrained entity co
   await expect(longLabel).toHaveText('Cadence');
   await expect(longLabel).toHaveAttribute('title', 'Cadence');
   for (const [id, name] of [
-    ['texas-instruments', 'TI'],
+    ['texas-instruments', 'Texas Instruments'],
     ['nxp', 'NXP'],
-    ['analog-devices', 'ADI'],
-    ['stmicroelectronics', 'ST'],
+    ['analog-devices', 'Analog Devices'],
+    ['stmicroelectronics', 'STMicroelectronics'],
     ['sony-semiconductor-solutions', 'Sony Semiconductor'],
     ['toshiba-electronic-devices-storage', 'Toshiba'],
   ]) {
@@ -1901,6 +1927,8 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expectExplorerReady(page, isEvents ? 'events' : 'timeline');
     await expect(page.getByText(removedCopy, { exact: true })).toHaveCount(0);
     await expect(page.locator('.search-control > span')).toHaveText('Search events');
+    await expect(page.locator('.search-control > span')).toHaveClass(/visually-hidden/);
+    await expect(page.getByRole('searchbox', { name: 'Search events', exact: true })).toBeVisible();
     await expect(page.locator('[data-view]')).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('Entity type', { exact: true })).toHaveCount(0);
     if (isEvents) {
@@ -1914,10 +1942,9 @@ test('Timeline and Events expose their final surface-specific controls and termi
       await expect(page.locator('.event-filters > *')).toHaveCount(2);
       await expect(page.locator('.kind-legend span')).toHaveText(['Technical', 'Organizational']);
     }
-    const desktopColumns = await page.locator('.event-filters').evaluate((filters) => (
-      getComputedStyle(filters).gridTemplateColumns.split(' ').length
-    ));
-    expect(desktopColumns).toBe(isEvents ? 3 : 2);
+    await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveCount(1);
+    await expect(page.locator('.event-explorer > .event-filter-summary')).toHaveCount(0);
+    expect(await page.locator('.event-filters').evaluate((filters) => getComputedStyle(filters).display)).toBe('flex');
     await expect(page.locator('[data-company-picker] summary > span')).toHaveText('Companies');
     await expect(page.locator('[data-company-summary]')).toHaveText('2 selected');
     await expect(page.locator('[data-reset]')).toHaveCount(0);
@@ -1999,6 +2026,22 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('[data-kind], [data-view]')).toHaveCount(0);
   await expect(page.locator('[data-company-picker]')).toHaveCount(1);
   await expect(page.locator('[data-reset]')).toHaveCount(0);
+  const narrowUtility = await page.locator('.event-filter-utility').evaluate((utility) => {
+    const box = (selector) => {
+      const rect = utility.querySelector(selector).getBoundingClientRect();
+      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, width: rect.width };
+    };
+    return {
+      search: box('[data-search]'),
+      company: box('[data-company-picker] summary'),
+      summary: box('.event-filter-summary'),
+    };
+  });
+  expect(narrowUtility.search.width).toBeCloseTo(narrowUtility.company.width, 0);
+  expect(narrowUtility.company.top).toBeGreaterThanOrEqual(narrowUtility.search.bottom);
+  expect(narrowUtility.summary.top).toBeGreaterThanOrEqual(narrowUtility.company.bottom);
+  expect(narrowUtility.summary.left).toBeGreaterThanOrEqual(narrowUtility.search.left - 1);
+  expect(narrowUtility.summary.right).toBeLessThanOrEqual(narrowUtility.search.right + 1);
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
   await expect(page.locator('[data-detail]')).toBeVisible();
   await expect(page.locator('.result-section')).toHaveCount(0);
