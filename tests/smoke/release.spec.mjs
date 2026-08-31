@@ -76,7 +76,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
 });
 
-test('Articles publishes the two author-supplied documents and keeps editorial links separate', async ({ page }) => {
+test('Articles publishes the current author-supplied documents and keeps editorial links separate', async ({ page }) => {
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
@@ -102,21 +102,6 @@ test('Articles publishes the two author-supplied documents and keeps editorial l
   await expect(page).toHaveTitle('Articles · AMS Signals');
   await expect(page.getByRole('heading', { name: 'Articles', exact: true, level: 1 })).toBeVisible();
   await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
-  const articleLinks = page.locator('.article-list > li h2 a');
-  await expect(articleLinks).toHaveText([
-    '「正解波形」を用意せずにPLLを検証する',
-    'UVM-MSは2025年に標準化された。では2011年のUVM-MSは何だったのか？',
-  ]);
-  expect(await articleLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual([
-    `${basePath}articles/pll-metamorphic-testing/`,
-    `${basePath}articles/uvm-ms-2011-to-2025/`,
-  ]);
-  await expect(page.locator('main article')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
-  await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
-  await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
-  expect((await page.request.get('./articles/future-article/')).status()).toBe(404);
-
   const articleRoutes = [
     {
       slug: 'pll-metamorphic-testing',
@@ -131,13 +116,29 @@ test('Articles publishes the two author-supplied documents and keeps editorial l
         'ecosystem-2025-02-uvm-ms-1-standard',
       ],
     },
+    {
+      slug: 'why-analog-verification-engineers-emerged',
+      title: 'アナログ検証エンジニアは、なぜ必要になったのか',
+      relatedEvents: [],
+    },
   ];
+  const articleLinks = page.locator('.article-list > li h2 a');
+  await expect(articleLinks).toHaveText(articleRoutes.map(({ title }) => title));
+  expect(await articleLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
+    articleRoutes.map(({ slug }) => `${basePath}articles/${slug}/`),
+  );
+  await expect(page.locator('main article')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+  expect((await page.request.get('./articles/future-article/')).status()).toBe(404);
 
   for (const article of articleRoutes) {
     await page.goto(`./articles/${article.slug}/`);
     await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
     await expect(page.getByRole('heading', { name: article.title, exact: true, level: 1 })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+    await expect(page.locator('.article-related')).toHaveCount(article.relatedEvents.length > 0 ? 1 : 0);
     const relatedEventLinks = page.locator('.article-related a');
     await expect(relatedEventLinks).toHaveCount(article.relatedEvents.length);
     expect(await relatedEventLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
