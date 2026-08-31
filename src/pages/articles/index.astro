@@ -19,7 +19,10 @@ const articles = sortArticlesNewestFirst(await getCollection('articles'));
         {articles.map((article) => (
           <li>
             <time datetime={article.data.published}>{article.data.published}</time>
-            <h2><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h2>
+            <div class="article-list-body">
+              <h2><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h2>
+              <p>{article.data.summary}</p>
+            </div>
           </li>
         ))}
       </ol>

@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { resolveRelatedEvents, validateArticleRelations } from '../../lib/articles';
-import { formatWhen } from '../../lib/content';
 import { sitePath } from '../../lib/paths';
 
 export async function getStaticPaths() {
@@ -53,10 +52,7 @@ const { Content } = await render(article);
           {article.data.sources.map((source, index) => (
             <li id={`source-${index + 1}`}>
               <span class="article-source-number" aria-hidden="true">[{index + 1}]</span>
-              <div>
-                <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
-                <p>{source.publisher}</p>
-              </div>
+              <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
             </li>
           ))}
         </ol>
@@ -69,8 +65,8 @@ const { Content } = await render(article);
         <ol>
           {relatedEvents.map((event) => (
             <li>
-              <time datetime={event.data.when.start}>{formatWhen(event)}</time>
-              <a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline} →</a>
+              <time datetime={event.data.when.start}>{event.data.when.start.slice(0, 4)}</time>
+              <a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a>
             </li>
           ))}
         </ol>
