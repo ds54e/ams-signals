@@ -427,7 +427,7 @@ h1 {
 .activity-matrix-axis {
   position: relative;
   z-index: 1;
-  height: 38px;
+  height: 52px;
   color: var(--muted);
   background: color-mix(in srgb, var(--surface-tint) 48%, var(--surface));
   border-bottom: 1px solid var(--border);
@@ -446,18 +446,43 @@ h1 {
   min-width: var(--matrix-track-min-width);
 }
 .activity-axis-track {
-  height: 38px;
+  height: 52px;
   transform: translateX(calc(0px - var(--matrix-scroll-left, 0px)));
   will-change: transform;
 }
-.activity-tick {
+.activity-axis-zones,
+.activity-axis-bands {
   position: absolute;
-  left: var(--tick-x);
-  top: 50%;
+  inset: 0;
+  pointer-events: none;
+}
+.activity-zone-label,
+.activity-band-label {
+  position: absolute;
   z-index: 2;
-  font-size: 0.75rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.activity-zone-label {
+  top: 5px;
+  left: var(--zone-start);
+  width: var(--zone-width);
+  color: color-mix(in srgb, var(--muted) 88%, transparent);
+  font-size: 0.58rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+.activity-band-label {
+  top: 23px;
+  bottom: 5px;
+  left: var(--band-start);
+  width: var(--band-width);
+  font-size: 0.72rem;
   font-weight: 680;
-  transform: translate(-50%, -50%);
+  line-height: 1;
 }
 .activity-guides {
   position: absolute;
@@ -466,10 +491,13 @@ h1 {
 }
 .activity-guides span {
   position: absolute;
-  left: var(--tick-x);
+  left: var(--boundary-x);
   top: 0;
   bottom: 0;
   border-left: 1px solid color-mix(in srgb, var(--border) 54%, transparent);
+}
+.activity-guides span.is-zone-boundary {
+  border-left-color: color-mix(in srgb, var(--border-strong) 78%, transparent);
 }
 .activity-matrix-row {
   height: var(--matrix-row-height);
