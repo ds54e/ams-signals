@@ -12,10 +12,7 @@ const articles = sortArticlesNewestFirst(await getCollection('articles'));
   lang="ja"
 >
   <section class="article-index" aria-labelledby="articles-heading">
-    <header class="article-index-header">
-      <p class="eyebrow">ARTICLES</p>
-      <h1 id="articles-heading">Articles</h1>
-    </header>
+    <h1 id="articles-heading" class="visually-hidden">Articles</h1>
 
     {articles.length > 0 ? (
       <ol class="article-list">
@@ -23,7 +20,6 @@ const articles = sortArticlesNewestFirst(await getCollection('articles'));
           <li>
             <time datetime={article.data.published}>{article.data.published}</time>
             <h2><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h2>
-            <p>{article.data.summary}</p>
           </li>
         ))}
       </ol>

@@ -181,7 +181,7 @@ const matrixMarkLabel = (event: EventEntry) => (
 
       {showSignalTypeControl && (
         <label class="select-control">
-          <span>Signal type</span>
+          <span class:list={[showGlobalControls && 'visually-hidden']}>Signal type</span>
           <select data-kind>
             <option value="all">All types</option>
             <option value="technical">Technical</option>
