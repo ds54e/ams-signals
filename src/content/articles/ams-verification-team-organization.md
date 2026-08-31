@@ -56,7 +56,7 @@ MediaTekには「Analog/Mixed-Signal Design Verification Methodology Development
 
 公開求人から見える範囲を整理すると、同じAMS検証でも組織の切り方はかなり違います。
 
-| 会社製品に近い検証共通部分を持つ場所 |                       |                                  |
+| 会社 | 製品に近い検証 | 共通部分を持つ場所 |
 | ------------------ | --------------------- | -------------------------------- |
 | Apple              | PMUなどのAMS検証           | CADが複数設計部門のAMS環境を担当              |
 | MediaTek           | 各AMS IP / Chip DV     | モデル作成手法とAMS検証手法を別々に専任化           |
