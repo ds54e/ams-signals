@@ -82,13 +82,15 @@ Do not build employee directories. Do not treat a person who merely shares a job
 
 ## Interpretation boundary
 
-AMS Signals is the factual evidence layer. Readers and downstream tools may interpret the record, compare explanations, and ask custom questions; the repository does not publish a static interpretation layer.
+AMS Signals separates a factual evidence layer from researched editorial Articles.
 
 - Research may use hypotheses and inference to decide what to investigate next.
 - Commit only directly supportable facts to Golden Events.
+- Articles may synthesize and interpret public evidence, including sources that are not Golden Events, without promoting that interpretation into Golden content.
 - Preserve evidence modality: reported practice, hiring or organizational mandates, patents, and ecosystem context do not support the same claims.
 - Never infer methodology transfer from employer changes, acquisitions, or standards participation alone.
 - Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
+- Preserve author-supplied Article prose. Do not rewrite, normalize, summarize, translate, expand, shorten, or fact-correct it unless the author explicitly requests that transformation.
 
 ## Data discipline
 
@@ -112,6 +114,7 @@ Keep the implementation deliberately small:
 
 - Astro static output
 - JSON for Golden structured data
+- Markdown for authored editorial Articles, kept separate from Golden data
 - one generated JSON export of the validated factual corpus
 - plain CSS
 - small vanilla TypeScript/JavaScript where interaction is needed

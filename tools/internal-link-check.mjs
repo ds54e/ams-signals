@@ -119,8 +119,14 @@ const companies = await Promise.all(companyFiles.map(async (file) => JSON.parse(
 const people = await Promise.all(peopleFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const homeHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
 const eventsIndexHtml = await readFile(path.join(outputRoot, 'events', 'index.html'), 'utf8');
+const articlesIndexHtml = await readFile(path.join(outputRoot, 'articles', 'index.html'), 'utf8');
 const homeInspectorUrls = inspectorEventUrls(homeHtml, 'Timeline');
 const activeCompanyIds = new Set(events.flatMap((event) => event.companies));
+
+requireHref(homeHtml, `${siteBase}articles/`, 'Timeline navigation');
+requireHref(eventsIndexHtml, `${siteBase}articles/`, 'Events navigation');
+requireHref(articlesIndexHtml, siteBase, 'Articles navigation');
+requireHref(articlesIndexHtml, `${siteBase}events/`, 'Articles navigation');
 
 for (const event of events) {
   const eventPath = `${siteBase}events/${event.id}/`;
@@ -169,4 +175,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Event, Company, and People relationships.`);
+console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Articles, Event, Company, and People relationships.`);

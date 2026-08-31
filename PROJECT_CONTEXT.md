@@ -30,17 +30,31 @@ For that reason, the product should help users see trajectories rather than assi
 
 Company timelines and People timelines are especially important. The global view may place Company and People activity in one temporal field to support comparison, but shared placement must not imply causation between organizational and individual trajectories.
 
-## Facts first, interpretation downstream
+## Separate factual and editorial layers
 
-The core public viewer is factual.
+AMS Signals has two deliberately separate public layers.
 
-A Golden event should state what a public source actually establishes, with its date and source link.
+The factual evidence layer comprises Timeline, Events, Event pages, Company and Person factual views, and `/export.json`. A Golden Event states what a public source actually establishes, with its date and source link. This layer must not tell users that a company is "advanced", "leading", "mature", or moving in a strategic direction.
 
-The site should not tell users that a company is "advanced", "leading", "mature", or moving in a strategic direction. Those are interpretations for readers or downstream tools to form from the factual record.
+The researched editorial layer comprises Articles. Articles may synthesize, compare, interpret, and reason from public evidence, including evidence that is not represented by Golden Events. They should keep source-derived statements and interpretation distinguishable in normal prose, and strong inference should state material uncertainty or plausible alternatives where relevant.
 
-AMS Signals itself is the evidence layer and does not publish a static editorial interpretation layer. Stable Event records and the generated factual export let a reader or user-selected tool inspect the evidence and reach different conclusions.
+The boundary between these layers is durable:
 
-The goal is not "trust our conclusion". The goal is "inspect the public record and draw your own conclusion".
+1. Golden Events remain factual and source-grounded.
+2. Articles may synthesize, compare, interpret, and reason from public evidence.
+3. Article research is not limited to Golden Events.
+4. Article-specific papers, standards, patents, job postings, documentation, and other public sources do not need to become Golden Events.
+5. A source found while researching an Article becomes a Golden Event only when it independently satisfies Golden inclusion criteria.
+6. Article interpretations never become Golden facts merely because they were published.
+7. Articles distinguish source-derived statements from interpretation in ordinary prose.
+8. Strong inference states material uncertainty or plausible alternatives when relevant.
+9. Articles are revisable as new public evidence appears.
+10. `/export.json` remains factual and excludes Articles.
+11. Article prose supplied by the author is preserved unless the author explicitly requests editing.
+
+Article prose is authored editorial content. Automation must not silently rewrite, normalize, shorten, expand, summarize, translate, improve, reconcile, or fact-correct an Article body. Explicitly requested mechanical work—such as adding required frontmatter, moving an author-supplied H1 into frontmatter, inserting author-selected related Event IDs, or repairing a broken Markdown delimiter—is distinct from editorial rewriting.
+
+Articles do not relax the warnings against unsupported rankings, maturity scores, treating disclosure density as company-wide adoption, or treating an absence of public evidence as proof of secrecy. Interpretation is welcome; unsupported speculation presented as fact is not.
 
 ## Research should still reason aggressively
 
@@ -84,7 +98,7 @@ If a URL later disappears, the factual event can remain if it was responsibly ve
 
 ## One machine-readable factual export
 
-The site generates one deterministic `/export.json` endpoint directly from the validated Company, People, and Golden Event collections. It exists so readers can use their own tools to query the factual corpus without creating another hand-maintained dataset.
+The site generates one deterministic `/export.json` endpoint directly from the validated Company, People, and Golden Event collections. It exists so readers can use their own tools to query the factual corpus without creating another hand-maintained dataset. Articles are intentionally excluded because the endpoint represents only the factual structured layer.
 
 The export contains source records and stable Event URLs, but no generated summaries, inference, scores, or build-time timestamp.
 
@@ -122,6 +136,7 @@ Important interactions include:
 - event details with source links;
 - stable event permalinks usable by readers and downstream tools;
 - a dedicated chronological Events view for reading matching factual records.
+- a plain Articles surface for researched synthesis and interpretation outside the Golden record.
 
 A reader should be able to notice a pattern, inspect the underlying evidence, and then form or request an interpretation outside the Golden record.
 
