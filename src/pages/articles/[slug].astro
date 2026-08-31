@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { resolveRelatedEvents, validateArticleRelations } from '../../lib/articles';
 import { sitePath } from '../../lib/paths';
-import { englishAutoTranslationUrl } from '../../lib/translation';
 
 export async function getStaticPaths() {
   const [articles, events] = await Promise.all([
@@ -20,10 +19,6 @@ export async function getStaticPaths() {
 
 const { article, relatedEvents } = Astro.props;
 const { Content } = await render(article);
-if (!Astro.site) throw new Error('Astro site URL is required for Article translation links.');
-const translationUrl = englishAutoTranslationUrl(
-  new URL(sitePath(`articles/${article.id}/`), Astro.site),
-);
 ---
 <BaseLayout
   title={`${article.data.title} · AMS Signals`}
@@ -32,27 +27,17 @@ const translationUrl = englishAutoTranslationUrl(
 >
   <article class="document-page article-page">
     <header class="document-header article-header">
-      <div class="article-meta-row">
-        <p class="quiet-meta article-dates">
-          {article.data.updated ? (
-            <>
-              Published <time datetime={article.data.published}>{article.data.published}</time>
-              {' · '}
-              Updated <time datetime={article.data.updated}>{article.data.updated}</time>
-            </>
-          ) : (
-            <time datetime={article.data.published}>{article.data.published}</time>
-          )}
-        </p>
-        <a
-          class="article-translation-link"
-          href={translationUrl}
-          target="_blank"
-          rel="noreferrer"
-          title="Machine translation via Google Translate"
-          lang="en"
-        >English (auto-translate) ↗</a>
-      </div>
+      <p class="quiet-meta article-dates">
+        {article.data.updated ? (
+          <>
+            Published <time datetime={article.data.published}>{article.data.published}</time>
+            {' · '}
+            Updated <time datetime={article.data.updated}>{article.data.updated}</time>
+          </>
+        ) : (
+          <time datetime={article.data.published}>{article.data.published}</time>
+        )}
+      </p>
       <h1>{article.data.title}</h1>
     </header>
 

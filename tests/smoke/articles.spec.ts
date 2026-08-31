@@ -3,7 +3,6 @@ import {
   resolveRelatedEvents,
   sortArticlesNewestFirst,
 } from '../../src/lib/articles';
-import { englishAutoTranslationUrl } from '../../src/lib/translation';
 
 type SyntheticArticle = {
   id: string;
@@ -50,17 +49,4 @@ test('related Event resolution preserves author order and rejects bad relationsh
     article('duplicate-reference', '2026-08-31', ['event-a', 'event-a']),
     events,
   )).toThrow('Article "duplicate-reference" contains duplicate related Event ID "event-a".');
-});
-
-test('English auto-translation URLs preserve the production Article source URL', () => {
-  const sourceUrl = 'https://ds54e.github.io/ams-signals/articles/example-article/';
-  const translationHref = englishAutoTranslationUrl(sourceUrl);
-  const translationUrl = new URL(translationHref);
-
-  expect(translationUrl.origin).toBe('https://translate.google.com');
-  expect(translationUrl.pathname).toBe('/translate');
-  expect(translationUrl.searchParams.get('sl')).toBe('ja');
-  expect(translationUrl.searchParams.get('tl')).toBe('en');
-  expect(translationUrl.searchParams.get('u')).toBe(sourceUrl);
-  expect(translationHref).toContain(encodeURIComponent('/ams-signals/articles/example-article/'));
 });
