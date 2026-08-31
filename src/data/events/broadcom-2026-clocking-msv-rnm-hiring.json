@@ -1,0 +1,22 @@
+{
+  "id": "broadcom-2026-clocking-msv-rnm-hiring",
+  "when": {
+    "start": "2026-06-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "broadcom"
+  ],
+  "people": [],
+  "headline": "Broadcom clocking-design role calls for MSV and RNM strategies in PLL, FLL, and DLL verification",
+  "fact": "Broadcom posted a Digital Mixed-Signal Lead role for the digital control infrastructure of PLL, FLL, and DLL clocking subsystems. The description assigns partnership with verification teams to drive mixed-signal-verification and real-number-modeling strategies for high-coverage loop simulations and also names full-chip CDC and RDC sign-off for the clocking network. This is evidence of a public hiring mandate, not proof that the listed verification strategies were already deployed across Broadcom.",
+  "sources": [
+    {
+      "title": "Broadcom Careers: Mixed Signal Digital Design Lead (R026040)",
+      "url": "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/USA-Colorado-Fort-Collins-4380-Ziegler-Road/Mixed-Signal-Digital-Design-Lead_R026040",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Broadcom Workday record exposes a June 30, 2026 start date and describes the PLL/FLL/DLL digital-control, MSV/RNM verification-partnership, and full-chip CDC/RDC scope."
+    }
+  ]
+}

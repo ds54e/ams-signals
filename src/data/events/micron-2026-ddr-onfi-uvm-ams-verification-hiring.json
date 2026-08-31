@@ -1,0 +1,22 @@
+{
+  "id": "micron-2026-ddr-onfi-uvm-ams-verification-hiring",
+  "when": {
+    "start": "2026-06-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "micron"
+  ],
+  "people": [],
+  "headline": "Micron posts UVM-AMS and RNM verification role for DDR and ONFI PHY",
+  "fact": "Micron posted a Staff Engineer role for a high-speed DDR and ONFI PHY team whose description calls for reusable SystemVerilog/UVM environments with mixed-signal simulators and fast behavioral models using SystemVerilog EEnet or wreal, or Verilog-AMS, in place of SPICE subcircuits. It also covers full-chip gate-level, power-aware, and mixed-signal co-simulation plus model validation. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "sources": [
+    {
+      "title": "Micron Careers: Staff engineer, ASIC AMS Verification",
+      "url": "https://careers.micron.com/careers/job/42799659?domain=micron.com",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Micron page's JobPosting data exposes a June 30, 2026 date and describes the DDR/ONFI PHY, UVM-AMS, EEnet/wreal or Verilog-AMS model, full-chip co-simulation, power-aware, and model-validation scope."
+    }
+  ]
+}

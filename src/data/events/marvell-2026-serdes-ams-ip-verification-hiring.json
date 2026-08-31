@@ -1,0 +1,22 @@
+{
+  "id": "marvell-2026-serdes-ams-ip-verification-hiring",
+  "when": {
+    "start": "2026-06-09",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "marvell"
+  ],
+  "people": [],
+  "headline": "Marvell AMS IP role spans reusable verification for SerDes, DDR, die-to-die, and PHY interfaces",
+  "fact": "Marvell posted a Senior Staff Engineer role in its Central Engineering AMS IP team with end-to-end verification ownership for SerDes and other AMS or mixed-signal IP across 5 nm, 3 nm, and 2 nm nodes. The mandate covers calibration, link training, power modes, analog-digital and firmware interactions, coverage, regression, sign-off, and reusable automation using SystemVerilog and UVM. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "sources": [
+    {
+      "title": "Marvell Careers: Senior Staff Engineer — AMS IP Verification (2601686)",
+      "url": "https://marvell.wd1.myworkdayjobs.com/en-US/MarvellCareers/job/Bangalore/Senior-Staff-Engineer---Design-Verification---SerDes-PHY-AMS_2601686",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Marvell Workday record exposes a June 9, 2026 start date and describes the Central Engineering team's interface scope, end-to-end verification ownership, UVM methodology, sign-off, and reusable infrastructure responsibilities."
+    }
+  ]
+}

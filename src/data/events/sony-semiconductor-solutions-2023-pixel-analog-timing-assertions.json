@@ -1,0 +1,22 @@
+{
+  "id": "sony-semiconductor-solutions-2023-pixel-analog-timing-assertions",
+  "when": {
+    "start": "2023",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "sony-semiconductor-solutions"
+  ],
+  "people": [],
+  "headline": "Sony interview describes timing assertions for exhaustive pixel and analog-control verification",
+  "fact": "A Sony Semiconductor Solutions recruiting interview describes building an H timing-assertion mechanism to exhaustively design-verify operating conditions for signals controlling image-sensor pixels and analog circuitry. The engineer presents the mechanism as a response to control signals that the prior design approach made difficult to verify.",
+  "sources": [
+    {
+      "title": "先輩社員インタビュー — 垣根を超えて、感動をつくる。専門性不問コース",
+      "url": "https://www.sony-semicon.com/ja/jobs/ctf/interview.html",
+      "checkedAt": "2026-08-31",
+      "summary": "The official SSS recruiting interview, published on the site's 2023 edition, describes the H timing-assertion mechanism and its exhaustive verification of signals controlling pixels and analog circuits."
+    }
+  ]
+}

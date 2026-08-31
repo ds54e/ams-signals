@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2021-eenet-charge-pump-modeling",
+  "when": {
+    "start": "2021",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "TI authors report an EEnet charge-pump regulator model checked against schematic load steps",
+  "fact": "Texas Instruments authors present a SystemVerilog EEnet model of a charge-pump regulator that represents voltage, current, and resistance and includes analog impedance interactions. The poster reports matching the schematic at 1 mA, 2 mA, 3 mA, and 4 mA load-current steps, a model runtime of 10.36 seconds, and a tenfold speedup over the schematic simulation used for comparison.",
+  "sources": [
+    {
+      "title": "Accurate Charge-pump Regulator Modeling using SV EEnet",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/NO_002-accurate-charge-pump-regulator-modeling-using-sv-eenet.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The TI-authored DVCon poster describes the EEnet charge-pump model and reports the four schematic load-step checks, 10.36-second model runtime, and 10x speedup."
+    }
+  ]
+}
