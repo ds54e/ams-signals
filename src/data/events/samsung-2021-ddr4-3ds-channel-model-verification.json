@@ -1,0 +1,22 @@
+{
+  "id": "samsung-2021-ddr4-3ds-channel-model-verification",
+  "when": {
+    "start": "2021",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung authors report a configurable channel model for DDR4-3DS PHY verification",
+  "fact": "Samsung Semiconductor India authors report an in-house parameterized channel model integrated into a DDR-PHY verification environment for DDR4-3DS memory. The model injects routing and board delays, skew, crosstalk distortion, duty-cycle variation, setup and hold stress, and glitches; the paper says it enabled RTL-level training-algorithm checks and led to RTL and specification updates in reported cases.",
+  "sources": [
+    {
+      "title": "Robust Physical Layer IP Verification for DDR4-3DS Memory by Channel Modelling",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/robust-physical-layer-ip-verification-for-ddr4-3ds-memory-by-channel-modelling.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The Samsung-authored DVCon paper describes the in-house DDR channel model, its configurable electrical and timing stress features, integration with functional checks and coverage, and reported RTL and specification updates."
+    }
+  ]
+}

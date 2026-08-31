@@ -1,0 +1,22 @@
+{
+  "id": "mythic-2025-analog-compute-rnm-verification-hiring",
+  "when": {
+    "start": "2025-10-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "mythic"
+  ],
+  "people": [],
+  "headline": "Mythic role assigns RNM creation and mixed-signal verification for an analog-compute core",
+  "fact": "Mythic posted a Senior Digital & Mixed-Signal Verification Engineer role responsible for making its analog flash-compute core accurately and thoroughly verifiable in digital and mixed-signal flows. The position spans RNM creation and verification, UVM, top-level algorithm verification, mixed-signal interfaces and specifications, and controller and FSM verification for data converters, PLLs, and power converters. This is evidence of a public hiring mandate, not proof of verification completion or product deployment.",
+  "sources": [
+    {
+      "title": "Mythic Careers API: Senior Digital & Mixed-Signal Verification Engineer",
+      "url": "https://api.lever.co/v0/postings/mythic-ai.com/f9faeb06-60f1-4b04-9775-cd6854eca636",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Lever API record exposes an October 30, 2025 creation timestamp and describes RNM creation, analog-compute-core verification, UVM, top-level algorithms, and mixed-signal controller verification."
+    }
+  ]
+}

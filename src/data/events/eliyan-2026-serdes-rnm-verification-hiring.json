@@ -1,0 +1,28 @@
+{
+  "id": "eliyan-2026-serdes-rnm-verification-hiring",
+  "when": {
+    "start": "2026-02-16",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "eliyan"
+  ],
+  "people": [],
+  "headline": "Eliyan roles establish AMS verification and schematic-derived RNM for chiplet SerDes PHYs",
+  "fact": "Eliyan posted verification roles that pair organization-level AMS methodology with hands-on SerDes model ownership. The director role covers RNM, SV-AMS co-simulation, behavioral-model integration, UCIe and Ethernet PHYs, PLLs, CDRs, and SerDes analog front ends; the staff role develops SystemVerilog RNM directly from schematics and verifies those models with UVM tests and assertions. These are public hiring mandates, not evidence that every flow was already deployed.",
+  "sources": [
+    {
+      "title": "Eliyan Careers API: Director of Design Verification",
+      "url": "https://api.lever.co/v0/postings/eliyan/7b23f047-2c8e-45db-a2ba-222a67864755",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Lever API record exposes a February 16, 2026 creation timestamp and describes AMS flows, RNM, SV-AMS co-simulation, behavioral-model integration, and PHY verification leadership."
+    },
+    {
+      "title": "Eliyan Careers API: Staff Verification Engineer – AMS modeling",
+      "url": "https://api.lever.co/v0/postings/eliyan/dfb7db8a-4849-4e1b-b44e-f2ffa603f3ce",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Lever API record exposes a May 20, 2026 creation timestamp and describes hands-on SerDes SystemVerilog RNM development from schematics, model ownership, UVM tests, and assertions."
+    }
+  ]
+}

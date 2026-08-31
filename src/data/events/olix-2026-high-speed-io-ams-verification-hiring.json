@@ -1,0 +1,22 @@
+{
+  "id": "olix-2026-high-speed-io-ams-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "olix"
+  ],
+  "people": [],
+  "headline": "OLIX seeks AMS verification ownership for high-speed I/O in an AI accelerator",
+  "fact": "OLIX posted a Senior Mixed-Signal Verification Engineer role to own verification of high-speed I/O receive and transmit chains in its AI accelerator, including CDRs, phase interpolators, clock generation, equalization, samplers, slicers, deserializers, and digital control loops. The role defines fidelity tiers across RNM, Verilog-AMS, and transistor co-simulation, owns self-checking testbenches, coverage and sign-off, builds regression automation, and correlates models with silicon. This is evidence of a public hiring mandate, not proof of completed deployment.",
+  "sources": [
+    {
+      "title": "OLIX Careers: AMS Engineer",
+      "url": "https://jobs.ashbyhq.com/olix/66692826-8dc2-4239-b775-d91c828e8346",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Ashby posting describes ownership of high-speed-I/O AMS verification, RNM/VAMS/transistor fidelity choices, self-checking environments, coverage, regressions, sign-off, and silicon correlation; no stable absolute posting date is exposed, so the Event uses year precision."
+    }
+  ]
+}

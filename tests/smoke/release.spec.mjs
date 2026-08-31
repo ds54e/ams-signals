@@ -304,9 +304,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(48);
+  expect(payload.companies).toHaveLength(55);
   expect(payload.people).toHaveLength(25);
-  expect(payload.events).toHaveLength(134);
+  expect(payload.events).toHaveLength(151);
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
     payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
@@ -318,8 +318,8 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
   )).map(({ id }) => id));
 
-  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(94);
-  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(40);
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(100);
+  expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(51);
   expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining([
     'bosch-sensortec',
     'bosch',
@@ -546,26 +546,57 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   );
 
   const recentSignalsExpansionEventIds = [
+    'amd-2024-mixed-signal-sdf-gatesim-automation',
     'ams-osram-2026-ams-dms-methodology-lead-hiring',
     'analog-devices-2023-sip-connectivity-test-automation',
     'bosch-2025-cross-level-mixed-signal-verification',
     'broadcom-2026-clocking-msv-rnm-hiring',
+    'cirrus-logic-2025-mixed-signal-modeling-verification-hiring',
+    'eliyan-2026-serdes-rnm-verification-hiring',
     'infineon-2024-ams-rnm-verification-hiring',
     'infineon-2024-analog-verification-automation-hiring',
     'infineon-2025-ai-sv-rnm-modeling',
     'marvell-2026-serdes-ams-ip-verification-hiring',
     'micron-2026-ddr-onfi-uvm-ams-verification-hiring',
+    'monolithic-power-systems-2026-mixed-signal-verification-framework-hiring',
+    'mythic-2025-analog-compute-rnm-verification-hiring',
+    'neurophos-2026-photonic-ai-ams-model-verification-hiring',
+    'nxp-2026-serdes-ams-verification-hiring',
+    'olix-2026-high-speed-io-ams-verification-hiring',
+    'onsemi-2026-power-management-ams-methodology-hiring',
+    'onsemi-2026-treo-analog-ip-mixed-signal-verification-hiring',
     'qorvo-2026-power-management-mixed-signal-verification-hiring',
+    'renesas-2025-top-down-ams-verification-automation-hiring',
+    'samsung-2021-ddr4-3ds-channel-model-verification',
+    'samsung-2022-embedded-nvm-esp-verification',
+    'samsung-2024-mram-variation-aware-systemverilog-modeling',
+    'semtech-2026-mixed-signal-ic-verification-hiring',
     'silicon-labs-2025-rnm-ams-verification-hiring',
     'sony-semiconductor-solutions-2023-lidar-analog-model-system-simulation',
     'sony-semiconductor-solutions-2023-pixel-analog-timing-assertions',
+    'synopsys-2023-power-aware-rnm-patent',
+    'texas-instruments-2021-eenet-charge-pump-modeling',
+  ];
+  const recentSignalsExpansionCompanyIds = [
+    'bosch',
+    'eliyan',
+    'marvell',
+    'monolithic-power-systems',
+    'mythic',
+    'neurophos',
+    'olix',
+    'onsemi',
+    'qorvo',
+    'semtech',
+    'silicon-labs',
   ];
   const recentSignalsExpansionEvents = payload.events
     .filter(({ id }) => recentSignalsExpansionEventIds.includes(id));
+  expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining(recentSignalsExpansionCompanyIds));
   expect(payload.events.map(({ id }) => id)).toEqual(expect.arrayContaining(recentSignalsExpansionEventIds));
-  expect(recentSignalsExpansionEvents).toHaveLength(13);
-  expect(recentSignalsExpansionEvents.filter(({ kind }) => kind === 'technical')).toHaveLength(5);
-  expect(recentSignalsExpansionEvents.filter(({ kind }) => kind === 'organizational')).toHaveLength(8);
+  expect(recentSignalsExpansionEvents).toHaveLength(30);
+  expect(recentSignalsExpansionEvents.filter(({ kind }) => kind === 'technical')).toHaveLength(11);
+  expect(recentSignalsExpansionEvents.filter(({ kind }) => kind === 'organizational')).toHaveLength(19);
   expect(recentSignalsExpansionEvents.every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
   expect(recentSignalsExpansionEvents.flatMap(({ sources }) => sources)
     .every(({ checkedAt }) => checkedAt === '2026-08-31')).toBe(true);
@@ -578,10 +609,10 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     'siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom',
   ].map((id) => [id, canonicalCompanyCounts.get(id)]))).toEqual({
     'siemens-eda': 11,
-    nxp: 11,
-    renesas: 11,
+    nxp: 12,
+    renesas: 12,
     'analog-devices': 12,
-    amd: 2,
+    amd: 3,
     broadcom: 4,
   });
   const legacyCompanyIds = [
@@ -822,8 +853,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('134 of 134 events');
-  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('134 of 134 events');
+  await expect(page.locator('[data-status]')).toHaveText('151 of 151 events');
+  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('151 of 151 events');
   await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
@@ -1003,8 +1034,8 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const singletonCompanyIds = [...companyTotals].filter(([, total]) => total === 1).map(([id]) => id);
   const activePersonIds = [...peopleTotals].filter(([, total]) => total > 0).map(([id]) => id);
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
-  expect(activeCompanyIds).toHaveLength(47);
-  expect(singletonCompanyIds).toHaveLength(22);
+  expect(activeCompanyIds).toHaveLength(54);
+  expect(singletonCompanyIds).toHaveLength(28);
   expect(activePersonIds).toHaveLength(25);
   expect(singletonPersonIds).toHaveLength(6);
 
@@ -1058,7 +1089,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await expect(combinedPersonRow).toBeVisible();
 
   await page.getByRole('button', { name: 'Select all', exact: true }).click();
-  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(47);
+  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(54);
   await expect(combinedCompanyRow).toBeHidden();
   await expect(combinedPersonRow).toBeHidden();
 });
@@ -1099,7 +1130,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
     const checks = page.locator('[data-company-options] input');
     const checked = page.locator('[data-company-options] input:checked');
     const totalCompanies = await checks.count();
-    expect(totalCompanies).toBe(47);
+    expect(totalCompanies).toBe(54);
     await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
     const pickerLayout = await page.locator('.company-picker-panel').evaluate((panel) => {
@@ -1141,7 +1172,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 134 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 151 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -1152,7 +1183,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 134 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 151 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -1204,12 +1235,12 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
   expect(expectedIds.slice(0, 10)).toEqual([
     'apple',
     'siemens-eda',
-    'texas-instruments',
     'nxp',
+    'texas-instruments',
     'cadence',
     'renesas',
-    'synopsys',
     'samsung',
+    'synopsys',
     'analog-devices',
     'skyworks',
   ]);
@@ -1286,7 +1317,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(44);
+  expect(defaultVisibleCombinedKeys).toHaveLength(45);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -1332,7 +1363,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
-  await expect(matrix).toHaveAttribute('data-track-width', '672');
+  await expect(matrix).toHaveAttribute('data-track-width', '676');
   await expect(matrix).toHaveAttribute('data-time-band-count', '8');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
@@ -1353,16 +1384,16 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   expect(bands).toEqual([
     { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 134, maxEventsPerRow: 6, startPx: 0, endPx: 134, zone: 'recent', resolution: 'continuous' },
     { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 114, maxEventsPerRow: 4, startPx: 134, endPx: 248, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 100, maxEventsPerRow: 2, startPx: 248, endPx: 348, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 52, maxEventsPerRow: 2, startPx: 348, endPx: 400, zone: 'earlier', resolution: 'bucket' },
-    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 52, maxEventsPerRow: 1, startPx: 400, endPx: 452, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2020-2021', label: '2020–2021', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 76, maxEventsPerRow: 2, startPx: 452, endPx: 528, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 4, startPx: 528, endPx: 604, zone: 'earlier', resolution: 'bucket' },
-    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 604, endPx: 672, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 104, maxEventsPerRow: 3, startPx: 248, endPx: 352, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 52, maxEventsPerRow: 2, startPx: 352, endPx: 404, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 52, maxEventsPerRow: 2, startPx: 404, endPx: 456, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2021', label: '2020–2021', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 76, maxEventsPerRow: 2, startPx: 456, endPx: 532, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 4, startPx: 532, endPx: 608, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 608, endPx: 676, zone: 'earlier', resolution: 'bucket' },
   ]);
   expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
   expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(5);
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(672);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(676);
   await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(7);
   await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
   await expect(page.locator('.activity-zone-label')).toHaveCount(0);
@@ -1400,7 +1431,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / 672) * 100;
+    return (xPx / 676) * 100;
   };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
@@ -1446,7 +1477,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 672) * 100;
+  const normalizedWindow = (proximityPx / 676) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     slotCount: Number(node.getAttribute('data-collision-slots')),
@@ -1612,8 +1643,8 @@ test('Timeline utility bar places count and legend beside the compact controls',
   const utility = page.locator('.event-filter-utility');
   const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(120);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('120 of 134 events');
+  expect(representedIds).toHaveLength(131);
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('131 of 151 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
@@ -1806,7 +1837,7 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
   }
 });
 
-test('Matrix fills desktop width, scrolls locally when narrow, and preserves initial-lens reveal behavior', async ({ page }) => {
+test('Matrix fills available width, scrolls only its derived excess locally, and preserves initial-lens reveal behavior', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
@@ -1849,7 +1880,19 @@ test('Matrix fills desktop width, scrolls locally when narrow, and preserves ini
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('./');
   await expectExplorerReady(page);
-  expect(await scroller.evaluate((node) => Math.abs(node.scrollWidth - node.clientWidth))).toBeLessThanOrEqual(1);
+  const medium = await scroller.evaluate((node) => {
+    const shell = node.closest('.activity-matrix-shell');
+    const labelWidth = Number.parseFloat(getComputedStyle(shell).getPropertyValue('--matrix-label-width'));
+    const trackWidth = Number(shell.getAttribute('data-matrix-track-width'));
+    return {
+      localOverflow: node.scrollWidth - node.clientWidth,
+      expectedDerivedOverflow: Math.max(0, (labelWidth + trackWidth) - node.clientWidth),
+      pageClientWidth: document.documentElement.clientWidth,
+      pageScrollWidth: document.documentElement.scrollWidth,
+    };
+  });
+  expect(medium.localOverflow).toBe(medium.expectedDerivedOverflow);
+  expect(medium.pageScrollWidth).toBe(medium.pageClientWidth);
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
@@ -2002,7 +2045,7 @@ test('legacy Entity-view URLs canonicalize to the combined global surfaces', asy
         await expect(page.locator('[data-group="both"] [data-matrix-row][data-entity-type="person"]:visible').first())
           .toBeVisible();
       } else {
-        await expect(page.locator('[data-status]')).toHaveText(/of 134 events/);
+        await expect(page.locator('[data-status]')).toHaveText(/of 151 events/);
       }
     }
 
@@ -2054,10 +2097,10 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(134);
+  expect(serializedKinds).toHaveLength(151);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(94);
-  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(40);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(100);
+  expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(51);
 
   const legend = page.locator('.kind-legend');
   await expect(legend.locator('span')).toHaveCount(2);
@@ -2075,7 +2118,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('120 of 134 events');
+    await expect(page.locator('[data-status]')).toHaveText('131 of 151 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
@@ -2084,14 +2127,14 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expectExplorerReady(page, 'events');
   await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('94 of 134 events');
+  await expect(page.locator('[data-status]')).toHaveText('100 of 151 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
   await expect(page.locator('.kind-badge.event-kind-organizational:visible')).toHaveCount(0);
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('40 of 134 events');
+  await expect(page.locator('[data-status]')).toHaveText('51 of 151 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('organizational');
   await expect(page.locator('[data-event-result]:visible .kind-badge')).toHaveText(
-    Array(40).fill('Organizational'),
+    Array(51).fill('Organizational'),
   );
 
   const aliases = new Map([
@@ -2278,7 +2321,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expect(page.locator('[data-search]')).toHaveValue('');
     if (isEvents) await expect(page.locator('[data-kind]')).toHaveValue('all');
     await expect(page.locator('[data-company-options] input:checked')).toHaveCount(await page.locator('[data-company-options] input').count());
-    await expect(page.locator('[data-company-summary]')).toHaveText('All 47');
+    await expect(page.locator('[data-company-summary]')).toHaveText('All 54');
   }
 });
 
