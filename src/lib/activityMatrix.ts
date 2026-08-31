@@ -1,16 +1,18 @@
 import type { CompanyEntry, EventEntry, PersonEntry } from './content';
 import { dateNumber, eventYear, sortEventsNewestFirst } from './content';
 
-export const ACTIVITY_MATRIX_MIN_TRACK_WIDTH = 640;
-export const ACTIVITY_MATRIX_RECENT_BAND_WIDTH = 140;
-export const ACTIVITY_MATRIX_EARLIER_BAND_WIDTH = 44;
 export const ACTIVITY_MATRIX_BUNDLE_PROXIMITY = 32;
 export const ACTIVITY_MATRIX_BUNDLE_CELL_SIZE = 16;
 export const ACTIVITY_MATRIX_BUNDLE_GAP = 2;
-export const ACTIVITY_MATRIX_BUNDLE_COLLISION_FOOTPRINT = 34;
+export const ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS = 3;
+export const ACTIVITY_MATRIX_MIN_COLLISION_WIDTH = 34;
 export const ACTIVITY_MATRIX_BASE_ROW_HEIGHT = 28;
 export const ACTIVITY_MATRIX_ROW_PADDING = 5;
 export const ACTIVITY_MATRIX_COLLISION_SLOT_GAP = 4;
+export const ACTIVITY_MATRIX_RECENT_WIDTH_BASE = 74;
+export const ACTIVITY_MATRIX_RECENT_WIDTH_PER_EVENT = 10;
+export const ACTIVITY_MATRIX_RECENT_MIN_WIDTH = 100;
+export const ACTIVITY_MATRIX_RECENT_MAX_WIDTH = 160;
 
 export type ActivityEntityType = 'company' | 'person';
 export type ActivityMatrixTimeZone = 'recent' | 'earlier';
@@ -31,22 +33,14 @@ export interface ActivityMatrixTimeBand {
   widthPx: number;
   startPx: number;
   endPx: number;
+  maxEventsPerRow: number;
   zone: ActivityMatrixTimeZone;
   resolution: ActivityMatrixTimeResolution;
-}
-
-export interface ActivityMatrixTimeZoneSpan {
-  key: ActivityMatrixTimeZone;
-  label: 'RECENT' | 'EARLIER';
-  startPx: number;
-  endPx: number;
-  widthPx: number;
 }
 
 export interface ActivityMatrixBoundary {
   key: string;
   xPx: number;
-  isZoneBoundary: boolean;
 }
 
 export interface RecentActivityStats {
@@ -69,6 +63,7 @@ export interface ActivityMatrixBundleMember {
   eventId: string;
   kind: EventEntry['data']['kind'];
   originalX: number;
+  originalXPx: number;
   placementTimestamp: number;
   timeBandKey: string;
   timeZone: ActivityMatrixTimeZone;
@@ -78,12 +73,17 @@ export interface ActivityMatrixBundleMember {
 export interface ActivityMatrixBundle {
   key: string;
   x: number;
+  xPx: number;
   members: ActivityMatrixBundleMember[];
   eventIds: string[];
   minOriginalX: number;
   maxOriginalX: number;
   maxOriginalDisplacement: number;
+  maxOriginalDisplacementPx: number;
+  columnCount: number;
   rowCount: number;
+  bundleWidthPx: number;
+  collisionWidthPx: number;
   height: number;
   slot: number;
   top: number;
@@ -101,13 +101,19 @@ export interface ActivityMatrixRow<T extends CompanyEntry | PersonEntry> extends
 
 export interface ActivityMatrixGeometry {
   domain: ActivityMatrixDomain;
+  trackWidth: number;
   timeBands: ActivityMatrixTimeBand[];
-  timeZones: ActivityMatrixTimeZoneSpan[];
   boundaries: ActivityMatrixBoundary[];
   companyRows: Array<ActivityMatrixRow<CompanyEntry>>;
   peopleRows: Array<ActivityMatrixRow<PersonEntry>>;
   combinedRows: Array<ActivityMatrixRow<CompanyEntry | PersonEntry>>;
 }
+
+type BandDensity = ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+type ActivityMatrixBandDefinition = Omit<
+  ActivityMatrixTimeBand,
+  'widthPx' | 'startPx' | 'endPx' | 'maxEventsPerRow'
+>;
 
 function utcParts(value: string): { year: number; month: number; day: number } {
   const [year, month = '01', day = '01'] = value.split('-').map(Number);
@@ -138,25 +144,15 @@ export function deriveActivityMatrixDomain(events: EventEntry[]): ActivityMatrix
   }
 
   const years = events.map(eventYear);
-  const oldestYear = Math.min(...years);
-  const latestYear = Math.max(...years);
   return {
-    oldestYear,
-    latestYear,
+    oldestYear: Math.min(...years),
+    latestYear: Math.max(...years),
   };
 }
 
-function shortYear(year: number): string {
-  return String(year).slice(-2).padStart(2, '0');
-}
-
-function rangeLabel(startYear: number, endYear: number): string {
-  return `${shortYear(startYear)}–${shortYear(endYear)}`;
-}
-
-export function deriveActivityMatrixTimeBands(latestYear: number): ActivityMatrixTimeBand[] {
-  const definitions: Array<Omit<ActivityMatrixTimeBand, 'startPx' | 'endPx'>> = [
-    ...[0, 1, 2].map((offset): Omit<ActivityMatrixTimeBand, 'startPx' | 'endPx'> => {
+function activityMatrixBandDefinitions(latestYear: number): ActivityMatrixBandDefinition[] {
+  return [
+    ...[0, 1, 2].map((offset): ActivityMatrixBandDefinition => {
       const year = latestYear - offset;
       return {
         key: `year-${year}`,
@@ -164,12 +160,11 @@ export function deriveActivityMatrixTimeBands(latestYear: number): ActivityMatri
         ariaLabel: String(year),
         startYear: year,
         endYear: year,
-        widthPx: ACTIVITY_MATRIX_RECENT_BAND_WIDTH,
         zone: 'recent',
         resolution: 'continuous',
       };
     }),
-    ...[3, 4].map((offset): Omit<ActivityMatrixTimeBand, 'startPx' | 'endPx'> => {
+    ...[3, 4].map((offset): ActivityMatrixBandDefinition => {
       const year = latestYear - offset;
       return {
         key: `year-${year}`,
@@ -177,28 +172,25 @@ export function deriveActivityMatrixTimeBands(latestYear: number): ActivityMatri
         ariaLabel: String(year),
         startYear: year,
         endYear: year,
-        widthPx: ACTIVITY_MATRIX_EARLIER_BAND_WIDTH,
         zone: 'earlier',
         resolution: 'bucket',
       };
     }),
     {
       key: `years-${latestYear - 6}-${latestYear - 5}`,
-      label: rangeLabel(latestYear - 6, latestYear - 5),
+      label: `${latestYear - 6}–${latestYear - 5}`,
       ariaLabel: `${latestYear - 6}–${latestYear - 5}`,
       startYear: latestYear - 6,
       endYear: latestYear - 5,
-      widthPx: ACTIVITY_MATRIX_EARLIER_BAND_WIDTH,
       zone: 'earlier',
       resolution: 'bucket',
     },
     {
       key: `years-${latestYear - 11}-${latestYear - 7}`,
-      label: rangeLabel(latestYear - 11, latestYear - 7),
+      label: `${latestYear - 11}–${latestYear - 7}`,
       ariaLabel: `${latestYear - 11}–${latestYear - 7}`,
       startYear: latestYear - 11,
       endYear: latestYear - 7,
-      widthPx: ACTIVITY_MATRIX_EARLIER_BAND_WIDTH,
       zone: 'earlier',
       resolution: 'bucket',
     },
@@ -207,52 +199,90 @@ export function deriveActivityMatrixTimeBands(latestYear: number): ActivityMatri
       label: `≤${latestYear - 12}`,
       ariaLabel: `${latestYear - 12} and earlier`,
       endYear: latestYear - 12,
-      widthPx: ACTIVITY_MATRIX_EARLIER_BAND_WIDTH,
       zone: 'earlier',
       resolution: 'bucket',
     },
   ];
-
-  let nextStartPx = 0;
-  return definitions.map((definition) => {
-    const startPx = nextStartPx;
-    const endPx = startPx + definition.widthPx;
-    nextStartPx = endPx;
-    return { ...definition, startPx, endPx };
-  });
 }
 
-export function deriveActivityMatrixTimeZones(
-  bands: ActivityMatrixTimeBand[],
-): ActivityMatrixTimeZoneSpan[] {
-  return (['recent', 'earlier'] as const).map((zone) => {
-    const zoneBands = bands.filter((band) => band.zone === zone);
-    const startPx = zoneBands[0]?.startPx ?? 0;
-    const endPx = zoneBands.at(-1)?.endPx ?? startPx;
-    return {
-      key: zone,
-      label: zone === 'recent' ? 'RECENT' : 'EARLIER',
-      startPx,
-      endPx,
-      widthPx: endPx - startPx,
-    };
+function densityForBand(density: BandDensity, key: string): number {
+  const value = density instanceof Map ? density.get(key) : density[key];
+  return Math.max(Number(value) || 0, 0);
+}
+
+export function activityMatrixBundleColumns(memberCount: number): number {
+  return Math.min(Math.max(Math.trunc(memberCount), 0), ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS);
+}
+
+export function activityMatrixBundleRows(memberCount: number): number {
+  const columns = activityMatrixBundleColumns(memberCount);
+  return columns === 0 ? 0 : Math.ceil(memberCount / columns);
+}
+
+export function activityMatrixBundleWidthPx(memberCount: number): number {
+  const columns = activityMatrixBundleColumns(memberCount);
+  return columns === 0
+    ? 0
+    : (columns * ACTIVITY_MATRIX_BUNDLE_CELL_SIZE) + ((columns - 1) * ACTIVITY_MATRIX_BUNDLE_GAP);
+}
+
+export function deriveActivityMatrixBandWidth(
+  band: ActivityMatrixBandDefinition,
+  maxEventsPerRow: number,
+): number {
+  if (band.resolution === 'continuous') {
+    return Math.min(
+      Math.max(
+        ACTIVITY_MATRIX_RECENT_WIDTH_BASE + (ACTIVITY_MATRIX_RECENT_WIDTH_PER_EVENT * maxEventsPerRow),
+        ACTIVITY_MATRIX_RECENT_MIN_WIDTH,
+      ),
+      ACTIVITY_MATRIX_RECENT_MAX_WIDTH,
+    );
+  }
+
+  const minimumLabelWidth = band.startYear === undefined
+    ? 68
+    : band.startYear === band.endYear
+      ? 52
+      : 76;
+  return Math.max(minimumLabelWidth, activityMatrixBundleWidthPx(maxEventsPerRow) + 16);
+}
+
+export function deriveActivityMatrixTimeBands(
+  latestYear: number,
+  maxEventsPerRowByBand: BandDensity = new Map(),
+): ActivityMatrixTimeBand[] {
+  let nextStartPx = 0;
+  return activityMatrixBandDefinitions(latestYear).map((definition) => {
+    const maxEventsPerRow = densityForBand(maxEventsPerRowByBand, definition.key);
+    const widthPx = deriveActivityMatrixBandWidth(definition, maxEventsPerRow);
+    const startPx = nextStartPx;
+    const endPx = startPx + widthPx;
+    nextStartPx = endPx;
+    return { ...definition, maxEventsPerRow, widthPx, startPx, endPx };
   });
 }
 
 export function deriveActivityMatrixBoundaries(
   bands: ActivityMatrixTimeBand[],
 ): ActivityMatrixBoundary[] {
-  return bands.slice(0, -1).map((band, index) => ({
+  return bands.slice(0, -1).map((band) => ({
     key: `${band.key}-end`,
     xPx: band.endPx,
-    isZoneBoundary: band.zone !== bands[index + 1]?.zone,
   }));
 }
 
-function timeBandContainsYear(band: ActivityMatrixTimeBand, year: number): boolean {
+function timeBandContainsYear(band: Pick<ActivityMatrixTimeBand, 'startYear' | 'endYear'>, year: number): boolean {
   return band.startYear === undefined
     ? year <= band.endYear
     : year >= band.startYear && year <= band.endYear;
+}
+
+function activityMatrixBandKeyForYear(latestYear: number, year: number): string {
+  const definition = activityMatrixBandDefinitions(latestYear)
+    .find((band) => timeBandContainsYear(band, year));
+  if (!definition) throw new Error(`No Activity Matrix time band contains ${year}.`);
+  return definition.key;
 }
 
 export interface ActivityMatrixProjection {
@@ -268,6 +298,8 @@ export function projectTimestampToActivityMatrix(
   const year = new Date(placementTimestamp).getUTCFullYear();
   const band = bands.find((candidate) => timeBandContainsYear(candidate, year));
   if (!band) throw new Error(`No Activity Matrix time band contains ${year}.`);
+  const trackWidth = bands.at(-1)?.endPx ?? 0;
+  if (trackWidth <= 0) throw new Error('Activity Matrix track width must be positive.');
 
   let xPx = band.startPx + (band.widthPx / 2);
   if (band.resolution === 'continuous') {
@@ -278,7 +310,7 @@ export function projectTimestampToActivityMatrix(
   }
 
   return {
-    x: (xPx / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100,
+    x: (xPx / trackWidth) * 100,
     xPx,
     band,
   };
@@ -332,8 +364,24 @@ export function compareActivityEntities(
     || left.entityType.localeCompare(right.entityType, 'en');
 }
 
+function deriveBandDensity(
+  latestYear: number,
+  orderedEntities: Array<OrderedActivityEntity<CompanyEntry | PersonEntry>>,
+): Map<string, number> {
+  const density = new Map(activityMatrixBandDefinitions(latestYear).map(({ key }) => [key, 0]));
+  for (const { events } of orderedEntities) {
+    const counts = new Map<string, number>();
+    for (const event of events) {
+      const key = activityMatrixBandKeyForYear(latestYear, eventYear(event));
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    for (const [key, count] of counts) density.set(key, Math.max(density.get(key) ?? 0, count));
+  }
+  return density;
+}
+
 function bundleHeight(memberCount: number): number {
-  const rowCount = Math.max(Math.ceil(memberCount / 2), 1);
+  const rowCount = Math.max(activityMatrixBundleRows(memberCount), 1);
   return (rowCount * ACTIVITY_MATRIX_BUNDLE_CELL_SIZE)
     + ((rowCount - 1) * ACTIVITY_MATRIX_BUNDLE_GAP);
 }
@@ -342,6 +390,9 @@ export function buildActivityMatrixBundles(
   events: EventEntry[],
   bands: ActivityMatrixTimeBand[],
 ): ActivityMatrixBundle[] {
+  const trackWidth = bands.at(-1)?.endPx ?? 0;
+  if (trackWidth <= 0) throw new Error('Activity Matrix track width must be positive.');
+
   const members = events.map((event): ActivityMatrixBundleMember => {
     const placementTimestamp = eventVisualPlacementTimestamp(event);
     const projection = projectTimestampToActivityMatrix(placementTimestamp, bands);
@@ -350,17 +401,17 @@ export function buildActivityMatrixBundles(
       eventId: event.data.id,
       kind: event.data.kind,
       originalX: projection.x,
+      originalXPx: projection.xPx,
       placementTimestamp,
       timeBandKey: projection.band.key,
       timeZone: projection.band.zone,
       timeResolution: projection.band.resolution,
     };
   }).sort((left, right) => (
-    left.originalX - right.originalX
+    left.originalXPx - right.originalXPx
     || left.eventId.localeCompare(right.eventId, 'en')
   ));
 
-  const bundleWindow = (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / ACTIVITY_MATRIX_MIN_TRACK_WIDTH) * 100;
   const memberGroups: Array<{
     mode: ActivityMatrixBundleMode;
     members: ActivityMatrixBundleMember[];
@@ -370,7 +421,7 @@ export function buildActivityMatrixBundles(
     const current = memberGroups.at(-1);
     if (!current
       || current.mode !== 'proximity'
-      || member.originalX - current.members[0].originalX > bundleWindow) {
+      || member.originalXPx - current.members[0].originalXPx > ACTIVITY_MATRIX_BUNDLE_PROXIMITY) {
       memberGroups.push({ mode: 'proximity', members: [member] });
     } else {
       current.members.push(member);
@@ -387,21 +438,29 @@ export function buildActivityMatrixBundles(
       right.placementTimestamp - left.placementTimestamp
       || left.eventId.localeCompare(right.eventId, 'en')
     ));
-    const x = bundleMembers.reduce((sum, member) => sum + member.originalX, 0) / bundleMembers.length;
+    const xPx = bundleMembers.reduce((sum, member) => sum + member.originalXPx, 0) / bundleMembers.length;
+    const x = (xPx / trackWidth) * 100;
     const minOriginalX = Math.min(...bundleMembers.map(({ originalX }) => originalX));
     const maxOriginalX = Math.max(...bundleMembers.map(({ originalX }) => originalX));
     const eventIds = bundleMembers.map(({ eventId }) => eventId);
     const timeBandKeys = [...new Set(bundleMembers.map(({ timeBandKey }) => timeBandKey))];
-    const rowCount = Math.max(Math.ceil(bundleMembers.length / 2), 1);
+    const columnCount = activityMatrixBundleColumns(bundleMembers.length);
+    const rowCount = Math.max(activityMatrixBundleRows(bundleMembers.length), 1);
+    const bundleWidthPx = activityMatrixBundleWidthPx(bundleMembers.length);
     return {
       key: eventIds.join('|'),
       x,
+      xPx,
       members: bundleMembers,
       eventIds,
       minOriginalX,
       maxOriginalX,
       maxOriginalDisplacement: Math.max(...bundleMembers.map((member) => Math.abs(member.originalX - x))),
+      maxOriginalDisplacementPx: Math.max(...bundleMembers.map((member) => Math.abs(member.originalXPx - xPx))),
+      columnCount,
       rowCount,
+      bundleWidthPx,
+      collisionWidthPx: Math.max(ACTIVITY_MATRIX_MIN_COLLISION_WIDTH, bundleWidthPx),
       height: bundleHeight(bundleMembers.length),
       slot: 0,
       top: ACTIVITY_MATRIX_ROW_PADDING,
@@ -410,21 +469,20 @@ export function buildActivityMatrixBundles(
       timeZone: bundleMembers[0].timeZone,
       timeResolution: bundleMembers[0].timeResolution,
     };
-  }).sort((left, right) => left.x - right.x || left.key.localeCompare(right.key, 'en'));
+  }).sort((left, right) => left.xPx - right.xPx || left.key.localeCompare(right.key, 'en'));
 
-  const minimumSeparation = (
-    ACTIVITY_MATRIX_BUNDLE_COLLISION_FOOTPRINT / ACTIVITY_MATRIX_MIN_TRACK_WIDTH
-  ) * 100;
-  const latestXBySlot: number[] = [];
-
+  const latestRightEdgeBySlot: number[] = [];
   for (const bundle of bundles) {
-    let slot = latestXBySlot.findIndex((latestX) => bundle.x - latestX >= minimumSeparation);
-    if (slot === -1) slot = latestXBySlot.length;
+    const leftEdge = bundle.xPx - (bundle.collisionWidthPx / 2);
+    let slot = latestRightEdgeBySlot.findIndex((rightEdge) => (
+      leftEdge - rightEdge >= ACTIVITY_MATRIX_BUNDLE_GAP
+    ));
+    if (slot === -1) slot = latestRightEdgeBySlot.length;
     bundle.slot = slot;
-    latestXBySlot[slot] = bundle.x;
+    latestRightEdgeBySlot[slot] = bundle.xPx + (bundle.collisionWidthPx / 2);
   }
 
-  const slotHeights = latestXBySlot.map((_, slot) => Math.max(
+  const slotHeights = latestRightEdgeBySlot.map((_, slot) => Math.max(
     ...bundles.filter((bundle) => bundle.slot === slot).map((bundle) => bundle.height),
   ));
   const slotTops: number[] = [];
@@ -464,13 +522,20 @@ export function buildActivityMatrixGeometry(
   people: PersonEntry[],
 ): ActivityMatrixGeometry {
   const domain = deriveActivityMatrixDomain(events);
-  const timeBands = deriveActivityMatrixTimeBands(domain.latestYear);
-  const companyRows = buildRows(orderEntitiesByRecentActivity(companies, events, 'company'), timeBands);
-  const peopleRows = buildRows(orderEntitiesByRecentActivity(people, events, 'person'), timeBands);
+  const orderedCompanies = orderEntitiesByRecentActivity(companies, events, 'company');
+  const orderedPeople = orderEntitiesByRecentActivity(people, events, 'person');
+  const density = deriveBandDensity(
+    domain.latestYear,
+    [...orderedCompanies, ...orderedPeople] as Array<OrderedActivityEntity<CompanyEntry | PersonEntry>>,
+  );
+  const timeBands = deriveActivityMatrixTimeBands(domain.latestYear, density);
+  const trackWidth = timeBands.at(-1)?.endPx ?? 0;
+  const companyRows = buildRows(orderedCompanies, timeBands);
+  const peopleRows = buildRows(orderedPeople, timeBands);
   return {
     domain,
+    trackWidth,
     timeBands,
-    timeZones: deriveActivityMatrixTimeZones(timeBands),
     boundaries: deriveActivityMatrixBoundaries(timeBands),
     companyRows,
     peopleRows,
