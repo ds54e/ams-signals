@@ -103,7 +103,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(50);
+  expect(payload.companies).toHaveLength(44);
   expect(payload.people).toHaveLength(25);
   expect(payload.events).toHaveLength(121);
 
@@ -122,7 +122,6 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining([
     'bosch-sensortec',
     'cirrus-logic',
-    'dialog-semiconductor',
     'hitachi',
     'kioxia',
     'rohm',
@@ -165,7 +164,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     expect.objectContaining({ companies: ['cirrus-logic'], people: ['gautham-sathyan'] }),
   );
   expect(overseasPeopleWaveEvents.get('dialog-semiconductor-2014-selcuk-talay-ams-top-level-dv-lead')).toEqual(
-    expect.objectContaining({ companies: ['dialog-semiconductor'], people: ['selcuk-talay'] }),
+    expect.objectContaining({ companies: ['renesas'], people: ['selcuk-talay'] }),
   );
   expect(overseasPeopleWaveEvents.get('apple-2026-pmu-ams-design-verification-team-hiring')).toEqual(
     expect.objectContaining({ companies: ['apple'], people: ['selcuk-talay'] }),
@@ -177,7 +176,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     expect.objectContaining({ companies: ['bosch-sensortec'], people: [] }),
   );
   expect(overseasPeopleWaveEvents.get('dialog-semiconductor-2016-mixed-signal-model-validation')).toEqual(
-    expect.objectContaining({ companies: ['dialog-semiconductor'], people: ['carsten-wegener'] }),
+    expect.objectContaining({ companies: ['renesas'], people: ['carsten-wegener'] }),
   );
   expect([...overseasPeopleWaveEvents.values()].every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
   expect(payload.events.filter(({ people }) => people.includes('felix-assmann')).map(({ id }) => id))
@@ -185,23 +184,18 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
 
   const globalWaveCompanyIds = [
     'ams-osram',
-    'freescale-semiconductor',
     'google',
     'hewlett-packard',
     'ibm',
     'infineon',
     'intel',
-    'lsi',
     'mathworks',
-    'maxim-integrated',
     'medtronic',
-    'mentor-graphics',
     'meta',
     'roche-sequencing-solutions',
     'samsung',
     'stmicroelectronics',
     'toshiba-electronic-devices-storage',
-    'xilinx',
   ];
   const globalWavePeopleIds = [
     'neyaz-khan',
@@ -346,6 +340,58 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     expect.objectContaining({ companies: [], people: ['stijn-ringeling'] }),
   );
 
+  const canonicalCompanyCounts = new Map(payload.companies.map(({ id }) => [
+    id,
+    payload.events.filter((event) => event.companies.includes(id)).length,
+  ]));
+  expect(Object.fromEntries([
+    'siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom',
+  ].map((id) => [id, canonicalCompanyCounts.get(id)]))).toEqual({
+    'siemens-eda': 11,
+    nxp: 11,
+    renesas: 11,
+    'analog-devices': 11,
+    amd: 2,
+    broadcom: 3,
+  });
+  const legacyCompanyIds = [
+    'mentor-graphics',
+    'freescale-semiconductor',
+    'dialog-semiconductor',
+    'maxim-integrated',
+    'xilinx',
+    'lsi',
+  ];
+  expect(payload.companies.map(({ id }) => id)).toEqual(expect.not.arrayContaining(legacyCompanyIds));
+  expect(payload.events.flatMap(({ companies }) => companies)).toEqual(expect.not.arrayContaining(legacyCompanyIds));
+  expect(Object.fromEntries(payload.companies
+    .filter(({ id }) => [
+      'analog-devices', 'cadence', 'coseda-technologies', 'designers-guide-consulting',
+      'hewlett-packard', 'infineon', 'microchip', 'micron', 'nxp', 'renesas',
+      'roche-sequencing-solutions', 'skyworks', 'sony-semiconductor-solutions',
+      'stmicroelectronics', 'texas-instruments', 'thine-electronics',
+      'toshiba-electronic-devices-storage',
+    ].includes(id))
+    .map(({ id, name }) => [id, name]))).toEqual({
+    'analog-devices': 'ADI',
+    cadence: 'Cadence',
+    'coseda-technologies': 'COSEDA',
+    'designers-guide-consulting': "Designer's Guide",
+    'hewlett-packard': 'HP',
+    infineon: 'Infineon',
+    microchip: 'Microchip',
+    micron: 'Micron',
+    nxp: 'NXP',
+    renesas: 'Renesas',
+    'roche-sequencing-solutions': 'Roche Sequencing',
+    skyworks: 'Skyworks',
+    'sony-semiconductor-solutions': 'Sony Semiconductor',
+    stmicroelectronics: 'ST',
+    'texas-instruments': 'TI',
+    'thine-electronics': 'THine',
+    'toshiba-electronic-devices-storage': 'Toshiba',
+  });
+
   expect(payload.events.map(({ id }) => id)).not.toContain('sitime-2026-07-renesas-timing-acquisition');
   for (const event of payload.events) {
     expect(event).toEqual(expect.objectContaining({
@@ -371,6 +417,34 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
       expect(Object.hasOwn(source, 'archiveUrl')).toBe(true);
       expect(source.archiveUrl === null || /^https?:\/\//.test(source.archiveUrl)).toBe(true);
     }
+  }
+});
+
+test('historical predecessor searches resolve through canonical Company groups', async ({ page }) => {
+  for (const migration of [
+    { term: 'Mentor', legacy: 'mentor-graphics', target: 'siemens-eda', targetName: 'Siemens EDA' },
+    { term: 'Freescale', legacy: 'freescale-semiconductor', target: 'nxp', targetName: 'NXP' },
+  ]) {
+    await page.goto(`./?q=${migration.term}`);
+    await expectExplorerReady(page);
+    await expect(page.locator(`[data-matrix-row][data-entity-type="company"][data-entity-id="${migration.legacy}"]`))
+      .toHaveCount(0);
+    const canonicalRow = page.locator(
+      `[data-matrix-row][data-entity-type="company"][data-entity-id="${migration.target}"]`,
+    );
+    await expect(canonicalRow).toBeVisible();
+    await expect(canonicalRow.locator('[data-matrix-mark]:visible').first()).toBeVisible();
+    await page.locator('[data-company-picker] summary').click();
+    await expect(page.locator(`[data-company-options] input[value="${migration.legacy}"]`)).toHaveCount(0);
+    await expect(page.locator(`[data-company-options] input[value="${migration.target}"]`)).toBeAttached();
+
+    await page.goto(`./events/?q=${migration.term}`);
+    await expectExplorerReady(page, 'events');
+    await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
+    await expect(page.locator('[data-event-result]:visible .result-context').getByRole(
+      'link', { name: migration.targetName, exact: true },
+    ).first()).toBeVisible();
+    expect((await page.request.get(`./companies/${migration.legacy}/`)).status()).toBe(404);
   }
 });
 
@@ -406,6 +480,9 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   expect(JSON.parse(await bundle.getAttribute('data-bundle-event-ids'))).toEqual(bundledIds);
   expect(JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual(bundledIds);
   await expect(bundle).toHaveAttribute('data-bundle-member-count', '4');
+  await expect(bundle).toHaveAttribute('data-bundle-columns', '3');
+  await expect(bundle).toHaveAttribute('data-bundle-rows', '2');
+  await expect(bundle).toHaveAttribute('data-bundle-width-px', '52');
   await expect(bundle).toHaveAttribute('data-bundle-mode', 'period');
   await expect(bundle).toHaveAttribute('data-time-band', 'years-2015-2019');
   await expect(bundle).not.toHaveAttribute('data-bundle-window');
@@ -436,6 +513,9 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
     slot: node.getAttribute('data-collision-slot'),
     top: node.getAttribute('data-bundle-top'),
     height: getComputedStyle(node).getPropertyValue('--bundle-height'),
+    width: node.getAttribute('data-bundle-width-px'),
+    columns: node.getAttribute('data-bundle-columns'),
+    rows: node.getAttribute('data-bundle-rows'),
   }));
   await page.locator('[data-search]').fill('automatic real-number abstraction');
   await expect.poll(async () => JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual([bundledIds[2]]);
@@ -447,6 +527,9 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
     slot: node.getAttribute('data-collision-slot'),
     top: node.getAttribute('data-bundle-top'),
     height: getComputedStyle(node).getPropertyValue('--bundle-height'),
+    width: node.getAttribute('data-bundle-width-px'),
+    columns: node.getAttribute('data-bundle-columns'),
+    rows: node.getAttribute('data-bundle-rows'),
   }))).toEqual(immutableGeometry);
   const centeredSingle = await bundle.evaluate((node) => {
     const bundleBounds = node.getBoundingClientRect();
@@ -460,7 +543,7 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   await expect(bundle).toHaveAttribute('data-visible-member-count', '0');
   await expect(bundle).toBeHidden();
 
-  await page.locator('[data-reset]').click();
+  await page.locator('[data-search]').fill('');
   const sharedEventId = 'cadence-2012-real-valued-systemverilog-coverage';
   const sharedBundle = page.locator(
     `[data-group="both"] [data-matrix-row][data-entity-id="cadence"] [data-matrix-bundle][data-bundle-event-ids*="${sharedEventId}"][data-bundle-event-ids*="maxim-2012-uvm-ms-mixed-signal-soc-verification"]`,
@@ -563,7 +646,7 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   await expect(thesisResult).toBeHidden();
   await expect(nxpResult).toBeVisible();
 
-  await page.locator('[data-reset]').click();
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
   await expect(thesisResult).toBeVisible();
   expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
   await page.locator('[data-search]').fill('transfer learning transistor-level');
@@ -574,7 +657,8 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   await expect(stijnRow).toBeVisible();
   await expect(thesisMark).toBeHidden();
   await expect(nxpMark).toBeVisible();
-  await page.locator('[data-reset]').click();
+  await page.locator('[data-company-picker] summary').click();
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
   await expect(thesisMark).toBeVisible();
 });
 
@@ -641,8 +725,8 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const singletonCompanyIds = [...companyTotals].filter(([, total]) => total === 1).map(([id]) => id);
   const activePersonIds = [...peopleTotals].filter(([, total]) => total > 0).map(([id]) => id);
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
-  expect(activeCompanyIds).toHaveLength(49);
-  expect(singletonCompanyIds).toHaveLength(23);
+  expect(activeCompanyIds).toHaveLength(43);
+  expect(singletonCompanyIds).toHaveLength(19);
   expect(activePersonIds).toHaveLength(25);
   expect(singletonPersonIds).toHaveLength(6);
 
@@ -672,7 +756,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await expect(combinedPersonRow).toBeHidden();
   const singletonPickerOption = page.locator(`[data-company-options] input[value="${singletonCompany.id}"]`);
   await expect(singletonPickerOption).toBeAttached();
-  await expect(singletonPickerOption.locator('xpath=..').locator('small')).toHaveText('1 event');
+  await expect(singletonPickerOption.locator('xpath=..').locator('small')).toHaveText('1');
 
   await page.locator('[data-search]').fill(singletonCompany.name);
   await expect(combinedCompanyRow).toBeVisible();
@@ -685,7 +769,6 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await page.locator('[data-search]').fill('');
   await expect(combinedPersonRow).toBeHidden();
 
-  await page.locator('[data-reset]').click();
   await page.locator('[data-company-picker] summary').click();
   await page.getByRole('button', { name: 'Clear all', exact: true }).click();
   await singletonPickerOption.check();
@@ -696,8 +779,8 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await page.locator('[data-company-options] input[value="cirrus-logic"]').check();
   await expect(combinedPersonRow).toBeVisible();
 
-  await page.locator('[data-reset]').click();
-  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(49);
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(43);
   await expect(combinedCompanyRow).toBeHidden();
   await expect(combinedPersonRow).toBeHidden();
 });
@@ -725,7 +808,7 @@ test('Timeline and Events navigation preserves shared state without carrying hid
   await expect(page.locator('[data-kind]')).toHaveValue('all');
 });
 
-test('Company filter exposes immediate Select all and Clear all actions', async ({ page }) => {
+test('Company picker is readable, searchable, and independently clearable', async ({ page }) => {
   for (const path of ['./', './events/']) {
     const surface = path.includes('events') ? 'events' : 'timeline';
     await page.goto(path);
@@ -738,9 +821,45 @@ test('Company filter exposes immediate Select all and Clear all actions', async 
     const checks = page.locator('[data-company-options] input');
     const checked = page.locator('[data-company-options] input:checked');
     const totalCompanies = await checks.count();
-    expect(totalCompanies).toBe(49);
+    expect(totalCompanies).toBe(43);
     await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
+    const pickerLayout = await page.locator('.company-picker-panel').evaluate((panel) => {
+      const options = panel.querySelector('[data-company-options]');
+      return {
+        width: panel.getBoundingClientRect().width,
+        height: panel.getBoundingClientRect().height,
+        optionColumns: getComputedStyle(options).gridTemplateColumns,
+        optionsClientHeight: options.clientHeight,
+        optionsScrollHeight: options.scrollHeight,
+      };
+    });
+    expect(pickerLayout.width).toBeGreaterThanOrEqual(340);
+    expect(pickerLayout.width).toBeLessThanOrEqual(380);
+    expect(pickerLayout.height).toBeGreaterThanOrEqual(400);
+    expect(pickerLayout.height).toBeLessThanOrEqual(440);
+    expect(pickerLayout.optionColumns).toMatch(/^\d+(?:\.\d+)?px$/);
+    expect(pickerLayout.optionsScrollHeight).toBeGreaterThan(pickerLayout.optionsClientHeight);
+    await expect(page.locator('[data-reset]')).toHaveCount(0);
+
+    const optionNames = await page.locator('[data-company-option] > span').allTextContents();
+    expect(optionNames).toEqual([...optionNames].sort((left, right) => left.localeCompare(right, 'en')));
+    const eventFilterUrl = page.url();
+    const checkedBeforePickerSearch = await checked.count();
+    await page.locator('[data-company-search]').fill('sony');
+    await expect(page.locator('[data-company-option]:visible')).toHaveCount(1);
+    await expect(page.locator('[data-company-option]:visible > span')).toHaveText(['Sony Semiconductor']);
+    expect(page.url()).toBe(eventFilterUrl);
+    await expect(checked).toHaveCount(checkedBeforePickerSearch);
+    await page.locator('[data-company-search]').fill('apple');
+    await page.locator('[data-company-options] input[value="apple"]').uncheck();
+    await page.locator('[data-company-search]').fill('sony');
+    await page.locator('[data-company-search]').fill('apple');
+    await expect(page.locator('[data-company-options] input[value="apple"]')).not.toBeChecked();
+    await page.locator('[data-company-search]').fill('does-not-exist');
+    await expect(page.locator('[data-company-options-empty]')).toBeVisible();
+    await page.locator('[data-company-search]').fill('');
+    await page.getByRole('button', { name: 'Select all', exact: true }).click();
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
@@ -759,17 +878,16 @@ test('Company filter exposes immediate Select all and Clear all actions', async 
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
-    await page.locator('[data-company-picker] summary').click();
-    await page.locator('[data-reset]').click();
+    await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-search]')).toHaveValue('');
-    if (surface === 'events') await expect(page.locator('[data-kind]')).toHaveValue('all');
+    await page.locator('[data-search]').fill('');
+    if (surface === 'events') await page.locator('[data-kind]').selectOption('all');
     else await expect(page.locator('[data-kind]')).toHaveCount(0);
     expect(new URL(page.url()).search).toBe('');
   }
 });
 
-test('full-corpus recent-activity ordering is shared and filter-stable', async ({ page }) => {
+test('recent-activity row ordering and alphabetical Company picker stay filter-stable', async ({ page }) => {
   const payload = await (await page.request.get('./export.json')).json();
   const latestYear = Math.max(...payload.events.map((event) => Number(event.when.start.slice(0, 4))));
   const startTimestamp = (value) => {
@@ -793,7 +911,7 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
       id: company.id,
       name: company.name,
       entityType: 'company',
-      count: `${linked.length} ${linked.length === 1 ? 'event' : 'events'}`,
+      count: String(linked.length),
       recent3: linked.filter((event) => Number(event.when.start.slice(0, 4)) >= latestYear - 2).length,
       recent5: linked.filter((event) => Number(event.when.start.slice(0, 4)) >= latestYear - 4).length,
       latest: linked[0]?.when.start ?? '',
@@ -801,7 +919,9 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
       total: linked.length,
     };
   }).filter(({ total }) => total > 0).sort(compareActivity);
-  const expectedPicker = expectedCompanies.map(({ id, name, count }) => ({ id, name, count }));
+  const expectedPicker = expectedCompanies
+    .map(({ id, name, count }) => ({ id, name, count }))
+    .sort((left, right) => left.name.localeCompare(right.name, 'en') || left.id.localeCompare(right.id, 'en'));
   const expectedIds = expectedCompanies.map(({ id }) => id);
   expect(expectedIds.slice(0, 10)).toEqual([
     'apple',
@@ -888,7 +1008,7 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(45);
+  expect(defaultVisibleCombinedKeys).toHaveLength(43);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -898,7 +1018,7 @@ test('full-corpus recent-activity ordering is shared and filter-stable', async (
   const expectedCombinedKeys = expectedCombined.map(({ entityType, id }) => `${entityType}:${id}`);
   expect(visibleAfterSearch).toEqual(expectedCombinedKeys.filter((key) => visibleAfterSearch.includes(key)));
 
-  await page.locator('[data-reset]').click();
+  await page.locator('[data-search]').fill('');
   await page.locator('[data-search]').fill('verification');
   const visiblePeople = await page.locator('[data-group="both"] [data-matrix-row][data-entity-type="person"]:visible')
     .evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-entity-id')));
@@ -929,7 +1049,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
-  await expect(matrix).toHaveAttribute('data-min-track-width', '640');
+  await expect(matrix).toHaveAttribute('data-track-width', '672');
   await expect(matrix).toHaveAttribute('data-time-band-count', '8');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
@@ -941,30 +1061,31 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       : undefined,
     endYear: Number(node.getAttribute('data-band-end-year')),
     widthPx: Number(node.getAttribute('data-band-width-px')),
+    maxEventsPerRow: Number(node.getAttribute('data-band-max-events-per-row')),
     startPx: Number(node.getAttribute('data-band-start-px')),
     endPx: Number(node.getAttribute('data-band-end-px')),
     zone: node.getAttribute('data-time-zone'),
     resolution: node.getAttribute('data-time-resolution'),
   })));
   expect(bands).toEqual([
-    { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 140, startPx: 0, endPx: 140, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 140, startPx: 140, endPx: 280, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 140, startPx: 280, endPx: 420, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 44, startPx: 420, endPx: 464, zone: 'earlier', resolution: 'bucket' },
-    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 44, startPx: 464, endPx: 508, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2020-2021', label: '20–21', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 44, startPx: 508, endPx: 552, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2015-2019', label: '15–19', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 44, startPx: 552, endPx: 596, zone: 'earlier', resolution: 'bucket' },
-    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 44, startPx: 596, endPx: 640, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 134, maxEventsPerRow: 6, startPx: 0, endPx: 134, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 114, maxEventsPerRow: 4, startPx: 134, endPx: 248, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 100, maxEventsPerRow: 2, startPx: 248, endPx: 348, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 52, maxEventsPerRow: 2, startPx: 348, endPx: 400, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 52, maxEventsPerRow: 1, startPx: 400, endPx: 452, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2021', label: '2020–2021', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 76, maxEventsPerRow: 2, startPx: 452, endPx: 528, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 4, startPx: 528, endPx: 604, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 604, endPx: 672, zone: 'earlier', resolution: 'bucket' },
   ]);
   expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
   expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(5);
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(640);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(672);
   await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(7);
-  await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(1);
-  await expect(page.locator('.activity-zone-label')).toHaveText(['RECENT', 'EARLIER']);
+  await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
+  await expect(page.locator('.activity-zone-label')).toHaveCount(0);
   await expect(page.locator('.activity-axis-track')).toHaveAttribute(
     'aria-label',
-    'Activity Matrix time bands. Recent: 2026, 2025, 2024. Earlier: 2023, 2022, 2020–2021, 2015–2019, 2014 and earlier. Newest is left.',
+    'Activity Matrix time bands: 2026, 2025, 2024, 2023, 2022, 2020–2021, 2015–2019, 2014 and earlier. Newest is left.',
   );
 
   const serialized = await page.locator('[data-events-json]').evaluate((node) => JSON.parse(node.textContent));
@@ -996,7 +1117,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / 640) * 100;
+    return (xPx / 672) * 100;
   };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
@@ -1042,7 +1163,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 640) * 100;
+  const normalizedWindow = (proximityPx / 672) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     slotCount: Number(node.getAttribute('data-collision-slots')),
@@ -1053,6 +1174,10 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       minX: Number(bundle.getAttribute('data-min-original-event-x')),
       maxX: Number(bundle.getAttribute('data-max-original-event-x')),
       maxDisplacement: Number(bundle.getAttribute('data-max-original-displacement')),
+      columns: Number(bundle.getAttribute('data-bundle-columns')),
+      rowCount: Number(bundle.getAttribute('data-bundle-rows')),
+      bundleWidthPx: Number(bundle.getAttribute('data-bundle-width-px')),
+      collisionWidthPx: Number(bundle.getAttribute('data-collision-width-px')),
       slot: Number(bundle.getAttribute('data-collision-slot')),
       mode: bundle.getAttribute('data-bundle-mode'),
       zone: bundle.getAttribute('data-time-zone'),
@@ -1079,6 +1204,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   expect(rows.some(({ height }) => height === 28)).toBe(true);
   expect(rows.some(({ height }) => height > 28)).toBe(true);
   expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBeGreaterThanOrEqual(4);
+  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ rowCount }) => rowCount)))).toBe(2);
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
@@ -1112,6 +1238,10 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       .toEqual(expectedGroups.map(({ mode, ids }) => ({ mode, ids })));
 
     for (const bundle of row.bundles) {
+      expect(bundle.columns).toBe(Math.min(bundle.ids.length, 3));
+      expect(bundle.rowCount).toBe(Math.ceil(bundle.ids.length / bundle.columns));
+      expect(bundle.bundleWidthPx).toBe((bundle.columns * 16) + ((bundle.columns - 1) * 2));
+      expect(bundle.collisionWidthPx).toBe(Math.max(34, bundle.bundleWidthPx));
       expect(bundle.x, `${row.lane} bundle mean`).toBeCloseTo(
         bundle.members.reduce((sum, member) => sum + member.x, 0) / bundle.members.length,
         10,
@@ -1168,7 +1298,7 @@ test('global Matrix uses the corpus domain while context Timelines retain derive
   await expectExplorerReady(page);
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(page.locator('[data-activity-time-band]')).toHaveText([
-    '2026', '2025', '2024', '2023', '2022', '20–21', '15–19', '≤2014',
+    '2026', '2025', '2024', '2023', '2022', '2020–2021', '2015–2019', '≤2014',
   ]);
 
   await page.goto('./companies/apple/');
@@ -1186,18 +1316,12 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
 
   const summary = page.locator('.event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(108);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('108 of 121 events');
+  expect(representedIds).toHaveLength(110);
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('110 of 121 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
-  await expect(summary.locator(':scope > .activity-order-note')).toHaveText(
-    'Timeline emphasizes recent and recurring public signals. Earlier years are visually compressed into broader periods. Events contains the complete chronological record.',
-  );
-  await expect(summary.locator(':scope > .activity-order-note')).toHaveAttribute(
-    'title',
-    'Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Recent Events may be grouped by temporal proximity; earlier Events are grouped into broader periods. Exact dates remain available in the Inspector and Events view.',
-  );
-  await expect(summary.locator(':scope > *')).toHaveCount(3);
+  await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
+  await expect(summary.locator(':scope > *')).toHaveCount(2);
   await expect(page.locator('.axis-note, .timeline-summary-detail')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
   await expect(page.getByText(/density-adjusted/i)).toHaveCount(0);
@@ -1206,7 +1330,6 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
     const style = getComputedStyle(node);
     const status = node.querySelector('[data-status]').getBoundingClientRect();
     const legend = node.querySelector('.kind-legend').getBoundingClientRect();
-    const note = node.querySelector('.activity-order-note').getBoundingClientRect();
     return {
       justifyContent: style.justifyContent,
       flexWrap: style.flexWrap,
@@ -1215,16 +1338,12 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
       statusTop: status.top,
       legendLeft: legend.left,
       legendTop: legend.top,
-      noteLeft: note.left,
-      noteTop: note.top,
     };
   });
   expect(layout.justifyContent).toBe('flex-start');
   expect(layout.flexWrap).toBe('wrap');
   expect(layout.legendLeft).toBeGreaterThan(layout.statusRight);
   expect(Math.abs(layout.legendTop - layout.statusTop)).toBeLessThanOrEqual(1);
-  expect(layout.noteLeft).toBeGreaterThanOrEqual(layout.statusLeft - 1);
-  expect(layout.noteTop).toBeGreaterThanOrEqual(layout.statusTop);
 });
 
 test('Search and Company filter never change Matrix geometry or row order', async ({ page }) => {
@@ -1232,6 +1351,7 @@ test('Search and Company filter never change Matrix geometry or row order', asyn
   await expectExplorerReady(page);
 
   const geometry = () => page.locator('[data-timeline-root]').evaluate((root) => ({
+    trackWidth: root.querySelector('[data-activity-matrix-surface]')?.getAttribute('data-track-width'),
     domain: [
       root.querySelector('[data-activity-matrix-surface]')?.getAttribute('data-domain-latest-year'),
       root.querySelector('[data-activity-matrix-surface]')?.getAttribute('data-domain-oldest-year'),
@@ -1254,6 +1374,10 @@ test('Search and Company filter never change Matrix geometry or row order', asyn
       slot: bundle.getAttribute('data-collision-slot'),
       top: bundle.getAttribute('data-bundle-top'),
       height: getComputedStyle(bundle).getPropertyValue('--bundle-height'),
+      width: bundle.getAttribute('data-bundle-width-px'),
+      columns: bundle.getAttribute('data-bundle-columns'),
+      rows: bundle.getAttribute('data-bundle-rows'),
+      collisionWidth: bundle.getAttribute('data-collision-width-px'),
       members: [...bundle.querySelectorAll('[data-bundle-member]')].map((member) => (
         `${member.getAttribute('data-event-id')}:${member.getAttribute('data-original-event-x')}`
       )),
@@ -1343,7 +1467,8 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     expectAligned(initial, `${viewport.width}px initial`);
     expect(initial.newestBandLeft, `${viewport.width}px 2026 band clears label column`)
       .toBeGreaterThanOrEqual(initial.labelRight - 1);
-    expect(initial.axisHeight, `${viewport.width}px semantic axis height`).toBeGreaterThanOrEqual(51);
+    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBeGreaterThanOrEqual(30);
+    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBeLessThanOrEqual(34);
 
     if (viewport.width === 390) {
       const overlappingControls = await page.locator('[data-group="both"] [data-matrix-bundle]:visible')
@@ -1486,8 +1611,20 @@ test('global Matrix is one accessible interleaved view with restrained entity co
   expect(visualGrammar.hitWidth).toBeLessThanOrEqual(18);
   expect(visualGrammar.glyphWidth).toBeLessThanOrEqual(14);
   const longLabel = page.locator('[data-group="both"] [data-matrix-row][data-entity-id="cadence"] .matrix-entity-label');
-  await expect(longLabel).toHaveText('Cadence Design Systems');
-  await expect(longLabel).toHaveAttribute('title', 'Cadence Design Systems');
+  await expect(longLabel).toHaveText('Cadence');
+  await expect(longLabel).toHaveAttribute('title', 'Cadence');
+  for (const [id, name] of [
+    ['texas-instruments', 'TI'],
+    ['nxp', 'NXP'],
+    ['analog-devices', 'ADI'],
+    ['stmicroelectronics', 'ST'],
+    ['sony-semiconductor-solutions', 'Sony Semiconductor'],
+    ['toshiba-electronic-devices-storage', 'Toshiba'],
+  ]) {
+    await expect(page.locator(
+      `[data-group="both"] [data-matrix-row][data-entity-id="${id}"] .matrix-entity-label`,
+    )).toHaveText(name);
+  }
 
   const companyLabel = page.locator('[data-group="both"] [data-matrix-row][data-entity-type="company"]:visible')
     .first().locator('.matrix-entity-label');
@@ -1560,7 +1697,7 @@ test('legacy Entity-view URLs canonicalize to the combined global surfaces', asy
       }
     }
 
-    await page.locator('[data-reset]').click();
+    await page.locator('[data-search]').fill('');
     expect(new URL(page.url()).search).toBe('');
   }
 });
@@ -1629,7 +1766,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('108 of 121 events');
+    await expect(page.locator('[data-status]')).toHaveText('110 of 121 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
@@ -1770,19 +1907,20 @@ test('Timeline and Events expose their final surface-specific controls and termi
       await expect(page.locator('label:has([data-kind]) > span')).toHaveText('Signal type');
       await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
       expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
-      await expect(page.locator('.event-filters > *')).toHaveCount(4);
+      await expect(page.locator('.event-filters > *')).toHaveCount(3);
     } else {
       await expect(page.locator('[data-kind]')).toHaveCount(0);
       expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
-      await expect(page.locator('.event-filters > *')).toHaveCount(3);
+      await expect(page.locator('.event-filters > *')).toHaveCount(2);
       await expect(page.locator('.kind-legend span')).toHaveText(['Technical', 'Organizational']);
     }
     const desktopColumns = await page.locator('.event-filters').evaluate((filters) => (
       getComputedStyle(filters).gridTemplateColumns.split(' ').length
     ));
-    expect(desktopColumns).toBe(isEvents ? 4 : 3);
-    await expect(page.locator('[data-company-picker] summary > span')).toHaveText('Company filter');
-    await expect(page.locator('[data-company-summary]')).toHaveText('Apple + Renesas Electronics');
+    expect(desktopColumns).toBe(isEvents ? 3 : 2);
+    await expect(page.locator('[data-company-picker] summary > span')).toHaveText('Companies');
+    await expect(page.locator('[data-company-summary]')).toHaveText('2 selected');
+    await expect(page.locator('[data-reset]')).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('Search the factual record', { exact: true })).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('View', { exact: true })).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('All signals', { exact: true })).toHaveCount(0);
@@ -1796,12 +1934,11 @@ test('Timeline and Events expose their final surface-specific controls and termi
 
     const searchBox = await page.locator('[data-search]').boundingBox();
     const companyBox = await page.locator('[data-company-picker] summary').boundingBox();
-    const resetBox = await page.locator('[data-reset]').boundingBox();
     expect(searchBox).not.toBeNull();
     expect(companyBox).not.toBeNull();
-    expect(resetBox).not.toBeNull();
+    expect(searchBox.width).toBeGreaterThanOrEqual(220);
+    expect(searchBox.width).toBeLessThanOrEqual(340);
     expect(Math.abs((searchBox.y + searchBox.height) - (companyBox.y + companyBox.height))).toBeLessThanOrEqual(1);
-    expect(Math.abs((searchBox.y + searchBox.height) - (resetBox.y + resetBox.height))).toBeLessThanOrEqual(1);
     if (isEvents) {
       const kindBox = await page.locator('[data-kind]').boundingBox();
       expect(kindBox).not.toBeNull();
@@ -1809,12 +1946,15 @@ test('Timeline and Events expose their final surface-specific controls and termi
       expect(Math.abs(searchBox.height - kindBox.height)).toBeLessThanOrEqual(1);
     }
 
-    await page.locator('[data-reset]').click();
+    await page.locator('[data-search]').fill('');
+    if (isEvents) await page.locator('[data-kind]').selectOption('all');
+    await page.locator('[data-company-picker] summary').click();
+    await page.getByRole('button', { name: 'Select all', exact: true }).click();
     expect(new URL(page.url()).search).toBe('');
     await expect(page.locator('[data-search]')).toHaveValue('');
     if (isEvents) await expect(page.locator('[data-kind]')).toHaveValue('all');
     await expect(page.locator('[data-company-options] input:checked')).toHaveCount(await page.locator('[data-company-options] input').count());
-    await expect(page.locator('[data-company-summary]')).toHaveText('All 49 with events');
+    await expect(page.locator('[data-company-summary]')).toHaveText('All 43');
   }
 });
 
@@ -1855,9 +1995,10 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./?companies=apple,renesas&q=PLL');
   await expectExplorerReady(page);
-  await expect(page.locator('.event-filters > *')).toHaveCount(3);
+  await expect(page.locator('.event-filters > *')).toHaveCount(2);
   await expect(page.locator('[data-kind], [data-view]')).toHaveCount(0);
-  await expect(page.locator('[data-company-picker], [data-reset]')).toHaveCount(2);
+  await expect(page.locator('[data-company-picker]')).toHaveCount(1);
+  await expect(page.locator('[data-reset]')).toHaveCount(0);
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
   await expect(page.locator('[data-detail]')).toBeVisible();
   await expect(page.locator('.result-section')).toHaveCount(0);
@@ -1880,10 +2021,11 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
 
   await page.goto('./events/?companies=apple,renesas&q=PLL');
   await expectExplorerReady(page, 'events');
-  await expect(page.locator('.event-filters > *')).toHaveCount(4);
+  await expect(page.locator('.event-filters > *')).toHaveCount(3);
   await expect(page.locator('[data-kind]')).toBeVisible();
   await expect(page.locator('[data-view]')).toHaveCount(0);
-  await expect(page.locator('[data-company-picker], [data-reset]')).toHaveCount(2);
+  await expect(page.locator('[data-company-picker]')).toHaveCount(1);
+  await expect(page.locator('[data-reset]')).toHaveCount(0);
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
