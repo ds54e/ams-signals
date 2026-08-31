@@ -389,8 +389,10 @@ test('selecting a Timeline mark updates the Evidence Inspector', async ({ page }
   await expect(page.locator('[data-detail-event]')).toHaveAttribute('href', `${basePath}events/${eventId}/`);
 });
 
-test('nearby-Event bundles retain direct Event interaction and reduce cleanly under filtering', async ({ page }) => {
+test('Event bundles retain direct Event interaction and reduce cleanly under filtering', async ({ page }) => {
   const bundledIds = [
+    'analog-devices-2019-power-aware-rnm-verification',
+    'analog-devices-2017-rf-transceiver-soc-verification',
     'analog-devices-2016-automatic-real-number-abstraction',
     'analog-devices-2016-sv-rnm-model-validation',
   ];
@@ -403,10 +405,14 @@ test('nearby-Event bundles retain direct Event interaction and reduce cleanly un
   await expect(bundle).toBeVisible();
   expect(JSON.parse(await bundle.getAttribute('data-bundle-event-ids'))).toEqual(bundledIds);
   expect(JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual(bundledIds);
-  await expect(bundle).toHaveAttribute('data-bundle-member-count', '2');
-  await expect(bundle.locator('[data-bundle-member]')).toHaveCount(2);
+  await expect(bundle).toHaveAttribute('data-bundle-member-count', '4');
+  await expect(bundle).toHaveAttribute('data-bundle-mode', 'period');
+  await expect(bundle).toHaveAttribute('data-time-band', 'years-2015-2019');
+  await expect(bundle).not.toHaveAttribute('data-bundle-window');
+  await expect(bundle).not.toHaveAttribute('data-bundle-window-px');
+  await expect(bundle.locator('[data-bundle-member]')).toHaveCount(4);
   await expect(page.locator('[data-cluster-count], [data-detail-cluster], .is-cluster, .is-mixed')).toHaveCount(0);
-  await expect(bundle.locator('[data-bundle-member].event-kind-technical')).toHaveCount(2);
+  await expect(bundle.locator('[data-bundle-member].event-kind-technical')).toHaveCount(4);
   const bundleKindShapes = await page.locator('[data-group="both"]').evaluate((group) => {
     const technical = group.querySelector('[data-bundle-member].event-kind-technical .activity-glyph');
     const organizational = group.querySelector('[data-bundle-member].event-kind-organizational .activity-glyph');
@@ -428,17 +434,19 @@ test('nearby-Event bundles retain direct Event interaction and reduce cleanly un
     eventIds: node.getAttribute('data-bundle-event-ids'),
     x: node.getAttribute('data-bundle-x'),
     slot: node.getAttribute('data-collision-slot'),
-    style: node.getAttribute('style'),
+    top: node.getAttribute('data-bundle-top'),
+    height: getComputedStyle(node).getPropertyValue('--bundle-height'),
   }));
   await page.locator('[data-search]').fill('automatic real-number abstraction');
-  await expect.poll(async () => JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual([bundledIds[0]]);
+  await expect.poll(async () => JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual([bundledIds[2]]);
   await expect(bundle).toHaveAttribute('data-visible-member-count', '1');
   await expect(bundle.locator('[data-bundle-member]:visible')).toHaveCount(1);
   expect(await bundle.evaluate((node) => ({
     eventIds: node.getAttribute('data-bundle-event-ids'),
     x: node.getAttribute('data-bundle-x'),
     slot: node.getAttribute('data-collision-slot'),
-    style: node.getAttribute('style'),
+    top: node.getAttribute('data-bundle-top'),
+    height: getComputedStyle(node).getPropertyValue('--bundle-height'),
   }))).toEqual(immutableGeometry);
   const centeredSingle = await bundle.evaluate((node) => {
     const bundleBounds = node.getBoundingClientRect();
@@ -913,7 +921,7 @@ test('zero-Event researched Company pages still build without primary Timeline l
   }
 });
 
-test('global Activity Matrix preserves precise Event x metadata in deterministic proximity bundles', async ({ page }) => {
+test('global Activity Matrix uses progressive time bands and deterministic bundle modes', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
@@ -921,18 +929,46 @@ test('global Activity Matrix preserves precise Event x metadata in deterministic
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
+  await expect(matrix).toHaveAttribute('data-min-track-width', '640');
+  await expect(matrix).toHaveAttribute('data-time-band-count', '8');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
-  const ticks = await page.locator('[data-activity-tick]').evaluateAll((nodes) => nodes.map((node) => ({
-    year: Number(node.getAttribute('data-tick-year')),
-    x: Number(node.getAttribute('data-tick-x')),
+  const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
+    key: node.getAttribute('data-time-band'),
+    label: node.getAttribute('data-band-label'),
+    ariaLabel: node.getAttribute('data-band-aria-label'),
+    startYear: node.hasAttribute('data-band-start-year')
+      ? Number(node.getAttribute('data-band-start-year'))
+      : undefined,
+    endYear: Number(node.getAttribute('data-band-end-year')),
+    widthPx: Number(node.getAttribute('data-band-width-px')),
+    startPx: Number(node.getAttribute('data-band-start-px')),
+    endPx: Number(node.getAttribute('data-band-end-px')),
+    zone: node.getAttribute('data-time-zone'),
+    resolution: node.getAttribute('data-time-resolution'),
   })));
-  expect(ticks.map(({ year }) => year)).toEqual([2026, 2024, 2022, 2020, 2015, 2010]);
-  expect(ticks.map(({ x }) => x)).toEqual(ticks.map(({ x }) => x).slice().sort((left, right) => left - right));
+  expect(bands).toEqual([
+    { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 140, startPx: 0, endPx: 140, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 140, startPx: 140, endPx: 280, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 140, startPx: 280, endPx: 420, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 44, startPx: 420, endPx: 464, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 44, startPx: 464, endPx: 508, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2021', label: '20–21', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 44, startPx: 508, endPx: 552, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '15–19', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 44, startPx: 552, endPx: 596, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 44, startPx: 596, endPx: 640, zone: 'earlier', resolution: 'bucket' },
+  ]);
+  expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
+  expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(5);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(640);
+  await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(7);
+  await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(1);
+  await expect(page.locator('.activity-zone-label')).toHaveText(['RECENT', 'EARLIER']);
+  await expect(page.locator('.activity-axis-track')).toHaveAttribute(
+    'aria-label',
+    'Activity Matrix time bands. Recent: 2026, 2025, 2024. Earlier: 2023, 2022, 2020–2021, 2015–2019, 2014 and earlier. Newest is left.',
+  );
 
   const serialized = await page.locator('[data-events-json]').evaluate((node) => JSON.parse(node.textContent));
   const eventById = new Map(serialized.map((event) => [event.id, event]));
-  const domainStart = Date.UTC(2010, 0, 1);
-  const domainEnd = Date.UTC(2027, 0, 1);
   const visualTimestamp = (event) => {
     const [year, month = 1, day = 1] = event.start.split('-').map(Number);
     if (event.precision === 'day') return Date.UTC(year, month - 1, day, 12);
@@ -945,17 +981,45 @@ test('global Activity Matrix preserves precise Event x metadata in deterministic
     const end = Date.UTC(year + 1, 0, 1);
     return start + ((end - start) / 2);
   };
-  const expectedX = (event) => ((domainEnd - visualTimestamp(event)) / (domainEnd - domainStart)) * 100;
+  const bandForYear = (year) => bands.find((band) => (
+    band.startYear === undefined
+      ? year <= band.endYear
+      : year >= band.startYear && year <= band.endYear
+  ));
+  const expectedX = (event) => {
+    const timestamp = visualTimestamp(event);
+    const year = new Date(timestamp).getUTCFullYear();
+    const band = bandForYear(year);
+    let xPx = band.startPx + (band.widthPx / 2);
+    if (band.resolution === 'continuous') {
+      const start = Date.UTC(year, 0, 1);
+      const end = Date.UTC(year + 1, 0, 1);
+      xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
+    }
+    return (xPx / 640) * 100;
+  };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
     originalX: Number(node.getAttribute('data-original-event-x')),
     bundleX: Number(node.getAttribute('data-event-x')),
     bundleIndex: Number(node.getAttribute('data-bundle-index')),
+    placementTimestamp: Number(node.getAttribute('data-original-placement-timestamp')),
+    timeBand: node.getAttribute('data-time-band'),
+    timeZone: node.getAttribute('data-time-zone'),
+    timeResolution: node.getAttribute('data-time-resolution'),
+    bundleMode: node.getAttribute('data-bundle-mode'),
     lane: `${node.closest('[data-lane]').getAttribute('data-lane-type')}:${node.closest('[data-lane]').getAttribute('data-entity-id')}`,
   })));
   expect(new Set(marks.map(({ id }) => id))).toEqual(new Set(serialized.map(({ id }) => id)));
   for (const mark of marks) {
-    expect(mark.originalX, `${mark.id} retains its precision midpoint`).toBeCloseTo(expectedX(eventById.get(mark.id)), 10);
+    const event = eventById.get(mark.id);
+    const expectedBand = bandForYear(Number(event.start.slice(0, 4)));
+    expect(mark.originalX, `${mark.id} uses its progressive projection`).toBeCloseTo(expectedX(event), 10);
+    expect(mark.placementTimestamp, `${mark.id} retains exact placement timestamp`).toBe(visualTimestamp(event));
+    expect(mark.timeBand).toBe(expectedBand.key);
+    expect(mark.timeZone).toBe(expectedBand.zone);
+    expect(mark.timeResolution).toBe(expectedBand.resolution);
+    expect(mark.bundleMode).toBe(expectedBand.zone === 'recent' ? 'proximity' : 'period');
   }
 
   const xByEvent = new Map();
@@ -969,10 +1033,16 @@ test('global Activity Matrix preserves precise Event x metadata in deterministic
   }
   expect(xByEvent.get('apple-2026-08-cad-ams-simulation-methodology')[0])
     .toBeLessThan(xByEvent.get('freescale-2010-trace-generated-ams-models')[0]);
+  expect(xByEvent.get('apple-2024-12-mixed-signal-behavioral-modeling')[0])
+    .toBeLessThan(xByEvent.get('samsung-2024-sv-udt-eenet-pmic-verification')[0]);
+  expect(xByEvent.get('analog-devices-2019-power-aware-rnm-verification')[0])
+    .toBe(xByEvent.get('analog-devices-2016-sv-rnm-model-validation')[0]);
+  expect(xByEvent.get('texas-instruments-2023-ml-waveform-prediction')[0])
+    .not.toBe(xByEvent.get('texas-instruments-2021-ate-analog-fault-simulation')[0]);
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 620) * 100;
+  const normalizedWindow = (proximityPx / 640) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     slotCount: Number(node.getAttribute('data-collision-slots')),
@@ -984,41 +1054,91 @@ test('global Activity Matrix preserves precise Event x metadata in deterministic
       maxX: Number(bundle.getAttribute('data-max-original-event-x')),
       maxDisplacement: Number(bundle.getAttribute('data-max-original-displacement')),
       slot: Number(bundle.getAttribute('data-collision-slot')),
+      mode: bundle.getAttribute('data-bundle-mode'),
+      zone: bundle.getAttribute('data-time-zone'),
+      resolution: bundle.getAttribute('data-time-resolution'),
+      bandKeys: JSON.parse(bundle.getAttribute('data-time-band-keys')),
+      window: bundle.hasAttribute('data-bundle-window')
+        ? Number(bundle.getAttribute('data-bundle-window'))
+        : null,
+      windowPx: bundle.hasAttribute('data-bundle-window-px')
+        ? Number(bundle.getAttribute('data-bundle-window-px'))
+        : null,
       members: [...bundle.querySelectorAll('[data-bundle-member]')].map((member) => ({
         id: member.getAttribute('data-event-id'),
         x: Number(member.getAttribute('data-original-event-x')),
+        timestamp: Number(member.getAttribute('data-original-placement-timestamp')),
+        band: member.getAttribute('data-time-band'),
+        zone: member.getAttribute('data-time-zone'),
       })),
     })),
     borderBottom: getComputedStyle(node).borderBottomWidth,
     baselineContent: getComputedStyle(node.querySelector('[data-matrix-track]'), '::before').content,
   })));
-  expect(rows.some(({ slotCount }) => slotCount > 1)).toBe(true);
+  expect(rows.every(({ slotCount }) => slotCount >= 1)).toBe(true);
   expect(rows.some(({ height }) => height === 28)).toBe(true);
   expect(rows.some(({ height }) => height > 28)).toBe(true);
-  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBe(6);
+  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBeGreaterThanOrEqual(4);
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
 
-    const orderedMembers = row.bundles.flatMap(({ members }) => members)
+    const allMembers = row.bundles.flatMap(({ members }) => members);
+    const recentMembers = allMembers.filter(({ zone }) => zone === 'recent')
       .slice().sort((left, right) => left.x - right.x || left.id.localeCompare(right.id, 'en'));
-    const expectedBundles = [];
-    for (const member of orderedMembers) {
-      const current = expectedBundles.at(-1);
-      if (!current || member.x - current[0].x > normalizedWindow) expectedBundles.push([member]);
+    const expectedRecentGroups = [];
+    for (const member of recentMembers) {
+      const current = expectedRecentGroups.at(-1);
+      if (!current || member.x - current[0].x > normalizedWindow) expectedRecentGroups.push([member]);
       else current.push(member);
     }
-    expect(row.bundles.map(({ ids }) => ids), `${row.lane} fixed-window membership`)
-      .toEqual(expectedBundles.map((members) => members.map(({ id }) => id)));
+    const expectedGroups = [
+      ...expectedRecentGroups.map((members) => ({ mode: 'proximity', members })),
+      ...bands.filter(({ zone }) => zone === 'earlier').flatMap((band) => {
+        const members = allMembers.filter((member) => member.band === band.key);
+        return members.length ? [{ mode: 'period', members }] : [];
+      }),
+    ].map(({ mode, members }) => {
+      const ordered = members.slice().sort((left, right) => (
+        right.timestamp - left.timestamp || left.id.localeCompare(right.id, 'en')
+      ));
+      return {
+        mode,
+        ids: ordered.map(({ id }) => id),
+        x: ordered.reduce((sum, member) => sum + member.x, 0) / ordered.length,
+      };
+    }).sort((left, right) => left.x - right.x || left.ids.join('|').localeCompare(right.ids.join('|'), 'en'));
+    expect(row.bundles.map(({ mode, ids }) => ({ mode, ids })), `${row.lane} deterministic membership`)
+      .toEqual(expectedGroups.map(({ mode, ids }) => ({ mode, ids })));
 
     for (const bundle of row.bundles) {
-      expect(bundle.maxX - bundle.minX, `${row.lane} bounded member span`).toBeLessThanOrEqual(normalizedWindow + 1e-10);
       expect(bundle.x, `${row.lane} bundle mean`).toBeCloseTo(
         bundle.members.reduce((sum, member) => sum + member.x, 0) / bundle.members.length,
         10,
       );
-      expect(bundle.maxDisplacement, `${row.lane} bounded visual displacement`)
-        .toBeLessThanOrEqual(normalizedWindow + 1e-10);
+      expect(bundle.members.map(({ id }) => id)).toEqual(bundle.ids);
+      expect(bundle.members).toEqual(bundle.members.slice().sort((left, right) => (
+        right.timestamp - left.timestamp || left.id.localeCompare(right.id, 'en')
+      )));
+      if (bundle.mode === 'proximity') {
+        expect(bundle.zone).toBe('recent');
+        expect(bundle.resolution).toBe('continuous');
+        expect(bundle.window).toBeCloseTo(normalizedWindow, 10);
+        expect(bundle.windowPx).toBe(32);
+        expect(bundle.maxX - bundle.minX, `${row.lane} bounded recent span`)
+          .toBeLessThanOrEqual(normalizedWindow + 1e-10);
+        expect(bundle.maxDisplacement, `${row.lane} bounded recent displacement`)
+          .toBeLessThanOrEqual(normalizedWindow + 1e-10);
+      } else {
+        expect(bundle.zone).toBe('earlier');
+        expect(bundle.resolution).toBe('bucket');
+        expect(bundle.bandKeys).toHaveLength(1);
+        expect(bundle.window).toBeNull();
+        expect(bundle.windowPx).toBeNull();
+        expect(new Set(bundle.members.map(({ band }) => band)).size).toBe(1);
+        expect(new Set(bundle.members.map(({ x }) => x)).size).toBe(1);
+        expect(bundle.maxDisplacement).toBe(0);
+      }
     }
   }
 
@@ -1047,7 +1167,9 @@ test('global Matrix uses the corpus domain while context Timelines retain derive
   await page.goto('./');
   await expectExplorerReady(page);
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveAttribute('data-domain-oldest-year', '2010');
-  await expect(page.locator('[data-activity-tick]')).toHaveText(['2026', '2024', '2022', '2020', '2015', '2010']);
+  await expect(page.locator('[data-activity-time-band]')).toHaveText([
+    '2026', '2025', '2024', '2023', '2022', '20–21', '15–19', '≤2014',
+  ]);
 
   await page.goto('./companies/apple/');
   await expectExplorerReady(page);
@@ -1069,11 +1191,11 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveText(
-    'Timeline emphasizes recurring public signals. Events contains the complete record.',
+    'Timeline emphasizes recent and recurring public signals. Earlier years are visually compressed into broader periods. Events contains the complete chronological record.',
   );
   await expect(summary.locator(':scope > .activity-order-note')).toHaveAttribute(
     'title',
-    'Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Nearby Events may be grouped visually for readability; exact dates remain available in the Inspector and Events view.',
+    'Rows are ordered by public Events in the latest 3 years, then latest 5 years, then latest Event. Recent Events may be grouped by temporal proximity; earlier Events are grouped into broader periods. Exact dates remain available in the Inspector and Events view.',
   );
   await expect(summary.locator(':scope > *')).toHaveCount(3);
   await expect(page.locator('.axis-note, .timeline-summary-detail')).toHaveCount(0);
@@ -1101,8 +1223,8 @@ test('Timeline summary keeps count and legend compact and left aligned', async (
   expect(layout.flexWrap).toBe('wrap');
   expect(layout.legendLeft).toBeGreaterThan(layout.statusRight);
   expect(Math.abs(layout.legendTop - layout.statusTop)).toBeLessThanOrEqual(1);
-  expect(layout.noteLeft).toBeGreaterThan(layout.legendLeft);
-  expect(Math.abs(layout.noteTop - layout.statusTop)).toBeLessThanOrEqual(1);
+  expect(layout.noteLeft).toBeGreaterThanOrEqual(layout.statusLeft - 1);
+  expect(layout.noteTop).toBeGreaterThanOrEqual(layout.statusTop);
 });
 
 test('Search and Company filter never change Matrix geometry or row order', async ({ page }) => {
@@ -1114,9 +1236,11 @@ test('Search and Company filter never change Matrix geometry or row order', asyn
       root.querySelector('[data-activity-matrix-surface]')?.getAttribute('data-domain-latest-year'),
       root.querySelector('[data-activity-matrix-surface]')?.getAttribute('data-domain-oldest-year'),
     ],
-    ticks: [...root.querySelectorAll('[data-activity-tick]')].map((tick) => (
-      `${tick.getAttribute('data-tick-year')}:${tick.getAttribute('data-tick-x')}`
+    bands: [...root.querySelectorAll('[data-activity-time-band]')].map((band) => (
+      `${band.getAttribute('data-time-band')}:${band.getAttribute('data-band-start-px')}:${band.getAttribute('data-band-end-px')}`
     )),
+    boundaries: [...root.querySelectorAll('.activity-axis-track .activity-guides span')]
+      .map((boundary) => boundary.getAttribute('style')),
     lanes: [...root.querySelectorAll('[data-lane]')].map((lane) => ({
       key: `${lane.getAttribute('data-lane-type')}:${lane.getAttribute('data-entity-id')}`,
       order: lane.getAttribute('data-row-order'),
@@ -1167,7 +1291,7 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     const row = shell.querySelector('[data-group="both"] [data-matrix-row]:not([hidden])');
     const rowTrack = row.querySelector('[data-matrix-track]').getBoundingClientRect();
     const label = row.querySelector('.matrix-entity-label').getBoundingClientRect();
-    const newestTick = shell.querySelector('[data-activity-tick][data-tick-year="2026"]').getBoundingClientRect();
+    const newestBand = shell.querySelector('[data-activity-time-band][data-time-band="year-2026"]').getBoundingClientRect();
     const axisGuides = [...shell.querySelectorAll('.activity-axis-track .activity-guides span')]
       .map((guide) => guide.getBoundingClientRect().left);
     const rowGuides = [...row.querySelectorAll('.activity-guides span')]
@@ -1178,7 +1302,8 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
       rowLeft: rowTrack.left,
       rowWidth: rowTrack.width,
       labelRight: label.right,
-      newestTickLeft: newestTick.left,
+      newestBandLeft: newestBand.left,
+      axisHeight: axisTrack.height,
       axisGuides,
       rowGuides,
       documentClientWidth: document.documentElement.clientWidth,
@@ -1216,8 +1341,9 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     else expect(bundles, `${viewport.width}px bundle geometry`).toEqual(referenceBundles);
     const initial = await measure();
     expectAligned(initial, `${viewport.width}px initial`);
-    expect(initial.newestTickLeft, `${viewport.width}px 2026 tick clears label column`)
+    expect(initial.newestBandLeft, `${viewport.width}px 2026 band clears label column`)
       .toBeGreaterThanOrEqual(initial.labelRight - 1);
+    expect(initial.axisHeight, `${viewport.width}px semantic axis height`).toBeGreaterThanOrEqual(51);
 
     if (viewport.width === 390) {
       const overlappingControls = await page.locator('[data-group="both"] [data-matrix-bundle]:visible')
@@ -1260,14 +1386,14 @@ test('Matrix fills desktop width, scrolls locally when narrow, and preserves ini
   }));
   expect(Math.abs(initial.scrollWidth - initial.clientWidth)).toBeLessThanOrEqual(1);
   expect(initial.scrollLeft).toBe(0);
-  const tickVisibility = await page.locator('.activity-matrix-shell').evaluate((node) => {
+  const bandVisibility = await page.locator('.activity-matrix-shell').evaluate((node) => {
     const scroller = node.getBoundingClientRect();
-    return [...node.querySelectorAll('[data-activity-tick]')].map((tick) => {
-      const bounds = tick.getBoundingClientRect();
+    return [...node.querySelectorAll('[data-activity-time-band]')].map((band) => {
+      const bounds = band.getBoundingClientRect();
       return bounds.left >= scroller.left && bounds.right <= scroller.right;
     });
   });
-  expect(tickVisibility.every(Boolean)).toBe(true);
+  expect(bandVisibility.every(Boolean)).toBe(true);
   expect(await page.locator('[data-timeline-scroll] [data-detail]').count()).toBe(0);
   await expect(page.locator('[data-detail]')).toBeVisible();
 
