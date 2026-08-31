@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-serdes-ams-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP seeks end-to-end AMS verification ownership for high-speed SerDes IP",
+  "fact": "NXP posted a Principal AMS Verification Engineer role to own SerDes verification from concept through sign-off. The description covers UVM and UVM-AMS environments, RNM and Verilog-AMS model development and validation, PLL and CDR behavior, link training and adaptation, jitter and noise analysis, assertions and coverage, PVT and stress verification, and correlation among MATLAB or Python, behavioral models, and transistor-level simulation. This is evidence of a hiring mandate, not proof of project completion.",
+  "sources": [
+    {
+      "title": "NXP Careers: Principal AMS Verification Engineer (R-10063362)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Bangalore/Principal-AMS-Verification-Engineer_R-10063362",
+      "checkedAt": "2026-08-31",
+      "summary": "The official NXP Workday record describes the Bangalore SerDes verification role and its UVM/UVM-AMS, RNM/VAMS, PLL/CDR, robustness, coverage, and cross-abstraction correlation scope; it exposes only a mutable relative posting age, so the Event uses year precision."
+    }
+  ]
+}

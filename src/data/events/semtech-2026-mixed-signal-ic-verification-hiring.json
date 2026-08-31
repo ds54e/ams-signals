@@ -1,0 +1,28 @@
+{
+  "id": "semtech-2026-mixed-signal-ic-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "semtech"
+  ],
+  "people": [],
+  "headline": "Semtech lists cross-site roles for block-to-chip mixed-signal IC verification",
+  "fact": "Semtech posted related senior verification roles in San Diego and Hyderabad covering verification plans for mixed-signal IP, subsystems, and full ICs; SystemVerilog and UVM testbenches; RTL, gate-level, and AMS simulation; constrained-random stimulus; assertions, functional and code coverage; continuous integration and regression automation; and desired SV-RNM or Verilog behavioral modeling. The San Diego role is tied to low-power sensing ICs with ADCs. These postings evidence a hiring mandate, not completed deployment.",
+  "sources": [
+    {
+      "title": "Semtech Careers: Sr. Verification Engineer – Mixed-Signal ICs (REQ2930)",
+      "url": "https://semtech.wd1.myworkdayjobs.com/en-US/SemtechCareers/job/Sr-Verification-Engineer---Mixed-Signal-ICs_REQ2930",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Workday record describes a San Diego sensing-IC role spanning block/chip AMS, UVM, coverage, CI/regressions, and desired SV-RNM or behavioral modeling; it shows only a mutable relative posting age."
+    },
+    {
+      "title": "Semtech Careers: Sr. Staff Verification Engineer (REQ2988)",
+      "url": "https://semtech.wd1.myworkdayjobs.com/en-US/SemtechCareers/job/Sr-Staff-Verification-Engineer_REQ2988",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Workday record describes the corresponding Hyderabad mandate for mixed-signal IP-through-chip verification, UVM, AMS simulation, coverage, automation, and desired analog behavioral modeling."
+    }
+  ]
+}

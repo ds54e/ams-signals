@@ -1,0 +1,22 @@
+{
+  "id": "synopsys-2023-power-aware-rnm-patent",
+  "when": {
+    "start": "2023-10-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "A Synopsys patent discloses power-aware RNM synchronization across UPF and HDL descriptions",
+  "fact": "U.S. patent US11797742B1, assigned to Synopsys, describes power-aware real-number modeling for dynamic mixed-signal verification. The disclosure detects mismatches between power-supply network and RTL HDL descriptions, generates runtime value converters for RNM analog boundaries, and can insert assertions to detect inconsistent supply values. This Event records a patent disclosure; publication does not establish customer use or product deployment.",
+  "sources": [
+    {
+      "title": "US11797742B1 — Power aware real number modeling in dynamic verification of mixed-signal integrated circuit design",
+      "url": "https://patents.google.com/patent/US11797742B1/en",
+      "checkedAt": "2026-08-31",
+      "summary": "The patent record identifies Synopsys as assignee, names the inventors, dates publication to October 24, 2023, and describes UPF/HDL power synchronization, runtime value conversion, and mismatch assertions at RNM boundaries."
+    }
+  ]
+}
