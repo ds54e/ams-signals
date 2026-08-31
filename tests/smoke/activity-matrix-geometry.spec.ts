@@ -1,9 +1,6 @@
 import { expect, test } from '@playwright/test';
 import {
-  ACTIVITY_MATRIX_BUNDLE_CELL_SIZE,
-  ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS,
-  ACTIVITY_MATRIX_MIN_COLLISION_WIDTH,
   activityMatrixBundleColumns,
   activityMatrixBundleRows,
   activityMatrixBundleWidthPx,
@@ -156,11 +153,30 @@ test('bundles use up to three columns and actual width for collision placement',
   expect(ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS).toBe(3);
   expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns)).toEqual([1, 2, 3, 3, 3, 3]);
   expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleRows)).toEqual([1, 1, 1, 2, 2, 2]);
-  expect(activityMatrixBundleWidthPx(3)).toBe(
-    (3 * ACTIVITY_MATRIX_BUNDLE_CELL_SIZE) + (2 * ACTIVITY_MATRIX_BUNDLE_GAP),
-  );
+  expect([1, 2, 3, 4, 5].map(activityMatrixBundleWidthPx)).toEqual([16, 34, 52, 52, 52]);
+
+  for (const [memberCount, collisionWidthPx] of [[1, 16], [2, 34], [3, 52], [4, 52], [5, 52], [6, 52]]) {
+    const [bundle] = buildActivityMatrixBundles(
+      Array.from({ length: memberCount }, (_, index) => event(`period-${memberCount}-${index}`, '2023', 'year')),
+      deriveActivityMatrixTimeBands(2026, currentDensity),
+    );
+    expect(bundle.bundleWidthPx).toBe(collisionWidthPx);
+    expect(bundle.collisionWidthPx).toBe(collisionWidthPx);
+  }
 
   const bands = deriveActivityMatrixTimeBands(2026, { 'year-2026': 20 });
+  const separatedSingles = buildActivityMatrixBundles([
+    event('single-new', '2026-12-31'),
+    event('single-old', '2026-10-13'),
+  ], bands);
+  expect(separatedSingles).toHaveLength(2);
+  expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeGreaterThan(32);
+  expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeLessThan(36);
+  expect(separatedSingles.map(({ collisionWidthPx, slot }) => ({ collisionWidthPx, slot }))).toEqual([
+    { collisionWidthPx: 16, slot: 0 },
+    { collisionWidthPx: 16, slot: 0 },
+  ]);
+
   const bundles = buildActivityMatrixBundles([
     event('new-a', '2026-12-31'),
     event('new-b', '2026-12-20'),
@@ -179,7 +195,7 @@ test('bundles use up to three columns and actual width for collision placement',
     bundleWidthPx: 52,
     collisionWidthPx: 52,
   }));
-  expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeGreaterThan(ACTIVITY_MATRIX_MIN_COLLISION_WIDTH);
+  expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeGreaterThan(32);
   expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeLessThan(52);
   expect(bundles[0].slot).not.toBe(bundles[1].slot);
 });
