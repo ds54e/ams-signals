@@ -76,7 +76,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
 });
 
-test('Articles publishes the current author-supplied documents and keeps editorial links separate', async ({ page }) => {
+test('Articles publishes every authored document and keeps editorial links separate', async ({ page }) => {
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
@@ -102,63 +102,89 @@ test('Articles publishes the current author-supplied documents and keeps editori
   await expect(page).toHaveTitle('Articles · AMS Signals');
   await expect(page.getByRole('heading', { name: 'Articles', exact: true, level: 1 })).toBeVisible();
   await expect(page.getByText('No articles yet.', { exact: true })).toHaveCount(0);
-  const articleRoutes = [
-    {
-      slug: 'pll-metamorphic-testing',
-      title: '「正解波形」を用意せずにPLLを検証する',
-      relatedEvents: ['cadence-2026-metamorphic-testing-rnm'],
-    },
-    {
-      slug: 'uvm-ms-2011-to-2025',
-      title: 'UVM-MSは2025年に標準化された。では2011年のUVM-MSは何だったのか？',
-      relatedEvents: [
-        'lsi-2011-2012-hdd-preamplifier-rnm-verification',
-        'ecosystem-2025-02-uvm-ms-1-standard',
-      ],
-    },
-    {
-      slug: 'why-analog-verification-engineers-emerged',
-      title: 'アナログ検証エンジニアは、なぜ必要になったのか',
-      relatedEvents: [],
-    },
-  ];
   const articleLinks = page.locator('.article-list > li h2 a');
-  await expect(articleLinks).toHaveText(articleRoutes.map(({ title }) => title));
-  expect(await articleLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
-    articleRoutes.map(({ slug }) => `${basePath}articles/${slug}/`),
-  );
+  const indexUrl = page.url();
+  const articleEntries = await articleLinks.evaluateAll((links) => links.map((link) => ({
+    title: link.textContent?.trim() ?? '',
+    href: link.getAttribute('href') ?? '',
+  })));
+  expect(articleEntries.length, 'Articles index should publish at least one Article').toBeGreaterThan(0);
+
+  const articles = articleEntries.map(({ title, href }) => ({
+    title,
+    href: new URL(href, indexUrl).href,
+  }));
+  for (const [index, article] of articles.entries()) {
+    await expect(articleLinks.nth(index)).toBeVisible();
+    expect(article.title, `Article title for ${article.href}`).not.toBe('');
+    const articleUrl = new URL(article.href);
+    expect(articleUrl.origin).toBe(new URL(indexUrl).origin);
+    expect(articleUrl.pathname).toMatch(new RegExp(`^${basePath}articles/[^/]+/$`));
+  }
+  expect(new Set(articles.map(({ href }) => href)).size).toBe(articles.length);
   await expect(page.locator('main article')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
-  expect((await page.request.get('./articles/future-article/')).status()).toBe(404);
+  expect((await page.request.get('./articles/__nonexistent-smoke-route__/')).status()).toBe(404);
 
-  for (const article of articleRoutes) {
-    await page.goto(`./articles/${article.slug}/`);
+  const relationshipsByEvent = new Map();
+  for (const article of articles) {
+    const errorCountBeforeNavigation = browserErrors.get(page).length;
+    const response = await page.goto(article.href);
+    expect(response?.status(), `HTTP status for ${article.href}`).toBe(200);
     await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
     await expect(page.getByRole('heading', { name: article.title, exact: true, level: 1 })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
-    await expect(page.locator('.article-related')).toHaveCount(article.relatedEvents.length > 0 ? 1 : 0);
-    const relatedEventLinks = page.locator('.article-related a');
-    await expect(relatedEventLinks).toHaveCount(article.relatedEvents.length);
-    expect(await relatedEventLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
-      article.relatedEvents.map((eventId) => `${basePath}events/${eventId}/`),
-    );
+    await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
+    await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
+
+    const relatedSection = page.locator('.article-related');
+    const relatedSectionCount = await relatedSection.count();
+    expect(relatedSectionCount, `Related events section count for ${article.href}`).toBeLessThanOrEqual(1);
+    const relatedEventHrefs = await relatedSection.locator('a[href]').evaluateAll((links) => (
+      links.map((link) => link.getAttribute('href') ?? '')
+    ));
+
+    if (relatedSectionCount === 0) {
+      expect(relatedEventHrefs).toEqual([]);
+    } else {
+      await expect(relatedSection.getByRole('heading', { name: 'Related events', exact: true, level: 2 }))
+        .toBeVisible();
+      expect(relatedEventHrefs.length, `Related Event links for ${article.href}`).toBeGreaterThan(0);
+    }
+
+    const normalizedEventHrefs = relatedEventHrefs.map((href) => new URL(href, article.href).href);
+    expect(new Set(normalizedEventHrefs).size, `Unique Related Event links for ${article.href}`)
+      .toBe(normalizedEventHrefs.length);
+    for (const eventHref of normalizedEventHrefs) {
+      const eventUrl = new URL(eventHref);
+      expect(eventUrl.origin).toBe(new URL(article.href).origin);
+      expect(eventUrl.pathname).toMatch(new RegExp(`^${basePath}events/[^/]+/$`));
+      const articleHrefs = relationshipsByEvent.get(eventHref) ?? new Set();
+      articleHrefs.add(article.href);
+      relationshipsByEvent.set(eventHref, articleHrefs);
+    }
+
+    expect(
+      browserErrors.get(page).slice(errorCountBeforeNavigation),
+      `browser console and page errors for ${article.href}`,
+    ).toEqual([]);
   }
 
-  const reverseLinks = [
-    ['lsi-2011-2012-hdd-preamplifier-rnm-verification', 'uvm-ms-2011-to-2025'],
-    ['ecosystem-2025-02-uvm-ms-1-standard', 'uvm-ms-2011-to-2025'],
-    ['cadence-2026-metamorphic-testing-rnm', 'pll-metamorphic-testing'],
-  ];
-
-  for (const [eventId, articleSlug] of reverseLinks) {
-    await page.goto(`./events/${eventId}/`);
-    await expect(page.locator('.record-page > section > h2')).toHaveText(['Evidence', 'Related articles']);
-    await expect(page.locator('.related-articles a')).toHaveAttribute(
-      'href',
-      `${basePath}articles/${articleSlug}/`,
-    );
+  for (const [eventHref, articleHrefs] of relationshipsByEvent) {
+    const response = await page.goto(eventHref);
+    expect(response?.status(), `HTTP status for ${eventHref}`).toBe(200);
+    const relatedArticles = page.locator('.related-articles');
+    await expect(page.locator('.record-page > section > h2').first()).toHaveText('Evidence');
+    await expect(relatedArticles.getByRole('heading', { name: 'Related articles', exact: true, level: 2 }))
+      .toBeVisible();
+    const reverseArticleHrefs = await relatedArticles.locator('a[href]').evaluateAll((links) => (
+      links.map((link) => link.href)
+    ));
+    for (const articleHref of articleHrefs) {
+      expect(reverseArticleHrefs, `${eventHref} should link back to ${articleHref}`).toContain(articleHref);
+    }
   }
 });
 
