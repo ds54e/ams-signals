@@ -20,10 +20,17 @@ const personEvents = events.filter((event) => event.data.people.includes(person.
   title={`${person.data.name} · AMS Signals`}
   description={`Public technical and organizational Events linked to ${person.data.name}.`}
 >
-  <section class="intro compact">
-    <p class="eyebrow">PERSON TIMELINE</p>
+  <header class="entity-header">
     <h1>{person.data.name}</h1>
-    <p class="lede">Public technical and organizational events indexed by this site.</p>
-  </section>
-  <EventExplorer events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
+    <p class="entity-meta">{personEvents.length} indexed {personEvents.length === 1 ? 'event' : 'events'}</p>
+    <p class="entity-note">Public technical and organizational events indexed by this site.</p>
+  </header>
+  {personEvents.length > 0 ? (
+    <EventExplorer events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
+  ) : (
+    <section class="entity-empty-state" aria-labelledby="person-empty-heading">
+      <h2 id="person-empty-heading">No events are currently indexed</h2>
+      <p>The current public-source record does not contain an indexed Event for this person.</p>
+    </section>
+  )}
 </BaseLayout>

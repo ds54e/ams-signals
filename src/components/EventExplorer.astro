@@ -175,13 +175,13 @@ const matrixMarkLabel = (event: EventEntry) => (
   <div class="event-filter-utility">
     <div class="event-filters" role="group" aria-label="Event filters">
       <label class="search-control">
-        <span class:list={[showGlobalControls && 'visually-hidden']}>Search events</span>
+        <span class="visually-hidden">Search events</span>
         <input data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
       </label>
 
       {showSignalTypeControl && (
         <label class="select-control">
-          <span class:list={[showGlobalControls && 'visually-hidden']}>Signal type</span>
+          <span class="visually-hidden">Signal type</span>
           <select data-kind>
             <option value="all">All types</option>
             <option value="technical">Technical</option>
@@ -545,21 +545,6 @@ const matrixMarkLabel = (event: EventEntry) => (
               )}
               <p class="result-fact">{event.data.fact}</p>
               <p class="result-match" data-result-match hidden></p>
-              <div class="result-links">
-                <a href={sitePath(`events/${event.data.id}/`)}>Event</a>
-                {event.data.sources.map((source) => (
-                  source.status === 'unavailable' ? (
-                    <span class="inline-source-unavailable" title="Original URL unavailable on last check">{source.title} · unavailable</span>
-                  ) : (
-                    <a href={source.url} target="_blank" rel="noreferrer">
-                      {source.title} ↗ <span class="inline-availability">available</span>
-                    </a>
-                  )
-                ))}
-                {event.data.sources.filter((source) => source.archiveUrl).map((source) => (
-                  <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archive: {source.title} ↗</a>
-                ))}
-              </div>
             </div>
           </article>
         );

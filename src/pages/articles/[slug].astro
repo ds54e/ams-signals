@@ -26,9 +26,9 @@ const { Content } = await render(article);
   description={article.data.summary}
   lang="ja"
 >
-  <article class="article-page">
-    <header class="article-header">
-      <p class="article-dates">
+  <article class="document-page article-page">
+    <header class="document-header article-header">
+      <p class="quiet-meta article-dates">
         {article.data.updated ? (
           <>
             Published <time datetime={article.data.published}>{article.data.published}</time>
@@ -46,8 +46,25 @@ const { Content } = await render(article);
       <Content />
     </div>
 
+    {article.data.sources.length > 0 && (
+      <section class="terminal-section article-sources" aria-labelledby="article-sources-heading">
+        <h2 id="article-sources-heading">Sources</h2>
+        <ol>
+          {article.data.sources.map((source, index) => (
+            <li id={`source-${index + 1}`}>
+              <span class="article-source-number" aria-hidden="true">[{index + 1}]</span>
+              <div>
+                <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
+                <p>{source.publisher}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
     {relatedEvents.length > 0 && (
-      <section class="article-related" aria-labelledby="related-events-heading">
+      <section class="terminal-section article-related" aria-labelledby="related-events-heading">
         <h2 id="related-events-heading">Related events</h2>
         <ol>
           {relatedEvents.map((event) => (
