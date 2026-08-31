@@ -2,6 +2,16 @@
 title: "「正解波形」を用意せずにPLLを検証する"
 published: "2026-08-31"
 summary: "2021年のPLLと2026年のRNM事例から、正解波形を用意せずテスト同士の関係で判定するmetamorphic testingを見る。"
+sources:
+  - title: "System Level Verification of Phase-Locked Loop using Metamorphic Relations"
+    publisher: "Institute for Complex Systems"
+    url: "https://ics.jku.at/files/2021DATE_SystemLevel-PLL-Metamorphic.pdf"
+  - title: "System Level Verification of Phase-Locked Loop using Metamorphic Relations"
+    publisher: "DATE Conference"
+    url: "https://past.date-conference.com/proceedings-archive/2021/pdf/1933.pdf"
+  - title: "2026 Technical Sessions"
+    publisher: "DVCon U.S."
+    url: "https://dvcon.org/program/2026/2026-technical-sessions"
 relatedEvents:
   - cadence-2026-metamorphic-testing-rnm
 ---
@@ -10,13 +20,13 @@ relatedEvents:
 
 AMS検証を自動化しようとすると、テストを回すところまでは比較的やりやすいのですが、その結果が正しいかどうかをどう判定するかで困ることがあります。RNMなら参照モデルと比較する、回路なら期待値を計算するといった方法がありますが、入力条件が増えるほど「正解」を用意する側も大きくなっていきます。
 
-2021年のDATEに、この問題を別の方向から扱ったPLLの論文があります。「System Level Verification of Phase-Locked Loop using Metamorphic Relations」というもので、産業用のPLLモデルにmetamorphic testingを適用しています。もともと用意されていたテストはすべて通っていましたが、追加したテストから不具合が見つかりました。論文のabstractでも、industrial PLLからcritical bugを発見したと報告されています。([Institute for Complex Systems](https://ics.jku.at/files/2021DATE_SystemLevel-PLL-Metamorphic.pdf?utm_source=chatgpt.com "System Level Verification of Phase-Locked Loop using Metamorphic Relations"))
+2021年のDATEに、この問題を別の方向から扱ったPLLの論文があります。「System Level Verification of Phase-Locked Loop using Metamorphic Relations」というもので、産業用のPLLモデルにmetamorphic testingを適用しています。もともと用意されていたテストはすべて通っていましたが、追加したテストから不具合が見つかりました。論文のabstractでも、industrial PLLからcritical bugを発見したと報告されています。[[1]](#source-1)
 
 追加したテスト自体は、かなり単純なものでした。
 
 ## 1MHzから1.01MHzに変えてみる
 
-PLLがロックしている状態でリファレンス周波数を一定の割合で変えれば、分周後の周波数も同じ割合で変わるはずです。論文では、このような複数の実行結果の関係を検証条件として使っています。([Past Date Conference](https://past.date-conference.com/proceedings-archive/2021/pdf/1933.pdf?utm_source=chatgpt.com "System Level Veriﬁcation of Phase-Locked Loop"))
+PLLがロックしている状態でリファレンス周波数を一定の割合で変えれば、分周後の周波数も同じ割合で変わるはずです。論文では、このような複数の実行結果の関係を検証条件として使っています。[[2]](#source-2)
 
 | リファレンス周波数分周後の周波数 |         |                 |
 | ---------------- | ------- | --------------- |
@@ -25,7 +35,7 @@ PLLがロックしている状態でリファレンス周波数を一定の割�
 
 1MHzで正常に動いたPLLに対して、入力だけ1%上げて1.01MHzにします。このとき、1.01MHz用の正解波形を別に用意するわけではありません。「入力周波数を1%上げれば、ロック後の周波数も対応して変わる」という関係を確認します。
 
-論文では、この条件に変えると期待した関係が崩れ、PLLは1.01MHzではなく50kHz付近の低い周波数へ誤ってロックしました。原因を追うとPFDにデッドゾーンがあり、ANDゲートからフリップフロップのリセットまでの経路に遅延素子が入っていませんでした。遅延を追加するとPLLは正常に動作し、同じテストも通るようになります。([Past Date Conference](https://past.date-conference.com/proceedings-archive/2021/pdf/1933.pdf?utm_source=chatgpt.com "System Level Veriﬁcation of Phase-Locked Loop"))
+論文では、この条件に変えると期待した関係が崩れ、PLLは1.01MHzではなく50kHz付近の低い周波数へ誤ってロックしました。原因を追うとPFDにデッドゾーンがあり、ANDゲートからフリップフロップのリセットまでの経路に遅延素子が入っていませんでした。遅延を追加するとPLLは正常に動作し、同じテストも通るようになります。[[2]](#source-2)
 
 もともとのテストセットでは見つからなかった問題が、入力を1%変えたときの結果の変化から見つかったことになります。
 
@@ -33,7 +43,7 @@ PLLがロックしている状態でリファレンス周波数を一定の割�
 
 こうした複数のテスト結果の関係を利用する方法がmetamorphic testingです。個々の入力に対する正解値を用意する代わりに、入力を変えたときに出力がどう変わるべきかを決めておきます。
 
-2021年のPLL論文では、PLLやその内部ブロックについて8種類の関係が用意され、コンポーネント単位とシステム単位の両方で検証しています。アナログからデジタル、デジタルからアナログ、デジタル同士の振る舞いをまたぐ関係まで対象になっています。([Institute for Complex Systems](https://ics.jku.at/files/2021DATE_SystemLevel-PLL-Metamorphic.pdf?utm_source=chatgpt.com "System Level Verification of Phase-Locked Loop using Metamorphic Relations"))
+2021年のPLL論文では、PLLやその内部ブロックについて8種類の関係が用意され、コンポーネント単位とシステム単位の両方で検証しています。アナログからデジタル、デジタルからアナログ、デジタル同士の振る舞いをまたぐ関係まで対象になっています。[[1]](#source-1)
 
 たとえば、
 
@@ -47,7 +57,7 @@ PLLがロックしている状態でリファレンス周波数を一定の割�
 
 ## 2026年にはRNMでも使われている
 
-DVCon U.S. 2026では、CadenceのDaniel Crossが「Application of Metamorphic Testing to Mixed Signal Systems with Behavioral Models」を発表しています。2021年のPLL研究から5年後に、同じ考え方がbehavioral modelを使ったミックスドシグナル検証にも持ち込まれています。([dvconus](https://dvcon.org/program/2026/2026-technical-sessions?utm_source=chatgpt.com "2026 Technical Sessions | DVCon U.S."))
+DVCon U.S. 2026では、CadenceのDaniel Crossが「Application of Metamorphic Testing to Mixed Signal Systems with Behavioral Models」を発表しています。2021年のPLL研究から5年後に、同じ考え方がbehavioral modelを使ったミックスドシグナル検証にも持ち込まれています。[[3]](#source-3)
 
 対象は、受信系のベースバンド、ADC、AGCを含むシステムです。入力信号の振幅を変えたとき、ADC出力とRSSIがどう変化するかを使って判定しています。
 
@@ -82,8 +92,8 @@ metamorphic testingで使う条件は少し性質が違います。たとえば�
 
 ## まとめ
 
-2021年のPLLでは、もともとのテストをすべて通過したあと、リファレンス周波数を1MHzから1.01MHzへ変えたテストとの関係を確認したことで、50kHzへの誤ロックが見つかりました。原因だったPFDのデッドゾーンを修正すると、同じ条件を満たすようになっています。([Past Date Conference](https://past.date-conference.com/proceedings-archive/2021/pdf/1933.pdf?utm_source=chatgpt.com "System Level Veriﬁcation of Phase-Locked Loop"))
+2021年のPLLでは、もともとのテストをすべて通過したあと、リファレンス周波数を1MHzから1.01MHzへ変えたテストとの関係を確認したことで、50kHzへの誤ロックが見つかりました。原因だったPFDのデッドゾーンを修正すると、同じ条件を満たすようになっています。[[2]](#source-2)
 
-この例で使われたのは、1.01MHzに対する詳細な正解波形ではありません。PLLが正常なら、入力周波数を変えたときに出力側も対応して変わるという性質でした。2026年にはCadenceが同じ考え方をbehavioral modelを使ったミックスドシグナル検証にも適用しています。([dvconus](https://dvcon.org/program/2026/2026-technical-sessions?utm_source=chatgpt.com "2026 Technical Sessions | DVCon U.S."))
+この例で使われたのは、1.01MHzに対する詳細な正解波形ではありません。PLLが正常なら、入力周波数を変えたときに出力側も対応して変わるという性質でした。2026年にはCadenceが同じ考え方をbehavioral modelを使ったミックスドシグナル検証にも適用しています。[[3]](#source-3)
 
 AMS検証を自動判定にしようとすると、参照モデルやmodel-vs-schematicをまず考えがちですが、判定に使えるのは正解値だけではありません。「入力をこう変えたら、出力はこう変わる」という回路の性質もテスト条件にできます。通常のテストをすり抜けたPLLの不具合が実際に見つかったことを考えると、シミュレーションの本数だけでなく、結果をどう判定するかにもまだ工夫の余地がありそうです。

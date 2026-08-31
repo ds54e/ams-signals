@@ -1,24 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { findArticlesForEvent, validateArticleRelations } from '../../lib/articles';
 import { eventKindLabel, formatWhen } from '../../lib/content';
 import { sitePath } from '../../lib/paths';
 
 export async function getStaticPaths() {
-  const [events, articles] = await Promise.all([
-    getCollection('events'),
-    getCollection('articles'),
-  ]);
-  validateArticleRelations(articles, events);
+  const events = await getCollection('events');
 
   return events.map((event) => ({
     params: { id: event.data.id },
-    props: { event, relatedArticles: findArticlesForEvent(articles, event.data.id) },
+    props: { event },
   }));
 }
 
-const { event, relatedArticles } = Astro.props;
+const { event } = Astro.props;
 const [companies, people] = await Promise.all([
   getCollection('companies'),
   getCollection('people'),
@@ -30,18 +25,19 @@ const personMap = new Map(people.map((person) => [person.data.id, person.data.na
   title={`${event.data.headline} · AMS Signals`}
   description={`Factual public Event and supporting evidence for ${event.data.headline}.`}
 >
-  <article class="record-page">
-    <a class="back-link" href={sitePath('events/')}>← Events</a>
-    <p class="event-meta">{formatWhen(event)} · {eventKindLabel(event.data.kind)}</p>
-    <h1>{event.data.headline}</h1>
-    <div class="record-context" aria-label="Linked entities">
-      {event.data.companies.map((id) => <a href={sitePath(`companies/${id}/`)}>{companyMap.get(id) ?? id}</a>)}
-      {event.data.people.map((id) => <a href={sitePath(`people/${id}/`)}>{personMap.get(id) ?? id}</a>)}
-    </div>
+  <article class="document-page record-page">
+    <header class="document-header record-header">
+      <p class="quiet-meta event-meta">{formatWhen(event)} · {eventKindLabel(event.data.kind)}</p>
+      <h1>{event.data.headline}</h1>
+      <div class="document-context record-context" aria-label="Linked entities">
+        {event.data.companies.map((id) => <a href={sitePath(`companies/${id}/`)}>{companyMap.get(id) ?? id}</a>)}
+        {event.data.people.map((id) => <a href={sitePath(`people/${id}/`)}>{personMap.get(id) ?? id}</a>)}
+      </div>
+    </header>
     <p class="record-fact">{event.data.fact}</p>
 
-    <section>
-      <h2>Evidence</h2>
+    <section class="terminal-section record-evidence" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Evidence</h2>
       <div class="source-list">
         {event.data.sources.map((source) => (
           <article class="source-card">
@@ -61,20 +57,5 @@ const personMap = new Map(people.map((person) => [person.data.id, person.data.na
         ))}
       </div>
     </section>
-
-    {relatedArticles.length > 0 && (
-      <section class="related-articles" aria-labelledby="related-articles-heading">
-        <h2 id="related-articles-heading">Related articles</h2>
-        <ol>
-          {relatedArticles.map((article) => (
-            <li>
-              <time datetime={article.data.published}>{article.data.published}</time>
-              <h3><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h3>
-              <p>{article.data.summary}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-    )}
   </article>
 </BaseLayout>

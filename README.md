@@ -12,7 +12,7 @@ An absent Golden Event means only that the current public-source review did not 
 
 ## Researched Articles
 
-Articles are authored Markdown documents kept separately under `src/content/articles/`. They may synthesize and interpret public research beyond the Golden corpus while linking directly useful Golden Events where appropriate. Article-specific sources remain ordinary references in the Article, and neither those sources nor the Article's interpretations automatically become Golden facts.
+Articles are authored Markdown documents kept separately under `src/content/articles/`. They may synthesize and interpret public research beyond the Golden corpus and may point readers to directly useful Golden Events. That relationship is intentionally one-way: factual Event pages do not reference editorial Articles. Article-specific sources remain Article references, and neither those sources nor the Article's interpretations automatically become Golden facts.
 
 ## Maintaining the record
 
