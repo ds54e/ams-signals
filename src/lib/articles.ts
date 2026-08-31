@@ -42,10 +42,3 @@ export function validateArticleRelations(
 ): void {
   for (const article of articles) resolveRelatedEvents(article, events);
 }
-
-export function findArticlesForEvent<T extends ArticleRelationEntry>(
-  articles: readonly T[],
-  eventId: string,
-): T[] {
-  return sortArticlesNewestFirst(articles.filter((article) => article.data.relatedEvents.includes(eventId)));
-}

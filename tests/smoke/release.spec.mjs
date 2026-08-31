@@ -141,7 +141,6 @@ test('Articles publishes every authored document and keeps editorial links separ
   await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
   expect((await page.request.get('./articles/__nonexistent-smoke-route__/')).status()).toBe(404);
 
-  const relationshipsByEvent = new Map();
   for (const article of articles) {
     const errorCountBeforeNavigation = browserErrors.get(page).length;
     const response = await page.goto(article.href);
@@ -167,6 +166,49 @@ test('Articles publishes every authored document and keeps editorial links separ
     expect(Math.abs(articleLayout.left - articleLayout.right)).toBeLessThanOrEqual(1);
     expect(articleLayout.titleFontSize).toBeLessThanOrEqual(44);
 
+    const sourceSection = page.locator('.article-sources');
+    const sourceRows = sourceSection.locator(':scope > ol > li');
+    const sourceSectionCount = await sourceSection.count();
+    expect(sourceSectionCount, `Sources section count for ${article.href}`).toBeLessThanOrEqual(1);
+    const citationHrefs = await page.locator('.article-body a[href^="#source-"]').evaluateAll((links) => (
+      links.map((link) => link.getAttribute('href') ?? '')
+    ));
+    await expect(page.locator('.article-body a[href^="http://"], .article-body a[href^="https://"]'))
+      .toHaveCount(0);
+
+    if (sourceSectionCount === 0) {
+      expect(citationHrefs).toEqual([]);
+    } else {
+      await expect(sourceSection.getByRole('heading', { name: 'Sources', exact: true, level: 2 })).toBeVisible();
+      const sources = await sourceRows.evaluateAll((rows) => rows.map((row) => ({
+        id: row.id,
+        number: row.querySelector('.article-source-number')?.textContent?.trim() ?? '',
+        href: row.querySelector('a')?.href ?? '',
+      })));
+      expect(sources.length, `Source rows for ${article.href}`).toBeGreaterThan(0);
+      expect(sources.map(({ id }) => id)).toEqual(sources.map((_, index) => `source-${index + 1}`));
+      expect(sources.map(({ number }) => number)).toEqual(sources.map((_, index) => `[${index + 1}]`));
+      expect(new Set(sources.map(({ id }) => id)).size).toBe(sources.length);
+      expect(new Set(sources.map(({ href }) => href)).size).toBe(sources.length);
+
+      for (const source of sources) {
+        const sourceUrl = new URL(source.href);
+        expect(['http:', 'https:']).toContain(sourceUrl.protocol);
+        expect(sourceUrl.origin).not.toBe(new URL(article.href).origin);
+        expect([...sourceUrl.searchParams.keys()].some((key) => key.toLowerCase().startsWith('utm_'))).toBe(false);
+        expect(citationHrefs).toContain(`#${source.id}`);
+      }
+      for (const citationHref of citationHrefs) {
+        expect(sources.map(({ id }) => `#${id}`)).toContain(citationHref);
+        await expect(page.locator(citationHref)).toHaveCount(1);
+      }
+      if (citationHrefs.length > 0) {
+        await page.locator(`.article-body a[href="${citationHrefs[0]}"]`).first().click();
+        expect(new URL(page.url()).hash).toBe(citationHrefs[0]);
+        await expect(page.locator(citationHrefs[0])).toBeInViewport();
+      }
+    }
+
     const relatedSection = page.locator('.article-related');
     const relatedSectionCount = await relatedSection.count();
     expect(relatedSectionCount, `Related events section count for ${article.href}`).toBeLessThanOrEqual(1);
@@ -189,30 +231,22 @@ test('Articles publishes every authored document and keeps editorial links separ
       const eventUrl = new URL(eventHref);
       expect(eventUrl.origin).toBe(new URL(article.href).origin);
       expect(eventUrl.pathname).toMatch(new RegExp(`^${basePath}events/[^/]+/$`));
-      const articleHrefs = relationshipsByEvent.get(eventHref) ?? new Set();
-      articleHrefs.add(article.href);
-      relationshipsByEvent.set(eventHref, articleHrefs);
+      expect((await page.request.get(eventHref)).status()).toBe(200);
+    }
+
+    if (sourceSectionCount > 0 && relatedSectionCount > 0) {
+      const terminalOrder = await page.locator('.article-page > section').evaluateAll((sections) => (
+        sections.map((section) => section.classList.contains('article-sources')
+          ? 'sources'
+          : section.classList.contains('article-related') ? 'related' : 'other')
+      ));
+      expect(terminalOrder.indexOf('sources')).toBeLessThan(terminalOrder.indexOf('related'));
     }
 
     expect(
       browserErrors.get(page).slice(errorCountBeforeNavigation),
       `browser console and page errors for ${article.href}`,
     ).toEqual([]);
-  }
-
-  for (const [eventHref, articleHrefs] of relationshipsByEvent) {
-    const response = await page.goto(eventHref);
-    expect(response?.status(), `HTTP status for ${eventHref}`).toBe(200);
-    const relatedArticles = page.locator('.related-articles');
-    await expect(page.locator('.record-page > section > h2').first()).toHaveText('Evidence');
-    await expect(relatedArticles.getByRole('heading', { name: 'Related articles', exact: true, level: 2 }))
-      .toBeVisible();
-    const reverseArticleHrefs = await relatedArticles.locator('a[href]').evaluateAll((links) => (
-      links.map((link) => link.href)
-    ));
-    for (const articleHref of articleHrefs) {
-      expect(reverseArticleHrefs, `${eventHref} should link back to ${articleHref}`).toContain(articleHref);
-    }
   }
 });
 
@@ -735,10 +769,58 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator('[data-event-result]').first().locator('time')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.kind-badge')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.result-fact')).toBeVisible();
-  await expect(page.locator('[data-event-result]').first().getByRole('link', { name: 'Event', exact: true })).toBeVisible();
+  await expect(page.locator('[data-event-result]').first().locator('.result-body h3 a')).toBeVisible();
+  await expect(page.locator('.result-links, [data-event-result] a[href^="http"]')).toHaveCount(0);
+
+  const eventsLayout = await page.locator('[data-event-explorer-root]').evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return {
+      width: rect.width,
+      left: rect.left,
+      right: document.documentElement.clientWidth - rect.right,
+    };
+  });
+  expect(eventsLayout.width).toBeLessThanOrEqual(920);
+  expect(Math.abs(eventsLayout.left - eventsLayout.right)).toBeLessThanOrEqual(1);
 
   await page.locator('[data-search]').fill('PLL');
   await expect(page.locator('[data-event-result]:visible').first().locator('[data-result-match]')).toContainText('Matched in');
+
+  await page.locator('[data-search]').fill('Recovery copy of Apple role 200659736');
+  const evidenceMatch = page.locator('[data-event-result][data-event-id="apple-2026-04-pmu-dms"]');
+  await expect(evidenceMatch).toBeVisible();
+  await expect(evidenceMatch.locator('[data-result-match]')).toContainText('source summary');
+});
+
+test('Event detail is a centered factual document with Evidence and no editorial reverse links', async ({ page }) => {
+  const eventId = 'apple-2026-pmu-ams-design-verification-team-hiring';
+  const response = await page.goto(`./events/${eventId}/`);
+  expect(response?.status()).toBe(200);
+
+  const record = page.locator('.record-page');
+  const layout = await record.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    const title = element.querySelector('h1');
+    return {
+      width: rect.width,
+      left: rect.left,
+      right: document.documentElement.clientWidth - rect.right,
+      titleFontSize: Number.parseFloat(getComputedStyle(title).fontSize),
+    };
+  });
+  expect(layout.width).toBeLessThanOrEqual(800);
+  expect(Math.abs(layout.left - layout.right)).toBeLessThanOrEqual(1);
+  expect(layout.titleFontSize).toBeLessThanOrEqual(44);
+  await expect(record.locator('.back-link')).toHaveCount(0);
+  await expect(record.locator('.event-meta')).toContainText('Organizational');
+  await expect(record.locator('.record-fact')).toBeVisible();
+  await expect(record.getByRole('heading', { name: 'Evidence', exact: true, level: 2 })).toBeVisible();
+  await expect(record.locator('.source-card')).not.toHaveCount(0);
+  await expect(record.locator('.source-card').first().locator('a[href^="http"]')).toBeVisible();
+  await expect(record.locator('.record-context a[href$="/companies/apple/"]')).toBeVisible();
+  await expect(record.locator('.record-context a[href$="/people/selcuk-talay/"]')).toBeVisible();
+  await expect(record.locator('.related-articles')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('aria-current', 'page');
 });
 
 test('People-only Events remain in the unfiltered corpus and obey narrowed Company filters', async ({ page }) => {
@@ -1164,8 +1246,13 @@ test('zero-Event researched Company pages still build without primary Timeline l
   ]) {
     await page.goto(`./companies/${company.id}/`);
     await expect(page).toHaveTitle(`${company.name} · AMS Signals`);
-    await expect(page.getByRole('heading', { name: company.name, exact: true })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'No events are currently indexed' })).toBeVisible();
+    await expect(page.locator('.entity-header h1')).toHaveText(company.name);
+    await expect(page.locator('.entity-meta')).toContainText('0 indexed events');
+    const emptyState = page.locator('.entity-empty-state');
+    await expect(emptyState.getByRole('heading', { name: 'No events are currently indexed' })).toBeVisible();
+    await expect(emptyState).toContainText('does not imply');
+    await expect(page.getByText('RESEARCHED SPARSE RECORD', { exact: true })).toHaveCount(0);
+    await expect(page.locator('.site-header nav [aria-current="page"]')).toHaveCount(0);
   }
 });
 
@@ -1993,10 +2080,8 @@ test('unavailable originals remain labels and Event permalinks remain live', asy
   await expectExplorerReady(page, 'events');
   const row = page.locator(`[data-event-result][data-event-id="${eventId}"]`);
   await expect(row).toBeVisible();
-  await expect(row.locator('.inline-source-unavailable')).toBeVisible();
-  await expect(row.locator('.inline-source-unavailable').locator('a')).toHaveCount(0);
   await expect(row.locator('.result-body h3 a')).toHaveAttribute('href', `${basePath}events/${eventId}/`);
-  await expect(row.getByRole('link', { name: 'Event', exact: true })).toHaveAttribute('href', `${basePath}events/${eventId}/`);
+  await expect(row.locator('.result-links, a[href^="http"]')).toHaveCount(0);
 
   await row.locator('.result-body h3 a').click();
   await expect(page.locator('.record-fact')).toBeVisible();
@@ -2020,6 +2105,13 @@ test('Company-first and People-first behavior remains intact', async ({ page }) 
 
   await page.goto('./companies/apple/');
   await expectExplorerReady(page);
+  await expect(page.locator('.entity-header h1')).toHaveText('Apple');
+  await expect(page.locator('.entity-header .eyebrow')).toHaveCount(0);
+  await expect(page.locator('.entity-meta')).toContainText(/Last researched \d{4}-\d{2}-\d{2} · \d+ indexed events/);
+  await expect(page.locator('.entity-note')).toHaveText('Public events shown here describe observable source material, not total internal activity.');
+  await expect(page.locator('.site-header nav [aria-current="page"]')).toHaveCount(0);
+  await expect(page.locator('.search-control > span')).toHaveClass(/visually-hidden/);
+  await expect(page.locator('.select-control > span')).toHaveClass(/visually-hidden/);
   await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-context', 'company');
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveCount(0);
@@ -2033,6 +2125,13 @@ test('Company-first and People-first behavior remains intact', async ({ page }) 
 
   await page.goto('./people/toshi-kawashima/');
   await expectExplorerReady(page);
+  await expect(page.locator('.entity-header h1')).toHaveText('Toshi Kawashima');
+  await expect(page.locator('.entity-header .eyebrow')).toHaveCount(0);
+  await expect(page.locator('.entity-meta')).toContainText(/\d+ indexed events?/);
+  await expect(page.locator('.entity-note')).toHaveText('Public technical and organizational events indexed by this site.');
+  await expect(page.locator('.site-header nav [aria-current="page"]')).toHaveCount(0);
+  await expect(page.locator('.search-control > span')).toHaveClass(/visually-hidden/);
+  await expect(page.locator('.select-control > span')).toHaveClass(/visually-hidden/);
   await expect(page.locator('[data-event-explorer-root]')).toHaveAttribute('data-context', 'person');
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveCount(0);
@@ -2125,16 +2224,16 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
   await expect(page.locator('[data-detail-cluster], [data-detail-cluster-select]')).toHaveCount(0);
 
   await page.goto('./companies/omnivision/');
-  const sparseState = page.locator('.sparse-state');
+  const sparseState = page.locator('.entity-empty-state');
   await expect(sparseState.getByRole('heading')).toHaveText('No events are currently indexed');
   await expect(sparseState).toContainText('did not produce an event for the Timeline');
   await expect(sparseState.getByRole('link', { name: 'Return to Timeline →' })).toHaveAttribute('href', basePath);
   await expect(sparseState.getByText(/Golden|milestone/i)).toHaveCount(0);
 
   await page.goto('./people/toshi-kawashima/');
-  await expect(page.getByText('PERSON TIMELINE', { exact: true })).toBeVisible();
+  await expect(page.getByText('PERSON TIMELINE', { exact: true })).toHaveCount(0);
   await expect(page.getByText('PEOPLE TIMELINE', { exact: true })).toHaveCount(0);
-  await expect(page.locator('.intro .lede')).toHaveText('Public technical and organizational events indexed by this site.');
+  await expect(page.locator('.entity-note')).toHaveText('Public technical and organizational events indexed by this site.');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     'content',
     'Public technical and organizational Events linked to Toshi Kawashima.',
@@ -2145,6 +2244,7 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
   await expect(page.getByRole('heading', { name: 'Evidence', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Sources', exact: true })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Related articles', exact: true })).toHaveCount(0);
+  await expect(page.locator('.back-link, .related-articles')).toHaveCount(0);
   await expect(page.locator('.record-context')).toHaveAttribute('aria-label', 'Linked entities');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^Factual public Event and supporting evidence for /);
 });

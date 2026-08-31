@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import {
-  findArticlesForEvent,
   resolveRelatedEvents,
   sortArticlesNewestFirst,
 } from '../../src/lib/articles';
@@ -50,19 +49,4 @@ test('related Event resolution preserves author order and rejects bad relationsh
     article('duplicate-reference', '2026-08-31', ['event-a', 'event-a']),
     events,
   )).toThrow('Article "duplicate-reference" contains duplicate related Event ID "event-a".');
-});
-
-test('reverse Article lookup returns only related Articles in newest-first order', () => {
-  const articles = [
-    article('article-a', '2026-08-20', ['event-x']),
-    article('article-b', '2026-08-31', ['event-x']),
-    article('article-c', '2026-08-30', ['event-y']),
-  ];
-
-  expect(findArticlesForEvent(articles, 'event-x').map(({ id }) => id)).toEqual([
-    'article-b',
-    'article-a',
-  ]);
-  expect(findArticlesForEvent(articles, 'event-y').map(({ id }) => id)).toEqual(['article-c']);
-  expect(findArticlesForEvent(articles, 'event-z')).toEqual([]);
 });

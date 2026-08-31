@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
 const inArticles = Astro.url.pathname.startsWith(sitePath('articles/'));
-const inTimeline = !inEvents && !inArticles;
+const inTimeline = Astro.url.pathname === sitePath('');
 ---
 <!doctype html>
 <html lang={lang}>
