@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { resolveRelatedEvents, validateArticleRelations } from '../../lib/articles';
+import { formatWhen } from '../../lib/content';
+import { sitePath } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const [articles, events] = await Promise.all([
+    getCollection('articles'),
+    getCollection('events'),
+  ]);
+  validateArticleRelations(articles, events);
+
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article, relatedEvents: resolveRelatedEvents(article, events) },
+  }));
+}
+
+const { article, relatedEvents } = Astro.props;
+const { Content } = await render(article);
+---
+<BaseLayout
+  title={`${article.data.title} · AMS Signals`}
+  description={article.data.summary}
+  lang="ja"
+>
+  <article class="article-page">
+    <a class="back-link" href={sitePath('articles/')}>← Articles</a>
+    <header class="article-header">
+      <p class="eyebrow">ARTICLE</p>
+      <p class="article-dates">
+        {article.data.updated ? (
+          <>
+            Published <time datetime={article.data.published}>{article.data.published}</time>
+            {' · '}
+            Updated <time datetime={article.data.updated}>{article.data.updated}</time>
+          </>
+        ) : (
+          <time datetime={article.data.published}>{article.data.published}</time>
+        )}
+      </p>
+      <h1>{article.data.title}</h1>
+    </header>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    {relatedEvents.length > 0 && (
+      <section class="article-related" aria-labelledby="related-events-heading">
+        <h2 id="related-events-heading">Related events</h2>
+        <ol>
+          {relatedEvents.map((event) => (
+            <li>
+              <time datetime={event.data.when.start}>{formatWhen(event)}</time>
+              <a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline} →</a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+  </article>
+</BaseLayout>
