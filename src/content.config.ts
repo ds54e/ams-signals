@@ -17,6 +17,21 @@ const articleDate = z.preprocess(
     }, 'Use a valid calendar date'),
 );
 
+const articleSourceSchema = z.object({
+  title: z.string().trim().min(1),
+  publisher: z.string().trim().min(1),
+  url: z.string().url(),
+}).strict();
+
+const articleSourceUrlKey = (value: string) => {
+  const url = new URL(value);
+  for (const key of [...url.searchParams.keys()]) {
+    if (key.toLocaleLowerCase('en').startsWith('utm_')) url.searchParams.delete(key);
+  }
+  url.hash = '';
+  return url.toString();
+};
+
 const whenSchema = z.object({
   start: z.string().min(4),
   end: z.string().min(4).optional(),
@@ -94,6 +109,7 @@ const articles = defineCollection({
     summary: z.string().trim().min(1),
     updated: articleDate.optional(),
     relatedEvents: z.array(z.string().trim().min(1)).default([]),
+    sources: z.array(articleSourceSchema).default([]),
   }).strict().superRefine((article, context) => {
     if (article.updated && article.updated < article.published) {
       context.addIssue({
@@ -113,6 +129,19 @@ const articles = defineCollection({
         });
       }
       seen.add(eventId);
+    });
+
+    const sourceUrls = new Set<string>();
+    article.sources.forEach((source, index) => {
+      const key = articleSourceUrlKey(source.url);
+      if (sourceUrls.has(key)) {
+        context.addIssue({
+          code: 'custom',
+          path: ['sources', index, 'url'],
+          message: `Duplicate Article source URL: ${source.url}`,
+        });
+      }
+      sourceUrls.add(key);
     });
   }),
 });
