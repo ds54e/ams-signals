@@ -1,0 +1,31 @@
+{
+  "id": "texas-instruments-2023-ml-circuit-verification-debugging-patents",
+  "when": {
+    "start": "2023-12-21",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "venkateswaran-padmanabhan",
+    "guha-lakshmanan"
+  ],
+  "headline": "TI patent publications disclose machine-learning methods for circuit verification and debug",
+  "fact": "Two U.S. patent applications assigned to Texas Instruments disclose complementary machine-learning techniques for analog or hybrid analog/digital integrated circuits. US20230409789A1 describes learning from simulated signal values and comparing predicted outputs with actual IC outputs for validation; US20230409790A1 describes inverse models that infer inaccessible internal signals or state-machine states from top-level inputs and outputs for debug. The documents also describe simulation-test selection using coverage metrics. These are patent disclosures, not evidence of product implementation or a deployed verification service.",
+  "sources": [
+    {
+      "title": "US20230409789A1 — Machine learning techniques for circuit design verification",
+      "url": "https://patents.google.com/patent/US20230409789A1/en",
+      "checkedAt": "2026-09-02",
+      "summary": "The patent record identifies the December 21, 2023 publication, Texas Instruments assignee, inventors, and the disclosed ML prediction and circuit-validation method."
+    },
+    {
+      "title": "US20230409790A1 — Machine learning techniques for circuit design debugging",
+      "url": "https://patents.google.com/patent/US20230409790A1/en",
+      "checkedAt": "2026-09-02",
+      "summary": "The related patent record identifies the same publication date and TI assignee and describes inverse ML models for predicting internal signals and states for circuit debug."
+    }
+  ]
+}
