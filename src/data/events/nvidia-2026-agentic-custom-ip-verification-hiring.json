@@ -1,0 +1,28 @@
+{
+  "id": "nvidia-2026-agentic-custom-ip-verification-hiring",
+  "when": {
+    "start": "2026-07-27",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nvidia"
+  ],
+  "people": [],
+  "headline": "NVIDIA job posting seeks agentic-AI workflows for custom-IP verification",
+  "fact": "An NVIDIA Senior ASIC Design Verification Engineer posting for its Circuit Solutions Group describes custom IP spanning clocking, voltage regulation, and silicon correlation. It asks the role to help develop and deploy agentic-AI frameworks for stimulus generation, regression triage, debug, and root-cause analysis, while listing real-number modeling of low-level digital or mixed-signal designs and VCS-XA co-simulation as differentiating experience. This is evidence of a public hiring mandate, not proof of the capability or measured effect of a completed framework.",
+  "sources": [
+    {
+      "title": "NVIDIA Careers: Senior ASIC Design Verification Engineer (JR2017926)",
+      "url": "https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite/job/Senior-ASIC-Design-Verification-Engineer_JR2017926",
+      "checkedAt": "2026-09-02",
+      "summary": "The official NVIDIA posting describes the custom-IP scope, agentic-AI verification responsibilities, and RNM and mixed-signal co-simulation experience."
+    },
+    {
+      "title": "NVIDIA Workday record for JR2017926",
+      "url": "https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/job/Senior-ASIC-Design-Verification-Engineer_JR2017926",
+      "checkedAt": "2026-09-02",
+      "summary": "The first-party Workday record supplies the absolute July 27, 2026 start date for the requisition and the same job description."
+    }
+  ]
+}

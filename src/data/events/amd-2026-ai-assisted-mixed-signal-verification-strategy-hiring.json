@@ -1,0 +1,22 @@
+{
+  "id": "amd-2026-ai-assisted-mixed-signal-verification-strategy-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "amd"
+  ],
+  "people": [],
+  "headline": "AMD job posting seeks an AI-assisted verification strategy for a mixed-signal IP organization",
+  "fact": "An Indeed-hosted copy of an AMD Fellow-level pre-silicon verification posting describes a mixed-signal IP organization and asks the role to integrate UVM with real-number modeling and AMS co-simulation, modernize regression, debug, and coverage analytics, and define an AI-assisted strategy spanning intelligent test generation, regression triage, and coverage-gap prediction. This is evidence of a public hiring mandate, not proof that these methods were already deployed across AMD.",
+  "sources": [
+    {
+      "title": "AMD: Fellow – Pre-Silicon Verification – Quality and Methodology",
+      "url": "https://www.indeed.com/viewjob?jk=6d09ad28c81505d5",
+      "checkedAt": "2026-09-02",
+      "summary": "The live Indeed-hosted copy of AMD's posting identifies the mixed-signal IP context, UVM/RNM/AMS architecture scope, and requested AI-assisted test-generation, triage, and coverage-gap strategy; no durable absolute posting date is exposed, so this Event uses year precision."
+    }
+  ]
+}
