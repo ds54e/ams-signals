@@ -452,7 +452,12 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect(globalWaveEvents.filter(({ kind }) => kind === 'technical')).toHaveLength(31);
   expect(globalWaveEvents.filter(({ kind }) => kind === 'organizational')).toHaveLength(2);
   expect(globalWaveEvents.every((event) => !Object.hasOwn(event, 'affiliationChange'))).toBe(true);
-  expect(globalWaveEvents.flatMap(({ sources }) => sources).every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
+  expect(globalWaveEvents
+    .filter(({ id }) => id !== 'xilinx-2015-octave-rnm-uvm-verification')
+    .flatMap(({ sources }) => sources)
+    .every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
+  expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources
+    .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-02', '2026-09-02']);
   expect(payload.events.find(({ id }) => id === 'cadence-2012-real-valued-systemverilog-coverage')).toEqual(
     expect.objectContaining({
       companies: ['cadence', 'intel'],
