@@ -314,6 +314,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect(payload.companies).toHaveLength(59);
   expect(payload.people).toHaveLength(27);
   expect(payload.events).toHaveLength(183);
+  expect(payload.people.map(({ id }) => id)).not.toContain('lunlun');
+  expect(payload.events.map(({ id }) => id)).not.toContain('lunlun-2024-initial-real-time-representation');
+  expect(payload.events.map(({ id }) => id)).not.toContain('lunlun-2025-3-0-dynamic-behavior');
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
     payload.companies.map(({ name }) => name).slice().sort((left, right) => left.localeCompare(right, 'en')),
@@ -868,8 +871,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('183 of 183 events');
-  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('183 of 183 events');
+  await expect(page.locator('[data-status]')).toHaveText('185 of 185 events');
+  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('185 of 185 events');
   await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
@@ -987,6 +990,115 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   await page.locator('[data-company-picker] summary').click();
   await page.getByRole('button', { name: 'Select all', exact: true }).click();
   await expect(thesisMark).toBeVisible();
+});
+
+test('Lunlun is a normal two-Event viewer trajectory that remains outside the factual export', async ({ page }) => {
+  const events = [
+    {
+      id: 'lunlun-2024-initial-real-time-representation',
+      date: '2024-06-22',
+      headline: 'Initial real-time representation of Lunlun becomes available',
+      fact: 'An initial real-time representation of Lunlun was publicly demonstrated in June 2024. The session exposes continuously observable motion, expression changes, and interactive response, providing a behavioral baseline for later revisions.',
+      sourceTitle: 'Initial real-time representation of Lunlun',
+      sourceUrl: 'https://www.youtube.com/watch?v=jDpZnGygy7w',
+      sourceSummary: 'June 2024 public demonstration of the initial real-time model representation and its interactive behavior.',
+    },
+    {
+      id: 'lunlun-2025-3-0-dynamic-behavior',
+      date: '2025-08-04',
+      headline: 'Lunlun 3.0 extends dynamic behavior and observable expression',
+      fact: 'A 3.0 revision was publicly demonstrated in August 2025. The update extends motion and adds additional expression states during real-time operation, increasing the range of observable behavior while retaining the earlier interactive form.',
+      sourceTitle: 'Lunlun 3.0 — extended motion and expression',
+      sourceUrl: 'https://www.youtube.com/watch?v=Ce-lbGgZxAA',
+      sourceSummary: 'August 2025 public demonstration of the 3.0 revision with expanded motion and additional expression states.',
+    },
+  ];
+  const eventIds = events.map(({ id }) => id).sort();
+  const forbiddenPublicTerms = ['にじさんじ', 'VTuber', 'Live2D'];
+
+  await page.goto('./');
+  await expectExplorerReady(page);
+  const row = page.locator(
+    '[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="lunlun"]',
+  );
+  await expect(row).toBeVisible();
+  await expect(row).toHaveAttribute('data-singleton', 'false');
+  await expect(row).toHaveAttribute('data-recent3', '2');
+  await expect(row).toHaveAttribute('data-recent5', '2');
+  await expect(row).toHaveAttribute('data-latest-start', '2025-08-04');
+  await expect(row).toHaveAttribute('data-total-events', '2');
+  const marks = row.locator('[data-matrix-mark]');
+  await expect(marks).toHaveCount(2);
+  expect(await marks.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-event-id')).sort()))
+    .toEqual(eventIds);
+  for (const event of events) {
+    await expect(row.locator(`[data-matrix-mark][data-event-id="${event.id}"]`))
+      .toHaveAttribute('data-event-date', event.date);
+  }
+  expect(await marks.evaluateAll((nodes) => nodes.some((node) => (
+    node.getAttribute('data-event-date')?.startsWith('2026')
+  )))).toBe(false);
+
+  await page.locator('[data-search]').fill('Lunlun');
+  const newestMark = row.locator(`[data-matrix-mark][data-event-id="${events[1].id}"]`);
+  await newestMark.click();
+  await expect(page.locator('[data-detail-title]')).toHaveText(events[1].headline);
+  const inspectorSource = page.locator('[data-detail-sources] a');
+  await expect(inspectorSource).toHaveCount(1);
+  await expect(inspectorSource).toHaveText(`${events[1].sourceTitle} ↗`);
+  await expect(inspectorSource).toHaveAttribute('href', events[1].sourceUrl);
+
+  await page.locator('[data-search]').fill('');
+  await page.locator('[data-company-picker] summary').click();
+  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+  await page.locator('[data-company-options] input[value="apple"]').check();
+  await expect(row).toBeHidden();
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  await expect(row).toBeVisible();
+
+  const personResponse = await page.goto('./people/lunlun/');
+  expect(personResponse?.status()).toBe(200);
+  await expectExplorerReady(page);
+  await expect(page.locator('.entity-header h1')).toHaveText('Lunlun');
+  await expect(page.locator('.entity-meta')).toHaveText('2 indexed events');
+  const personEventIds = await page.locator('[data-events-json]').evaluate((node) => (
+    JSON.parse(node.textContent).map(({ id }) => id).sort()
+  ));
+  expect(personEventIds).toEqual(eventIds);
+
+  await page.goto('./events/');
+  await expectExplorerReady(page, 'events');
+  for (const event of events) {
+    await expect(page.locator(`[data-event-result][data-event-id="${event.id}"]`)).toBeVisible();
+  }
+  expect(await page.locator('[data-event-result][data-event-id^="lunlun-"]').evaluateAll((nodes) => (
+    nodes.map((node) => node.getAttribute('data-event-id')).sort()
+  ))).toEqual(eventIds);
+  await page.locator('[data-search]').fill('Lunlun');
+  await expect(page.locator('[data-event-result]:visible')).toHaveCount(2);
+  await expect(page.locator('[data-status]')).toHaveText('2 of 185 events');
+  await page.locator('[data-search]').fill('model');
+  await expect(page.locator(`[data-event-result][data-event-id="${events[0].id}"]`)).toBeVisible();
+
+  for (const event of events) {
+    const response = await page.goto(`./events/${event.id}/`);
+    expect(response?.status()).toBe(200);
+    const record = page.locator('.record-page');
+    await expect(record.getByRole('heading', { name: event.headline, exact: true, level: 1 })).toBeVisible();
+    await expect(record.locator('.record-fact')).toHaveText(event.fact);
+    await expect(record.locator('.record-context a[href$="/people/lunlun/"]')).toHaveText('Lunlun');
+    const source = record.locator('.source-card');
+    await expect(source.locator('h3 a')).toHaveText(`${event.sourceTitle} ↗`);
+    await expect(source.locator('h3 a')).toHaveAttribute('href', event.sourceUrl);
+    await expect(source.locator(':scope > p').first()).toHaveText(event.sourceSummary);
+    await expect(source.locator('.source-availability')).toHaveText('Available · checked 2026-09-02');
+    await expect(page.locator('body')).not.toContainText('youtube.com');
+    for (const term of forbiddenPublicTerms) await expect(page.locator('body')).not.toContainText(term);
+  }
+
+  const payload = await (await page.request.get('./export.json')).json();
+  expect(payload.people.map(({ id }) => id)).not.toContain('lunlun');
+  for (const event of events) expect(payload.events.map(({ id }) => id)).not.toContain(event.id);
 });
 
 test('global Timeline Event sets remain subsets of the complete Events record', async ({ page }) => {
@@ -1190,7 +1302,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 183 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 185 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -1201,7 +1313,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 183 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 185 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -1216,7 +1328,20 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
 test('recent-activity row ordering and alphabetical Company picker stay filter-stable', async ({ page }) => {
   const payload = await (await page.request.get('./export.json')).json();
-  const latestYear = Math.max(...payload.events.map((event) => Number(event.when.start.slice(0, 4))));
+  await page.goto('./');
+  await expectExplorerReady(page);
+  const viewerEvents = await page.locator('[data-events-json]').evaluate((node) => (
+    JSON.parse(node.textContent).map((event) => ({
+      id: event.id,
+      when: { start: event.start },
+      companies: event.companies.map(({ id }) => id),
+      people: event.people.map(({ id }) => id),
+      peopleWithNames: event.people,
+    }))
+  ));
+  const viewerPeople = [...new Map(viewerEvents.flatMap((event) => event.peopleWithNames)
+    .map((person) => [person.id, person])).values()];
+  const latestYear = Math.max(...viewerEvents.map((event) => Number(event.when.start.slice(0, 4))));
   const startTimestamp = (value) => {
     const [year, month = '01', day = '01'] = value.split('-').map(Number);
     return Date.UTC(year, month - 1, day);
@@ -1231,7 +1356,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     || left.entityType.localeCompare(right.entityType, 'en')
   );
   const expectedCompanies = payload.companies.map((company) => {
-    const linked = payload.events.filter((event) => event.companies.includes(company.id)).sort((left, right) => (
+    const linked = viewerEvents.filter((event) => event.companies.includes(company.id)).sort((left, right) => (
       startTimestamp(right.when.start) - startTimestamp(left.when.start) || left.id.localeCompare(right.id, 'en')
     ));
     return {
@@ -1262,8 +1387,8 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     'synopsys',
     'intel',
   ]);
-  const expectedPeople = payload.people.map((person) => {
-    const linked = payload.events.filter((event) => event.people.includes(person.id)).sort((left, right) => (
+  const expectedPeople = viewerPeople.map((person) => {
+    const linked = viewerEvents.filter((event) => event.people.includes(person.id)).sort((left, right) => (
       startTimestamp(right.when.start) - startTimestamp(left.when.start) || left.id.localeCompare(right.id, 'en')
     ));
     return {
@@ -1278,7 +1403,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     };
   }).filter(({ total }) => total > 0).sort(compareActivity);
   const expectedCombined = [...expectedCompanies, ...expectedPeople].sort(compareActivity);
-  expect(expectedPeople.map(({ id }) => id).slice(0, 10)).toEqual([
+  expect(expectedPeople.map(({ id }) => id).filter((id) => id !== 'lunlun').slice(0, 10)).toEqual([
     'aadhar-sharma',
     'peter-grove',
     'henry-chang',
@@ -1335,7 +1460,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(49);
+  expect(defaultVisibleCombinedKeys).toHaveLength(50);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -1727,8 +1852,8 @@ test('Timeline utility bar places count and legend beside the compact controls',
   const utility = page.locator('.event-filter-utility');
   const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(161);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('161 of 183 events');
+  expect(representedIds).toHaveLength(163);
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('163 of 185 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
@@ -2131,7 +2256,7 @@ test('legacy Entity-view URLs canonicalize to the combined global surfaces', asy
         await expect(page.locator('[data-group="both"] [data-matrix-row][data-entity-type="person"]:visible').first())
           .toBeVisible();
       } else {
-        await expect(page.locator('[data-status]')).toHaveText(/of 183 events/);
+        await expect(page.locator('[data-status]')).toHaveText(/of 185 events/);
       }
     }
 
@@ -2183,9 +2308,9 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(183);
+  expect(serializedKinds).toHaveLength(185);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(124);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(126);
   expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(59);
 
   const legend = page.locator('.kind-legend');
@@ -2204,7 +2329,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('161 of 183 events');
+    await expect(page.locator('[data-status]')).toHaveText('163 of 185 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
@@ -2213,11 +2338,11 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expectExplorerReady(page, 'events');
   await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('124 of 183 events');
+  await expect(page.locator('[data-status]')).toHaveText('126 of 185 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
   await expect(page.locator('.kind-badge.event-kind-organizational:visible')).toHaveCount(0);
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('59 of 183 events');
+  await expect(page.locator('[data-status]')).toHaveText('59 of 185 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('organizational');
   await expect(page.locator('[data-event-result]:visible .kind-badge')).toHaveText(
     Array(59).fill('Organizational'),

@@ -1,0 +1,22 @@
+{
+  "id": "lunlun-2025-3-0-dynamic-behavior",
+  "when": {
+    "start": "2025-08-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [
+    "lunlun"
+  ],
+  "headline": "Lunlun 3.0 extends dynamic behavior and observable expression",
+  "fact": "A 3.0 revision was publicly demonstrated in August 2025. The update extends motion and adds additional expression states during real-time operation, increasing the range of observable behavior while retaining the earlier interactive form.",
+  "sources": [
+    {
+      "title": "Lunlun 3.0 — extended motion and expression",
+      "url": "https://www.youtube.com/watch?v=Ce-lbGgZxAA",
+      "checkedAt": "2026-09-02",
+      "summary": "August 2025 public demonstration of the 3.0 revision with expanded motion and additional expression states."
+    }
+  ]
+}
