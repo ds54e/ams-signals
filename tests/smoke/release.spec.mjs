@@ -867,6 +867,9 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator(
     '[data-event-result][data-event-id="stijn-ringeling-2026-ml-sigma-delta-evaluation"]',
   )).toBeVisible();
+  await expect(page.locator(
+    '[data-event-result][data-event-id="ecosystem-2026-08-pss-3-1-public-review"]',
+  )).toBeVisible();
 
   const ids = await page.locator('[data-event-result]').evaluateAll((events) => events.map((event) => event.getAttribute('data-event-id')));
   expect(ids.length).toBeGreaterThan(0);
@@ -1451,7 +1454,11 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     bundleMode: node.getAttribute('data-bundle-mode'),
     lane: `${node.closest('[data-lane]').getAttribute('data-lane-type')}:${node.closest('[data-lane]').getAttribute('data-entity-id')}`,
   })));
-  expect(new Set(marks.map(({ id }) => id))).toEqual(new Set(serialized.map(({ id }) => id)));
+  const matrixRepresentableIds = serialized
+    .filter((event) => event.companies.length > 0 || event.people.length > 0)
+    .map(({ id }) => id);
+  expect(new Set(marks.map(({ id }) => id))).toEqual(new Set(matrixRepresentableIds));
+  expect(matrixRepresentableIds).not.toContain('ecosystem-2026-08-pss-3-1-public-review');
   for (const mark of marks) {
     const event = eventById.get(mark.id);
     const expectedBand = bandForYear(Number(event.start.slice(0, 4)));
