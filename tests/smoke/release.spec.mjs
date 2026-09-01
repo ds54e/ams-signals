@@ -305,7 +305,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
   expect(payload.companies).toHaveLength(58);
-  expect(payload.people).toHaveLength(26);
+  expect(payload.people).toHaveLength(27);
   expect(payload.events).toHaveLength(172);
 
   expect(payload.companies.map(({ name }) => name)).toEqual(
@@ -1037,7 +1037,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
   expect(activeCompanyIds).toHaveLength(57);
   expect(singletonCompanyIds).toHaveLength(29);
-  expect(activePersonIds).toHaveLength(26);
+  expect(activePersonIds).toHaveLength(27);
   expect(singletonPersonIds).toHaveLength(6);
 
   const singletonCompany = payload.companies.find(({ id }) => id === 'google');
@@ -1318,7 +1318,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(48);
+  expect(defaultVisibleCombinedKeys).toHaveLength(49);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -1644,8 +1644,8 @@ test('Timeline utility bar places count and legend beside the compact controls',
   const utility = page.locator('.event-filter-utility');
   const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(150);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('150 of 172 events');
+  expect(representedIds).toHaveLength(151);
+  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('151 of 172 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
@@ -2119,7 +2119,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('150 of 172 events');
+    await expect(page.locator('[data-status]')).toHaveText('151 of 172 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
