@@ -316,7 +316,8 @@ const matrixMarkLabel = (event: EventEntry) => (
                       data-recent5={row.stats.recent5}
                       data-latest-start={row.stats.latestStart}
                       data-total-events={row.stats.total}
-                      data-collision-slots={row.slotCount}
+                      data-visual-row-count={row.visualRowCount}
+                      data-collision-slots={row.visualRowCount}
                     >
                       <a
                         class:list={['matrix-entity-label', `matrix-entity-${row.entityType}`]}
@@ -356,7 +357,9 @@ const matrixMarkLabel = (event: EventEntry) => (
                             data-bundle-rows={bundle.rowCount}
                             data-bundle-width-px={bundle.bundleWidthPx}
                             data-collision-width-px={bundle.collisionWidthPx}
-                            data-collision-slot={bundle.slot}
+                            data-visual-row-start={bundle.rowStart}
+                            data-visual-row-end={bundle.rowEnd}
+                            data-collision-slot={bundle.rowStart}
                             data-bundle-top={bundle.top}
                             data-time-zone={bundle.timeZone}
                             data-time-band={bundle.timeBandKeys.join('|')}
