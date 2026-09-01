@@ -149,13 +149,13 @@ test('bundle modes cross recent year boundaries but never cross period boundarie
   ]);
 });
 
-test('bundles use up to three columns and actual width for collision placement', () => {
+test('bundles use the narrowest columns that preserve minimum rows and actual collision width', () => {
   expect(ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS).toBe(3);
-  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns)).toEqual([1, 2, 3, 3, 3, 3]);
+  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns)).toEqual([1, 2, 3, 2, 3, 3]);
   expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleRows)).toEqual([1, 1, 1, 2, 2, 2]);
-  expect([1, 2, 3, 4, 5].map(activityMatrixBundleWidthPx)).toEqual([16, 34, 52, 52, 52]);
+  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleWidthPx)).toEqual([16, 34, 52, 34, 52, 52]);
 
-  for (const [memberCount, collisionWidthPx] of [[1, 16], [2, 34], [3, 52], [4, 52], [5, 52], [6, 52]]) {
+  for (const [memberCount, collisionWidthPx] of [[1, 16], [2, 34], [3, 52], [4, 34], [5, 52], [6, 52]]) {
     const [bundle] = buildActivityMatrixBundles(
       Array.from({ length: memberCount }, (_, index) => event(`period-${memberCount}-${index}`, '2023', 'year')),
       deriveActivityMatrixTimeBands(2026, currentDensity),

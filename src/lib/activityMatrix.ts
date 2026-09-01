@@ -210,12 +210,22 @@ function densityForBand(density: BandDensity, key: string): number {
 }
 
 export function activityMatrixBundleColumns(memberCount: number): number {
-  return Math.min(Math.max(Math.trunc(memberCount), 0), ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS);
+  const count = Math.max(Math.trunc(memberCount), 0);
+  if (count === 0) return 0;
+
+  const maxColumns = Math.min(count, ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS);
+  const minimumRows = Math.ceil(count / maxColumns);
+  for (let columns = 1; columns <= maxColumns; columns += 1) {
+    if (Math.ceil(count / columns) === minimumRows) return columns;
+  }
+
+  return maxColumns;
 }
 
 export function activityMatrixBundleRows(memberCount: number): number {
-  const columns = activityMatrixBundleColumns(memberCount);
-  return columns === 0 ? 0 : Math.ceil(memberCount / columns);
+  const count = Math.max(Math.trunc(memberCount), 0);
+  const columns = activityMatrixBundleColumns(count);
+  return columns === 0 ? 0 : Math.ceil(count / columns);
 }
 
 export function activityMatrixBundleWidthPx(memberCount: number): number {
