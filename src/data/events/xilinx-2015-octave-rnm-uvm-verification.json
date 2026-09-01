@@ -8,7 +8,9 @@
   "companies": [
     "amd"
   ],
-  "people": [],
+  "people": [
+    "patrick-lynch"
+  ],
   "headline": "Xilinx authors report combining generated real-number models, Octave, and UVM for AMS verification",
   "fact": "A DVCon 2015 paper by Xilinx authors describes a mixed-signal verification flow combining automatically generated netlist real-number models, Octave signal processing, and a UVM environment with random stimulus and coverage. In one reported analog-multiplexer case, handwritten model content was limited to 10% of modules and 4% of lines; the paper also reports direct Octave FFT integration running 1.58x faster than its file-based comparison.",
   "sources": [
@@ -16,13 +18,13 @@
       "title": "Comprehensive AMS Verification Using Octave, Real Number Modelling and UVM",
       "url": "https://dvcon-proceedings.org/document/comprehensive-ams-verification-using-octave-real-number-modelling-and-uvm/",
       "checkedAt": "2026-08-30",
-      "summary": "DVCon's record identifies the Xilinx paper on generated real-number models, Octave analysis, and UVM verification."
+      "summary": "DVCon's record identifies John McGrath, Patrick Lynch, and Ali Boumaalif as the Xilinx authors of the paper on generated real-number models, Octave analysis, and UVM verification."
     },
     {
       "title": "Comprehensive AMS Verification Using Octave, Real Number Modelling and UVM — paper",
       "url": "https://dvcon-proceedings.org/wp-content/uploads/comprehensive-ams-verification-using-octave-real-number-modelling-and-uvm.pdf",
-      "checkedAt": "2026-08-30",
-      "summary": "The paper documents the model-generation proportions, Octave integration, UVM environment, functional coverage, and FFT timing comparison."
+      "checkedAt": "2026-09-02",
+      "summary": "The paper identifies Patrick Lynch as a Xilinx author and documents the model-generation proportions, Octave integration, UVM environment, functional coverage, and FFT timing comparison."
     }
   ]
 }
