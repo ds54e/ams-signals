@@ -1,0 +1,26 @@
+{
+  "id": "apple-2026-05-wireless-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026-05-13",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple lists wireless Mixed-Signal Verification Engineer roles",
+  "fact": "Apple listed Mixed-Signal Verification Engineer roles for RF and mixed-signal blocks and interfaces in wireless SoCs. The descriptions assign verification planning, mixed-signal and digital UVM testbenches, reusable monitors and checkers, coverage closure, automation, and methodology improvement using AI; real-numbered SystemVerilog behavioral-model experience appears as a preferred qualification.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Verification Engineer",
+      "url": "https://jobs.apple.com/en-us/details/200662891-3401/mixed-signal-verification-engineer",
+      "checkedAt": "2026-09-02",
+      "summary": "Official Apple posting dated May 13, 2026, describing RF and mixed-signal SoC verification with UVM, monitors and checkers, coverage, automation, AI-assisted methodology improvement, and preferred real-number modeling experience."
+    },
+    {
+      "title": "Mixed-Signal Verification Engineer — early-career variant",
+      "url": "https://jobs.apple.com/en-us/details/200662889-3401/mixed-signal-verification-engineer",
+      "checkedAt": "2026-09-02",
+      "summary": "Official Apple role variant dated May 13, 2026, expressing the same wireless mixed-signal verification mandate at a different experience level."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "apple-2022-munich-dms-verification-hiring",
+  "when": {
+    "start": "2022-10-21",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple publicizes a Munich Digital Mixed-Signal Design/Verification role",
+  "fact": "An Apple Cellular and Connectivity team member publicly advertised a Digital Mixed-Signal Design/Verification Engineer role in Munich, one of four analog and mixed-signal design, validation, and verification openings in the hiring notice.",
+  "sources": [
+    {
+      "title": "Careers at Apple: Join us. Be you.",
+      "url": "https://www.linkedin.com/posts/vahid-majidzadeh-b2121518_careers-at-apple-join-us-be-you-activity-6989132878399881216--TgC",
+      "checkedAt": "2026-09-02",
+      "summary": "Public post dated October 21, 2022, by an Apple Cellular and Connectivity team member listing role 200436589 as a Digital Mixed-Signal Design/Verification Engineer opening in Munich."
+    }
+  ]
+}
