@@ -1,0 +1,23 @@
+{
+  "id": "intel-2026-ai-high-sigma-level-shifter-verification",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "intel",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Intel and Siemens authors report AI-accelerated high-sigma level-shifter verification",
+  "fact": "An Intel and Siemens DAC 2026 presentation reports an adaptive-AI flow that identifies worst-case corners and applies brute-force-accurate high-sigma verification only where needed. For the presented level-shifter cases, the authors report 3× faster 3-sigma single-cell validation, a 10× overall runtime reduction across 256 cells at 6 sigma, and more than 14× reduction for targeted multibit glitch-height analysis. These metrics remain bounded to the reported cases and do not establish a company-wide Intel methodology.",
+  "sources": [
+    {
+      "title": "AI-Accelerated Signoff Verification and Glitch Analysis for Single and Multibit Level Shifters",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST352&sess=sess296",
+      "checkedAt": "2026-09-02",
+      "summary": "The official DAC 2026 record identifies Intel and Siemens authors, dates the presentation to July 29, and reports the adaptive-AI high-sigma method and its case-specific 3×, 10×, and greater-than-14× results."
+    }
+  ]
+}

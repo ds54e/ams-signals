@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2025-ml-power-electronics-surrogate-patent",
+  "when": {
+    "start": "2025-10-30",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "An ADI patent publication discloses generalized ML prediction of power-electronic behavior",
+  "fact": "U.S. patent application US20250335671A1, assigned to Analog Devices, discloses a generalized machine-learning model for predicting missing physical modalities of previously unseen power-electronic devices. Its examples map among transient responses, Bode plots, and circuit parameters using self-supervised pretraining and few-shot adaptation, and say the framework may extend to analog subsystems such as RF signal chains. This is a patent disclosure of surrogate behavior prediction, not evidence of product implementation, model accuracy, or deployment in a verification flow.",
+  "sources": [
+    {
+      "title": "US20250335671A1 — Predicting physical modalities of power electronic devices",
+      "url": "https://patents.google.com/patent/US20250335671A1/en",
+      "checkedAt": "2026-09-02",
+      "summary": "The patent record identifies the October 30, 2025 publication, Analog Devices assignee, and the disclosed self-supervised and few-shot framework for predicting transient, frequency-domain, and circuit-parameter modalities."
+    }
+  ]
+}

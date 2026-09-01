@@ -1,0 +1,23 @@
+{
+  "id": "intel-2026-ai-assisted-ams-bmod-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "intel"
+  ],
+  "people": [],
+  "headline": "Intel job posting seeks AI-assisted development and analysis of AMS behavioral models",
+  "fact": "An Intel AMS Verification Engineer posting describes SystemVerilog behavioral models for SerDes, PMU, and DC-DC circuits, integration with digital functional verification, AMS comparison to the models, and full-chip power-up simulation. It also asks for generative-AI code generation, AI-driven debugging, automated documentation, and AI-based workflows for model development, simulation analysis, and reporting. This is evidence of a public hiring mandate, not proof that every listed AI-assisted method was already deployed or measured.",
+  "sources": [
+    {
+      "title": "Intel Careers: AMS Verification Engineer (JR0283842)",
+      "url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/AMS-Verification-Engineer_JR0283842",
+      "checkedAt": "2026-09-02",
+      "status": "unavailable",
+      "summary": "The indexed official Intel requisition described the SystemVerilog BMOD, AMS comparison, full-chip power-up, and AI-assisted code, debug, analysis, documentation, and reporting mandate; the requisition is no longer active."
+    }
+  ]
+}

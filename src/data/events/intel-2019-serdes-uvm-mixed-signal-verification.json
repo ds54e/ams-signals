@@ -1,0 +1,28 @@
+{
+  "id": "intel-2019-serdes-uvm-mixed-signal-verification",
+  "when": {
+    "start": "2019",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "intel"
+  ],
+  "people": [],
+  "headline": "Intel authors report a UVM framework for SerDes mixed-signal behavioral-model verification",
+  "fact": "Intel of Canada authors report a UVM verification framework for a SerDes physical-media-attachment layer that spans fast, accurate, and AMS-mode behavioral models. The presented framework uses translator blocks between real and logic data, layered adapter sequences, common end-to-end checkers, and configurable NRZ/PAM4 stimulus, with the authors reporting reuse across model modes and improved verification of pre-emphasis and equalization behavior.",
+  "sources": [
+    {
+      "title": "Translating and Adapting to the 'real' world: SerDes Mixed Signal Verification using UVM",
+      "url": "https://dvcon-proceedings.org/document/translating-and-adapting-to-the-real-world-serdes-mixed-signal-verification-using-uvm/",
+      "checkedAt": "2026-09-02",
+      "summary": "The DVCon archive dates the Intel of Canada paper to 2019 and identifies Akhila Madhu Kumar and Karl Herterich as its authors."
+    },
+    {
+      "title": "Translating and Adapting to the 'real' world: SerDes Mixed Signal Verification using UVM — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/translating-and-adapting-to-the-real-world-serdes-mixed-signal-verification-using-uvm.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "The paper details the behavioral-model modes, real-to-logic translators, UVM adapter sequences, NRZ/PAM4 configuration, and reported verification results."
+    }
+  ]
+}

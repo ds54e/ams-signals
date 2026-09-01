@@ -1,0 +1,22 @@
+{
+  "id": "chipagents-2026-agentic-ams-behavioral-modeling",
+  "when": {
+    "start": "2026-06-05",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "chipagents"
+  ],
+  "people": [],
+  "headline": "ChipAgents describes an agentic workflow for generating and validating AMS behavioral models",
+  "fact": "A ChipAgents-authored technical post describes an agentic workflow for PLL, ADC, DAC, and LDO behavioral models: create reference data with a full-physics simulator, generate Verilog-A models, validate waveforms and operating behavior against reserved golden data, detect gaps, select new simulations through active learning, retrain, and integrate models through Verilog-A, SystemVerilog, or C++ DPI interfaces. The post says the company's platform produces tests, comparison results, and plots for human review. This records the company's own platform description, not independent evidence of model accuracy or customer deployment.",
+  "sources": [
+    {
+      "title": "Why Chip Engineers Should Care About AI-Created Behavioral Models",
+      "url": "https://chipagents.ai/blogs/ai-created-behavioral-models",
+      "checkedAt": "2026-09-02",
+      "summary": "The company-authored post is dated June 5, 2026 and describes reference-data generation, model production, golden-data validation, active-learning refinement, deployment interfaces, and human sign-off."
+    }
+  ]
+}
