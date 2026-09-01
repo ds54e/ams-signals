@@ -8,20 +8,20 @@
   "companies": ["apple"],
   "people": [],
   "headline": "Apple posts a PMU Digital Mixed Signal Modeling role",
-  "fact": "Apple posted a PMU modeling role whose description lists SystemVerilog real-number modeling, model-versus-schematic simulation, standalone model validation, full-chip DMS integration, model-library reuse, model accuracy metrics, regression, Python automation, and correlation with transistor-level simulation and silicon bring-up.",
+  "fact": "Apple posted a PMU modeling role whose description lists SystemVerilog real-number modeling, model-versus-schematic simulation, standalone model validation, full-chip DMS integration, model-library reuse, model accuracy metrics, regression, Python automation, and correlation with transistor-level simulation and silicon bring-up. The posting says RNM-based closed-loop simulations typically run more than 100 times faster than schematic-based simulations.",
   "sources": [
     {
       "title": "Digital Mixed Signal Modeling Engineer",
       "url": "https://jobs.apple.com/en-us/details/200659736",
-      "checkedAt": "2026-08-30",
+      "checkedAt": "2026-09-02",
       "status": "unavailable",
-      "summary": "Official Apple PMU DMS job description listing RNM, validation, full-chip integration, regression, reuse, automation, and correlation responsibilities."
+      "summary": "Official Apple PMU DMS job description listing RNM, validation, full-chip integration, regression, reuse, automation, correlation, and a stated typical speedup of more than 100 times for RNM-based closed-loop simulation."
     },
     {
       "title": "Digital Mixed Signal Modeling Engineer — recovery copy",
       "url": "https://tryjeremy.com/jobs/apple-digital-mixed-signal-modeling-engineer-019dbbc8fba3",
-      "checkedAt": "2026-08-30",
-      "summary": "Recovery copy of Apple role 200659736 preserving the PMU scope and the model validation, full-chip integration, library reuse, regression, automation, and correlation responsibilities."
+      "checkedAt": "2026-09-02",
+      "summary": "Recovery copy of Apple role 200659736 preserving the PMU scope, verification responsibilities, and stated typical speedup of more than 100 times for RNM-based closed-loop simulation."
     }
   ]
 }
