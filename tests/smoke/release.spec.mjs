@@ -39,6 +39,13 @@ function queryState(url) {
   return Object.fromEntries([...new URL(url).searchParams.entries()].sort(([left], [right]) => left.localeCompare(right)));
 }
 
+function expectedActivityBundleColumns(memberCount) {
+  const maxColumns = Math.min(memberCount, 3);
+  const minimumRows = Math.ceil(memberCount / maxColumns);
+  return Array.from({ length: maxColumns }, (_, index) => index + 1)
+    .find((columns) => Math.ceil(memberCount / columns) === minimumRows);
+}
+
 test('Timeline is the temporal view with filters and one Evidence Inspector', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
@@ -747,9 +754,9 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   expect(JSON.parse(await bundle.getAttribute('data-bundle-event-ids'))).toEqual(bundledIds);
   expect(JSON.parse(await bundle.getAttribute('data-visible-event-ids'))).toEqual(bundledIds);
   await expect(bundle).toHaveAttribute('data-bundle-member-count', '4');
-  await expect(bundle).toHaveAttribute('data-bundle-columns', '3');
+  await expect(bundle).toHaveAttribute('data-bundle-columns', '2');
   await expect(bundle).toHaveAttribute('data-bundle-rows', '2');
-  await expect(bundle).toHaveAttribute('data-bundle-width-px', '52');
+  await expect(bundle).toHaveAttribute('data-bundle-width-px', '34');
   await expect(bundle).toHaveAttribute('data-bundle-mode', 'period');
   await expect(bundle).toHaveAttribute('data-time-band', 'years-2015-2019');
   await expect(bundle).not.toHaveAttribute('data-bundle-window');
@@ -1544,6 +1551,30 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     'ams-osram': 1,
   });
   expect(rows.filter(({ slotCount }) => slotCount > 1).map(({ lane }) => lane)).toEqual(['company:apple']);
+
+  const appleBundles = rows.find(({ lane }) => lane === 'company:apple').bundles;
+  const aprilMayBundle = appleBundles.find(({ ids }) => (
+    ids.includes('apple-2026-05-wireless-mixed-signal-verification-hiring')
+    && ids.includes('apple-2026-04-pmu-dms')
+  ));
+  const julyAugustBundle = appleBundles.find(({ ids }) => (
+    ids.includes('apple-2026-08-cad-ams-simulation-methodology')
+    && ids.includes('apple-2026-07-wireless-dms-hiring')
+  ));
+  expect(aprilMayBundle).toMatchObject({
+    columns: 2,
+    rowCount: 2,
+    bundleWidthPx: 34,
+    collisionWidthPx: 34,
+  });
+  expect(aprilMayBundle.slot).toBe(julyAugustBundle.slot);
+
+  const januaryNovemberBundle = appleBundles.find(({ ids }) => (
+    ids.includes('apple-2026-london-ams-dv-team-hiring')
+    && ids.includes('apple-2025-11-wireless-radio-verification-hiring')
+  ));
+  const octoberBundle = appleBundles.find(({ ids }) => ids.includes('apple-2025-10-aeon-modeling-intern'));
+  expect(januaryNovemberBundle.slot).not.toBe(octoberBundle.slot);
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
@@ -1577,7 +1608,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       .toEqual(expectedGroups.map(({ mode, ids }) => ({ mode, ids })));
 
     for (const bundle of row.bundles) {
-      expect(bundle.columns).toBe(Math.min(bundle.ids.length, 3));
+      expect(bundle.columns).toBe(expectedActivityBundleColumns(bundle.ids.length));
       expect(bundle.rowCount).toBe(Math.ceil(bundle.ids.length / bundle.columns));
       expect(bundle.bundleWidthPx).toBe((bundle.columns * 16) + ((bundle.columns - 1) * 2));
       expect(bundle.collisionWidthPx).toBe(bundle.bundleWidthPx);
