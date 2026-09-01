@@ -1,0 +1,26 @@
+{
+  "id": "samsung-2026-ip-xact-pss-shift-left",
+  "when": {
+    "start": "2026-03-03",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["samsung"],
+  "people": [],
+  "headline": "Samsung reports IP-XACT-driven PSS model generation for shift-left SoC verification",
+  "fact": "A Samsung Electronics DVCon paper described generating a PSS modeling database from IP-XACT hierarchy, interface, signal-behavior and connectivity information to automate scenario and checker generation. In the presented example, the number of identified functional-coverage bins increased from 1,193 to 1,558 (+30.5%), including cross-function bins from 38 to 203; the paper also states that PSS mainstream adoption remains limited while many organizations remain UVM-centered.",
+  "sources": [
+    {
+      "title": "IP-XACT Based PSS Modeling for Shift-Left SoC Verification",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/submission_165.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Samsung Electronics DVCon paper describing IP-XACT-driven PSS model generation, the reported coverage-bin counts and the authors' assessment that mainstream PSS adoption remains limited."
+    },
+    {
+      "title": "DVCon U.S. 2026 Technical Sessions",
+      "url": "https://dvcon.org/program/2026/2026-technical-sessions",
+      "checkedAt": "2026-09-02",
+      "summary": "Official DVCon U.S. 2026 program listing the Samsung paper on March 3, 2026."
+    }
+  ]
+}

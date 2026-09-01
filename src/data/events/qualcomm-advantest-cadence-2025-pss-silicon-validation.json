@@ -1,0 +1,32 @@
+{
+  "id": "qualcomm-advantest-cadence-2025-pss-silicon-validation",
+  "when": {
+    "start": "2025-02-25",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["qualcomm", "advantest", "cadence"],
+  "people": [],
+  "headline": "Qualcomm, Advantest and Cadence demonstrate PSS handoff from design verification to silicon validation",
+  "fact": "At DVCon U.S. 2025, Qualcomm, Advantest and Cadence presented a unified device-sign-off flow that hands PSS-based tests from design verification to a silicon-validation bench through an FDAT functional-test container. The concrete use case used a parameterized CPU-binning test, native binary execution, runtime parameters and PSS coverage/debug; the presenters reported a 5x PSS productivity gain and hours saved per DV-SV iteration by avoiding pattern conversion.",
+  "sources": [
+    {
+      "title": "Accelerating Device Sign-off through a Unified Environment for Design Verification, Silicon Validation, and ATE with PSS",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1085-Accelerating-Device-Sign-off-through-a-Unified-Environment-for-Design-Verification-Silicon-Validation-and-ATE-with-PSS.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "DVCon slides from Qualcomm, Advantest and Cadence describing the FDAT/PSS silicon-validation flow, CPU-binning use case, runtime parameters, coverage/debug and reported productivity results."
+    },
+    {
+      "title": "DVCon U.S. 2025 Technical Sessions",
+      "url": "https://dvcon.org/2025-technical-sessions",
+      "checkedAt": "2026-09-02",
+      "summary": "Official DVCon program listing paper 1085 and its Qualcomm, Advantest and Cadence authors."
+    },
+    {
+      "title": "Advantest Launches SiConic Suite for Streamlining and Accelerating Silicon Validation",
+      "url": "https://www.advantest.com/en/news/2025/20250220.html",
+      "checkedAt": "2026-09-02",
+      "summary": "Advantest launch announcement for SiConic, including PSS-tool integration and the planned DVCon presentation with Qualcomm and Cadence."
+    }
+  ]
+}

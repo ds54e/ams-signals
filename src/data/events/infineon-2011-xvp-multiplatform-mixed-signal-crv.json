@@ -1,0 +1,26 @@
+{
+  "id": "infineon-2011-xvp-multiplatform-mixed-signal-crv",
+  "when": {
+    "start": "2011-09-22",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon links mixed-signal constrained-random tests to XVP across simulation, PXI and ATE",
+  "fact": "An Infineon-authored paper described linking Markov-based mixed-signal constrained-random test generation to an Executable Verification Plan (XVP) so test cases could be transferred to Cadence simulators and MATLAB/Simulink for simulation and to PXI and ATE for post-silicon verification. The paper also reports applying generated tests on mixed VHDL-AMS/Verilog models and post-silicon PXI/ATE systems and identifying mixed-signal design issues.",
+  "sources": [
+    {
+      "title": "Extending Constrained Random Verification to mixed-signal Automotive Power Devices using a non-stationary Markov process",
+      "url": "https://project.edacentrum.de/rescar/system/files/ct_publication/2.2_nirmaier.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Infineon-authored 2011 paper describing XVP-linked constrained-random generation across simulation, PXI and ATE targets for automotive mixed-signal power devices."
+    },
+    {
+      "title": "RESCAR Public Publications",
+      "url": "https://project.edacentrum.de/rescar/show/public_publications",
+      "checkedAt": "2026-09-02",
+      "summary": "EDAcentrum publication index dating the Infineon paper to September 22, 2011."
+    }
+  ]
+}

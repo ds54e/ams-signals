@@ -1,0 +1,26 @@
+{
+  "id": "ecosystem-2026-08-pss-3-1-public-review",
+  "when": {
+    "start": "2026-08-31",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "Accellera opens PSS 3.1 draft for public review",
+  "fact": "Accellera listed the Portable Stimulus Standard Draft 3.1 for public review on August 31, 2026, with comments open through September 30. Accellera describes 3.1 as a focused update to PSS 3.0 covering a stronger constraint language, more reusable libraries, greater control over generated target code, and improved address-space/register modeling.",
+  "sources": [
+    {
+      "title": "Accellera Draft Standards Available for Public Review",
+      "url": "https://www.accellera.org/downloads/drafts-review",
+      "checkedAt": "2026-09-02",
+      "summary": "Accellera public-review page listing PSS Draft 3.1, its August 31, 2026 review opening and September 30 comment deadline."
+    },
+    {
+      "title": "Accellera Community Newsletter: August 2026",
+      "url": "https://www.accellera.org/news/newsletters/2026-august",
+      "checkedAt": "2026-09-02",
+      "summary": "Accellera overview of the focused PSS 3.1 updates to constraints, reusable libraries, generated target-code control, and address-space/register modeling."
+    }
+  ]
+}
