@@ -1,0 +1,28 @@
+{
+  "id": "ecosystem-2019-11-uvm-ams-working-group",
+  "when": {
+    "start": "2019-11-19",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [
+    "patrick-lynch"
+  ],
+  "headline": "Accellera forms the UVM-AMS Working Group to standardize mixed-signal UVM extensions",
+  "fact": "Accellera formed the UVM-AMS Working Group on November 19, 2019 after a proposed-working-group phase that began with a May 2019 meeting in Munich, naming Patrick Lynch as chair. The charter targeted a unified UVM-based analog/mixed-signal verification methodology, including standardized driving and monitoring of mixed-signal nets, stimulus, scoreboarding and analysis, plus a framework for reusable analog/mixed-signal verification components derived from digital-centric verification IP. Accellera said the planned standard was intended to support ready-to-use analog/mixed-signal verification IP from tool and IP providers.",
+  "sources": [
+    {
+      "title": "UVM-AMS Working Group Formed to Standardize UVM Analog/Mixed-Signal Extensions",
+      "url": "https://www.accellera.org/news/press-releases/286-uvm-ams-working-group-formed-to-standardize-uvm-analog-mixed-signal-extensions",
+      "checkedAt": "2026-09-02",
+      "summary": "Accellera's November 19, 2019 announcement names Patrick Lynch as UVM-AMS Working Group chair, defines the charter, describes its May 2019 proposed-working-group precursor, and states the goal of reusable AMS verification components and ready-to-use AMS verification IP."
+    },
+    {
+      "title": "UVM-AMS: a UVM-Based Analog Verification Standard",
+      "url": "https://2021.dvcon.org/presentation/workshop/uvm-ams-uvm-based-analog-verification-standard.html",
+      "checkedAt": "2026-09-02",
+      "summary": "The official DVCon U.S. 2021 workshop record identifies Patrick Lynch of Xilinx among the key Accellera UVM-AMS Working Group members, corroborating the public identity linked to the 2019 chair role."
+    }
+  ]
+}
