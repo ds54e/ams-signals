@@ -5,6 +5,11 @@ import { sitePath } from '../lib/paths';
 export const prerender = true;
 
 const publicOrigin = 'https://ds54e.github.io';
+const excludedPersonIds = new Set(['lunlun']);
+const excludedEventIds = new Set([
+  'lunlun-2024-initial-real-time-representation',
+  'lunlun-2025-3-0-dynamic-behavior',
+]);
 
 const byNameAndId = (
   left: { data: { id: string; name: string } },
@@ -23,17 +28,20 @@ export async function GET() {
     .sort(byNameAndId)
     .map(({ data }) => ({ ...data }));
   const people = [...peopleEntries]
+    .filter(({ data }) => !excludedPersonIds.has(data.id))
     .sort(byNameAndId)
     .map(({ data }) => ({ ...data }));
-  const events = sortEventsNewestFirst(eventEntries).map(({ data }) => ({
-    ...data,
-    sources: data.sources.map((source) => ({
-      ...source,
-      status: source.status ?? 'available',
-      archiveUrl: source.archiveUrl ?? null,
-    })),
-    recordUrl: new URL(sitePath(`events/${data.id}/`), publicOrigin).href,
-  }));
+  const events = sortEventsNewestFirst(eventEntries)
+    .filter(({ data }) => !excludedEventIds.has(data.id))
+    .map(({ data }) => ({
+      ...data,
+      sources: data.sources.map((source) => ({
+        ...source,
+        status: source.status ?? 'available',
+        archiveUrl: source.archiveUrl ?? null,
+      })),
+      recordUrl: new URL(sitePath(`events/${data.id}/`), publicOrigin).href,
+    }));
 
   const payload = {
     schemaVersion: 1,

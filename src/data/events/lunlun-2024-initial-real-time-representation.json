@@ -1,0 +1,22 @@
+{
+  "id": "lunlun-2024-initial-real-time-representation",
+  "when": {
+    "start": "2024-06-22",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [
+    "lunlun"
+  ],
+  "headline": "Initial real-time representation of Lunlun becomes available",
+  "fact": "An initial real-time representation of Lunlun was publicly demonstrated in June 2024. The session exposes continuously observable motion, expression changes, and interactive response, providing a behavioral baseline for later revisions.",
+  "sources": [
+    {
+      "title": "Initial real-time representation of Lunlun",
+      "url": "https://www.youtube.com/watch?v=jDpZnGygy7w",
+      "checkedAt": "2026-09-02",
+      "summary": "June 2024 public demonstration of the initial real-time model representation and its interactive behavior."
+    }
+  ]
+}
