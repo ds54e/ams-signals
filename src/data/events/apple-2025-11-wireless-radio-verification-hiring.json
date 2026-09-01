@@ -1,0 +1,20 @@
+{
+  "id": "apple-2025-11-wireless-radio-verification-hiring",
+  "when": {
+    "start": "2025-11-17",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple posts a Wireless Radio Verification role spanning digital and RF-modeled subsystems",
+  "fact": "Apple posted a Wireless Radio Verification Engineer role whose description covers radio digital controllers and Digital+RF subsystems spanning PLL, DAC and ADC data paths, power management, and coexistence. The hiring mandate includes UVM environments, constrained-random tests, coverage and assertions, and digital-plus-mixed-signal co-simulation integrating SystemVerilog behavioral and DMS models.",
+  "sources": [
+    {
+      "title": "Wireless Radio Verification Engineer",
+      "url": "https://jobs.apple.com/en-us/details/200632358-3956/wireless-radio-verification-engineer",
+      "checkedAt": "2026-09-02",
+      "summary": "Official Apple posting dated November 17, 2025, describing verification of radio digital controllers and Digital+RF subsystems with UVM, constrained random testing, coverage, assertions, and mixed-signal co-simulation."
+    }
+  ]
+}
