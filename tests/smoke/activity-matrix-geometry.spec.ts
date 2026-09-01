@@ -1,11 +1,14 @@
 import { expect, test } from '@playwright/test';
 import {
+  ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS,
+  ACTIVITY_MATRIX_VISUAL_ROW_PITCH,
   activityMatrixBundleColumns,
   activityMatrixBundleRows,
   activityMatrixBundleWidthPx,
   buildActivityMatrixBundles,
   deriveActivityMatrixTimeBands,
+  packActivityMatrixBundleRows,
   projectTimestampToActivityMatrix,
 } from '../../src/lib/activityMatrix';
 
@@ -172,9 +175,9 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   expect(separatedSingles).toHaveLength(2);
   expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeGreaterThan(32);
   expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeLessThan(36);
-  expect(separatedSingles.map(({ collisionWidthPx, slot }) => ({ collisionWidthPx, slot }))).toEqual([
-    { collisionWidthPx: 16, slot: 0 },
-    { collisionWidthPx: 16, slot: 0 },
+  expect(separatedSingles.map(({ collisionWidthPx, rowStart }) => ({ collisionWidthPx, rowStart }))).toEqual([
+    { collisionWidthPx: 16, rowStart: 0 },
+    { collisionWidthPx: 16, rowStart: 0 },
   ]);
 
   const bundles = buildActivityMatrixBundles([
@@ -197,5 +200,42 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   }));
   expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeGreaterThan(32);
   expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeLessThan(52);
-  expect(bundles[0].slot).not.toBe(bundles[1].slot);
+  expect(bundles[0].rowStart).not.toBe(bundles[1].rowStart);
+});
+
+test('row-aware packing reuses free visual rows without weakening rectangle separation', () => {
+  expect(ACTIVITY_MATRIX_VISUAL_ROW_PITCH).toBe(18);
+
+  const packableBundles = [
+    { xPx: 0, collisionWidthPx: 34, rowCount: 2 },
+    { xPx: 100, collisionWidthPx: 34, rowCount: 1 },
+    { xPx: 125, collisionWidthPx: 16, rowCount: 1 },
+    { xPx: 125, collisionWidthPx: 16, rowCount: 1 },
+  ];
+  const expectedPlacements = [
+    { rowStart: 0, rowEnd: 2 },
+    { rowStart: 0, rowEnd: 1 },
+    { rowStart: 1, rowEnd: 2 },
+    { rowStart: 2, rowEnd: 3 },
+  ];
+
+  for (let repetition = 0; repetition < 5; repetition += 1) {
+    expect(packActivityMatrixBundleRows(packableBundles)).toEqual(expectedPlacements);
+  }
+
+  const placed = packableBundles.map((bundle, index) => ({
+    ...bundle,
+    ...expectedPlacements[index],
+  }));
+  for (let left = 0; left < placed.length; left += 1) {
+    for (let right = left + 1; right < placed.length; right += 1) {
+      const verticalOverlap = placed[left].rowStart < placed[right].rowEnd
+        && placed[right].rowStart < placed[left].rowEnd;
+      if (!verticalOverlap) continue;
+
+      const horizontalSeparation = Math.abs(placed[left].xPx - placed[right].xPx)
+        - ((placed[left].collisionWidthPx + placed[right].collisionWidthPx) / 2);
+      expect(horizontalSeparation).toBeGreaterThanOrEqual(ACTIVITY_MATRIX_BUNDLE_GAP);
+    }
+  }
 });
