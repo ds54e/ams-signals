@@ -11,7 +11,7 @@ sources:
     url: "https://fairygodboss.com/jobs/apple/mixed-signal-model-verification-engineer-c2bf9efb051278cfbef08721089aa3de"
   - title: "Mixed-Signal Behavioral Modeling Engineer"
     publisher: "Apple"
-    url: "https://jobs.apple.com/en-us/details/200652859-3543/mixed-signal-behavioral-modeling-engineer"
+    url: "https://jobs.apple.com/en-ae/details/200652859-6205/mixed-signal-behavioral-modeling-engineer"
   - title: "Mixed-Signal Behavioral Modeling Engineer"
     publisher: "Apple"
     url: "https://jobs.apple.com/en-us/details/200658810/mixed-signal-behavioral-modeling-engineer"
