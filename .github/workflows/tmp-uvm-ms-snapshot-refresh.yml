@@ -1,0 +1,178 @@
+name: Temporary UVM-MS snapshot refresh
+
+on:
+  push:
+    branches:
+      - research/uvm-ms-standardization-adoption
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: research/uvm-ms-standardization-adoption
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Refresh exact corpus-derived smoke snapshots
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const path = 'tests/smoke/release.spec.mjs';
+          const payload = JSON.parse(fs.readFileSync('dist/export.json', 'utf8'));
+          let text = fs.readFileSync(path, 'utf8');
+
+          const replaceExact = (from, to) => {
+            if (!text.includes(from)) throw new Error(`Missing expected snapshot: ${from}`);
+            text = text.replace(from, to);
+          };
+
+          const latestYear = Math.max(...payload.events.map((event) => Number(event.when.start.slice(0, 4))));
+          const startTimestamp = (value) => {
+            const [year, month = '01', day = '01'] = value.split('-').map(Number);
+            return Date.UTC(year, month - 1, day);
+          };
+          const compareActivity = (left, right) => (
+            right.recent3 - left.recent3
+            || right.recent5 - left.recent5
+            || right.latestTimestamp - left.latestTimestamp
+            || right.total - left.total
+            || left.name.localeCompare(right.name, 'en')
+            || left.id.localeCompare(right.id, 'en')
+            || left.entityType.localeCompare(right.entityType, 'en')
+          );
+          const ordered = (entities, entityType) => entities.map((entity) => {
+            const linked = payload.events.filter((event) => event[entityType === 'company' ? 'companies' : 'people'].includes(entity.id));
+            linked.sort((left, right) => startTimestamp(right.when.start) - startTimestamp(left.when.start) || left.id.localeCompare(right.id, 'en'));
+            return {
+              id: entity.id,
+              name: entity.name,
+              entityType,
+              recent3: linked.filter((event) => Number(event.when.start.slice(0, 4)) >= latestYear - 2).length,
+              recent5: linked.filter((event) => Number(event.when.start.slice(0, 4)) >= latestYear - 4).length,
+              latestTimestamp: linked[0] ? startTimestamp(linked[0].when.start) : Number.NEGATIVE_INFINITY,
+              total: linked.length,
+            };
+          }).filter(({ total }) => total > 0).sort(compareActivity);
+
+          const companies = ordered(payload.companies, 'company');
+          const people = ordered(payload.people, 'person');
+          const combined = [...companies, ...people].sort(compareActivity);
+          const recurringKeys = new Set(combined.filter(({ total }) => total >= 2).map(({ entityType, id }) => `${entityType}:${id}`));
+          const recurringCompanyIds = new Set(companies.filter(({ total }) => total >= 2).map(({ id }) => id));
+          const recurringPeopleIds = new Set(people.filter(({ total }) => total >= 2).map(({ id }) => id));
+          const representedEvents = payload.events.filter((event) => (
+            event.companies.some((id) => recurringCompanyIds.has(id))
+            || event.people.some((id) => recurringPeopleIds.has(id))
+          ));
+
+          const formatTop10 = (prefix, values) => `${prefix}[\n${values.slice(0, 10).map(({ id }) => `    '${id}',`).join('\n')}\n  ]);`;
+          text = text.replace(
+            /expect\(expectedIds\.slice\(0, 10\)\)\.toEqual\(\[\n(?:    '[^']+',\n){10}  \]\);/,
+            formatTop10('expect(expectedIds.slice(0, 10)).toEqual(', companies),
+          );
+          text = text.replace(
+            /expect\(expectedPeople\.map\(\(\{ id \}\) => id\)\.slice\(0, 10\)\)\.toEqual\(\[\n(?:    '[^']+',\n){10}  \]\);/,
+            formatTop10('expect(expectedPeople.map(({ id }) => id).slice(0, 10)).toEqual(', people),
+          );
+
+          replaceExact('expect(payload.people).toHaveLength(25);', `expect(payload.people).toHaveLength(${payload.people.length});`);
+          replaceExact('expect(payload.events).toHaveLength(167);', `expect(payload.events).toHaveLength(${payload.events.length});`);
+          replaceExact("expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(108);", `expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(${payload.events.filter(({ kind }) => kind === 'technical').length});`);
+          replaceExact('expect(activePersonIds).toHaveLength(25);', `expect(activePersonIds).toHaveLength(${people.length});`);
+          replaceExact('expect(defaultVisibleCombinedKeys).toHaveLength(47);', `expect(defaultVisibleCombinedKeys).toHaveLength(${recurringKeys.size});`);
+
+          text = text.replaceAll('167 of 167 events', `${payload.events.length} of ${payload.events.length} events`);
+          text = text.replaceAll('0 of 167 events', `0 of ${payload.events.length} events`);
+          text = text.replaceAll('/of 167 events/', `/of ${payload.events.length} events/`);
+          text = text.replaceAll('toHaveLength(167)', `toHaveLength(${payload.events.length})`);
+          text = text.replaceAll('146 of 167 events', `${representedEvents.length} of ${payload.events.length} events`);
+          text = text.replaceAll('toHaveLength(146)', `toHaveLength(${representedEvents.length})`);
+          text = text.replaceAll('108 of 167 events', `${payload.events.filter(({ kind }) => kind === 'technical').length} of ${payload.events.length} events`);
+          text = text.replaceAll('59 of 167 events', `${payload.events.filter(({ kind }) => kind === 'organizational').length} of ${payload.events.length} events`);
+          text = text.replaceAll('toHaveLength(108)', `toHaveLength(${payload.events.filter(({ kind }) => kind === 'technical').length})`);
+
+          const companyCounts = new Map(payload.companies.map(({ id }) => [id, payload.events.filter((event) => event.companies.includes(id)).length]));
+          replaceExact("    nxp: 12,\n    renesas: 12,", `    nxp: ${companyCounts.get('nxp')},\n    renesas: ${companyCounts.get('renesas')},`);
+          replaceExact("      'infineon-2018-automated-rnm-generation-validation',\n    ]),", "      'infineon-2018-automated-rnm-generation-validation',\n      'nxp-infineon-2018-uvm-ms-standardization-ideas',\n    ]),");
+
+          const bandDefs = [
+            { key: `year-${latestYear}`, label: String(latestYear), ariaLabel: String(latestYear), startYear: latestYear, endYear: latestYear, zone: 'recent', resolution: 'continuous' },
+            { key: `year-${latestYear - 1}`, label: String(latestYear - 1), ariaLabel: String(latestYear - 1), startYear: latestYear - 1, endYear: latestYear - 1, zone: 'recent', resolution: 'continuous' },
+            { key: `year-${latestYear - 2}`, label: String(latestYear - 2), ariaLabel: String(latestYear - 2), startYear: latestYear - 2, endYear: latestYear - 2, zone: 'recent', resolution: 'continuous' },
+            { key: `year-${latestYear - 3}`, label: String(latestYear - 3), ariaLabel: String(latestYear - 3), startYear: latestYear - 3, endYear: latestYear - 3, zone: 'earlier', resolution: 'bucket' },
+            { key: `year-${latestYear - 4}`, label: String(latestYear - 4), ariaLabel: String(latestYear - 4), startYear: latestYear - 4, endYear: latestYear - 4, zone: 'earlier', resolution: 'bucket' },
+            { key: `years-${latestYear - 6}-${latestYear - 5}`, label: `${latestYear - 6}–${latestYear - 5}`, ariaLabel: `${latestYear - 6}–${latestYear - 5}`, startYear: latestYear - 6, endYear: latestYear - 5, zone: 'earlier', resolution: 'bucket' },
+            { key: `years-${latestYear - 11}-${latestYear - 7}`, label: `${latestYear - 11}–${latestYear - 7}`, ariaLabel: `${latestYear - 11}–${latestYear - 7}`, startYear: latestYear - 11, endYear: latestYear - 7, zone: 'earlier', resolution: 'bucket' },
+            { key: `through-${latestYear - 12}`, label: `≤${latestYear - 12}`, ariaLabel: `${latestYear - 12} and earlier`, startYear: undefined, endYear: latestYear - 12, zone: 'earlier', resolution: 'bucket' },
+          ];
+          const bandForYear = (year) => bandDefs.find((band) => band.startYear === undefined ? year <= band.endYear : year >= band.startYear && year <= band.endYear);
+          const density = new Map(bandDefs.map(({ key }) => [key, 0]));
+          for (const entity of combined) {
+            const ids = entity.entityType === 'company' ? [entity.id] : [entity.id];
+            const linked = payload.events.filter((event) => entity.entityType === 'company' ? event.companies.includes(ids[0]) : event.people.includes(ids[0]));
+            const counts = new Map();
+            for (const event of linked) {
+              const key = bandForYear(Number(event.when.start.slice(0, 4))).key;
+              counts.set(key, (counts.get(key) || 0) + 1);
+            }
+            for (const [key, count] of counts) density.set(key, Math.max(density.get(key), count));
+          }
+          const bundleWidth = (count) => {
+            const columns = Math.min(Math.max(Math.trunc(count), 0), 3);
+            return columns === 0 ? 0 : (columns * 16) + ((columns - 1) * 2);
+          };
+          let px = 0;
+          const bands = bandDefs.map((band) => {
+            const maxEventsPerRow = density.get(band.key);
+            const widthPx = band.resolution === 'continuous'
+              ? Math.min(Math.max(74 + (10 * maxEventsPerRow), 100), 160)
+              : Math.max(band.startYear === undefined ? 68 : band.startYear === band.endYear ? 52 : 76, bundleWidth(maxEventsPerRow) + 16);
+            const startPx = px;
+            const endPx = startPx + widthPx;
+            px = endPx;
+            return { ...band, widthPx, maxEventsPerRow, startPx, endPx };
+          });
+          const trackWidth = bands.at(-1).endPx;
+          const bandLine = (band) => `    { key: '${band.key}', label: '${band.label}', ariaLabel: '${band.ariaLabel}', startYear: ${band.startYear === undefined ? 'undefined' : band.startYear}, endYear: ${band.endYear}, widthPx: ${band.widthPx}, maxEventsPerRow: ${band.maxEventsPerRow}, startPx: ${band.startPx}, endPx: ${band.endPx}, zone: '${band.zone}', resolution: '${band.resolution}' },`;
+          const bandSnapshot = `  expect(bands).toEqual([\n${bands.map(bandLine).join('\n')}\n  ]);`;
+          text = text.replace(/  expect\(bands\)\.toEqual\(\[\n(?:    \{[^\n]+\},\n){8}  \]\);/, bandSnapshot);
+          text = text.replaceAll("toHaveAttribute('data-track-width', '686')", `toHaveAttribute('data-track-width', '${trackWidth}')`);
+          text = text.replaceAll('toBe(686)', `toBe(${trackWidth})`);
+          text = text.replaceAll('/ 686) * 100', `/ ${trackWidth}) * 100`);
+
+          fs.writeFileSync(path, text);
+          console.log(JSON.stringify({
+            events: payload.events.length,
+            technical: payload.events.filter(({ kind }) => kind === 'technical').length,
+            organizational: payload.events.filter(({ kind }) => kind === 'organizational').length,
+            people: payload.people.length,
+            activePeople: people.length,
+            recurringRows: recurringKeys.size,
+            representedEvents: representedEvents.length,
+            companyTop10: companies.slice(0, 10).map(({ id }) => id),
+            peopleTop10: people.slice(0, 10).map(({ id }) => id),
+            trackWidth,
+            bands,
+          }, null, 2));
+          NODE
+      - name: Commit snapshot refresh
+        run: |
+          if git diff --quiet -- tests/smoke/release.spec.mjs; then
+            echo "No snapshot changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/smoke/release.spec.mjs
+          git commit -m "Refresh UVM-MS corpus smoke snapshots"
+          git push origin HEAD:research/uvm-ms-standardization-adoption
