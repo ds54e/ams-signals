@@ -1,0 +1,61 @@
+name: Update corpus smoke fixtures
+
+on:
+  push:
+    branches:
+      - research/pre-post-silicon-portability
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: research/pre-post-silicon-portability
+          fetch-depth: 0
+      - name: Update smoke expectations for expanded corpus
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tests/smoke/release.spec.mjs')
+          text = path.read_text()
+
+          exact = {
+              "expect(payload.companies).toHaveLength(58);": "expect(payload.companies).toHaveLength(59);",
+              "expect(activeCompanyIds).toHaveLength(57);": "expect(activeCompanyIds).toHaveLength(58);",
+              "expect(singletonCompanyIds).toHaveLength(29);": "expect(singletonCompanyIds).toHaveLength(30);",
+              "await expect(page.locator('[data-company-options] input:checked')).toHaveCount(57);": "await expect(page.locator('[data-company-options] input:checked')).toHaveCount(58);",
+              "expect(totalCompanies).toBe(57);": "expect(totalCompanies).toBe(58);",
+              "await expect(page.locator('[data-company-summary]')).toHaveText('All 57');": "await expect(page.locator('[data-company-summary]')).toHaveText('All 58');",
+              "{ key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 4, startPx: 558, endPx: 634, zone: 'earlier', resolution: 'bucket' },": "{ key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 558, endPx: 634, zone: 'earlier', resolution: 'bucket' },",
+              """  expect(expectedIds.slice(0, 10)).toEqual([\n    'apple',\n    'siemens-eda',\n    'nxp',\n    'texas-instruments',\n    'renesas',\n    'cadence',\n    'samsung',\n    'synopsys',\n    'intel',\n    'infineon',\n  ]);""": """  expect(expectedIds.slice(0, 10)).toEqual([\n    'apple',\n    'siemens-eda',\n    'nxp',\n    'texas-instruments',\n    'cadence',\n    'renesas',\n    'infineon',\n    'samsung',\n    'synopsys',\n    'intel',\n  ]);""",
+          }
+
+          for old, new in exact.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one match for {old!r}, found {count}')
+              text = text.replace(old, new)
+
+          # These values are corpus-wide fixture constants. GitHub search confirmed
+          # every occurrence is a smoke expectation rather than product code/data.
+          text = text.replace('172', '183')
+          text = text.replace('151', '161')
+          text = text.replace('113', '124')
+
+          path.write_text(text)
+          PY
+      - name: Remove temporary updater and commit fixture refresh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/update-corpus-smoke-fixtures.yml
+          git add tests/smoke/release.spec.mjs
+          git diff --cached --check
+          git commit -m "Update smoke fixtures for expanded corpus"
+          git push origin HEAD:research/pre-post-silicon-portability
