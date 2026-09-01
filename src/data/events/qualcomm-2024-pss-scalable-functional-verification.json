@@ -1,0 +1,26 @@
+{
+  "id": "qualcomm-2024-pss-scalable-functional-verification",
+  "when": {
+    "start": "2024-03-05",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["qualcomm"],
+  "people": [],
+  "headline": "Qualcomm reports PSS scenario reuse across UVM-agent and embedded-core executors",
+  "fact": "A Qualcomm Technologies DVCon paper reported using PSS to reuse constrained-random scenario specifications across verification platforms and integration levels. Its executor model maps the same scenario operations either to UVM agents or to embedded processors; the reported fast-platform initialization case changed executor constraints without changing the scenario structure and showed about a 30% average runtime improvement.",
+  "sources": [
+    {
+      "title": "Scalable Functional Verification using Portable Stimulus Standard",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1145-1.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Qualcomm Technologies paper describing PSS executor mapping across UVM agents and embedded processors and reporting the fast-platform runtime result."
+    },
+    {
+      "title": "DVCon U.S. 2024 Poster 1145: Scalable Functional Verification using Portable Stimulus Standard",
+      "url": "https://dvcon.org/poster-session/1145-scalable-functional-verification-using-portable-stimulus-standard",
+      "checkedAt": "2026-09-02",
+      "summary": "Official DVCon U.S. program page dating the Qualcomm PSS presentation to March 5, 2024."
+    }
+  ]
+}
