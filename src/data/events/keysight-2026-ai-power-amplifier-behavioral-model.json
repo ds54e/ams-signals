@@ -1,0 +1,22 @@
+{
+  "id": "keysight-2026-ai-power-amplifier-behavioral-model",
+  "when": {
+    "start": "2026-07-27",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "keysight"
+  ],
+  "people": [],
+  "headline": "Keysight authors report an AI-generated power-amplifier behavioral model for system verification",
+  "fact": "Keysight authors at DAC 2026 report a neural-network behavioral model of a power-amplifier circuit whose training data is generated through SystemVue and ADS co-simulation. The presented model covers transient behavior and a broad power range and can be imported into system-level simulation for performance verification and design; this records the reported method, not an independent validation of its accuracy or deployment scope.",
+  "sources": [
+    {
+      "title": "AI-Enabled High-Fidelity Power Amplifier Behavioral Modeling with Commercial EDA Tools",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST025&sess=sess264",
+      "checkedAt": "2026-09-02",
+      "summary": "The official DAC 2026 record identifies the Keysight authors, July 27 date, co-simulation training flow, neural-network behavioral model, and system-level verification use."
+    }
+  ]
+}

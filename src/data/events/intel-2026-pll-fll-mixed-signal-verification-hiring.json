@@ -1,0 +1,23 @@
+{
+  "id": "intel-2026-pll-fll-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "intel"
+  ],
+  "people": [],
+  "headline": "Intel job posting seeks mixed-signal verification leadership for PLL and FLL clock IP",
+  "fact": "Intel posted a Senior Pre-Silicon Verification Engineer role describing functional verification of PLL and FLL clock-generator IP, SystemVerilog/UVM environments, tests, assertions and coverage, and leadership of mixed-signal validation using AMS simulations to identify and root-cause schematic bugs. This is evidence of a public hiring mandate for clock-IP verification, not proof of the completion or deployment of a particular verification flow.",
+  "sources": [
+    {
+      "title": "Intel Careers: Senior Pre-Silicon Verification Engineer (JR0280545)",
+      "url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/Senior-Pre-Silicon-Verification-Engineer_JR0280545",
+      "checkedAt": "2026-09-02",
+      "status": "unavailable",
+      "summary": "The indexed official Intel requisition described the PLL/FLL, UVM/SystemVerilog, assertion, coverage, AMS-simulation, and schematic-debug mandate; the requisition is no longer active."
+    }
+  ]
+}
