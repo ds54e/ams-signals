@@ -784,7 +784,8 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   const immutableGeometry = await bundle.evaluate((node) => ({
     eventIds: node.getAttribute('data-bundle-event-ids'),
     x: node.getAttribute('data-bundle-x'),
-    slot: node.getAttribute('data-collision-slot'),
+    rowStart: node.getAttribute('data-visual-row-start'),
+    rowEnd: node.getAttribute('data-visual-row-end'),
     top: node.getAttribute('data-bundle-top'),
     height: getComputedStyle(node).getPropertyValue('--bundle-height'),
     width: node.getAttribute('data-bundle-width-px'),
@@ -798,7 +799,8 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   expect(await bundle.evaluate((node) => ({
     eventIds: node.getAttribute('data-bundle-event-ids'),
     x: node.getAttribute('data-bundle-x'),
-    slot: node.getAttribute('data-collision-slot'),
+    rowStart: node.getAttribute('data-visual-row-start'),
+    rowEnd: node.getAttribute('data-visual-row-end'),
     top: node.getAttribute('data-bundle-top'),
     height: getComputedStyle(node).getPropertyValue('--bundle-height'),
     width: node.getAttribute('data-bundle-width-px'),
@@ -1500,11 +1502,12 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const normalizedWindow = (proximityPx / 702) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
-    slotCount: Number(node.getAttribute('data-collision-slots')),
+    visualRowCount: Number(node.getAttribute('data-visual-row-count')),
     height: node.getBoundingClientRect().height,
     bundles: [...node.querySelectorAll('[data-matrix-bundle]')].map((bundle) => ({
       ids: JSON.parse(bundle.getAttribute('data-bundle-event-ids')),
       x: Number(bundle.getAttribute('data-bundle-x')),
+      xPx: Number(bundle.getAttribute('data-bundle-x-px')),
       minX: Number(bundle.getAttribute('data-min-original-event-x')),
       maxX: Number(bundle.getAttribute('data-max-original-event-x')),
       maxDisplacement: Number(bundle.getAttribute('data-max-original-displacement')),
@@ -1512,7 +1515,9 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       rowCount: Number(bundle.getAttribute('data-bundle-rows')),
       bundleWidthPx: Number(bundle.getAttribute('data-bundle-width-px')),
       collisionWidthPx: Number(bundle.getAttribute('data-collision-width-px')),
-      slot: Number(bundle.getAttribute('data-collision-slot')),
+      rowStart: Number(bundle.getAttribute('data-visual-row-start')),
+      rowEnd: Number(bundle.getAttribute('data-visual-row-end')),
+      top: Number(bundle.getAttribute('data-bundle-top')),
       mode: bundle.getAttribute('data-bundle-mode'),
       zone: bundle.getAttribute('data-time-zone'),
       resolution: bundle.getAttribute('data-time-resolution'),
@@ -1534,23 +1539,30 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     borderBottom: getComputedStyle(node).borderBottomWidth,
     baselineContent: getComputedStyle(node.querySelector('[data-matrix-track]'), '::before').content,
   })));
-  expect(rows.every(({ slotCount }) => slotCount >= 1)).toBe(true);
+  expect(rows.every(({ visualRowCount }) => visualRowCount >= 1)).toBe(true);
   expect(rows.some(({ height }) => height === 28)).toBe(true);
   expect(rows.some(({ height }) => height > 28)).toBe(true);
   expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBeGreaterThanOrEqual(4);
   expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ rowCount }) => rowCount)))).toBe(2);
-  const slotsByLane = Object.fromEntries(rows.map(({ lane, slotCount }) => [lane, slotCount]));
+  const visualRowsByLane = Object.fromEntries(rows.map(({ lane, visualRowCount }) => [lane, visualRowCount]));
   expect(Object.fromEntries([
     'apple', 'siemens-eda', 'nxp', 'analog-devices', 'stmicroelectronics', 'ams-osram',
-  ].map((id) => [id, slotsByLane[`company:${id}`]]))).toEqual({
+  ].map((id) => [id, visualRowsByLane[`company:${id}`]]))).toEqual({
     apple: 2,
-    'siemens-eda': 1,
+    'siemens-eda': 2,
     nxp: 1,
-    'analog-devices': 1,
+    'analog-devices': 2,
     stmicroelectronics: 1,
     'ams-osram': 1,
   });
-  expect(rows.filter(({ slotCount }) => slotCount > 1).map(({ lane }) => lane)).toEqual(['company:apple']);
+  expect(rows.filter(({ visualRowCount }) => visualRowCount > 1).map(({ lane }) => lane)).toEqual([
+    'company:apple',
+    'company:siemens-eda',
+    'company:texas-instruments',
+    'company:cadence',
+    'company:infineon',
+    'company:analog-devices',
+  ]);
 
   const appleBundles = rows.find(({ lane }) => lane === 'company:apple').bundles;
   const aprilMayBundle = appleBundles.find(({ ids }) => (
@@ -1566,15 +1578,28 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     rowCount: 2,
     bundleWidthPx: 34,
     collisionWidthPx: 34,
+    rowStart: 0,
+    rowEnd: 2,
   });
-  expect(aprilMayBundle.slot).toBe(julyAugustBundle.slot);
+  expect(aprilMayBundle.rowStart).toBe(julyAugustBundle.rowStart);
 
   const januaryNovemberBundle = appleBundles.find(({ ids }) => (
     ids.includes('apple-2026-london-ams-dv-team-hiring')
     && ids.includes('apple-2025-11-wireless-radio-verification-hiring')
   ));
   const octoberBundle = appleBundles.find(({ ids }) => ids.includes('apple-2025-10-aeon-modeling-intern'));
-  expect(januaryNovemberBundle.slot).not.toBe(octoberBundle.slot);
+  const januaryOctoberHorizontalSeparation = Math.abs(
+    januaryNovemberBundle.xPx - octoberBundle.xPx,
+  ) - ((januaryNovemberBundle.collisionWidthPx + octoberBundle.collisionWidthPx) / 2);
+  expect(januaryOctoberHorizontalSeparation).toBeLessThan(0);
+  expect(januaryOctoberHorizontalSeparation).toBeGreaterThan(-1);
+  expect(januaryNovemberBundle.rowStart).toBe(0);
+  expect(octoberBundle.rowStart).toBe(1);
+  expect(octoberBundle.top - januaryNovemberBundle.top).toBe(18);
+  expect(rows.find(({ lane }) => lane === 'company:apple')).toMatchObject({
+    visualRowCount: 2,
+    height: 44,
+  });
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
     expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
@@ -1638,6 +1663,21 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
         expect(new Set(bundle.members.map(({ band }) => band)).size).toBe(1);
         expect(new Set(bundle.members.map(({ x }) => x)).size).toBe(1);
         expect(bundle.maxDisplacement).toBe(0);
+      }
+    }
+
+    for (let left = 0; left < row.bundles.length; left += 1) {
+      for (let right = left + 1; right < row.bundles.length; right += 1) {
+        const leftBundle = row.bundles[left];
+        const rightBundle = row.bundles[right];
+        const verticalOverlap = leftBundle.rowStart < rightBundle.rowEnd
+          && rightBundle.rowStart < leftBundle.rowEnd;
+        if (!verticalOverlap) continue;
+
+        const horizontalSeparation = Math.abs(leftBundle.xPx - rightBundle.xPx)
+          - ((leftBundle.collisionWidthPx + rightBundle.collisionWidthPx) / 2);
+        expect(horizontalSeparation, `${row.lane} bundle rectangles remain separated`)
+          .toBeGreaterThanOrEqual(2 - 1e-10);
       }
     }
   }
@@ -1748,14 +1788,15 @@ test('Search and Company filter never change Matrix geometry or row order', asyn
     lanes: [...root.querySelectorAll('[data-lane]')].map((lane) => ({
       key: `${lane.getAttribute('data-lane-type')}:${lane.getAttribute('data-entity-id')}`,
       order: lane.getAttribute('data-row-order'),
-      slots: lane.getAttribute('data-collision-slots'),
+      visualRows: lane.getAttribute('data-visual-row-count'),
       style: lane.getAttribute('style'),
     })),
     bundles: [...root.querySelectorAll('[data-matrix-bundle]')].map((bundle) => ({
       lane: bundle.closest('[data-lane]')?.getAttribute('data-entity-id'),
       ids: bundle.getAttribute('data-bundle-event-ids'),
       x: bundle.getAttribute('data-bundle-x'),
-      slot: bundle.getAttribute('data-collision-slot'),
+      rowStart: bundle.getAttribute('data-visual-row-start'),
+      rowEnd: bundle.getAttribute('data-visual-row-end'),
       top: bundle.getAttribute('data-bundle-top'),
       height: getComputedStyle(bundle).getPropertyValue('--bundle-height'),
       width: bundle.getAttribute('data-bundle-width-px'),
@@ -1842,7 +1883,8 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
         entity: bundle.closest('[data-matrix-row]').getAttribute('data-entity-id'),
         eventIds: bundle.getAttribute('data-bundle-event-ids'),
         x: bundle.getAttribute('data-bundle-x'),
-        slot: bundle.getAttribute('data-collision-slot'),
+        rowStart: bundle.getAttribute('data-visual-row-start'),
+        rowEnd: bundle.getAttribute('data-visual-row-end'),
       }))
     ));
     if (!referenceBundles) referenceBundles = bundles;
