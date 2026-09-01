@@ -1,0 +1,32 @@
+{
+  "id": "infineon-2015-common-pre-post-silicon-test-platform",
+  "when": {
+    "start": "2015-05-13",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon and FH Technikum Wien publish a common pre/post-silicon test description for mixed-signal SoCs",
+  "fact": "A joint FH Technikum Wien/Infineon Technologies Austria paper presented a bidirectional pre/post-silicon bridge for Infineon's mixed-signal verification flow. It used a common platform-independent human-readable scripting test description, implemented with Perl, while environment-specific interpreters mapped the same test intent into the AGENtiX SystemC simulation environment or the JAZZ/lab-instrument post-silicon environment.",
+  "sources": [
+    {
+      "title": "2015 IEEE International Instrumentation and Measurement Technology Conference Final Program",
+      "url": "https://imtc2015.ieee-ims.org/sites/2015.imtc.ieee-ims.org/files/I2MTC-2015_final-program_v7.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Official I2MTC 2015 program listing the Infineon/FH Technikum Wien pre- and post-silicon verification paper on May 13, 2015."
+    },
+    {
+      "title": "A common platform for bridging pre- and post-silicon verification in mixed-signal designs",
+      "url": "https://www.researchgate.net/publication/283668530_A_common_platform_for_bridging_pre-_and_post-silicon_verification_in_mixed-signal_designs",
+      "checkedAt": "2026-09-02",
+      "summary": "Author-uploaded paper describing the common Perl-based test description and its mapping to Infineon's AGENtiX pre-silicon and JAZZ post-silicon environments."
+    },
+    {
+      "title": "Unification of Pre- and Post-Silicon Verification Flows",
+      "url": "https://embsys.technikum-wien.at/staff/widhalm/docs/2016_mess-unification_of_pre_and_post_silicon_verification_flows.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Follow-up poster summarizing the single-test-description approach, hardware abstraction, SystemC pre-silicon execution and lab-equipment post-silicon execution."
+    }
+  ]
+}
