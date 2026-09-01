@@ -1,0 +1,26 @@
+{
+  "id": "renesas-2025-07-uvm-ms-dac-verification-component",
+  "when": {
+    "start": "2025-07-01",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["renesas"],
+  "people": ["steven-holloway"],
+  "headline": "Renesas engineer presents a concrete UVM-MS DAC verification component",
+  "fact": "At Verification Futures UK 2025, Renesas engineer Steve Holloway presented a concrete example of creating a DAC verification component using the new UVM-MS methodology. The published session description identifies the verification-component architecture and code snippets as key content. This is a public UVM-MS implementation example from a Renesas engineer, not evidence of company-wide or product-wide deployment.",
+  "sources": [
+    {
+      "title": "UVM-MS: A Concrete Example using a DAC",
+      "url": "https://www.tessolve.com/verification-futures/vf2025-uk/uvm-ms-a-concrete-example-using-a-dac/",
+      "checkedAt": "2026-09-02",
+      "summary": "Tessolve's session page identifies Steve Holloway and describes creation of a DAC verification component using UVM-MS, including verification-component architecture and code snippets."
+    },
+    {
+      "title": "Verification Futures Conference 2025 UK",
+      "url": "https://www.tessolve.com/verification-futures/vf2025-uk/",
+      "checkedAt": "2026-09-02",
+      "summary": "Tessolve's official conference programme dates the UK event to July 1, 2025."
+    }
+  ]
+}
