@@ -1,0 +1,26 @@
+{
+  "id": "infineon-2023-mixed-signal-gate-driver-virtual-prototype",
+  "when": {
+    "start": "2023-05",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon connects a mixed-signal gate-driver virtual prototype to its post-silicon lab automation",
+  "fact": "An Infineon Automotive Power ETS paper described a MATLAB/Simulink virtual prototype for an automotive mixed-signal gate-driver IC, combining a digital FSM/SPI register model with analog modules including PMU, charge pump and gate-control circuitry. The prototype reused pre-silicon top-level models and was fully controlled from the existing lab automation environment used later for post-silicon verification, with measurement-hardware limitations modeled in the virtual setup.",
+  "sources": [
+    {
+      "title": "Enabling fast post-Si test case development using Virtual Prototyping for a mixed-signal gate driver IC",
+      "url": "https://www.researchgate.net/publication/380034769_Enabling_fast_post-Si_test_case_development_using_Virtual_Prototyping_for_a_mixed-signal_gate_driver_IC",
+      "checkedAt": "2026-09-02",
+      "summary": "Infineon Automotive Power paper describing a MATLAB/Simulink mixed-signal gate-driver virtual prototype controlled through the post-silicon lab automation environment."
+    },
+    {
+      "title": "28th IEEE European Test Symposium 2023",
+      "url": "https://cas.polito.it/ETS23/",
+      "checkedAt": "2026-09-02",
+      "summary": "Official ETS 2023 conference page establishing the May 22-26, 2023 conference window."
+    }
+  ]
+}

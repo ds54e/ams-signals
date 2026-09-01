@@ -1,0 +1,20 @@
+{
+  "id": "infineon-2023-pss-perspec-verification-reuse",
+  "when": {
+    "start": "2023-11-12",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["infineon", "cadence"],
+  "people": [],
+  "headline": "Cadence reports an Infineon/Tessolve project using PSS/Perspec for verification reuse",
+  "fact": "Cadence reported that a verification-reuse effort presented at CadenceLIVE India 2023 came from a joint Infineon, Tessolve and Cadence project. Infineon owned the DUT and verification environment, Tessolve developed and executed PSS/SLN models in Perspec, and Cadence supplied PSS methodology/tool support. Cadence's described use case ran the models with a Specman e simulation testbench and Linux at SoC level, while targeting reuse across IP, subsystem, SoC and silicon.",
+  "sources": [
+    {
+      "title": "Maximise verification reuse with Cadence Perspec System Verifier",
+      "url": "https://community.cadence.com/cadence_blogs_8/b/fv/posts/maximise-verification-reuse-with-cadence-perspec-system-verifier",
+      "checkedAt": "2026-09-02",
+      "summary": "Cadence report on a joint Infineon, Tessolve and Cadence project using PSS/SLN models in Perspec across simulation and SoC Linux execution, with broader reuse as the stated methodology goal."
+    }
+  ]
+}

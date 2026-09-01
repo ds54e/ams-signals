@@ -1,0 +1,20 @@
+{
+  "id": "infineon-2026-p1687-2-uvm-shift-left",
+  "when": {
+    "start": "2026-05",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon retargets IEEE P1687.2 test descriptions into SystemVerilog UVM for automotive smart-power shift-left",
+  "fact": "An Infineon Automotive Power paper at ETS 2026 described retargeting IJTAG/IEEE P1687.2 test-case descriptions into top-level SystemVerilog UVM testbenches as a shift-left path for automotive smart-power devices. The reported framework uses a renderer and a lower-level pin-level time-stamp/value transport such as STIL, and the paper presents first device results.",
+  "sources": [
+    {
+      "title": "Shift-Left by applying IEEE P1687.2 to SystemVerilog test-benches for Automotive Smart-Power devices",
+      "url": "https://www.researchgate.net/publication/405440166_Shift-Left_by_applying_IEEE_P16872_to_SystemVerilog_test-benches_for_Automotive_Smart_Power_devices",
+      "checkedAt": "2026-09-02",
+      "summary": "Infineon Automotive Power paper describing retargeting IEEE P1687.2/IJTAG test descriptions into top-level SystemVerilog UVM testbenches for smart-power devices."
+    }
+  ]
+}
