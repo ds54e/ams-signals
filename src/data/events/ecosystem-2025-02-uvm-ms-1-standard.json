@@ -5,22 +5,22 @@
     "precision": "day"
   },
   "kind": "technical",
-  "companies": ["cadence", "siemens-eda", "synopsys", "nxp", "qualcomm", "renesas"],
+  "companies": ["cadence", "intel", "siemens-eda", "synopsys", "nxp", "qualcomm", "renesas"],
   "people": ["peter-grove"],
-  "headline": "Accellera releases UVM-MS 1.0 with participation from six tracked companies",
-  "fact": "On February 4, 2025, Accellera released UVM-MS 1.0, defining mixed-signal bridge and proxy components for driving and monitoring mixed-signal nets. The standard's participant list names active contributors from Cadence, Siemens EDA, Synopsys, NXP, Qualcomm, and Renesas; participation in the standard does not by itself establish deployment at those companies.",
+  "headline": "Accellera releases UVM-MS 1.0 with participation from seven tracked companies",
+  "fact": "On February 4, 2025, Accellera released UVM-MS 1.0, defining mixed-signal bridge and proxy components for driving and monitoring mixed-signal nets. The standard's participant list names active contributors from Cadence, Intel, Siemens EDA, Synopsys, NXP, Qualcomm, and Renesas; participation in the standard does not by itself establish deployment at those companies.",
   "sources": [
     {
       "title": "Accellera Board Approves UVM-MS 1.0 Standard for Release",
       "url": "https://www.accellera.org/news/press-releases/408-accellera-board-approves-universal-verification-methodology-for-mixed-signal-uvm-ms-1-0-standard-for-release",
-      "checkedAt": "2026-08-30",
+      "checkedAt": "2026-09-02",
       "summary": "Accellera's February 4, 2025 release announcement for UVM-MS 1.0 and its mixed-signal bridge and proxy framework."
     },
     {
       "title": "Universal Verification Methodology for Mixed-Signal 1.0",
       "url": "https://www.accellera.org/images/downloads/standards/uvm-ms/UVM-MS_1.0.pdf",
-      "checkedAt": "2026-08-30",
-      "summary": "The released standard defines the framework and lists participants from the six tracked companies linked to this event."
+      "checkedAt": "2026-09-02",
+      "summary": "The released standard defines the framework and lists active participants from the seven tracked companies linked to this event, including Intel contributors omitted from the previous record."
     }
   ]
 }
