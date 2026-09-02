@@ -1506,8 +1506,8 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
-  await expect(matrix).toHaveAttribute('data-track-width', '702');
-  await expect(matrix).toHaveAttribute('data-time-band-count', '8');
+  await expect(matrix).toHaveAttribute('data-track-width', '650');
+  await expect(matrix).toHaveAttribute('data-time-band-count', '7');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
     key: node.getAttribute('data-time-band'),
@@ -1529,20 +1529,19 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 114, maxEventsPerRow: 4, startPx: 144, endPx: 258, zone: 'recent', resolution: 'continuous' },
     { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 104, maxEventsPerRow: 3, startPx: 258, endPx: 362, zone: 'recent', resolution: 'continuous' },
     { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 68, maxEventsPerRow: 3, startPx: 362, endPx: 430, zone: 'earlier', resolution: 'bucket' },
-    { key: 'year-2022', label: '2022', ariaLabel: '2022', startYear: 2022, endYear: 2022, widthPx: 52, maxEventsPerRow: 2, startPx: 430, endPx: 482, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2020-2021', label: '2020–2021', ariaLabel: '2020–2021', startYear: 2020, endYear: 2021, widthPx: 76, maxEventsPerRow: 2, startPx: 482, endPx: 558, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 558, endPx: 634, zone: 'earlier', resolution: 'bucket' },
-    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 634, endPx: 702, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2022', label: '2020–2022', ariaLabel: '2020–2022', startYear: 2020, endYear: 2022, widthPx: 76, maxEventsPerRow: 3, startPx: 430, endPx: 506, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 506, endPx: 582, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 582, endPx: 650, zone: 'earlier', resolution: 'bucket' },
   ]);
   expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
-  expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(5);
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(702);
-  await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(7);
+  expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(4);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(650);
+  await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(6);
   await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
   await expect(page.locator('.activity-zone-label')).toHaveCount(0);
   await expect(page.locator('.activity-axis-track')).toHaveAttribute(
     'aria-label',
-    'Activity Matrix time bands: 2026, 2025, 2024, 2023, 2022, 2020–2021, 2015–2019, 2014 and earlier. Newest is left.',
+    'Activity Matrix time bands: 2026, 2025, 2024, 2023, 2020–2022, 2015–2019, 2014 and earlier. Newest is left.',
   );
 
   const serialized = await page.locator('[data-events-json]').evaluate((node) => JSON.parse(node.textContent));
@@ -1574,7 +1573,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / 702) * 100;
+    return (xPx / 650) * 100;
   };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
@@ -1624,7 +1623,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 702) * 100;
+  const normalizedWindow = (proximityPx / 650) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     visualRowCount: Number(node.getAttribute('data-visual-row-count')),
@@ -1833,7 +1832,7 @@ test('global Matrix uses the corpus domain while context Timelines retain derive
   await expectExplorerReady(page);
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(page.locator('[data-activity-time-band]')).toHaveText([
-    '2026', '2025', '2024', '2023', '2022', '2020–2021', '2015–2019', '≤2014',
+    '2026', '2025', '2024', '2023', '2020–2022', '2015–2019', '≤2014',
   ]);
 
   await page.goto('./companies/apple/');
