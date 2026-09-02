@@ -47,9 +47,9 @@ Renesasは2023年のDVCon Europeで「SV VQC UDN for Modeling Switch-Capacitor-b
 
 | 発表 | netが持つ主な情報 | 目的 |
 | --- | --- | --- |
-| TI / EEnet, 2019 | V / I / R | 電源回路の負荷、複数ドライバ |
-| Renesas / VQC, 2023 | V / Q / 1/C | スイッチトキャパシタ回路の電荷再分配 |
-| NXP / c_enet, 2025 | V / I / R / C | MEMSからASICへの容量値の伝達 |
+| TI/EEnet, 2019 | V/I/R | 電源回路の負荷、複数ドライバ |
+| Renesas/VQC, 2023 | V/Q/1/C | スイッチトキャパシタ回路の電荷再分配 |
+| NXP/c_enet, 2025 | V/I/R/C | MEMSからASICへの容量値の伝達 |
 
 RenesasのVQCモデルでは、水晶につながるピンだけをVQCにし、その他のブロックには従来のV/I/R形式を使っています。この使い分けによって、40MHzのスイッチトキャパシタ型水晶発振器について回路シミュレーションでは現実的でなかった長時間シミュレーションが可能になり、論文ではCPU時間で90,000倍の高速化を報告しました。UDNを一種類へ統一するのではなく、回路に合わせてnetの意味を変える使い方です。[[3]](#source-3)
 
@@ -67,7 +67,7 @@ NXPはそのために、`enet`へCを加えた`c_enet`を作っています。Sy
 
 この問題を正面から扱った資料が、MicrochipのChuck McClishによるDVCon U.S. 2023の「Take AIM! Introducing the Analog Information Model」です。
 
-論文の冒頭には、UDNだけでなくUPFの`supply_net_type`や従来の`wreal`も含めたSystemVerilog上のアナログ情報について、かなり直接的な記述があります。
+論文の冒頭では、UDNだけでなくUPFの`supply_net_type`や従来の`wreal`も含めた値の受け渡し方式が、互いに相互運用できないことを明記しています。
 
 > “today's value transport mechanisms such as User Defined Nettypes (UDNs), Unified Power Format (UPF) supply nettypes, and legacy wreals are not interoperable with each other.”
 
@@ -95,4 +95,4 @@ Verilog-AMSには以前からconnect moduleがあり、アナログとデジタ�
 
 ただ、その後V/I/Rが業界共通のアナログnetになったわけではありません。Renesasは電荷再分配のためV/Q/1/Cを使い、NXPはMEMSインターフェースのため容量値を追加しています。UDNによって「回路に必要な情報を線に載せる」という設計が可能になり、nettype自体がモデルの一部になりました。
 
-SV-MSIが標準化しようとしているのは、nettypeそのものではなく、その接続方法です。すべてのAMSモデルに同じ線を使わせるのではなく、異なる線を作れる自由度を残したまま、それらをSoCの中で接続できるようにしようとしています。2026年にもAMSの「線」が標準化されているのは、線の表現方法がまだ決まっていないからではなく、すでに複数の表現方法を作れるようになったからです。
+SV-MSIが標準化しようとしているのは、nettypeそのものではなく、その接続方法です。すべてのAMSモデルに同じ線を使わせるのではなく、異なる線を作れる自由度を残したまま、それらをSoCの中で接続できるようにしようとしています。2026年にもAMSの「線」の標準化が続いているのは、線の表現方法がまだ決まっていないからではありません。複数の表現を作れるようになり、それらをどう接続するかが課題になったためです。
