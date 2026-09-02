@@ -33,8 +33,7 @@ const currentDensity = new Map([
   ['year-2025', 4],
   ['year-2024', 3],
   ['year-2023', 2],
-  ['year-2022', 2],
-  ['years-2020-2021', 2],
+  ['years-2020-2022', 3],
   ['years-2015-2019', 4],
   ['through-2014', 5],
 ]);
@@ -47,21 +46,20 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
     'year-2025',
     'year-2024',
     'year-2023',
-    'year-2022',
-    'years-2020-2021',
+    'years-2020-2022',
     'years-2015-2019',
     'through-2014',
   ]);
   expect(bands.map(({ label }) => label)).toEqual([
-    '2026', '2025', '2024', '2023', '2022', '2020–2021', '2015–2019', '≤2014',
+    '2026', '2025', '2024', '2023', '2020–2022', '2015–2019', '≤2014',
   ]);
-  expect(bands.map(({ widthPx }) => widthPx)).toEqual([144, 114, 104, 52, 52, 76, 76, 68]);
-  expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([7, 4, 3, 2, 2, 2, 4, 5]);
+  expect(bands.map(({ widthPx }) => widthPx)).toEqual([144, 114, 104, 52, 76, 76, 68]);
+  expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([7, 4, 3, 2, 3, 4, 5]);
   expect(bands.map(({ resolution }) => resolution)).toEqual([
     'continuous', 'continuous', 'continuous',
-    'bucket', 'bucket', 'bucket', 'bucket', 'bucket',
+    'bucket', 'bucket', 'bucket', 'bucket',
   ]);
-  expect(bands.at(-1)?.endPx).toBe(686);
+  expect(bands.at(-1)?.endPx).toBe(634);
 
   const futureBands = deriveActivityMatrixTimeBands(2027);
   expect(futureBands.map(({ key }) => key)).toEqual([
@@ -69,13 +67,12 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
     'year-2026',
     'year-2025',
     'year-2024',
-    'year-2023',
-    'years-2021-2022',
+    'years-2021-2023',
     'years-2016-2020',
     'through-2015',
   ]);
-  expect(futureBands.slice(5).map(({ label, ariaLabel }) => ({ label, ariaLabel }))).toEqual([
-    { label: '2021–2022', ariaLabel: '2021–2022' },
+  expect(futureBands.slice(4).map(({ label, ariaLabel }) => ({ label, ariaLabel }))).toEqual([
+    { label: '2021–2023', ariaLabel: '2021–2023' },
     { label: '2016–2020', ariaLabel: '2016–2020' },
     { label: '≤2015', ariaLabel: '2015 and earlier' },
   ]);
@@ -84,7 +81,7 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
 test('band sizing clamps recent density and protects earlier labels and bundles', () => {
   const sparse = deriveActivityMatrixTimeBands(2026);
   expect(sparse.slice(0, 3).map(({ widthPx }) => widthPx)).toEqual([100, 100, 100]);
-  expect(sparse.slice(3).map(({ widthPx }) => widthPx)).toEqual([52, 52, 76, 76, 68]);
+  expect(sparse.slice(3).map(({ widthPx }) => widthPx)).toEqual([52, 76, 76, 68]);
 
   const dense = deriveActivityMatrixTimeBands(2026, {
     'year-2026': 20,
@@ -108,14 +105,24 @@ test('recent time remains chronological across variable-width years while earlie
 
   const year2019 = projectTimestampToActivityMatrix(Date.UTC(2019, 6, 1), bands);
   const year2016 = projectTimestampToActivityMatrix(Date.UTC(2016, 1, 1), bands);
+  const year2024 = projectTimestampToActivityMatrix(Date.UTC(2024, 6, 1), bands);
   const year2023 = projectTimestampToActivityMatrix(Date.UTC(2023, 6, 1), bands);
+  const year2020 = projectTimestampToActivityMatrix(Date.UTC(2020, 6, 1), bands);
+  const year2021 = projectTimestampToActivityMatrix(Date.UTC(2021, 6, 1), bands);
   const year2022 = projectTimestampToActivityMatrix(Date.UTC(2022, 6, 1), bands);
 
   expect(year2019.band.key).toBe('years-2015-2019');
   expect(year2016.band.key).toBe('years-2015-2019');
   expect(year2019.x).toBe(year2016.x);
+  expect(year2024.band.key).toBe('year-2024');
+  expect(year2024.band.resolution).toBe('continuous');
   expect(year2023.band.key).toBe('year-2023');
-  expect(year2022.band.key).toBe('year-2022');
+  expect(year2023.band.resolution).toBe('bucket');
+  expect([year2020, year2021, year2022].map(({ band }) => band.key)).toEqual([
+    'years-2020-2022', 'years-2020-2022', 'years-2020-2022',
+  ]);
+  expect(year2020.x).toBe(year2021.x);
+  expect(year2021.x).toBe(year2022.x);
   expect(year2023.x).not.toBe(year2022.x);
 });
 
@@ -138,17 +145,22 @@ test('bundle modes cross recent year boundaries but never cross period boundarie
   expect(resolutionBoundaryBundles.map(({ mode }) => mode)).toEqual(['proximity', 'period']);
 
   const periodBundles = buildActivityMatrixBundles([
+    event('earlier-2023', '2023', 'year'),
+    event('historical-2020', '2020', 'year'),
+    event('historical-2022', '2022', 'year'),
+    event('historical-2021', '2021', 'year'),
     event('historical-2016', '2016', 'year'),
     event('historical-2019', '2019', 'year'),
-    event('historical-2017', '2017', 'year'),
     event('historical-2014', '2014', 'year'),
   ], bands);
   expect(periodBundles.map(({ timeBandKeys }) => timeBandKeys)).toEqual([
+    ['year-2023'],
+    ['years-2020-2022'],
     ['years-2015-2019'],
     ['through-2014'],
   ]);
-  expect(periodBundles[0].eventIds).toEqual([
-    'historical-2019', 'historical-2017', 'historical-2016',
+  expect(periodBundles[1].eventIds).toEqual([
+    'historical-2022', 'historical-2021', 'historical-2020',
   ]);
 });
 
