@@ -35,6 +35,91 @@ async function visibleListedEventIds(page) {
   ));
 }
 
+async function expectStickyLabelToOccludeActiveMark(page, {
+  rowSelector,
+  labelSelector,
+  markSelector,
+}) {
+  const row = page.locator(rowSelector);
+  const scroller = page.locator('[data-timeline-scroll]');
+  await expect(row).toBeVisible();
+  await scroller.evaluate((node) => { node.scrollLeft = 0; });
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+
+  const candidate = await row.evaluate((node, selectors) => {
+    const label = node.querySelector(selectors.labelSelector);
+    const scrollContainer = node.closest('[data-timeline-scroll]');
+    const labelBounds = label.getBoundingClientRect();
+    const maximumScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+    return [...node.querySelectorAll(selectors.markSelector)]
+      .filter((mark) => !mark.hidden && mark.getClientRects().length > 0)
+      .map((mark) => {
+        const bounds = mark.getBoundingClientRect();
+        const targetScrollLeft = Math.min(
+          maximumScroll,
+          Math.max(0, ((bounds.left + bounds.right) / 2) - (labelBounds.right - 2)),
+        );
+        const shiftedLeft = bounds.left - targetScrollLeft;
+        const shiftedRight = bounds.right - targetScrollLeft;
+        return {
+          eventId: mark.getAttribute('data-event-id'),
+          targetScrollLeft,
+          overlapsAtTarget: shiftedLeft < labelBounds.right && shiftedRight > labelBounds.left,
+        };
+      })
+      .filter(({ targetScrollLeft, overlapsAtTarget }) => targetScrollLeft > 0 && overlapsAtTarget)
+      .sort((left, right) => left.targetScrollLeft - right.targetScrollLeft)[0] ?? null;
+  }, { labelSelector, markSelector });
+
+  expect(candidate, 'a rendered Event mark can be scrolled behind its sticky label').not.toBeNull();
+  const mark = row.locator(`${markSelector}[data-event-id="${candidate.eventId}"]`);
+  await mark.click();
+  await expect(mark).toHaveClass(/is-active/);
+  await expect(mark).toHaveAttribute('aria-pressed', 'true');
+
+  await scroller.evaluate((node, scrollLeft) => {
+    node.scrollLeft = scrollLeft;
+    node.dispatchEvent(new Event('scroll'));
+  }, candidate.targetScrollLeft);
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+
+  const paintOrder = await row.evaluate((node, selectors) => {
+    const label = node.querySelector(selectors.labelSelector);
+    const mark = node.querySelector(`${selectors.markSelector}[data-event-id="${selectors.eventId}"]`);
+    const labelBounds = label.getBoundingClientRect();
+    const markBounds = mark.getBoundingClientRect();
+    const overlap = {
+      left: Math.max(labelBounds.left, markBounds.left),
+      right: Math.min(labelBounds.right, markBounds.right),
+      top: Math.max(labelBounds.top, markBounds.top),
+      bottom: Math.min(labelBounds.bottom, markBounds.bottom),
+    };
+    const point = {
+      x: (overlap.left + overlap.right) / 2,
+      y: (overlap.top + overlap.bottom) / 2,
+    };
+    const topmost = document.elementFromPoint(point.x, point.y);
+    return {
+      overlapWidth: overlap.right - overlap.left,
+      overlapHeight: overlap.bottom - overlap.top,
+      topmostIsLabel: topmost === label || label.contains(topmost),
+      active: mark.classList.contains('is-active'),
+      pressed: mark.getAttribute('aria-pressed'),
+    };
+  }, { labelSelector, markSelector, eventId: candidate.eventId });
+
+  expect(paintOrder.overlapWidth, 'active Event overlaps the sticky label horizontally').toBeGreaterThan(0);
+  expect(paintOrder.overlapHeight, 'active Event overlaps the sticky label vertically').toBeGreaterThan(0);
+  expect(paintOrder.topmostIsLabel, 'sticky label is topmost in the overlap').toBe(true);
+  expect(paintOrder.active).toBe(true);
+  expect(paintOrder.pressed).toBe('true');
+  await expect(page.locator('[data-detail-event]'))
+    .toHaveAttribute('href', `${basePath}events/${candidate.eventId}/`);
+
+  return candidate.eventId;
+}
+
 function queryState(url) {
   return Object.fromEntries([...new URL(url).searchParams.entries()].sort(([left], [right]) => left.localeCompare(right)));
 }
@@ -2132,6 +2217,52 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
   expect(await page.locator('[data-timeline-scroll]').evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
 });
 
+test('global Matrix sticky labels occlude active marks without clearing selection', async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto('./');
+  await expectExplorerReady(page);
+
+  await expectStickyLabelToOccludeActiveMark(page, {
+    rowSelector: '[data-group="both"] [data-matrix-row][data-entity-id="apple"]',
+    labelSelector: '.matrix-entity-label',
+    markSelector: '[data-matrix-mark]',
+  });
+
+  const axisPaintOrder = await page.locator('.activity-matrix-shell').evaluate(async (shell) => {
+    const axis = shell.querySelector('.activity-matrix-axis-viewport');
+    const axisMask = shell.querySelector('.matrix-axis-spacer');
+    const rowLabel = shell.querySelector('[data-matrix-row][data-entity-id="apple"] .matrix-entity-label');
+    const rowDocumentTop = window.scrollY + rowLabel.getBoundingClientRect().top;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, rowDocumentTop);
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+    const axisBounds = axisMask.getBoundingClientRect();
+    const labelBounds = rowLabel.getBoundingClientRect();
+    const overlap = {
+      left: Math.max(axisBounds.left, labelBounds.left),
+      right: Math.min(axisBounds.right, labelBounds.right),
+      top: Math.max(axisBounds.top, labelBounds.top),
+      bottom: Math.min(axisBounds.bottom, labelBounds.bottom),
+    };
+    const point = {
+      x: (overlap.left + overlap.right) / 2,
+      y: (overlap.top + overlap.bottom) / 2,
+    };
+    const topmost = document.elementFromPoint(point.x, point.y);
+    return {
+      axisPosition: getComputedStyle(axis).position,
+      overlapWidth: overlap.right - overlap.left,
+      overlapHeight: overlap.bottom - overlap.top,
+      topmostIsAxis: topmost === axisMask || axisMask.contains(topmost),
+    };
+  });
+  expect(axisPaintOrder.axisPosition).toBe('sticky');
+  expect(axisPaintOrder.overlapWidth).toBeGreaterThan(0);
+  expect(axisPaintOrder.overlapHeight).toBeGreaterThan(0);
+  expect(axisPaintOrder.topmostIsAxis, 'sticky Matrix axis remains above sticky row labels').toBe(true);
+});
+
 test('global Matrix is one accessible interleaved view with restrained entity colors', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
@@ -2411,6 +2542,36 @@ test('unavailable originals remain labels and Event permalinks remain live', asy
   await expect(cards.first().locator('.unavailable-source-title')).toBeVisible();
   await expect(cards.first().locator('h3 a')).toHaveCount(0);
   await expect(cards.nth(1).locator('h3 a')).toHaveAttribute('href', /^https:\/\//);
+});
+
+test('Company and Person Timeline labels occlude active Event marks', async ({ page }) => {
+  await page.setViewportSize({ width: 780, height: 900 });
+  await page.goto('./companies/apple/');
+  await expectExplorerReady(page);
+  await expectStickyLabelToOccludeActiveMark(page, {
+    rowSelector: '[data-group="companies"] [data-lane][data-entity-id="apple"]',
+    labelSelector: '.lane-label',
+    markSelector: '.event-mark',
+  });
+
+  const axisTopmost = await page.locator('.axis-label').evaluate((axisLabel) => {
+    const bounds = axisLabel.getBoundingClientRect();
+    const topmost = document.elementFromPoint(
+      (bounds.left + bounds.right) / 2,
+      (bounds.top + bounds.bottom) / 2,
+    );
+    return topmost === axisLabel || axisLabel.contains(topmost);
+  });
+  expect(axisTopmost, 'Timeline axis label remains topmost').toBe(true);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./people/aadhar-sharma/');
+  await expectExplorerReady(page);
+  await expectStickyLabelToOccludeActiveMark(page, {
+    rowSelector: '[data-group="people"] [data-lane][data-entity-id="aadhar-sharma"]',
+    labelSelector: '.lane-label',
+    markSelector: '.event-mark',
+  });
 });
 
 test('Company-first and People-first behavior remains intact', async ({ page }) => {
