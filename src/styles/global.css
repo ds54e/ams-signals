@@ -367,7 +367,7 @@ h1 {
 .lane-label {
   position: sticky;
   left: 0;
-  z-index: 3;
+  z-index: 6;
   display: flex;
   align-items: center;
   align-self: stretch;
@@ -384,7 +384,7 @@ h1 {
 .timeline-lane:hover .lane-label { background: color-mix(in srgb, var(--surface-tint) 42%, var(--surface)); }
 .lane-label:hover { color: var(--accent-ink); text-decoration: underline; }
 .axis-label {
-  z-index: 5;
+  z-index: 7;
   color: var(--muted);
   background: color-mix(in srgb, var(--surface-tint) 48%, var(--surface));
   font-weight: 600;
@@ -465,7 +465,7 @@ h1 {
 .activity-matrix-axis-viewport {
   position: sticky;
   top: 0;
-  z-index: 8;
+  z-index: 9;
   max-width: 100%;
   overflow: hidden;
   background: color-mix(in srgb, var(--surface-tint) 48%, var(--surface));
@@ -505,7 +505,7 @@ h1 {
 .matrix-axis-spacer {
   position: sticky;
   left: 0;
-  z-index: 9;
+  z-index: 10;
   background: color-mix(in srgb, var(--surface-tint) 48%, var(--surface));
   box-shadow: 1px 0 0 color-mix(in srgb, var(--border) 76%, transparent);
 }
@@ -561,7 +561,7 @@ h1 {
 .matrix-entity-label {
   position: sticky;
   left: 0;
-  z-index: 6;
+  z-index: 8;
   display: block;
   min-width: 0;
   align-self: stretch;
