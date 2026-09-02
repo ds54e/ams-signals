@@ -169,7 +169,7 @@ function activityMatrixBandDefinitions(latestYear: number): ActivityMatrixBandDe
         resolution: 'continuous',
       };
     }),
-    ...[3, 4].map((offset): ActivityMatrixBandDefinition => {
+    ...[3].map((offset): ActivityMatrixBandDefinition => {
       const year = latestYear - offset;
       return {
         key: `year-${year}`,
@@ -182,11 +182,11 @@ function activityMatrixBandDefinitions(latestYear: number): ActivityMatrixBandDe
       };
     }),
     {
-      key: `years-${latestYear - 6}-${latestYear - 5}`,
-      label: `${latestYear - 6}–${latestYear - 5}`,
-      ariaLabel: `${latestYear - 6}–${latestYear - 5}`,
+      key: `years-${latestYear - 6}-${latestYear - 4}`,
+      label: `${latestYear - 6}–${latestYear - 4}`,
+      ariaLabel: `${latestYear - 6}–${latestYear - 4}`,
       startYear: latestYear - 6,
-      endYear: latestYear - 5,
+      endYear: latestYear - 4,
       zone: 'earlier',
       resolution: 'bucket',
     },
