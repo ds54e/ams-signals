@@ -2,114 +2,128 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
-import { namespaceProjectHtml, roleIds, roleLabels, sortProjects } from '../../lib/analog-ai/catalog';
-import { validateCatalog } from '../../lib/analog-ai/schema';
+import { namespaceProjectHtml, roleLabels, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
+import { monthLabel, shortDate } from '../../lib/analog-ai/activity';
+import { validateCatalog, validateActivity } from '../../lib/analog-ai/schema';
 import updateData from '../../data/analog-ai-updates.json';
+import activityData from '../../data/analog-ai-activity.json';
 import '../../styles/analog-ai.css';
 
 const projects = sortProjects(await getCollection('analogAi'));
 const updates = validateCatalog(projects, updateData);
-const projectNames = new Map(projects.map((project) => [project.id, project.data.name]));
+const activity = validateActivity(projects, activityData);
+const names = new Map(projects.map((project) => [project.id, project.data.name]));
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
+const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
-<BaseLayout
-  title="Analog AI benchmarks and tools · AMS Signals"
-  description="A technical catalog of AI benchmarks, design agents, EDA tools, and experiment environments for analog, RF, and mixed-signal circuit design."
-  lang="en"
->
-  <section class="analog-ai listing-page" data-analog-ai aria-labelledby="catalog:heading">
+<BaseLayout title="Analog AI · AMS Signals" description="Benchmarks, agents, and tools for analog/RF/AMS design." lang="en">
+  <section class="analog-ai" data-analog-ai aria-labelledby="catalog:heading">
     <header class="catalog-header">
-      <p class="catalog-kicker">Project catalog</p>
-      <h1 id="catalog:heading">Analog AI benchmarks and tools</h1>
-      <p>Benchmarks, design agents, EDA tools, and experiment environments for analog, RF, and mixed-signal circuit design.</p>
+      <h1 id="catalog:heading">Analog AI</h1>
+      <p class="catalog-description">Benchmarks, agents, and tools for analog/RF/AMS design.</p>
+      <p class="catalog-meta-line">{projects.length} projects <span aria-hidden="true">·</span> Reviewed from primary public sources</p>
+      {updates.length > 0 && <p class="catalog-updates">{updates.every((update) => update.kind === 'added') ? 'Recent additions' : 'Recent additions & updates'}: {updates.map((update, index) => <>
+        {index > 0 && <span aria-hidden="true"> · </span>}<a href={projectLink(update.project)} title={`${update.date}: ${update.summary}`}>{names.get(update.project)}</a>
+      </>)}</p>}
+      <p class="catalog-meta-line">Public repository activity snapshot: <time datetime={activity.reviewedAt}>{activity.reviewedAt}</time></p>
     </header>
 
-    {updates.length > 0 && (
-      <aside class="catalog-updates" aria-labelledby="catalog:updates">
-        <h2 id="catalog:updates">Recent additions & major updates</h2>
-        <ul>
-          {updates.map((update) => (
-            <li>
-              <time datetime={update.date}>{update.date}</time>
-              <span>{update.kind === 'added' ? 'Added' : 'Updated'} · <a href={projectLink(update.project)}>{projectNames.get(update.project)}</a> — {update.summary}</span>
-            </li>
-          ))}
-        </ul>
-      </aside>
-    )}
-
-    <form class="catalog-controls" data-catalog-controls hidden role="search" aria-label="Search Analog AI" action={sitePath('analog-ai/')}>
-      <div class="catalog-fields">
-        <label for="catalog:search">Search
-          <input id="catalog:search" data-catalog-search type="search" name="q" placeholder="e.g. LDO ngspice" autocomplete="off" aria-describedby="catalog:search-help" />
-        </label>
-        <label for="catalog:type">Category
-          <select id="catalog:type" data-catalog-type name="type">
-            <option value="">All</option>
-            {roleIds.map((role) => <option value={role}>{roleLabels[role]}</option>)}
-          </select>
-        </label>
+    <section class="catalog-landscape" aria-labelledby="catalog:landscape">
+      <div class="catalog-section-heading">
+        <h2 id="catalog:landscape">Landscape</h2>
+        <a href="#catalog:index">Project index ↓</a>
       </div>
-      <div class="catalog-control-footer">
-        <p data-catalog-count role="status" aria-live="polite" aria-atomic="true">Showing {projects.length} of {projects.length} projects</p>
-        <button type="reset">Reset filters</button>
+      <p class="catalog-help landscape-scroll-hint">Scroll horizontally to see all scopes.</p>
+      <div class="landscape-scroll" role="region" aria-label="Landscape matrix; scroll horizontally for all scopes" tabindex="0">
+        <table class="landscape-table" aria-describedby="catalog:scope-note catalog:legend">
+          <caption class="visually-hidden">Reviewed workflow scope by project</caption>
+          <thead><tr><th scope="col">Project</th>{workflowIds.map((id) => <th scope="col">{workflowLabels[id]}</th>)}</tr></thead>
+          <tbody>{projects.map(({ id, data }) => <tr data-landscape-project={id}>
+            <th scope="row"><a href={projectLink(id)}>{data.name}</a></th>
+            {workflowIds.map((stage) => {
+              const state = data.workflow[stage];
+              const meaning = state ? scopeLabels[state] : 'Not identified as a primary reviewed scope; not a claim of inability';
+              return <td data-workflow={stage} data-scope={state ?? ''} title={`${data.name} · ${workflowLabels[stage]}: ${meaning}`}>
+                <span aria-hidden="true" class:list={['scope-mark', state]}>{state === 'core' ? '●' : state === 'supporting' ? '◐' : ''}</span>
+                <span class="visually-hidden">{meaning}</span>
+              </td>;
+            })}
+          </tr>)}</tbody>
+        </table>
       </div>
-      <p id="catalog:search-help" class="catalog-help">All search terms must match. Search includes limitations and features that are not evaluated.</p>
-    </form>
-    <p class="catalog-static-count" data-catalog-static-count>{projects.length} projects · Name order</p>
-    <noscript><p class="catalog-help">All projects are shown. Use your browser's Find command to search the page; project details and sources are available below.</p></noscript>
-    <p class="catalog-notice" data-catalog-notice role="status" hidden></p>
-    <p class="catalog-empty" data-catalog-empty hidden>No matching projects. Change your search or category, or select “Reset filters”.</p>
+      <p id="catalog:legend" class="catalog-legend"><span>● core scope</span><span>◐ supporting / constrained</span><span>Blank: no primary reviewed scope identified; not inability.</span></p>
+      <p id="catalog:scope-note" class="catalog-help">Scope shown here reflects reviewed public material, not maturity or independently verified capability. Notes explain track, tool-access, and release boundaries.</p>
+    </section>
 
-    <ol class="catalog-list" aria-label="Projects">
-      {projects.map((project) => {
-        const { data, id } = project;
-        if (!project.rendered) throw new Error(`Missing rendered catalog content: ${id}`);
-        return (
-          <li id={id} class="catalog-project" data-catalog-project data-roles={JSON.stringify(data.roles)} data-aliases={JSON.stringify(data.aliases)}>
+    <section aria-labelledby="catalog:index">
+      <div class="catalog-section-heading index-heading"><h2 id="catalog:index">Project index</h2><span>A–Z</span></div>
+      <p class="catalog-help activity-intro">Public repository activity is a visibility signal, not a measure of quality, maturity, or total development effort.</p>
+      <p class="catalog-help activity-window">{windowLabel} <span aria-hidden="true">·</span> Current month is partial <span aria-hidden="true">·</span> ● commit present / · none recorded <span aria-hidden="true">·</span> <a href="#catalog:activity-method">Method</a></p>
+      <div class="catalog-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Public repository activity</span><span>Sources</span></div>
+      <ol class="catalog-list" aria-label="Projects">
+        {projects.map((project) => {
+          const { data, id } = project;
+          if (!project.rendered) throw new Error(`Missing rendered catalog content: ${id}`);
+          const record = activity.projects[id];
+          return <li id={id} class="catalog-project" data-catalog-project>
             <article aria-labelledby={`${id}--name`}>
-              <header class="catalog-project-header">
-                <h2 id={`${id}--name`} data-searchable>{data.name}</h2>
-                <ul class="catalog-roles" aria-label="Categories" data-searchable>
-                  {data.roles.map((role) => <li>{roleLabels[role]}</li>)}
-                </ul>
+              <div class="catalog-overview">
+                <h3 id={`${id}--name`}><a class="catalog-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}<span aria-hidden="true"> #</span></a></h3>
+                <ul class="catalog-roles" aria-label={`${data.name} roles`}>{data.roles.map((role) => <li>{roleLabels[role]}</li>)}</ul>
                 <p class="catalog-reviewed">Reviewed <time datetime={data.reviewedAt}>{data.reviewedAt}</time></p>
-              </header>
-              <p class="catalog-summary" data-searchable>{data.summary}</p>
-              {data.targets && <p class="catalog-meta" data-searchable><strong>Targets</strong>{data.targets}</p>}
-              <p class="catalog-meta" data-searchable><strong>Access & environment</strong>{data.access}</p>
-              {data.notice && <p class="catalog-condition" data-searchable>{data.notice}</p>}
-              <div class="catalog-links">
-                <ul aria-label={`${data.name} primary links`}>
-                  {data.sources.filter((source) => source.purpose).map((source) => (
-                    <li><a href={source.url}>{linkLabels[source.purpose!]}<span aria-hidden="true"> ↗</span></a></li>
-                  ))}
-                </ul>
-                <a class="catalog-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>Permalink<span aria-hidden="true"> #</span></a>
+                <p class="catalog-summary">{data.summary}</p>
               </div>
-              <details open>
-                <summary>Details & sources<span class="visually-hidden">: {data.name}</span></summary>
-                <div class="catalog-detail" data-searchable set:html={namespaceProjectHtml(project.rendered.html, id)} />
-                <section class="catalog-sources" aria-labelledby={`${id}--sources`}>
-                  <h3 id={`${id}--sources`}>Primary sources</h3>
-                  <ol>
-                    {data.sources.map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{source.title}</a></li>)}
-                  </ol>
-                  <p class="catalog-review">Added to catalog: <time datetime={data.addedAt}>{data.addedAt}</time></p>
-                </section>
+              <ul class="catalog-keywords" aria-label={`${data.name} keywords`}>{data.keywords.map((keyword) => <li>{keyword}</li>)}</ul>
+              <div class="catalog-activity" data-activity-kind={record.kind}>
+                <span class="visually-hidden">Public repository activity: </span>
+                {record.kind === 'github' ? <>
+                  <a class="activity-repository" href={`https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`} title={`Primary repository: ${record.repository}; default branch: ${record.defaultBranch}`}>{record.repository}</a>
+                  <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}; default branch ${record.defaultBranch}`}>
+                    {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
+                      <span aria-hidden="true">{record.commits[index] > 0 ? '●' : '·'}</span>
+                      <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} default-branch commits</span>
+                    </li>)}
+                  </ul>
+                  <p class="activity-summary">{record.commits.filter((count) => count > 0).length}/12 active months <span aria-hidden="true">·</span> latest <time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
+                </> : <>
+                  <p class="activity-no-repo">No verified public repository</p>
+                  {record.lastPublicUpdateAt && <p class="activity-summary"><a href={`#${id}--source-${record.lastPublicUpdateSource}`}>{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper' : 'Public update'} <time datetime={record.lastPublicUpdateAt}>{new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${record.lastPublicUpdateAt}T00:00:00Z`))}</time></a></p>}
+                </>}
+              </div>
+              <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
+                {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+              </ul>
+              <details class="catalog-notes">
+                <summary>Notes<span class="visually-hidden">: {data.name}</span></summary>
+                <div class="catalog-notes-body">
+                  <div class="catalog-prerequisites">
+                    {data.targets && <p><strong>Targets</strong> {data.targets}</p>}
+                    <p><strong>Access & environment</strong> {data.access}</p>
+                    {data.notice && <p>{data.notice}</p>}
+                  </div>
+                  <div class="catalog-detail" set:html={namespaceProjectHtml(project.rendered.html.replace(/<(\/?)h3\b/g, '<$1h4'), id)} />
+                  <section class="catalog-sources" aria-labelledby={`${id}--sources`}>
+                    <h4 id={`${id}--sources`}>Primary sources</h4>
+                    <ol>{data.sources.map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{source.title}</a></li>)}</ol>
+                    <p class="catalog-review">Added to catalog: <time datetime={data.addedAt}>{data.addedAt}</time></p>
+                  </section>
+                  {record.notes && <p class="catalog-help activity-caveat">Public repository activity: {record.notes}</p>}
+                  {record.kind === 'github' && <p class="catalog-help">Activity reviewed at <time datetime={activity.capturedAt}>{activity.capturedAt}</time> on <code>{record.defaultBranch}</code>, <a href={`https://github.com/${record.repository}/commit/${record.headSha}`}>captured commit {record.headSha.slice(0, 7)}</a>.</p>}
+                </div>
               </details>
             </article>
-          </li>
-        );
-      })}
-    </ol>
+          </li>;
+        })}
+      </ol>
+    </section>
     <footer class="catalog-publication-note">
-      <p>Descriptions are based on the primary sources reviewed on each entry's stated date. Results are author-reported unless noted; no independent reproduction is claimed. Implemented capabilities, experimental features, and planned work are distinguished within each entry.</p>
+      <p id="catalog:activity-method"><strong>Activity method.</strong> One verified primary repository per project; twelve months of first-parent default-branch history, counted by UTC committer date. A merge counts once. Commit dates are not verified push dates: imports, fast-forwards, rewritten history, bots, and bulk publication can affect the pattern. The checked-in snapshot is static; no live GitHub requests are made.</p>
+      <p>Project Notes retain source-review boundaries and prerequisites. Results are author-reported unless stated otherwise; no independent reproduction is claimed. Implemented, experimental, and planned work remain distinct.</p>
+      <a href="#catalog:landscape">Back to Landscape ↑</a>
     </footer>
   </section>
 </BaseLayout>
-
 <script>
   import { initializeCatalog } from '../../lib/analog-ai/browser';
   initializeCatalog();

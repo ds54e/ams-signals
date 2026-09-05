@@ -2,7 +2,13 @@
 name: "EvoLDO-Bench"
 aliases: ["EvoLDO","ldo_benchmark_for_agent"]
 roles: ["benchmark"]
-summary: "Separately evaluates LDO design reasoning and tool-assisted EDA work. Its v0.7 core contains 27 tool-free tasks, with paired comparisons using the same model with and without frozen knowledge context."
+summary: "Benchmarks LDO reasoning separately from controlled SKY130/ngspice circuit-repair and tool-agent tasks."
+keywords: ["LDO", "Reasoning", "ngspice", "SKY130", "Separate tool track"]
+workflow:
+  reasoning: core
+  generate-edit: supporting
+  simulate-measure: supporting
+  optimize: supporting
 targets: "LDO constraint calculations, diagnosis, workflow planning, and SKY130 circuit repair"
 access: "Task packages, structured answer contracts, graders, and runners are public. Tool tracks additionally require a fixed SKY130 revision, ngspice, and an evaluator isolated from the model workspace."
 notice: "The reasoning track does not run SPICE. This is a public development benchmark; formal rankings still require hidden isomorphic variants and independent expert review."
@@ -31,3 +37,7 @@ Six EDA tool-agent tasks supplement the earlier circuit-design tasks. The model 
 ### Reported status
 
 Developers report native ngspice 46 replay of reference candidates; this is not an LLM performance result. The public repository contains evaluator-side artifacts that must not be mounted into official model workspaces. Expert review and release qualification remain distinct from implementation and reference replay. [Status and trust boundary](#source-tools)
+
+### Landscape scope
+
+Reasoning is core to the 27-task tool-free track. Supporting generation/editing, simulation, and optimization marks refer only to the separate circuit/tool tracks, where the model can edit the DUT and use controlled ngspice calls. They do not grant tools to reasoning-track models or turn developer reference replay into model results. [Reasoning](#source-review) · [Tool contract](#source-tools)

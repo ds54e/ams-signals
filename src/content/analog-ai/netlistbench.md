@@ -2,7 +2,11 @@
 name: "NetlistBench"
 aliases: ["Netlist Bench","Netbench"]
 roles: ["benchmark"]
-summary: "Tests whether LLMs can recognize, edit, and compare existing circuit netlists, including subcircuit hierarchy. Deterministic graders check structured outputs and requested transformations against reference answers."
+summary: "Benchmarks recognition, editing, and structural comparison of existing SPICE netlists and subcircuit hierarchy."
+keywords: ["Netlist editing", "Hierarchy", "Canonical IR", "Structural only"]
+workflow:
+  reasoning: core
+  generate-edit: core
 targets: "SPICE connectivity, device parameters, terminal roles, hierarchy, and structural equivalence"
 access: "The v2 release supplies 2,342 cases across 24 task families, prompts, Python graders, runners, and sample model outputs. Structural scoring requires no simulator or PDK; new model runs require an endpoint."
 notice: "Passing establishes the requested netlist operation, not analog performance or successful circuit design."
@@ -42,3 +46,7 @@ CircuitRubric evaluates generated topology/netlists and relative sizing; Netlist
 ### Released artifacts
 
 The shipped suite is complete for local evaluation, with representative model outputs and verdicts available for inspection. Regenerating all cases requires upstream AnalogGenie and ALIGN corpora that are not redistributed. The example slice is not the full paper experiment. [Release boundaries](#source-release)
+
+### Landscape scope
+
+Reasoning covers structured recognition, terminal/hierarchy interpretation, and equivalence judgments; Generate / Edit covers requested transformations of existing netlists. Deterministic structural oracles do not simulate circuits or optimize their performance. [Task families](#source-manifest) · [IR grader](#source-grader)

@@ -14,7 +14,8 @@
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:internal-links": "node tools/internal-link-check.mjs",
     "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog-ai && npm run test:analog-ai && npm run build && npm run check:internal-links",
-    "test:smoke": "npm run build && playwright test"
+    "test:smoke": "npm run build && playwright test",
+    "refresh:analog-ai-activity": "node tools/refresh-analog-ai-activity.mjs"
   },
   "dependencies": {
     "astro": "7.2.9"

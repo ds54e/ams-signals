@@ -2,7 +2,12 @@
 name: "Analog Design Bench"
 aliases: ["Analog Design Bench V2"]
 roles: ["benchmark"]
-summary: "Evaluates agents that edit circuit files and iterate with simulation to meet electrical specifications. Public tasks cover passive RF networks and SKY130 circuits, with the submitted circuit evaluated at the end of the run."
+summary: "Benchmarks agents that edit circuit files and iterate with simulation to meet analog and RF electrical specifications."
+keywords: ["RF / AMS", "ngspice", "SKY130", "Partial release"]
+workflow:
+  generate-edit: core
+  simulate-measure: core
+  optimize: core
 targets: "RF filters and matching networks, references, LDOs, amplifiers, ADCs and DACs"
 access: "Task packages, starter circuits, development benches, verifiers, and environment definitions are being released progressively. Public tasks require ngspice and, where specified, SKY130 models and a container environment."
 notice: "The V2 website lists 50 tasks, but the reviewed public repository contains 16 task directories. That public subset is not a complete release of the website evaluation."
@@ -38,3 +43,7 @@ On timeout, the evaluator uses the deliverable as it stands; missing or empty fi
 ### Coverage and results
 
 Some tasks include PVT or fixed-seed Monte Carlo checks, with task-specific limits. The bandgap robustness screen is not a production-yield claim. Website scores are author-reported evaluations; the catalog has not reproduced them. [Public tasks](#source-tasks) · [Results](#source-site)
+
+### Landscape scope
+
+Generation/editing, simulation, and specification-driven optimization are core task scope. Public development benches are available to agents; final verification is separate. Reasoning is not a separately graded deliverable, and using ngspice alone is not an EDA-session integration claim. [Task contract](#source-contract)

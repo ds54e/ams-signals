@@ -2,7 +2,13 @@
 name: "AnalogForge Agent"
 aliases: ["AnalogForge","analog-forge-agent"]
 roles: ["agent"]
-summary: "A research workbench connecting circuit specifications, topology templates, PDK mappings, and multi-objective search. It separates LLM proposals from evidence-based evaluation, but its default workflow currently uses an analytic fixture."
+summary: "An experimental workbench for template-based circuit proposals and multi-objective search, with analytic fixtures as its default execution path."
+keywords: ["Templates", "Multi-objective", "Analytic default", "Experimental"]
+workflow:
+  reasoning: supporting
+  generate-edit: supporting
+  simulate-measure: supporting
+  optimize: supporting
 targets: "Template families for OTAs, comparators, LDOs, references, and oscillators"
 access: "Code, contracts, templates, and research documentation are public. Native execution requires ngspice/Xyce, pre-rendered netlists, immutable PDK receipts, and model dependency manifests."
 notice: "Dashboard points are synthetic and native PDK mappings remain unpinned. Published thresholds are targets, not achieved results."
@@ -29,3 +35,7 @@ Default runs use analytic-fixture-v1. Native simulation is a separate explicit c
 The 27-corner PVT, 100-sample Monte Carlo, and optional folded-cascode layout study are evaluation contracts, not released results. [Evaluation plan](#source-review)
 
 Fifteen topology templates do not cover arbitrary analog design. Open simulation does not establish silicon performance, and an open layout check is not foundry signoff. [Limitations](#source-limits)
+
+### Landscape scope
+
+All marks are constrained: proposal/diagnosis contracts and topology templates support the workbench; native simulation is separately invoked, and default search uses analytic fixtures with proxy methods. Planned PVT, Monte Carlo, and layout studies do not establish additional implemented scope. [Status](#source-review) · [Limits](#source-limits)

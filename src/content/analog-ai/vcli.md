@@ -2,7 +2,13 @@
 name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 roles: ["eda-tool"]
-summary: "A Rust CLI and daemon for agent control of Cadence Virtuoso, with discovery and selection of multiple sessions. It extends the bridge approach with structured JSON commands, dynamic ports, and concurrent operation across sessions."
+summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
+keywords: ["Rust CLI", "Multi-session", "Cadence", "Spectre", "JSON"]
+workflow:
+  generate-edit: core
+  simulate-measure: core
+  eda-integration: core
+  physical: supporting
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
@@ -24,6 +30,9 @@ sources:
   - id: "maestro"
     title: "Implemented Maestro commands"
     url: "https://github.com/deanyou/virtuoso-cli/blob/1376468d05d1c4adc5dd3cdfdcf434421fb249ec/src/commands/maestro.rs"
+  - id: "layout"
+    title: "Reviewed layout geometry implementation"
+    url: "https://github.com/deanyou/virtuoso-cli/blob/1376468d05d1c4adc5dd3cdfdcf434421fb249ec/src/client/layout_ops.rs"
 ---
 ### Implementation and lineage
 
@@ -36,3 +45,7 @@ Implemented commands read and edit schematics, execute SKILL, configure Maestro 
 Admin-enabled SKILL broadcast opens one connection per live local session using concurrent Rust threads. Callers must inspect per-session results: partial failure can still return a successful process exit. This is concurrency across sessions, not a promise of simultaneous execution inside one Virtuoso instance. [Broadcast implementation](#source-broadcast)
 
 The exposed EDA infrastructure does not itself demonstrate autonomous analog design, optimization quality, or specification closure. Those require a separate workflow and circuit-specific evaluation.
+
+### Landscape scope
+
+Schematic edits, simulation/results, and EDA session control are reviewed implementation scope; no built-in optimization workflow is claimed. Physical is supporting: Rust helpers generate SKILL for layout geometry and stream-out, rather than demonstrating automatic physical design or signoff. [Interfaces](#source-review) · [Layout helpers](#source-layout)

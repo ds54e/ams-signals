@@ -2,7 +2,13 @@
 name: "AnalogCoder-Pro"
 aliases: ["AnalogCoderPro"]
 roles: ["benchmark","agent"]
-summary: "Combines circuit generation, waveform-image diagnosis and repair, and device sizing in a multimodal LLM research framework. Public tasks and testbenches support checking the behavior of generated circuits."
+summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair, and device-sizing research."
+keywords: ["Netlist generation", "Waveform diagnosis", "ngspice", "Partial release"]
+workflow:
+  reasoning: supporting
+  generate-edit: core
+  simulate-measure: core
+  optimize: supporting
 targets: "Amplifiers, mixers, comparators, oscillators, filters, and related circuits"
 access: "Task tables, sample circuits, testbenches, LLM run scripts, and waveform examples are public. Requires Python, ngspice, PySpice, and a separately configured model endpoint."
 notice: "The reviewed checklist still leaves Bayesian optimization updates and some ablation prompts unfinished. The complete optimization workflow described by the research should not be assumed reproducible from the public code."
@@ -33,3 +39,7 @@ Tasks specify a circuit request and its input/output ports. Sample designs and c
 Run scripts and waveform examples are available, while the checklist retains unfinished BO and ablation-prompt work. Individual waveform examples do not establish successful autonomous optimization across all tasks. [Reviewed release](#source-review)
 
 This entry does not reuse results from the preceding AnalogCoder project as Pro results. Any numerical comparison needs the matching model, trial budget, checks, and implementation revision.
+
+### Landscape scope
+
+Generation and simulation-backed repair are core workflow scope; diagnosis supports that loop. Optimize is supporting because the research describes sizing but the public BO update remains unfinished. No layout scope is established. [Reviewed workflow and checklist](#source-review)

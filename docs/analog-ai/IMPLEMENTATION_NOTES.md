@@ -1,22 +1,76 @@
 # Analog AI implementation and review notes
 
-Review date: 2026-09-05. Branch: `analog-ai-implementation`, created from the confirmed `analog-ai-foundation` branch.
+Current redesign review: 2026-09-05. Branch: `analog-ai-landscape-redesign`, based on deployed `main` commit `4fa73e4650d7512d236004297aeb8be9a5cf4296`.
 
-## Structure and behavior
+## Current structure and behavior
 
-- `src/content/analog-ai/*.md`: thirteen English project entries, each with a stable filename, independent metadata, and authored technical details. Version-dependent evidence links use reviewed repository revisions where available.
-- `src/lib/analog-ai/`: dedicated schema, deterministic ordering, search/URL functions, and browser controller. No imports from Golden data, Articles, or their viewer state.
-- `src/pages/analog-ai/index.astro` and `src/styles/analog-ai.css`: one static project list, progressive search, one category selector, counts, clean permalinks, and independent native disclosures. The common shell adds only a normal navigation link; its header wraps on narrow screens.
-- `src/data/analog-ai-updates.json`: three addition notes for NetlistBench, vcli, and ATLAS. Only explicit catalog additions or substantive changes belong here; at most three records are allowed.
-- `tools/validate-analog-ai.mjs`, `tests/analog-ai/`, and `tests/smoke/analog-ai.spec.ts`: validation, deterministic behavior tests, and production-preview browser coverage. Existing check stages remain in place. No dependencies were added.
+- `src/content/analog-ai/*.md`: thirteen independent English entries. Existing researched Markdown, source IDs, targets, access conditions and notices are retained. Each has a single-sentence default summary, 3–5 keywords, and a strict six-field workflow scope object. New Landscape scope paragraphs explain classifications without rewriting the original detail prose.
+- `src/pages/analog-ai/index.astro` and `src/styles/analog-ai.css`: a semantic six-column Landscape followed by a compact, four-area A–Z index. Inline additions and snapshot date keep the overview close to the title. At 1440×900 the index fits five complete entries. Mobile stacks each entry; only the matrix scrolls horizontally and its project column stays sticky.
+- `src/lib/analog-ai/catalog.ts`: deterministic name ordering, passive labels and local ID namespacing. `browser.ts` only reveals existing project/descendant targets, opens the owning Notes, and scrolls after expansion. Native links drive history. A repeat click on the current permalink also reopens Notes.
+- Search, filters, q/type state, IME handling, resets and custom history are removed. Old query strings have no effect. No browser storage, runtime fetch, database, or dependency was added.
+- Native Notes are closed in server-rendered HTML. All core data and direct sources remain visible without JavaScript; all detail text is in the HTML and native disclosures remain usable. Project and existing descendant/source hashes retain their IDs.
+- `src/data/analog-ai-activity.json`: volatile repository activity is separate from durable project research and the three bounded catalog addition notes. The page validates and renders the checked-in snapshot at build time.
+- Schema, unit tests and browser expectations use authored project IDs. Golden content, Article bodies, viewer code/state and factual export are independent and untouched.
 
-Search indexes only catalog-owned display text and aliases. NFKC, case folding, and whitespace-token AND matching apply before the single-role AND filter. Source URLs and metadata keys are not indexed. Matching a limitation does not imply support for that feature.
+## Landscape classification review
 
-Search makes one history entry per edit session and replaces that entry on subsequent keystrokes. Blur, submission, category changes, and reset end the session. Back/forward restores URL state. A known project or existing namespaced descendant hash opens its owning project and scrolls to the actual target, preserving the complete hash and its scroll margin. Incompatible filters are cleared and the URL is synchronized; unknown descendants do not resolve by prefix alone. A new control action removes the old hash. No catalog state is written to storage.
+Re-opened all twelve primary repositories, their current default branches/READMEs and targeted implementation or task files, plus the AMSbench/ATLAS papers and official project sites. All twelve repository heads still match the revisions cited in the prior review; the activity snapshot pins those heads. ATLAS paper v1 remains the identified primary release; no official public ATLAS repository was verified by checking paper links and a targeted author/title search.
 
-Static HTML includes all details and sources with disclosures open. JavaScript closes them on initial load and enables the search controls; without JavaScript the full reference remains readable and native disclosures still work. Repeated Markdown heading IDs and local source links are namespaced by project slug.
+Marks express reviewed scope, not scores or reproduced success. Core means a central reviewed task/interface; supporting includes a constrained task/track, auxiliary primitive, or incompletely released research path. A blank is not evidence of inability. Simulator use alone does not establish EDA session integration. Generation does not automatically imply an independently evaluated reasoning deliverable. PVT/Monte Carlo evaluation is not layout or silicon work.
 
-Each collapsed entry shows `Reviewed YYYY-MM-DD`; catalog registration remains in details. Routine qualifications moved out of prominent notices where the summary, environment, or detail section already explains them. Notices remain for structural-only scores, incomplete releases, track boundaries, and planned/synthetic results. The existing page title remains accurate for the expanded selection and is unchanged.
+| Project | Deliberate classification and ambiguity resolution |
+| --- | --- |
+| AMSbench | Reasoning and generation core; simulation supporting **on the evaluator side**, not permission for the model to invoke a simulator. Future sizing/layout blank. Rechecked paper evaluation/future work and `CKT_design.py`. |
+| Analog Design Bench | Editing, simulator iteration and specification closure core. The bandgap task explicitly supplies model-accessible development benches and a separate evaluator; it grades electrical measurements, not topology. Reasoning not separately graded; no EDA-session or physical mark. |
+| AnalogCoder-Pro | Generation and simulation-backed repair core; waveform diagnosis supports the loop. Optimization supporting because BO is described in the research but the reviewed public checklist remains unfinished. Rechecked `run.py` and released tasks, not predecessor results. |
+| AnalogForge Agent | Supporting marks for proposal contracts, constrained templates, separate native simulation adapter and proxy/analytic optimization. The default is an analytic fixture; planned physical/PVT/MC studies do not earn marks. The all-supporting row reflects these particular contracts, not a maturity rating. |
+| AnalogGym | Simulation/optimization core; parameter-file editing supporting. The reviewed AMP/LDO open examples are not a promise of complete open support for all thirty topologies. No LLM reasoning, free-form generation, or layout claim. |
+| ATLAS | Expert-grounded planning and template modification supporting; simulation core to the paper's validation; external BO sizing supporting. Paper-centric evidence is allowed, with human testbench correction retained. No released implementation or physical completion implied. |
+| CircuitRubric | Generated netlist core. No optimization mark: relative W/L/M/value ratios are structural grading, not measured tuning. No simulation or independently graded reasoning trace. |
+| EvoLDO-Bench | Reasoning core; circuit editing, controlled simulation and closure supporting **only in the separate tool tracks**. The v0.7 reasoning track still has zero model tools. Tool preflight is not generalized to commercial EDA session control. |
+| NetlistBench | Existing-netlist interpretation/recognition and requested transformations core. Rechecked v2 manifest and canonical-IR grader; no electrical-equivalence, simulation or design-success claim. |
+| Razavi-Bench | Reasoning core; scratch-deck generation and ngspice supporting only in the experimental treatment. Final answer remains the graded artifact; curated reference-assisted decks are excluded from official inputs. |
+| vcli | Schematic edit, Spectre/PSF and EDA session control core. Physical supporting: inspected Rust `LayoutOps` geometry/stream-out SKILL builders, not a dedicated autonomous layout flow. No optimizer mark for general control primitives. |
+| virtuoso-agent | Simulation, tuning and EDA backend control core; diagnosis/proposals and existing-circuit parameter editing supporting. Rechecked loop implementation and backend contract; no unrestricted topology or layout claim. |
+| virtuoso-bridge-lite | Schematic, simulation and EDA primitives core; layout geometry/stream-out supporting. Rechecked editor implementation and README. External optimizer guides do not make optimization a built-in bridge capability. |
+
+Each row's authored Notes cites the relevant primary material. The two newly inspected layout implementation files are added to the source arrays; the original bodies and existing IDs remain intact.
+
+## Public repository activity methodology
+
+Snapshot date: **2026-09-05**, window **October 2025–September 2026**, with September partial. `capturedAt` records the UTC collection cutoff; `headSha` fixes each inspected default-branch history. All selected repositories were public and not GitHub forks when rechecked. Each is the entry's verified Code source; none is combined with upstream, website, result, or companion repositories.
+
+The helper fetches repository metadata from public GitHub data using `gh`, reads the current default branch, and fetches that branch's Git history without checking out or executing project code. It walks **first-parent history**, counting one integration commit for a merge, and bins committer timestamps in UTC. This is a conservative default-branch integration-history count, not all commits on all reachable side branches. PR refs, stars, issues, fork counts and popularity are unused.
+
+Git does not record a reliable historical push/landing time. Fast-forward merges, timestamp edits, imports, squashes and history rewrites can move apparent activity between months. The visualization therefore explicitly reports a public-history snapshot and never total development effort. The last date is the latest committer date in the captured first-parent history, even if older than the displayed window. It includes the year when different from the snapshot year. An empty window is twelve dots, not an inactive-project declaration; no-repository entries get no synthetic strip.
+
+Repository-specific review found bulk publication in the short Analog Design Bench, CircuitRubric, NetlistBench and AnalogForge histories; this does not expose when earlier work occurred. vcli includes ten dependency-bot commits in September alongside other changes; the snapshot includes them and Notes disclose this. No selected month was classified as active solely by detected bot authors. Bot attribution and subjects are only inspection aids, not a complete automated provenance classifier. No public activity is interpreted as project quality.
+
+| Project ID | Primary repository / default branch | Monthly counts (Oct 2025 → Sep 2026) | Latest UTC commit |
+| --- | --- | --- | --- |
+| amsbench | [Why0912/AMSBench](https://github.com/Why0912/AMSBench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | 2025-06-18 |
+| analog-design-bench | [Arcadia-1/analog-design-bench](https://github.com/Arcadia-1/analog-design-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 | 2026-08-12 |
+| analogcoder-pro | [laiyao1/AnalogCoderPro](https://github.com/laiyao1/AnalogCoderPro) / `master` | 0, 0, 0, 0, 4, 1, 0, 0, 0, 0, 0, 0 | 2026-03-14 |
+| analogforge-agent | [appleweiping/analog-forge-agent](https://github.com/appleweiping/analog-forge-agent) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0 | 2026-08-11 |
+| analoggym | [CODA-Team/AnalogGym](https://github.com/CODA-Team/AnalogGym) / `main` | 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | 2025-10-29 |
+| atlas | No verified public repository | No activity buckets | Paper 2026-07-15 |
+| circuitrubric | [levantlabs/circuitrubric-bench](https://github.com/levantlabs/circuitrubric-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0 | 2026-06-23 |
+| evo-ldo-bench | [jialinlu/ldo_benchmark_for_agent](https://github.com/jialinlu/ldo_benchmark_for_agent) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 4 | 2026-09-03 |
+| netlistbench | [WoshiMayou/NetlistBench](https://github.com/WoshiMayou/NetlistBench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 | 2026-08-04 |
+| razavi-bench | [Arcadia-1/razavi-bench](https://github.com/Arcadia-1/razavi-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 51, 39, 45, 0 | 2026-08-17 |
+| vcli | [deanyou/virtuoso-cli](https://github.com/deanyou/virtuoso-cli) / `main` | 0, 0, 0, 0, 0, 0, 62, 0, 0, 22, 74, 134 | 2026-09-04 |
+| virtuoso-agent | [lixunqi12/virtuoso-agent](https://github.com/lixunqi12/virtuoso-agent) / `main` | 0, 0, 0, 0, 0, 0, 12, 11, 10, 1, 0, 0 | 2026-07-03 |
+| virtuoso-bridge-lite | [Arcadia-1/virtuoso-bridge-lite](https://github.com/Arcadia-1/virtuoso-bridge-lite) / `main` | 0, 0, 0, 0, 0, 0, 459, 71, 12, 36, 23, 4 | 2026-09-04 |
+
+The snapshot is authoritative for counts; this table records the redesign review. Future refreshes should update this review table or label it historical.
+
+## Maintenance and manual refresh
+
+1. Review primary sources before changing prose or scope. Keep stable filenames, four passive roles, short keywords, and `core|supporting` only; omit unreviewed/future scope. Do not create Golden records.
+2. Keep one source array with unique IDs/purposes. Cite local `#source-ID` references in Markdown. Put targets, prerequisites, notices, detailed evidence and classification caveats in Notes. A no-change review does not reorder the index or add a catalog update note.
+3. For activity, manually review/choose one Code repository or a sourced no-public-repository entry. Run `npm run refresh:analog-ai-activity` with Git and authenticated `gh`. It updates only the complete activity snapshot after all repositories succeed and validation passes; a failed request leaves the previous file intact. Temporary clones are removed. The helper is never part of check/build and is never shipped to the browser.
+4. Review the snapshot diff and captured histories for new default branches, bot-only months, bulk/imported history or changed ownership. The helper deliberately retains research notes and no-repository decisions; it cannot re-review them. Update those notes and independently revisit paper-only projects before committing. Do not treat running the helper as a source/content re-review.
+5. Run `npm run check`, `npm run test:smoke`, and `git diff --check`. Compare existing factual/export and Article content to the branch base. Inventory and activity expectations derive from authored files; only stable interaction fixtures are named explicitly.
 
 ## Initial project selection
 
@@ -59,34 +113,14 @@ Reviewed revision `9e5dcb453fd5313d43aa2e6239d1ef108ab834d0`. The code has typed
 
 The [16-PASS summary](https://github.com/Mauricio-xx/eda-agents/blob/9e5dcb453fd5313d43aa2e6239d1ef108ab834d0/bench/results/gap_closure_final/summary.json) combines checks, dry runs, mock digital metrics, and native tool runs. The [runner](https://github.com/Mauricio-xx/eda-agents/blob/9e5dcb453fd5313d43aa2e6239d1ef108ab834d0/src/eda_agents/bench/runner.py) counts missing-backend FAIL_INFRA results as skipped and excludes them from its pass-rate denominator. These modes can be traced in code, but the aggregate and generic agent entry point are not a clear demonstration of a general live analog-design workflow. Keeping this candidate out is a bounded catalog-selection decision, not a claim that its implementation is absent. A future entry should name specific live paths and prerequisites, with dry-run and missing-backend outcomes separated.
 
-## Maintaining an entry
+## Redesign verification and reader self-review
 
-1. Re-read current primary material and check narrowing evidence before editing public prose. Keep all public text English, including update notes.
-2. Add or edit one Markdown file under `src/content/analog-ai/`. Keep its lowercase hyphenated filename stable; put former names in `aliases`.
-3. Use only the four documented role IDs. Summarize purpose, distinction, access requirements, and material limitations before the disclosure.
-4. Maintain one `sources` array with unique local IDs. Assign a quick-link purpose at most once per project. Put URLs there and cite them in prose with `[Source label](#source-id)`; a source whose ID is `code` is referenced as `#source-code`. Raw HTML and external URLs in the body are rejected.
-5. Record actual catalog registration and source-review dates. Research can precede registration. A routine no-change review changes `reviewedAt` without creating an update note or altering order.
-6. Run `npm run check` and `npm run test:smoke`. Browser setup is documented in the root README. Browser inventory, counts, dates, and category expectations come from catalog frontmatter; adding an entry should not require changing unrelated tests. A few named projects remain behavioral fixtures. AND matching is checked through result intersections and representative inclusions/exclusions; pure tests independently cover the matching and sorting rules.
+- `npm run check`: original factual validation/lint/duplicate checks, catalog/activity validation, eleven catalog unit tests, production build, and internal links pass. The build has 284 pages and 2,715 internal anchors.
+- `npm run test:smoke`: 59 Chromium tests pass (43 unchanged existing-site tests and 16 redesigned catalog tests). Inventory, source metadata, scope marks, month states and dates derive from authored data. Search/filter/history-edit tests were removed with their product behavior; native hash history, unknown/descendant targets, repeat permalink activation, disclosure independence and keyboard access remain covered.
+- Visual inspection at 1440, 390 and 320 pixels covers Landscape (including horizontal scroll), first/middle/last entries, repository/no-repository cases, expanded Notes, project links, source direct navigation and reload. Desktop shows five full compact entries when viewing the index. There is no page-level horizontal overflow. An initial narrow-width failure exposed absolutely positioned accessibility text escaping the table's scroll container; making that container its positioning context corrected the actual issue.
+- Activity collection succeeded against all twelve repositories. An API/authentication failure exercise left the checked-in snapshot byte-identical. Normal check/build uses only that snapshot and does not contact GitHub.
+- All 281 existing factual/Article source files and all 283 non-catalog HTML pages are byte-identical to the pre-redesign main build. Existing viewer assets are unchanged. All thirteen original catalog Markdown bodies remain intact before the added scope paragraphs. Only summaries and new catalog-owned metadata change their default presentation.
+- `/export.json` remains byte-identical, SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. No factual schema, data, Article, viewer or deployment configuration changes.
+- Full branch diff review and `git diff --check` find no unrelated change. Browser automation remains Chromium-only; no external benchmark results were independently reproduced.
 
-## Verification record
-
-All final checks passed on Node.js 24.20.0 with Astro 7.2.9 and Playwright 1.62.1 (Chromium).
-
-| Check | Result |
-| --- | --- |
-| `npm run check` | Passed all original stages plus catalog validation and ten deterministic catalog tests. Validated 185 Events, 59 Companies, 28 People, thirteen catalog projects, and three update notes; no likely duplicate Events. Built 284 HTML pages and checked 2,702 internal anchors. |
-| `npm run test:smoke` | 66 passed: all 43 existing smoke tests and 23 catalog tests. Only the three existing navigation expectations changed to account for the added link. |
-| Browser acceptance | Search/role AND matching, aliases/NFKC, composition events, zero results, query history, project and descendant hash conflicts, permalinks, unknown/special URL inputs, independent disclosures, unique anchors, keyboard operation, no-JS content, visible review dates, and state isolation passed. Source/detail descendant anchors passed direct load and reload, target positioning, filter restoration, and history checks. |
-| Test maintainability | The same 23 catalog browser tests passed with the original ten entries / empty updates and again with thirteen entries / three additions, without changing expectations between those runs. Inventory and role checks derive expectations from authored data. |
-| Visual review | Inspected collapsed and expanded screenshots at 1440, 390, and 320 CSS pixels, plus the three new entries individually at 1440 and 390. Review dates are legible and restrained; no page-level horizontal overflow; long names wrap. |
-| Catalog independence exercise | Temporarily added an eleventh project and a valid update note, built, then removed both and rebuilt. Original source files and export stayed byte-identical. A stale update reference was rejected by validation; empty update data hid the section again. Temporary content was removed. |
-| Existing-content regression | All 281 original data/Article files stayed byte-identical. All 283 original HTML pages matched after removing the intentional Analog AI nav link and normalizing generated asset filenames and inter-tag whitespace. Existing viewer JavaScript stayed byte-identical. |
-| Factual export | Byte-identical before/after. SHA-256: `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. |
-| Source links | Initial review checked 36 distinct URLs: 35 HTTP 200, one IEEE HTTP 202. This pass checked all eleven added source URLs: eleven HTTP 200. Reachability does not establish reproducibility. |
-| Diff hygiene | `git diff --check` passed. No merge or deployment performed. |
-
-Self-review corrected malformed-URL handling and removed an unnecessary date-order restriction: a source review may precede catalog registration. Two initial browser failures were test-driver issues: native anchor scrolling had not settled before a no-JS click, and an extra Enter opened the native select popup. Both operations passed after correcting the test sequence. Chromium initially needed missing system libraries in this environment; no project dependency was added for that repair.
-
-The focused review reproduced the descendant-source-anchor bug with a failing production-preview browser test before changing the resolver. The fix recognizes only actual descendants, opens their owning details, and scrolls the named element after expansion; the regression now passes. Full review against `analog-ai-foundation` includes the initial implementation, language correction, source content, and these fixes. No change to existing factual validation, data, Article bodies, viewer state, or export logic was needed.
-
-The browser suite covers Chromium; Firefox, WebKit, and a physical OS IME session were not exercised. No live external-source polling or experiment reproduction is implemented. The secondary candidates above remain a future content review, and a normal re-review must revisit version-sensitive claims. Test logs, screenshots, and temporary source-check material stay outside tracked repository content.
+Reader self-review: the matrix exposes the different reasoning, artifact, simulator, optimization and EDA scopes before opening any project. All thirteen project names are available at the same compact scale, including the last entry, and link directly to their Notes. In the index, one sentence and a few keywords support quick skipping, sources are directly reachable, and binary monthly strips distinguish visible patterns without varying mark size by count. No project/column totals, maturity/autonomy ladder, ranking, popularity metric, or activity score is shown. Supporting marks and blank cells have explicit semantics; release/track nuance belongs in Notes. The defaults contain no article-length notices, redundant controls or decorative cards.

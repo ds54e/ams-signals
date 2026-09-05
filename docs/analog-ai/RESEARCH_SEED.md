@@ -157,7 +157,7 @@ Do not include these just because they appeared in prior research. Locate curren
 
 ## Comparison questions for every project
 
-Use these questions to produce concise catalog prose. Do not turn them into a giant checkbox matrix.
+Use these questions to ground catalog prose. The six-column reviewed-scope Landscape is defined in `IMPLEMENTATION_SPEC.md`; these historical research questions do not define additional classification fields or scores.
 
 1. What problem is the project trying to solve?
 2. What is the input to the model/agent?
