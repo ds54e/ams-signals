@@ -10,12 +10,12 @@ Understand the Analog AI landscape quickly, notice useful patterns, and open onl
 
 ## Page direction
 
-- Start with Landscape. Keep an accessible, visually hidden Analog AI heading; navigation provides visible page context.
+- Start directly with the workflow matrix and put its compact legend immediately below. Keep an accessible, visually hidden Analog AI heading; navigation provides visible page context. Do not show Landscape/Projects headings or a Projects shortcut.
 - No introductory prose, project total, additions, review dates, snapshot metadata, or methodology paragraphs in the dashboard.
 - An accessible HTML landscape matrix: Reasoning, Generate / Edit, Simulate / Measure, Optimize, EDA Integration, Physical.
 - Order both Landscape and Projects by latest public activity, newest first: repository `lastCommitAt`, otherwise `lastPublicUpdateAt`; ties use normalized name then slug. Undated projects follow dated projects.
-- One compact project index: project/one-sentence summary, 3–5 keywords, activity with a prominent latest date, and direct primary links. Use moderately larger text without large cards.
-- Passive role labels; independently expandable native **What it does**, closed by default, with one concise capability paragraph and the existing sources.
+- The project column headers begin a compact index: project/one concise capability description, 3–5 keywords, activity with a prominent latest date, and a narrow Links column for passive roles and primary links. Give the description the most width, with readable text and no large cards.
+- Render the existing `description` once below the name. Do not also show the shorter summary, roles below the name, disclosures, a separate description panel, or the reviewed-source bibliography. Keep Website, Paper, Code and Results links directly accessible.
 - Stable project and descendant/source anchors. No search, filters, query state, history management, storage, or runtime fetching.
 
 Matrix marks describe reviewed scope, never maturity, autonomy, quality, or verified capability. A blank means no primary reviewed scope was identified, not inability. Public repository activity describes visibility in one verified primary repository, not total effort or quality. It uses a checked-in twelve-month snapshot separate from durable project research.
@@ -32,4 +32,4 @@ Re-open primary material before changing researched claims or workflow classific
 
 `IMPLEMENTATION_SPEC.md` defines behavior and validation. `IMPLEMENTATION_NOTES.md` records classification decisions, selected repositories, activity methodology, and checks. Catalog additions remain bounded and independently authored; repository commits are not catalog update notes.
 
-Follow the user's current delivery instruction. This refinement is authorized for a normal fast-forward commit/push to `main` after validation and self-review. Do not force-push or change deployment configuration; the existing Pages workflow is manual-only.
+Follow the user's current delivery instruction. This refinement is authorized for a normal fast-forward commit/push to `main` after validation and self-review. Do not deploy in this pass. Do not force-push or change deployment configuration; the existing Pages workflow is manual-only.

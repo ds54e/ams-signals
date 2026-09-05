@@ -19,12 +19,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
   <section class="analog-ai" data-analog-ai aria-labelledby="catalog:heading">
     <h1 id="catalog:heading" class="visually-hidden">Analog AI</h1>
 
-    <section class="catalog-landscape" aria-labelledby="catalog:landscape">
-      <div class="catalog-section-heading">
-        <h2 id="catalog:landscape">Landscape</h2>
-        <a href="#catalog:index">Projects ↓</a>
-      </div>
-      <p class="catalog-help landscape-scroll-hint">Scroll horizontally to see all scopes.</p>
+    <section id="catalog:landscape" class="catalog-landscape" aria-label="Workflow landscape">
       <div class="landscape-scroll" role="region" aria-label="Landscape matrix; scroll horizontally for all scopes" tabindex="0">
         <table class="landscape-table" aria-describedby="catalog:legend">
           <caption class="visually-hidden">Workflow scope by project</caption>
@@ -45,21 +40,25 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
       <p id="catalog:legend" class="catalog-legend"><span>● core</span><span>◐ supporting</span></p>
     </section>
 
-    <section aria-labelledby="catalog:index">
-      <div class="catalog-section-heading index-heading"><h2 id="catalog:index">Projects</h2></div>
-      <div class="catalog-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Activity</span><span>Sources</span></div>
+    <section id="catalog:index" aria-label="Project index">
+      <div class="catalog-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Activity</span><span>Links</span></div>
       <ol class="catalog-list" aria-label="Projects">
         {projects.map((project) => {
           const { data, id } = project;
           const record = activity.projects[id];
           if (!project.rendered) throw new Error(`Missing rendered catalog content: ${id}`);
-          const detailAnchors = projectDetailAnchors(project.rendered.html, id);
+          // Old research bookmarks now lead to the always-visible project description.
+          const aliases = [
+            ...projectDetailAnchors(project.rendered.html, id),
+            `${id}--sources`,
+            ...data.sources.filter((source) => !source.purpose).map((source) => `${id}--source-${source.id}`),
+          ];
           return <li id={id} class="catalog-project" data-catalog-project>
+            {aliases.map((anchor) => <span id={anchor} class="catalog-anchor" aria-hidden="true" />)}
             <article aria-labelledby={`${id}--name`}>
               <div class="catalog-overview">
-                <h3 id={`${id}--name`}><a class="catalog-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}<span aria-hidden="true"> #</span></a></h3>
-                <ul class="catalog-roles" aria-label={`${data.name} roles`}>{data.roles.map((role) => <li>{roleLabels[role]}</li>)}</ul>
-                <p class="catalog-summary">{data.summary}</p>
+                <h2 id={`${id}--name`}><a class="catalog-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}<span aria-hidden="true"> #</span></a></h2>
+                <p class="catalog-description">{data.description}</p>
               </div>
               <ul class="catalog-keywords" aria-label={`${data.name} keywords`}>{data.keywords.map((keyword) => <li>{keyword}</li>)}</ul>
               <div class="catalog-activity" data-activity-kind={record.kind}>
@@ -75,25 +74,15 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                   </ul>
                   <p class="activity-summary">{record.commits.filter((count) => count > 0).length}/12 active months</p>
                 </> : <>
-                  {record.lastPublicUpdateAt && <p class="activity-latest"><a href={`#${id}--source-${record.lastPublicUpdateSource}`}>{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper' : 'Update'}</a> <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
+                  {record.lastPublicUpdateAt && <p class="activity-latest">{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper' : 'Update'} <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
                 </>}
               </div>
-              <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
-                {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
-              </ul>
-              <details class="catalog-notes">
-                <summary>What it does<span class="visually-hidden">: {data.name}</span></summary>
-                <div class="catalog-notes-body">
-                  <div class="catalog-detail">
-                    {detailAnchors.map((anchor) => <span id={anchor} class="catalog-detail-anchor" aria-hidden="true" />)}
-                    <p>{data.description}</p>
-                  </div>
-                  <section class="catalog-sources" aria-labelledby={`${id}--sources`}>
-                    <h4 id={`${id}--sources`}>Primary sources</h4>
-                    <ol>{data.sources.map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{source.title}</a></li>)}</ol>
-                  </section>
-                </div>
-              </details>
+              <div class="catalog-links">
+                <ul class="catalog-roles" aria-label={`${data.name} roles`}>{data.roles.map((role) => <li>{roleLabels[role]}</li>)}</ul>
+                <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
+                  {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+                </ul>
+              </div>
             </article>
           </li>;
         })}
@@ -101,7 +90,3 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
     </section>
   </section>
 </BaseLayout>
-<script>
-  import { initializeCatalog } from '../../lib/analog-ai/browser';
-  initializeCatalog();
-</script>

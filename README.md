@@ -16,7 +16,7 @@ Articles are authored Markdown documents kept separately under `src/content/arti
 
 ## Analog AI catalog
 
-The independent `/analog-ai/` page is an English technical reference for analog/RF/AMS AI benchmarks, design agents, EDA tools, and experiment environments. Project entries live in `src/content/analog-ai/`; the compact landscape matrix and project index both show the latest public activity first, with passive roles, keywords, direct sources, and concise expandable capability descriptions. Stable project and source links remain available without a search/filter interface. The catalog does not depend on Golden records or Articles and does not enter the factual export. See [the catalog specification](docs/analog-ai/README.md) and [implementation and review notes](docs/analog-ai/IMPLEMENTATION_NOTES.md).
+The independent `/analog-ai/` page is an English technical reference for analog/RF/AMS AI benchmarks, design agents, EDA tools, and experiment environments. Project entries live in `src/content/analog-ai/`; the compact workflow matrix and project index both show the latest public activity first. Each row contains one capability description, keywords, activity, and roles with direct primary links. Stable project and legacy source bookmarks work with native anchors, without disclosures or a search/filter interface. The catalog does not depend on Golden records or Articles and does not enter the factual export. See [the catalog specification](docs/analog-ai/README.md) and [implementation and review notes](docs/analog-ai/IMPLEMENTATION_NOTES.md).
 
 ## Maintaining the record
 

@@ -26,7 +26,7 @@ export const analogAiSchema = z.object({
   aliases: z.array(text).default([]),
   roles: z.array(z.enum(roleIds)).min(1).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
   summary: text.max(240, 'Keep the default summary to one concise sentence'),
-  description: text.max(600, 'Keep What it does to one short paragraph'),
+  description: text.max(600, 'Keep the project description to one short paragraph'),
   keywords: z.array(text.max(28)).min(3).max(5).refine(
     (values) => new Set(values.map((value) => value.normalize('NFKC').toLowerCase())).size === values.length,
     'Duplicate keyword',
