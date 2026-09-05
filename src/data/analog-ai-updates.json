@@ -1,0 +1,20 @@
+[
+  {
+    "project": "netlistbench",
+    "date": "2026-09-05",
+    "kind": "added",
+    "summary": "Existing-netlist tasks with released deterministic graders."
+  },
+  {
+    "project": "vcli",
+    "date": "2026-09-05",
+    "kind": "added",
+    "summary": "Rust CLI for multiple Virtuoso sessions and EDA operations."
+  },
+  {
+    "project": "atlas",
+    "date": "2026-09-05",
+    "kind": "added",
+    "summary": "Paper-described SAR ADC generation using expert-curated templates."
+  }
+]

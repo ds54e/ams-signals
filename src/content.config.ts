@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { analogAiSchema, catalogSlug } from './lib/analog-ai/schema';
 
 const datePrecision = z.enum(['year', 'month', 'day']);
 const eventKind = z.enum(['technical', 'organizational']);
@@ -146,4 +147,13 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { events, companies, people, articles };
+const analogAi = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/analog-ai',
+    generateId: ({ entry }) => catalogSlug.parse(entry.replace(/\.md$/, '')),
+  }),
+  schema: analogAiSchema,
+});
+
+export const collections = { events, companies, people, articles, analogAi };
