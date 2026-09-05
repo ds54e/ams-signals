@@ -1,3 +1,4 @@
+import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { z } from 'astro/zod';
 import { roleIds } from './catalog.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
@@ -112,6 +113,14 @@ const githubActivity = z.object({
   lastMeaningfulCommitSha: z.string().regex(/^[a-f0-9]{40}$/).optional(),
   notes: text.optional(),
 }).strict();
+const repositoryActivity = githubActivity.extend({
+  kind: z.literal('repository'),
+  repository: sourceUrl.refine(isRepositoryUrl, 'Use a canonical non-GitHub HTTPS repository URL'),
+  repositoryId: text,
+  capturedAt: z.string().datetime(),
+  lastMeaningfulCommitSha: z.string().regex(/^[a-f0-9]{40}$/),
+  lastMeaningfulCommitSource: catalogSlug,
+}).strict();
 const noRepositoryActivity = z.object({
   kind: z.literal('no-public-repo'),
   lastPublicUpdateAt: date.optional(),
@@ -123,7 +132,7 @@ export const activitySchema = z.object({
   capturedAt: z.string().datetime(),
   method: z.literal('first-parent-committer-utc'),
   months: z.array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/)).length(12),
-  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, noRepositoryActivity])),
+  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, noRepositoryActivity])),
 }).strict().superRefine((snapshot, context) => {
   if (snapshot.capturedAt.slice(0, 10) !== snapshot.reviewedAt) {
     context.addIssue({ code: 'custom', message: 'Snapshot and capture dates differ' });
@@ -132,9 +141,13 @@ export const activitySchema = z.object({
     context.addIssue({ code: 'custom', path: ['months'], message: 'Use twelve consecutive months ending in the snapshot month' });
   }
   for (const [id, activity] of Object.entries(snapshot.projects)) {
-    const last = activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt;
+    if (activity.kind === 'repository' && (activity.capturedAt.slice(0, 7) !== snapshot.reviewedAt.slice(0, 7)
+      || activity.capturedAt.slice(0, 10) > snapshot.reviewedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
+      context.addIssue({ code: 'custom', path: ['projects', id], message: 'Repository capture must cover the snapshot month and reviewed commit dates' });
+    }
+    const last = hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt;
     if (last && last > snapshot.reviewedAt) context.addIssue({ code: 'custom', path: ['projects', id], message: 'Activity date is after the snapshot' });
-    if (activity.kind === 'github') {
+    if (hasRepositoryHistory(activity)) {
       if (activity.lastMeaningfulCommitAt > activity.lastCommitAt) {
         context.addIssue({ code: 'custom', path: ['projects', id, 'lastMeaningfulCommitAt'], message: 'Meaningful activity cannot follow the last commit' });
       }
@@ -160,7 +173,9 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
     const activity = snapshot.projects[project.id];
     if (!activity) throw new Error(`Missing activity project: ${project.id}`);
     const data = analogSchema.parse(project.data);
-    if (activity.kind === 'github') {
+    if (activity.kind === 'repository') {
+      validateRepositorySources(activity, data.sources);
+    } else if (activity.kind === 'github') {
       const code = data.sources.find((source) => source.purpose === 'code');
       if (!code || new URL(code.url).hostname !== 'github.com'
         || new URL(code.url).pathname.replace(/^\/|\/$/g, '').toLowerCase() !== activity.repository.toLowerCase()) {
@@ -178,7 +193,7 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
         throw new Error(`${project.id}: unknown public update source`);
       }
     }
-    const meaningfulDate = activity.kind === 'github' ? activity.lastMeaningfulCommitAt : activity.lastPublicUpdateAt;
+    const meaningfulDate = hasRepositoryHistory(activity) ? activity.lastMeaningfulCommitAt : activity.lastPublicUpdateAt;
     if (!meaningfulDate || meaningfulDate < cutoff) {
       throw new Error(`${project.id}: active catalog requires verified meaningful activity on or after ${cutoff}`);
     }

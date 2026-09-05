@@ -4,7 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { projectDetailAnchors, sortProjects } from '../../src/lib/analog/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
+import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 const valid = () => ({
@@ -41,7 +41,7 @@ test('public activity sorts newest first, using paper dates and deterministic na
     beta: { kind: 'github', lastCommitAt: '2026-08-20' },
     paper: { kind: 'no-public-repo', lastPublicUpdateAt: '2026-09-01' },
     unknown: { kind: 'no-public-repo' },
-    newest: { kind: 'github', lastCommitAt: '2026-09-04' },
+    newest: { kind: 'repository', lastCommitAt: '2026-09-04' },
   };
   const before = structuredClone(input);
   const expected = ['newest', 'paper', 'a', 'b', 'beta', 'old', 'unknown'];
@@ -237,6 +237,7 @@ test('each activity record belongs to one authored project and its verified Code
 test('no-repository records have no synthetic zero activity and public dates require a real source', () => {
   const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
   const record = { kind: 'no-public-repo', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  assert.equal(hasRepositoryHistory(record), false);
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
   assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
   assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo' } } }), /requires verified meaningful activity/);
@@ -244,6 +245,30 @@ test('no-repository records have no synthetic zero activity and public dates req
     assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false);
   }
   assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
+});
+
+test('reviewed monthly repository records work across hosts and retain strict identity and freshness checks', () => {
+  // Synthetic fixtures exercise the same contract for different hosting platforms.
+  for (const repository of ['https://gitlab.com/group/subgroup/tool', 'https://codeberg.org/group/tool']) {
+    const record = { ...snapshot().projects.sample, kind: 'repository', repository, repositoryId: '123',
+      capturedAt: '2026-09-05T04:00:00Z', lastMeaningfulCommitSha: 'b'.repeat(40), lastMeaningfulCommitSource: 'activity',
+    };
+    const sample = { ...entry(), data: { ...valid(), sources: [
+      { id: 'code', title: 'Canonical repository', url: repository, purpose: 'code' },
+      { id: 'activity', title: 'Reviewed implementation commit', url: `${repository}/commit/${record.lastMeaningfulCommitSha}` },
+    ] } };
+    const value = { ...snapshot(), projects: { sample: record } };
+    assert.ok(validateActivity([sample], value));
+    assert.equal(hasRepositoryHistory(record), true);
+    for (const change of [
+      { repositoryId: undefined }, { repository: 'https://github.com/mirror/tool' }, { capturedAt: undefined },
+      { capturedAt: '2026-08-31T00:00:00Z' }, { lastMeaningfulCommitAt: '2025-09-04' },
+      { commits: [] }, { commits: Array(12).fill(0) }, { lastMeaningfulCommitSha: undefined },
+      { lastMeaningfulCommitSource: 'missing' }, { lastMeaningfulCommitSha: 'c'.repeat(40) },
+    ]) assert.throws(() => validateActivity([sample], { ...value, projects: { sample: { ...record, ...change } } }));
+    const wrongSource = { ...sample, data: { ...sample.data, sources: sample.data.sources.map((s) => s.purpose === 'code' ? { ...s, url: 'https://gitlab.com/unrelated/tool' } : s) } };
+    assert.throws(() => validateActivity([wrongSource], value), /verified Code source/);
+  }
 });
 
 test('rolling freshness uses an inclusive date boundary, not the twelve calendar-month buckets', () => {

@@ -38,4 +38,4 @@ Tracked as a conventional waveform viewer; no distinctive AI build process or AI
 
 ### Release boundary
 
-Native and web builds have different feature availability. Activity is a source-backed GitLab update, with no invented GitHub commit strip. [Public update](#source-activity).
+Native and web builds have different feature availability. Activity uses reviewed first-parent monthly history from the canonical GitLab repository. [Public update](#source-activity).

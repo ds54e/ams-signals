@@ -105,10 +105,16 @@ test('five-axis matrix has the exact authored scopes, matches list order and imm
   expect(audit).toEqual({ duplicates: [], missing: [] });
 });
 
-test('GitHub activity stacks date, compact binary band and month summary; non-GitHub dates have no fake band', async ({ page }) => {
+test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await open(page);
   await expectActivityBands(rows(page), '.digital-activity', activity);
-  expect(projects.some((project) => activity.projects[project.id].kind === 'public-update')).toBe(true);
+  const surfer = page.locator('#surfer .digital-activity');
+  expect(activity.projects.surfer.kind).toBe('repository');
+  expect(activity.projects.surfer.repository).toBe('https://gitlab.com/surfer-project/surfer');
+  await expect(surfer.locator('ul > li')).toHaveCount(12);
+  await expect(surfer.locator('time')).toHaveAttribute('datetime', '2026-09-04');
+  await expect(surfer.locator('.digital-activity-summary')).toHaveText('12/12 months');
+  expect(await surfer.innerText()).not.toContain('gitlab.com');
 });
 
 test('native project hashes survive direct load, reload and browser back/forward', async ({ page }) => {
@@ -185,8 +191,8 @@ for (const width of [1440, 390, 320]) {
       await expect(page.locator('.digital-columns')).not.toBeVisible();
     }
     await page.screenshot({ path: info.outputPath(`digital-index-${width}.png`) });
-    const manual = projects.find((p) => activity.projects[p.id].kind === 'public-update')!;
-    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, manual, ...['xezim', 'haven', 'verilator'].map((id) => projects.find((p) => p.id === id)!)]) {
+    const nonGitHub = projects.filter((p) => activity.projects[p.id].kind !== 'github');
+    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, ...nonGitHub, ...['xezim', 'haven', 'verilator'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${p.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
       await page.screenshot({ path: info.outputPath(`digital-row-${width}-${p.id}.png`) });

@@ -8,7 +8,7 @@ import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { aiIds, areaIds, sortProjects } from '../../src/lib/digital/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
+import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
 const directory = new URL('../../src/content/digital/', import.meta.url);
@@ -18,9 +18,13 @@ const projects = await Promise.all((await readdir(directory)).filter((file) => f
 }));
 const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8')));
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
-const manual = projects.find((p) => snapshot.projects[p.id].kind === 'public-update')!;
+const surfer = projects.find((p) => p.id === 'surfer')!;
 const data = () => structuredClone(github.data);
 const activity = () => structuredClone(snapshot);
+// Point-update support remains tested even when all current Digital entries have monthly history.
+const dateOnlyActivity = () => ({ ...activity(), projects: { ...snapshot.projects,
+  [surfer.id]: { kind: 'public-update' as const, lastPublicUpdateAt: '2026-09-04', lastPublicUpdateSource: 'activity' },
+} });
 
 test('authored Digital catalog inventory, provenance and snapshot validate together', () => {
   validateCatalog(projects);
@@ -31,7 +35,7 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
   assert.equal(freshnessCutoff('2026-09-05'), '2025-09-05');
   for (const p of projects) {
     const record = snapshot.projects[p.id];
-    const meaningful = record.kind === 'github' ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
+    const meaningful = hasRepositoryHistory(record) ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
     assert.ok(meaningful >= freshnessCutoff(snapshot.reviewedAt));
     assert.equal(p.data.areas[p.data.primary], 'core');
   }
@@ -145,8 +149,8 @@ test('freshness checks meaningful activity rather than accepting cosmetic recent
   assert.throws(() => validateActivity(projects, s), /Stale meaningful activity/);
   Object.assign(record, { lastMeaningfulCommitAt: cutoff });
   assert.doesNotThrow(() => validateActivity(projects, s));
-  Object.assign(s.projects[manual.id], { lastPublicUpdateAt: stale });
-  assert.throws(() => validateActivity(projects, s), /Stale meaningful activity/);
+  const dated = dateOnlyActivity(); Object.assign(dated.projects[surfer.id], { lastPublicUpdateAt: stale });
+  assert.throws(() => validateActivity(projects, dated), /Stale meaningful activity/);
 });
 
 test('activity coverage and canonical Code/meaningful sources cannot drift from the catalog', () => {
@@ -162,19 +166,66 @@ test('activity coverage and canonical Code/meaningful sources cannot drift from 
   assert.throws(() => validateActivity(projects.map((entry) => entry.id === github.id ? { ...entry, data: p } : entry), snapshot), /meaningful commit requires/);
 });
 
-test('non-GitHub updates stay source-backed and never acquire a fake GitHub strip', () => {
-  const s = activity(); Object.assign(s.projects[manual.id], { lastPublicUpdateSource: 'missing' });
+test('point updates require sources and cannot silently acquire repository buckets', () => {
+  const s = dateOnlyActivity();
+  assert.doesNotThrow(() => validateActivity(projects, s));
+  assert.equal(hasRepositoryHistory(s.projects[surfer.id]), false);
+  Object.assign(s.projects[surfer.id], { lastPublicUpdateSource: 'missing' });
   assert.throws(() => validateActivity(projects, s), /unknown public update source/);
-  assert.equal(activitySchema.safeParse({ ...activity(), projects: { ...snapshot.projects, [manual.id]: { kind: 'public-update', lastPublicUpdateAt: '2026-09-04' } } }).success, false);
-  Object.assign(s.projects[manual.id], { commits: Array(12).fill(0) });
+  Object.assign(s.projects[surfer.id], { commits: Array(12).fill(0) });
   assert.equal(activitySchema.safeParse(s).success, false);
-  const changed = projects.map((p) => p.id === manual.id ? { ...p, data: { ...p.data, sources: p.data.sources.map((source) => source.purpose === 'code' ? { ...source, url: 'https://github.com/mirror/surfer' } : source) } } : p);
-  assert.throws(() => validateActivity(changed, snapshot), /GitHub Code requires/);
+  const missingSource = dateOnlyActivity(); delete (missingSource.projects[surfer.id] as any).lastPublicUpdateSource;
+  assert.equal(activitySchema.safeParse(missingSource).success, false);
+  const changed = projects.map((p) => p.id === surfer.id ? { ...p, data: { ...p.data, sources: p.data.sources.map((source) => source.purpose === 'code' ? { ...source, url: 'https://github.com/mirror/surfer' } : source) } } : p);
+  assert.throws(() => validateActivity(changed, dateOnlyActivity()), /GitHub Code requires/);
+});
+
+test('Surfer uses reviewed canonical GitLab first-parent history without changing its public date', () => {
+  const record = snapshot.projects.surfer;
+  assert.equal(record.kind, 'repository');
+  if (record.kind !== 'repository') throw new Error('Missing reviewed Surfer history');
+  assert.equal(hasRepositoryHistory(record), true);
+  assert.equal(record.repository, 'https://gitlab.com/surfer-project/surfer');
+  assert.equal(record.repositoryId, '42073614');
+  assert.equal(record.defaultBranch, 'main');
+  assert.equal(record.headSha, 'db1ca915a989860f11c440b0a932b1f5fbce71b2');
+  assert.equal(record.lastMeaningfulCommitSha, record.headSha);
+  assert.equal(record.lastMeaningfulCommitSource, 'activity');
+  assert.equal(publicActivityDate(record), '2026-09-04');
+  assert.equal(record.lastMeaningfulCommitAt, '2026-09-04');
+  assert.deepEqual(record.commits, [47,51,99,35,66,28,31,40,10,32,17,7]);
+  assert.doesNotThrow(() => verifyMeaningfulCommit(record, [[record.headSha, '2026-09-04T11:44:01Z']]));
+  const before = dateOnlyActivity();
+  assert.deepEqual(sortProjects(projects, snapshot.projects).map((p) => p.id), sortProjects(projects, before.projects).map((p) => p.id));
+});
+
+test('generic repository records enforce identity, complete monthly history and reviewed provenance', () => {
+  for (const change of [
+    { repository: 'invalid' }, { repository: 'https://github.com/mirror/surfer' },
+    { repository: 'https://gitlab.com/' }, { repository: 'https://gitlab.com/surfer-project/surfer?branch=main' },
+    { repositoryId: undefined }, { repositoryId: '' }, { defaultBranch: 'bad..branch' },
+    { capturedAt: undefined }, { capturedAt: '2026-08-31T00:00:00Z' }, { capturedAt: '2026-09-06T00:00:00Z' },
+    { capturedAt: '2026-09-03T00:00:00Z' }, { commits: undefined }, { commits: [1] },
+    { commits: Array(12).fill(-1) }, { commits: Array(12).fill(0.5) }, { commits: Array(12).fill(0) },
+    { headSha: 'main' }, { lastMeaningfulCommitSha: undefined }, { lastMeaningfulCommitAt: '2025-09-04' },
+    { lastMeaningfulCommitAt: '2026-09-05' }, { lastMeaningfulCommitSource: 'missing' },
+    { lastMeaningfulCommitSha: 'a'.repeat(40) },
+  ]) {
+    const s = activity(); Object.assign(s.projects.surfer, change);
+    assert.throws(() => validateActivity(projects, s), JSON.stringify(change));
+  }
+  for (const source of ['code', 'activity']) {
+    const changed = projects.map((p) => p.id === surfer.id ? { ...p, data: { ...p.data, sources: p.data.sources.map((s) => s.id === source ? { ...s, url: 'https://gitlab.com/unrelated/surfer' } : s) } } : p);
+    assert.throws(() => validateActivity(changed, snapshot), /verified Code source|primary source/);
+  }
+  // Manual repositories cannot inherit re-labeled buckets when the refresh window moves.
+  const s = activity();
+  assert.equal(activitySchema.safeParse({ ...s, reviewedAt: '2026-10-05', capturedAt: '2026-10-05T00:00:00Z', months: activityMonths('2026-10-05') }).success, false);
 });
 
 test('ordering uses raw latest public activity, normalized alphabetical ties, then slug without mutating input', () => {
   const input = [{ id: 'z', data: { name: 'Alpha' } }, { id: 'a', data: { name: 'Ａｌｐｈａ' } }, { id: 'recent', data: { name: 'Zed' } }, { id: 'paper', data: { name: 'Beta' } }];
-  const values = { z: { kind: 'github' as const, lastCommitAt: '2026-09-01' }, a: { kind: 'github' as const, lastCommitAt: '2026-09-01' }, recent: { kind: 'github' as const, lastCommitAt: '2026-09-05' }, paper: { kind: 'public-update' as const, lastPublicUpdateAt: '2026-09-02' } };
+  const values = { z: { kind: 'github' as const, lastCommitAt: '2026-09-01' }, a: { kind: 'github' as const, lastCommitAt: '2026-09-01' }, recent: { kind: 'repository' as const, lastCommitAt: '2026-09-05' }, paper: { kind: 'public-update' as const, lastPublicUpdateAt: '2026-09-02' } };
   assert.deepEqual(sortProjects(input, values).map((p) => p.id), ['recent', 'paper', 'a', 'z']);
   assert.deepEqual(input.map((p) => p.id), ['z', 'a', 'recent', 'paper']);
   const ordered = sortProjects(projects, snapshot.projects);

@@ -78,7 +78,8 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
   }), activitySelector);
   for (const item of rendered) {
     const record = snapshot.projects[item.id];
-    const date = record.kind === 'github' ? record.lastCommitAt! : record.lastPublicUpdateAt!;
+    const repositoryBacked = record.kind === 'github' || record.kind === 'repository';
+    const date = repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
     expect(item.kind).toBe(record.kind);
     expect(item.date).toBe(date);
     expect(item.dateText).toBe(new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'UTC',
@@ -87,7 +88,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.weight).toBeGreaterThanOrEqual(600);
     expect(item.text).not.toContain('Latest');
     expect(item.links).toBe(0);
-    if (record.kind !== 'github') {
+    if (!repositoryBacked) {
       expect(item.months).toEqual([]); expect(item.label).toBeNull(); expect(item.summary).toBeNull();
       expect(item.text).not.toContain('/12');
       continue;
@@ -99,8 +100,8 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months).toHaveLength(12);
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(170);
-    expect(item.activityWidth).toBeLessThanOrEqual(190);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(130);
+    expect(item.activityWidth).toBeLessThanOrEqual(150);
     expect(item.stripWidth).toBeCloseTo(item.activityWidth, 1);
     expect(item.summaryRight).toBeCloseTo(item.stripRight!, 1);
     for (let index = 0; index < 12; index++) {
@@ -114,14 +115,15 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBeGreaterThanOrEqual(10); expect(bucket.height).toBeGreaterThanOrEqual(10);
-      expect(bucket.width).toBeLessThanOrEqual(12); expect(bucket.height).toBeLessThanOrEqual(12);
+      expect(bucket.width).toBeGreaterThanOrEqual(8); expect(bucket.height).toBeGreaterThanOrEqual(5);
+      expect(bucket.width).toBeLessThanOrEqual(10); expect(bucket.height).toBeLessThanOrEqual(7);
+      expect(bucket.width / bucket.height).toBeGreaterThanOrEqual(1.4);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
       expect(bucket.fill).toBe(count > 0 ? bucket.border : 'rgba(0, 0, 0, 0)');
       if (index) {
         const previous = item.months[index - 1];
         const gap = bucket.left - previous.left - previous.width;
-        expect(gap).toBeGreaterThanOrEqual(2); expect(gap).toBeLessThanOrEqual(3);
+        expect(gap).toBeGreaterThanOrEqual(2); expect(gap).toBeLessThanOrEqual(2);
       }
     }
   }
@@ -144,9 +146,12 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
   for (const row of geometry) {
     expect(row.columns, row.id).toHaveLength(3);
     if (width === 1440) {
+      expect(row.columns[0].width).toBeGreaterThan(780); // Previously about 754px at 1440px.
+      expect(row.columns[1].width).toBeGreaterThan(310);
+      expect(row.columns[1].width).toBeLessThan(340);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[1].width * 2);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 3.5);
-      expect(row.columns[2].width).toBeLessThanOrEqual(190);
+      expect(row.columns[2].width).toBeLessThanOrEqual(150);
       expect(row.columns[0].right).toBeLessThan(row.columns[1].left);
       expect(row.columns[1].right).toBeLessThan(row.columns[2].left);
     } else {

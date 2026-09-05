@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
 import { projectDetailAnchors, projectTags, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog/catalog';
-import { monthLabel, shortDate } from '../../lib/analog/activity';
+import { hasRepositoryHistory, monthLabel, shortDate } from '../../lib/analog/activity';
 import { validateActivity } from '../../lib/analog/schema';
 import activityData from '../../data/analog-activity.json';
 import '../../styles/analog.css';
@@ -72,8 +72,8 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 {data.keywords.map((keyword) => <li data-tag-kind="keyword">{keyword}</li>)}
               </ul>
               <div class="catalog-activity" data-activity-kind={record.kind}>
-                <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
-                {record.kind === 'github' ? <>
+                <span class="visually-hidden">{hasRepositoryHistory(record) ? 'Public repository activity: ' : 'Public activity: '}</span>
+                {hasRepositoryHistory(record) ? <>
                   <p class="activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
                   <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}; ${record.repository}, default branch ${record.defaultBranch}`}>
                     {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} data-month={month} data-commits={record.commits[index]} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
