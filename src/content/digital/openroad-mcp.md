@@ -2,7 +2,10 @@
 name: "OpenROAD-MCP"
 aliases: []
 description: "Official MCP interface managing persistent OpenROAD sessions and ORFS runs, with design commands, reports, metrics and physical-flow checks for agents."
-flow: {"layout":"core"}
+scope:
+  layout:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +36,8 @@ Tool exposure is not evidence of autonomous physical-design success. Meaningful 
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Persistent OpenROAD/ORFS sessions expose physical-design actions, reports and metrics. The reviewed interface is classified by those operations, not every dependency of an ORFS installation. [Reviewed source](#source-readme).
+
+The interface exposes persistent physical-design commands and reports. An MCP connection alone does not establish an implemented AI Layout decision loop. [AI/stage evidence](#source-readme).

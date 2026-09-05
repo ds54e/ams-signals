@@ -1,10 +1,9 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export const flowIds = ['design', 'simulation', 'layout'] as const;
-export const flowLabels: Record<typeof flowIds[number], string> = {
+export const scopeStageIds = ['design', 'simulation', 'layout'] as const;
+export const scopeStageLabels: Record<typeof scopeStageIds[number], string> = {
   design: 'Design', simulation: 'Simulation', layout: 'Layout',
 };
-export const scopeLabels = { core: 'Core scope', supporting: 'Supporting scope' };
 
 export function sortProjects<T extends { id: string; data: { name: string } }>(
   projects: readonly T[], activity: Readonly<Record<string, PublicActivity>>,

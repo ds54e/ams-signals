@@ -2,7 +2,10 @@
 name: "Pono"
 aliases: []
 description: "Extensible SMT-based model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -41,6 +44,8 @@ The reviewed build pinning fixes deterministic dependency resolution; this is ma
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 SMT-based model checking, safety/liveness algorithms and counterexamples are verification. Input-model preparation is not a separate RTL design capability. [Reviewed source](#source-readme).
+
+SMT-based algorithms perform conventional Verification. Individual AI-coauthored commits do not establish defining or material project-wide AI development provenance. [AI/stage evidence](#source-readme).

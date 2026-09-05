@@ -2,7 +2,10 @@
 name: "MCY"
 aliases: []
 description: "Uses Yosys netlist mutations and formal filtering to measure whether a self-checking testbench detects meaningful RTL faults."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ The October 2025 Qt 6 GUI port is substantive technical maintenance and passes t
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Mutations and formal filtering measure whether a testbench detects faults. Post-synthesis netlist editing is instrumentation for verification, not a circuit-design or synthesis task for the user. [Reviewed source](#source-readme).
+
+Mutation generation and formal filtering assess testbench quality through conventional Verification. Algorithmic mutation is not model inference. [AI/stage evidence](#source-readme).

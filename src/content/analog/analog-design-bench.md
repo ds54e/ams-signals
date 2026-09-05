@@ -3,7 +3,13 @@ name: "Analog Design Bench"
 aliases: ["Analog Design Bench V2"]
 summary: "Benchmarks agents that edit circuit files and iterate with simulation to meet analog and RF electrical specifications."
 description: "Benchmarks agent-written analog circuits with runnable ngspice testbenches, including SKY130 designs, PVT sweeps and electrical performance checks."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: false
+  simulation:
+    level: core
+    ai: false
 targets: "RF filters and matching networks, references, LDOs, amplifiers, ADCs and DACs"
 access: "Task packages, starter circuits, development benches, verifiers, and environment definitions are being released progressively. Public tasks require ngspice and, where specified, SKY130 models and a container environment."
 notice: "The V2 website lists 50 tasks, but the reviewed public repository contains 16 task directories. That public subset is not a complete release of the website evaluation."
@@ -40,6 +46,8 @@ On timeout, the evaluator uses the deliverable as it stands; missing or empty fi
 
 Some tasks include PVT or fixed-seed Monte Carlo checks, with task-specific limits. The bandgap robustness screen is not a production-yield claim. Website scores are author-reported evaluations; the catalog has not reproduced them. [Public tasks](#source-tasks) · [Results](#source-site)
 
-### Flow scope
+### Scope classification
 
 Tasks require circuit edits and judge electrical measurements from runnable ngspice testbenches, including PVT constraints. Both circuit design and simulation are central to the task contract. [Reviewed source](#source-contract).
+
+The released task and grader contract exposes circuit editing and electrical evaluation to a submitted agent. Those tasks do not make the benchmark itself a model-driven designer or simulator; both stages remain unprefixed. [AI/stage evidence](#source-contract).

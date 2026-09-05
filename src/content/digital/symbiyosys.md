@@ -2,7 +2,10 @@
 name: "SymbiYosys"
 aliases: ["sby"]
 description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ The meaningful date uses the implemented rIC3 engine integration; later formatti
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Bounded checks, proofs and cover tasks are the user-facing operations. Synthesis-tool preparation is an implementation dependency of the proof driver. [Reviewed source](#source-readme).
+
+Formal engine orchestration and proof/cover execution are conventional Verification. The preparation passes do not create an AI or independent synthesis stage. [AI/stage evidence](#source-readme).

@@ -3,7 +3,13 @@ name: "AutoSizer"
 aliases: ["AMS-SizingBench"]
 summary: "LLM-guided sizing strategies with AMS-SizingBench."
 description: "Uses an LLM to choose sizing variables, ranges and optimization strategies, then runs ngspice-backed search across the AMS-SizingBench circuit configurations."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: false
 access: "Python, LLM access, SKY130 and ngspice; optional layout/PEX paths require separately supplied tool adapters."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,6 +44,8 @@ AutoSizer and AMS-SizingBench share one release and are cataloged together. The 
 
 The public batch entry uses pre-layout optimization. Optional ALIGN/PEX calls do not establish a complete released physical flow: the Magic example imports `app.tool.magic_pex`, absent from the captured tree. Layout is omitted. Sizing decisions and simulation-backed search are central Design and Simulation operations. Benchmark results in the paper are reported, not reproduced here. [Iteration implementation](#source-iterative-ota-optimization-test-py) · [PEX contract](#source-test-magic-pex-py)
 
-### Flow scope
+### Scope classification
 
 The outer LLM chooses sizing variables, ranges and search strategies; the inner optimizer repeatedly evaluates circuits with ngspice. Both stages are central. Optional PEX hooks do not establish a released layout flow. [Reviewed source](#source-llm-guided-ota-optimization-test-py).
+
+The outer LLM selects sizing variables, ranges and optimization strategies, so Design is AI. The inner optimizer and ngspice measurement path remain numerical Simulation; using their scores does not independently make the solver AI. [AI/stage evidence](#source-llm-guided-ota-optimization-test-py).

@@ -1,32 +1,26 @@
 # Digital implementation and review notes
 
-## Vertical Flow refinement (2026-09-06)
+## Scope migration (2026-09-06)
 
-Starting commit: `cded7cf77df8c3d8caea927585025d0e794deab6`. The existing single-index migration was complete. This refinement keeps all **35 Analog / 33 Digital** entries, their reviewed Flow assignments, descriptions, source arrays and activity records. Rechecked every entry's description and cited Flow notes; the prior migration had already incorporated useful technical identifiers and documented per-project primary-source decisions.
+Starting commit: `ce23da8f0d036fd4648d943fe22c807f7b141dab`. Retain **35 Analog / 33 Digital** projects. Re-read all descriptions and classification notes and reopen primary material for all 68 entries, using the existing pinned source revisions and the ATLAS paper. Additional linked implementation inspection resolves stage-specific AI involvement. Every content file records a Scope decision with a local source reference. This is not an activity refresh or an independent reproduction of external EDA/benchmark results.
 
-The title now contains only a plain-text name immediately followed by external primary links. Role/AI fields had no independent consumer after removing their labels, so the frontmatter fields, schema plumbing and shared tag helper are removed. Useful sourced implementation and development evidence stays in research prose without an active classification enum.
+The single public index is **Project | Scope | Activity**. Each stage records an explicit core/supporting level and AI boolean; AI-built is optional, separate and last. Role metadata, project-wide AI enums and the former flat stage field have no retained compatibility layer. Descriptions already include the useful technical identifiers from the preceding cleanup, so this migration preserves descriptions and source arrays exactly.
 
-Flow is vertical, one stage per line, with 3px gaps and 1.4 line height. The 1120px index uses **Project 798px / Flow 170px / Activity 108px**, with 22px column gaps, stacking below 900px. The Activity date uses normal weight **400**; the unchanged 5×12px upright cells, 2px gaps and 82px band retain the existing date / band / N/12 months structure. Primary links follow the name with a 12px flex gap. Articles-last navigation and noindex/nofollow remain unchanged.
+Keep the **1120px** width and **Project 798px / Scope 170px / Activity 108px** at full width, with 22px gaps. Scope is vertical, 3px gaps and 1.4 line height. Name and primary links use the existing left-aligned wrapping title row. Activity keeps weight-400 dates and **5×12px upright cells / 2px gaps / 82px band**, including canonical GitLab Surfer and point-event ATLAS/ngspice. No new public prose, controls, storage or client code is introduced.
 
-## Vertical Flow refinement validation
+## Scope validation
 
-`npm run check`, explicit Analog **20/20** and Digital **22/22** unit tests, and the complete Chromium smoke suite **70/70** pass. Both pages were visually reviewed at **1440, 1280, 1024, 390 and 320px**, including multi-stage CoreSmith, single-stage simulators, Surfer and first/middle/last entries. Flow is vertical, title lines contain only names and source links, dates are normal-weight and no overlap/overflow occurs. Keyboard/no-JS behavior, forced colors and activity/source checks remain covered.
+Both catalogs pass the full deterministic suite and **70/70 Chromium smoke tests**; explicit unit tests pass Analog **22/22** and Digital **24/24**. See the [paired validation and integrity record](../analog/IMPLEMENTATION_NOTES.md#scope-validation) for viewport review, unchanged source/activity data, non-catalog HTML and export hashes.
 
-See the [paired data and HTML integrity checks](../analog/IMPLEMENTATION_NOTES.md#vertical-flow-refinement-validation): all 68 retained project fields and both activity snapshots match, as do all 283 non-catalog HTML pages and the factual export. Obsolete classification fields are rejected by both strict schemas. Browser automation remains Chromium-only. No deployment or workflow modification is included.
+## AI classification judgments
 
-## Previous Flow migration (2026-09-05)
+- **CoreSmith** has AI on all four stages for specific implemented operations: RTL/testbench generation, synthesizability repair, and backend agents that adapt/run tool scripts with fix loops. The reviewed pipeline and linked backend graph distinguish this from merely launching Yosys/OpenROAD. No independent signoff result is implied.
+- **Dr. RTL** has AI Design. Its README calls the synthesis/SEC evaluator execution-only, and the pinned orchestrator chooses RTL attempts from tool-derived results. Synthesis and Verification remain unprefixed; no routed Layout or AI proof engine is inferred. This deliberately narrows the illustrative all-agent interpretation to the checked implementation.
+- **HAVEN**, **UCAgent**, **Spec2Cov** and **VerifyRTL** have AI Verification for implemented test/property generation, diagnosis or coverage decision loops. Those are not DUT Design stages.
+- **wave-mcp**, **Sentinel DV**, **OpenROAD-MCP**, **OpenADA** and **vivado_mcp** expose tools/evidence to outside agents. Their MCP/CLI boundary alone does not prove AI behavior inside a stage.
+- Defining AI-built is retained from direct development evidence for **xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp**. Their executed simulator/compiler/debug/tool operations remain conventional. **Pono**, upstream **CIRCT** and other established tools do not gain this signal from occasional AI commits. No partial AI-built claim was added without material evidence; the schema/rendering supports and tests the supporting form.
 
-Starting commit: `48810ade612772d169f033da7569571fe03c304e`. That migration retained the 35 Analog / 33 Digital entries and their source/activity provenance, replaced the former taxonomy with `flow` and removed the overview, keyword fields and fragment-navigation infrastructure without a compatibility layer.
-
-Every existing entry's description, technical identifiers and research/classification body were reviewed. Cited primary material was reopened for all 68 entries, including pinned repository READMEs, implementation files and the ATLAS paper. This is a scope migration, not an activity refresh or independent benchmark reproduction. Each authored file records its individual Flow decision and a source reference. Useful identifiers such as ngspice, SKY130, Spectre, SystemVerilog, Yosys and OpenROAD remain in natural descriptions; no hidden search vocabulary is retained.
-
-## Flow migration validation
-
-The paired-catalog review passed `npm run check`, Analog **20/20** unit tests, Digital **22/22** unit tests and the complete production-preview Chromium suite **71/71**. Both indexes were visually reviewed at **1440, 1280, 1024, 390 and 320px**, including first/middle/last and multi-link/multi-stage rows. No overflow or overlapping content was found; keyboard/no-JS operation, forced colors, source links, all activity bands, Articles-last navigation and viewer isolation pass.
-
-Activity snapshots, source arrays, retained project metadata, Golden data, Article bodies and factual export are unchanged. The 283 non-catalog pages differ only in primary navigation order. See the [paired integrity and validation record](../analog/IMPLEMENTATION_NOTES.md#flow-migration-validation) for counts and the export hash. Browser automation remains Chromium-only, and no external EDA/benchmark result was independently reproduced. No deployment or workflow change is included.
-
-## Flow classification decisions
+## Stage coverage decisions
 
 - Standalone simulators (**Icarus**, **iverilog-uvm**, **eevee-rs**, **Verilator**, **vitamin**, **xezim**) have core Verification only. Their internal parsers/elaborators/compilers do not establish Design or Synthesis. Waveform/debug tools, formal drivers and testbench agents also serve Verification; generating tests is not generating the DUT.
 - **slang** exposes reusable, round-trippable design representations/code tooling (Design), with supporting static diagnostics (Verification). **Surelog + UHDM** produces the elaborated design model (Design); downstream synthesis/simulation consumers are not automatically separate stages.
@@ -36,7 +30,7 @@ Activity snapshots, source arrays, retained project metadata, Golden data, Artic
 - **OpenROAD** and **OpenROAD-MCP** are core Layout for their physical implementation operations. Do not inherit every surrounding flow dependency. **vivado_mcp** directly exposes synthesis and implementation, with supporting XSim Verification.
 - **OpenADA** retains core Verification and Layout for native checks/tests and DRC/LVS; mapped synthesis is supporting in its broader tool contract. Synthesis-stage timing does not establish physical closure, and tool integration alone does not establish Design.
 
-Each of the 33 authored files records its own Flow decision with cited evidence. No activity snapshot or source URL changes in this migration.
+Each of the 33 authored files records its own Scope decision with cited evidence. No activity snapshot or source URL changes in this migration.
 
 ## Original Digital release review
 
@@ -87,7 +81,7 @@ Monthly buckets count first-parent commits reachable from each captured default-
 ## Combined entries and canonical corrections
 
 - **Surelog + UHDM** stays one entry. Activity uses `chipsalliance/Surelog`; `chipsalliance/UHDM` is a secondary source. The reviewed Surelog commit integrates an enum-folding correctness fix through its UHDM submodule, rather than counting UHDM history separately. The proposed GitHub Pages website returned 404 and is not exposed; Code remains the canonical link.
-- **Ngspice + OpenVAF Enhancements** stays one combined source tree, now in Analog. Its Flow scope is Simulation on Analog. Its changes are not represented as already upstream in either independent project.
+- **Ngspice + OpenVAF Enhancements** stays one combined source tree, now in Analog. Its Scope is Simulation on Analog. Its changes are not represented as already upstream in either independent project.
 - **RTLDebugDBKit + RTLTracer** stays one entry. The primary database generator documents its downstream tracer, and the tracer implements bit-window propagation over that schema. Only RTLDebugDBKit supplies activity.
 - **sv-elab** is the current name; `yosys-slang` is retained only as an internal alias. Current Yosys integration replaces an obsolete plugin-only characterization.
 - **iverilog-uvm** is Icarus-derived but its canonical GitHub repository reports `fork: false`; it has its own public verification implementation. Upstream Icarus remains a separate record.

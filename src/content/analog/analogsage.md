@@ -2,7 +2,13 @@
 name: "AnalogSAGE"
 summary: "Analog design agents with simulation-grounded memory."
 description: "Coordinates topology exploration, transistor sizing and reflection for SKY130 op-amps, combining retrieved circuit knowledge with ngspice feedback and memory of earlier design attempts."
-flow: {"design":"core","simulation":"supporting"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: supporting
+    ai: false
 access: "Python, LLM access, knowledge/topology databases, SKY130 and a configured ngspice simulation workspace."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +43,8 @@ The paper links the lab's `xz-group/AnalogSAGE`, which GitHub identifies as a fo
 
 Topology proposals, reflection/memory and numerical sizing are implemented in public Python files. `BO.py` writes parameter files, invokes ngspice and scores measured specifications. The surrounding research scripts retain local task/database paths and a `simulation` adapter import not shipped as that module. Simulation receives a supporting mark for this integration boundary; the ten-task paper results are not independently reproduced or a turnkey-release claim. [Topology loop](#source-tolology-py) · [Sizing loop](#source-sizing-py) · [Numerical backend](#source-bo-py)
 
-### Flow scope
+### Scope classification
 
 Topology selection, sizing and accumulated design knowledge drive the agent. Simulation feedback supports that process, while the released integration still depends on an external evaluation adapter. [Reviewed source](#source-tolology-py).
+
+LLM topology proposals and reflections drive circuit-design choices, hence AI Design. The secondary simulation adapter supplies numerical feedback to that design search; it does not implement a learned simulator or a separate AI analysis stage. [AI/stage evidence](#source-tolology-py).

@@ -1,3 +1,5 @@
+import { scopeLevelSchema, stageScopeSchema } from '../catalog-scope.ts';
+import { scopeStageIds } from './catalog.ts';
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
@@ -19,15 +21,18 @@ const sourceUrl = z.string().url().refine((value) => {
     && !/\b(?:TODO|TBD|PLACEHOLDER)\b/i.test(value)
     && !/(^|\.)(?:example\.(?:com|org|net)|localhost)$|\.(?:invalid|test)$/i.test(url.hostname);
 }, 'Use a public HTTP(S) source URL');
-const scope = z.enum(['core', 'supporting']).optional();
 
 export const digitalSchema = z.object({
   name: publicText,
   aliases: z.array(text).default([]),
   description: publicText.max(600, 'Keep one concise project description'),
-  flow: z.object({
-    design: scope, synthesis: scope, verification: scope, layout: scope,
-  }).strict().refine((flow) => Object.values(flow).some(Boolean), 'At least one reviewed Flow stage is required'),
+  scope: z.object({
+    design: stageScopeSchema.optional(),
+    synthesis: stageScopeSchema.optional(),
+    verification: stageScopeSchema.optional(),
+    layout: stageScopeSchema.optional(),
+    aiBuilt: scopeLevelSchema.optional(),
+  }).strict().refine((scope) => scopeStageIds.some((stage) => scope[stage]), 'At least one reviewed design-stage Scope is required'),
   access: text,
   addedAt: date,
   reviewedAt: date,

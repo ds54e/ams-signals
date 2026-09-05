@@ -2,7 +2,10 @@
 name: "VerifyRTL"
 aliases: []
 description: "LLM-assisted verification pipeline generating plans and properties, running Icarus simulations and SymbiYosys checks, and explaining failures with trace evidence."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +36,8 @@ Coverage, bounded checks and unbounded proofs are separate outcomes. Unsupported
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Plans, properties, Icarus runs, SymbiYosys checks and trace explanations serve verification. Coverage and bounded/unbounded proof outcomes remain distinct. [Reviewed source](#source-readme).
+
+Models generate plans/properties and explain trace failures, giving AI Verification. Icarus and formal engines still determine the simulation/proof outcomes. [AI/stage evidence](#source-readme).

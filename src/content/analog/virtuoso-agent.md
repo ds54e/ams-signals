@@ -2,7 +2,13 @@
 name: "virtuoso-agent"
 summary: "Runs an LLM parameter-tuning loop for existing circuits using specification checks from Maestro/Spectre or remote HSpice."
 description: "Tunes circuit parameters against specification targets in a closed loop using Virtuoso/Maestro/Spectre measurements or remote HSpice simulations."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: false
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
 addedAt: "2026-09-05"
@@ -24,6 +30,8 @@ A Markdown specification defines goals, tunable variables, and measurement rules
 
 The Virtuoso path builds on virtuoso-bridge-lite, adding specification evaluation and LLM control. An LC VCO specification template is neither a supplied circuit nor a measured design result. Public tests include mocks; integration requires an accessible EDA host. The repository does not establish unrestricted topology synthesis or verified operation across arbitrary PDKs and circuits. [Prerequisites and tests](#source-review)
 
-### Flow scope
+### Scope classification
 
 Parameter editing, electrical measurements and iterative specification closure form the central loop through Virtuoso/Maestro/Spectre or remote HSpice. Layout is not inferred from its bridge dependency. [Reviewed source](#source-review).
+
+The LLM proposes tunable circuit parameters and iterates toward specification targets, giving AI Design. The reviewed backends run numerical simulation and compute measurements/pass-fail conventionally; feedback to the sizing policy does not relabel the solver as AI. [AI/stage evidence](#source-review).

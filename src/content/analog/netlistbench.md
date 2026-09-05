@@ -3,7 +3,10 @@ name: "NetlistBench"
 aliases: ["Netlist Bench","Netbench"]
 summary: "Benchmarks recognition, editing, and structural comparison of existing SPICE netlists and subcircuit hierarchy."
 description: "Tests recognition, editing, hierarchy and structural equivalence of SPICE netlists in 2,342 cases across 24 task families, using a deterministic canonical-IR grader."
-flow: {"design":"core"}
+scope:
+  design:
+    level: core
+    ai: false
 targets: "SPICE connectivity, device parameters, terminal roles, hierarchy, and structural equivalence"
 access: "The v2 release supplies 2,342 cases across 24 task families, prompts, Python graders, runners, and sample model outputs. Structural scoring requires no simulator or PDK; new model runs require an endpoint."
 notice: "Passing establishes the requested netlist operation, not analog performance or successful circuit design."
@@ -44,6 +47,8 @@ CircuitRubric evaluates generated topology/netlists and relative sizing; Netlist
 
 The shipped suite is complete for local evaluation, with representative model outputs and verdicts available for inspection. Regenerating all cases requires upstream AnalogGenie and ALIGN corpora that are not redistributed. The example slice is not the full paper experiment. [Release boundaries](#source-release)
 
-### Flow scope
+### Scope classification
 
 Recognition, editing, hierarchy and equivalence tasks operate on existing netlists. The deterministic canonical-IR oracle grades structural operations, not electrical behavior. [Reviewed source](#source-release).
+
+Recognition and edits of existing netlists are Design tasks. The canonical-IR oracle is deterministic; external model submissions do not turn the benchmark into an AI stage. [AI/stage evidence](#source-release).

@@ -2,7 +2,13 @@
 name: "LOADBench"
 summary: "Open op-amp data and metrics for analog machine learning."
 description: "Provides 101 SKY130 op-amp topologies, ngspice testbenches and sizing/performance data, with evaluation scripts for topology generation and selection, inverse sizing and multi-objective optimization."
-flow: {"design":"core","simulation":"supporting"}
+scope:
+  design:
+    level: core
+    ai: false
+  simulation:
+    level: supporting
+    ai: false
 access: "Public Zenodo data, Python metric scripts and SKY130/ngspice; the complete simulation archives are large."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,6 +44,8 @@ The author-institution paper record defines six tasks: inverse sizing, topology 
 
 Generation and optimization denote benchmark task scope, not an included generative model. Simulation is supporting on the dataset/evaluation side: inverse-sizing metrics consume performance CSVs after simulation, and the data release supplies ngspice testbenches. Structural matching and electrical measurements are separate metrics. Classification tasks do not by themselves establish an explicit LLM reasoning trace. Dataset sizes and results are publisher-reported; the catalog inspected the small testbench archive, not the multi-gigabyte simulation archives. [Generation metric](#source-circuit-generation-coverage-py) · [Inverse sizing](#source-inverse-sizing-py) · [Optimization](#source-optimization-helper-py)
 
-### Flow scope
+### Scope classification
 
 Topology generation/selection, inverse sizing and optimization are benchmark tasks. Simulation-generated performance data and evaluation scripts support them; the dataset does not imply a simulator is available to every model. [Reviewed source](#source-circuit-generation-coverage-py).
+
+Released data and metrics define topology/sizing tasks and supporting simulated performance evidence. They do not include a model-driven design or simulation stage merely because learned methods can be evaluated. [AI/stage evidence](#source-circuit-generation-coverage-py).

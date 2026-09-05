@@ -3,7 +3,13 @@ name: "AnalogCoder-Pro"
 aliases: ["AnalogCoderPro"]
 summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair, and device-sizing research."
 description: "Generates analog netlists from circuit requests, then uses ngspice results and waveform images to diagnose and repair candidates with multimodal LLMs."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: true
 targets: "Amplifiers, mixers, comparators, oscillators, filters, and related circuits"
 access: "Task tables, sample circuits, testbenches, LLM run scripts, and waveform examples are public. Requires Python, ngspice, PySpice, and a separately configured model endpoint."
 notice: "The reviewed checklist still leaves Bayesian optimization updates and some ablation prompts unfinished. The complete optimization workflow described by the research should not be assumed reproducible from the public code."
@@ -35,6 +41,8 @@ Run scripts and waveform examples are available, while the checklist retains unf
 
 This entry does not reuse results from the preceding AnalogCoder project as Pro results. Any numerical comparison needs the matching model, trial budget, checks, and implementation revision.
 
-### Flow scope
+### Scope classification
 
 Netlist generation and simulation-backed diagnosis/repair are central. The unfinished Bayesian-optimization update does not add a separate stage or imply a complete sizing implementation. [Reviewed source](#source-review).
+
+Multimodal models generate and revise netlists and separately interpret waveform/simulation feedback, justifying AI Design and AI Simulation. This does not promote the unfinished Bayesian-optimization path to an implemented result. [AI/stage evidence](#source-review).

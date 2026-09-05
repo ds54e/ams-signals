@@ -3,7 +3,10 @@ name: "KLayout"
 aliases: []
 summary: "Views, edits and verifies IC layouts with programmable geometry and PCells."
 description: "Layout editor and verification platform with Python/Ruby scripting, PCells, DRC/LVS and GDS/OASIS support for custom integrated-circuit workflows."
-flow: {"layout":"core"}
+scope:
+  layout:
+    level: core
+    ai: false
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,6 +35,8 @@ Reads and edits layout geometry and hierarchy, generates parameterized cells and
 
 A programmable DRC/LVS platform does not itself establish signoff for any process. The August 26 editor change reconnects PCell parameter edit events. [Reviewed implementation update](#source-activity).
 
-### Flow scope
+### Scope classification
 
 Layout editing, PCells and physical checks are central. Scripting and file interfaces enable those same layout operations rather than a separate circuit-design stage. [Reviewed source](#source-readme).
+
+Layout editing, PCells and verification scripts are conventional layout operations. Scripting automation alone is not runtime AI. [AI/stage evidence](#source-readme).

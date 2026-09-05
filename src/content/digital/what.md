@@ -2,7 +2,11 @@
 name: "WHAT"
 aliases: []
 description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +37,8 @@ Browser debug functionality is implemented; AI authorship does not establish ind
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Source navigation and FST waveform interaction are the central debug product. The extraction backend enables inspection rather than RTL design generation. [Reviewed source](#source-readme).
+
+HDL/waveform inspection is conventional Verification. The author credits AI with the principal architecture and implementation, supporting defining AI-built provenance without a runtime AI stage. [AI/stage evidence](#source-readme).

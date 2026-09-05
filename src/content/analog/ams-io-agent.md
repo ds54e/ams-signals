@@ -3,7 +3,13 @@ name: "AMS-IO-Agent"
 aliases: ["AMS-IO-Bench"]
 summary: "Structured-intent generation of AMS I/O rings."
 description: "Converts pin plans and design intent into AMS I/O-ring schematics and layouts, using structured intent graphs, Virtuoso SKILL generation and Calibre DRC/LVS checks; includes the companion AMS-IO-Bench cases."
-flow: {"design":"core","layout":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  layout:
+    level: core
+    ai: false
 access: "Configured Virtuoso/Calibre environment and matching foundry I/O libraries; the public repository is not an unrestricted open-source PDK release."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -41,6 +47,8 @@ The paper explicitly identifies both repositories. The agent and companion cases
 
 The paper reports a fabricated 28nm mixed-signal prototype with 48 pads: humans designed the AMS core and the agent generated the I/O ring. It reports silicon functionality, not autonomous whole-chip design. The released DRC/LVS wrappers support physical verification but require licensed tools, libraries and decks. Layout is core; DRC/LVS is not electrical simulation or performance optimization. [DRC](#source-src-tools-drc-runner-tool-py) · [LVS](#source-src-tools-lvs-runner-tool-py) · [Reported case study](#source-paper)
 
-### Flow scope
+### Scope classification
 
 Pin-plan interpretation, I/O schematic generation and pad-ring layout with physical checks are central deliverables. Electrical simulation is not established as a separate reviewed operation. [Reviewed source](#source-src-app-layout-t28-layout-generator-py).
+
+AI Design covers the documented LLM interpretation of design intent into structured circuit/schematic instructions. The reviewed T28 layout generator computes geometry and emits SKILL conventionally; agent orchestration alone does not make this AI Layout. [Intent workflow](#source-paper) · [Schematic generation](#source-src-app-schematic-schematic-generator-t28-py) · [Layout implementation](#source-src-app-layout-t28-layout-generator-py).

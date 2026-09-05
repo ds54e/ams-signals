@@ -3,7 +3,13 @@ name: "ATLAS"
 aliases: ["ATLAS SAR ADC"]
 summary: "A paper-described SAR ADC flow using expert templates, LLM planning and netlist assembly, and simulation-guided sizing."
 description: "The paper describes template-based SAR ADC assembly and sizing, with Spectre testbench feedback and expert checks guiding the agent flow."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: true
 targets: "SAR ADCs assembled from comparator, DAC, and SAR-logic templates"
 access: "Paper available; a public ATLAS implementation was not verified. Main experiments use GPT-4o, Cadence Spectre, and GPDK45."
 notice: "Human experts check agent components and rectify testbenches. The reported work excludes layout."
@@ -23,6 +29,8 @@ Retrieved design knowledge guides template selection and parameterization. Agent
 
 The authors report an eight-bit SAR ADC simulation meeting their selected specifications, plus additional case studies. This supports a constrained design strategy with expert intervention, not unrestricted topology synthesis, full autonomy, or fabricated-silicon performance. [Experiments and limitations](#source-paper)
 
-### Flow scope
+### Scope classification
 
 Template selection, SAR ADC assembly and sizing are central design tasks in the paper; testbench adaptation and Spectre validation are also central. Core describes that reported task scope, not release completeness, unconstrained synthesis or autonomy. [Reviewed source](#source-paper).
+
+The paper describes LLM planning/template modification and a testbench-creation/debugger loop using simulation errors, supporting AI Design and AI Simulation. These are reported workflow capabilities, not a public implementation reproduction or a claim of layout generation. [AI/stage evidence](#source-paper).

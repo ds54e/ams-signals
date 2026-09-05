@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { sortProjects, flowIds, flowLabels, scopeLabels } from '../../lib/analog/catalog';
+import { sortProjects, scopeStageLabels } from '../../lib/analog/catalog';
 import { monthLabel, shortDate } from '../../lib/analog/activity';
 import { validateActivity } from '../../lib/analog/schema';
+import { scopeItems } from '../../lib/catalog-scope';
 import { activityBand } from '../../lib/catalog-activity-band';
 import activityData from '../../data/analog-activity.json';
 import '../../styles/analog.css';
@@ -20,7 +21,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
 
     <section id="catalog:index" aria-label="Project index">
       <div class="catalog-columns" aria-hidden="true">
-        <div>Project</div><div>Flow</div><div>Activity</div>
+        <div>Project</div><div>Scope</div><div>Activity</div>
       </div>
       <ol class="catalog-list" aria-label="Projects">
         {projects.map((project) => {
@@ -38,14 +39,11 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 </div>
                 <p class="catalog-description">{data.description}</p>
               </div>
-              <ul class="catalog-flow" aria-label={`${data.name} Flow`}>
-                {flowIds.filter((stage) => data.flow[stage]).map((stage) => {
-                  const state = data.flow[stage]!;
-                  return <li data-flow={stage} data-scope={state} title={`${flowLabels[stage]}: ${scopeLabels[state]}`}>
-                    <span class:list={['scope-mark', state]} aria-hidden="true" />
-                    <span>{flowLabels[stage]}</span><span class="visually-hidden">{`: ${scopeLabels[state]}`}</span>
-                  </li>;
-                })}
+              <ul class="catalog-scope" aria-label={`${data.name} Scope`}>
+                {scopeItems(data.scope, scopeStageLabels).map((item) => <li data-scope-item={item.id} data-level={item.level} data-ai={item.ai} title={`${item.label}: ${item.meaning}`}>
+                  <span class:list={['scope-mark', item.level]} aria-hidden="true" />
+                  <span>{item.label}</span><span class="visually-hidden">{`: ${item.meaning}`}</span>
+                </li>)}
               </ul>
               <div class="catalog-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">Public activity: </span>

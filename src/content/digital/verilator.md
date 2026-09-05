@@ -2,7 +2,10 @@
 name: "Verilator"
 aliases: []
 description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models with assertion, coverage and waveform support."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ Performance and compatibility vary by design and enabled features; project bench
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Compiled simulation, assertions, coverage, lint and waveform output serve verification. C++/SystemC compilation is simulator implementation, not logic synthesis or DUT generation. [Reviewed source](#source-readme).
+
+Compiled simulation, lint, assertions and coverage are conventional Verification. Incidental coding-agent contributions do not establish project-defining AI-built provenance. [AI/stage evidence](#source-readme).

@@ -3,7 +3,11 @@ name: "Ngspice + OpenVAF Enhancements"
 aliases: []
 summary: "Extends ngspice simulation and OpenVAF compilation in a Claude-assisted development tree."
 description: "Claude-assisted development effort extending ngspice and OpenVAF together, adding Verilog-A language coverage, compiler correctness and SPICE simulation capabilities."
-flow: {"simulation":"core"}
+scope:
+  simulation:
+    level: core
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -41,6 +45,8 @@ These enhancements belong to this combined development tree and are not automati
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 The project extends SPICE execution and Verilog-A model compilation for simulation. Compiler internals do not establish circuit-design generation, and enhancement-branch functionality is not automatically upstream functionality. [Reviewed source](#source-readme).
+
+SPICE execution and Verilog-A compilation remain conventional Simulation. The author explicitly identifies Claude-assisted core development and the reviewed compiler fixes corroborate it, so AI-built is defining. These enhancement-tree changes are not automatically upstream functionality. [AI/stage evidence](#source-readme).

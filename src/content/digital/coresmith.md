@@ -2,7 +2,19 @@
 name: "CoreSmith"
 aliases: []
 description: "Carries requirements through RTL generation, testbench execution, Yosys synthesis and OpenROAD/Magic physical checks toward GDS artifacts."
-flow: {"design":"core","synthesis":"core","verification":"core","layout":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  synthesis:
+    level: core
+    ai: true
+  verification:
+    level: core
+    ai: true
+  layout:
+    level: core
+    ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +49,8 @@ PPABench outcomes are author-reported and include waivers and a blocked design. 
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 The public pipeline explicitly generates RTL, runs testbenches, synthesizes with Yosys and drives OpenROAD/Magic backend stages. These are user-facing workflow deliverables, not marks inferred from installed dependencies. [Reviewed source](#source-readme).
+
+Runtime LLMs generate RTL and testbenches, diagnose failures and drive backend script/fix loops. The pipeline has an LLM repair loop for synthesizability, and the documented backend agents adapt and execute synthesis, placement/routing and physical-check scripts. These specific operations justify AI on all four stages; this is not inferred from calling Yosys/OpenROAD alone, nor does it guarantee signoff. [AI/stage evidence](#source-readme).

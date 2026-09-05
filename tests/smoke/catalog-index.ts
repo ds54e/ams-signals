@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { expectIndexColumns, expectFlowCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
+import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
@@ -22,7 +22,7 @@ export async function catalogFixture(domain: 'analog' | 'digital') {
   };
 }
 
-export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixture>>, flowLabels: Record<string, string>, inspect: string[]) {
+export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixture>>, scopeStageLabels: Record<string, string>, inspect: string[]) {
   const { domain, prefix, attribute, projects, ordered, activity, rows, row } = fixture;
   const label = domain === 'analog' ? 'Analog' : 'Digital';
   const open = (page: Page) => page.goto(`./${domain}/`);
@@ -49,7 +49,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(catalog.locator('table, input, select, button, form, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
-    for (const forbidden of ['Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'AI-built', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
+    for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
     await expect(catalog.locator('[data-tag-kind], [class$="-metadata"]')).toHaveCount(0);
     const rendered = await rows(page).evaluateAll((nodes, { prefix, attribute }) => nodes.map((el) => ({
       id: el.getAttribute(attribute), rowId: el.id,
@@ -74,21 +74,29 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(await catalog.locator('ol, ul').evaluateAll((nodes) => nodes.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   });
 
-  test(`${label} vertical Flow preserves every authored stage and its accessible meaning`, async ({ page }) => {
+  test(`${label} vertical Scope preserves every authored stage and its accessible meaning`, async ({ page }) => {
     await open(page);
     for (const p of projects) {
-      const flow = row(page, p.id).getByRole('list', { name: `${p.name} Flow`, exact: true });
-      const cells = await flow.locator('li').evaluateAll((nodes) => nodes.map((el) => ({
-        stage: el.getAttribute('data-flow'), state: el.getAttribute('data-scope'),
+      const scope = row(page, p.id).getByRole('list', { name: `${p.name} Scope`, exact: true });
+      const cells = await scope.locator('li').evaluateAll((nodes) => nodes.map((el) => ({
+        stage: el.getAttribute('data-scope-item'), level: el.getAttribute('data-level'), ai: el.getAttribute('data-ai'),
         title: el.getAttribute('title'), text: el.textContent?.trim(),
       })));
-      expect(cells).toEqual(Object.entries(flowLabels).filter(([stage]) => p.flow[stage]).map(([stage, label]) => ({
-        stage, state: p.flow[stage], title: `${label}: ${p.flow[stage] === 'core' ? 'Core' : 'Supporting'} scope`,
-        text: `${label}: ${p.flow[stage] === 'core' ? 'Core' : 'Supporting'} scope`,
-      })));
+      const expected: { stage: string; level: string; ai: string | null; title: string; text: string }[] = Object.entries(scopeStageLabels).filter(([stage]) => p.scope[stage]).map(([stage, label]) => {
+        const { level, ai } = p.scope[stage];
+        const text = `${ai ? 'AI ' : ''}${label}: ${level === 'core' ? 'Core' : 'Supporting'} scope`;
+        return { stage, level, ai: String(ai), title: text, text };
+      });
+      if (p.scope.aiBuilt) {
+        const meaning = p.scope.aiBuilt === 'core' ? 'Defining AI development provenance' : 'Partial or secondary AI development provenance';
+        const text = `AI-built: ${meaning}`;
+        expected.push({ stage: 'aiBuilt', level: p.scope.aiBuilt, ai: null, title: text, text });
+      }
+      expect(cells).toEqual(expected);
+      expect(new Set(cells.map((cell) => cell.stage)).size).toBe(cells.length);
       expect(cells.length).toBeGreaterThan(0);
     }
-    await expectFlowCircles(page.locator(`.${prefix}-flow`));
+    await expectScopeCircles(page.locator(`.${prefix}-scope`));
   });
 
   test(`${label} every row retains the reviewed twelve-month activity band`, async ({ page }) => {
@@ -109,12 +117,12 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await page.goBack(); await expect(rows(page)).toHaveCount(projects.length);
   });
 
-  test(`${label} descriptions, Flow, activity and external links work without JavaScript`, async ({ browser, baseURL }) => {
+  test(`${label} descriptions, Scope, activity and external links work without JavaScript`, async ({ browser, baseURL }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
     const page = await context.newPage(); await open(page);
     await expect(rows(page)).toHaveCount(projects.length);
     await expect(rows(page).locator(`.${prefix}-description`)).toHaveText(ordered.map((p) => p.description));
-    await expectFlowCircles(page.locator(`.${prefix}-flow`));
+    await expectScopeCircles(page.locator(`.${prefix}-scope`));
     await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
     const last = rows(page).last().locator(`.${prefix}-quicklinks a`).first();
     await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
@@ -166,9 +174,9 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     }
   });
 
-  test(`${label} Flow and binary activity remain distinct in forced colors`, async ({ page }) => {
+  test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active' }); await open(page);
-    await expectFlowCircles(page.locator(`.${prefix}-flow`));
+    await expectScopeCircles(page.locator(`.${prefix}-scope`));
     await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
   });
 }

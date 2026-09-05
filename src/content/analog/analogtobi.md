@@ -2,7 +2,10 @@
 name: "AnalogToBi"
 summary: "Circuit-type-conditioned generation of device-net graphs."
 description: "Generates transistor-level circuit connectivity from circuit-type tokens using device-net bipartite graphs and grammar-constrained decoding, with structural validity and novelty checks."
-flow: {"design":"core"}
+scope:
+  design:
+    level: core
+    ai: true
 access: "Python/PyTorch, the released topology data and trained generator/classifier weights."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -34,6 +37,8 @@ The authors' repository releases generator training, grammar-masked inference, c
 
 ERC and novelty checks assess generated graph structure. They do not measure gain, bandwidth or power. The paper also discusses selected SPICE case studies, but the captured generation path does not expose simulation or numerical sizing in its loop, so those columns remain blank. Reported validity/novelty rates are not electrical-performance success rates. [ERC](#source-erc-py) · [Novelty](#source-metric-novelty-py)
 
-### Flow scope
+### Scope classification
 
 Grammar-guided device/net graph generation is the deliverable. Electrical-rule checks validate connectivity; they do not establish simulated performance or physical layout. [Reviewed source](#source-gpt-inference-grammar-py).
+
+The trained language model generates a device-net bipartite representation with grammar constraints. Learned topology generation is the central AI Design operation. [AI/stage evidence](#source-gpt-inference-grammar-py).

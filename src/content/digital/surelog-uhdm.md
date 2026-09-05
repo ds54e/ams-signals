@@ -2,7 +2,10 @@
 name: "Surelog + UHDM"
 aliases: []
 description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."
-flow: {"design":"core"}
+scope:
+  design:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,7 +31,7 @@ sources:
 
 ### Implementation context
 
-Tracked as conventional frontend infrastructure. Isolated AI co-authorship is insufficient to change the public relation label. [Reviewed source](#source-readme).
+Tracked as conventional frontend infrastructure. Isolated AI co-authorship is insufficient to establish defining development provenance. [Reviewed source](#source-readme).
 
 ### Release boundary
 
@@ -38,6 +41,8 @@ Activity uses Surelog only, including its integration of a substantive UHDM enum
 
 [Related UHDM source](#source-uhdm).
 
-### Flow scope
+### Scope classification
 
 The combined entry produces a reusable elaborated design representation and exposes design-model APIs. Downstream synthesis, simulation and formal consumers do not make those independent core operations of Surelog/UHDM. [Reviewed source](#source-readme).
+
+Elaboration and reusable UHDM design models are conventional Design infrastructure. Downstream consumers and incidental AI assistance do not create additional AI stages or defining AI-built provenance. [AI/stage evidence](#source-readme).

@@ -2,7 +2,10 @@
 name: "ZeroSim"
 summary: "A transformer surrogate for analog performance prediction."
 description: "Predicts amplifier performance from circuit topology and device parameters using a transformer surrogate, with training and evaluation for transfer to previously unseen topologies."
-flow: {"simulation":"core"}
+scope:
+  simulation:
+    level: core
+    ai: true
 access: "Python/PyTorch, training data and model weights; ngspice is used by the separate dataset-generation scripts."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -36,8 +39,10 @@ The model takes encoded circuit nodes and device parameters and regresses perfor
 
 ### Classification
 
-Learned performance estimation is core Simulation under the Flow definition, while inference itself is not a SPICE solver. The paper's cross-topology accuracy and acceleration are reported research results. There is no circuit-generation, optimizer, EDA-control or layout mark merely because a surrogate could be used downstream. [Paper](#source-paper) · [Data-generation implementation](#source-circuit-ga-amp-py)
+Learned performance estimation is core Simulation under the Scope definition, while inference itself is not a SPICE solver. The paper's cross-topology accuracy and acceleration are reported research results. There is no circuit-generation, optimizer, EDA-control or layout mark merely because a surrogate could be used downstream. [Paper](#source-paper) · [Data-generation implementation](#source-circuit-ga-amp-py)
 
-### Flow scope
+### Scope classification
 
-Learned electrical-performance estimation is the project's central deliverable and is explicitly part of this Flow stage. It is a surrogate, not a replacement SPICE execution engine; training-data simulation is distinct from inference. [Reviewed source](#source-model-circuitformer-py).
+Learned electrical-performance estimation is the project's central deliverable and is explicitly part of this Scope stage. It is a surrogate, not a replacement SPICE execution engine; training-data simulation is distinct from inference. [Reviewed source](#source-model-circuitformer-py).
+
+The trained transformer predicts electrical performance from topology and parameters. Inference itself fills the evaluation role, so its sole stage is AI Simulation, independent of SPICE-generated training data. [AI/stage evidence](#source-model-circuitformer-py).

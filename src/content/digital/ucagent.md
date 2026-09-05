@@ -2,7 +2,10 @@
 name: "UCAgent"
 aliases: []
 description: "Agentic unit-level verification environment that analyzes DUTs, generates and runs tests, checks coverage and connects external code agents through MCP."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ Public examples and checkers define specific execution contracts; their existenc
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 DUT analysis, generated tests, execution checkers and coverage closure are verification. MCP collaboration and code-agent backends do not independently establish DUT generation. [Reviewed source](#source-readme).
+
+Implemented model backends analyze DUTs, generate tests and choose verification actions with checker/coverage feedback. This justifies AI Verification beyond the optional MCP transport. [AI/stage evidence](#source-readme).

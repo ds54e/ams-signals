@@ -2,7 +2,11 @@
 name: "vitamin"
 aliases: []
 description: "Rust four-state SystemVerilog simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -36,6 +40,8 @@ Public conformance tests establish their tested subset; they do not establish un
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Four-state RTL execution and differential conformance testing serve simulation/verification. Internal parser, elaborator and native compiler stages receive no independent Design mark. [Reviewed source](#source-readme).
+
+Four-state execution and differential checks are conventional Verification. Sustained Claude co-authorship on parser, elaboration and runtime implementation establishes defining AI-built provenance, not an AI simulation engine. [AI/stage evidence](#source-ai-development).

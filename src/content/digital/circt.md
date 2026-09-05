@@ -2,7 +2,16 @@
 name: "CIRCT"
 aliases: []
 description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs, synthesis transformations, simulation-oriented lowering and formal-checking tools."
-flow: {"design":"core","synthesis":"core","verification":"supporting"}
+scope:
+  design:
+    level: core
+    ai: false
+  synthesis:
+    level: core
+    ai: false
+  verification:
+    level: supporting
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +46,8 @@ Only upstream files and tools were used for classification. No Normal-fork confo
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Hardware IR construction/lowering and synthesis-oriented transformations are central upstream capabilities. LLHD and upstream BMC/LEC tooling support verification; no unavailable Normal Computing fork functionality is attributed upstream. [Reviewed source](#source-readme).
+
+Upstream IR transformations and synthesis lowering are conventional compiler operations, with supporting upstream verification tools. Neither isolated coding-agent contributions nor the unavailable Normal Computing fork justify an AI prefix or defining AI-built mark. [AI/stage evidence](#source-readme).

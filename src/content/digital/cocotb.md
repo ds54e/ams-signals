@@ -2,7 +2,10 @@
 name: "cocotb"
 aliases: []
 description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ cocotb integrates simulators; it does not replace their HDL execution engines. [
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Python testbenches drive and observe existing HDL simulators. Test generation and simulator bindings are verification operations, not RTL design generation or synthesis. [Reviewed source](#source-readme).
+
+Coroutine testbenches and HDL simulator bindings are conventional Verification. A user may author a test with AI, but that is not a model-driven cocotb stage. [AI/stage evidence](#source-readme).

@@ -2,7 +2,13 @@
 name: "G-DiffPS"
 summary: "Graph-conditioned RF phase-shifter synthesis."
 description: "Selects among six RF phase-shifter topologies and predicts component values with a graph-conditioned flow policy, using analytic circuit priors and ngspice feedback to meet phase, loss and matching targets."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: false
 access: "Python/PyTorch, ngspice and released policy checkpoints; optional LLM netlist paths require separate model access."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +43,8 @@ The release contains graph encoders, a conditional flow-matching policy, learned
 
 The latest public commit deliberately removes the manuscript PDF/TeX and several paper tables, while retaining executable source, checkpoints and one GNN ablation table. The Results link points only to that retained table; README links to deleted files are not exposed. The official conference program corroborates the paper identity. Published model/simulation results were not reproduced. [Retained results](#source-results-paper-tables-appc-gnn-fix-csv) · [Conference](#source-conference)
 
-### Flow scope
+### Scope classification
 
 Selecting RF phase-shifter topology and component values is coupled to an explicit ngspice reward/evaluation path. Graph coordinates do not constitute physical layout. [Reviewed source](#source-framework-md).
+
+The trained graph-conditioned policy selects RF topology and continuous component values, so Design is AI. ngspice performance/reward calculation remains conventional Simulation. [AI/stage evidence](#source-framework-md).

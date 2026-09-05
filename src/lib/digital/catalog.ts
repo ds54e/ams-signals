@@ -1,10 +1,9 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export const flowIds = ['design', 'synthesis', 'verification', 'layout'] as const;
-export const flowLabels: Record<typeof flowIds[number], string> = {
+export const scopeStageIds = ['design', 'synthesis', 'verification', 'layout'] as const;
+export const scopeStageLabels: Record<typeof scopeStageIds[number], string> = {
   design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout',
 };
-export const scopeLabels = { core: 'Core scope', supporting: 'Supporting scope' };
 export const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 
 export function sortProjects<T extends { id: string; data: { name: string } }>(

@@ -1,28 +1,31 @@
 import { expect, type Locator } from '@playwright/test';
 
 export async function expectIndexColumns(columns: Locator) {
-  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Flow', 'Activity']);
+  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Scope', 'Activity']);
   await expect(columns.locator('[class$="activity-range"]')).toHaveCount(0);
 }
 
-export async function expectFlowCircles(flow: Locator) {
-  expect(await flow.evaluateAll((nodes) => nodes.map((el) => el.textContent).join(' '))).not.toContain('◐');
-  const cells = await flow.locator('li[data-flow][data-scope]').evaluateAll((nodes) => nodes.map((cell) => {
+export async function expectScopeCircles(scope: Locator) {
+  expect(await scope.evaluateAll((nodes) => nodes.map((el) => el.textContent).join(' '))).not.toContain('◐');
+  const cells = await scope.locator('li[data-scope-item][data-level]').evaluateAll((nodes) => nodes.map((cell) => {
     const mark = cell.querySelector<HTMLElement>('[aria-hidden="true"]');
     const style = mark && getComputedStyle(mark);
     const box = mark?.getBoundingClientRect();
     const parent = cell.getBoundingClientRect();
     return {
-      state: cell.getAttribute('data-scope'), meaning: cell.querySelector('.visually-hidden')?.textContent?.replace(/^: /, ''),
-      title: cell.getAttribute('title'), mark: mark ? { text: mark.textContent, state: mark.classList.contains(cell.getAttribute('data-scope')!),
+      item: cell.getAttribute('data-scope-item'), state: cell.getAttribute('data-level'), meaning: cell.querySelector('.visually-hidden')?.textContent?.replace(/^: /, ''),
+      title: cell.getAttribute('title'), mark: mark ? { text: mark.textContent, state: mark.classList.contains(cell.getAttribute('data-level')!),
         width: box!.width, height: box!.height, radius: style!.borderRadius, border: parseFloat(style!.borderWidth),
         fill: style!.backgroundColor, color: style!.color, centerOffset: Math.abs(box!.top + box!.height / 2 - parent.top - parent.height / 2),
       } : null,
     };
   }));
+  expect(cells.length).toBeGreaterThan(0);
   for (const cell of cells) {
     expect(['core', 'supporting']).toContain(cell.state);
-    const meaning = cell.state === 'core' ? 'Core scope' : 'Supporting scope';
+    const meaning = cell.item === 'aiBuilt'
+      ? cell.state === 'core' ? 'Defining AI development provenance' : 'Partial or secondary AI development provenance'
+      : cell.state === 'core' ? 'Core scope' : 'Supporting scope';
     expect(cell.meaning).toBe(meaning);
     expect(cell.title).toContain(meaning);
     expect(cell.mark).not.toBeNull();
@@ -161,9 +164,9 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
       nameLinks: el.querySelectorAll('h2 a').length, nameText: el.querySelector('h2')!.textContent,
       links: [...el.querySelectorAll(`.${p}-title .${p}-quicklinks a`)].map(rect),
       description: rect(el.querySelector(`.${p}-description`)!),
-      flowStyle: getComputedStyle(el.querySelector(`.${p}-flow`)!).display,
-      flowDirection: getComputedStyle(el.querySelector(`.${p}-flow`)!).flexDirection,
-      flowItems: [...el.querySelectorAll('[data-flow]')].map(rect),
+      scopeStyle: getComputedStyle(el.querySelector(`.${p}-scope`)!).display,
+      scopeDirection: getComputedStyle(el.querySelector(`.${p}-scope`)!).flexDirection,
+      scopeItems: [...el.querySelectorAll('[data-scope-item]')].map(rect),
     };
   }), prefix);
   for (const row of geometry) {
@@ -206,13 +209,14 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
       const previous = row.links[index - 1], current = row.links[index];
       expect(current.left >= previous.right - 1 || current.top >= previous.bottom - 1).toBe(true);
     }
-    expect(row.flowStyle).toBe('flex'); expect(row.flowDirection).toBe('column');
-    for (let index = 1; index < row.flowItems.length; index++) {
-      const previous = row.flowItems[index - 1], current = row.flowItems[index];
+    expect(row.scopeStyle).toBe('flex'); expect(row.scopeDirection).toBe('column');
+    expect(row.scopeItems.length).toBeGreaterThan(0);
+    for (let index = 1; index < row.scopeItems.length; index++) {
+      const previous = row.scopeItems[index - 1], current = row.scopeItems[index];
       expect(current.left).toBeCloseTo(previous.left, 1);
       expect(current.top - previous.bottom).toBeCloseTo(3, 1);
     }
-    for (const item of row.flowItems) {
+    for (const item of row.scopeItems) {
       expect(item.left).toBeGreaterThanOrEqual(row.columns[1].left);
       expect(item.right).toBeLessThanOrEqual(row.columns[1].right);
       expect(item.bottom - item.top).toBeLessThan(24);
