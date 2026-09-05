@@ -8,6 +8,8 @@ Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add ta
 
 For work on the standalone Analog AI catalog, also read `docs/analog-ai/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
 
+For the standalone EDA Tools catalog, read `docs/eda-tools/README.md` and its linked contract. Its EDA scope and AI-relation labels are local to that independent catalog; they do not change Analog AI or Golden facts, viewer state, Articles or `/export.json`.
+
 ## Purpose
 
 AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal verification activity across companies and people.

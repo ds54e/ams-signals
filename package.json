@@ -13,9 +13,12 @@
     "lint:facts": "node tools/fact-lint.mjs",
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:internal-links": "node tools/internal-link-check.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog-ai && npm run test:analog-ai && npm run build && npm run check:internal-links",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog-ai && npm run test:analog-ai && npm run validate:eda-tools && npm run test:eda-tools && npm run build && npm run check:internal-links",
     "test:smoke": "npm run build && playwright test",
-    "refresh:analog-ai-activity": "node tools/refresh-analog-ai-activity.mjs"
+    "refresh:analog-ai-activity": "node tools/refresh-analog-ai-activity.mjs",
+    "validate:eda-tools": "node tools/validate-eda-tools.mjs",
+    "test:eda-tools": "node --test tests/eda-tools/*.test.ts",
+    "refresh:eda-tools-activity": "node tools/refresh-eda-tools-activity.mjs"
   },
   "dependencies": {
     "astro": "7.2.9"

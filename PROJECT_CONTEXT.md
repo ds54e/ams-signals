@@ -158,6 +158,8 @@ Golden Event `kind` is intentionally coarse. `technical` covers principally tech
 
 ## Long-term engineering philosophy
 
+The standalone Analog AI and EDA Tools catalogs are separately authored technical reference surfaces with their own contracts in `docs/analog-ai/` and `docs/eda-tools/`. Their project scope, activity and AI-relation metadata stay local to those collections. They do not change Golden Timeline/Events semantics, Company/Person records, authored Articles, viewer state or the factual export.
+
 Prefer boring, portable technology.
 
 The long-lived asset should remain readable if the web framework is replaced years later.

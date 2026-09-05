@@ -148,7 +148,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
   await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('href', `${basePath}articles/`);
-  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI', 'EDA Tools']);
   await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveCount(0);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
@@ -173,7 +173,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
-    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI']);
+    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI', 'EDA Tools']);
   }
 
   const indexResponse = await page.request.get('./analysis/');
@@ -2786,5 +2786,7 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Articles', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveCount(4);
+  await expect(page.getByRole('link', { name: 'Analog AI', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'EDA Tools', exact: true })).toBeVisible();
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI', 'EDA Tools']);
 });

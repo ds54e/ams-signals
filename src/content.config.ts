@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { analogAiSchema, catalogSlug } from './lib/analog-ai/schema';
+import { edaToolsSchema, catalogSlug as edaSlug } from './lib/eda-tools/schema';
 
 const datePrecision = z.enum(['year', 'month', 'day']);
 const eventKind = z.enum(['technical', 'organizational']);
@@ -156,4 +157,13 @@ const analogAi = defineCollection({
   schema: analogAiSchema,
 });
 
-export const collections = { events, companies, people, articles, analogAi };
+const edaTools = defineCollection({
+  loader: glob({
+    pattern: '*.md',
+    base: './src/content/eda-tools',
+    generateId: ({ entry }) => edaSlug.parse(entry.replace(/\.md$/, '')),
+  }),
+  schema: edaToolsSchema,
+});
+
+export const collections = { events, companies, people, articles, analogAi, edaTools };
