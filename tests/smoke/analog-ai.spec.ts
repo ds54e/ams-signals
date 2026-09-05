@@ -228,6 +228,7 @@ for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });
     await open(page);
     await noOverflow(page);
+    if (width <= 600) await expect(page.getByText('Scroll horizontally to see all scopes.', { exact: true })).toBeVisible();
     await page.screenshot({ path: info.outputPath(`landscape-${width}.png`), fullPage: false });
     if (width < 760) {
       const scroll = page.locator('.landscape-scroll');
