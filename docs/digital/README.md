@@ -10,6 +10,8 @@ English only. Start with a compact five-axis matrix, followed by dense three-col
 
 No visible page/section headings, introduction, counts, review dates, methodology, search, filtering, tabs, disclosures, bibliography or scores. Research notes stay in authored Markdown and these internal documents. Scope marks describe reviewed scope, not quality, completeness, production readiness, performance or a progression ladder. A blank does not establish inability.
 
+Reviewed repository-backed monthly history produces a compact twelve-cell activity band, whether hosted on GitHub, GitLab or another canonical forge. Point updates without that history remain date-only. Cells indicate monthly presence, never commit-volume strength.
+
 ## Product boundary
 
 This is a separately authored Digital project collection, independent of the Analog collection and of Golden Timeline / Events / Companies / People / Articles. It does not feed `/export.json`, factual records, viewer state or Article bodies. Keep the existing static Astro, plain CSS and native-link architecture. No runtime APIs, database, framework or shared technology taxonomy.
@@ -18,7 +20,7 @@ This is a separately authored Digital project collection, independent of the Ana
 
 The catalog represents currently active projects. Remove projects with no verifiable meaningful public activity for more than twelve months; do not retain entries to preserve a count. This rolling rule does not diminish historical technical value.
 
-The first review is **2026-09-05**, with an inclusive **2025-09-05** cutoff. For GitHub repositories, review substantive implementation, correctness, verification infrastructure, technical maintenance or result maintenance on the canonical default branch. Bot dependency churn, cosmetic documentation and formatting alone do not renew eligibility. The mechanical latest commit date is distinct from the manually reviewed meaningful date. Non-GitHub projects require a source-backed public update.
+The first review is **2026-09-05**, with an inclusive **2025-09-05** cutoff. For repository-backed history, review substantive implementation, correctness, verification infrastructure, technical maintenance or result maintenance on the canonical default branch. Bot dependency churn, cosmetic documentation and formatting alone do not renew eligibility. The mechanical latest commit date is distinct from the manually reviewed meaningful date. Projects without reviewed monthly repository history use a source-backed public update.
 
 ## Roles and AI relation
 

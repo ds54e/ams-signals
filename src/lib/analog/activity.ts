@@ -1,9 +1,12 @@
+import { hasRepositoryHistory } from '../catalog-repository-activity.ts';
+export { hasRepositoryHistory } from '../catalog-repository-activity.ts';
+
 export type PublicActivity =
-  | { kind: 'github'; lastCommitAt: string }
+  | { kind: 'github' | 'repository'; lastCommitAt: string }
   | { kind: 'no-public-repo'; lastPublicUpdateAt?: string };
 
 export function publicActivityDate(activity: PublicActivity): string {
-  return activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt ?? '';
+  return hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt ?? '';
 }
 
 /** Inclusive rolling curation boundary, independent of the calendar-month strip. */

@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
 import { areaIds, areaLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
 import { projectTags } from '../../lib/catalog-roles';
-import { monthLabel, shortDate } from '../../lib/digital/activity';
+import { hasRepositoryHistory, monthLabel, shortDate } from '../../lib/digital/activity';
 import { validateActivity } from '../../lib/digital/schema';
 import activityData from '../../data/digital-activity.json';
 import '../../styles/digital.css';
@@ -62,8 +62,8 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 {data.keywords.map((keyword) => <li data-tag-kind="keyword">{keyword}</li>)}
               </ul>
               <div class="digital-activity" data-activity-kind={record.kind}>
-                <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
-                {record.kind === 'github' ? <>
+                <span class="visually-hidden">{hasRepositoryHistory(record) ? 'Public repository activity: ' : 'Public activity: '}</span>
+                {hasRepositoryHistory(record) ? <>
                   <p class="digital-activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
                   <ul class="digital-activity-strip" aria-label={`${data.name}: ${windowLabel}; ${record.repository}, default branch ${record.defaultBranch}`}>
                     {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} data-month={month} data-commits={record.commits[index]} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>

@@ -1,5 +1,22 @@
 # Digital implementation notes
 
+## Repository-band refinement (2026-09-05)
+
+Starting from `ad91816ac49ac4dcf9558663045ed515cde7c2cb`, reviewed non-GitHub monthly history can use `kind: repository` in either catalog. Source-backed point updates remain date-only. GitHub records and their refresh/identity checks are unchanged; the small shared module is catalog-only and performs no network fetching.
+
+### Surfer history review
+
+- Reopened the [official project site](https://surfer-project.org/), [canonical GitLab repository](https://gitlab.com/surfer-project/surfer), README and implementation history. The [GitLab project API](https://gitlab.com/api/v4/projects/surfer-project%2Fsurfer) identifies public project **42073614**, `surfer-project/surfer`, default branch **main**. Its branch API and a bare, blob-filtered, non-shallow clone agree on head `db1ca915a989860f11c440b0a932b1f5fbce71b2`.
+- Recorded **2026-09-05T10:38:13.156Z** as this record's capture time, leaving the existing snapshot metadata and every other activity record untouched. Counted the complete first-parent committer history in UTC, using the existing **2025-10 through 2026-09** window. Monthly counts are **47, 51, 99, 35, 66, 28, 31, 40, 10, 32, 17, 7**: **463 commits / 12 active months**, independently cross-checked from the 1,471-entry first-parent history. Counts stay informational; a month with one commit has the same visible fill as a month with many.
+- The latest and manually meaningful date remain **2026-09-04**. The same [previously cited commit](https://gitlab.com/surfer-project/surfer/-/commit/db1ca915a989860f11c440b0a932b1f5fbce71b2) opens the log window when an error is logged; inspection of `logs.rs` and `view.rs` confirmed substantive implementation. Its committer time is **2026-09-04T11:44:01Z**. The existing authored `activity` source and all visible primary links are preserved; no GitHub mirror is involved and sorting does not change.
+- No other project changes from date-only to monthly history. ngspice and ATLAS retain source/paper dates. Generic records pin canonical Code URL, host-scoped repository ID, branch, head, capture time, twelve buckets, meaningful date/SHA and commit-source ID. Refresh scripts preserve these manually reviewed records; a new snapshot month requires reviewed recapture instead of silently relabeling their buckets.
+
+### Presentation and verification
+
+Both grids use `minmax(0, 2.75fr) minmax(0, 1.15fr) 142px`; cells are **10 × 6px with 2px gaps**. Date / band / `N/12 months` remains intact, without visible repository strings or header-month cues. Both catalogs were visually checked at **1440, 390 and 320px**, including Surfer, ngspice, xezim, Verilator, PANDA and Xschem, sparse/continuous bands, source links and sticky matrices. No page overflow or link overlap was found.
+
+`npm run check`, explicit Analog **18/18** and Digital **20/20** unit tests, and the full Chromium smoke suite **73/73** passed. Tests cover Surfer's actual GitLab record, source-backed date-only cases, generic canonical/provenance validation, month-window preservation, narrower rectangle geometry, binary states, accessibility/forced colors, hashes/history and no-JS use. All **35 Analog / 33 Digital** frontmatters, both matrices, IDs/order/links, **283 other HTML pages** and factual export remain unchanged; see the [paired integrity record](../analog/IMPLEMENTATION_NOTES.md#repository-band-refinement-2026-09-05). Browser automation remains Chromium-only. Delivery is commit/push to `main`, **without Pages deployment**.
+
 ## Complete catalog naming update (2026-09-05)
 
 Starting from `f27a98fb37df14f25fa33bd7c6d8243f6c8fa73f`, the public names and canonical routes are **Analog** at `/analog/` and **Digital** at `/digital/`. Hidden H1s and browser-title prefixes match those names. Collections, source directories, CSS namespaces, tools, npm commands and tests now use the same terminology; no removed-route or command aliases remain.
@@ -157,7 +174,7 @@ Mechanical latest activity and curated eligibility deliberately differ. The stri
 
 ## Surfer: non-GitHub handling
 
-The official site links to `gitlab.com/surfer-project/surfer`, whose public API confirms the canonical `main` branch. The source-backed update is [db1ca915](https://gitlab.com/surfer-project/surfer/-/commit/db1ca915a989860f11c440b0a932b1f5fbce71b2), committed **2026-09-04**, changing error logging/window behavior. The public record shows this update and the GitLab Code link, with no fake GitHub repository or monthly strip. Native and web builds have differing feature availability.
+The official site links to `gitlab.com/surfer-project/surfer`, whose public API confirms the canonical `main` branch. The source-backed update is [db1ca915](https://gitlab.com/surfer-project/surfer/-/commit/db1ca915a989860f11c440b0a932b1f5fbce71b2), committed **2026-09-04**, changing error logging/window behavior. The public record now uses its reviewed canonical GitLab monthly history, as recorded in the repository-band refinement above; it retains the same public date and Code/commit links. Native and web builds have differing feature availability.
 
 ## Omitted initial candidate
 
@@ -181,7 +198,7 @@ The official site links to `gitlab.com/surfer-project/surfer`, whose public API 
 
 1. Re-open the canonical source and inspect substantive default-branch changes. For accepted updates, change the manually curated meaningful date/SHA together with its content source URL; leave them unchanged for cosmetic/bot traffic.
 2. Run `npm run refresh:digital-activity` with `gh` and Git available. It verifies identity and first-parent history, preserves manual records, validates the whole snapshot and replaces it atomically. Any failure leaves production data intact.
-3. Review the JSON diff, especially default-branch changes and raw latest dates. Re-review Surfer directly on GitLab; its manual update is never automatically replaced with a mirror.
+3. Review the JSON diff, especially default-branch changes and raw latest dates. Re-review Surfer directly on GitLab, pin its default-branch tip and capture time, and bucket the full first-parent committer history in UTC. Preserve its manually chosen meaningful commit unless new source review justifies a change. Its record is never replaced with a mirror; recapture monthly history before advancing the snapshot window.
 4. Run `npm run check` and `npm run test:smoke`. Refresh is never part of those commands or a normal build.
 
 ## Original release validation record

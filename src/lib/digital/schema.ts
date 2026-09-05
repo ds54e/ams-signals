@@ -1,3 +1,4 @@
+import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { z } from 'astro/zod';
 import { aiIds, areaIds } from './catalog.ts';
 import { roleIds } from '../catalog-roles.ts';
@@ -88,6 +89,14 @@ const githubActivity = z.object({
   commits: z.array(z.number().int().nonnegative().safe()).length(12),
   lastCommitAt: date, lastMeaningfulCommitAt: date, lastMeaningfulCommitSha: sha,
 }).strict();
+const repositoryActivity = githubActivity.extend({
+  kind: z.literal('repository'),
+  repository: sourceUrl.refine(isRepositoryUrl, 'Use a canonical non-GitHub HTTPS repository URL'),
+  repositoryId: text,
+  capturedAt: z.string().datetime(),
+  lastMeaningfulCommitSha: z.string().regex(/^[a-f0-9]{40}$/),
+  lastMeaningfulCommitSource: catalogSlug,
+}).strict();
 const publicUpdate = z.object({
   kind: z.literal('public-update'), lastPublicUpdateAt: date, lastPublicUpdateSource: catalogSlug,
 }).strict();
@@ -95,7 +104,7 @@ const publicUpdate = z.object({
 export const activitySchema = z.object({
   reviewedAt: date, capturedAt: z.string().datetime(), method: z.literal('first-parent-committer-utc'),
   months: z.array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/)).length(12),
-  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, publicUpdate])),
+  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate])),
 }).strict().superRefine((snapshot, context) => {
   if (snapshot.capturedAt.slice(0, 10) !== snapshot.reviewedAt) {
     context.addIssue({ code: 'custom', message: 'Snapshot and capture dates differ' });
@@ -104,13 +113,17 @@ export const activitySchema = z.object({
     context.addIssue({ code: 'custom', path: ['months'], message: 'Use twelve consecutive months ending in the snapshot month' });
   }
   for (const [id, activity] of Object.entries(snapshot.projects)) {
-    const last = activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt;
-    const meaningful = activity.kind === 'github' ? activity.lastMeaningfulCommitAt : last;
+    if (activity.kind === 'repository' && (activity.capturedAt.slice(0, 7) !== snapshot.reviewedAt.slice(0, 7)
+      || activity.capturedAt.slice(0, 10) > snapshot.reviewedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
+      context.addIssue({ code: 'custom', path: ['projects', id], message: 'Repository capture must cover the snapshot month and reviewed commit dates' });
+    }
+    const last = hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt;
+    const meaningful = hasRepositoryHistory(activity) ? activity.lastMeaningfulCommitAt : last;
     const issue = (message: string) => context.addIssue({ code: 'custom', path: ['projects', id], message });
     if (last > snapshot.reviewedAt) issue('Activity is after the snapshot');
     if (meaningful < freshnessCutoff(snapshot.reviewedAt)) issue('Stale meaningful activity');
     if (meaningful > last) issue('Meaningful activity cannot follow the last commit');
-    if (activity.kind === 'github') {
+    if (hasRepositoryHistory(activity)) {
       if (snapshot.months.some((month, index) =>
         (month > last.slice(0, 7) && activity.commits[index] > 0)
         || ([last.slice(0, 7), meaningful.slice(0, 7)].includes(month) && activity.commits[index] === 0))) {
@@ -133,7 +146,9 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
     const data = digitalSchema.parse(project.data);
     if (data.reviewedAt > snapshot.reviewedAt) throw new Error(`${project.id}: review is after the snapshot`);
     const code = data.sources.find((source) => source.purpose === 'code');
-    if (record.kind === 'github') {
+    if (record.kind === 'repository') {
+      validateRepositorySources(record, data.sources);
+    } else if (record.kind === 'github') {
       const url = code && new URL(code.url);
       if (!url || url.hostname !== 'github.com' || url.search || url.hash
         || url.pathname.replace(/^\/|\/$/g, '').toLowerCase() !== record.repository.toLowerCase()) {

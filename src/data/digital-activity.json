@@ -474,9 +474,30 @@
       "lastMeaningfulCommitSha": "e063fac2eac571f79f643503a256278bd19ae788"
     },
     "surfer": {
-      "kind": "public-update",
-      "lastPublicUpdateAt": "2026-09-04",
-      "lastPublicUpdateSource": "activity"
+      "kind": "repository",
+      "repository": "https://gitlab.com/surfer-project/surfer",
+      "repositoryId": "42073614",
+      "defaultBranch": "main",
+      "headSha": "db1ca915a989860f11c440b0a932b1f5fbce71b2",
+      "capturedAt": "2026-09-05T10:38:13.156Z",
+      "commits": [
+        47,
+        51,
+        99,
+        35,
+        66,
+        28,
+        31,
+        40,
+        10,
+        32,
+        17,
+        7
+      ],
+      "lastCommitAt": "2026-09-04",
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "lastMeaningfulCommitSha": "db1ca915a989860f11c440b0a932b1f5fbce71b2",
+      "lastMeaningfulCommitSource": "activity"
     },
     "sv-elab": {
       "kind": "github",

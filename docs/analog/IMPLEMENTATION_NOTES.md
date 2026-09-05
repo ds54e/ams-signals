@@ -1,5 +1,15 @@
 # Analog implementation and review notes
 
+## Repository-band refinement (2026-09-05)
+
+Starting from `ad91816ac49ac4dcf9558663045ed515cde7c2cb`, both catalogs render a twelve-month band for explicitly reviewed repository history, including non-GitHub `kind: repository` records. A small catalog-only helper shares the rendering guard and canonical-source checks; GitHub identity, freshness and first-parent rules are unchanged. Non-GitHub monthly snapshots remain manually reviewed and cannot inherit a shifted month window through the GitHub refresh tools.
+
+- Surfer is the only converted record, on Digital; see its [canonical GitLab review](../digital/IMPLEMENTATION_NOTES.md#repository-band-refinement-2026-09-05). No Analog activity data changed. ngspice and ATLAS remain source-backed dates without a synthetic band or count.
+- Both grids use `minmax(0, 2.75fr) minmax(0, 1.15fr) 142px`. At 1440px the columns are approximately **783 / 327 / 142px**, compared with **754 / 321 / 177px** before. Cells are **10 × 6px with 2px gaps**, retaining date / band / `N/12 months`, binary fill and accessible month/count details. Mobile keeps the compact Activity block left-aligned.
+- `npm run check`, `npm run test:analog` (**18/18**), `npm run test:digital` (**20/20**) and the complete Chromium production-preview smoke suite (**73/73**) passed. Coverage includes generic repository identity/provenance, unchanged source-update handling, native hashes/history/reload, no-JS access, forced colors, matrix behavior and the narrower geometry.
+- Visual review at **1440, 390 and 320px** covered both matrices and dense/sparse rows, including Surfer, ngspice, xezim, Verilator, PANDA and Xschem. The slimmer bands remain readable; descriptions gain desktop width, with no page overflow or title/link overlap.
+- All **68 project frontmatters**, both matrix HTML blocks, catalog IDs/order/links, and **283 non-catalog HTML pages** match the baseline. Of **352 content/data files**, only Surfer's internal activity sentence and its activity record changed. `/export.json` is byte-identical, SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. Delivery is a normal commit/push to `main`, **without Pages deployment**.
+
 ## Complete catalog naming update (2026-09-05)
 
 Starting from `f27a98fb37df14f25fa33bd7c6d8243f6c8fa73f`, the public names, hidden H1s and browser-title prefixes are exactly **Analog** and **Digital**. Their only catalog routes are `/analog/` and `/digital/`; removed routes have no redirects, aliases or compatibility behavior.

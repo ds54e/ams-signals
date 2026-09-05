@@ -23,7 +23,7 @@ const rows = (page: Page) => page.locator('[data-catalog-project]');
 const ordered = [...projects].sort((a, b) => {
   const date = (p: typeof a) => {
     const record = activity.projects[p.id];
-    return record.kind === 'github' ? record.lastCommitAt : record.lastPublicUpdateAt ?? '';
+    return ['github', 'repository'].includes(record.kind) ? record.lastCommitAt : record.lastPublicUpdateAt ?? '';
   };
   if (date(a) !== date(b)) return date(a) > date(b) ? -1 : 1;
   const key = (p: typeof a) => `${p.name.normalize('NFKC').toLowerCase().trim()}\0${p.id}`;
@@ -316,7 +316,7 @@ for (const width of [1440, 390, 320]) {
     } else {
       await expect(page.locator('.catalog-columns')).not.toBeVisible();
     }
-    for (const project of [ordered[0], ordered[Math.floor(total / 2)], ordered.at(-1)!, ...['panda', 'autosizer', 'ngspice-openvaf-enhancements'].map((id) => projects.find((p) => p.id === id)!)]) {
+    for (const project of [ordered[0], ordered[Math.floor(total / 2)], ordered.at(-1)!, ...['panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${project.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
       await page.screenshot({ path: info.outputPath(`project-${width}-${project.id}.png`) });

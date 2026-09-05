@@ -1,6 +1,6 @@
 .analog {
-  --catalog-activity-width: 177px;
-  --catalog-columns: minmax(0, 2.7fr) minmax(0, 1.15fr) var(--catalog-activity-width);
+  --catalog-activity-width: 142px;
+  --catalog-columns: minmax(0, 2.75fr) minmax(0, 1.15fr) var(--catalog-activity-width);
   overflow-wrap: anywhere;
 }
 .analog h1, .analog h2 { letter-spacing: -0.02em; }
@@ -37,8 +37,8 @@
 .catalog-keywords li { background: var(--surface-tint); padding: 3px 7px; border-radius: 2px; }
 .catalog-activity { font-size: 0.86rem; min-width: 0; width: var(--catalog-activity-width); }
 .activity-latest { margin: 0; }
-.activity-strip { display: grid; grid-template-columns: repeat(12, 12px); gap: 3px; margin: 7px 0 0; }
-.activity-strip li { box-sizing: border-box; height: 12px; border: 1px solid var(--border-strong); background: transparent; }
+.activity-strip { display: grid; grid-template-columns: repeat(12, 10px); gap: 2px; margin: 7px 0 0; }
+.activity-strip li { box-sizing: border-box; height: 6px; border: 1px solid var(--border-strong); background: transparent; }
 .activity-strip li.active { border-color: var(--accent-ink); background: var(--accent-ink); }
 .activity-summary { margin: 4px 0 0; font-size: 0.82rem; color: var(--muted); text-align: right; white-space: nowrap; }
 .catalog-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }

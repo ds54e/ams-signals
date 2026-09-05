@@ -27,7 +27,8 @@ try {
   const records = {};
   const histories = new Map();
   for (const [id, record] of Object.entries(previous.projects)) {
-    if (record.kind === 'public-update') { records[id] = record; continue; }
+    // Non-GitHub history is reviewed manually; validation rejects a shifted capture month.
+    if (record.kind !== 'github') { records[id] = record; continue; }
     const meta = JSON.parse(await run('gh', ['api', `repos/${record.repository}`]));
     assertRepositoryIdentity(record, meta);
     await run('git', ['check-ref-format', `refs/heads/${meta.default_branch}`]);

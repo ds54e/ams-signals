@@ -24,7 +24,8 @@ try {
   const records = {};
   const histories = new Map();
   for (const [id, record] of Object.entries(previous.projects)) {
-    if (record.kind === 'no-public-repo') { records[id] = record; continue; }
+    // Non-GitHub history is reviewed manually; validation rejects a shifted capture month.
+    if (record.kind !== 'github') { records[id] = record; continue; }
     const meta = JSON.parse(await run('gh', ['api', `repos/${record.repository}`]));
     if (meta.private || meta.fork || meta.archived || meta.full_name.toLowerCase() !== record.repository.toLowerCase()
       || (record.repositoryId !== undefined && meta.id !== record.repositoryId)) {

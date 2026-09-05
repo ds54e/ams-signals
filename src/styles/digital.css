@@ -1,6 +1,6 @@
 .digital {
-  --digital-activity-width: 177px;
-  --digital-columns: minmax(0, 2.7fr) minmax(0, 1.15fr) var(--digital-activity-width);
+  --digital-activity-width: 142px;
+  --digital-columns: minmax(0, 2.75fr) minmax(0, 1.15fr) var(--digital-activity-width);
   overflow-wrap: anywhere;
 }
 .digital h1, .digital h2 { letter-spacing: -0.02em; }
@@ -37,8 +37,8 @@
 .digital-keywords li { background: var(--surface-tint); padding: 3px 7px; border-radius: 2px; }
 .digital-activity { font-size: 0.86rem; min-width: 0; width: var(--digital-activity-width); }
 .digital-activity-latest { margin: 0; }
-.digital-activity-strip { display: grid; grid-template-columns: repeat(12, 12px); gap: 3px; margin: 7px 0 0; }
-.digital-activity-strip li { box-sizing: border-box; height: 12px; border: 1px solid var(--border-strong); background: transparent; }
+.digital-activity-strip { display: grid; grid-template-columns: repeat(12, 10px); gap: 2px; margin: 7px 0 0; }
+.digital-activity-strip li { box-sizing: border-box; height: 6px; border: 1px solid var(--border-strong); background: transparent; }
 .digital-activity-strip li.active { border-color: var(--accent-ink); background: var(--accent-ink); }
 .digital-activity-summary { margin: 4px 0 0; font-size: 0.82rem; color: var(--muted); text-align: right; white-space: nowrap; }
 .digital-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
