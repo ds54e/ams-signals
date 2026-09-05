@@ -1,7 +1,6 @@
 ---
 name: "Xschem"
 aliases: []
-roles: ["eda-tool"]
 summary: "Edits hierarchical schematics and emits simulator-ready netlists."
 description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting, open-PDK examples and integration with ngspice and Xyce."
 flow: {"design":"core","simulation":"supporting"}

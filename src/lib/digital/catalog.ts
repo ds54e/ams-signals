@@ -4,7 +4,6 @@ export const flowIds = ['design', 'synthesis', 'verification', 'layout'] as cons
 export const flowLabels: Record<typeof flowIds[number], string> = {
   design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout',
 };
-export const aiIds = ['ai-built', 'ai-enabled', 'traditional'] as const;
 export const scopeLabels = { core: 'Core scope', supporting: 'Supporting scope' };
 export const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 

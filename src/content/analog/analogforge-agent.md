@@ -1,7 +1,6 @@
 ---
 name: "AnalogForge Agent"
 aliases: ["AnalogForge","analog-forge-agent"]
-roles: ["agent"]
 summary: "An experimental workbench for template-based circuit proposals and multi-objective search, with analytic fixtures as its default execution path."
 description: "Explores template-based analog circuits with bounded parameter search, analytic fixtures and a separately configured native-simulator path."
 flow: {"design":"core","simulation":"supporting"}

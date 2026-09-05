@@ -1,8 +1,6 @@
 ---
 name: "Spec2Cov"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-LLMs produce and refine testbenches at runtime, making this AI-enabled. [Reviewed source](#source-readme).
+LLMs produce and refine testbenches at runtime. [Reviewed source](#source-readme).
 
 ### Release boundary
 

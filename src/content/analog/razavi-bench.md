@@ -1,7 +1,6 @@
 ---
 name: "Razavi-Bench"
 aliases: ["Razavi Bench"]
-roles: ["benchmark"]
 summary: "Benchmarks reasoning about analog circuit diagrams through direct QA, agentic answers, and an experimental simulator-assisted mode."
 description: "Evaluates answers to analog-circuit questions using diagrams, reference solutions, and a shared rubric. Supports direct QA and workspace-based agents, with an experimental ngspice mode for generating scratch decks and exploring circuit behavior."
 flow: {"design":"core","simulation":"supporting"}

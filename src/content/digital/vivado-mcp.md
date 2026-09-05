@@ -1,8 +1,6 @@
 ---
 name: "vivado_mcp"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "MCP server keeping a persistent Vivado Tcl session and exposing FPGA project, synthesis, implementation, timing and XSim operations to agents."
 flow: {"synthesis":"core","verification":"supporting","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The author explicitly states the server was built through conversations with Claude, corroborated by the session implementation. AI-built takes precedence over its also-present MCP runtime interface; the UI still shows exactly one relation. [Reviewed source](#source-readme).
+The author explicitly states the server was built through conversations with Claude, corroborated by the session implementation. The implemented MCP interface exposes the persistent session to agents at runtime. [Reviewed source](#source-readme).
 
 ### Release boundary
 

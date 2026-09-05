@@ -1,7 +1,6 @@
 ---
 name: "ngspice"
 aliases: []
-roles: ["eda-tool"]
 summary: "Simulates circuit netlists with SPICE analyses and device models."
 description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows."
 flow: {"simulation":"core"}

@@ -1,8 +1,6 @@
 ---
 name: "Surelog + UHDM"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."
 flow: {"design":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -28,7 +26,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as conventional frontend infrastructure. Isolated AI co-authorship is insufficient to change the public relation label. [Reviewed source](#source-readme).
 

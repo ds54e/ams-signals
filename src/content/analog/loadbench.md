@@ -1,6 +1,5 @@
 ---
 name: "LOADBench"
-roles: ["benchmark","dataset-environment"]
 summary: "Open op-amp data and metrics for analog machine learning."
 description: "Provides 101 SKY130 op-amp topologies, ngspice testbenches and sizing/performance data, with evaluation scripts for topology generation and selection, inverse sizing and multi-objective optimization."
 flow: {"design":"core","simulation":"supporting"}

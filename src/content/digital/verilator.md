@@ -1,8 +1,6 @@
 ---
 name: "Verilator"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models with assertion, coverage and waveform support."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as the established compiled simulator. Incidental coding-agent contributions do not make AI a defining build or runtime characteristic. [Reviewed source](#source-readme).
 

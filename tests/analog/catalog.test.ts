@@ -3,13 +3,12 @@ import { activityBand } from '../../src/lib/catalog-activity-band.ts';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { flowIds, flowLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 const valid = () => ({
-  name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
+  name: 'Sample', summary: 'Evaluates circuit structure.', access: 'Requires Python.',
   description: 'Compares netlist connectivity and device ratios against reference circuits.',
   flow: { design: 'core' },
   addedAt: '2026-09-05', reviewedAt: '2026-09-05',
@@ -61,36 +60,23 @@ test('dashboard descriptions are required, concise, and free of placeholders', (
   }
 });
 
-test('catalog schema preserves calendar dates, source protocols, roles and source identities', () => {
+test('catalog schema preserves calendar dates, source protocols and source identities', () => {
   assert.ok(analogSchema.safeParse(valid()).success);
   for (const data of [
     { ...valid(), addedAt: '2026-02-30' }, { ...valid(), reviewedAt: '2025-02-29' },
-    { ...valid(), roles: [] }, { ...valid(), roles: ['benchmark', 'benchmark'] }, { ...valid(), roles: ['mature'] },
-    { ...valid(), roles: ['agent', 'benchmark', 'eda-tool'] },
     { ...valid(), sources: [] },
     ...['not a URL', 'javascript:alert(1)', 'ftp://github.com/a'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], purpose: 'paper' }] },
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], id: 'second' }] },
   ]) assert.equal(analogSchema.safeParse(data).success, false, JSON.stringify(data));
   assert.ok(analogSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
-  assert.ok(analogSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04' }).success);
 });
 
-test('shared public tags preserve authored role order and narrowly opt into AI-built provenance', () => {
-  assert.equal(roleLabels.agent, 'Agent');
-  const input = ['agent', 'benchmark'] as const;
-  assert.deepEqual(projectTags(input), [{ kind: 'role', label: 'Agent' }, { kind: 'role', label: 'Benchmark' }]);
-  assert.deepEqual(input, ['agent', 'benchmark']);
-  assert.deepEqual(projectTags(['benchmark', 'dataset-environment']), [
-    { kind: 'role', label: 'Benchmark' }, { kind: 'role', label: 'Dataset & Environment' },
-  ]);
-  assert.deepEqual(projectTags(['eda-tool']), [{ kind: 'role', label: 'EDA Tool' }]);
-  assert.deepEqual(projectTags(['eda-tool'], true), [{ kind: 'role', label: 'EDA Tool' }, { kind: 'ai', label: 'AI-built' }]);
-  assert.ok(analogSchema.safeParse({ ...valid(), aiBuilt: true }).success);
-  for (const aiBuilt of [false, 'true', 'ai-built', 'traditional']) {
-    assert.equal(analogSchema.safeParse({ ...valid(), aiBuilt }).success, false);
+test('removed classification metadata is rejected instead of kept as hidden state', () => {
+  for (const fields of [{ roles: ['benchmark'] }, { aiBuilt: true }, { ai: 'ai-enabled' }]) {
+    assert.equal(analogSchema.safeParse({ ...valid(), ...fields }).success, false);
   }
-  assert.equal(analogSchema.safeParse({ ...valid(), ai: 'ai-enabled' }).success, false);
 });
 
 test('Analog domain membership, baseline scopes and moved provenance validate as one reviewed population', async () => {
@@ -112,15 +98,12 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   for (const [id, flow] of Object.entries(baselines)) {
     const project = projects.find((p) => p.id === id)!;
     assert.ok(project, id); assert.deepEqual(project.data.flow, flow);
-    assert.deepEqual(project.data.roles, ['eda-tool']);
-    assert.equal(project.data.aiBuilt, undefined);
     if (id !== 'ngspice') {
       assert.equal(typeof activity.projects[id].repositoryId, 'number');
       assert.match(activity.projects[id].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
     }
   }
   const moved = 'ngspice-openvaf-enhancements';
-  assert.deepEqual(projects.filter((p) => p.data.aiBuilt).map((p) => p.id), [moved]);
   assert.deepEqual(projects.find((p) => p.id === moved)!.data.flow, { simulation: 'core' });
   assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   assert.equal(typeof activity.projects[moved].repositoryId, 'number');

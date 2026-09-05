@@ -1,6 +1,5 @@
 ---
 name: "ASTRA"
-roles: ["agent"]
 summary: "Reasoning-guided initialization and Bayesian transistor sizing."
 description: "Combines retrieved design knowledge and gm/ID initialization with Bayesian transistor sizing, using simulator feedback through an external evaluation adapter."
 flow: {"design":"core","simulation":"supporting"}

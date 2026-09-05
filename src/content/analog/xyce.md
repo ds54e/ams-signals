@@ -1,7 +1,6 @@
 ---
 name: "Xyce"
 aliases: []
-roles: ["eda-tool"]
 summary: "Runs SPICE-compatible circuit analyses on serial and parallel platforms."
 description: "Sandia-developed SPICE-compatible circuit simulator with parallel execution, DC, transient, AC, noise and harmonic-balance analyses, and compact-device models."
 flow: {"simulation":"core"}

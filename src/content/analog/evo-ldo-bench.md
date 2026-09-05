@@ -1,7 +1,6 @@
 ---
 name: "EvoLDO-Bench"
 aliases: ["EvoLDO","ldo_benchmark_for_agent"]
-roles: ["benchmark"]
 summary: "Benchmarks LDO reasoning separately from controlled SKY130/ngspice circuit-repair and tool-agent tasks."
 description: "Evaluates LDO reasoning and design advice, with a separate SKY130/ngspice tool track for circuit closure and EDA operations."
 flow: {"design":"core","simulation":"supporting"}

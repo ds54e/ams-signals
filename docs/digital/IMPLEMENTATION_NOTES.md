@@ -1,12 +1,24 @@
 # Digital implementation and review notes
 
-## Compact Flow index review (2026-09-05)
+## Vertical Flow refinement (2026-09-06)
 
-Starting commit: `48810ade612772d169f033da7569571fe03c304e`. The 35 Analog / 33 Digital entries and their source/activity/role provenance are retained. The catalog is one Project / Flow / Activity index; project names are plain text with role metadata and external links alongside. The content now authors only `flow` for design-stage classification. Removed metadata and obsolete fragment-navigation infrastructure have no compatibility layer.
+Starting commit: `cded7cf77df8c3d8caea927585025d0e794deab6`. The existing single-index migration was complete. This refinement keeps all **35 Analog / 33 Digital** entries, their reviewed Flow assignments, descriptions, source arrays and activity records. Rechecked every entry's description and cited Flow notes; the prior migration had already incorporated useful technical identifiers and documented per-project primary-source decisions.
+
+The title now contains only a plain-text name immediately followed by external primary links. Role/AI fields had no independent consumer after removing their labels, so the frontmatter fields, schema plumbing and shared tag helper are removed. Useful sourced implementation and development evidence stays in research prose without an active classification enum.
+
+Flow is vertical, one stage per line, with 3px gaps and 1.4 line height. The 1120px index uses **Project 798px / Flow 170px / Activity 108px**, with 22px column gaps, stacking below 900px. The Activity date uses normal weight **400**; the unchanged 5×12px upright cells, 2px gaps and 82px band retain the existing date / band / N/12 months structure. Primary links follow the name with a 12px flex gap. Articles-last navigation and noindex/nofollow remain unchanged.
+
+## Vertical Flow refinement validation
+
+`npm run check`, explicit Analog **20/20** and Digital **22/22** unit tests, and the complete Chromium smoke suite **70/70** pass. Both pages were visually reviewed at **1440, 1280, 1024, 390 and 320px**, including multi-stage CoreSmith, single-stage simulators, Surfer and first/middle/last entries. Flow is vertical, title lines contain only names and source links, dates are normal-weight and no overlap/overflow occurs. Keyboard/no-JS behavior, forced colors and activity/source checks remain covered.
+
+See the [paired data and HTML integrity checks](../analog/IMPLEMENTATION_NOTES.md#vertical-flow-refinement-validation): all 68 retained project fields and both activity snapshots match, as do all 283 non-catalog HTML pages and the factual export. Obsolete classification fields are rejected by both strict schemas. Browser automation remains Chromium-only. No deployment or workflow modification is included.
+
+## Previous Flow migration (2026-09-05)
+
+Starting commit: `48810ade612772d169f033da7569571fe03c304e`. That migration retained the 35 Analog / 33 Digital entries and their source/activity provenance, replaced the former taxonomy with `flow` and removed the overview, keyword fields and fragment-navigation infrastructure without a compatibility layer.
 
 Every existing entry's description, technical identifiers and research/classification body were reviewed. Cited primary material was reopened for all 68 entries, including pinned repository READMEs, implementation files and the ATLAS paper. This is a scope migration, not an activity refresh or independent benchmark reproduction. Each authored file records its individual Flow decision and a source reference. Useful identifiers such as ngspice, SKY130, Spectre, SystemVerilog, Yosys and OpenROAD remain in natural descriptions; no hidden search vocabulary is retained.
-
-The catalog is centered at 1120px maximum: Project 732px / Flow 236px / Activity 108px with 22px gaps at full width, stacking below 900px. Flow uses inline wrapping filled/open circles. Activity retains 5×12px upright cells, 2px gaps and an intrinsic 82px band; date / band / N/12 months and all provenance/eligibility/sorting rules stay unchanged. Role/AI metadata and quick links follow the name with a 12px flex gap. The global navigation puts Articles last; noindex/nofollow remains intact.
 
 ## Flow migration validation
 
@@ -24,13 +36,13 @@ Activity snapshots, source arrays, retained project metadata, Golden data, Artic
 - **OpenROAD** and **OpenROAD-MCP** are core Layout for their physical implementation operations. Do not inherit every surrounding flow dependency. **vivado_mcp** directly exposes synthesis and implementation, with supporting XSim Verification.
 - **OpenADA** retains core Verification and Layout for native checks/tests and DRC/LVS; mapped synthesis is supporting in its broader tool contract. Synthesis-stage timing does not establish physical closure, and tool integration alone does not establish Design.
 
-The six Agent roles and approved AI-built set are unchanged. Each of the 33 authored files records its own Flow decision with cited evidence. No activity snapshot or source URL changes in this migration.
+Each of the 33 authored files records its own Flow decision with cited evidence. No activity snapshot or source URL changes in this migration.
 
 ## Original Digital release review
 
 Reviewed on **2026-09-05** against the inclusive **2025-09-05** meaningful-activity cutoff. Of the bounded 35 candidates, **34 are included**: 33 canonical GitHub repositories and one source-backed GitLab project (Surfer). SANGAM is omitted under the conservative meaningful-activity rule. No watch-list projects were added.
 
-The review opened each canonical README/default branch, inspected implementation files and substantive first-parent changes, and pinned source references in each content file. AI-built decisions use direct author statements or sustained core co-authorship; AI-enabled decisions use implemented operating interfaces/agents. No external simulator, commercial EDA flow or benchmark result was independently reproduced.
+The review opened each canonical README/default branch, inspected implementation files and substantive first-parent changes, and pinned source references in each content file. Development evidence came from direct author statements or sustained core co-authorship; runtime-agent descriptions relied on implemented operating interfaces. No external simulator, commercial EDA flow or benchmark result was independently reproduced.
 
 ## Current canonical repositories and activity
 
@@ -82,9 +94,9 @@ Monthly buckets count first-parent commits reachable from each captured default-
 - **Spec2Cov** is the verified canonical repository despite an old `llm-verif` clone example in its README.
 - **OpenROAD-MCP** currently ships the TypeScript implementation. Its implemented ORFS flow actions and persistent sessions are described without attributing those agent interfaces to OpenROAD itself.
 
-## AI classification decisions
+## Development and runtime evidence
 
-| AI-built project | Direct evidence used |
+| Project | Direct evidence used |
 | --- | --- |
 | xezim | Author README identifies AI agents as core implementation contributors; runtime changes corroborate this. |
 | vitamin | Repeated Claude co-authorship across core parser, elaboration and runtime changes, including the pinned September parser commits; not one isolated commit. |
@@ -92,9 +104,9 @@ Monthly buckets count first-parent commits reachable from each captured default-
 | Ngspice + OpenVAF Enhancements (now Analog) | Explicit Claude-assisted development description plus AI-coauthored Verilog-A compiler fixes. |
 | uhdm2rtlil | README describes Claude implementation of C++ UHDM-to-RTLIL handlers, corroborated by translation fixes. |
 | WHAT | Author explicitly credits AI with the principal architecture/functions and implementation. This does not imply an AI runtime. |
-| vivado_mcp | Author states the tool was created through Claude conversations; session-manager source corroborates it. It also exposes runtime MCP tools, but only AI-built is shown publicly. |
+| vivado_mcp | Author states the tool was created through Claude conversations; session-manager source corroborates it. Its implemented MCP tools are available to agents at runtime. |
 
-The AI-enabled group has runtime verification/optimization agents or implemented agent interfaces: Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov, wave-mcp, Sentinel DV, OpenROAD-MCP, OpenADA and CoreSmith. OpenADA is included for its implemented CLI/agent-skill contract, not for a future MCP binding. Traditional projects, particularly Pono and upstream CIRCT, are not promoted to AI-built merely because some recent commits use coding agents.
+Runtime verification/optimization agents or implemented agent interfaces are documented for Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov, wave-mcp, Sentinel DV, OpenROAD-MCP, OpenADA and CoreSmith. OpenADA is included for its implemented CLI/agent-skill contract, not for a future MCP binding. Occasional coding-agent commits, particularly in Pono and upstream CIRCT, do not by themselves establish distinctive project-wide development practices.
 
 ## Meaningful activity and snapshot limitations
 
@@ -102,7 +114,7 @@ Mechanical latest activity and curated eligibility deliberately differ. The stri
 
 - MCY qualifies through the **2025-10-15 Qt 6 port**, not the August 2026 formatting cleanup. SymbiYosys uses its July rIC3 integration, not later formatting-only commits.
 - Ngspice/OpenVAF binary-publication automation does not establish meaningful freshness; the preceding compiler constant-context fix does. OpenROAD-MCP uses the August implementation of flow/tool operations rather than later dependency/release traffic. RTLDebugDBKit uses its schema-v22 change rather than later source-path documentation.
-- Pono's reviewed manual dependency pinning supports reproducible builds and is substantive maintenance, distinct from automated dependency churn. Its AI relation remains Traditional.
+- Pono's reviewed manual dependency pinning supports reproducible builds and is substantive maintenance, distinct from automated dependency churn.
 - GitHub push times can reflect other branches. For example, vivado_mcp's captured default-branch latest date is **2026-02-05 UTC**, not its later repository push date. UTC normalization can also move a late local evening into the following day.
 - HAVEN has a bulk initial release; the strip records that landing once. It does not reconstruct private development or the time taken to create the released benchmark.
 - Snapshot SHAs record the reviewed public state, not a live browser feed. Upstream history can later change; refresh rejects lost meaningful commits and requires manual reassessment.

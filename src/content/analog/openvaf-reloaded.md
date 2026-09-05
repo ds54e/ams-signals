@@ -1,7 +1,6 @@
 ---
 name: "OpenVAF-Reloaded"
 aliases: []
-roles: ["eda-tool"]
 summary: "Compiles Verilog-A device models into OSDI shared libraries."
 description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators, extending the original OpenVAF with compiler fixes and model-interface support."
 flow: {"simulation":"supporting"}

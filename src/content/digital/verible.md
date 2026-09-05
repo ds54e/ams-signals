@@ -1,8 +1,6 @@
 ---
 name: "Verible"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."
 flow: {"design":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional developer-tool suite. AI is not a material runtime component in the reviewed tools. [Reviewed source](#source-readme).
 

@@ -1,6 +1,5 @@
 ---
 name: "AnalogToBi"
-roles: ["eda-tool"]
 summary: "Circuit-type-conditioned generation of device-net graphs."
 description: "Generates transistor-level circuit connectivity from circuit-type tokens using device-net bipartite graphs and grammar-constrained decoding, with structural validity and novelty checks."
 flow: {"design":"core"}

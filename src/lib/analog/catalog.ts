@@ -1,7 +1,5 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export { roleIds, roleLabels, projectTags, type CatalogRole } from '../catalog-roles.ts';
-
 export const flowIds = ['design', 'simulation', 'layout'] as const;
 export const flowLabels: Record<typeof flowIds[number], string> = {
   design: 'Design', simulation: 'Simulation', layout: 'Layout',

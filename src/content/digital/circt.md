@@ -1,8 +1,6 @@
 ---
 name: "CIRCT"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs, synthesis transformations, simulation-oriented lowering and formal-checking tools."
 flow: {"design":"core","synthesis":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,9 +27,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-This entry is upstream LLVM CIRCT. A general AI contribution policy does not make it AI-built, and the unavailable Normal Computing fork is not this project. [Reviewed source](#source-readme).
+This entry is upstream LLVM CIRCT. The unavailable Normal Computing fork is a separate project; its implementation claims are not attributed to upstream. [Reviewed source](#source-readme).
 
 ### Release boundary
 

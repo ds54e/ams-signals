@@ -15,13 +15,3 @@ test('reviewed GitHub and GitLab histories share compact binary activity bands',
   await expect(surfer.locator('.digital-activity-summary')).toHaveText('12/12 months');
   expect(await surfer.innerText()).not.toContain('gitlab.com');
 });
-
-test('Digital shows AI-built only for the reviewed development-provenance set', async ({ page }) => {
-  await page.goto('./digital/');
-  const actual = await fixture.rows(page).filter({ has: page.locator('[data-tag-kind="ai"]') })
-    .evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-digital-project')).sort());
-  expect(actual).toEqual(['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
-  for (const id of ['coresmith', 'dr-rtl', 'haven', 'spec2cov', 'ucagent', 'verifyrtl']) {
-    await expect(fixture.row(page, id).locator('[data-tag-kind="role"]')).toHaveText('Agent');
-  }
-});

@@ -1,7 +1,6 @@
 ---
 name: "Magic"
 aliases: []
-roles: ["eda-tool"]
 summary: "Edits custom-IC layouts and extracts circuits and parasitics with technology rules."
 description: "VLSI layout editor with design-rule checking, circuit and parasitic extraction, and Tcl-driven custom-IC workflows used with open PDKs."
 flow: {"layout":"core"}
@@ -31,7 +30,7 @@ Provides interactive and scripted layout editing, design-rule checks and extract
 
 ### Release boundary
 
-The September 1 implementation lets select command options operate without a layout-window cursor, including configuration-file settings. The following version-number-only commit does not establish meaningful freshness. An isolated Claude-assisted August fix does not justify an AI-built classification. [Substantive update](#source-activity).
+The September 1 implementation lets select command options operate without a layout-window cursor, including configuration-file settings. The following version-number-only commit does not establish meaningful freshness. [Substantive update](#source-activity).
 
 ### Flow scope
 

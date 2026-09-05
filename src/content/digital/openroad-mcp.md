@@ -1,8 +1,6 @@
 ---
 name: "OpenROAD-MCP"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-enabled"
 description: "Official MCP interface managing persistent OpenROAD sessions and ORFS runs, with design commands, reports, metrics and physical-flow checks for agents."
 flow: {"layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The official MCP tool surface is an implemented agent interface, so AI-enabled describes its runtime workflow. [Reviewed source](#source-readme).
+The official MCP tool surface is an implemented agent interface. [Reviewed source](#source-readme).
 
 ### Release boundary
 

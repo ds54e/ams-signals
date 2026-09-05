@@ -1,8 +1,6 @@
 ---
 name: "Surfer"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -26,7 +24,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional waveform viewer; no distinctive AI build process or AI runtime is established. [Reviewed source](#source-readme).
 

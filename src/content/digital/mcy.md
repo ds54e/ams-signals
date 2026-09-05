@@ -1,8 +1,6 @@
 ---
 name: "MCY"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Uses Yosys netlist mutations and formal filtering to measure whether a self-checking testbench detects meaningful RTL faults."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as conventional verification tooling, without an AI runtime. [Reviewed source](#source-readme).
 

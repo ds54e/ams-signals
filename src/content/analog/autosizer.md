@@ -1,7 +1,6 @@
 ---
 name: "AutoSizer"
 aliases: ["AMS-SizingBench"]
-roles: ["agent","benchmark"]
 summary: "LLM-guided sizing strategies with AMS-SizingBench."
 description: "Uses an LLM to choose sizing variables, ranges and optimization strategies, then runs ngspice-backed search across the AMS-SizingBench circuit configurations."
 flow: {"design":"core","simulation":"core"}

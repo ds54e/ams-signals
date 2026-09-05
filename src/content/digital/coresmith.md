@@ -1,8 +1,6 @@
 ---
 name: "CoreSmith"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "Carries requirements through RTL generation, testbench execution, Yosys synthesis and OpenROAD/Magic physical checks toward GDS artifacts."
 flow: {"design":"core","synthesis":"core","verification":"core","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 LangGraph orchestrates LLM design, verification and debug agents at runtime, with explicit interrupt and human-review paths. [Reviewed source](#source-readme).
 

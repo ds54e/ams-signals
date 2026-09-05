@@ -1,20 +1,34 @@
 # Analog implementation and review notes
 
-## Compact Flow index review (2026-09-05)
+## Vertical Flow refinement (2026-09-06)
 
-Starting commit: `48810ade612772d169f033da7569571fe03c304e`. The 35 Analog / 33 Digital entries and their source/activity/role provenance are retained. The catalog is one Project / Flow / Activity index; project names are plain text with role metadata and external links alongside. The content now authors only `flow` for design-stage classification. Removed metadata and obsolete fragment-navigation infrastructure have no compatibility layer.
+Starting commit: `cded7cf77df8c3d8caea927585025d0e794deab6`. The existing single-index migration was complete. This refinement keeps all **35 Analog / 33 Digital** entries, their reviewed Flow assignments, descriptions, source arrays and activity records. Rechecked every entry's description and cited Flow notes; the prior migration had already incorporated useful technical identifiers and documented per-project primary-source decisions.
+
+The title now contains only a plain-text name immediately followed by external primary links. Role/AI fields had no independent consumer after removing their labels, so the frontmatter fields, schema plumbing and shared tag helper are removed. Useful sourced implementation and development evidence stays in research prose without an active classification enum.
+
+Flow is vertical, one stage per line, with 3px gaps and 1.4 line height. The 1120px index uses **Project 798px / Flow 170px / Activity 108px**, with 22px column gaps, stacking below 900px. The Activity date uses normal weight **400**; the unchanged 5×12px upright cells, 2px gaps and 82px band retain the existing date / band / N/12 months structure. Primary links follow the name with a 12px flex gap. Articles-last navigation and noindex/nofollow remain unchanged.
+
+## Vertical Flow refinement validation
+
+`npm run check` passes, including both catalog validators, all deterministic tests, fact lint, duplicate checks, the **285-page** build and **2,976** internal-link checks. Explicit catalog unit commands pass **Analog 20/20** and **Digital 22/22**. The full production-preview Chromium suite passes **70/70**. The obsolete badge-only test was removed; shared tests now require title lines to contain exactly the project name and authored quick links, with no classification labels. They also enforce vertical Flow geometry and a normal-weight Activity date for every row.
+
+Visually reviewed both pages at **1440, 1280, 1024, 390 and 320px**, including first/middle/last entries, multi-stage and multi-link rows, ATLAS, ngspice and Surfer. Project descriptions dominate, Flow stays compact and vertical, title links wrap naturally, and dates are not bold. No overlap or page-level overflow was found. Keyboard/no-JS access, forced colors, all-row activity provenance/counts, navigation order and noindex/nofollow pass the browser checks.
+
+All **68** project IDs, descriptions, Flow values, source arrays and activity dates match the starting state. Only the unused role/AI frontmatter fields were removed; research edits remove obsolete classification-policy wording while retaining primary evidence. Both activity snapshots and **284** other content/data files are byte-identical. All **283** non-catalog generated HTML pages are byte-identical, including their navigation. `/export.json` retains SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. Browser automation is Chromium-only. No deployment or workflow modification is included.
+
+## Previous Flow migration (2026-09-05)
+
+Starting commit: `48810ade612772d169f033da7569571fe03c304e`. That migration retained the 35 Analog / 33 Digital entries and their source/activity provenance, replaced the former taxonomy with `flow` and removed the overview, keyword fields and fragment-navigation infrastructure without a compatibility layer.
 
 Every existing entry's description, technical identifiers and research/classification body were reviewed. Cited primary material was reopened for all 68 entries, including pinned repository READMEs, implementation files and the ATLAS paper. This is a scope migration, not an activity refresh or independent benchmark reproduction. Each authored file records its individual Flow decision and a source reference. Useful identifiers such as ngspice, SKY130, Spectre, SystemVerilog, Yosys and OpenROAD remain in natural descriptions; no hidden search vocabulary is retained.
-
-The catalog is centered at 1120px maximum: Project 732px / Flow 236px / Activity 108px with 22px gaps at full width, stacking below 900px. Flow uses inline wrapping filled/open circles. Activity retains 5×12px upright cells, 2px gaps and an intrinsic 82px band; date / band / N/12 months and all provenance/eligibility/sorting rules stay unchanged. Role/AI metadata and quick links follow the name with a 12px flex gap. The global navigation puts Articles last; noindex/nofollow remains intact.
 
 ## Flow migration validation
 
 `npm run check` passed, including both catalog validators, fact lint, duplicate audit, all unit tests, the 285-page production build and 2,976 internal-link checks. The explicit Analog and Digital unit commands passed **20/20** and **22/22** respectively. The full production-preview Chromium suite passed **71/71** after updating the three shared navigation expectations for Articles-last ordering. No behavior checks were relaxed to accommodate data errors.
 
-Visually inspected both indexes at **1440, 1280, 1024, 390 and 320px**, including first/middle/last, multi-link and multi-stage entries, ATLAS, ngspice and Surfer. Descriptions, inline Flow, title metadata and links wrap without overlap; no page-level overflow. Keyboard access, no-JS navigation, forced-colors shapes and all-row activity provenance/counts pass browser checks.
+Visually inspected both indexes at **1440, 1280, 1024, 390 and 320px**, including first/middle/last, multi-link and multi-stage entries, ATLAS, ngspice and Surfer. The then-current descriptions, Flow and title links wrapped without overlap; no page-level overflow. Keyboard access, no-JS navigation, forced-colors shapes and all-row activity provenance/counts pass browser checks.
 
-All 68 project identities, roles/AI values, source arrays and retained non-Flow metadata match the starting state. Both activity snapshots and 284 non-catalog content/data files are byte-identical. All 283 non-catalog HTML pages match after excluding the reordered primary navigation. `/export.json` retains SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. The obsolete-taxonomy/keyword/permalink audit leaves only negative tests; `git diff --check` passes. Browser automation is Chromium-only; external benchmark results were not independently reproduced. This pass does not deploy or modify the manual Pages workflow.
+That migration preserved all 68 project identities, source arrays and retained non-Flow metadata. Both activity snapshots and 284 non-catalog content/data files are byte-identical. All 283 non-catalog HTML pages match after excluding the reordered primary navigation. `/export.json` retains SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. The obsolete-taxonomy/keyword/permalink audit leaves only negative tests; `git diff --check` passes. Browser automation is Chromium-only; external benchmark results were not independently reproduced. This pass does not deploy or modify the manual Pages workflow.
 
 ## Flow classification decisions
 
@@ -59,7 +73,7 @@ All seven candidates pass the inclusive **2025-09-05** meaningful-activity cutof
 - Xyce's README documents rerooting after release 7.9. Count only the captured current first-parent history; do not graft or add the archived history.
 - Xschem's author documents a transition toward Codeberg while the official project site still lists the active author-owned GitHub development source. The requested GitHub repository remains the reviewed activity source for this snapshot. Codeberg is a secondary source, not an additional counted history; reassess hosting at the next refresh. The cosmetic September 5 tip is not the meaningful date.
 - OpenVAF-Reloaded's actual default branch is `mob`, despite older `master` text. Its maintained OSDI 0.4 compiler feeds a simulator; it does not itself perform circuit simulation. The original OpenVAF repository and unmaintained OSDI 0.3 branch are not substituted.
-- Magic's latest version-number commit remains the mechanical sort date, but the immediately preceding implementation fix supplies meaningful freshness. Occasional AI co-authorship does not change the baseline's public type.
+- Magic's latest version-number commit remains the mechanical sort date, but the immediately preceding implementation fix supplies meaningful freshness.
 
 
 ## Public repository activity methodology
@@ -116,7 +130,7 @@ The snapshot is authoritative for all twelve monthly counts, captured heads and 
 
 ## Maintenance and manual refresh
 
-1. Review primary sources before changing prose or scope. Keep stable filenames, one or two authored roles, reviewed Flow stages, and `core|supporting` only; omit unreviewed/future scope. Do not create Golden records.
+1. Review primary sources before changing prose or scope. Keep stable filenames, reviewed Flow stages, and `core|supporting` only; omit unreviewed/future scope. Do not create Golden records.
 2. Keep one source array with unique IDs/purposes. Cite local `#source-ID` references in research Markdown. Keep dashboard `description` focused on the actual use case and operations, with nuanced prerequisites and review evidence stored in the original metadata/body. A no-change review does not reorder the index or add a catalog update note; changes to the recorded latest public activity can reorder it.
 3. For activity, manually review/choose one Code repository or a sourced no-public-repository entry. Run `npm run refresh:analog-activity` with Git and authenticated `gh`. It updates only the complete activity snapshot after all repositories succeed and validation passes; a failed request leaves the previous file intact. Temporary clones are removed. The helper is never part of check/build and is never shipped to the browser.
 4. Review the snapshot diff and histories for changed ownership/default branches, automated or imported history. Manually verify a substantive first-parent commit, set `lastMeaningfulCommitAt` and record its hash in `notes`. The helper preserves that date; raw new commits never renew eligibility automatically. Validation rejects expired or missing evidence before replacing the snapshot. For additions/removals, curate the content and matching activity records together before invoking the refresh helper. Existing no-repository entries also need a fresh sourced public date. Do not treat the helper as a source/content review.

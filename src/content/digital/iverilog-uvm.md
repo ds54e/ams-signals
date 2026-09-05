@@ -1,8 +1,6 @@
 ---
 name: "iverilog-uvm"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "Icarus-derived simulator extending SystemVerilog verification with UVM, constrained randomization, assertions, functional coverage and DPI-C."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,13 +23,13 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 The canonical README explicitly credits Claude with much of the SystemVerilog/UVM implementation, under human direction and review. [Reviewed source](#source-readme).
 
 ### Release boundary
 
-Although derived from Icarus, the canonical public repository is not flagged as a GitHub fork. Formal/Verify denotes verification features here, not the planned formal proof engine. [Public update](#source-activity).
+Although derived from Icarus, the canonical public repository is not flagged as a GitHub fork. Verification scope covers the implemented testbench features; the formal proof engine remains planned. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
 
