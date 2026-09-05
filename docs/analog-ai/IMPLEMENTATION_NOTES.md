@@ -1,8 +1,29 @@
 # Analog / AMS implementation and review notes
 
+## Three-column presentation refinement (2026-09-05)
+
+Starting at `7d86cd0c864747d7971d3d7337c6faa2b0be0794`, both catalogs keep their reviewed content, classifications, activity snapshot, eligibility and native URLs. The change is presentation only:
+
+- Project / Keywords / Activity use approximately `2.5fr / 1.15fr / 1.2fr`; page width and base text sizes stay unchanged. Primary Website/Paper/Code/Results links wrap beside the title. There is no separate Type / Links area.
+- Authored roles appear as individual tags before approved AI-built and technical keywords. The metadata fields and approved provenance set remain separate and unchanged.
+- Both matrices use small filled/open CSS circles for core/supporting. Textual scope meanings and tooltips remain; the compact legend directly below is `● core   ○ supporting`.
+- GitHub Activity uses a prominent date and `N/12 mo` above twelve equal binary cells. Positive counts share one fill; zero uses an outline. Raw counts are informational in titles/accessibility text, never visual strength. Repository identity stays accessible but is not visible in the Activity column. A snapshot-derived endpoint cue appears once in the desktop header. Source-backed updates have a date without a fake band or count.
+- Browser expectations check authored inventory, primary links, tag order, binary states, uniform cell geometry/fill, circle semantics, wrapping links, native hashes/history, no-JS access and viewer isolation. The new shared geometry/activity assertions are test-only; catalog schemas and activity modules remain independent.
+
+### Validation for the three-column refinement
+
+- `npm run check` passed: Golden checks, 35 Analog / 33 Digital validation, **17 Analog / 18 Digital unit tests**, **285 built pages** and **3,112 internal anchors**. Both unit commands also passed directly.
+- Full `npm run test:smoke`: **73/73 Chromium production-preview tests passed**. Existing hash/direct-load/reload/back/forward, no-JS, source links, activity ordering, viewer isolation and factual-export coverage remain. Two forced-color cases verify the new circle/band presentation; an active-cell border cascade issue found during self-review was fixed.
+- Visual inspection covered both pages at **1440, 390 and 320px**, including first/middle/last rows, xezim, HAVEN, Verilator, PANDA, AutoSizer, ngspice and Ngspice + OpenVAF Enhancements. Titles and primary links wrap without overlap, descriptions have more desktop width, tags stay restrained and the twelve cells remain legible. Only the matrix scrolls horizontally with sticky project names. ngspice has a plain sourced date and no band. Filled/open scope shapes also remain distinct in forced-color mode.
+- All **352 authored content/data files**, including both complete activity snapshots, are byte-identical to the starting commit. All **283 non-catalog HTML pages** are byte-identical. The **362 Analog / 69 Digital published IDs** and every primary URL are preserved; only duplicate commit-history links were removed from Activity.
+- `/export.json` is byte-identical: SHA-256 **`67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`**. `git diff --check` passed. No dependency, schema, membership, classification, eligibility, meaningful date, activity bucket or deployment configuration changed.
+- The requested grid proportions were retained. The optional month endpoint cue is shown only in desktop headers; activity bands are capped at 260px to remain compact. Browser automation remains Chromium-only. Delivery is a normal commit/push to `main`, with **no Pages deployment**.
+
+Prior review sections retain their historical research and validation context.
+
 Previous active-catalog expansion: 2026-09-05, based on `main` commit `d3b6a4d5bb40bf20ad631adb307c88f9c2f9b4a5`. The compact-row presentation is preserved. The original landscape/source review below was completed on `analog-ai-landscape-redesign` from `4fa73e4650d7512d236004297aeb8be9a5cf4296`.
 
-## Domain organization review (2026-09-05)
+## Previous domain organization review (2026-09-05)
 
 Starting from `main` at `75a5ec4fd494785fcbb54f0fa89e94b9f3e85f83`, this surface becomes **Analog / AMS** at the unchanged `/analog-ai/` URL. Domain chooses the page; the matrix describes scope; authored roles describe project kind. The paired Digital / RTL surface stays at `/eda-tools/`. Internal directory and collection names remain unchanged.
 
@@ -31,7 +52,7 @@ All seven candidates pass the inclusive **2025-09-05** meaningful-activity cutof
 - Magic's latest version-number commit remains the mechanical sort date, but the immediately preceding implementation fix supplies meaningful freshness. Occasional AI co-authorship does not change the baseline's public type.
 - The Analog snapshot capture time advances for this review, while the original 27 histories and the transferred history remain pinned to their existing reviewed heads. This is a bounded baseline addition, not a claim that every old repository was fetched again.
 
-## Domain review validation record
+## Previous domain review validation record
 
 - `npm run check`: passed, including Golden validation/fact lint/duplicate checks, **35 Analog / 33 Digital** validation, **16 Analog / 17 Digital unit tests**, the **285-page build** and **3,112 internal-anchor checks**. Both catalog unit commands were also run directly.
 - `npm run test:smoke`: **71/71 Chromium production-preview tests passed**. Coverage explicitly checks domain navigation/titles, reviewed membership, shared role types, only the approved AI-built set, unchanged matrix axes/marks and activity order, ngspice without a GitHub strip, independent viewer state, native hashes, no-JS access and responsive geometry.
@@ -45,8 +66,8 @@ Browser automation remains Chromium-only. External simulation/benchmark results 
 
 ## Current structure and behavior
 
-- `src/content/analog-ai/*.md`: 35 independent English entries after the domain review. The original 27 entries are byte-identical to the starting main. The existing bounded `description` supplies each row's one use-case/capability paragraph. The shorter summary, complete source arrays and research remain stored but are not repeated in the UI. New entries were reviewed against author repositories, targeted implementation files and available primary publications. The activity snapshot and freshness evidence were refreshed without changing ordering or visualization.
-- `src/pages/analog-ai/index.astro` and `src/styles/analog-ai.css`: the semantic six-column workflow matrix appears first, immediately followed by its compact legend. `Project`, `Keywords`, `Activity`, `Type / Links` headers begin the index directly. No visible Landscape/Projects headings or shortcut. Rows use approximately 2.2/1.05/1.2/0.55 proportions: name and description, keywords, existing activity, then passive roles and primary-purpose links. Mobile stacks those four areas; only the matrix scrolls horizontally and its project column stays sticky.
+- `src/content/analog-ai/*.md`: 35 independent English entries, unchanged by this presentation pass. The existing bounded `description` supplies each row's one use-case/capability paragraph. The shorter summary, complete source arrays and research remain stored but are not repeated in the UI. Reviewed source and freshness evidence remain pinned; no activity refresh or reclassification occurred.
+- `src/pages/analog-ai/index.astro` and `src/styles/analog-ai.css`: the semantic six-column workflow matrix appears first, immediately followed by its compact legend. `Project`, `Keywords`, `Activity` headers begin the index directly. No visible Landscape/Projects headings or shortcut. Rows use approximately 2.5/1.15/1.2 proportions: title/primary links and description, role/AI/keyword tags, then the compact activity band. Mobile stacks those three areas; only the matrix scrolls horizontally and its project column stays sticky.
 - `src/lib/analog-ai/catalog.ts`: unchanged immutable sort uses GitHub `lastCommitAt` or no-repository `lastPublicUpdateAt`, descending. Ties use NFKC-normalized lower-case name then slug; missing dates sort last. The obsolete catalog `browser.ts` is removed: native links/history now reach always-visible content without client code.
 - Search, filters, q/type state, IME handling, resets and custom history are removed. Old query strings have no effect. No browser storage, runtime fetch, database, or dependency was added.
 - There are no disclosures, separate description panels or Primary sources bibliography in the DOM. Website/Paper/Code/Results links stay directly visible, with original source IDs. Old Markdown heading, bibliography and non-primary source IDs survive as empty aliases beside the project description. All descriptions and native anchors work without JavaScript, including direct navigation and reload. Project rows use `tabindex="-1"` to receive native fragment-navigation focus without adding Tab stops.

@@ -28,9 +28,14 @@ export function monthLabel(month: string): string {
     .format(new Date(`${month}-01T00:00:00Z`));
 }
 
+export function shortMonth(month: string): string {
+  return new Intl.DateTimeFormat('en', { month: 'short', timeZone: 'UTC' })
+    .format(new Date(`${month}-01T00:00:00Z`));
+}
+
 export function shortDate(date: string, snapshotDate: string): string {
   return new Intl.DateTimeFormat('en', {
-    month: 'short', day: '2-digit', timeZone: 'UTC',
+    month: 'short', day: 'numeric', timeZone: 'UTC',
     ...(date.slice(0, 4) !== snapshotDate.slice(0, 4) ? { year: 'numeric' as const } : {}),
   }).format(new Date(`${date}T00:00:00Z`));
 }

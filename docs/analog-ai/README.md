@@ -12,9 +12,10 @@ Understand the analog/RF/AMS landscape quickly, notice useful patterns, and open
 
 - Start directly with the workflow matrix and put its compact legend immediately below. Keep an accessible, visually hidden `Analog / AMS` heading; navigation provides visible page context. Do not show Landscape/Projects headings or a Projects shortcut.
 - No introductory prose, project total, additions, review dates, snapshot metadata, or methodology paragraphs in the dashboard.
+- Use CSS-drawn filled/open circles for `● core` / `○ supporting`, with accessible scope labels.
 - An accessible HTML landscape matrix: Reasoning, Generate / Edit, Simulate / Measure, Optimize, EDA Integration, Physical.
 - Order both Landscape and Projects by latest public activity, newest first: repository `lastCommitAt`, otherwise `lastPublicUpdateAt`; ties use normalized name then slug. Undated projects follow dated projects.
-- The project column headers begin a compact index: project/one concise capability description, 3–5 keywords, activity with a prominent latest date, and a narrow Type / Links column for authored roles and primary links. Give the description the most width, with readable text and no large cards.
+- The three column headers are Project, Keywords, Activity. Give the project description the most width; place wrapping Website/Paper/Code/Results links beside its title. Keywords visually combine authored role tags, optional AI-built, then 3–5 technical keywords. Activity has a prominent date and a compact binary twelve-month band. Keep readable text and no large cards.
 - Render the existing `description` once below the name. Do not also show the shorter summary, roles below the name, disclosures, a separate description panel, or the reviewed-source bibliography. Keep Website, Paper, Code and Results links directly accessible.
 - Stable project and descendant/source anchors. No search, filters, query state, history management, storage, or runtime fetching.
 
@@ -24,7 +25,7 @@ Matrix marks describe reviewed scope, never maturity, autonomy, quality, or veri
 
 Primary navigation is `Timeline | Events | Articles | Analog | Digital`. This route has browser title `Analog / AMS · AMS Signals` and hidden H1 `Analog / AMS`; `/eda-tools/` is the Digital / RTL companion. URLs and collection directories stay unchanged.
 
-The matrix describes scope; one or two authored roles describe project kind: Agent, Benchmark, EDA Tool, Dataset & Environment. Join combined roles with ` + ` in authored order. An optional `aiBuilt: true` adds ` · AI-built` only when software-development provenance directly supports it. It is currently approved only for Ngspice + OpenVAF Enhancements. AI research alone does not establish AI-built provenance. Do not introduce an Analog three-way AI classification or display AI-enabled/Traditional labels.
+The matrix describes scope; one or two authored roles describe project kind: Agent, Benchmark, EDA Tool, Dataset & Environment. Render roles as individual tags in authored order before technical keywords. An optional `aiBuilt: true` adds an `AI-built` tag after roles only when software-development provenance directly supports it. Roles, provenance and technical keywords remain separate in the data. It is currently approved only for Ngspice + OpenVAF Enhancements. AI research alone does not establish AI-built provenance. Do not introduce an Analog three-way AI classification or display AI-enabled/Traditional labels.
 
 ## Product boundary
 

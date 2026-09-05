@@ -1,6 +1,27 @@
 # Digital / RTL implementation notes
 
-## Domain organization review (2026-09-05)
+## Three-column presentation refinement (2026-09-05)
+
+Starting at `7d86cd0c864747d7971d3d7337c6faa2b0be0794`, both catalogs keep their reviewed content, classifications, activity snapshot, eligibility and native URLs. The change is presentation only:
+
+- Project / Keywords / Activity use approximately `2.5fr / 1.15fr / 1.2fr`; page width and base text sizes stay unchanged. Primary Website/Paper/Code/Results links wrap beside the title. There is no separate Type / Links area.
+- Authored roles appear as individual tags before approved AI-built and technical keywords. The metadata fields and approved provenance set remain separate and unchanged.
+- Both matrices use small filled/open CSS circles for core/supporting. Textual scope meanings and tooltips remain; the compact legend directly below is `● core   ○ supporting`.
+- GitHub Activity uses a prominent date and `N/12 mo` above twelve equal binary cells. Positive counts share one fill; zero uses an outline. Raw counts are informational in titles/accessibility text, never visual strength. Repository identity stays accessible but is not visible in the Activity column. A snapshot-derived endpoint cue appears once in the desktop header. Source-backed updates have a date without a fake band or count.
+- Browser expectations check authored inventory, primary links, tag order, binary states, uniform cell geometry/fill, circle semantics, wrapping links, native hashes/history, no-JS access and viewer isolation. The new shared geometry/activity assertions are test-only; catalog schemas and activity modules remain independent.
+
+### Validation for the three-column refinement
+
+- `npm run check` passed: Golden checks, 35 Analog / 33 Digital validation, **17 Analog / 18 Digital unit tests**, **285 built pages** and **3,112 internal anchors**. Both unit commands also passed directly.
+- Full `npm run test:smoke`: **73/73 Chromium production-preview tests passed**. Existing hash/direct-load/reload/back/forward, no-JS, source links, activity ordering, viewer isolation and factual-export coverage remain. Two forced-color cases verify the new circle/band presentation; an active-cell border cascade issue found during self-review was fixed.
+- Visual inspection covered both pages at **1440, 390 and 320px**, including first/middle/last rows, xezim, HAVEN, Verilator, PANDA, AutoSizer, ngspice and Ngspice + OpenVAF Enhancements. Titles and primary links wrap without overlap, descriptions have more desktop width, tags stay restrained and the twelve cells remain legible. Only the matrix scrolls horizontally with sticky project names. ngspice has a plain sourced date and no band. Filled/open scope shapes also remain distinct in forced-color mode.
+- All **352 authored content/data files**, including both complete activity snapshots, are byte-identical to the starting commit. All **283 non-catalog HTML pages** are byte-identical. The **362 Analog / 69 Digital published IDs** and every primary URL are preserved; only duplicate commit-history links were removed from Activity.
+- `/export.json` is byte-identical: SHA-256 **`67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`**. `git diff --check` passed. No dependency, schema, membership, classification, eligibility, meaningful date, activity bucket or deployment configuration changed.
+- The requested grid proportions were retained. The optional month endpoint cue is shown only in desktop headers; activity bands are capped at 260px to remain compact. Browser automation remains Chromium-only. Delivery is a normal commit/push to `main`, with **no Pages deployment**.
+
+Prior review sections retain their historical research and validation context.
+
+## Previous domain organization review (2026-09-05)
 
 The public surface is now **Digital / RTL** at the unchanged `/eda-tools/` URL, paired with Analog / AMS at `/analog-ai/`. Internal directory/collection names and five matrix axes remain stable. Navigation is Timeline, Events, Articles, Analog, Digital. Both pages keep a hidden H1, matrix first, compact legend and four-column activity-sorted index.
 
@@ -12,7 +33,7 @@ Only the previously approved **xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT an
 
 The original source review below remains the evidence for retained classification and freshness. Historical counts and validation results are explicitly labeled. The current pass does not broaden membership or repeat the 34-project external research campaign.
 
-## Domain review validation record
+## Previous domain review validation record
 
 - `npm run check`: passed, including Golden validation/fact lint/duplicate checks, **35 Analog / 33 Digital** validation, **16 Analog / 17 Digital unit tests**, the **285-page build** and **3,112 internal-anchor checks**. Both catalog unit commands were also run directly.
 - `npm run test:smoke`: **71/71 Chromium production-preview tests passed**. Coverage explicitly checks domain navigation/titles, reviewed membership, shared role types, only the approved AI-built set, unchanged matrix axes/marks and activity order, ngspice without a GitHub strip, independent viewer state, native hashes, no-JS access and responsive geometry.
