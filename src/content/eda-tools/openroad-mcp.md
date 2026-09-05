@@ -1,6 +1,7 @@
 ---
 name: "OpenROAD-MCP"
 aliases: []
+roles: ["eda-tool"]
 primary: "flow-physical"
 ai: "ai-enabled"
 description: "Official MCP interface managing persistent OpenROAD sessions and ORFS runs, with design commands, reports, metrics and physical-flow checks for agents."

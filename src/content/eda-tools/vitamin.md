@@ -1,6 +1,7 @@
 ---
 name: "vitamin"
 aliases: []
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "ai-built"
 description: "Rust four-state RTL simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."

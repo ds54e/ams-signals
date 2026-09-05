@@ -24,7 +24,8 @@ const sourceUrl = z.string().url().refine((value) => {
 export const analogAiSchema = z.object({
   name: text,
   aliases: z.array(text).default([]),
-  roles: z.array(z.enum(roleIds)).min(1).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
+  roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
+  aiBuilt: z.literal(true).optional(),
   summary: text.max(240, 'Keep the default summary to one concise sentence'),
   description: text.max(600, 'Keep the project description to one short paragraph'),
   keywords: z.array(text.max(28)).min(3).max(5).refine(
@@ -102,11 +103,13 @@ const branch = text.refine((value) => !/^[./-]|[/.]$|\.\.|@\{|[\s~^:?*\[\\\x00-\
 const githubActivity = z.object({
   kind: z.literal('github'),
   repository: githubRepository,
+  repositoryId: z.number().int().positive().safe().optional(),
   defaultBranch: branch,
   headSha: z.string().regex(/^[a-f0-9]{40}$/),
   commits: z.array(z.number().int().nonnegative().safe()).length(12),
   lastCommitAt: date,
   lastMeaningfulCommitAt: date,
+  lastMeaningfulCommitSha: z.string().regex(/^[a-f0-9]{40}$/).optional(),
   notes: text.optional(),
 }).strict();
 const noRepositoryActivity = z.object({
@@ -137,7 +140,7 @@ export const activitySchema = z.object({
       }
       const latestMonth = activity.lastCommitAt.slice(0, 7);
       if (snapshot.months.some((month, index) => (month > latestMonth && activity.commits[index] > 0)
-        || (month === latestMonth && activity.commits[index] === 0))) {
+        || ([latestMonth, activity.lastMeaningfulCommitAt.slice(0, 7)].includes(month) && activity.commits[index] === 0))) {
         context.addIssue({ code: 'custom', path: ['projects', id], message: 'Commit buckets disagree with last commit date' });
       }
     } else if (Boolean(activity.lastPublicUpdateAt) !== Boolean(activity.lastPublicUpdateSource)) {
@@ -162,6 +165,10 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
       if (!code || new URL(code.url).hostname !== 'github.com'
         || new URL(code.url).pathname.replace(/^\/|\/$/g, '').toLowerCase() !== activity.repository.toLowerCase()) {
         throw new Error(`${project.id}: primary repository must match the verified Code source`);
+      }
+      if (activity.lastMeaningfulCommitSha && !data.sources.some((source) => source.url.toLowerCase()
+        === `https://github.com/${activity.repository}/commit/${activity.lastMeaningfulCommitSha}`.toLowerCase())) {
+        throw new Error(`${project.id}: meaningful commit requires its primary source`);
       }
     } else {
       if (data.sources.some((source) => source.purpose === 'code' && new URL(source.url).hostname === 'github.com')) {

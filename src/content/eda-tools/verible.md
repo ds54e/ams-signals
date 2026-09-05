@@ -1,6 +1,7 @@
 ---
 name: "Verible"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."

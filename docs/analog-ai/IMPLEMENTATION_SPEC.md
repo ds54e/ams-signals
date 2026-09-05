@@ -1,21 +1,23 @@
-# Analog AI landscape implementation spec
+# Analog / AMS landscape implementation spec
 
 Date: 2026-09-05
-Status: active-project curation and compact dashboard contract
+Status: domain catalog and compact dashboard contract
 
 ## 1. Scope and independence
 
 Build a compact technical landscape and project index at `/analog-ai/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Maintain an active, bounded population without a fixed project count; preserve the compact presentation when curating content.
 
-Apply a rolling twelve-month freshness rule at each snapshot review. For 2026-09-05 the inclusive cutoff is 2025-09-05. A GitHub project requires verified substantive default-branch activity on or after that date; an existing no-repository project requires a sourced public update. Remove stale entries from the active catalog. Cosmetic changes or automated statistics alone do not establish meaningful activity. This is curation, not a judgment on historical technical value, and is not explained in the browsing UI. New entries require real public implementation in a verified canonical GitHub repository; a promised code release is insufficient. Related agent/benchmark components share one entry unless they have distinct maintained implementations and lifecycles.
+Apply a rolling twelve-month freshness rule at each snapshot review. For 2026-09-05 the inclusive cutoff is 2025-09-05. A GitHub project requires verified substantive default-branch activity on or after that date; an existing no-repository project requires a sourced public update. Remove stale entries from the active catalog. Cosmetic changes or automated statistics alone do not establish meaningful activity. This is curation, not a judgment on historical technical value, and is not explained in the browsing UI. New entries require real public implementation in a verified canonical repository or upstream source distribution; a promised code release is insufficient. A canonical non-GitHub release may use the source-backed public-update mechanism without a synthetic GitHub strip. Related agent/benchmark components share one entry unless they have distinct maintained implementations and lifecycles.
 
-All public Analog AI UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
+All public Analog / AMS UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
 
 Use Astro static output, plain CSS, and small vanilla TypeScript. No new framework, chart library, backend, runtime external fetch, score/ranking, compare mode, or project subpages.
 
+Public navigation is `Analog`, browser title is `Analog / AMS · AMS Signals`, and metadata describes analog/RF/AMS tools, agents and benchmarks. The companion `Digital` page at `/eda-tools/` covers RTL/digital projects. Internal paths remain unchanged; domain chooses the page, matrix describes scope, roles describe kind, and AI-built optionally describes development provenance. The shared role-label helper is content-independent and never used for Golden classification.
+
 ## 2. Hierarchy and density
 
-1. An accessible visually hidden `Analog AI` heading; no visible title or introduction.
+1. An accessible visually hidden `Analog / AMS` heading; no visible title or introduction.
 2. The workflow matrix first, with a small `● core` / `◐ supporting` legend directly below; no visible Landscape heading or Projects shortcut.
 3. The project column-header row begins the index, in the same order as the matrix; no visible Projects heading.
 
@@ -44,17 +46,17 @@ On narrow screens the table may scroll horizontally inside a keyboard-accessible
 
 ## 4. Compact entries and links
 
-One list entry per project, with name and exactly one useful description directly below it. Render the existing `description`, not both description and summary. Do not display `Reviewed YYYY-MM-DD` or roles below the name. Roles remain `benchmark`, `agent`, `eda-tool`, `dataset-environment`, with labels Benchmark, Design Agent, EDA Tool, Dataset & Environment. Show them once in the rightmost Links column, alongside the primary links. Multi-role projects still appear once.
+One list entry per project, with name and exactly one useful description directly below it. Render the existing `description`, not both description and summary. Do not display `Reviewed YYYY-MM-DD` or roles below the name. Roles remain `benchmark`, `agent`, `eda-tool`, `dataset-environment`, with public labels Benchmark, Agent, EDA Tool, Dataset & Environment. Require one or two distinct authored roles and join their labels with ` + ` in authored order. Show them once in the rightmost Type / Links column, alongside the primary links. A narrow optional `aiBuilt: true` adds ` · AI-built`; no false/string/three-way AI value is accepted. Its initial approved entry is Ngspice + OpenVAF Enhancements, not the normal AI-oriented research population. Multi-role projects still appear once.
 
 Keep `keywords`: three to five short, nonempty, distinct freeform phrases (maximum five). They are navigation aids, not a permanent taxonomy. Do not repeat role labels as keywords unless a term is also useful as a domain keyword. Prefer useful boundaries such as Structural only, Partial release, or Paper-only over long default notices. Do not add PDK/simulator/circuit/maturity classification systems.
 
-Expose available Website, Paper, Code, Results links directly in the Links column, derived from the existing single source array (one link per purpose). Provide a stable project permalink. Do not render What it does, any disclosure or separate detail panel, or the full Primary sources bibliography.
+Expose available Website, Paper, Code, Results links directly in the Type / Links column, derived from the existing single source array (one link per purpose). Provide a stable project permalink. Do not render What it does, any disclosure or separate detail panel, or the full Primary sources bibliography.
 
 Keep the required plain-text `description` (at most 600 characters) focused on the main use case and useful operations. Keep summaries, complete source arrays, Markdown research, targets, access, notices, dates and activity notes in the authored data; update them when research warrants, without turning them into extra dashboard prose. Retain legacy Markdown heading IDs, bibliography IDs and non-primary source IDs as empty aliases at each retained project's description. Primary-purpose source IDs stay on the visible primary links. Namespace all aliases by project slug. Removing a stale entry also removes its catalog anchors; no historical project page is created.
 
 ## 5. URL and JavaScript
 
-Keep `/analog-ai/#project-slug` and published namespaced descendants such as `/analog-ai/#circuitrubric--source-method`. Native fragment navigation reaches the always-visible project or primary link on direct load, reload, hash navigation, and browser back/forward. Old detail/research-source bookmarks lead to the project description. Unknown/malformed hashes remain inert. Use native links/history and `sitePath` for the deployment base. Preserve the complete hash.
+Retained project hashes keep their IDs. Ngspice + OpenVAF Enhancements keeps its slug at `/analog-ai/#ngspice-openvaf-enhancements` after the authored record moves from Digital; no duplicate row or redirect is added at its previous location. Keep `/analog-ai/#project-slug` and published namespaced descendants such as `/analog-ai/#circuitrubric--source-method`. Native fragment navigation reaches the always-visible project or primary link on direct load, reload, hash navigation, and browser back/forward. Old detail/research-source bookmarks lead to the project description. Unknown/malformed hashes remain inert. Use native links/history and `sitePath` for the deployment base. Preserve the complete hash.
 
 Remove search, categories, reset, visible filtering counts/messages, query matching, q/type parsing/state, edit-session history, IME logic, and filter visibility/conflicts. Old query strings are inert; do not implement query migration or a new URL state machine. No localStorage. With no disclosure to open, the catalog needs no client JavaScript; remove the obsolete anchor-opening code.
 
@@ -64,9 +66,11 @@ Without JavaScript all projects, descriptions, matrix meanings, keywords, activi
 
 The compact column label is `Activity`; accessible labels identify public repository activity. No introductory explanation is shown. No stars, forks/watchers counts, issues/PR counts, scores, or quality ranking.
 
-Use exactly one verified primary public repository per project, explicitly recorded, and its current default branch. Never sum repositories or count non-landed PR refs. Without a verified repository show the sourced public date when known, labelled Paper or Update, without an invented activity strip.
+Use exactly one verified primary public repository per project, explicitly recorded, and its current default branch. Never sum repositories or count non-landed PR refs. Without a canonical GitHub repository show the sourced public date when known, labelled Paper or Update, without an invented activity strip.
 
-Separate volatile activity into `src/data/analog-ai-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability.
+The legacy activity kind `no-public-repo` means no verified canonical GitHub history for this visualization: it also accommodates a real SourceForge source repository. Never present this internal enum as a claim that ngspice lacks public code.
+
+Separate volatile activity into `src/data/analog-ai-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability. Optional `repositoryId` and `lastMeaningfulCommitSha` preserve stronger identity/provenance for transferred and newly reviewed records; all new GitHub baselines include both. A supplied meaningful SHA requires its exact commit URL in content sources and agreement with a nonempty month bucket. The refresh script checks a supplied numeric ID and confirms a supplied meaningful SHA/date in first-parent history, without advancing it automatically.
 
 For GitHub records also require `lastMeaningfulCommitAt`: the date of the most recent substantive commit verified during manual review, with the inspected commit recorded in `notes`. This conservative freshness evidence can precede `lastCommitAt` and must never follow it. Eligibility uses the meaningful date; ordering and the unchanged raw monthly strip use the actual latest committer date/history. The refresh helper preserves the reviewed meaningful date, never promotes a bot/cosmetic commit automatically, and refuses to replace the snapshot if eligibility has expired. The rolling cutoff is a calendar date one year before review (February 29 clamps to February 28), separate from the twelve displayed calendar months.
 
@@ -90,7 +94,7 @@ Keep original Golden validation/check stages. Validate stable unique slugs, role
 - consistency between snapshot window/counts/dates and source repository.
 - verified meaningful activity at or after the rolling cutoff, including sourced dates for no-repository entries; a recent raw commit cannot rescue stale meaningful activity.
 
-Refactor catalog unit/browser tests for the simpler product. Derive inventory from authored data; keep named anchor/behavior fixtures where useful. Cover inventory/order, English UI/content, one visible description, roles only in Links, keywords, matrix state markers, activity and no-repository state, primary-purpose links only, permalinks, descendant load/reload/history, valid unique IDs, keyboard use, no-JS readability, state isolation, and 1440/390/320 layouts without page overflow. Assert that redundant headings, shortcuts, disclosures and bibliography are absent. Remove obsolete disclosure/search/filter tests rather than preserving removed product behavior.
+Refactor catalog unit/browser tests for the simpler product. Derive inventory from authored data; keep named anchor/behavior fixtures where useful. Cover inventory/order, English UI/content, one visible description, roles only in Type / Links, keywords, matrix state markers, activity and no-repository state, primary-purpose links only, permalinks, descendant load/reload/history, valid unique IDs, keyboard use, no-JS readability, state isolation, and 1440/390/320 layouts without page overflow. Assert that redundant headings, shortcuts, disclosures and bibliography are absent. Remove obsolete disclosure/search/filter tests rather than preserving removed product behavior.
 
 Run `npm run check`, `npm run test:smoke`, `git diff --check`. Compare pre/post export bytes and existing factual/authored content. Visually inspect matrix, first/middle/last projects, activity/no-repository examples, project/source hashes and reload at desktop and narrow widths. Self-review density, duplicated text, discoverability, source access and non-ranking semantics; iterate if the index still feels like articles.
 

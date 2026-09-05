@@ -1,12 +1,36 @@
-# EDA Tools implementation notes
+# Digital / RTL implementation notes
 
-## Review outcome
+## Domain organization review (2026-09-05)
+
+The public surface is now **Digital / RTL** at the unchanged `/eda-tools/` URL, paired with Analog / AMS at `/analog-ai/`. Internal directory/collection names and five matrix axes remain stable. Navigation is Timeline, Events, Articles, Analog, Digital. Both pages keep a hidden H1, matrix first, compact legend and four-column activity-sorted index.
+
+There are **33 Digital entries**: the previous 34 minus **Ngspice + OpenVAF Enhancements**, transferred to Analog with its entire reviewed activity record. No other membership, descriptions, matrix marks, internal AI classifications or repository histories change. All remaining project hashes and quick links stay valid; the moved slug now belongs only to the Analog collection and page. No redirects are added.
+
+The new required `roles` field uses the shared catalog vocabulary, with one or two distinct authored roles. **Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov and CoreSmith** are `Agent`; every other retained Digital entry is `EDA Tool`. Roles replace the primary-category display in Type / Links. `primary` remains internal and must still be core in the matrix. Internal `ai-enabled` and `traditional` values remain validated but are not rendered.
+
+Only the previously approved **xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp** expose `AI-built`. The moved enhancement project keeps its approved provenance on Analog. MCP integration alone does not confer AI-built development provenance, and incidental agent co-authorship does not reclassify Traditional tools. A small shared role-label formatter is the only shared implementation; schemas, activity snapshots, curation and matrices stay catalog-specific and independent of Golden data.
+
+The original source review below remains the evidence for retained classification and freshness. Historical counts and validation results are explicitly labeled. The current pass does not broaden membership or repeat the 34-project external research campaign.
+
+## Domain review validation record
+
+- `npm run check`: passed, including Golden validation/fact lint/duplicate checks, **35 Analog / 33 Digital** validation, **16 Analog / 17 Digital unit tests**, the **285-page build** and **3,112 internal-anchor checks**. Both catalog unit commands were also run directly.
+- `npm run test:smoke`: **71/71 Chromium production-preview tests passed**. Coverage explicitly checks domain navigation/titles, reviewed membership, shared role types, only the approved AI-built set, unchanged matrix axes/marks and activity order, ngspice without a GitHub strip, independent viewer state, native hashes, no-JS access and responsive geometry.
+- Digital native history coverage waits for the browser's smooth scroll to settle before recording the restoration position. The exact back-position assertion remains; no production script or history behavior changed. The focused hash/direct-load/reload/back/forward case also passed **6/6 repeated runs**.
+- Visual inspection at **1440, 390 and 320px** covered both matrices, sticky names on narrow screens, first/middle/last rows, multi-role text, the moved entry, source links and ngspice's sourced public date. Existing four-column density remains; neither page introduces page-level horizontal overflow or additional visible prose/controls.
+- Regression comparison: all **27 existing Analog content files** are byte-identical; all **33 retained Digital content files** differ only by their authored role field. All **61 pre-existing activity records** are preserved, including the transferred record's identity, head, buckets and meaningful SHA/date; its source array is also unchanged. All six new GitHub baseline identities, branch tips, pinned source paths, twelve buckets and meaningful commits were cross-checked against the reviewed primary histories.
+- All **283 non-catalog HTML `<main>` bodies** are byte-identical to the starting build. Golden data, Article bodies, Timeline/Events behavior and deployment configuration are unchanged. `/export.json` is byte-identical, SHA-256 **`67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`**.
+- `git diff --check` passed. No dependency, catalog runtime request, redirect or deployment change was added. Delivery is a normal commit/push to `main`; **no Pages deployment in this pass**.
+
+Browser automation remains Chromium-only. External simulation/benchmark results were not independently reproduced; existing repository snapshots remain pinned rather than implicitly re-reviewed.
+
+## Original EDA Tools release review
 
 Reviewed on **2026-09-05** against the inclusive **2025-09-05** meaningful-activity cutoff. Of the bounded 35 candidates, **34 are included**: 33 canonical GitHub repositories and one source-backed GitLab project (Surfer). SANGAM is omitted under the conservative meaningful-activity rule. No watch-list projects were added.
 
 The review opened each canonical README/default branch, inspected implementation files and substantive first-parent changes, and pinned source references in each content file. AI-built decisions use direct author statements or sustained core co-authorship; AI-enabled decisions use implemented operating interfaces/agents. No external simulator, commercial EDA flow or benchmark result was independently reproduced.
 
-## Canonical repositories and activity
+## Current canonical repositories and activity
 
 Monthly buckets count first-parent commits reachable from each captured default-branch tip, by UTC committer date, from October 2025 through the partial September 2026 month. Related repositories, side-branch/PR commits, stars and issues are not summed. Numeric GitHub repository IDs detect identity replacement. The checked-in snapshot records capture time, head SHA and manually reviewed meaningful commit SHA/date. Source files retain the corresponding commit URL.
 
@@ -22,7 +46,6 @@ Monthly buckets count first-parent commits reachable from each captured default-
 | Icarus Verilog | [steveicarus/iverilog](https://github.com/steveicarus/iverilog) / `master` | 2026-09-04 | 2026-09-04 |
 | iverilog-uvm | [dsellerbrock/iverilog-uvm](https://github.com/dsellerbrock/iverilog-uvm) / `main` | 2026-09-05 | 2026-09-05 |
 | MCY | [YosysHQ/mcy](https://github.com/YosysHQ/mcy) / `main` | 2026-08-04 | 2025-10-15 |
-| Ngspice + OpenVAF Enhancements | [javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements](https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements) / `main` | 2026-09-05 | 2026-09-05 |
 | OpenADA | [simra-tech/OpenADA](https://github.com/simra-tech/OpenADA) / `main` | 2026-08-12 | 2026-08-12 |
 | OpenROAD | [The-OpenROAD-Project/OpenROAD](https://github.com/The-OpenROAD-Project/OpenROAD) / `master` | 2026-09-04 | 2026-09-04 |
 | OpenROAD-MCP | [The-OpenROAD-Project/OpenROAD-MCP](https://github.com/The-OpenROAD-Project/OpenROAD-MCP) / `main` | 2026-09-04 | 2026-08-24 |
@@ -50,7 +73,7 @@ Monthly buckets count first-parent commits reachable from each captured default-
 ## Combined entries and canonical corrections
 
 - **Surelog + UHDM** stays one entry. Activity uses `chipsalliance/Surelog`; `chipsalliance/UHDM` is a secondary source. The reviewed Surelog commit integrates an enum-folding correctness fix through its UHDM submodule, rather than counting UHDM history separately. The proposed GitHub Pages website returned 404 and is not exposed; Code remains the canonical link.
-- **Ngspice + OpenVAF Enhancements** stays one combined source tree. Both simulator and compiler changes justify core Simulation and Frontend/Synth. Its changes are not represented as already upstream in either independent project.
+- **Ngspice + OpenVAF Enhancements** stays one combined source tree, now in Analog. The original Digital Simulation/Frontend classification is replaced by Analog Simulate / Measure and EDA Integration marks. Its changes are not represented as already upstream in either independent project.
 - **RTLDebugDBKit + RTLTracer** stays one entry. The primary database generator documents its downstream tracer, and the tracer implements bit-window propagation over that schema. Only RTLDebugDBKit supplies activity.
 - **sv-elab** is the current name; `yosys-slang` is retained only as an internal alias. Current Yosys integration replaces an obsolete plugin-only characterization.
 - **iverilog-uvm** is Icarus-derived but its canonical GitHub repository reports `fork: false`; it has its own public verification implementation. Upstream Icarus remains a separate record.
@@ -64,7 +87,7 @@ Monthly buckets count first-parent commits reachable from each captured default-
 | xezim | Author README identifies AI agents as core implementation contributors; runtime changes corroborate this. |
 | vitamin | Repeated Claude co-authorship across core parser, elaboration and runtime changes, including the pinned September parser commits; not one isolated commit. |
 | iverilog-uvm | Author README credits Claude with the bulk of the verification-language/UVM extension under human review. |
-| Ngspice + OpenVAF Enhancements | Explicit Claude-assisted development description plus AI-coauthored Verilog-A compiler fixes. |
+| Ngspice + OpenVAF Enhancements (now Analog) | Explicit Claude-assisted development description plus AI-coauthored Verilog-A compiler fixes. |
 | uhdm2rtlil | README describes Claude implementation of C++ UHDM-to-RTLIL handlers, corroborated by translation fixes. |
 | WHAT | Author explicitly credits AI with the principal architecture/functions and implementation. This does not imply an AI runtime. |
 | vivado_mcp | Author states the tool was created through Claude conversations; session-manager source corroborates it. It also exposes runtime MCP tools, but only AI-built is shown publicly. |
@@ -122,7 +145,7 @@ The official site links to `gitlab.com/surfer-project/surfer`, whose public API 
 3. Review the JSON diff, especially default-branch changes and raw latest dates. Re-review Surfer directly on GitLab; its manual update is never automatically replaced with a mirror.
 4. Run `npm run check` and `npm run test:smoke`. Refresh is never part of those commands or a normal build.
 
-## Validation record
+## Original release validation record
 
 - `npm run check`: passed, including Golden validation/fact lint/duplicate review, 27-project Analog AI validation, all 13 unchanged Analog AI unit tests, 34-project EDA validation, all 16 EDA unit tests, the 285-page build and 3,098 internal-anchor checks.
 - `npm run test:smoke`: **70/70 Chromium tests passed**, including 10 new EDA cases and all existing Analog AI, Activity Matrix and release checks. Existing release assertions changed only to expect and verify the new navigation link.

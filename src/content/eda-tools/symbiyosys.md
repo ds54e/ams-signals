@@ -1,6 +1,7 @@
 ---
 name: "SymbiYosys"
 aliases: ["sby"]
+roles: ["eda-tool"]
 primary: "formal-verification"
 ai: "traditional"
 description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."

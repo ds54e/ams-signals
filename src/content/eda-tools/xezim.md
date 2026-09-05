@@ -1,6 +1,7 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "ai-built"
 description: "Rust SystemVerilog simulator combining four-state event-driven execution, native compilation, UVM features and DPI/VPI interfaces with public conformance tests."

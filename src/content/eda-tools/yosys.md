@@ -1,6 +1,7 @@
 ---
 name: "Yosys"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "RTL synthesis framework providing logic optimization, technology mapping and formal primitives for FPGA and ASIC flows."

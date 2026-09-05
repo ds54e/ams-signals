@@ -1,6 +1,7 @@
 ---
 name: "RTLDebugDBKit + RTLTracer"
 aliases: []
+roles: ["eda-tool"]
 primary: "debug-waveform"
 ai: "traditional"
 description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."

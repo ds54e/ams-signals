@@ -1,11 +1,6 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export const roleIds = ['benchmark', 'agent', 'eda-tool', 'dataset-environment'] as const;
-export type CatalogRole = typeof roleIds[number];
-export const roleLabels: Record<CatalogRole, string> = {
-  benchmark: 'Benchmark', agent: 'Design Agent', 'eda-tool': 'EDA Tool',
-  'dataset-environment': 'Dataset & Environment',
-};
+export { roleIds, roleLabels, projectType, type CatalogRole } from '../catalog-roles.ts';
 
 export const workflowIds = ['reasoning', 'generate-edit', 'simulate-measure', 'optimize', 'eda-integration', 'physical'] as const;
 export const workflowLabels: Record<typeof workflowIds[number], string> = {

@@ -1,6 +1,7 @@
 ---
 name: "Pono"
 aliases: []
+roles: ["eda-tool"]
 primary: "formal-verification"
 ai: "traditional"
 description: "Extensible SMT-based model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."

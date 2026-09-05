@@ -1,6 +1,7 @@
 ---
 name: "UCAgent"
 aliases: []
+roles: ["agent"]
 primary: "formal-verification"
 ai: "ai-enabled"
 description: "Agentic unit-level verification environment that analyzes DUTs, generates and runs tests, checks coverage and connects external code agents through MCP."

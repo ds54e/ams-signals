@@ -1,6 +1,7 @@
 ---
 name: "Sentinel DV"
 aliases: []
+roles: ["eda-tool"]
 primary: "debug-waveform"
 ai: "ai-enabled"
 description: "Read-only agent interface indexing UVM logs, assertions, coverage, regressions and waveform summaries for failure triage and verification analysis."

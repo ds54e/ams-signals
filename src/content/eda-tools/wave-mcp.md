@@ -1,6 +1,7 @@
 ---
 name: "wave-mcp"
 aliases: []
+roles: ["eda-tool"]
 primary: "debug-waveform"
 ai: "ai-enabled"
 description: "Agent-facing waveform and RTL query backend exposing FST values, hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured tools."

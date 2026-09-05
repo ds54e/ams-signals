@@ -1,6 +1,7 @@
 ---
 name: "eevee-rs"
 aliases: []
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "traditional"
 description: "Rust event-driven SystemVerilog simulator with four-state execution, class elaboration and early runs of the unmodified Accellera UVM library."

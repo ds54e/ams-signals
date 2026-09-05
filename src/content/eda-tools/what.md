@@ -1,6 +1,7 @@
 ---
 name: "WHAT"
 aliases: []
+roles: ["eda-tool"]
 primary: "debug-waveform"
 ai: "ai-built"
 description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis."

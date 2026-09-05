@@ -1,6 +1,7 @@
 ---
 name: "iverilog-uvm"
 aliases: []
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "ai-built"
 description: "Icarus-derived simulator extending SystemVerilog verification with UVM, constrained randomization, assertions, functional coverage and DPI-C."

@@ -1,6 +1,7 @@
 ---
 name: "Icarus Verilog"
 aliases: []
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "traditional"
 description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."

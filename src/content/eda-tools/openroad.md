@@ -1,6 +1,7 @@
 ---
 name: "OpenROAD"
 aliases: []
+roles: ["eda-tool"]
 primary: "flow-physical"
 ai: "traditional"
 description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."

@@ -1,6 +1,7 @@
 ---
 name: "Surfer"
 aliases: []
+roles: ["eda-tool"]
 primary: "debug-waveform"
 ai: "traditional"
 description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."

@@ -257,30 +257,6 @@
       "lastMeaningfulCommitAt": "2025-10-15",
       "lastMeaningfulCommitSha": "8b23eba5f22d86dd6466afe33900b1255afd7678"
     },
-    "ngspice-openvaf-enhancements": {
-      "kind": "github",
-      "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
-      "repositoryId": 1281323943,
-      "defaultBranch": "main",
-      "headSha": "05fa8a439e7b84a26f45320dceb8dea2391ae2a1",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        73,
-        1007,
-        354,
-        101
-      ],
-      "lastCommitAt": "2026-09-05",
-      "lastMeaningfulCommitAt": "2026-09-05",
-      "lastMeaningfulCommitSha": "2fbf9870a30a84a524dc55aeadafb3613c11e305"
-    },
     "openada": {
       "kind": "github",
       "repository": "simra-tech/OpenADA",

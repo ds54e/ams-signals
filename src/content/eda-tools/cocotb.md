@@ -1,6 +1,7 @@
 ---
 name: "cocotb"
 aliases: []
+roles: ["eda-tool"]
 primary: "formal-verification"
 ai: "traditional"
 description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
