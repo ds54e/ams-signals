@@ -3,13 +3,8 @@ name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 roles: ["eda-tool"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
-description: "Discovers and controls multiple Virtuoso sessions through a registry with dynamic ports. Its JSON-oriented Rust CLI edits schematics, executes SKILL, configures Maestro, launches Spectre jobs, reads PSF results, and supports concurrent broadcast across local sessions."
-keywords: ["Rust CLI", "Multi-session", "Cadence", "Spectre", "JSON"]
-workflow:
-  generate-edit: core
-  simulate-measure: core
-  eda-integration: core
-  physical: supporting
+description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers through structured agent commands."
+flow: {"design":"core","simulation":"core","layout":"supporting"}
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
@@ -47,6 +42,6 @@ Admin-enabled SKILL broadcast opens one connection per live local session using 
 
 The exposed EDA infrastructure does not itself demonstrate autonomous analog design, optimization quality, or specification closure. Those require a separate workflow and circuit-specific evaluation.
 
-### Landscape scope
+### Flow scope
 
-Schematic edits, simulation/results, and EDA session control are reviewed implementation scope; no built-in optimization workflow is claimed. Physical is supporting: Rust helpers generate SKILL for layout geometry and stream-out, rather than demonstrating automatic physical design or signoff. [Interfaces](#source-review) · [Layout helpers](#source-layout)
+Exposed schematic editing and Maestro/Spectre/PSF operations justify central design and simulation scope. SKILL geometry and stream-out helpers support layout without establishing autonomous placement or signoff. [Reviewed source](#source-review).

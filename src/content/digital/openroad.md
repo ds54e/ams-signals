@@ -2,12 +2,9 @@
 name: "OpenROAD"
 aliases: []
 roles: ["eda-tool"]
-primary: "flow-physical"
 ai: "traditional"
 description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."
-keywords: ["RTL-to-GDS", "P&R", "timing", "routing"]
-areas:
-  flow-physical: core
+flow: {"layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Physical implementation is the central scope. Flow controllers and synthesis tools are separate consumers or dependencies. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -44,3 +38,7 @@ Tracked as conventional physical-design infrastructure. Deterministic automation
 The OpenROAD engine is distinct from OpenROAD-flow-scripts and OpenROAD-MCP. No AI capability from those consumers is attributed to the engine. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Floorplanning, placement, clock trees, routing and backend timing/extraction define this physical implementation entry. Separate RTL-to-GDS flow orchestration is not attributed to the engine merely from its surrounding toolchain. [Reviewed source](#source-readme).

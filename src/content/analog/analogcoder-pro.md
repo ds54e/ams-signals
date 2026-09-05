@@ -3,13 +3,8 @@ name: "AnalogCoder-Pro"
 aliases: ["AnalogCoderPro"]
 roles: ["benchmark","agent"]
 summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair, and device-sizing research."
-description: "Turns a circuit request and port definitions into a candidate design, then uses specifications and waveform images to diagnose and repair it. Public tasks, sample circuits, and checking programs support experiments across amplifiers, mixers, comparators, oscillators, and filters."
-keywords: ["Netlist generation", "Waveform diagnosis", "ngspice", "Partial release"]
-workflow:
-  reasoning: supporting
-  generate-edit: core
-  simulate-measure: core
-  optimize: supporting
+description: "Generates analog netlists from circuit requests, then uses ngspice results and waveform images to diagnose and repair candidates with multimodal LLMs."
+flow: {"design":"core","simulation":"core"}
 targets: "Amplifiers, mixers, comparators, oscillators, filters, and related circuits"
 access: "Task tables, sample circuits, testbenches, LLM run scripts, and waveform examples are public. Requires Python, ngspice, PySpice, and a separately configured model endpoint."
 notice: "The reviewed checklist still leaves Bayesian optimization updates and some ablation prompts unfinished. The complete optimization workflow described by the research should not be assumed reproducible from the public code."
@@ -41,6 +36,6 @@ Run scripts and waveform examples are available, while the checklist retains unf
 
 This entry does not reuse results from the preceding AnalogCoder project as Pro results. Any numerical comparison needs the matching model, trial budget, checks, and implementation revision.
 
-### Landscape scope
+### Flow scope
 
-Generation and simulation-backed repair are core workflow scope; diagnosis supports that loop. Optimize is supporting because the research describes sizing but the public BO update remains unfinished. No layout scope is established. [Reviewed workflow and checklist](#source-review)
+Netlist generation and simulation-backed diagnosis/repair are central. The unfinished Bayesian-optimization update does not add a separate stage or imply a complete sizing implementation. [Reviewed source](#source-review).

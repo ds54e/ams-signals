@@ -2,14 +2,9 @@
 name: "vitamin"
 aliases: []
 roles: ["eda-tool"]
-primary: "simulation"
 ai: "ai-built"
-description: "Rust four-state RTL simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."
-keywords: ["SystemVerilog", "4-state", "Rust", "differential testing"]
-areas:
-  simulation: core
-  frontend-synthesis: supporting
-  formal-verification: supporting
+description: "Rust four-state SystemVerilog simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +27,6 @@ sources:
     url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/02f507d0dac686055c32c64be0e28ff7f0c68306"
 ---
 
-### Scope
-
-The compiled native backend is the default; interpreter and VM paths are also available as internal oracles. Compiler stages and differential verification support the simulation scope. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +37,7 @@ Sustained Claude co-authorship appears on core parser, constant-folding, elabora
 Public conformance tests establish their tested subset; they do not establish unrestricted SystemVerilog support or universal speedups. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Four-state RTL execution and differential conformance testing serve simulation/verification. Internal parser, elaborator and native compiler stages receive no independent Design mark. [Reviewed source](#source-readme).

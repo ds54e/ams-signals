@@ -2,14 +2,9 @@
 name: "Verilator"
 aliases: []
 roles: ["eda-tool"]
-primary: "simulation"
 ai: "traditional"
 description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models with assertion, coverage and waveform support."
-keywords: ["SystemVerilog", "compiled simulation", "lint", "coverage"]
-areas:
-  simulation: core
-  frontend-synthesis: supporting
-  formal-verification: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Simulation is the core product; language analysis and assertion/coverage instrumentation support it. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -46,3 +38,7 @@ Tracked as the established compiled simulator. Incidental coding-agent contribut
 Performance and compatibility vary by design and enabled features; project benchmark reports are not independent catalog measurements. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Compiled simulation, assertions, coverage, lint and waveform output serve verification. C++/SystemC compilation is simulator implementation, not logic synthesis or DUT generation. [Reviewed source](#source-readme).

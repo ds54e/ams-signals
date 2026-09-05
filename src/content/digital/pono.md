@@ -2,12 +2,9 @@
 name: "Pono"
 aliases: []
 roles: ["eda-tool"]
-primary: "formal-verification"
 ai: "traditional"
 description: "Extensible SMT-based model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
-keywords: ["model checking", "SMT", "IC3/PDR", "liveness"]
-areas:
-  formal-verification: core
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -35,9 +32,6 @@ sources:
     purpose: "results"
 ---
 
-### Scope
-
-Transition-system checking, safety engines and liveness reductions are implemented in the public C++ code. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -48,3 +42,7 @@ Pono remains Traditional. Recent individual AI co-authored changes do not establ
 The reviewed build pinning fixes deterministic dependency resolution; this is manually assessed technical maintenance, not automated version churn. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+SMT-based model checking, safety/liveness algorithms and counterexamples are verification. Input-model preparation is not a separate RTL design capability. [Reviewed source](#source-readme).

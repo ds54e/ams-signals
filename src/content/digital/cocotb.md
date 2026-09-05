@@ -2,13 +2,9 @@
 name: "cocotb"
 aliases: []
 roles: ["eda-tool"]
-primary: "formal-verification"
 ai: "traditional"
 description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
-keywords: ["Python", "testbench", "simulator integration", "coroutine"]
-areas:
-  formal-verification: core
-  simulation: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Testbench execution and simulator callbacks are central. Simulation is supporting integration with external HDL engines. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Tracked as conventional verification infrastructure, independent of whether an A
 cocotb integrates simulators; it does not replace their HDL execution engines. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Python testbenches drive and observe existing HDL simulators. Test generation and simulator bindings are verification operations, not RTL design generation or synthesis. [Reviewed source](#source-readme).

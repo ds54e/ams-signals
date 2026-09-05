@@ -3,9 +3,8 @@ name: "AutoSizer"
 aliases: ["AMS-SizingBench"]
 roles: ["agent","benchmark"]
 summary: "LLM-guided sizing strategies with AMS-SizingBench."
-description: "Uses an LLM to choose sizing variables, search ranges and optimization strategies, then iterates on simulation feedback across the 24 circuit configurations in AMS-SizingBench."
-keywords: ["Search-space design","Algorithm selection","ngspice","AMS-SizingBench"]
-workflow: {"reasoning":"core","generate-edit":"supporting","simulate-measure":"core","optimize":"core"}
+description: "Uses an LLM to choose sizing variables, ranges and optimization strategies, then runs ngspice-backed search across the AMS-SizingBench circuit configurations."
+flow: {"design":"core","simulation":"core"}
 access: "Python, LLM access, SKY130 and ngspice; optional layout/PEX paths require separately supplied tool adapters."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,4 +37,8 @@ AutoSizer and AMS-SizingBench share one release and are cataloged together. The 
 
 ### Release boundary
 
-The public batch entry uses pre-layout optimization. Optional ALIGN/PEX calls do not establish a complete released physical flow: the Magic example imports `app.tool.magic_pex`, absent from the captured tree. Physical and EDA-session integration remain blank. Generation/editing is supporting for parameter changes; reasoning, simulation-backed sizing and optimization are central scope. Benchmark results in the paper are reported, not reproduced here. [Iteration implementation](#source-iterative-ota-optimization-test-py) · [PEX contract](#source-test-magic-pex-py)
+The public batch entry uses pre-layout optimization. Optional ALIGN/PEX calls do not establish a complete released physical flow: the Magic example imports `app.tool.magic_pex`, absent from the captured tree. Layout is omitted. Sizing decisions and simulation-backed search are central Design and Simulation operations. Benchmark results in the paper are reported, not reproduced here. [Iteration implementation](#source-iterative-ota-optimization-test-py) · [PEX contract](#source-test-magic-pex-py)
+
+### Flow scope
+
+The outer LLM chooses sizing variables, ranges and search strategies; the inner optimizer repeatedly evaluates circuits with ngspice. Both stages are central. Optional PEX hooks do not establish a released layout flow. [Reviewed source](#source-llm-guided-ota-optimization-test-py).

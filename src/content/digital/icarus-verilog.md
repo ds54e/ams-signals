@@ -2,13 +2,9 @@
 name: "Icarus Verilog"
 aliases: []
 roles: ["eda-tool"]
-primary: "simulation"
 ai: "traditional"
 description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."
-keywords: ["Verilog", "SystemVerilog", "event simulation", "VPI"]
-areas:
-  simulation: core
-  frontend-synthesis: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-The compiler elaborates designs into the VVP runtime representation; VPI provides simulation integration. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Tracked as the established Icarus project. Its identity and activity are separat
 SystemVerilog support remains a subset; the source does not support describing upstream Icarus as the full UVM extension. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Verilog/SystemVerilog simulation through the compiler and VVP runtime is the reviewed public use. Internal compilation and elaboration do not independently establish a circuit-design or logic-synthesis flow. [Reviewed source](#source-readme).

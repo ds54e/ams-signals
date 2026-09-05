@@ -1,7 +1,7 @@
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
-import { aiIds, areaIds } from './catalog.ts';
+import { aiIds } from './catalog.ts';
 import { roleIds } from '../catalog-roles.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
 
@@ -27,17 +27,11 @@ export const digitalSchema = z.object({
   name: publicText,
   aliases: z.array(text).default([]),
   roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
-  primary: z.enum(areaIds),
   ai: z.enum(aiIds),
   description: publicText.max(600, 'Keep one concise project description'),
-  keywords: z.array(publicText.max(28)).min(3).max(5).refine(
-    (values) => new Set(values.map((value) => value.normalize('NFKC').toLowerCase())).size === values.length,
-    'Duplicate keyword',
-  ),
-  areas: z.object({
-    simulation: scope, 'frontend-synthesis': scope, 'formal-verification': scope,
-    'debug-waveform': scope, 'flow-physical': scope,
-  }).strict(),
+  flow: z.object({
+    design: scope, synthesis: scope, verification: scope, layout: scope,
+  }).strict().refine((flow) => Object.values(flow).some(Boolean), 'At least one reviewed Flow stage is required'),
   access: text,
   addedAt: date,
   reviewedAt: date,
@@ -46,9 +40,6 @@ export const digitalSchema = z.object({
     purpose: z.enum(['official', 'paper', 'code', 'results']).optional(),
   }).strict()).min(1),
 }).strict().superRefine((project, context) => {
-  if (!Object.values(project.areas).includes('core') || project.areas[project.primary] !== 'core') {
-    context.addIssue({ code: 'custom', path: ['areas'], message: 'Primary category must be core' });
-  }
   if (project.addedAt > project.reviewedAt) context.addIssue({ code: 'custom', path: ['reviewedAt'], message: 'Review cannot precede addition' });
   for (const field of ['id', 'purpose'] as const) {
     const seen = new Set<string>();

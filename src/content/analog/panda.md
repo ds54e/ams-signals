@@ -3,8 +3,7 @@ name: "PANDA"
 roles: ["agent"]
 summary: "A staged design-intent-to-layout analog flow."
 description: "Turns design intent into topology and sizing artifacts, then coordinates Virtuoso/Spectre execution, placement, routing and post-layout feedback through a staged analog design flow."
-keywords: ["Intent to layout","Virtuoso","Spectre","Placement / routing","PEX"]
-workflow: {"reasoning":"core","generate-edit":"core","simulate-measure":"core","optimize":"supporting","eda-integration":"core","physical":"core"}
+flow: {"design":"core","simulation":"core","layout":"core"}
 access: "Configured Cadence/Virtuoso/Spectre host, PDK/PCells and placement/routing/verification backends; public code uses a noncommercial license."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -42,3 +41,7 @@ The author-linked repository implements stage contracts, constrained topology ge
 ### Reported results
 
 The authors document a StrongARM comparator and a three-stage OTA. The OTA post-PEX measurements use a layout-matched netlist; exact LVS against the original topology still has a PCell property-expression mismatch. A zero wrapper exit code alone does not establish clean DRC. These are source-reported runs, not catalog reproductions. The public release is source-available under a noncommercial license. [Run report](#source-docs-panda-real-chain-repro-md) · [Simulator backend](#source-sizing-spectre-backend-py)
+
+### Flow scope
+
+Topology construction, simulator-backed sizing, placement/routing and post-layout checks are explicit workflow deliverables. Their inclusion describes scope, not independently reproduced signoff or automatic success on every example. [Reviewed source](#source-analogxpert-topology-templates-py).

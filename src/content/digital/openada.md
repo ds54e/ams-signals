@@ -2,15 +2,9 @@
 name: "OpenADA"
 aliases: []
 roles: ["eda-tool"]
-primary: "flow-physical"
 ai: "ai-enabled"
 description: "Local agent-to-EDA interface running circuit simulation, measurement, synthesis and DRC/LVS operations through tool drivers that return structured evidence."
-keywords: ["agent-EDA contract", "SPICE", "DRC/LVS", "provenance", "orchestration"]
-areas:
-  flow-physical: core
-  simulation: core
-  frontend-synthesis: supporting
-  formal-verification: supporting
+flow: {"synthesis":"supporting","verification":"core","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -30,9 +24,6 @@ sources:
     url: "https://github.com/simra-tech/OpenADA/commit/3bd838c0f1db15e6d38c26d43ece68402e841005"
 ---
 
-### Scope
-
-Cross-tool operation contracts and physical checks are core flow scope. Native ngspice/Xyce execution, series extraction and measurement now also justify core Simulation; synthesis and verification drivers support the wider contract. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -43,3 +34,7 @@ Agent skills consume implemented local CLI operations and structured results. Th
 Experimental oscillator/testbench profiles are bounded. The reverted knowledge-graph spike and planned remote/MCP adapters are not counted as implemented scope. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Explicit drivers expose RTL checks/tests and layout DRC/LVS with retained evidence. Mapped Yosys synthesis is a supporting operation in the broader tool contract; synthesis-stage timing is not physical closure. No RTL editing is inferred from netlisting or tool integration. [Reviewed source](#source-readme).

@@ -1,76 +1,46 @@
-# Analog landscape implementation spec
+# Analog implementation contract
 
-Date: 2026-09-05
-Status: domain catalog and compact dashboard contract
+## Isolation and data
 
-## 1. Scope and independence
+Use the `analog` Astro collection in `src/content/analog/`, its own schema/catalog/activity modules in `src/lib/analog/`, page in `src/pages/analog/` and stylesheet in `src/styles/analog.css`. Activity stays in `src/data/analog-activity.json`. Catalogs share only small content-independent helpers and the site shell; never couple them to factual/editorial records or export.
 
-Build a compact technical landscape and project index at `/analog/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Maintain an active, bounded population without a fixed project count; preserve the compact presentation when curating content.
+Public route `/analog/`, hidden H1 `Analog`, title `Analog · AMS Signals`. Use technical domain metadata, unchanged noindex/nofollow, and **Timeline | Events | Analog | Digital | Articles** navigation with correct base-path URLs and `aria-current`. There is no client catalog state or fetching.
 
-Apply a rolling twelve-month freshness rule at each snapshot review. For 2026-09-05 the inclusive cutoff is 2025-09-05. A project with reviewed repository history requires verified substantive default-branch activity on or after that date; an existing no-repository project requires a sourced public update. Remove stale entries from the active catalog. Cosmetic changes or automated statistics alone do not establish meaningful activity. This is curation, not a judgment on historical technical value, and is not explained in the browsing UI. New entries require real public implementation in a verified canonical repository or upstream source distribution; a promised code release is insufficient. A canonical non-GitHub release may use the source-backed public-update mechanism without fabricated repository counts. Related agent/benchmark components share one entry unless they have distinct maintained implementations and lifecycles.
+Strict schema: `name`, optional `aliases`, one or two distinct `roles`, optional literal `aiBuilt: true`, internal `summary` (240 characters), one public `description` (600 characters), required `flow`, optional `targets`/`notice`, `access`, valid `addedAt`/`reviewedAt`, and `sources`. The existing bounded catalog-update records stay internal.
 
-All public Analog UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
+Source IDs are unique stable slugs; URLs are public HTTP(S), non-placeholder and credential-free. At most one source per quick-link purpose (`official`, `paper`, `code`, `results`). Markdown stores durable implementation, classification and release notes with validated local `#source-ID` references; keep external URLs in frontmatter. Body prose is not rendered on the index. Unknown fields fail validation. Keep stable filenames/project IDs for content identity, not as a public fragment-navigation contract.
 
-Use Astro static output, plain CSS, and small vanilla TypeScript. No new framework, chart library, backend, runtime external fetch, score/ranking, compare mode, or project subpages.
+## Flow
 
-Public navigation is `Analog`, browser title is `Analog · AMS Signals`, and metadata describes analog/RF/AMS tools, agents and benchmarks. The companion `Digital` page at `/digital/` covers RTL/digital projects. The `analog` collection and `src/content/analog/`, `src/lib/analog/`, `src/pages/analog/`, `tests/analog/` and `docs/analog/` directories share the public domain name. Domain chooses the page, matrix describes scope, roles describe kind, and AI-built optionally describes development provenance. The shared role-label helper is content-independent and never used for Golden classification.
+The strict required `flow` object accepts only the following optional fields, ordered as listed; each value is `core` or `supporting`. At least one defined stage is required. An enabling tool may legitimately have only supporting scope; do not manufacture a core mark to satisfy validation.
 
-## 2. Hierarchy and density
+- `design` → Design: circuit understanding, topology selection/generation, schematic/netlist editing, transistor sizing, tuning, optimization and design-space exploration.
+- `simulation` → Simulation: SPICE/Verilog-A/behavioral execution, electrical evaluation/measurement, simulator feedback and relevant learned performance estimation.
+- `layout` → Layout: layout generation/editing, placement/routing, physical implementation and associated DRC/LVS/PEX or orchestration.
 
-1. An accessible visually hidden `Analog` heading; no visible title or introduction.
-2. The workflow matrix first, with a small `● core` / `○ supporting` legend directly below; no visible Landscape heading or Projects shortcut.
-3. The project column-header row begins the index, in the same order as the matrix; no visible Projects heading.
+Optimization belongs to Design. Tool integration is classified by its actual operations, not an additional stage. Schematic drawing is Design, not IC layout. A simulator is normally core Simulation; a model compiler that enables another simulator may have only supporting Simulation.
 
-Sort by latest public activity descending: reviewed repository-backed histories use `lastCommitAt`, otherwise use `lastPublicUpdateAt`. Use NFKC-normalized, lower-case, trimmed project name and then slug as deterministic ascending tie-breakers. Missing public dates sort last. Review dates and catalog addition dates never determine order.
+Core is a central user-facing capability/task/deliverable. Supporting is a secondary, optional, feedback, integration or enabling role. Re-review each project against its sources; do not derive scope from its name or dependencies. Plans get no marks. Missing stages are omitted and do not assert inability. Roles, AI provenance and Flow remain independent authored concepts.
 
-Do not repeat project names in a separate activity overview. Desktop rows have three information areas: Project, Keywords, Activity. Use `minmax(0, 2.8fr) minmax(0, 1.15fr) 108px`: Activity has a fixed compact width, returning the remaining space to Project and Keywords without widening the page. Aim for 4–6 entries in a normal desktop viewport when viewing the index. On mobile stack the same three areas naturally. Use readable text without oversized cards or excessive whitespace. Remove project counts, recent additions, review/snapshot metadata, A–Z labels, activity explanations, window/dot legends, methodology and reproduction paragraphs from the browsing surface. Keep maintenance documentation in the repository.
+## Index and accessibility
 
-## 3. Landscape
+Only **Project | Flow | Activity**. The column-header row is the first visible catalog content. Catalog max width is **1120px**, centered within the existing page shell; no global width change. Desktop columns are **`minmax(0, 1fr) 236px 108px`**, with **22px gaps**. At full width Project is **732px**. Below 900px stack the three areas in document order and hide the desktop header. No horizontal scrolling, oversized cards or extra prose.
 
-Use a semantic HTML table with project row headers and six column headers, in this order:
+Each row has an article with an accessible name, plain-text H2, compact authored role metadata followed by approved AI-built, then external links. Use a baseline-aligned wrapping flex title row, left aligned with **12px gaps**. Links remain Website, Paper, Code, Results, in that order and only when authored. No icons, self-links, fragment aliases or empty research-anchor elements. IDs required for article labelling remain. A single concise capability description appears below; retain essential technical identifiers naturally when condensing it.
 
-- `reasoning`: Reasoning — explicit model interpretation, analysis, diagnosis, or planning.
-- `generate-edit`: Generate / Edit — creating or changing circuit/netlist/schematic artifacts; parameter-only edits may be supporting scope.
-- `simulate-measure`: Simulate / Measure — simulation/extraction within the reviewed workflow, distinguishing agent tools from evaluator-only checks in research records.
-- `optimize`: Optimize — sizing or iterative specification closure, not relative-ratio structural grading.
-- `eda-integration`: EDA Integration — explicit EDA session/control/workflow interfaces, not merely using a simulator.
-- `physical`: Physical — implemented layout/geometry operations; not a fabricated-silicon or signoff claim.
+Flow is a labelled list of inline wrapping stages, not forced separate lines. Each item has the stage label, a same-size CSS circle (filled core, open supporting), a matching tooltip and accessible Core scope/Supporting scope text. Shape works in monochrome and forced colors. No standalone legend or overview.
 
-Each project has a strict `workflow` object whose optional keys are only these six fields. Values are only `core` or `supporting`. Missing means blank. Use equally sized CSS-drawn circles: filled for core reviewed scope and open/bordered for supporting scope. Blank cells have no circle. Preserve textual/ARIA meanings `Core scope`, `Supporting scope`, `No reviewed scope`, and matching tooltips; shape alone must work in monochrome and forced-color modes. Planned work receives no mark. Classifications require primary-source re-review, not name/summary inference. Document ambiguity and workflow/track boundaries in authored research and implementation notes.
+Sort by latest public activity descending: repository `lastCommitAt`, otherwise `lastPublicUpdateAt`; then NFKC-normalized lower-case trimmed name and slug ascending. Do not mutate authored input. Meaningful dates govern eligibility, not ordering. Month counts never rank projects.
 
-Visible legend: `● core   ○ supporting`. No additional scope explanation is needed in the UI.
+Without JavaScript, all rows, Flow, activity metadata and external links work in static HTML. There are no disclosures, storage, search, filtering, self-permalink handlers or compatibility scripts. Preserve all source URLs and the independent Timeline/Events viewer.
 
-The underlying semantics remain reviewed scope, not maturity or independently verified capability; blank is unspecified, not inability. No totals, scores, column progression, or implication that more marks is better.
-
-On narrow screens the table may scroll horizontally inside a keyboard-accessible, labelled region; keep its project-name column sticky where practical. Give each nonempty and blank cell an accessible meaning. Do not require color or hover to understand a state.
-
-## 4. Compact entries and links
-
-One list entry per project, with name and exactly one useful description directly below it. Render the existing `description`, not both description and summary. Do not display `Reviewed YYYY-MM-DD` or roles below the name. Roles remain `benchmark`, `agent`, `eda-tool`, `dataset-environment`, with public labels Benchmark, Agent, EDA Tool, Dataset & Environment. Require one or two distinct authored roles. Render each role as a tag in authored order at the start of Keywords. A narrow optional `aiBuilt: true` adds an `AI-built` tag after the roles; no false/string/three-way AI value is accepted. Its initial approved entry is Ngspice + OpenVAF Enhancements, not the normal AI-oriented research population. Multi-role projects still appear once. Role/provenance tags and technical keywords form one restrained visual group, with `data-tag-kind` distinguishing them. Keep their authored data fields separate; do not inject roles into the technical keyword array.
-
-Keep `keywords`: three to five short, nonempty, distinct freeform phrases (maximum five). They are navigation aids, not a permanent taxonomy. Do not repeat role labels as keywords unless a term is also useful as a domain keyword. Prefer useful boundaries such as Structural only, Partial release, or Paper-only over long default notices. Do not add PDK/simulator/circuit/maturity classification systems.
-
-Expose available Website, Paper, Code, Results links in that order beside the project title, derived from the existing single source array (one link per purpose). Use a wrapping flex title row: name followed immediately by left-aligned links with a 16px gap, no fixed-width link box, truncation or icons. On narrow screens links may wrap directly below the title, before the description. The project name remains the stable permalink, with no visible `#` or replacement icon; preserve its accessible permalink label. Do not render What it does, any disclosure or separate detail panel, or the full Primary sources bibliography.
-
-Keep the required plain-text `description` (at most 600 characters) focused on the main use case and useful operations. Keep summaries, complete source arrays, Markdown research, targets, access, notices, dates and activity notes in the authored data; update them when research warrants, without turning them into extra dashboard prose. Retain legacy Markdown heading IDs, bibliography IDs and non-primary source IDs as empty aliases at each retained project's description. Primary-purpose source IDs stay on the visible primary links. Namespace all aliases by project slug. Removing a stale entry also removes its catalog anchors; no historical project page is created.
-
-## 5. URL and JavaScript
-
-`/analog/` and `/digital/` are the only supported catalog routes. Do not generate removed routes, redirects, aliases or compatibility scripts. New builds contain `dist/analog/index.html` and `dist/digital/index.html`.
-
-Retained project hashes keep their IDs. Ngspice + OpenVAF Enhancements keeps its slug at `/analog/#ngspice-openvaf-enhancements` after the authored record moves from Digital; no duplicate row or redirect is added at its previous location. Keep `/analog/#project-slug` and published namespaced descendants such as `/analog/#circuitrubric--source-method`. Native fragment navigation reaches the always-visible project or primary link on direct load, reload, hash navigation, and browser back/forward. Old detail/research-source bookmarks lead to the project description. Unknown/malformed hashes remain inert. Use native links/history and `sitePath` for the deployment base. Preserve the complete hash.
-
-Remove search, categories, reset, visible filtering counts/messages, query matching, q/type parsing/state, edit-session history, IME logic, and filter visibility/conflicts. Old query strings are inert; do not implement query migration or a new URL state machine. No localStorage. With no disclosure to open, the catalog needs no client JavaScript; remove the obsolete anchor-opening code.
-
-Without JavaScript all projects, descriptions, matrix meanings, keywords, activity and primary links remain visible and understandable. All project and compatibility anchors are in static HTML; no interaction is needed to reveal their content.
-
-## 6. Reviewed public activity
+## Reviewed public activity
 
 The compact column label is `Activity`; accessible labels identify reviewed public activity and its provenance. No introductory explanation is shown. No stars, forks/watchers counts, issues/PR counts, scores, or quality ranking.
 
 Use exactly one verified primary public repository per project, explicitly recorded, and its current default branch. Never sum repositories or count non-landed PR refs. Without monthly repository history, derive the same twelve-cell band from the reviewed public event date. Only its calendar month is active when inside the window; do not store synthetic commit counts.
 
-The legacy activity kind `no-public-repo` means no reviewed monthly repository history for this visualization: it also accommodates a real SourceForge source repository. Never present this internal enum as a claim that ngspice lacks public code.
+The activity kind `no-public-repo` means no reviewed monthly repository history for this visualization: it also accommodates a real SourceForge source repository. Never present this internal enum as a claim that ngspice lacks public code.
 
 Separate volatile activity into `src/data/analog-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability. Optional `repositoryId` and `lastMeaningfulCommitSha` preserve stronger identity/provenance for transferred and newly reviewed records; all new GitHub baselines include both. A supplied meaningful SHA requires its exact commit URL in content sources and agreement with a nonempty month bucket. The refresh script checks a supplied numeric ID and confirms a supplied meaningful SHA/date in first-parent history, without advancing it automatically.
 
@@ -88,24 +58,12 @@ Method: inspect the first-parent history of the captured default-branch head and
 
 The existing manual helper refreshes GitHub history only and preserves manually reviewed non-GitHub records. Validation rejects a shifted month window until those histories are recaptured. It must validate a complete snapshot before replacing it, fail without damaging the checked-in data, and never run during check/build or in the browser. Normal builds require no repository-host access. A refresh must not silently add repositories or claim a paper-only project has code; that is a research decision.
 
-## 7. Validation and acceptance
+## Validation and delivery
 
-Keep original Golden validation/check stages. Validate stable unique slugs, roles, valid calendar dates and public source URLs, source identities, bounded updates, source anchors, no placeholders, and no Golden coupling. Add:
+`validate:analog` and `test:analog` run inside `npm run check`. Validate stable unique IDs, strict nonempty Flow and supported states, independent role/provenance fields, concise descriptions, source URLs/IDs/purposes, complete activity coverage, valid consecutive months/counts/dates, canonical identities and inclusive meaningful freshness. Keep all existing activity, Golden and companion-catalog checks.
 
-- keyword bounds, uniqueness and concise strings;
-- a nonempty concise capability description;
-- strict workflow keys and `core|supporting` values;
-- exactly one activity record per catalog project, no unknown IDs;
-- twelve valid consecutive ordered month buckets ending in the snapshot month;
-- nonnegative integer counts, explicit valid repository identifiers/default branches;
-- valid snapshot, capture, commit/public-update dates and pinned head;
-- consistency between snapshot window/counts/dates and source repository.
-- verified meaningful activity at or after the rolling cutoff, including sourced dates for no-repository entries; a recent raw commit cannot rescue stale meaningful activity.
+The manual `refresh:analog-activity` command is not a build/check/browser dependency. It verifies repository identity and first-parent history, preserves manually reviewed meaningful dates and non-GitHub records, validates the whole proposed snapshot, then replaces it atomically. Network/identity/history failure leaves checked-in data intact.
 
-Refactor catalog unit/browser tests for the simpler product. Derive inventory from authored data; keep named anchor/behavior fixtures where useful. Cover inventory/order, English UI/content, one visible description, three index columns, role/AI tags before unchanged technical keywords, CSS filled/open matrix circles and accessible meanings, exact binary activity cells for repository histories and point signals, primary-purpose links in the title row, permalinks, descendant load/reload/history, valid unique IDs, keyboard use, no-JS readability, state isolation, and 1440/390/320 layouts without page overflow. Assert that Type / Links, visible repository names, Latest, half-circle marks, redundant headings, shortcuts, disclosures and bibliography are absent. Verify uniform activity-cell strength independent of raw counts, oldest-to-newest cell order, date/band/summary placement, compact width, no header month cue, and wrapping links without overlap. Remove obsolete disclosure/search/filter tests rather than preserving removed product behavior.
+The production-preview Chromium suite derives inventory/source/Flow/activity expectations from authored data. It checks one row per project, ordering, plain-text titles, metadata before quick links, exact Flow labels and circle accessibility, all-row twelve-cell bands, real repository counts vs point-event provenance, keyboard/no-JS operation, no runtime requests/storage, navigation order and state isolation. Inspect first/middle/last and multi-link rows at **1440, 1280, 1024, 390 and 320px**, including forced colors and no page overflow. Preserve existing non-catalog behavior and the robots directive.
 
-Run `npm run check`, `npm run test:smoke`, `git diff --check`. Compare pre/post export bytes and existing factual/authored content. Visually inspect matrix, first/middle/last projects, activity/no-repository examples, project/source hashes and reload at desktop and narrow widths. Self-review density, duplicated text, discoverability, source access and non-ranking semantics; iterate if the index still feels like articles.
-
-## 8. Delivery
-
-The current refinement request authorizes working on latest `main`, scoped commits, and a normal fast-forward push after full checks and diff/visual self-review. Do not deploy in this pass, force-push, or change deployment configuration. The current `.github/workflows/pages.yml` remains manual-only. Stop for a substantial product conflict or an unresolved regression.
+Run `npm run check`, both catalog unit commands, `npm run test:smoke` and `git diff --check`. Compare source arrays, retained metadata, activity JSON, factual content, Article bodies and `/export.json` against the starting state. Review the full diff and rendered density. Commit/push to `main` with normal history after successful checks; **do not deploy or change deployment configuration**.

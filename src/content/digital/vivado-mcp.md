@@ -2,14 +2,9 @@
 name: "vivado_mcp"
 aliases: []
 roles: ["eda-tool"]
-primary: "flow-physical"
 ai: "ai-built"
 description: "MCP server keeping a persistent Vivado Tcl session and exposing FPGA project, synthesis, implementation, timing and XSim operations to agents."
-keywords: ["Vivado", "FPGA", "MCP", "XSim", "Tcl"]
-areas:
-  flow-physical: core
-  simulation: supporting
-  frontend-synthesis: supporting
+flow: {"synthesis":"core","verification":"supporting","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,9 +24,6 @@ sources:
     url: "https://github.com/coreyhahn/vivado_mcp/commit/bfe6ce2a9f97f3732ae7602ee40447b7e64902f7"
 ---
 
-### Scope
-
-Persistent Vivado sessions expose FPGA flow operations; synthesis and XSim are supporting stages within that interface. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -42,3 +34,7 @@ The author explicitly states the server was built through conversations with Cla
 Available Vivado commands are infrastructure, not demonstrated autonomous FPGA design closure. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Persistent Vivado commands directly expose synthesis and implementation; XSim is a supporting verification path. Raw Tcl access alone does not establish RTL design generation. [Reviewed source](#source-readme).

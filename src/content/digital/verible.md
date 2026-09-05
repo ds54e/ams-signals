@@ -2,12 +2,9 @@
 name: "Verible"
 aliases: []
 roles: ["eda-tool"]
-primary: "frontend-synthesis"
 ai: "traditional"
 description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."
-keywords: ["SystemVerilog", "lint", "formatter", "LSP"]
-areas:
-  frontend-synthesis: core
+flow: {"design":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Unpreprocessed source analysis, formatting and language services belong to the frontend axis. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -41,6 +35,10 @@ Tracked as a conventional developer-tool suite. AI is not a material runtime com
 
 ### Release boundary
 
-The combined Frontend/Synth category does not imply that Verible performs synthesis. [Public update](#source-activity).
+Source-formatting and lint utilities do not perform logic synthesis. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Formatting, language services and source transformation support HDL authoring. Style lint provides secondary checking; neither parsing nor linting implies logic synthesis. [Reviewed source](#source-readme).

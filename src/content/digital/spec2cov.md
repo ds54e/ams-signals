@@ -2,13 +2,9 @@
 name: "Spec2Cov"
 aliases: []
 roles: ["agent"]
-primary: "formal-verification"
 ai: "ai-enabled"
-description: "Specification-driven testbench generation loop feeding Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
-keywords: ["testbench generation", "coverage closure", "Verilator", "Questa"]
-areas:
-  formal-verification: core
-  simulation: supporting
+description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,9 +24,6 @@ sources:
     url: "https://github.com/advent-lab/Spec2Cov/commit/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb"
 ---
 
-### Scope
-
-Testbench generation, simulation and coverage feedback are implemented in the public workflow; the current main branch also integrates retrieval of design/specification context. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -41,3 +34,7 @@ LLMs produce and refine testbenches at runtime, making this AI-enabled. [Reviewe
 The README retains an older llm-verif clone example, but the verified canonical repository is advent-lab/Spec2Cov. Coverage closure is not formal proof. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Specification-driven testbench generation, simulator execution and coverage closure are verification tasks. Generated test stimulus is not an RTL design deliverable. [Reviewed source](#source-readme).

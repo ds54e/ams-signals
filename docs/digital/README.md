@@ -1,37 +1,37 @@
-# Digital
+# Digital catalog
 
-The independent `/digital/` catalog helps readers quickly identify RTL/digital tools and agents, their scope and recent public activity. It covers compilers, simulators, verification, formal, debug and implementation flows. Domain chooses the page; `/analog/` is the Analog companion. The canonical route is `/digital/`, backed by the `digital` collection and directories. Removed catalog routes have no redirects or aliases.
+Read `AGENTS.md`, `PROJECT_CONTEXT.md`, this file, [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) and [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) before changing this surface.
 
-Read [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) for the data/UI contract and [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) for source review, classification decisions, exclusions and validation.
+## Reader goal and page direction
 
-## Page direction
+At `/digital/`, quickly understand what a RTL/digital project does, where it fits in the design flow and whether it has recent public activity.
 
-English only. Start with a compact five-axis matrix, followed by dense three-column project rows: Project, Keywords, Activity. The widest column contains a title with left-aligned primary links immediately after it and one description below. Keywords combine role tags, optional AI-built and technical keywords in that order. Every Activity row shows a date, a binary twelve-month band and `N/12 months`. Use navigation label `Digital`, browser title `Digital · AMS Signals`, and visually hidden H1 `Digital`. Primary navigation is `Timeline | Events | Articles | Analog | Digital`. The only legend is `● core   ○ supporting`, drawn as matching filled/open CSS circles.
+The English-only page starts directly with one compact index: **Project | Flow | Activity**. Keep the visually hidden H1 `Digital`, browser title `Digital · AMS Signals`, and no visible title, introduction, counts, review dates or methodology. No overview block, standalone legend, search, filters, tabs, disclosures, rankings or project subpages.
 
-No visible page/section headings, introduction, counts, review dates, methodology, search, filtering, tabs, disclosures, bibliography or scores. Research notes stay in authored Markdown and these internal documents. Scope marks describe reviewed scope, not quality, completeness, production readiness, performance or a progression ladder. A blank does not establish inability.
+Project names are plain text. On the same left-aligned wrapping title line, show authored roles, approved AI-built provenance and available Website / Paper / Code / Results links, in that order. A single concrete description follows. Flow stages (Design, Synthesis, Verification, Layout) use inline filled/open circles for core/supporting scope and wrap naturally. No self-permalink links or fragment compatibility aliases are maintained.
 
-The 12-month reviewed public activity band uses genuine monthly repository history for GitHub, GitLab or another canonical forge. Reviewed papers, releases and other point updates activate their event month in the same twelve-cell view, without invented commit counts. Every row shows only its date, band and `N/12 months`; event type and source remain in hover/accessibility metadata. Cells indicate monthly presence, never commit-volume strength or an absence of unrecorded development.
+Every Activity row shows its compact date, twelve binary cells and `N/12 months`. Repository-backed records use reviewed monthly history from their canonical host, including GitLab. Paper/release/public-update records activate the reviewed event month without invented commit counts. Provenance is available through hover/accessibility metadata rather than a visible date prefix. Activity describes recorded public signals, never total development effort or quality.
 
-The project name itself is the permalink, without a visible `#` or replacement icon. Quick links follow the name with a modest gap and wrap before the description.
+## Domain, roles and boundaries
 
-## Product boundary
+Domain chooses the page, Flow describes its design-stage scope, and one or two authored roles describe project kind: Agent, Benchmark, EDA Tool, Dataset & Environment. Core means a central user-facing capability/task/deliverable; supporting means a secondary, optional, feedback or enabling role. Neither measures maturity, autonomy or reproduced success. Do not add stages solely for internal dependencies or future plans.
 
-This is a separately authored Digital project collection, independent of the Analog collection and of Golden Timeline / Events / Companies / People / Articles. It does not feed `/export.json`, factual records, viewer state or Article bodies. Keep the existing static Astro, plain CSS and native-link architecture. No runtime APIs, database, framework or shared technology taxonomy.
+The internal `ai` field retains three values:
 
-## Active-project curation
+- `ai-built`: coding agents materially and distinctively built the tool, supported by author evidence or sustained core co-authorship.
+- `ai-enabled`: agents/LLMs participate in runtime operations or an implemented EDA workflow.
+- `traditional`: tracked as a conventional implementation; incidental coding assistance does not reclassify it.
 
-The catalog represents currently active projects. Remove projects with no verifiable meaningful public activity for more than twelve months; do not retain entries to preserve a count. This rolling rule does not diminish historical technical value.
+Only AI-built is visible. The approved set is xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp. Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov and CoreSmith have the Agent role; the other current Digital entries have EDA Tool. Do not infer extra roles or development provenance.
 
-The first review is **2026-09-05**, with an inclusive **2025-09-05** cutoff. For repository-backed history, review substantive implementation, correctness, verification infrastructure, technical maintenance or result maintenance on the canonical default branch. Bot dependency churn, cosmetic documentation and formatting alone do not renew eligibility. The mechanical latest commit date is distinct from the manually reviewed meaningful date. Projects without reviewed monthly repository history use a source-backed public update.
+Primary navigation is **Timeline | Events | Analog | Digital | Articles**. The existing `noindex, nofollow` policy stays. Routes, collections and directories use `analog` and `digital` consistently; no redirects or route aliases.
 
-## Roles and AI relation
+The independently authored catalogs do not depend on Golden Timeline/Events, Companies, People or Articles, alter viewer state, or enter `/export.json`. Preserve authored Japanese Articles. Keep Astro static output, plain CSS, no database/framework/chart library/runtime fetching, and no generalized Golden technology taxonomy.
 
-Public types use one or two authored roles: Agent, Benchmark, EDA Tool, Dataset & Environment. Render individual tags in authored order before the technical keywords; preserve the separate metadata fields. Primary category remains internal and must be core in the matrix. The six reviewed agents are Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov and CoreSmith; other current Digital entries are EDA Tool. Do not infer extra roles.
+## Active curation and research
 
-Retain exactly one of three **internal** AI relations:
+The catalog is a current landscape, not a historical archive. Remove projects with no verified meaningful public activity in the preceding twelve months; this does not diminish their historical technical value. The 2026-09-05 review uses the inclusive 2025-09-05 cutoff. Repository eligibility uses manually reviewed substantive implementation, correctness, tests, technical maintenance or result updates. Cosmetic/bot traffic alone does not renew it. Mechanical latest public activity remains the sort key, with normalized name and slug tie-breakers.
 
-- **AI-built**: coding agents are a material and distinctive part of building the EDA tool. Explicit author descriptions or sustained co-authorship of core implementation support this; an isolated documentation/dependency contribution does not.
-- **AI-enabled**: AI, LLMs or agents participate in runtime functionality or the intended EDA workflow, including implemented MCP interfaces, verification agents, optimization and debug.
-- **Traditional**: tracked primarily as an ordinary EDA implementation. Incidental coding assistance does not change this classification.
+Re-open cited primary material before changing claims or Flow. Read the authored implementation/release notes; distinguish electrical evaluation from structural grading, model tools from evaluator operations, released paths from experiments/plans and reported results from reproduced results. Keep research and complete provenance in Markdown/frontmatter, not public methodology. Do not run costly external EDA/model experiments merely to classify scope. Use the watch list only for bounded future review.
 
-Only AI-built is rendered publicly, as an `AI-built` tag after role tags and before technical keywords. AI-enabled and Traditional remain internal; neither is a visible label or badge. These are curated relations, not a ranking. When a project satisfies both built and enabled, use the directly supported distinctive build relation once and document the runtime relationship internally. Do not add extra public categories. The initial source review considered 35 candidates. The domain pass moves Ngspice + OpenVAF Enhancements to Analog, leaving 33 Digital projects; no other membership changes. The watch list is not an automatic expansion queue.
+Follow the current delivery instruction: full checks, browser/visual review and a normal commit/push to `main`; **no deployment in this pass**.

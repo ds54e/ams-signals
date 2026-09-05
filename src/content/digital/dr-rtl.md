@@ -2,14 +2,9 @@
 name: "Dr. RTL"
 aliases: []
 roles: ["agent"]
-primary: "frontend-synthesis"
 ai: "ai-enabled"
 description: "Agentic RTL optimization loop that reads synthesis timing feedback, rewrites critical logic and uses sequential equivalence checks to select improved implementations."
-keywords: ["RTL optimization", "timing", "SEC", "PPA", "coding agents"]
-areas:
-  frontend-synthesis: core
-  formal-verification: core
-  flow-physical: supporting
+flow: {"design":"core","synthesis":"core","verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,9 +28,6 @@ sources:
     purpose: "paper"
 ---
 
-### Scope
-
-Rewriting and sequential equivalence form the core optimization loop. Physical scope is supporting timing/PPA feedback from the configured commercial flow. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -46,3 +38,7 @@ LLM agents perform critical-path analysis, rewrite candidates and use tool feedb
 The paper reports optimization results; the catalog does not reproduce them or infer completed routed layouts from synthesis timing. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+RTL rewriting, synthesis timing/PPA evaluation and sequential equivalence checking are central to each optimization attempt. The reviewed DC/Formality/Jasper execution path does not establish placement or routing; synthesis timing alone receives no Layout mark. [Reviewed source](#source-readme).

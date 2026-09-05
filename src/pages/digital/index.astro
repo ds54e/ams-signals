@@ -1,8 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { sitePath } from '../../lib/paths';
-import { areaIds, areaLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
+import { flowIds, flowLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
 import { projectTags } from '../../lib/catalog-roles';
 import { monthLabel, shortDate } from '../../lib/digital/activity';
 import { validateActivity } from '../../lib/digital/schema';
@@ -13,55 +12,41 @@ import '../../styles/digital.css';
 const entries = await getCollection('digital');
 const activity = validateActivity(entries, activityData);
 const projects = sortProjects(entries, activity.projects);
-const projectLink = (slug: string) => sitePath(`digital/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
 <BaseLayout title="Digital · AMS Signals" description="RTL/digital tools and agents for simulation, compilation, verification, formal, debug and implementation flows." lang="en">
   <section class="digital" data-digital aria-labelledby="digital:heading">
     <h1 id="digital:heading" class="visually-hidden">Digital</h1>
-    <section class="digital-landscape" aria-label="Digital landscape">
-      <div class="digital-landscape-scroll" role="region" aria-label="Digital matrix; scroll horizontally for all scopes" tabindex="0">
-        <table class="digital-landscape-table" aria-describedby="digital:legend">
-          <caption class="visually-hidden">Digital scope by project</caption>
-          <thead><tr><th scope="col">Project</th>{areaIds.map((id) => <th scope="col">{areaLabels[id]}</th>)}</tr></thead>
-          <tbody>{projects.map(({ id, data }) => <tr data-digital-landscape-project={id}>
-            <th scope="row"><a href={projectLink(id)}>{data.name}</a></th>
-            {areaIds.map((area) => {
-              const state = data.areas[area];
-              const meaning = state ? scopeLabels[state] : 'No reviewed scope';
-              return <td data-area={area} data-scope={state ?? ''} title={`${data.name} · ${areaLabels[area]}: ${meaning}`}>
-                {state && <span aria-hidden="true" class:list={['digital-scope-mark', state]} />}
-                <span class="visually-hidden">{meaning}</span>
-              </td>;
-            })}
-          </tr>)}</tbody>
-        </table>
-      </div>
-      <p id="digital:legend" class="digital-legend"><span><span class="digital-scope-mark core" aria-hidden="true" /><span class="visually-hidden">● </span>core</span><span><span class="digital-scope-mark supporting" aria-hidden="true" /><span class="visually-hidden">○ </span>supporting</span></p>
-    </section>
-
     <section id="digital:index" aria-label="Project index">
       <div class="digital-columns" aria-hidden="true">
-        <div>Project</div><div>Keywords</div><div>Activity</div>
+        <div>Project</div><div>Flow</div><div>Activity</div>
       </div>
       <ol class="digital-list" aria-label="Projects">
         {projects.map(({ data, id }) => {
           const record = activity.projects[id];
           const band = activityBand(record, activity.months, data.sources);
-          return <li id={id} class="digital-project" data-digital-project tabindex="-1">
+          return <li class="digital-project" data-digital-project={id}>
             <article aria-labelledby={`${id}--name`}>
               <div class="digital-overview">
                 <div class="digital-title">
-                  <h2 id={`${id}--name`}><a class="digital-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}</a></h2>
+                  <h2 id={`${id}--name`}>{data.name}</h2>
+                  <ul class="digital-metadata" aria-label={`${data.name} project type`}>
+                    {projectTags(data.roles, data.ai === 'ai-built').map((tag) => <li data-tag-kind={tag.kind}>{tag.label}</li>)}
+                  </ul>
                   <ul class="digital-quicklinks" aria-label={`${data.name} primary links`}>
                     {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
                   </ul>
                 </div>
                 <p class="digital-description">{data.description}</p>
               </div>
-              <ul class="digital-keywords" aria-label={`${data.name} project type and keywords`}>
-                {projectTags(data.roles, data.ai === 'ai-built').map((tag) => <li data-tag-kind={tag.kind}>{tag.label}</li>)}
-                {data.keywords.map((keyword) => <li data-tag-kind="keyword">{keyword}</li>)}
+              <ul class="digital-flow" aria-label={`${data.name} Flow`}>
+                {flowIds.filter((stage) => data.flow[stage]).map((stage) => {
+                  const state = data.flow[stage]!;
+                  return <li data-flow={stage} data-scope={state} title={`${flowLabels[stage]}: ${scopeLabels[state]}`}>
+                    <span class:list={['digital-scope-mark', state]} aria-hidden="true" />
+                    <span>{flowLabels[stage]}</span><span class="visually-hidden">{`: ${scopeLabels[state]}`}</span>
+                  </li>;
+                })}
               </ul>
               <div class="digital-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">Public activity: </span>

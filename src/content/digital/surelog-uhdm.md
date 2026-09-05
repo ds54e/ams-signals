@@ -2,12 +2,9 @@
 name: "Surelog + UHDM"
 aliases: []
 roles: ["eda-tool"]
-primary: "frontend-synthesis"
 ai: "traditional"
 description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."
-keywords: ["SystemVerilog", "UHDM", "elaboration", "VPI"]
-areas:
-  frontend-synthesis: core
+flow: {"design":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -30,9 +27,6 @@ sources:
     url: "https://github.com/chipsalliance/UHDM"
 ---
 
-### Scope
-
-Surelog constructs the elaborated representation; UHDM supplies the shared design model and APIs. This is one frontend stack with two related source repositories. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +39,7 @@ Activity uses Surelog only, including its integration of a substantive UHDM enum
 [Implementation inspected](#source-implementation).
 
 [Related UHDM source](#source-uhdm).
+
+### Flow scope
+
+The combined entry produces a reusable elaborated design representation and exposes design-model APIs. Downstream synthesis, simulation and formal consumers do not make those independent core operations of Surelog/UHDM. [Reviewed source](#source-readme).

@@ -2,13 +2,9 @@
 name: "Yosys"
 aliases: []
 roles: ["eda-tool"]
-primary: "frontend-synthesis"
 ai: "traditional"
 description: "RTL synthesis framework providing logic optimization, technology mapping and formal primitives for FPGA and ASIC flows."
-keywords: ["RTL synthesis", "mapping", "formal", "FPGA/ASIC"]
-areas:
-  frontend-synthesis: core
-  formal-verification: supporting
+flow: {"synthesis":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Technology-independent and target-specific synthesis passes are central; formal transformations and solver-facing primitives support verification flows. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Tracked as the established synthesis framework, not as a distinctively AI-built 
 Full proof workflows are typically provided by downstream drivers such as SBY and EQY. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+RTL optimization and technology mapping are synthesis operations. Formal transformations and solver-facing primitives support verification; full proof flows are usually orchestrated by separate drivers. [Reviewed source](#source-readme).

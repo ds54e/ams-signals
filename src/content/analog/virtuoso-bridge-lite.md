@@ -4,12 +4,7 @@ aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 roles: ["eda-tool"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
 description: "Connects Python or CLI workflows to local or remote Virtuoso sessions for SKILL execution, schematic planning, layout geometry, and Maestro setup. Also provides standalone Spectre execution and PSF result parsing."
-keywords: ["Cadence", "Python / CLI", "Spectre", "Layout primitives"]
-workflow:
-  generate-edit: core
-  simulate-measure: core
-  eda-integration: core
-  physical: supporting
+flow: {"design":"core","simulation":"core","layout":"supporting"}
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
@@ -34,6 +29,6 @@ Interfaces cover SKILL expressions and files, explicit-connectivity schematic pl
 
 Standalone Spectre execution and PSF parsing are also provided. Spectre and the SKILL bridge can operate independently; neither includes the commercial simulator or a PDK. Optional optimizer guides and external workflows add higher-level procedures, whose design results must be assessed separately. [Setup and workflow boundaries](#source-review)
 
-### Landscape scope
+### Flow scope
 
-Schematic editing, simulator/results interfaces, and EDA control are core infrastructure scope. Physical is supporting because layout geometry and stream-out primitives do not establish automatic layout closure. Optimizer guides and external workflows do not make optimization a core bridge capability. [Interfaces and separate workflows](#source-review) · [Layout editor](#source-layout)
+Schematic editing, Maestro setup, standalone Spectre and PSF extraction are exposed operations. Layout primitives provide supporting geometry control, not a demonstrated autonomous physical-design flow. [Reviewed source](#source-review).

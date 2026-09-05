@@ -2,12 +2,9 @@
 name: "Surfer"
 aliases: []
 roles: ["eda-tool"]
-primary: "debug-waveform"
 ai: "traditional"
 description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."
-keywords: ["waveform viewer", "VCD/FST", "remote", "Rust"]
-areas:
-  debug-waveform: core
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,9 +25,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Waveform inspection is central. The canonical GitLab README documents native/web builds, remote Surver sessions and integration APIs. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -39,3 +33,7 @@ Tracked as a conventional waveform viewer; no distinctive AI build process or AI
 ### Release boundary
 
 Native and web builds have different feature availability. Activity uses reviewed first-parent monthly history from the canonical GitLab repository. [Public update](#source-activity).
+
+### Flow scope
+
+Waveform inspection, remote viewing and debug interaction serve verification. Canonical GitLab history remains the reviewed activity source. [Reviewed source](#source-readme).

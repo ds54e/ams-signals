@@ -4,10 +4,7 @@ aliases: []
 roles: ["eda-tool"]
 summary: "Views, edits and verifies IC layouts with programmable geometry and PCells."
 description: "Layout editor and verification platform with Python/Ruby scripting, PCells, DRC/LVS and GDS/OASIS support for custom integrated-circuit workflows."
-keywords: ["Layout", "PCell", "DRC", "GDS/OASIS"]
-workflow:
-  eda-integration: supporting
-  physical: core
+flow: {"layout":"core"}
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -30,8 +27,12 @@ sources:
 
 ### Scope
 
-Reads and edits layout geometry and hierarchy, generates parameterized cells and executes scripting-based checks. Physical is core; scripting and external library/technology interfaces support EDA Integration. [Official feature overview](#source-site) and [implementation](#source-readme).
+Reads and edits layout geometry and hierarchy, generates parameterized cells and executes scripting-based checks. Layout is core; scripting and external library/technology interfaces enable those layout operations. [Official feature overview](#source-site) and [implementation](#source-readme).
 
 ### Release boundary
 
 A programmable DRC/LVS platform does not itself establish signoff for any process. The August 26 editor change reconnects PCell parameter edit events. [Reviewed implementation update](#source-activity).
+
+### Flow scope
+
+Layout editing, PCells and physical checks are central. Scripting and file interfaces enable those same layout operations rather than a separate circuit-design stage. [Reviewed source](#source-readme).

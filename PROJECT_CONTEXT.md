@@ -158,7 +158,7 @@ Golden Event `kind` is intentionally coarse. `technical` covers principally tech
 
 ## Long-term engineering philosophy
 
-The standalone Analog (`/analog/`) and Digital (`/digital/`) catalogs are separately authored technical reference surfaces with contracts in `docs/analog/` and `docs/digital/`. Public routes, collections and catalog directories use `analog` and `digital` consistently. Domain chooses the page, matrix describes scope, authored roles describe project kind, and AI-built is an optional development-provenance signal. AI-enabled/Traditional remain internal Digital metadata. Project scope, activity and provenance stay local to those collections. They do not change Golden Timeline/Events semantics, Company/Person records, authored Articles, viewer state or the factual export.
+The standalone Analog (`/analog/`) and Digital (`/digital/`) catalogs are separately authored technical reference surfaces with contracts in `docs/analog/` and `docs/digital/`. Public routes, collections and catalog directories use `analog` and `digital` consistently. Domain chooses the page, Flow describes design-stage scope, authored roles describe project kind, and AI-built is an optional development-provenance signal. AI-enabled/Traditional remain internal Digital metadata. Project scope, activity and provenance stay local to those collections. They do not change Golden Timeline/Events semantics, Company/Person records, authored Articles, viewer state or the factual export.
 
 Prefer boring, portable technology.
 

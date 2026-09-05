@@ -2,13 +2,9 @@
 name: "Sentinel DV"
 aliases: []
 roles: ["eda-tool"]
-primary: "debug-waveform"
 ai: "ai-enabled"
-description: "Read-only agent interface indexing UVM logs, assertions, coverage, regressions and waveform summaries for failure triage and verification analysis."
-keywords: ["regression triage", "UVM", "coverage", "MCP", "waveform"]
-areas:
-  debug-waveform: core
-  formal-verification: core
+description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries across simulator artifacts."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Debug triage and verification-evidence analysis are both central. The implemented adapters index exported artifacts and expose bounded queries. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ MCP tools and agent workflows provide runtime AI integration over verification e
 Run submission and replay return commands for review; they do not execute simulations. Waveform summaries and bounded VCD analysis are not unrestricted native FSDB/WLF streaming. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Read-only triage of logs, assertions, coverage, regressions and waveform summaries is verification. The MCP interface does not itself generate or implement RTL. [Reviewed source](#source-readme).

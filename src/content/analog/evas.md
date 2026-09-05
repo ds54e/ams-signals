@@ -3,8 +3,7 @@ name: "EVAS"
 roles: ["eda-tool"]
 summary: "An event-driven simulator for behavioral Verilog-A."
 description: "Runs event-driven Verilog-A models with Spectre-style testbenches to produce transient waveforms, and exposes static lint diagnostics for agent-driven model development and repair."
-keywords: ["Verilog-A","Event-driven","Transient","Rust core"]
-workflow: {"simulate-measure":"core"}
+flow: {"simulation":"core"}
 access: "The evas-sim Python package with its Rust core; compatible wheels or a Rust build environment."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,3 +37,7 @@ EVAS has its own repository, versioned `evas-sim` package, documentation and rel
 ### Simulation scope
 
 The implemented engine is event-driven and voltage-mode, with a required Rust backend. It is not a KCL/MNA circuit solver or general SPICE replacement. Behavioral AC/noise helpers do not establish transistor-level small-signal/noise equivalence. Simulation is core; the tool itself does not reason, generate models or autonomously optimize circuits. [Scope](#source-readme-md) · [Build contract](#source-pyproject-toml)
+
+### Flow scope
+
+Running behavioral Verilog-A transient models and producing waveform data is the central user-facing operation. The internal compiler serves simulation, not circuit design. [Reviewed source](#source-readme-md).

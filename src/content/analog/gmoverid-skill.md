@@ -3,8 +3,7 @@ name: "gmoverid-skill"
 roles: ["eda-tool"]
 summary: "Agent-usable device characterization and gm/ID sizing tools."
 description: "Provides agent-usable gm/ID characterization and transistor-sizing tools, plus ngspice examples and SKY130 corner/Monte Carlo sweeps for device models and small analog circuits."
-keywords: ["gm/ID","Device characterization","ngspice","PVT / Monte Carlo"]
-workflow: {"simulate-measure":"core","optimize":"supporting"}
+flow: {"design":"core","simulation":"core"}
 access: "Python, ngspice and the selected transistor models; SKY130 examples require the local PDK."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,3 +30,7 @@ The repository ships agent instructions alongside executable characterization, s
 ### Classification
 
 Simulation is core. Optimization is supporting for lookup-based device sizing and operating-point selection, not an autonomous multi-objective circuit optimizer. Agent-usable instructions do not make the package an independent reasoning agent, and ngspice use alone does not imply EDA-session control. Results depend on the selected models; PTM examples and foundry PDK simulations are distinct environments.
+
+### Flow scope
+
+The gm/ID API provides sizing quantities such as device width and bias, while ngspice characterization and PVT/Monte Carlo tools provide simulation. These are exposed operations rather than an inferred autonomous optimizer. [Reviewed source](#source-readme-md).

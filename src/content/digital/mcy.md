@@ -2,14 +2,9 @@
 name: "MCY"
 aliases: []
 roles: ["eda-tool"]
-primary: "formal-verification"
 ai: "traditional"
-description: "Mutation-coverage flow that mutates synthesized RTL, filters equivalent mutations with formal checks and measures which changes a self-checking testbench detects."
-keywords: ["mutation coverage", "testbench quality", "formal", "Yosys"]
-areas:
-  formal-verification: core
-  simulation: supporting
-  frontend-synthesis: supporting
+description: "Uses Yosys netlist mutations and formal filtering to measure whether a self-checking testbench detects meaningful RTL faults."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Mutation generation and testbench detection analysis are central. Synthesis, formal filtering and simulator-driven tests are components of that workflow. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -46,3 +38,7 @@ Tracked as conventional verification tooling, without an AI runtime. [Reviewed s
 The October 2025 Qt 6 GUI port is substantive technical maintenance and passes the cutoff; later formatting-only commits are not treated as renewed meaningful activity. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Mutations and formal filtering measure whether a testbench detects faults. Post-synthesis netlist editing is instrumentation for verification, not a circuit-design or synthesis task for the user. [Reviewed source](#source-readme).

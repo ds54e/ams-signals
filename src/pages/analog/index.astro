@@ -1,8 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { sitePath } from '../../lib/paths';
-import { projectDetailAnchors, projectTags, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog/catalog';
+import { projectTags, sortProjects, flowIds, flowLabels, scopeLabels } from '../../lib/analog/catalog';
 import { monthLabel, shortDate } from '../../lib/analog/activity';
 import { validateActivity } from '../../lib/analog/schema';
 import { activityBand } from '../../lib/catalog-activity-band';
@@ -13,65 +12,43 @@ const entries = await getCollection('analog');
 const activity = validateActivity(entries, activityData);
 const projects = sortProjects(entries, activity.projects);
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-const projectLink = (slug: string) => sitePath(`analog/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
 <BaseLayout title="Analog · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
   <section class="analog" data-analog aria-labelledby="catalog:heading">
     <h1 id="catalog:heading" class="visually-hidden">Analog</h1>
 
-    <section id="catalog:landscape" class="catalog-landscape" aria-label="Workflow landscape">
-      <div class="landscape-scroll" role="region" aria-label="Landscape matrix; scroll horizontally for all scopes" tabindex="0">
-        <table class="landscape-table" aria-describedby="catalog:legend">
-          <caption class="visually-hidden">Workflow scope by project</caption>
-          <thead><tr><th scope="col">Project</th>{workflowIds.map((id) => <th scope="col">{workflowLabels[id]}</th>)}</tr></thead>
-          <tbody>{projects.map(({ id, data }) => <tr data-landscape-project={id}>
-            <th scope="row"><a href={projectLink(id)}>{data.name}</a></th>
-            {workflowIds.map((stage) => {
-              const state = data.workflow[stage];
-              const meaning = state ? scopeLabels[state] : 'No reviewed scope';
-              return <td data-workflow={stage} data-scope={state ?? ''} title={`${data.name} · ${workflowLabels[stage]}: ${meaning}`}>
-                {state && <span aria-hidden="true" class:list={['scope-mark', state]} />}
-                <span class="visually-hidden">{meaning}</span>
-              </td>;
-            })}
-          </tr>)}</tbody>
-        </table>
-      </div>
-      <p id="catalog:legend" class="catalog-legend"><span><span class="scope-mark core" aria-hidden="true" /><span class="visually-hidden">● </span>core</span><span><span class="scope-mark supporting" aria-hidden="true" /><span class="visually-hidden">○ </span>supporting</span></p>
-    </section>
-
     <section id="catalog:index" aria-label="Project index">
       <div class="catalog-columns" aria-hidden="true">
-        <div>Project</div><div>Keywords</div><div>Activity</div>
+        <div>Project</div><div>Flow</div><div>Activity</div>
       </div>
       <ol class="catalog-list" aria-label="Projects">
         {projects.map((project) => {
           const { data, id } = project;
           const record = activity.projects[id];
           const band = activityBand(record, activity.months, data.sources);
-          if (!project.rendered) throw new Error(`Missing rendered catalog content: ${id}`);
-          // Old research bookmarks now lead to the always-visible project description.
-          const aliases = [
-            ...projectDetailAnchors(project.rendered.html, id),
-            `${id}--sources`,
-            ...data.sources.filter((source) => !source.purpose).map((source) => `${id}--source-${source.id}`),
-          ];
-          return <li id={id} class="catalog-project" data-catalog-project tabindex="-1">
-            {aliases.map((anchor) => <span id={anchor} class="catalog-anchor" aria-hidden="true" />)}
+          return <li class="catalog-project" data-catalog-project={id}>
             <article aria-labelledby={`${id}--name`}>
               <div class="catalog-overview">
                 <div class="catalog-title">
-                  <h2 id={`${id}--name`}><a class="catalog-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}</a></h2>
+                  <h2 id={`${id}--name`}>{data.name}</h2>
+                  <ul class="catalog-metadata" aria-label={`${data.name} project type`}>
+                    {projectTags(data.roles, data.aiBuilt).map((tag) => <li data-tag-kind={tag.kind}>{tag.label}</li>)}
+                  </ul>
                   <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
-                    {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+                    {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
                   </ul>
                 </div>
                 <p class="catalog-description">{data.description}</p>
               </div>
-              <ul class="catalog-keywords" aria-label={`${data.name} project type and keywords`}>
-                {projectTags(data.roles, data.aiBuilt).map((tag) => <li data-tag-kind={tag.kind}>{tag.label}</li>)}
-                {data.keywords.map((keyword) => <li data-tag-kind="keyword">{keyword}</li>)}
+              <ul class="catalog-flow" aria-label={`${data.name} Flow`}>
+                {flowIds.filter((stage) => data.flow[stage]).map((stage) => {
+                  const state = data.flow[stage]!;
+                  return <li data-flow={stage} data-scope={state} title={`${flowLabels[stage]}: ${scopeLabels[state]}`}>
+                    <span class:list={['scope-mark', state]} aria-hidden="true" />
+                    <span>{flowLabels[stage]}</span><span class="visually-hidden">{`: ${scopeLabels[state]}`}</span>
+                  </li>;
+                })}
               </ul>
               <div class="catalog-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">Public activity: </span>

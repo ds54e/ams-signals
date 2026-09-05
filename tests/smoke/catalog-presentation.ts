@@ -1,19 +1,19 @@
 import { expect, type Locator } from '@playwright/test';
 
 export async function expectIndexColumns(columns: Locator) {
-  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Keywords', 'Activity']);
+  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Flow', 'Activity']);
   await expect(columns.locator('[class$="activity-range"]')).toHaveCount(0);
 }
 
-export async function expectScopeCircles(table: Locator) {
-  expect(await table.textContent()).not.toContain('◐');
-  const cells = await table.locator('td[data-scope]').evaluateAll((nodes) => nodes.map((cell) => {
+export async function expectFlowCircles(flow: Locator) {
+  expect(await flow.evaluateAll((nodes) => nodes.map((el) => el.textContent).join(' '))).not.toContain('◐');
+  const cells = await flow.locator('li[data-flow][data-scope]').evaluateAll((nodes) => nodes.map((cell) => {
     const mark = cell.querySelector<HTMLElement>('[aria-hidden="true"]');
     const style = mark && getComputedStyle(mark);
     const box = mark?.getBoundingClientRect();
     const parent = cell.getBoundingClientRect();
     return {
-      state: cell.getAttribute('data-scope'), meaning: cell.querySelector('.visually-hidden')?.textContent,
+      state: cell.getAttribute('data-scope'), meaning: cell.querySelector('.visually-hidden')?.textContent?.replace(/^: /, ''),
       title: cell.getAttribute('title'), mark: mark ? { text: mark.textContent, state: mark.classList.contains(cell.getAttribute('data-scope')!),
         width: box!.width, height: box!.height, radius: style!.borderRadius, border: parseFloat(style!.borderWidth),
         fill: style!.backgroundColor, color: style!.color, centerOffset: Math.abs(box!.top + box!.height / 2 - parent.top - parent.height / 2),
@@ -21,10 +21,10 @@ export async function expectScopeCircles(table: Locator) {
     };
   }));
   for (const cell of cells) {
-    const meaning = cell.state === 'core' ? 'Core scope' : cell.state === 'supporting' ? 'Supporting scope' : 'No reviewed scope';
+    expect(['core', 'supporting']).toContain(cell.state);
+    const meaning = cell.state === 'core' ? 'Core scope' : 'Supporting scope';
     expect(cell.meaning).toBe(meaning);
     expect(cell.title).toContain(meaning);
-    if (!cell.state) { expect(cell.mark).toBeNull(); continue; }
     expect(cell.mark).not.toBeNull();
     expect(cell.mark!.text).toBe(''); // CSS shape, independent of font glyphs.
     expect(cell.mark!.state).toBe(true);
@@ -59,7 +59,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const visible = activity.cloneNode(true) as HTMLElement;
     visible.querySelectorAll('.visually-hidden').forEach((node) => node.remove());
     return {
-      id: el.id, kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
+      id: el.getAttribute('data-catalog-project') ?? el.getAttribute('data-digital-project'), kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
       date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
       dateLine: time.parentElement!.innerText, provenance: time.title,
       dateBottom: time.getBoundingClientRect().bottom, dateRight: time.getBoundingClientRect().right,
@@ -152,40 +152,45 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
 export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalog' | 'digital', width: number) {
   const geometry = await rows.evaluateAll((nodes, p) => nodes.map((el) => {
     const rect = (node: Element) => { const r = node.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
+    const title = el.querySelector(`.${p}-title`)!;
     return {
-      id: el.id, columns: [...el.querySelector('article')!.children].map(rect),
-      title: rect(el.querySelector(`.${p}-title`)!), name: rect(el.querySelector('h2')!),
-      justify: getComputedStyle(el.querySelector(`.${p}-title`)!).justifyContent,
-      permalink: el.querySelector(`.${p}-permalink`)!.textContent,
+      columns: [...el.querySelector('article')!.children].map(rect), row: rect(el),
+      title: rect(title), name: rect(el.querySelector('h2')!),
+      justify: getComputedStyle(title).justifyContent,
+      titleChildren: [...title.children].map(rect),
+      nameLinks: el.querySelectorAll('h2 a').length, nameText: el.querySelector('h2')!.textContent,
       links: [...el.querySelectorAll(`.${p}-title .${p}-quicklinks a`)].map(rect),
       description: rect(el.querySelector(`.${p}-description`)!),
+      flowStyle: getComputedStyle(el.querySelector(`.${p}-flow`)!).display,
+      flowWrap: getComputedStyle(el.querySelector(`.${p}-flow`)!).flexWrap,
+      flowItems: [...el.querySelectorAll('[data-flow]')].map(rect),
     };
   }), prefix);
   for (const row of geometry) {
-    expect(row.columns, row.id).toHaveLength(3);
-    if (width === 1440) {
-      expect(row.columns[0].width).toBeGreaterThan(800); // Previously about 783px at 1440px.
-      expect(row.columns[1].width).toBeGreaterThan(320);
-      expect(row.columns[1].width).toBeLessThan(340);
-      expect(row.columns[0].width).toBeGreaterThan(row.columns[1].width * 2);
-      expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 3.5);
-      expect(row.columns[2].width).toBeLessThanOrEqual(110);
-      expect(row.columns[0].right).toBeLessThan(row.columns[1].left);
-      expect(row.columns[1].right).toBeLessThan(row.columns[2].left);
+    expect(row.columns).toHaveLength(3);
+    expect(row.row.width).toBeLessThanOrEqual(1120);
+    if (width >= 1024) {
+      expect(row.columns[0].width).toBeGreaterThan(550);
+      expect(row.columns[1].width).toBe(236);
+      expect(row.columns[2].width).toBe(108);
+      expect(row.columns[1].left - row.columns[0].right).toBe(22);
+      expect(row.columns[2].left - row.columns[1].right).toBe(22);
+      if (width >= 1280) expect(row.row.width).toBe(1120);
     } else {
       expect(new Set(row.columns.map((column) => column.left)).size).toBe(1);
       expect(row.columns[0].bottom).toBeLessThan(row.columns[1].top);
       expect(row.columns[1].bottom).toBeLessThan(row.columns[2].top);
     }
     expect(row.justify).toBe('flex-start');
-    expect(row.permalink).not.toContain('#');
+    expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
     expect(row.name.left).toBeCloseTo(row.title.left, 1);
-    const first = row.links[0];
-    if (first.top < row.name.bottom - 1) {
-      expect(first.left - row.name.right).toBeGreaterThanOrEqual(10);
-      expect(first.left - row.name.right).toBeLessThanOrEqual(20);
-    } else {
-      expect(first.left).toBeCloseTo(row.title.left, 1);
+    expect(row.titleChildren).toHaveLength(3); // Name, authored metadata, external quick links.
+    for (let index = 1; index < row.titleChildren.length; index++) {
+      const previous = row.titleChildren[index - 1], current = row.titleChildren[index];
+      if (current.top < previous.bottom - 1) {
+        expect(current.left - previous.right).toBeGreaterThanOrEqual(11);
+        expect(current.left - previous.right).toBeLessThanOrEqual(13);
+      } else expect(current.left).toBeCloseTo(row.title.left, 1);
     }
     expect(row.name.bottom).toBeLessThan(row.description.top);
     for (const link of row.links) {
@@ -197,6 +202,12 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
     for (let index = 1; index < row.links.length; index++) {
       const previous = row.links[index - 1], current = row.links[index];
       expect(current.left >= previous.right - 1 || current.top >= previous.bottom - 1).toBe(true);
+    }
+    expect(row.flowStyle).toBe('flex'); expect(row.flowWrap).toBe('wrap');
+    if (row.flowItems.length > 1) expect(row.flowItems[1].top).toBeCloseTo(row.flowItems[0].top, 1);
+    for (const item of row.flowItems) {
+      expect(item.left).toBeGreaterThanOrEqual(row.columns[1].left);
+      expect(item.right).toBeLessThanOrEqual(row.columns[1].right);
     }
   }
 }

@@ -4,9 +4,7 @@ aliases: []
 roles: ["eda-tool"]
 summary: "Edits custom-IC layouts and extracts circuits and parasitics with technology rules."
 description: "VLSI layout editor with design-rule checking, circuit and parasitic extraction, and Tcl-driven custom-IC workflows used with open PDKs."
-keywords: ["Layout", "DRC", "Extraction", "Open PDK"]
-workflow:
-  physical: core
+flow: {"layout":"core"}
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,8 +27,12 @@ sources:
 
 ### Scope
 
-Provides interactive and scripted layout editing, design-rule checks and extraction into circuit representations. Physical is core. Tcl support is part of the layout tool rather than a separate agent or EDA-session integration claim. [Maintainer documentation](#source-readme).
+Provides interactive and scripted layout editing, design-rule checks and extraction into circuit representations. Layout is core. Tcl support is part of the layout tool rather than a separate agent or EDA-session integration claim. [Maintainer documentation](#source-readme).
 
 ### Release boundary
 
 The September 1 implementation lets select command options operate without a layout-window cursor, including configuration-file settings. The following version-number-only commit does not establish meaningful freshness. An isolated Claude-assisted August fix does not justify an AI-built classification. [Substantive update](#source-activity).
+
+### Flow scope
+
+Geometry editing, design-rule checking and circuit/parasitic extraction belong to the custom-layout flow. Extracting a netlist from geometry does not imply circuit-topology generation. [Reviewed source](#source-readme).

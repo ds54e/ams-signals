@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
-import { aiIds, areaIds, sortProjects } from '../../src/lib/digital/catalog.ts';
+import { aiIds, flowIds, flowLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
@@ -38,11 +38,11 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
     const record = snapshot.projects[p.id];
     const meaningful = hasRepositoryHistory(record) ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
     assert.ok(meaningful >= freshnessCutoff(snapshot.reviewedAt));
-    assert.equal(p.data.areas[p.data.primary], 'core');
+    assert.ok(Object.values(p.data.flow).length > 0);
   }
 });
 
-test('Digital has authored project roles while AI relations and primary categories stay separate', () => {
+test('Digital has authored project roles while AI development provenance stays separate', () => {
   assert.equal(projects.length, 33);
   assert.ok(!projects.some((p) => p.id === 'ngspice-openvaf-enhancements'));
   const agents = ['coresmith', 'dr-rtl', 'haven', 'spec2cov', 'ucagent', 'verifyrtl'];
@@ -67,21 +67,37 @@ test('stable slugs reject ambiguity and duplicate authored entries', () => {
   assert.throws(() => validateCatalog([]), /empty/);
 });
 
-test('only five axes and three AI relations are permitted, with a core primary category', () => {
-  assert.deepEqual(areaIds, ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical']);
+test('Digital Flow has four stages and accepts only reviewed core/supporting scope', () => {
+  assert.deepEqual(flowIds, ['design', 'synthesis', 'verification', 'layout']);
+  assert.deepEqual(flowIds.map((id) => flowLabels[id]), ['Design', 'Synthesis', 'Verification', 'Layout']);
   assert.deepEqual(aiIds, ['ai-built', 'ai-enabled', 'traditional']);
   for (const ai of ['ai-assisted', 'ai-native', 'agent-ready', 'unknown']) assert.equal(digitalSchema.safeParse({ ...data(), ai }).success, false);
-  for (const areas of [{}, { [github.data.primary]: 'supporting' }, { [github.data.primary]: 'planned' }, { ...github.data.areas, reasoning: 'core' }]) {
-    assert.equal(digitalSchema.safeParse({ ...data(), areas }).success, false);
+  for (const flow of [undefined, {}, { design: undefined }, { design: 'planned' }, { design: null }, { simulation: 'core' }, { quality: 'core' }]) {
+    assert.equal(digitalSchema.safeParse({ ...data(), flow }).success, false);
   }
-  assert.equal(digitalSchema.safeParse({ ...data(), primary: 'benchmark' }).success, false);
-  assert.equal(digitalSchema.safeParse({ ...data(), summary: 'A second description' }).success, false);
+  assert.ok(digitalSchema.safeParse({ ...data(), flow: { verification: 'supporting' } }).success);
+  for (const removed of ['primary', 'areas', 'keywords', 'summary']) {
+    assert.equal(digitalSchema.safeParse({ ...data(), [removed]: {} }).success, false);
+  }
 });
 
-test('public text stays English, concise and single-paragraph; keywords stay bounded and distinct', () => {
-  for (const keywords of [[], ['one', 'two'], ['a', 'b', 'c', 'd', 'e', 'f'], ['RTL', 'ＲＴＬ', 'chip'], ['a', 'a ', 'c'], ['a'.repeat(29), 'b', 'c']]) {
-    assert.equal(digitalSchema.safeParse({ ...data(), keywords }).success, false);
-  }
+test('Digital classification follows user-facing operations rather than internal compiler dependencies', () => {
+  const scopes = {
+    'icarus-verilog': { verification: 'core' }, xezim: { verification: 'core' },
+    pono: { verification: 'core' }, surfer: { verification: 'core' },
+    openroad: { layout: 'core' },
+    slang: { design: 'core', verification: 'supporting' },
+    'surelog-uhdm': { design: 'core' },
+    'sv-elab': { design: 'supporting', synthesis: 'core' },
+    uhdm2rtlil: { synthesis: 'core', verification: 'supporting' },
+    circt: { design: 'core', synthesis: 'core', verification: 'supporting' },
+    'dr-rtl': { design: 'core', synthesis: 'core', verification: 'core' },
+    coresmith: { design: 'core', synthesis: 'core', verification: 'core', layout: 'core' },
+  };
+  for (const [id, flow] of Object.entries(scopes)) assert.deepEqual(projects.find((p) => p.id === id)!.data.flow, flow, id);
+});
+
+test('public text stays English, concise and single-paragraph', () => {
   for (const description of ['', 'TODO', 'A'.repeat(601), 'One paragraph\nAnother paragraph', '回路設計']) {
     assert.equal(digitalSchema.safeParse({ ...data(), description }).success, false);
   }

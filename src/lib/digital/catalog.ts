@@ -1,19 +1,10 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export const areaIds = ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical'] as const;
-export type DigitalArea = typeof areaIds[number];
-export const areaLabels: Record<DigitalArea, string> = {
-  simulation: 'Simulation', 'frontend-synthesis': 'Frontend / Synth',
-  'formal-verification': 'Formal / Verify', 'debug-waveform': 'Debug / Wave',
-  'flow-physical': 'Flow / Physical',
-};
-export const primaryLabels: Record<DigitalArea, string> = {
-  simulation: 'Simulation', 'frontend-synthesis': 'Frontend / Synthesis',
-  'formal-verification': 'Formal / Verification', 'debug-waveform': 'Debug / Waveform',
-  'flow-physical': 'Flow / Physical',
+export const flowIds = ['design', 'synthesis', 'verification', 'layout'] as const;
+export const flowLabels: Record<typeof flowIds[number], string> = {
+  design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout',
 };
 export const aiIds = ['ai-built', 'ai-enabled', 'traditional'] as const;
-export const aiLabels = { 'ai-built': 'AI-built', 'ai-enabled': 'AI-enabled', traditional: 'Traditional' };
 export const scopeLabels = { core: 'Core scope', supporting: 'Supporting scope' };
 export const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 
