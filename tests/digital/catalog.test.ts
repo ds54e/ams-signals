@@ -192,7 +192,7 @@ test('point updates require sources and cannot silently acquire repository bucke
   assert.equal(band.cells.length, 12);
   assert.equal(band.activeMonths, 1);
   assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), ['2026-09']);
-  assert.equal(band.cells[11].detail, 'September 2026 · public update');
+  assert.equal(band.cells[0].detail, 'September 2026 · public update');
   assert.ok(band.cells.every((cell) => !('commits' in cell)));
   for (const lastPublicUpdateType of [undefined, 'github', 'unknown']) {
     const changed = pointActivity(); Object.assign(changed.projects[surfer.id], { lastPublicUpdateType });
@@ -222,6 +222,13 @@ test('Surfer uses reviewed canonical GitLab first-parent history without changin
   assert.equal(publicActivityDate(record), '2026-09-04');
   assert.equal(record.lastMeaningfulCommitAt, '2026-09-04');
   assert.deepEqual(record.commits, [47,51,99,35,66,28,31,40,10,32,17,7]);
+  const band = activityBand(record, snapshot.months, surfer.data.sources);
+  assert.equal(band.cells.length, 12);
+  assert.equal(band.cells[0].month, '2026-09');
+  assert.equal(band.cells[0].detail, 'September 2026 · 7 default-branch commits');
+  assert.equal(band.cells[11].month, '2025-10');
+  assert.equal(band.cells[11].detail, 'October 2025 · 47 default-branch commits');
+  assert.equal(band.activeMonths, 12);
   assert.doesNotThrow(() => verifyMeaningfulCommit(record, [[record.headSha, '2026-09-04T11:44:01Z']]));
   const before = pointActivity();
   assert.deepEqual(sortProjects(projects, snapshot.projects).map((p) => p.id), sortProjects(projects, before.projects).map((p) => p.id));
@@ -300,21 +307,23 @@ test('compact activity dates retain year context without zero-padded days', () =
   assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
 });
 
-test('GitHub and GitLab render genuine reviewed counts with equal binary monthly states', () => {
+test('GitHub and GitLab render genuine counts newest-first with equal binary monthly states', () => {
+  const beforeSnapshot = structuredClone(snapshot);
   for (const project of projects) {
     const record = snapshot.projects[project.id], before = structuredClone(record);
     if (!hasRepositoryHistory(record)) continue;
     const band = activityBand(record, snapshot.months, project.data.sources);
     assert.equal(band.date, record.lastCommitAt);
     assert.equal(band.cells.length, 12);
-    assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
-    assert.deepEqual(band.cells.map((cell) => cell.commits), record.commits);
-    assert.deepEqual(band.cells.map((cell) => cell.active), record.commits.map((count) => count > 0));
+    assert.deepEqual(band.cells.map((cell) => cell.month), [...snapshot.months].reverse());
+    assert.deepEqual(band.cells.map((cell) => cell.commits), [...record.commits].reverse());
+    assert.deepEqual(band.cells.map((cell) => cell.active), record.commits.map((count) => count > 0).reverse());
     assert.equal(band.activeMonths, record.commits.filter((count) => count > 0).length);
     assert.ok(band.cells.every((cell) => cell.signal === 'repository' && cell.detail.endsWith(`${cell.commits} default-branch commits`)));
     assert.ok(band.provenance.includes(record.repository));
     assert.deepEqual(record, before);
   }
+  assert.deepEqual(snapshot, beforeSnapshot);
 });
 
 test('Digital AI stages follow implemented decisions rather than MCP or project-wide AI labels', () => {
