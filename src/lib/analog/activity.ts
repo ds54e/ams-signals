@@ -1,5 +1,6 @@
 import { hasRepositoryHistory } from '../catalog-repository-activity.ts';
 export { hasRepositoryHistory } from '../catalog-repository-activity.ts';
+export { monthLabel } from '../catalog-activity-band.ts';
 
 export type PublicActivity =
   | { kind: 'github' | 'repository'; lastCommitAt: string }
@@ -24,11 +25,6 @@ export function activityMonths(reviewedAt: string): string[] {
     date.setUTCMonth(date.getUTCMonth() - 11 + index);
     return date.toISOString().slice(0, 7);
   });
-}
-
-export function monthLabel(month: string): string {
-  return new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' })
-    .format(new Date(`${month}-01T00:00:00Z`));
 }
 
 export function shortDate(date: string, snapshotDate: string): string {

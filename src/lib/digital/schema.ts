@@ -1,4 +1,5 @@
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
+import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
 import { aiIds, areaIds } from './catalog.ts';
 import { roleIds } from '../catalog-roles.ts';
@@ -99,6 +100,7 @@ const repositoryActivity = githubActivity.extend({
 }).strict();
 const publicUpdate = z.object({
   kind: z.literal('public-update'), lastPublicUpdateAt: date, lastPublicUpdateSource: catalogSlug,
+  lastPublicUpdateType: z.enum(publicSignalTypes),
 }).strict();
 
 export const activitySchema = z.object({

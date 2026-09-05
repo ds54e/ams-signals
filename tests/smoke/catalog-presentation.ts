@@ -42,6 +42,7 @@ export async function expectScopeCircles(table: Locator) {
 
 type ActivityRecord = {
   kind: string; lastCommitAt?: string; lastPublicUpdateAt?: string;
+  lastPublicUpdateType?: string; lastPublicUpdateSource?: string;
   repository?: string; defaultBranch?: string; commits?: number[];
 };
 
@@ -55,9 +56,12 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const stripBox = strip?.getBoundingClientRect();
     const summary = activity.querySelector<HTMLElement>('[class$="activity-summary"]');
     const summaryBox = summary?.getBoundingClientRect();
+    const visible = activity.cloneNode(true) as HTMLElement;
+    visible.querySelectorAll('.visually-hidden').forEach((node) => node.remove());
     return {
-      id: el.id, kind: activity.getAttribute('data-activity-kind'), text: activity.innerText,
+      id: el.id, kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
       date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
+      dateLine: time.parentElement!.innerText, provenance: time.title,
       dateBottom: time.getBoundingClientRect().bottom,
       stripTop: stripBox?.top, stripBottom: stripBox?.bottom, stripWidth: stripBox?.width, stripRight: stripBox?.right,
       activityWidth: activity.getBoundingClientRect().width,
@@ -67,7 +71,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
         const style = getComputedStyle(li); const box = li.getBoundingClientRect();
         const accessible = li.querySelector<HTMLElement>('.visually-hidden')!;
         const accessibleBox = accessible.getBoundingClientRect();
-        return { month: li.dataset.month, count: li.dataset.commits, active: li.classList.contains('active'),
+        return { month: li.dataset.month, count: li.dataset.commits, signal: li.dataset.signal, source: li.dataset.source, active: li.classList.contains('active'),
           title: li.title, accessible: accessible.textContent,
           accessibleWidth: accessibleBox.width, accessibleHeight: accessibleBox.height,
           width: box.width, height: box.height, left: box.left, fill: style.backgroundColor,
@@ -86,44 +90,53 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       ...(date.slice(0, 4) !== snapshot.reviewedAt.slice(0, 4) ? { year: 'numeric' } : {}),
     }).format(new Date(`${date}T00:00:00Z`)));
     expect(item.weight).toBeGreaterThanOrEqual(600);
-    expect(item.text).not.toContain('Latest');
+    expect(item.dateLine).toBe(item.dateText);
+    expect(item.text).toBe(`${item.dateText} ${item.summary}`);
+    for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
     expect(item.links).toBe(0);
-    if (!repositoryBacked) {
-      expect(item.months).toEqual([]); expect(item.label).toBeNull(); expect(item.summary).toBeNull();
-      expect(item.text).not.toContain('/12');
-      continue;
+    const signalLabel = { paper: 'paper publication', release: 'release', 'public-update': 'public update' }[record.lastPublicUpdateType ?? ''];
+    if (repositoryBacked) {
+      expect(item.text).not.toContain(record.repository!);
+      expect(item.label).toContain(record.repository!);
+      expect(item.label).toContain(`default branch ${record.defaultBranch}`);
+    } else {
+      expect(item.provenance).toMatch(new RegExp(`^${signalLabel}: .+`));
+      expect(item.label).toContain(item.provenance);
     }
-    expect(item.text).not.toContain(record.repository!);
-    expect(item.label).toContain(record.repository!);
-    expect(item.label).toContain(`default branch ${record.defaultBranch}`);
-    expect(item.summary).toBe(`${record.commits!.filter((count) => count > 0).length}/12 months`);
+    const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
+    expect(item.summary).toBe(`${activeMonths}/12 months`);
     expect(item.months).toHaveLength(12);
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(130);
-    expect(item.activityWidth).toBeLessThanOrEqual(150);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(112);
+    expect(item.activityWidth).toBeLessThanOrEqual(124);
     expect(item.stripWidth).toBeCloseTo(item.activityWidth, 1);
     expect(item.summaryRight).toBeCloseTo(item.stripRight!, 1);
     for (let index = 0; index < 12; index++) {
       const bucket = item.months[index];
-      const month = snapshot.months[index]; const count = record.commits![index];
+      const month = snapshot.months[index]; const count = record.commits?.[index];
+      const active = repositoryBacked ? count! > 0 : month === date.slice(0, 7);
       const label = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
-      expect(bucket.month).toBe(month); expect(bucket.count).toBe(String(count));
-      expect(bucket.active).toBe(count > 0);
-      expect(bucket.title).toBe(`${label} · ${count} default-branch commits`);
+      expect(bucket.month).toBe(month);
+      expect(bucket.active).toBe(active);
+      expect(bucket.signal).toBe(repositoryBacked ? 'repository' : record.lastPublicUpdateType);
+      expect(bucket.count).toBe(repositoryBacked ? String(count) : undefined);
+      expect(bucket.source).toBe(!repositoryBacked && active ? record.lastPublicUpdateSource : undefined);
+      expect(bucket.title).toBe(`${label} · ${repositoryBacked ? `${count} default-branch commits` : active ? signalLabel : 'no reviewed public activity signal'}`);
+      if (!repositoryBacked) expect(bucket.title).not.toContain('commits');
       expect(bucket.accessible).toBe(bucket.title);
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
       expect(bucket.width).toBeGreaterThanOrEqual(8); expect(bucket.height).toBeGreaterThanOrEqual(5);
-      expect(bucket.width).toBeLessThanOrEqual(10); expect(bucket.height).toBeLessThanOrEqual(7);
+      expect(bucket.width).toBeLessThanOrEqual(9); expect(bucket.height).toBeLessThanOrEqual(5);
       expect(bucket.width / bucket.height).toBeGreaterThanOrEqual(1.4);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
-      expect(bucket.fill).toBe(count > 0 ? bucket.border : 'rgba(0, 0, 0, 0)');
+      expect(bucket.fill).toBe(active ? bucket.border : 'rgba(0, 0, 0, 0)');
       if (index) {
         const previous = item.months[index - 1];
         const gap = bucket.left - previous.left - previous.width;
-        expect(gap).toBeGreaterThanOrEqual(2); expect(gap).toBeLessThanOrEqual(2);
+        expect(gap).toBeCloseTo(2, 1);
       }
     }
   }
@@ -139,6 +152,8 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
     return {
       id: el.id, columns: [...el.querySelector('article')!.children].map(rect),
       title: rect(el.querySelector(`.${p}-title`)!), name: rect(el.querySelector('h2')!),
+      justify: getComputedStyle(el.querySelector(`.${p}-title`)!).justifyContent,
+      permalink: el.querySelector(`.${p}-permalink`)!.textContent,
       links: [...el.querySelectorAll(`.${p}-title .${p}-quicklinks a`)].map(rect),
       description: rect(el.querySelector(`.${p}-description`)!),
     };
@@ -146,18 +161,28 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
   for (const row of geometry) {
     expect(row.columns, row.id).toHaveLength(3);
     if (width === 1440) {
-      expect(row.columns[0].width).toBeGreaterThan(780); // Previously about 754px at 1440px.
-      expect(row.columns[1].width).toBeGreaterThan(310);
+      expect(row.columns[0].width).toBeGreaterThan(800); // Previously about 783px at 1440px.
+      expect(row.columns[1].width).toBeGreaterThan(320);
       expect(row.columns[1].width).toBeLessThan(340);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[1].width * 2);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 3.5);
-      expect(row.columns[2].width).toBeLessThanOrEqual(150);
+      expect(row.columns[2].width).toBeLessThanOrEqual(124);
       expect(row.columns[0].right).toBeLessThan(row.columns[1].left);
       expect(row.columns[1].right).toBeLessThan(row.columns[2].left);
     } else {
       expect(new Set(row.columns.map((column) => column.left)).size).toBe(1);
       expect(row.columns[0].bottom).toBeLessThan(row.columns[1].top);
       expect(row.columns[1].bottom).toBeLessThan(row.columns[2].top);
+    }
+    expect(row.justify).toBe('flex-start');
+    expect(row.permalink).not.toContain('#');
+    expect(row.name.left).toBeCloseTo(row.title.left, 1);
+    const first = row.links[0];
+    if (first.top < row.name.bottom - 1) {
+      expect(first.left - row.name.right).toBeGreaterThanOrEqual(10);
+      expect(first.left - row.name.right).toBeLessThanOrEqual(20);
+    } else {
+      expect(first.left).toBeCloseTo(row.title.left, 1);
     }
     expect(row.name.bottom).toBeLessThan(row.description.top);
     for (const link of row.links) {

@@ -68,7 +68,7 @@ test('Digital navigation, sparse English presentation and authored project rows 
   expect(rendered).toEqual(ordered.map((p) => {
     const links = p.sources.filter((s: any) => s.purpose).sort((a: any, b: any) => Object.keys(sourceLabels).indexOf(a.purpose) - Object.keys(sourceLabels).indexOf(b.purpose))
       .map((s: any) => ({ label: sourceLabels[s.purpose as keyof typeof sourceLabels], href: s.url }));
-    return { id: p.id, name: `${p.name} #`, description: p.description, descriptions: 1,
+    return { id: p.id, name: p.name, description: p.description, descriptions: 1,
       tags: [...p.roles.map((role: keyof typeof roles) => ({ kind: 'role', label: roles[role] })),
         ...(p.ai === 'ai-built' ? [{ kind: 'ai', label: 'AI-built' }] : []),
         ...p.keywords.map((label: string) => ({ kind: 'keyword', label }))],
@@ -163,6 +163,7 @@ test('all Digital content and native hashes work without JavaScript', async ({ b
   await expect(page.locator('.digital-landscape-table tbody tr')).toHaveCount(projects.length);
   await expect(rows(page).locator('.digital-description')).toHaveText(ordered.map((p) => p.description));
   await expect(rows(page).locator('.digital-activity')).toHaveCount(projects.length);
+  await expectActivityBands(rows(page), '.digital-activity', activity);
   await page.locator('.digital-landscape-table tbody a').last().click();
   await expect(page.locator(`#${ordered.at(-1)!.id} h2`)).toBeInViewport();
   await page.reload(); await expect(page.locator(`#${ordered.at(-1)!.id} h2`)).toBeInViewport();
@@ -192,7 +193,7 @@ for (const width of [1440, 390, 320]) {
     }
     await page.screenshot({ path: info.outputPath(`digital-index-${width}.png`) });
     const nonGitHub = projects.filter((p) => activity.projects[p.id].kind !== 'github');
-    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, ...nonGitHub, ...['xezim', 'haven', 'verilator'].map((id) => projects.find((p) => p.id === id)!)]) {
+    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, ...nonGitHub, ...['xezim', 'haven', 'verilator', 'pono', 'iverilog-uvm'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${p.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
       await page.screenshot({ path: info.outputPath(`digital-row-${width}-${p.id}.png`) });
