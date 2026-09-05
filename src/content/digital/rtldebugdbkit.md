@@ -1,8 +1,6 @@
 ---
 name: "RTLDebugDBKit + RTLTracer"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -28,7 +26,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as conventional static debug tools. Being usable by an agent is insufficient evidence of an AI runtime. [Reviewed source](#source-readme).
 

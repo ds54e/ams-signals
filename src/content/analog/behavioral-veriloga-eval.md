@@ -1,7 +1,6 @@
 ---
 name: "vaBench"
 aliases: ["behavioral-veriloga-eval","Behavioral Verilog-A benchmark"]
-roles: ["benchmark","dataset-environment"]
 summary: "Behavioral Verilog-A model, repair and testbench tasks."
 description: "Tests agents on behavioral Verilog-A model generation, bug repair and testbench writing across 400 circuit families, with 1,200 tasks and an EVAS-equipped execution environment."
 flow: {"design":"core","simulation":"core"}

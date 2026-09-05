@@ -8,7 +8,7 @@ Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add ta
 
 For work on the standalone Analog catalog at `/analog/`, also read `docs/analog/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
 
-For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page, Flow describes design-stage scope, and authored roles describe project kind. Only proven AI-built development provenance is shown publicly; Digital AI-enabled/Traditional metadata stays internal. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
+For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page and Flow describes design-stage scope. The title line contains only the project name and primary links; role/AI classification fields are not part of either catalog. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
 
 ## Purpose
 
@@ -100,7 +100,7 @@ AMS Signals separates a factual evidence layer from researched editorial Article
 - Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
 - Preserve author-supplied Article prose. Do not rewrite, normalize, summarize, translate, expand, shorten, or fact-correct it unless the author explicitly requests that transformation.
 
-Analog and Digital catalog entries are separately authored technical catalog content. Their project-role classification and project-specific summaries are allowed only within the scopes defined in `docs/analog/` and `docs/digital/`; they do not become Golden facts and do not alter Golden taxonomy rules.
+Analog and Digital catalog entries are separately authored technical catalog content. Their project-specific Flow scope and descriptions are allowed only within the scopes defined in `docs/analog/` and `docs/digital/`; they do not become Golden facts and do not alter Golden taxonomy rules.
 
 ## Data discipline
 

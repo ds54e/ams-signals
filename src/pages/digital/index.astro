@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { flowIds, flowLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
-import { projectTags } from '../../lib/catalog-roles';
 import { monthLabel, shortDate } from '../../lib/digital/activity';
 import { validateActivity } from '../../lib/digital/schema';
 import { activityBand } from '../../lib/catalog-activity-band';
@@ -30,9 +29,6 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
               <div class="digital-overview">
                 <div class="digital-title">
                   <h2 id={`${id}--name`}>{data.name}</h2>
-                  <ul class="digital-metadata" aria-label={`${data.name} project type`}>
-                    {projectTags(data.roles, data.ai === 'ai-built').map((tag) => <li data-tag-kind={tag.kind}>{tag.label}</li>)}
-                  </ul>
                   <ul class="digital-quicklinks" aria-label={`${data.name} primary links`}>
                     {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
                   </ul>

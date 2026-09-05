@@ -1,7 +1,6 @@
 ---
 name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
-roles: ["eda-tool"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
 description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers through structured agent commands."
 flow: {"design":"core","simulation":"core","layout":"supporting"}

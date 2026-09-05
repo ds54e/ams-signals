@@ -1,8 +1,6 @@
 ---
 name: "uhdm2rtlil"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "Surelog/UHDM-to-RTLIL frontend importing SystemVerilog designs into Yosys, with equivalence and RTL co-simulation campaigns checking the translation."
 flow: {"synthesis":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The README describes Claude-driven implementation of C++ translation handlers. Core translation changes corroborate AI-built rather than a documentation-only use. [Reviewed source](#source-readme).
+The README describes Claude-driven implementation of C++ translation handlers. The inspected core translation changes corroborate that implementation work. [Reviewed source](#source-readme).
 
 ### Release boundary
 

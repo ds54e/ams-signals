@@ -1,8 +1,6 @@
 ---
 name: "HAVEN"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "Generates UVM environments from protocol specifications through a constrained DSL, then refines coverage using VCS simulation and VC Formal feedback."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,9 +27,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-LLM inference is an operating component of the generation and coverage loop, so the project is AI-enabled. [Reviewed source](#source-readme).
+LLM inference is an operating component of the generation and coverage loop. [Reviewed source](#source-readme).
 
 ### Release boundary
 

@@ -1,8 +1,6 @@
 ---
 name: "Ngspice + OpenVAF Enhancements"
 aliases: []
-roles: ["eda-tool"]
-aiBuilt: true
 summary: "Extends ngspice simulation and OpenVAF compilation in a Claude-assisted development tree."
 description: "Claude-assisted development effort extending ngspice and OpenVAF together, adding Verilog-A language coverage, compiler correctness and SPICE simulation capabilities."
 flow: {"simulation":"core"}

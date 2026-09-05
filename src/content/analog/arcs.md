@@ -1,6 +1,5 @@
 ---
 name: "ARCS"
-roles: ["eda-tool"]
 summary: "Joint circuit-topology and component-value generation."
 description: "Generates circuit connectivity and component values from target specifications, then uses ngspice evaluation and simulation-reward training to improve candidates across power-converter, amplifier and filter families."
 flow: {"design":"core","simulation":"core"}

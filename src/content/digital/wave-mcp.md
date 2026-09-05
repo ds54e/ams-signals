@@ -1,8 +1,6 @@
 ---
 name: "wave-mcp"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-enabled"
 description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured agent tools."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The MCP server exposes actual waveform and RTL query operations to agents, establishing AI-enabled runtime integration. [Reviewed source](#source-readme).
+The MCP server exposes implemented waveform and RTL query operations to agents. [Reviewed source](#source-readme).
 
 ### Release boundary
 

@@ -1,8 +1,6 @@
 ---
 name: "EQY"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Yosys-based equivalence-checking flow that matches and partitions reference and transformed designs, then proves correspondence with configurable strategies."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional equivalence checker. No AI runtime or distinctive AI build process is established. [Reviewed source](#source-readme).
 

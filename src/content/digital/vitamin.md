@@ -1,8 +1,6 @@
 ---
 name: "vitamin"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "Rust four-state SystemVerilog simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -28,7 +26,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Sustained Claude co-authorship appears on core parser, constant-folding, elaboration and runtime commits, including the reviewed implementation change. This is material core development, not an isolated documentation contribution. [Reviewed source](#source-ai-development).
 

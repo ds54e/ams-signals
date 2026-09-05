@@ -1,8 +1,6 @@
 ---
 name: "Icarus Verilog"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as the established Icarus project. Its identity and activity are separate from the UVM-focused derivative. [Reviewed source](#source-readme).
 

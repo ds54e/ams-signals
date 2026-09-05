@@ -1,8 +1,6 @@
 ---
 name: "VerifyRTL"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "LLM-assisted verification pipeline generating plans and properties, running Icarus simulations and SymbiYosys checks, and explaining failures with trace evidence."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,7 +23,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 LLMs propose verification artifacts and explanations at runtime; actual simulation and formal backends return the corresponding verdicts. [Reviewed source](#source-readme).
 

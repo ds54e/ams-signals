@@ -1,8 +1,6 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "Rust SystemVerilog simulator combining four-state event-driven execution, native compilation, UVM features and DPI/VPI interfaces with public conformance tests."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The authors explicitly describe AI agents as first-class contributors to the simulator implementation. This supports AI-built, independently of whether a user runs an AI agent. [Reviewed source](#source-readme).
+The authors explicitly describe AI agents as first-class contributors to the simulator implementation. This describes the development process, independently of whether a user runs an AI agent. [Reviewed source](#source-readme).
 
 ### Release boundary
 

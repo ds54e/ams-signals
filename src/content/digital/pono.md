@@ -1,8 +1,6 @@
 ---
 name: "Pono"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Extensible SMT-based model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -33,9 +31,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-Pono remains Traditional. Recent individual AI co-authored changes do not establish AI as its distinctive build process or runtime. [Reviewed source](#source-readme).
+Recent individual AI co-authored changes do not establish AI as a distinctive build process or runtime for Pono. [Reviewed source](#source-readme).
 
 ### Release boundary
 

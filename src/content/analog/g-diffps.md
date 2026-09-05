@@ -1,6 +1,5 @@
 ---
 name: "G-DiffPS"
-roles: ["eda-tool"]
 summary: "Graph-conditioned RF phase-shifter synthesis."
 description: "Selects among six RF phase-shifter topologies and predicts component values with a graph-conditioned flow policy, using analytic circuit priors and ngspice feedback to meet phase, loss and matching targets."
 flow: {"design":"core","simulation":"core"}

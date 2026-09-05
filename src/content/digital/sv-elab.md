@@ -1,8 +1,6 @@
 ---
 name: "sv-elab"
 aliases: ["yosys-slang"]
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Slang-based SystemVerilog elaborator that lowers synthesizable designs into a word-level netlist for Yosys and other downstream flows."
 flow: {"design":"supporting","synthesis":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,7 +23,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional compiler frontend. The current name is sv-elab; yosys-slang is a historical alias. [Reviewed source](#source-readme).
 

@@ -1,6 +1,5 @@
 ---
 name: "Masala-CHAI"
-roles: ["agent","dataset-environment"]
 summary: "Schematic-image reconstruction into SPICE netlists."
 description: "Reconstructs SPICE netlists from schematic images using component detection and multimodal connectivity reasoning, with a V2 agent loop that revises candidates from judge feedback and optional ngspice simulation."
 flow: {"design":"core","simulation":"supporting"}

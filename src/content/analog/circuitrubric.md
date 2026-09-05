@@ -1,7 +1,6 @@
 ---
 name: "CircuitRubric"
 aliases: ["CircuitRubric Bench","circuitrubric-bench"]
-roles: ["benchmark"]
 summary: "Grades generated SPICE netlists by topology connectivity and relative device sizing, without circuit simulation."
 description: "Grades generated analog netlists by graph matching and relative device sizing, identifying topology and connectivity errors through structural scoring."
 flow: {"design":"core"}

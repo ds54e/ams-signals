@@ -16,7 +16,7 @@ Articles are authored Markdown documents kept separately under `src/content/arti
 
 ## Analog and Digital catalogs
 
-The independent English catalogs at `/analog/` and `/digital/` cover analog/RF/AMS projects and RTL/digital projects respectively. Each starts directly with activity-sorted Project / Flow / Activity rows in a compact 1120px index. Plain-text project names are followed by roles, approved AI-built provenance and external primary links. Inline Flow stages and the reviewed twelve-month activity band work without JavaScript. The catalogs do not depend on Golden records or Articles and do not enter the factual export. Main navigation is Timeline | Events | Analog | Digital | Articles.
+The independent English catalogs at `/analog/` and `/digital/` cover analog/RF/AMS projects and RTL/digital projects respectively. Each starts directly with activity-sorted Project / Flow / Activity rows in a compact 1120px index. Plain-text project names are followed directly by external primary links. Vertically stacked Flow stages and the reviewed twelve-month activity band work without JavaScript. The catalogs do not depend on Golden records or Articles and do not enter the factual export. Main navigation is Timeline | Events | Analog | Digital | Articles.
 
 The `analog` and `digital` Astro collections have their own `src/content/`, `src/lib/`, `src/pages/`, `tests/` and `docs/` directories. Activity snapshots are `src/data/analog-activity.json` and `src/data/digital-activity.json`; styles are `src/styles/analog.css` and `src/styles/digital.css`. See the [Analog contract](docs/analog/README.md) and [Digital contract](docs/digital/README.md). Only the two canonical routes are supported; there are no compatibility pages or redirects.
 

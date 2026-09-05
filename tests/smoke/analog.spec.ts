@@ -28,11 +28,12 @@ test('ATLAS and ngspice map reviewed point signals to their month without fabric
   }
 });
 
-test('Analog retains the moved enhancement project and approved AI-built provenance exactly once', async ({ page }) => {
+test('Analog retains the moved enhancement project exactly once with its primary Code link', async ({ page }) => {
   await page.goto('./analog/');
   await expect(fixture.rows(page)).toHaveCount(fixture.projects.length);
-  await expect(fixture.row(page, 'ngspice-openvaf-enhancements').locator('[data-tag-kind]')).toHaveText(['EDA Tool', 'AI-built']);
-  await expect(fixture.rows(page).locator('[data-tag-kind="ai"]')).toHaveCount(1);
+  const moved = fixture.row(page, 'ngspice-openvaf-enhancements');
+  await expect(moved).toHaveCount(1);
+  await expect(moved.getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', 'https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
   await expect(page.locator('[data-digital-project="ngspice-openvaf-enhancements"]')).toHaveCount(0);
 });

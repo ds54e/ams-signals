@@ -1,8 +1,6 @@
 ---
 name: "Yosys"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "RTL synthesis framework providing logic optimization, technology mapping and formal primitives for FPGA and ASIC flows."
 flow: {"synthesis":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,9 +27,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-Tracked as the established synthesis framework, not as a distinctively AI-built or AI-operated tool. [Reviewed source](#source-readme).
+The reusable synthesis framework supplies passes and formal primitives consumed by downstream flows. [Reviewed source](#source-readme).
 
 ### Release boundary
 

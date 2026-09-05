@@ -1,8 +1,6 @@
 ---
 name: "SymbiYosys"
 aliases: ["sby"]
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional formal-flow driver, without an AI requirement. [Reviewed source](#source-readme).
 

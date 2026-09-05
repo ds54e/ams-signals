@@ -1,8 +1,6 @@
 ---
 name: "cocotb"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as conventional verification infrastructure, independent of whether an AI agent authors a user testbench. [Reviewed source](#source-readme).
 

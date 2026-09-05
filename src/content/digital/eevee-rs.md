@@ -1,8 +1,6 @@
 ---
 name: "eevee-rs"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Rust event-driven SystemVerilog simulator with four-state execution, class elaboration and early runs of the unmodified Accellera UVM library."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,7 +23,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional simulator implementation. The reviewed material does not establish distinctive AI authorship or an AI runtime. [Reviewed source](#source-readme).
 

@@ -1,8 +1,6 @@
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
-import { aiIds } from './catalog.ts';
-import { roleIds } from '../catalog-roles.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
 
 export const catalogSlug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a stable lowercase hyphenated filename');
@@ -26,8 +24,6 @@ const scope = z.enum(['core', 'supporting']).optional();
 export const digitalSchema = z.object({
   name: publicText,
   aliases: z.array(text).default([]),
-  roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
-  ai: z.enum(aiIds),
   description: publicText.max(600, 'Keep one concise project description'),
   flow: z.object({
     design: scope, synthesis: scope, verification: scope, layout: scope,

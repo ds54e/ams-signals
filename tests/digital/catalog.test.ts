@@ -7,8 +7,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
-import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
-import { aiIds, flowIds, flowLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
+import { flowIds, flowLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
@@ -42,23 +41,15 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
   }
 });
 
-test('Digital has authored project roles while AI development provenance stays separate', () => {
+test('Digital preserves domain membership and rejects obsolete role/AI fields', () => {
   assert.equal(projects.length, 33);
   assert.ok(!projects.some((p) => p.id === 'ngspice-openvaf-enhancements'));
-  const agents = ['coresmith', 'dr-rtl', 'haven', 'spec2cov', 'ucagent', 'verifyrtl'];
-  assert.deepEqual(projects.filter((p) => p.data.roles.includes('agent')).map((p) => p.id).sort(), agents);
   for (const p of projects) {
-    assert.deepEqual(p.data.roles, [agents.includes(p.id) ? 'agent' : 'eda-tool']);
-    assert.deepEqual(projectTags(p.data.roles, p.data.ai === 'ai-built'), [
-      ...p.data.roles.map((role) => ({ kind: 'role', label: roleLabels[role] })),
-      ...(p.data.ai === 'ai-built' ? [{ kind: 'ai', label: 'AI-built' }] : []),
-    ]);
+    for (const field of ['roles', 'ai', 'aiBuilt']) assert.ok(!(field in p.data));
   }
-  assert.deepEqual(projects.filter((p) => p.data.ai === 'ai-built').map((p) => p.id).sort(), ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
-  for (const roles of [undefined, [], ['agent', 'agent'], ['simulation'], ['agent', 'benchmark', 'eda-tool']]) {
-    assert.equal(digitalSchema.safeParse({ ...data(), roles }).success, false);
+  for (const fields of [{ roles: ['eda-tool'] }, { ai: 'traditional' }, { aiBuilt: true }]) {
+    assert.equal(digitalSchema.safeParse({ ...data(), ...fields }).success, false);
   }
-  assert.ok(digitalSchema.safeParse({ ...data(), roles: ['agent', 'benchmark'] }).success);
 });
 
 test('stable slugs reject ambiguity and duplicate authored entries', () => {
@@ -70,8 +61,6 @@ test('stable slugs reject ambiguity and duplicate authored entries', () => {
 test('Digital Flow has four stages and accepts only reviewed core/supporting scope', () => {
   assert.deepEqual(flowIds, ['design', 'synthesis', 'verification', 'layout']);
   assert.deepEqual(flowIds.map((id) => flowLabels[id]), ['Design', 'Synthesis', 'Verification', 'Layout']);
-  assert.deepEqual(aiIds, ['ai-built', 'ai-enabled', 'traditional']);
-  for (const ai of ['ai-assisted', 'ai-native', 'agent-ready', 'unknown']) assert.equal(digitalSchema.safeParse({ ...data(), ai }).success, false);
   for (const flow of [undefined, {}, { design: undefined }, { design: 'planned' }, { design: null }, { simulation: 'core' }, { quality: 'core' }]) {
     assert.equal(digitalSchema.safeParse({ ...data(), flow }).success, false);
   }

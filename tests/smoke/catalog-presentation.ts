@@ -89,7 +89,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.dateText).toBe(new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'UTC',
       ...(date.slice(0, 4) !== snapshot.reviewedAt.slice(0, 4) ? { year: 'numeric' } : {}),
     }).format(new Date(`${date}T00:00:00Z`)));
-    expect(item.weight).toBeGreaterThanOrEqual(600);
+    expect(item.weight).toBe(400);
     expect(item.dateLine).toBe(item.dateText);
     expect(item.text).toBe(`${item.dateText} ${item.summary}`);
     for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
@@ -162,7 +162,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
       links: [...el.querySelectorAll(`.${p}-title .${p}-quicklinks a`)].map(rect),
       description: rect(el.querySelector(`.${p}-description`)!),
       flowStyle: getComputedStyle(el.querySelector(`.${p}-flow`)!).display,
-      flowWrap: getComputedStyle(el.querySelector(`.${p}-flow`)!).flexWrap,
+      flowDirection: getComputedStyle(el.querySelector(`.${p}-flow`)!).flexDirection,
       flowItems: [...el.querySelectorAll('[data-flow]')].map(rect),
     };
   }), prefix);
@@ -170,12 +170,15 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
     expect(row.columns).toHaveLength(3);
     expect(row.row.width).toBeLessThanOrEqual(1120);
     if (width >= 1024) {
-      expect(row.columns[0].width).toBeGreaterThan(550);
-      expect(row.columns[1].width).toBe(236);
+      expect(row.columns[0].width).toBeGreaterThan(610);
+      expect(row.columns[1].width).toBe(170);
       expect(row.columns[2].width).toBe(108);
       expect(row.columns[1].left - row.columns[0].right).toBe(22);
       expect(row.columns[2].left - row.columns[1].right).toBe(22);
-      if (width >= 1280) expect(row.row.width).toBe(1120);
+      if (width >= 1280) {
+        expect(row.row.width).toBe(1120);
+        expect(row.columns[0].width).toBe(798);
+      }
     } else {
       expect(new Set(row.columns.map((column) => column.left)).size).toBe(1);
       expect(row.columns[0].bottom).toBeLessThan(row.columns[1].top);
@@ -184,7 +187,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
     expect(row.justify).toBe('flex-start');
     expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
     expect(row.name.left).toBeCloseTo(row.title.left, 1);
-    expect(row.titleChildren).toHaveLength(3); // Name, authored metadata, external quick links.
+    expect(row.titleChildren).toHaveLength(2); // Plain-text name immediately followed by external quick links.
     for (let index = 1; index < row.titleChildren.length; index++) {
       const previous = row.titleChildren[index - 1], current = row.titleChildren[index];
       if (current.top < previous.bottom - 1) {
@@ -203,11 +206,16 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
       const previous = row.links[index - 1], current = row.links[index];
       expect(current.left >= previous.right - 1 || current.top >= previous.bottom - 1).toBe(true);
     }
-    expect(row.flowStyle).toBe('flex'); expect(row.flowWrap).toBe('wrap');
-    if (row.flowItems.length > 1) expect(row.flowItems[1].top).toBeCloseTo(row.flowItems[0].top, 1);
+    expect(row.flowStyle).toBe('flex'); expect(row.flowDirection).toBe('column');
+    for (let index = 1; index < row.flowItems.length; index++) {
+      const previous = row.flowItems[index - 1], current = row.flowItems[index];
+      expect(current.left).toBeCloseTo(previous.left, 1);
+      expect(current.top - previous.bottom).toBeCloseTo(3, 1);
+    }
     for (const item of row.flowItems) {
       expect(item.left).toBeGreaterThanOrEqual(row.columns[1].left);
       expect(item.right).toBeLessThanOrEqual(row.columns[1].right);
+      expect(item.bottom - item.top).toBeLessThan(24);
     }
   }
 }

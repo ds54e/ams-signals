@@ -1,7 +1,6 @@
 ---
 name: "ALIGN"
 aliases: []
-roles: ["eda-tool"]
 summary: "Generates placed and routed analog layouts from circuit netlists and constraints."
 description: "Turns SPICE netlists and analog constraints into hierarchical, placed and routed GDSII layouts, with circuit annotation and parameterized primitive generation."
 flow: {"design":"supporting","layout":"core"}

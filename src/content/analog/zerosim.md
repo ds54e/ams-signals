@@ -1,6 +1,5 @@
 ---
 name: "ZeroSim"
-roles: ["eda-tool","dataset-environment"]
 summary: "A transformer surrogate for analog performance prediction."
 description: "Predicts amplifier performance from circuit topology and device parameters using a transformer surrogate, with training and evaluation for transfer to previously unseen topologies."
 flow: {"simulation":"core"}

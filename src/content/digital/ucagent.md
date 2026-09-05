@@ -1,8 +1,6 @@
 ---
 name: "UCAgent"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "Agentic unit-level verification environment that analyzes DUTs, generates and runs tests, checks coverage and connects external code agents through MCP."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Agent backends and MCP collaboration are implemented runtime paths. The optional blank backend delegates work to external agents rather than making all modes model-free. [Reviewed source](#source-readme).
 

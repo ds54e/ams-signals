@@ -1,8 +1,6 @@
 ---
 name: "Dr. RTL"
 aliases: []
-roles: ["agent"]
-ai: "ai-enabled"
 description: "Agentic RTL optimization loop that reads synthesis timing feedback, rewrites critical logic and uses sequential equivalence checks to select improved implementations."
 flow: {"design":"core","synthesis":"core","verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 LLM agents perform critical-path analysis, rewrite candidates and use tool feedback at runtime. The latest agent scoring-contract correction changes how candidates are compared. [Reviewed source](#source-readme).
 

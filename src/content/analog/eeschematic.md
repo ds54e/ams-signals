@@ -1,6 +1,5 @@
 ---
 name: "EEschematic"
-roles: ["agent"]
 summary: "Multimodal conversion from netlists to editable schematics."
 description: "Converts SPICE netlists into editable schematic descriptions, using multimodal reasoning and visual feedback to place symbols and refine wiring for analog circuits."
 flow: {"design":"core"}

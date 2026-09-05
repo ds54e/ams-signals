@@ -1,8 +1,6 @@
 ---
 name: "OpenADA"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-enabled"
 description: "Local agent-to-EDA interface running circuit simulation, measurement, synthesis and DRC/LVS operations through tool drivers that return structured evidence."
 flow: {"synthesis":"supporting","verification":"core","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-Agent skills consume implemented local CLI operations and structured results. This is AI-enabled even though a normative MCP binding remains future work. [Reviewed source](#source-readme).
+Agent skills consume implemented local CLI operations and structured results. The normative MCP binding remains future work. [Reviewed source](#source-readme).
 
 ### Release boundary
 

@@ -1,8 +1,6 @@
 ---
 name: "OpenROAD"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."
 flow: {"layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as conventional physical-design infrastructure. Deterministic automation is not itself an AI runtime. [Reviewed source](#source-readme).
 

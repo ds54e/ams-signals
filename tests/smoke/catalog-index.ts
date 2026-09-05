@@ -3,7 +3,6 @@ import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { expectIndexColumns, expectFlowCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
-const roleLabels = { agent: 'Agent', benchmark: 'Benchmark', 'eda-tool': 'EDA Tool', 'dataset-environment': 'Dataset & Environment' };
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
   const directory = new URL(`../../src/content/${domain}/`, import.meta.url);
@@ -50,13 +49,15 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(catalog.locator('table, input, select, button, form, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
-    for (const forbidden of ['Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
+    for (const forbidden of ['Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'AI-built', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
+    await expect(catalog.locator('[data-tag-kind], [class$="-metadata"]')).toHaveCount(0);
     const rendered = await rows(page).evaluateAll((nodes, { prefix, attribute }) => nodes.map((el) => ({
       id: el.getAttribute(attribute), rowId: el.id,
       name: el.querySelector('h2')!.textContent, nameLinks: el.querySelectorAll('h2 a').length,
       description: el.querySelector(`.${prefix}-description`)!.textContent,
       descriptions: el.querySelectorAll(`.${prefix}-description`).length,
-      tags: [...el.querySelectorAll(`.${prefix}-title [data-tag-kind]`)].map((x) => ({ kind: x.getAttribute('data-tag-kind'), label: x.textContent })),
+      title: el.querySelector<HTMLElement>(`.${prefix}-title`)!.innerText.replace(/\s+/g, ' ').trim(),
+      titleChildren: [...el.querySelector(`.${prefix}-title`)!.children].map((x) => x.tagName),
       links: [...el.querySelectorAll<HTMLAnchorElement>(`.${prefix}-title .${prefix}-quicklinks a`)].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
       linkCount: el.querySelectorAll('a').length,
     })), { prefix, attribute });
@@ -64,8 +65,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       const links = p.sources.filter((s: any) => s.purpose).sort((a: any, b: any) => Object.keys(linkLabels).indexOf(a.purpose) - Object.keys(linkLabels).indexOf(b.purpose))
         .map((s: any) => ({ label: linkLabels[s.purpose as keyof typeof linkLabels], href: s.url }));
       return { id: p.id, rowId: '', name: p.name, nameLinks: 0, description: p.description, descriptions: 1,
-        tags: [...p.roles.map((role: keyof typeof roleLabels) => ({ kind: 'role', label: roleLabels[role] })),
-          ...(p.aiBuilt || p.ai === 'ai-built' ? [{ kind: 'ai', label: 'AI-built' }] : [])],
+        title: [p.name, ...links.map((link: { label: string }) => link.label)].join(' '), titleChildren: ['H2', 'UL'],
         links, linkCount: links.length };
     }));
     const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((el) => el.id));
@@ -74,7 +74,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(await catalog.locator('ol, ul').evaluateAll((nodes) => nodes.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   });
 
-  test(`${label} inline Flow preserves every authored stage and its accessible meaning`, async ({ page }) => {
+  test(`${label} vertical Flow preserves every authored stage and its accessible meaning`, async ({ page }) => {
     await open(page);
     for (const p of projects) {
       const flow = row(page, p.id).getByRole('list', { name: `${p.name} Flow`, exact: true });

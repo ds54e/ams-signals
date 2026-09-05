@@ -1,8 +1,6 @@
 ---
 name: "WHAT"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-built"
 description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -25,9 +23,9 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
-The author explicitly credits AI with the principal architecture and implementation, which supports AI-built rather than an inferred agent runtime. [Reviewed source](#source-readme).
+The author explicitly credits AI with the principal architecture and implementation; this is development evidence rather than a claim about an agent runtime. [Reviewed source](#source-readme).
 
 ### Release boundary
 

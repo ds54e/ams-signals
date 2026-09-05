@@ -1,7 +1,6 @@
 ---
 name: "NetlistBench"
 aliases: ["Netlist Bench","Netbench"]
-roles: ["benchmark"]
 summary: "Benchmarks recognition, editing, and structural comparison of existing SPICE netlists and subcircuit hierarchy."
 description: "Tests recognition, editing, hierarchy and structural equivalence of SPICE netlists in 2,342 cases across 24 task families, using a deterministic canonical-IR grader."
 flow: {"design":"core"}

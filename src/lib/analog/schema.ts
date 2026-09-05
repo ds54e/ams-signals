@@ -1,7 +1,6 @@
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
-import { roleIds } from './catalog.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
 
 export const catalogSlug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a stable lowercase hyphenated filename');
@@ -26,8 +25,6 @@ const sourceUrl = z.string().url().refine((value) => {
 export const analogSchema = z.object({
   name: text,
   aliases: z.array(text).default([]),
-  roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
-  aiBuilt: z.literal(true).optional(),
   summary: text.max(240, 'Keep the default summary to one concise sentence'),
   description: text.max(600, 'Keep the project description to one short paragraph'),
   flow: z.object({

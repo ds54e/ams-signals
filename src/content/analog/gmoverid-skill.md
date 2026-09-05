@@ -1,6 +1,5 @@
 ---
 name: "gmoverid-skill"
-roles: ["eda-tool"]
 summary: "Agent-usable device characterization and gm/ID sizing tools."
 description: "Provides agent-usable gm/ID characterization and transistor-sizing tools, plus ngspice examples and SKY130 corner/Monte Carlo sweeps for device models and small analog circuits."
 flow: {"design":"core","simulation":"core"}

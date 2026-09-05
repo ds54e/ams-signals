@@ -1,8 +1,6 @@
 ---
 name: "slang"
 aliases: []
-roles: ["eda-tool"]
-ai: "traditional"
 description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations for code tooling, including pyslang Python bindings."
 flow: {"design":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 Tracked as a conventional reusable compiler frontend; AI involvement is not a defining product characteristic. [Reviewed source](#source-readme).
 

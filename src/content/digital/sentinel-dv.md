@@ -1,8 +1,6 @@
 ---
 name: "Sentinel DV"
 aliases: []
-roles: ["eda-tool"]
-ai: "ai-enabled"
 description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries across simulator artifacts."
 flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -29,7 +27,7 @@ sources:
 ---
 
 
-### Classification
+### Implementation context
 
 MCP tools and agent workflows provide runtime AI integration over verification evidence. [Reviewed source](#source-readme).
 

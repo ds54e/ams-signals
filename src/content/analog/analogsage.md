@@ -1,6 +1,5 @@
 ---
 name: "AnalogSAGE"
-roles: ["agent"]
 summary: "Analog design agents with simulation-grounded memory."
 description: "Coordinates topology exploration, transistor sizing and reflection for SKY130 op-amps, combining retrieved circuit knowledge with ngspice feedback and memory of earlier design attempts."
 flow: {"design":"core","simulation":"supporting"}
