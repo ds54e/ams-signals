@@ -3,6 +3,7 @@ name: "AnalogGym"
 aliases: ["Analog Gym"]
 roles: ["benchmark","dataset-environment"]
 summary: "Provides circuit netlists, tunable variables, and simulation benches for evaluating analog sizing and optimization methods."
+description: "Optimizers update design-variable files and run supplied circuit testbenches. Amplifier and LDO examples include performance extraction, reinforcement-learning workflows, and process, supply, and temperature sweeps."
 keywords: ["Sizing", "Reinforcement learning", "ngspice", "SKY130"]
 workflow:
   generate-edit: supporting

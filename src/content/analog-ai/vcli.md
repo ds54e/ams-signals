@@ -3,6 +3,7 @@ name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 roles: ["eda-tool"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
+description: "Discovers and controls multiple Virtuoso sessions through a registry with dynamic ports. Its JSON-oriented Rust CLI edits schematics, executes SKILL, configures Maestro, launches Spectre jobs, reads PSF results, and supports concurrent broadcast across local sessions."
 keywords: ["Rust CLI", "Multi-session", "Cadence", "Spectre", "JSON"]
 workflow:
   generate-edit: core

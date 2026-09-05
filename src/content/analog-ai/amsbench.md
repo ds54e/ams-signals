@@ -3,6 +3,7 @@ name: "AMSbench"
 aliases: ["AMS Bench"]
 roles: ["benchmark","dataset-environment"]
 summary: "Benchmarks schematic perception, circuit reasoning, and circuit or testbench generation with separate evaluation contracts."
+description: "Tests schematic component and connectivity recognition, circuit-function reasoning, and circuit or testbench generation. Generated circuits are checked by simulation, and testbenches are checked for executable syntax and correct measurements."
 keywords: ["Schematics", "Multimodal QA", "Generation", "Partial release"]
 workflow:
   reasoning: core

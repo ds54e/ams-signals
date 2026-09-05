@@ -3,6 +3,7 @@ name: "ATLAS"
 aliases: ["ATLAS SAR ADC"]
 roles: ["agent"]
 summary: "A paper-described SAR ADC flow using expert templates, LLM planning and netlist assembly, and simulation-guided sizing."
+description: "The paper describes agents selecting comparator, DAC, and SAR-logic templates, adjusting bit width, assembling a SAR ADC, and adapting its testbench. Simulation feedback supports debugging, while a sizing agent selects variables and ranges for Bayesian optimization."
 keywords: ["SAR ADC", "Spectre", "Template-based", "Paper-only", "Human-in-the-loop"]
 workflow:
   reasoning: supporting

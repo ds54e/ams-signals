@@ -3,6 +3,7 @@ name: "NetlistBench"
 aliases: ["Netlist Bench","Netbench"]
 roles: ["benchmark"]
 summary: "Benchmarks recognition, editing, and structural comparison of existing SPICE netlists and subcircuit hierarchy."
+description: "Provides 2,342 cases across 24 families for reading and modifying existing netlists. Tasks cover connectivity, device parameters, terminal roles, renaming, component changes, and subcircuit hierarchy; graders compare canonical IR or structured reference answers."
 keywords: ["Netlist editing", "Hierarchy", "Canonical IR", "Structural only"]
 workflow:
   reasoning: core

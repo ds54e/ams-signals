@@ -3,6 +3,7 @@ name: "virtuoso-bridge-lite"
 aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 roles: ["eda-tool"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
+description: "Connects Python or CLI workflows to local or remote Virtuoso sessions for SKILL execution, schematic planning, layout geometry, and Maestro setup. Also provides standalone Spectre execution and PSF result parsing."
 keywords: ["Cadence", "Python / CLI", "Spectre", "Layout primitives"]
 workflow:
   generate-edit: core

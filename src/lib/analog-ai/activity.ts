@@ -1,3 +1,11 @@
+export type PublicActivity =
+  | { kind: 'github'; lastCommitAt: string }
+  | { kind: 'no-public-repo'; lastPublicUpdateAt?: string };
+
+export function publicActivityDate(activity: PublicActivity): string {
+  return activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt ?? '';
+}
+
 /** Twelve UTC calendar months, including the partial snapshot month. */
 export function activityMonths(reviewedAt: string): string[] {
   const end = new Date(`${reviewedAt.slice(0, 7)}-01T00:00:00Z`);
