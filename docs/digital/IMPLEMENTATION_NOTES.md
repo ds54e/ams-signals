@@ -1,5 +1,11 @@
 # Digital implementation notes
 
+## Upright activity segments (2026-09-05)
+
+The follow-up to `14c77c2c7836b73302af35bc63473420ffdbb141` corrects the intended shape: **5px wide × 12px high** upright segments, **2px gaps**, and an **82px-wide** twelve-month band (previously 118px). The Activity column is **108px** to fit existing year-bearing dates; the grid remains **2.8fr / 1.15fr / 108px**. Month summaries are left-aligned below the band. No cell stretches, and monthly fill still uses the same binary reviewed signals.
+
+`npm run check` passed, including **20 Analog / 21 Digital unit tests**; the complete Chromium production-preview smoke suite passed **73/73**. Shared assertions require upright geometry, short intrinsic width, date/summary containment and unchanged signal/hover/accessibility semantics. Both pages were visually checked at **1440, 390 and 320px**, including sparse point signals, continuous repository activity and year-bearing dates, with no overflow. All **352 content/data files**, **283 other HTML pages** and `/export.json` are byte-identical. Catalog HTML changes only its stylesheet asset reference. No membership, activity data, source, permalink or deployment changes; delivery is a normal commit/push to `main`, **without Pages deployment**.
+
 ## Unified public activity band and title links (2026-09-05)
 
 Starting from `c61e917f50c96c6e0528985517cbe4709b11c3a5`, every row on both catalogs uses the **12-month reviewed public activity band**: date only, twelve binary cells, then `N/12 months`. Repository counts remain distinct from typed paper/release/public-update signals, which map their existing reviewed dates into event months without inventing commit history.

@@ -62,11 +62,11 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       id: el.id, kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
       date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
       dateLine: time.parentElement!.innerText, provenance: time.title,
-      dateBottom: time.getBoundingClientRect().bottom,
-      stripTop: stripBox?.top, stripBottom: stripBox?.bottom, stripWidth: stripBox?.width, stripRight: stripBox?.right,
-      activityWidth: activity.getBoundingClientRect().width,
+      dateBottom: time.getBoundingClientRect().bottom, dateRight: time.getBoundingClientRect().right,
+      stripTop: stripBox?.top, stripBottom: stripBox?.bottom, stripWidth: stripBox?.width, stripRight: stripBox?.right, stripLeft: stripBox?.left,
+      activityWidth: activity.getBoundingClientRect().width, activityRight: activity.getBoundingClientRect().right,
       label: strip?.getAttribute('aria-label') ?? null, links: activity.querySelectorAll('a').length,
-      summary: summary?.textContent ?? null, summaryTop: summaryBox?.top, summaryRight: summaryBox?.right,
+      summary: summary?.textContent ?? null, summaryTop: summaryBox?.top, summaryRight: summaryBox?.right, summaryLeft: summaryBox?.left,
       months: [...activity.querySelectorAll<HTMLElement>('ul > li')].map((li) => {
         const style = getComputedStyle(li); const box = li.getBoundingClientRect();
         const accessible = li.querySelector<HTMLElement>('.visually-hidden')!;
@@ -108,10 +108,13 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months).toHaveLength(12);
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(112);
-    expect(item.activityWidth).toBeLessThanOrEqual(124);
-    expect(item.stripWidth).toBeCloseTo(item.activityWidth, 1);
-    expect(item.summaryRight).toBeCloseTo(item.stripRight!, 1);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(105);
+    expect(item.activityWidth).toBeLessThanOrEqual(110);
+    expect(item.stripWidth).toBeCloseTo(82, 1);
+    expect(item.stripWidth).toBeLessThan(item.activityWidth);
+    expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
+    expect(item.summaryLeft).toBeCloseTo(item.stripLeft!, 1);
+    expect(item.summaryRight).toBeLessThanOrEqual(item.activityRight);
     for (let index = 0; index < 12; index++) {
       const bucket = item.months[index];
       const month = snapshot.months[index]; const count = record.commits?.[index];
@@ -128,9 +131,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBeGreaterThanOrEqual(8); expect(bucket.height).toBeGreaterThanOrEqual(5);
-      expect(bucket.width).toBeLessThanOrEqual(9); expect(bucket.height).toBeLessThanOrEqual(5);
-      expect(bucket.width / bucket.height).toBeGreaterThanOrEqual(1.4);
+      expect(bucket.width).toBe(5); expect(bucket.height).toBe(12);
+      // Upright segments, like an HP gauge; the full twelve-month band stays short.
+      expect(bucket.height / bucket.width).toBeGreaterThanOrEqual(2);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
       expect(bucket.fill).toBe(active ? bucket.border : 'rgba(0, 0, 0, 0)');
       if (index) {
@@ -166,7 +169,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
       expect(row.columns[1].width).toBeLessThan(340);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[1].width * 2);
       expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 3.5);
-      expect(row.columns[2].width).toBeLessThanOrEqual(124);
+      expect(row.columns[2].width).toBeLessThanOrEqual(110);
       expect(row.columns[0].right).toBeLessThan(row.columns[1].left);
       expect(row.columns[1].right).toBeLessThan(row.columns[2].left);
     } else {
