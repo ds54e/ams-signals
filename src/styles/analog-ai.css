@@ -97,9 +97,7 @@
 }
 @media (max-width: 600px) {
   .landscape-scroll-hint { display: block; margin-bottom: 6px; }
-  .catalog-header time, .catalog-reviewed time, .activity-summary time { white-space: nowrap; }
-.landscape-scroll-hint { display: none; }
-.catalog-header { margin-bottom: 20px; }
+  .catalog-header { margin-bottom: 20px; }
   .catalog-description { font-size: 0.9rem; }
   .catalog-meta-line, .catalog-updates { font-size: 0.73rem; }
   .landscape-table { min-width: 740px; }
