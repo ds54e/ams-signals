@@ -7,6 +7,8 @@ Status: implementation contract for the standalone catalog
 
 Implement a standalone catalog at `/analog-ai/` for analog/RF/AMS AI benchmarks, design agents, EDA tools, and datasets/experiment environments.
 
+This is a technical catalog and database-like reference surface, not an editorial Article. All public-facing catalog content and UI must be English only, including the page title/description, controls, role labels, project summaries, targets, access/environment statements, notices, expanded details, source labels, and update notes. Do not create a bilingual version. Existing Articles remain Japanese.
+
 This feature must remain independent of Timeline, Events, Company, Person, and Articles data. It may share only content-independent site infrastructure.
 
 Do not modify the factual export. Do not create a new public JSON API for v1.
@@ -23,20 +25,20 @@ Order the page as follows:
 
 The project list is the main surface. Do not create a large comparison dashboard, capability scorecard, maturity ladder, star rating, or multi-column card grid.
 
-Suggested page title: `アナログ設計AIのベンチマークとツール`.
+Suggested page title: `Analog AI benchmarks and tools`.
 
 ## 3. Project roles
 
 Use these four coarse roles:
 
-- `benchmark` — ベンチマーク
-- `agent` — 設計エージェント
-- `eda-tool` — EDAツール
-- `dataset-environment` — データ・実験環境
+- `benchmark` — Benchmark
+- `agent` — Design Agent
+- `eda-tool` — EDA Tool
+- `dataset-environment` — Dataset & Environment
 
 A project may have multiple roles.
 
-The UI offers `すべて` or one role at a time. Do not build multi-axis filtering for circuit type, PDK, simulator, layout stage, etc. in v1. Those terms may remain searchable text.
+The UI offers `All` or one role at a time. Do not build multi-axis filtering for circuit type, PDK, simulator, layout stage, etc. in v1. Those terms may remain searchable text.
 
 ## 4. Ordering
 
@@ -46,7 +48,7 @@ Filtering never reorders surviving projects.
 
 Do not order by GitHub activity, stars, review date, perceived maturity, or search relevance.
 
-Show count as `全N件中M件`; a multi-role project counts once.
+Show count as `Showing M of N projects`; a multi-role project counts once.
 
 ## 5. Project summary
 
@@ -54,9 +56,9 @@ The collapsed/default view must contain enough information to decide whether to 
 
 - project name;
 - role(s);
-- about two natural Japanese sentences explaining what it does and what makes it distinct;
+- about two concise English sentences explaining what it does and what makes it distinct;
 - optional circuit/domain targets when verified;
-- one short `公開物・利用環境` statement;
+- one short `Access & environment` statement;
 - an important condition in the default view when it materially changes interpretation or usability;
 - available primary links such as official site, paper, code, results;
 - a detail disclosure and stable project link.
@@ -81,7 +83,7 @@ Use independent `details`/`summary` behavior or an equivalent accessible impleme
 
 Do not persist every open/closed state across reloads. A project named by URL hash must open.
 
-Namespace generated IDs by project slug so repeated headings such as `評価方法` do not cause duplicate DOM IDs.
+Namespace generated IDs by project slug so repeated headings such as `Evaluation` do not cause duplicate DOM IDs.
 
 ## 7. Search
 
@@ -108,7 +110,7 @@ The role filter and search query combine with AND.
 
 Handle IME composition so Japanese conversion-in-progress does not trigger disruptive filtering.
 
-Search matching is not a capability claim. Text such as `PVT未評価` may match `PVT`; do not infer badges or support status from a text hit.
+Search matching is not a capability claim. Text such as `PVT not evaluated` may match `PVT`; do not infer badges or support status from a text hit.
 
 For zero results, keep current controls visible, show a zero-result message, and provide one reset action. Do not silently broaden the query.
 
@@ -280,6 +282,7 @@ The implementation is not complete until these observable cases are covered:
 19. Adding/removing a catalog project requires no Event/Company/Person changes.
 20. Existing factual data, Articles, and `/export.json` remain unchanged except for the intentional global-nav addition.
 21. Timeline/Events state and Analog AI state never leak into each other.
+22. All public-facing Analog AI UI and content are English only; existing Japanese Articles remain unchanged.
 
 ## 16. Delivery
 

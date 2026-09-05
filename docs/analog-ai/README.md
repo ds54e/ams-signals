@@ -37,13 +37,17 @@ The page should help an engineer answer:
 4. What is public, and what environment or tooling is required separately?
 5. Where are the primary source, paper, code, or published results?
 
-The catalog is an editorial technical guide, not a maturity ranking and not an exhaustive evidence archive.
+The catalog is a technical catalog and database-like reference surface, not an editorial Article, maturity ranking, or exhaustive evidence archive.
+
+## Language
+
+All public-facing Analog AI content and UI are English only: page title and description, controls, role labels, project summaries, targets, access/environment statements, notices, expanded details, source labels, and catalog update notes. Do not create a bilingual version. Articles remain Japanese and independent from this catalog.
 
 ## Initial UX direction
 
 - Navigation entry: `Analog AI`
 - Route: `/analog-ai/`
-- Japanese page title: `アナログ設計AIのベンチマークとツール`
+- English page title: `Analog AI benchmarks and tools`
 - One project list; do not duplicate the same project into category sections.
 - Filter by one role at a time: Benchmark / Design Agent / EDA Tool / Dataset & Environment.
 - A project may have multiple roles and should still appear only once in the full list.

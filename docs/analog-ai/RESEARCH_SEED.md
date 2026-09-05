@@ -174,12 +174,14 @@ Use these questions to produce concise catalog prose. Do not turn them into a gi
 
 A catalog summary should be useful even to a reader who never opens the details.
 
+Public catalog prose and UI are English only, as defined in `README.md` and `IMPLEMENTATION_SPEC.md`. The catalog is a technical reference surface, not an editorial Article.
+
 Prefer concrete distinctions such as:
 
-- `生成したSPICEネットリストを接続構造と相対サイズで採点する。回路性能のシミュレーションは評価対象ではない。`
-- `既存回路の設計変数をLLMが提案し、Maestro/Spectreの結果を仕様判定へ戻して反復する。利用者側のVirtuoso環境と回路が必要。`
+- `Grades generated SPICE netlists by connectivity and relative device sizing. Simulated circuit performance is outside the evaluation scope.`
+- `An LLM proposes parameter changes for an existing circuit and receives specification checks from Maestro/Spectre results. Requires the user's Virtuoso environment and circuit assets.`
 
-Avoid generic project-marketing language such as `革新的`, `end-to-end` without explaining what the endpoints actually are, or `silicon-ready` unless the cited evidence supports that exact claim.
+Avoid generic project-marketing language such as `revolutionary`, `end-to-end` without explaining what the endpoints actually are, or `silicon-ready` unless the cited evidence supports that exact claim.
 
 ## Stop condition for the first population
 
