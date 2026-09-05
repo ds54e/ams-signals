@@ -8,17 +8,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "validate": "node tools/validate.mjs",
-    "validate:analog-ai": "node tools/validate-analog-ai.mjs",
-    "test:analog-ai": "node --test tests/analog-ai/*.test.ts",
+    "validate:analog": "node tools/validate-analog.mjs",
+    "test:analog": "node --test tests/analog/*.test.ts",
     "lint:facts": "node tools/fact-lint.mjs",
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:internal-links": "node tools/internal-link-check.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog-ai && npm run test:analog-ai && npm run validate:eda-tools && npm run test:eda-tools && npm run build && npm run check:internal-links",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog && npm run test:analog && npm run validate:digital && npm run test:digital && npm run build && npm run check:internal-links",
     "test:smoke": "npm run build && playwright test",
-    "refresh:analog-ai-activity": "node tools/refresh-analog-ai-activity.mjs",
-    "validate:eda-tools": "node tools/validate-eda-tools.mjs",
-    "test:eda-tools": "node --test tests/eda-tools/*.test.ts",
-    "refresh:eda-tools-activity": "node tools/refresh-eda-tools-activity.mjs"
+    "refresh:analog-activity": "node tools/refresh-analog-activity.mjs",
+    "validate:digital": "node tools/validate-digital.mjs",
+    "test:digital": "node --test tests/digital/*.test.ts",
+    "refresh:digital-activity": "node tools/refresh-digital-activity.mjs"
   },
   "dependencies": {
     "astro": "7.2.9"

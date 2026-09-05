@@ -1,13 +1,13 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
 export const areaIds = ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical'] as const;
-export type EdaArea = typeof areaIds[number];
-export const areaLabels: Record<EdaArea, string> = {
+export type DigitalArea = typeof areaIds[number];
+export const areaLabels: Record<DigitalArea, string> = {
   simulation: 'Simulation', 'frontend-synthesis': 'Frontend / Synth',
   'formal-verification': 'Formal / Verify', 'debug-waveform': 'Debug / Wave',
   'flow-physical': 'Flow / Physical',
 };
-export const primaryLabels: Record<EdaArea, string> = {
+export const primaryLabels: Record<DigitalArea, string> = {
   simulation: 'Simulation', 'frontend-synthesis': 'Frontend / Synthesis',
   'formal-verification': 'Formal / Verification', 'debug-waveform': 'Debug / Waveform',
   'flow-physical': 'Flow / Physical',

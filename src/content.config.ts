@@ -1,8 +1,8 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { analogAiSchema, catalogSlug } from './lib/analog-ai/schema';
-import { edaToolsSchema, catalogSlug as edaSlug } from './lib/eda-tools/schema';
+import { analogSchema, catalogSlug } from './lib/analog/schema';
+import { digitalSchema, catalogSlug as digitalSlug } from './lib/digital/schema';
 
 const datePrecision = z.enum(['year', 'month', 'day']);
 const eventKind = z.enum(['technical', 'organizational']);
@@ -148,22 +148,22 @@ const articles = defineCollection({
   }),
 });
 
-const analogAi = defineCollection({
+const analog = defineCollection({
   loader: glob({
     pattern: '**/*.md',
-    base: './src/content/analog-ai',
+    base: './src/content/analog',
     generateId: ({ entry }) => catalogSlug.parse(entry.replace(/\.md$/, '')),
   }),
-  schema: analogAiSchema,
+  schema: analogSchema,
 });
 
-const edaTools = defineCollection({
+const digital = defineCollection({
   loader: glob({
     pattern: '*.md',
-    base: './src/content/eda-tools',
-    generateId: ({ entry }) => edaSlug.parse(entry.replace(/\.md$/, '')),
+    base: './src/content/digital',
+    generateId: ({ entry }) => digitalSlug.parse(entry.replace(/\.md$/, '')),
   }),
-  schema: edaToolsSchema,
+  schema: digitalSchema,
 });
 
-export const collections = { events, companies, people, articles, analogAi, edaTools };
+export const collections = { events, companies, people, articles, analog, digital };

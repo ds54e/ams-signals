@@ -1,4 +1,4 @@
-# Analog AI catalog research seed
+# Analog catalog research seed
 
 Date: 2026-09-05
 Purpose: starting points for the first catalog population. This file is not the catalog and is not evidence by itself.

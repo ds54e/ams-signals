@@ -5,7 +5,7 @@ import { parseFrontmatter } from 'astro/markdown';
 import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 // Authored inventory and snapshot are independent expectations, not a fixed initial-project list.
-const directory = new URL('../../src/content/analog-ai/', import.meta.url);
+const directory = new URL('../../src/content/analog/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
   const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
   return {
@@ -15,7 +15,7 @@ const projects = await Promise.all((await readdir(directory)).filter((file) => f
   };
 }));
 const total = projects.length;
-const activity = JSON.parse(await readFile(new URL('../../src/data/analog-ai-activity.json', import.meta.url), 'utf8'));
+const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
 const roles = { benchmark: 'Benchmark', agent: 'Agent', 'eda-tool': 'EDA Tool', 'dataset-environment': 'Dataset & Environment' };
 const stages = ['reasoning', 'generate-edit', 'simulate-measure', 'optimize', 'eda-integration', 'physical'];
 const sourceLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
@@ -30,8 +30,8 @@ const ordered = [...projects].sort((a, b) => {
   return key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0;
 });
 async function open(page: Page, suffix = '') {
-  await page.goto(`./analog-ai/${suffix}`);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Analog / AMS');
+  await page.goto(`./analog/${suffix}`);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Analog');
 }
 async function noOverflow(page: Page) {
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
@@ -49,30 +49,30 @@ async function atAnchor(page: Page, id: string) {
 }
 
 test('each authored project renders once, newest activity first, with a concise English dashboard and direct sources', async ({ page }) => {
-  const response = await page.request.get('./analog-ai/');
+  const response = await page.request.get('./analog/');
   expect(response.ok()).toBeTruthy();
   const html = await response.text();
   for (const { id } of projects) expect(html.split(`id="${id}"`).length - 1).toBe(1);
   await open(page);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page).toHaveTitle('Analog / AMS · AMS Signals');
+  await expect(page).toHaveTitle('Analog · AMS Signals');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Analog\/RF\/AMS tools, agents, benchmarks/);
   const nav = page.getByRole('navigation', { name: 'Primary' });
   await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog', 'Digital']);
   await expect(nav.locator('[aria-current="page"]')).toHaveText('Analog');
-  await expect(nav.getByRole('link', { name: 'Analog', exact: true })).toHaveAttribute('href', '/ams-signals/analog-ai/');
-  expect(await page.locator('[data-analog-ai]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
+  await expect(nav.getByRole('link', { name: 'Analog', exact: true })).toHaveAttribute('href', '/ams-signals/analog/');
+  expect(await page.locator('[data-analog]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
   expect(await rows(page).evaluateAll((elements) => elements.map((el) => el.id))).toEqual(ordered.map((p) => p.id));
-  await expect(page.locator('[data-analog-ai] details, [data-analog-ai] summary')).toHaveCount(0);
+  await expect(page.locator('[data-analog] details, [data-analog] summary')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1 })).toHaveClass('visually-hidden');
   await expect(page.getByRole('heading', { level: 2 })).toHaveText(ordered.map((p) => `${p.name} #`));
   await expectIndexColumns(page.locator('.catalog-columns'));
   await expect(page.locator('.catalog-header, .catalog-updates, .catalog-reviewed, .catalog-publication-note, .catalog-section-heading, .catalog-sources, .catalog-detail, .catalog-summary')).toHaveCount(0);
-  const text = await page.locator('[data-analog-ai]').textContent();
+  const text = await page.locator('[data-analog]').textContent();
   for (const removed of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Benchmarks, agents, and tools for analog/RF/AMS design.', 'Reviewed from primary public sources', 'Recent additions', 'Public repository activity snapshot:', 'A–Z', 'Public repository activity is a visibility signal', 'Current month is partial', 'Activity method.', 'no independent reproduction', 'Landscape', 'Projects ↓', 'What it does', 'Primary sources', 'Scroll horizontally to see all scopes.']) {
     expect(text).not.toContain(removed);
   }
-  await expect(page.locator('[data-analog-ai] input, [data-analog-ai] select, [data-analog-ai] button, [data-analog-ai] form')).toHaveCount(0);
+  await expect(page.locator('[data-analog] input, [data-analog] select, [data-analog] button, [data-analog] form')).toHaveCount(0);
   for (const project of projects) {
     const row = page.locator(`#${project.id}`);
     await expect(row.locator('h2')).toHaveText(`${project.name} #`);
@@ -133,7 +133,7 @@ test('domain membership and approved AI-built provenance stay distinct across bo
     .filter((el) => el.textContent?.includes('AI-built')).map((el) => el.closest('li[id]')!.id).sort());
   expect(await types('.catalog-keywords [data-tag-kind="ai"]')).toEqual([moved]);
   await expect(page.locator(`#${moved} .catalog-keywords [data-tag-kind]:not([data-tag-kind="keyword"])`)).toHaveText(['EDA Tool', 'AI-built']);
-  await expect(page.locator(`#${moved} .catalog-permalink`)).toHaveAttribute('href', `/ams-signals/analog-ai/#${moved}`);
+  await expect(page.locator(`#${moved} .catalog-permalink`)).toHaveAttribute('href', `/ams-signals/analog/#${moved}`);
   const baselineIds = ['ngspice', 'xyce', 'xschem', 'openvaf-reloaded', 'klayout', 'magic', 'align'];
   for (const id of baselineIds) {
     await expect(page.locator(`[data-catalog-project][id="${id}"]`)).toHaveCount(1);
@@ -143,13 +143,13 @@ test('domain membership and approved AI-built provenance stay distinct across bo
   await expect(page.locator('#ngspice .activity-strip, #ngspice .activity-repository')).toHaveCount(0);
   await expect(page.locator('#ngspice .catalog-quicklinks').getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', /^https:\/\/sourceforge\.net\//);
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Digital / RTL');
-  await expect(page.locator(`[data-eda-project][id="${moved}"], [data-eda-landscape-project="${moved}"]`)).toHaveCount(0);
-  expect(await types('.eda-keywords [data-tag-kind="ai"]')).toEqual(['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Digital');
+  await expect(page.locator(`[data-digital-project][id="${moved}"], [data-digital-landscape-project="${moved}"]`)).toHaveCount(0);
+  expect(await types('.digital-keywords [data-tag-kind="ai"]')).toEqual(['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
   for (const id of ['dr-rtl', 'verifyrtl', 'haven', 'ucagent', 'spec2cov', 'coresmith']) {
-    await expect(page.locator(`#${id} .eda-keywords [data-tag-kind="role"]`)).toHaveText('Agent');
+    await expect(page.locator(`#${id} .digital-keywords [data-tag-kind="role"]`)).toHaveText('Agent');
   }
-  await expect(page.locator('#verilator .eda-keywords [data-tag-kind="role"], #openroad-mcp .eda-keywords [data-tag-kind="role"]')).toHaveText(['EDA Tool', 'EDA Tool']);
+  await expect(page.locator('#verilator .digital-keywords [data-tag-kind="role"], #openroad-mcp .digital-keywords [data-tag-kind="role"]')).toHaveText(['EDA Tool', 'EDA Tool']);
 });
 
 test('public repository activity stacks date, compact binary band and month summary with accessible commit details', async ({ page }) => {
@@ -190,7 +190,7 @@ test('all published detail and source IDs remain unique native targets without a
   }
   const audit = await page.evaluate(() => {
     const ids = [...document.querySelectorAll('[id]')].map((el) => el.id);
-    const targets = [...document.querySelectorAll<HTMLAnchorElement>('[data-analog-ai] a[href]')]
+    const targets = [...document.querySelectorAll<HTMLAnchorElement>('[data-analog] a[href]')]
       .filter((a) => a.hash && a.origin === location.origin && a.pathname === location.pathname)
       .map((a) => decodeURIComponent(a.hash.slice(1)));
     return { duplicates: ids.filter((id, i) => ids.indexOf(id) !== i), missing: targets.filter((id) => !document.getElementById(id)) };
@@ -205,7 +205,7 @@ test('plain permalinks reach visible descriptions on direct navigation, reload a
   await expect(row.locator('.catalog-description')).toBeInViewport();
   const link = row.locator('.catalog-permalink');
   const url = new URL((await link.getAttribute('href'))!, page.url());
-  expect(url.pathname).toMatch(/\/ams-signals\/analog-ai\/$/);
+  expect(url.pathname).toMatch(/\/ams-signals\/analog\/$/);
   expect(url.search).toBe('');
   expect(url.hash).toBe('#evo-ldo-bench');
   await page.reload();

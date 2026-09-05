@@ -5,24 +5,24 @@ import { mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promi
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
-import { activityMonths, countActivity } from '../src/lib/eda-tools/activity.ts';
-import { validateActivity, validateCatalog } from '../src/lib/eda-tools/schema.ts';
-import { assertRepositoryIdentity, verifyMeaningfulCommit } from './eda-tools-activity-support.mjs';
+import { activityMonths, countActivity } from '../src/lib/digital/activity.ts';
+import { validateActivity, validateCatalog } from '../src/lib/digital/schema.ts';
+import { assertRepositoryIdentity, verifyMeaningfulCommit } from './digital-activity-support.mjs';
 
 const exec = promisify(execFile);
 const run = async (command, args) => (await exec(command, args, {
   timeout: 120_000, maxBuffer: 32 * 1024 * 1024, env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
 })).stdout;
-const directory = new URL('../src/content/eda-tools/', import.meta.url);
+const directory = new URL('../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
   const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
   return { id: file.slice(0, -3), data: frontmatter, body: content };
 }));
 validateCatalog(projects);
-const destination = new URL('../src/data/eda-tools-activity.json', import.meta.url);
+const destination = new URL('../src/data/digital-activity.json', import.meta.url);
 const previous = validateActivity(projects, JSON.parse(await readFile(destination, 'utf8')));
-const scratch = await mkdtemp(join(tmpdir(), 'eda-tools-activity-'));
-const candidate = new URL(`../src/data/.eda-tools-activity-${process.pid}.tmp`, import.meta.url);
+const scratch = await mkdtemp(join(tmpdir(), 'digital-activity-'));
+const candidate = new URL(`../src/data/.digital-activity-${process.pid}.tmp`, import.meta.url);
 try {
   const records = {};
   const histories = new Map();

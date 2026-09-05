@@ -21,7 +21,7 @@ const sourceUrl = z.string().url().refine((value) => {
     && !/(?:<|%3c)(?:owner|url|project|user)(?:>|%3e)/i.test(value);
 }, 'Use a public HTTP(S) source URL, not a placeholder');
 
-export const analogAiSchema = z.object({
+export const analogSchema = z.object({
   name: text,
   aliases: z.array(text).default([]),
   roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
@@ -78,7 +78,7 @@ export function validateCatalog(
     catalogSlug.parse(project.id);
     if (ids.has(project.id)) throw new Error(`Duplicate catalog slug: ${project.id}`);
     ids.add(project.id);
-    const data = analogAiSchema.parse(project.data);
+    const data = analogSchema.parse(project.data);
     text.parse(project.body ?? '');
     // Sources live in one metadata array. Prose uses local source anchors.
     if (/https?:\/\/|<\/?[a-z][\s\S]*?>/iu.test(project.body ?? '')) {
@@ -159,7 +159,7 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
   for (const project of projects) {
     const activity = snapshot.projects[project.id];
     if (!activity) throw new Error(`Missing activity project: ${project.id}`);
-    const data = analogAiSchema.parse(project.data);
+    const data = analogSchema.parse(project.data);
     if (activity.kind === 'github') {
       const code = data.sources.find((source) => source.purpose === 'code');
       if (!code || new URL(code.url).hostname !== 'github.com'

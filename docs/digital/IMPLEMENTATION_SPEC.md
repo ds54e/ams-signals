@@ -1,10 +1,10 @@
-# Digital / RTL implementation contract
+# Digital implementation contract
 
 ## Isolation and files
 
-Use the `edaTools` Astro Markdown collection at `src/content/eda-tools/*.md`, an EDA-specific page, schema/catalog/activity modules and CSS. Do not refactor Analog to share its schema. Static activity lives separately in `src/data/eda-tools-activity.json`. Body prose is internal research and is never rendered by the page.
+Use the `digital` Astro Markdown collection at `src/content/digital/*.md`, a Digital-specific page, schema/catalog/activity modules and CSS. Do not refactor Analog to share its schema. Static activity lives separately in `src/data/digital-activity.json`. Body prose is internal research and is never rendered by the page.
 
-Use `Digital` after `Analog` in primary navigation, using the deployment base path and route-specific `aria-current="page"`. Use browser title `Digital / RTL · AMS Signals`, hidden H1 `Digital / RTL`, and metadata describing RTL/digital tools and agents. It must not participate in Timeline/Events filter links or storage. Keep `/eda-tools/` and internal collection paths; no redirects.
+Use `Digital` after `Analog` in primary navigation, using the deployment base path and route-specific `aria-current="page"`. Use browser title `Digital · AMS Signals`, hidden H1 `Digital`, and metadata describing RTL/digital tools and agents. It must not participate in Timeline/Events filter links or storage. The page, library, tests and documentation live in `src/pages/digital/`, `src/lib/digital/`, `tests/digital/` and `docs/digital/`; styling is `src/styles/digital.css`. Only `/analog/` and `/digital/` are supported catalog routes. Do not generate removed routes, redirects, aliases or compatibility scripts.
 
 ## Strict content schema
 
@@ -58,10 +58,10 @@ Non-GitHub records use `kind: public-update`, a required `lastPublicUpdateAt` an
 
 ## Refresh and validation
 
-`npm run refresh:eda-tools-activity` is manual only. It verifies public/nonfork/nonarchived repository identity, including numeric repository ID to reject replacements, resolves the default branch, makes a bare blob-filtered single-branch clone and counts first-parent committer dates in UTC. It verifies that the manually recorded meaningful commit remains in that first-parent history with the same date. It never advances that date/SHA or changes a public-update record automatically.
+`npm run refresh:digital-activity` is manual only. It verifies public/nonfork/nonarchived repository identity, including numeric repository ID to reject replacements, resolves the default branch, makes a bare blob-filtered single-branch clone and counts first-parent committer dates in UTC. It verifies that the manually recorded meaningful commit remains in that first-parent history with the same date. It never advances that date/SHA or changes a public-update record automatically.
 
 Refresh builds and validates the entire candidate snapshot before atomic replacement. A network, identity, history or freshness failure leaves the checked-in snapshot intact. It is not imported by build/browser code and is not part of `npm run check`.
 
-`validate:eda-tools` and `test:eda-tools` are deterministic parts of `npm run check`. Test strict schema, source identity, curation, dates, buckets, sorting, real first-parent merge semantics and refresh safeguards. Keep all existing Golden/Analog validation intact.
+`validate:digital` and `test:digital` are deterministic parts of `npm run check`. Test strict schema, source identity, curation, dates, buckets, sorting, real first-parent merge semantics and refresh safeguards. Keep all existing Golden/Analog validation intact.
 
 Chromium production-preview tests cover inventory, exact authored matrix/activity states, CSS filled/open scope circles, twelve equal compact binary cells independent of commit volume, date/band/summary placement, full `N/12 months` text, no header month cue, three columns, role/AI tags before technical keywords, title-row links and wrap geometry, ordering, navigation, sparse English UI, quick links, native hash/history behavior, keyboard and no-JS access, 1440/390/320px geometry and state isolation. Run the entire smoke suite, inspect both catalogs visually, and compare the factual export with the pre-change build. Navigation wording changes must not change factual/Article page bodies, content data or viewer semantics. Verify cross-catalog membership, approved AI-built display, shared roles, preserved retained hashes and a fake-strip-free ngspice record on Analog.

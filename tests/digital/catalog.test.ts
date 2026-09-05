@@ -5,24 +5,24 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
-import { activitySchema, catalogSlug, edaToolsSchema, validateCatalog, validateActivity } from '../../src/lib/eda-tools/schema.ts';
+import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
-import { aiIds, areaIds, sortProjects } from '../../src/lib/eda-tools/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/eda-tools/activity.ts';
-import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/eda-tools-activity-support.mjs';
+import { aiIds, areaIds, sortProjects } from '../../src/lib/digital/catalog.ts';
+import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
+import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
-const directory = new URL('../../src/content/eda-tools/', import.meta.url);
+const directory = new URL('../../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
   const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
-  return { id: file.slice(0, -3), data: edaToolsSchema.parse(frontmatter), body: content };
+  return { id: file.slice(0, -3), data: digitalSchema.parse(frontmatter), body: content };
 }));
-const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/eda-tools-activity.json', import.meta.url), 'utf8')));
+const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8')));
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
 const manual = projects.find((p) => snapshot.projects[p.id].kind === 'public-update')!;
 const data = () => structuredClone(github.data);
 const activity = () => structuredClone(snapshot);
 
-test('authored EDA inventory, provenance and snapshot validate together', () => {
+test('authored Digital catalog inventory, provenance and snapshot validate together', () => {
   validateCatalog(projects);
   validateActivity(projects, snapshot);
   assert.ok(projects.length > 0);
@@ -51,9 +51,9 @@ test('Digital has authored project roles while AI relations and primary categori
   }
   assert.deepEqual(projects.filter((p) => p.data.ai === 'ai-built').map((p) => p.id).sort(), ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
   for (const roles of [undefined, [], ['agent', 'agent'], ['simulation'], ['agent', 'benchmark', 'eda-tool']]) {
-    assert.equal(edaToolsSchema.safeParse({ ...data(), roles }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), roles }).success, false);
   }
-  assert.ok(edaToolsSchema.safeParse({ ...data(), roles: ['agent', 'benchmark'] }).success);
+  assert.ok(digitalSchema.safeParse({ ...data(), roles: ['agent', 'benchmark'] }).success);
 });
 
 test('stable slugs reject ambiguity and duplicate authored entries', () => {
@@ -65,37 +65,37 @@ test('stable slugs reject ambiguity and duplicate authored entries', () => {
 test('only five axes and three AI relations are permitted, with a core primary category', () => {
   assert.deepEqual(areaIds, ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical']);
   assert.deepEqual(aiIds, ['ai-built', 'ai-enabled', 'traditional']);
-  for (const ai of ['ai-assisted', 'ai-native', 'agent-ready', 'unknown']) assert.equal(edaToolsSchema.safeParse({ ...data(), ai }).success, false);
+  for (const ai of ['ai-assisted', 'ai-native', 'agent-ready', 'unknown']) assert.equal(digitalSchema.safeParse({ ...data(), ai }).success, false);
   for (const areas of [{}, { [github.data.primary]: 'supporting' }, { [github.data.primary]: 'planned' }, { ...github.data.areas, reasoning: 'core' }]) {
-    assert.equal(edaToolsSchema.safeParse({ ...data(), areas }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), areas }).success, false);
   }
-  assert.equal(edaToolsSchema.safeParse({ ...data(), primary: 'benchmark' }).success, false);
-  assert.equal(edaToolsSchema.safeParse({ ...data(), summary: 'A second description' }).success, false);
+  assert.equal(digitalSchema.safeParse({ ...data(), primary: 'benchmark' }).success, false);
+  assert.equal(digitalSchema.safeParse({ ...data(), summary: 'A second description' }).success, false);
 });
 
 test('public text stays English, concise and single-paragraph; keywords stay bounded and distinct', () => {
   for (const keywords of [[], ['one', 'two'], ['a', 'b', 'c', 'd', 'e', 'f'], ['RTL', 'ＲＴＬ', 'chip'], ['a', 'a ', 'c'], ['a'.repeat(29), 'b', 'c']]) {
-    assert.equal(edaToolsSchema.safeParse({ ...data(), keywords }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), keywords }).success, false);
   }
   for (const description of ['', 'TODO', 'A'.repeat(601), 'One paragraph\nAnother paragraph', '回路設計']) {
-    assert.equal(edaToolsSchema.safeParse({ ...data(), description }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), description }).success, false);
   }
 });
 
 test('sources use valid public URLs, unique IDs and at most one quick-link purpose', () => {
   for (const url of ['javascript:alert(1)', 'ftp://host/file', 'https://example.com', 'https://user:password@github.com/owner/repo', 'not a URL']) {
     const p = data(); p.sources[0].url = url;
-    assert.equal(edaToolsSchema.safeParse(p).success, false);
+    assert.equal(digitalSchema.safeParse(p).success, false);
   }
   const p = data(); p.sources.push({ ...p.sources[0], id: 'duplicate-purpose' });
-  assert.equal(edaToolsSchema.safeParse(p).success, false);
+  assert.equal(digitalSchema.safeParse(p).success, false);
   p.sources.at(-1)!.purpose = undefined; p.sources.at(-1)!.id = p.sources[0].id;
-  assert.equal(edaToolsSchema.safeParse(p).success, false);
+  assert.equal(digitalSchema.safeParse(p).success, false);
 });
 
 test('dates are calendar-valid and durable notes retain local provenance without raw URLs or HTML', () => {
   for (const reviewedAt of ['2026-02-29', '2026-13-01', '2026-00-01', 'yesterday', '2026-09-04']) {
-    assert.equal(edaToolsSchema.safeParse({ ...data(), reviewedAt }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), reviewedAt }).success, false);
   }
   for (const body of ['https://github.com/tool/tool', '<div>Hidden HTML</div>', '[Unknown](#source-missing)', '']) {
     assert.throws(() => validateCatalog([{ ...github, body }]));
@@ -188,7 +188,7 @@ test('activity counting uses UTC, includes the partial month and rejects invalid
 });
 
 test('real Git first-parent history counts merges once and excludes side-branch commits', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'eda-history-test-'));
+  const dir = await mkdtemp(join(tmpdir(), 'digital-history-test-'));
   const git = (args: string[], date?: string) => execFileSync('git', args, { cwd: dir, encoding: 'utf8', env: { ...process.env, GIT_AUTHOR_NAME: 'Fixture', GIT_AUTHOR_EMAIL: 'fixture@invalid.test', GIT_COMMITTER_NAME: 'Fixture', GIT_COMMITTER_EMAIL: 'fixture@invalid.test', ...(date ? { GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date } : {}) }, stdio: ['ignore', 'pipe', 'pipe'] });
   try {
     git(['init', '-b', 'main']); git(['-c', 'commit.gpgsign=false', 'commit', '--allow-empty', '-m', 'Base'], '2025-10-01T00:00:00Z');
