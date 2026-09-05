@@ -3,6 +3,7 @@ name: "EvoLDO-Bench"
 aliases: ["EvoLDO","ldo_benchmark_for_agent"]
 roles: ["benchmark"]
 summary: "Benchmarks LDO reasoning separately from controlled SKY130/ngspice circuit-repair and tool-agent tasks."
+description: "Tests LDO constraint calculations, diagnosis, and workflow planning through structured reasoning answers. Separate circuit and tool-agent tracks let a model edit a SKY130 DUT, run controlled ngspice calls, and receive grades for circuit closure and EDA operations."
 keywords: ["LDO", "Reasoning", "ngspice", "SKY130", "Separate tool track"]
 workflow:
   reasoning: core

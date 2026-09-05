@@ -3,6 +3,7 @@ name: "CircuitRubric"
 aliases: ["CircuitRubric Bench","circuitrubric-bench"]
 roles: ["benchmark"]
 summary: "Grades generated SPICE netlists by topology connectivity and relative device sizing, without circuit simulation."
+description: "Compares generated netlists against reference circuits using graph matching that preserves device types and terminal roles. Checks relative W, L, multiplicity, and passive-component ratios, with grading that distinguishes wiring errors, sizing errors, and extra devices."
 keywords: ["Topology", "Graph matching", "Relative sizing", "Structural only"]
 workflow:
   generate-edit: core

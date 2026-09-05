@@ -2,19 +2,15 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
-import { roleLabels, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
+import { projectDetailAnchors, roleLabels, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
 import { monthLabel, shortDate } from '../../lib/analog-ai/activity';
 import { validateActivity } from '../../lib/analog-ai/schema';
 import activityData from '../../data/analog-ai-activity.json';
 import '../../styles/analog-ai.css';
 
-const alphabeticProjects = sortProjects(await getCollection('analogAi'));
-const activity = validateActivity(alphabeticProjects, activityData);
-const activityDate = (projectId: string) => {
-  const record = activity.projects[projectId];
-  return record.kind === 'github' ? record.lastCommitAt : record.lastPublicUpdateAt ?? '';
-};
-const projects = [...alphabeticProjects].sort((a, b) => activityDate(b.id).localeCompare(activityDate(a.id)));
+const entries = await getCollection('analogAi');
+const activity = validateActivity(entries, activityData);
+const projects = sortProjects(entries, activity.projects);
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
@@ -37,10 +33,10 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
             <th scope="row"><a href={projectLink(id)}>{data.name}</a></th>
             {workflowIds.map((stage) => {
               const state = data.workflow[stage];
-              const meaning = state ? scopeLabels[state] : '';
+              const meaning = state ? scopeLabels[state] : 'Not specified';
               return <td data-workflow={stage} data-scope={state ?? ''} title={state ? `${data.name} · ${workflowLabels[stage]}: ${meaning}` : undefined}>
                 <span aria-hidden="true" class:list={['scope-mark', state]}>{state === 'core' ? '●' : state === 'supporting' ? '◐' : ''}</span>
-                {meaning && <span class="visually-hidden">{meaning}</span>}
+                <span class="visually-hidden">{meaning}</span>
               </td>;
             })}
           </tr>)}</tbody>
@@ -56,6 +52,8 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
         {projects.map((project) => {
           const { data, id } = project;
           const record = activity.projects[id];
+          if (!project.rendered) throw new Error(`Missing rendered catalog content: ${id}`);
+          const detailAnchors = projectDetailAnchors(project.rendered.html, id);
           return <li id={id} class="catalog-project" data-catalog-project>
             <article aria-labelledby={`${id}--name`}>
               <div class="catalog-overview">
@@ -65,18 +63,19 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
               </div>
               <ul class="catalog-keywords" aria-label={`${data.name} keywords`}>{data.keywords.map((keyword) => <li>{keyword}</li>)}</ul>
               <div class="catalog-activity" data-activity-kind={record.kind}>
-                <span class="visually-hidden">Public activity: </span>
+                <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
                 {record.kind === 'github' ? <>
-                  <a class="activity-repository" href={`https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`}>{record.repository}</a>
-                  <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}`}>
-                    {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} title={`${monthLabel(month)} · ${record.commits[index]} commits`}>
+                  <p class="activity-latest">Latest <time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
+                  <a class="activity-repository" href={`https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`} title={`Default branch: ${record.defaultBranch}`}>{record.repository}</a>
+                  <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}; default branch ${record.defaultBranch}`}>
+                    {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
                       <span aria-hidden="true">{record.commits[index] > 0 ? '●' : '·'}</span>
-                      <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} commits</span>
+                      <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} default-branch commits</span>
                     </li>)}
                   </ul>
-                  <p class="activity-summary">Latest <time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time> <span aria-hidden="true">·</span> {record.commits.filter((count) => count > 0).length}/12 active months</p>
+                  <p class="activity-summary">{record.commits.filter((count) => count > 0).length}/12 active months</p>
                 </> : <>
-                  {record.lastPublicUpdateAt && <p class="activity-summary"><a href={`#${id}--source-${record.lastPublicUpdateSource}`}>{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper' : 'Update'}</a> <time datetime={record.lastPublicUpdateAt}>{new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${record.lastPublicUpdateAt}T00:00:00Z`))}</time></p>}
+                  {record.lastPublicUpdateAt && <p class="activity-latest"><a href={`#${id}--source-${record.lastPublicUpdateSource}`}>{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper' : 'Update'}</a> <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
                 </>}
               </div>
               <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
@@ -85,8 +84,10 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
               <details class="catalog-notes">
                 <summary>What it does<span class="visually-hidden">: {data.name}</span></summary>
                 <div class="catalog-notes-body">
-                  <p class="catalog-note-summary">{data.summary}</p>
-                  {data.targets && <p class="catalog-note-focus"><strong>Focus</strong> {data.targets}</p>}
+                  <div class="catalog-detail">
+                    {detailAnchors.map((anchor) => <span id={anchor} class="catalog-detail-anchor" aria-hidden="true" />)}
+                    <p>{data.description}</p>
+                  </div>
                   <section class="catalog-sources" aria-labelledby={`${id}--sources`}>
                     <h4 id={`${id}--sources`}>Primary sources</h4>
                     <ol>{data.sources.map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{source.title}</a></li>)}</ol>

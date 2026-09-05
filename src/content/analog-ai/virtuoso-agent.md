@@ -2,6 +2,7 @@
 name: "virtuoso-agent"
 roles: ["agent"]
 summary: "Runs an LLM parameter-tuning loop for existing circuits using specification checks from Maestro/Spectre or remote HSpice."
+description: "Reads a Markdown specification of goals, tunable variables, and measurements, then proposes parameter updates and checks simulation results until the specification passes or the iteration limit is reached. Supports Maestro/Spectre with OCEAN and PSF, plus remote HSpice measurements."
 keywords: ["Cadence", "Maestro", "Spectre", "Closed-loop"]
 workflow:
   reasoning: supporting

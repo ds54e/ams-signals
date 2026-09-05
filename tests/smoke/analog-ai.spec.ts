@@ -5,17 +5,26 @@ import { parseFrontmatter } from 'astro/markdown';
 
 // Authored inventory and snapshot are independent expectations, not a fixed initial-project list.
 const directory = new URL('../../src/content/analog-ai/', import.meta.url);
-const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
-  id: file.slice(0, -3), ...parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
-})));
+const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
+  const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
+  return {
+    id: file.slice(0, -3), ...frontmatter,
+    // Existing authored headings are plain English; retain their published Markdown slugs.
+    detailIds: [...content.matchAll(/^### (.+)$/gm)].map(([, title]) => title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s/g, '-')),
+  };
+}));
 const total = projects.length;
 const activity = JSON.parse(await readFile(new URL('../../src/data/analog-ai-activity.json', import.meta.url), 'utf8'));
-const updates = JSON.parse(await readFile(new URL('../../src/data/analog-ai-updates.json', import.meta.url), 'utf8'));
 const roles = { benchmark: 'Benchmark', agent: 'Design Agent', 'eda-tool': 'EDA Tool', 'dataset-environment': 'Dataset & Environment' };
 const stages = ['reasoning', 'generate-edit', 'simulate-measure', 'optimize', 'eda-integration', 'physical'];
 const sourceLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 const rows = (page: Page) => page.locator('[data-catalog-project]');
 const ordered = [...projects].sort((a, b) => {
+  const date = (p: typeof a) => {
+    const record = activity.projects[p.id];
+    return record.kind === 'github' ? record.lastCommitAt : record.lastPublicUpdateAt ?? '';
+  };
+  if (date(a) !== date(b)) return date(a) > date(b) ? -1 : 1;
   const key = (p: typeof a) => `${p.name.normalize('NFKC').toLowerCase().trim()}\0${p.id}`;
   return key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0;
 });
@@ -27,7 +36,7 @@ async function noOverflow(page: Page) {
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 }
 
-test('each authored project renders once in the index, in A–Z order, with concise English metadata and direct sources', async ({ page }) => {
+test('each authored project renders once, newest activity first, with a concise English dashboard and direct sources', async ({ page }) => {
   const response = await page.request.get('./analog-ai/');
   expect(response.ok()).toBeTruthy();
   const html = await response.text();
@@ -37,16 +46,19 @@ test('each authored project renders once in the index, in A–Z order, with conc
   expect(await page.locator('[data-analog-ai]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
   expect(await rows(page).evaluateAll((elements) => elements.map((el) => el.id))).toEqual(ordered.map((p) => p.id));
   await expect(rows(page).locator('details[open]')).toHaveCount(0);
-  await expect(page.locator('.catalog-header')).toContainText(`${total} projects`);
-  await expect(page.locator('.catalog-updates a')).toHaveCount(updates.length);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveClass('visually-hidden');
+  await expect(page.getByRole('heading', { level: 2 }).first()).toHaveText('Landscape');
+  await expect(page.locator('.catalog-header, .catalog-updates, .catalog-reviewed, .catalog-publication-note')).toHaveCount(0);
+  const text = await page.locator('[data-analog-ai]').textContent();
+  for (const removed of ['Benchmarks, agents, and tools for analog/RF/AMS design.', 'Reviewed from primary public sources', 'Recent additions', 'Public repository activity snapshot:', 'A–Z', 'Public repository activity is a visibility signal', 'Current month is partial', 'Activity method.', 'no independent reproduction']) {
+    expect(text).not.toContain(removed);
+  }
   await expect(page.locator('[data-analog-ai] input, [data-analog-ai] select, [data-analog-ai] button, [data-analog-ai] form')).toHaveCount(0);
   for (const project of projects) {
     const row = page.locator(`#${project.id}`);
     await expect(row.locator('h3')).toHaveText(`${project.name} #`);
     await expect(row.locator('.catalog-summary')).toHaveText(project.summary);
     await expect(row.locator('.catalog-summary')).toBeVisible();
-    await expect(row.locator('.catalog-reviewed time')).toHaveAttribute('datetime', project.reviewedAt);
-    await expect(row.locator('.catalog-reviewed')).toHaveText(`Reviewed ${project.reviewedAt}`);
     await expect(row.locator('.catalog-roles li')).toHaveText(project.roles.map((role: keyof typeof roles) => roles[role]));
     await expect(row.locator('.catalog-keywords li')).toHaveText(project.keywords);
     for (const source of project.sources.filter((s: { purpose?: string }) => s.purpose)) {
@@ -54,12 +66,15 @@ test('each authored project renders once in the index, in A–Z order, with conc
       await expect(link).toHaveAttribute('href', source.url);
       await expect(link).toBeVisible();
     }
+    for (const source of project.sources) {
+      await expect(row.locator(`[id="${project.id}--source-${source.id}"] a`)).toHaveAttribute('href', source.url);
+    }
   }
 });
 
 test('Landscape contains every project with the authored state in each of the six columns', async ({ page }) => {
   await open(page);
-  const table = page.getByRole('table', { name: 'Reviewed workflow scope by project' });
+  const table = page.getByRole('table', { name: 'Workflow scope by project' });
   await expect(table.locator('tbody tr')).toHaveCount(total);
   await expect(table.locator('thead th')).toHaveText(['Project', 'Reasoning', 'Generate / Edit', 'Simulate / Measure', 'Optimize', 'EDA Integration', 'Physical']);
   await expect(table.locator('tbody th')).toHaveText(ordered.map((p) => p.name));
@@ -71,17 +86,16 @@ test('Landscape contains every project with the authored state in each of the si
       const scope = project.workflow[stage];
       await expect(cell).toHaveAttribute('data-scope', scope ?? '');
       await expect(cell.locator('.scope-mark')).toHaveText(scope === 'core' ? '●' : scope === 'supporting' ? '◐' : '');
-      await expect(cell.locator('.visually-hidden')).toContainText(scope === 'core' ? 'Core reviewed scope' : scope === 'supporting' ? 'Supporting / constrained' : 'not a claim of inability');
+      await expect(cell.locator('.visually-hidden')).toHaveText(scope === 'core' ? 'Core scope' : scope === 'supporting' ? 'Supporting scope' : 'Not specified');
     }
   }
-  await expect(page.locator('[id="catalog:scope-note"]')).toContainText('not maturity or independently verified capability');
+  await expect(page.locator('[id="catalog:legend"] span')).toHaveText(['● core', '◐ supporting']);
   await table.getByRole('link', { name: ordered.at(-1)!.name, exact: true }).click();
   await expect(page.locator(`#${ordered.at(-1)!.id} details`)).toHaveAttribute('open', '');
 });
 
 test('public repository activity renders exactly twelve binary months, explicit repositories and latest dates', async ({ page }) => {
   await open(page);
-  await expect(page.locator('.catalog-header')).toContainText(`Public repository activity snapshot: ${activity.reviewedAt}`);
   for (const project of projects) {
     const record = activity.projects[project.id];
     const row = page.locator(`#${project.id} .catalog-activity`);
@@ -99,8 +113,11 @@ test('public repository activity renders exactly twelve binary months, explicit 
     }
     await expect(row.locator('.activity-summary')).toContainText(`${record.commits.filter((n: number) => n > 0).length}/12 active months`);
     await expect(row.locator('time')).toHaveAttribute('datetime', record.lastCommitAt);
+    await expect(row.locator('.activity-latest')).toContainText('Latest');
+    expect(await row.locator('time').evaluate((el) => Number(getComputedStyle(el).fontWeight))).toBeGreaterThanOrEqual(600);
+    const positions = await row.evaluate((el) => ({ date: el.querySelector('time')!.getBoundingClientRect().top, strip: el.querySelector('.activity-strip')!.getBoundingClientRect().top }));
+    expect(positions.date).toBeLessThan(positions.strip);
   }
-  await expect(page.locator('.activity-intro')).toContainText('not a measure of quality, maturity, or total development effort');
 });
 
 test('projects without a verified repository show a neutral sourced date, with no invented activity strip', async ({ page }) => {
@@ -109,23 +126,33 @@ test('projects without a verified repository show a neutral sourced date, with n
   expect(paperProjects.length).toBeGreaterThan(0);
   for (const p of paperProjects) {
     const row = page.locator(`#${p.id}`);
-    await expect(row.locator('.activity-no-repo')).toHaveText('No verified public repository');
     await expect(row.locator('.activity-strip')).toHaveCount(0);
     await expect(row.locator('.catalog-quicklinks a')).toBeVisible();
     await expect(row.locator('.catalog-activity time')).toHaveAttribute('datetime', activity.projects[p.id].lastPublicUpdateAt);
+    await row.locator('.activity-latest a').click();
+    await expect(row.locator('details')).toHaveAttribute('open', '');
+    await expect(row.locator(`[id="${p.id}--source-${activity.projects[p.id].lastPublicUpdateSource}"]`)).toBeInViewport();
   }
 });
 
-test('Notes are independently native and retain prerequisites, research, sources, and valid unique anchors', async ({ page }) => {
+test('What it does expands independently with concise capabilities, sources, and every legacy detail anchor', async ({ page }) => {
   await open(page);
   await page.locator('#circuitrubric summary').click();
   await page.locator('#analoggym summary').click();
   await expect(rows(page).locator('details[open]')).toHaveCount(2);
-  await expect(page.locator('#circuitrubric .catalog-detail')).toContainText('Strict grading distinguishes MOS drain and source');
-  await expect(page.locator('#analoggym .catalog-prerequisites')).toContainText('Access & environment');
+  for (const project of projects) {
+    const row = page.locator(`#${project.id}`);
+    await expect(row.locator('summary')).toHaveText(`What it does: ${project.name}`);
+    await expect(row.locator('.catalog-detail p')).toHaveText(project.description);
+    await expect(row.locator('.catalog-detail p')).toHaveCount(1);
+    await expect(row.locator('.catalog-prerequisites, .activity-caveat, .catalog-review')).toHaveCount(0);
+    expect(await row.locator('.catalog-detail-anchor').evaluateAll((nodes) => nodes.map((el) => el.id))).toEqual(project.detailIds.map((id) => `${project.id}--${id}`));
+  }
   const audit = await page.evaluate(() => {
     const ids = [...document.querySelectorAll('[id]')].map((el) => el.id);
-    const targets = [...document.querySelectorAll<HTMLAnchorElement>('.catalog-detail a[href^="#"]')].map((a) => decodeURIComponent(a.hash.slice(1)));
+    const targets = [...document.querySelectorAll<HTMLAnchorElement>('[data-analog-ai] a[href]')]
+      .filter((a) => a.hash && a.origin === location.origin && a.pathname === location.pathname)
+      .map((a) => decodeURIComponent(a.hash.slice(1)));
     return { duplicates: ids.filter((id, i) => ids.indexOf(id) !== i), missing: targets.filter((id) => !document.getElementById(id)) };
   });
   expect(audit).toEqual({ duplicates: [], missing: [] });
@@ -158,7 +185,13 @@ for (const anchor of ['circuitrubric--source-method', 'circuitrubric--evaluation
       await expect(page.locator('#circuitrubric details')).toHaveAttribute('open', '');
       await expect(page.locator(`#${anchor}`)).toBeInViewport();
       expect(new URL(page.url()).hash).toBe(`#${anchor}`);
-      await expect.poll(() => page.locator(`#${anchor}`).evaluate((el) => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).scrollMarginTop)))).toBeLessThan(3);
+      await expect.poll(() => page.locator(`#${anchor}`).evaluate((el) => {
+        const targetY = el.getBoundingClientRect().top + scrollY;
+        // Recent-activity order may place this project near the page bottom.
+        const maximum = document.documentElement.scrollHeight - innerHeight;
+        const expected = Math.max(0, Math.min(maximum, targetY - parseFloat(getComputedStyle(el).scrollMarginTop)));
+        return Math.abs(scrollY - expected);
+      })).toBeLessThan(3);
     }
   });
 }

@@ -1,11 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { namespaceProjectHtml, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
-import { activityMonths, countActivity, shortDate } from '../../src/lib/analog-ai/activity.ts';
+import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
+import { activityMonths, countActivity, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
 import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
 
 const valid = () => ({
   name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
+  description: 'Compares netlist connectivity and device ratios against reference circuits.',
   keywords: ['Topology', 'Relative sizing', 'Structural only'], workflow: { 'generate-edit': 'core' },
   addedAt: '2026-09-05', reviewedAt: '2026-09-05',
   sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
@@ -20,21 +21,46 @@ const snapshot = () => ({
   } },
 });
 
-test('name order and slug ties are stable, immutable, and independent of review dates', () => {
+test('public activity sorts newest first, using paper dates and deterministic name/slug ties', () => {
   const input = [
-    { id: 'z', data: { name: 'beta', reviewedAt: '2026-09-05' } },
-    { id: 'b', data: { name: 'Alpha', reviewedAt: '2026-09-04' } },
-    { id: 'a', data: { name: 'ＡＬＰＨＡ', reviewedAt: '2026-09-01' } },
+    { id: 'old', data: { name: 'Aardvark', reviewedAt: '2026-09-05' } },
+    { id: 'b', data: { name: 'Alpha', reviewedAt: '2026-09-01' } },
+    { id: 'unknown', data: { name: 'First alphabetically' } },
+    { id: 'paper', data: { name: 'Zeta' } },
+    { id: 'a', data: { name: 'ＡＬＰＨＡ' } },
+    { id: 'beta', data: { name: 'Beta' } },
+    { id: 'newest', data: { name: 'Zebra' } },
   ];
-  assert.deepEqual(sortProjects(input).map((p) => p.id), ['a', 'b', 'z']);
-  assert.deepEqual(input.map((p) => p.id), ['z', 'b', 'a']);
-  input[0].data.reviewedAt = '2026-09-06';
-  assert.deepEqual(sortProjects(input).map((p) => p.id), ['a', 'b', 'z']);
+  const activity: Record<string, PublicActivity> = {
+    old: { kind: 'github', lastCommitAt: '2025-12-31' },
+    a: { kind: 'github', lastCommitAt: '2026-08-20' },
+    b: { kind: 'no-public-repo', lastPublicUpdateAt: '2026-08-20' },
+    beta: { kind: 'github', lastCommitAt: '2026-08-20' },
+    paper: { kind: 'no-public-repo', lastPublicUpdateAt: '2026-09-01' },
+    unknown: { kind: 'no-public-repo' },
+    newest: { kind: 'github', lastCommitAt: '2026-09-04' },
+  };
+  const before = structuredClone(input);
+  const expected = ['newest', 'paper', 'a', 'b', 'beta', 'old', 'unknown'];
+  assert.deepEqual(sortProjects(input, activity).map((p) => p.id), expected);
+  assert.deepEqual(input, before);
+  assert.deepEqual(sortProjects([...input].reverse(), activity).map((p) => p.id), expected);
+  input[0].data.reviewedAt = '2026-10-01';
+  assert.deepEqual(sortProjects(input, activity).map((p) => p.id), expected);
+  activity.old = { kind: 'github', lastCommitAt: '2026-09-05' };
+  assert.equal(sortProjects(input, activity)[0].id, 'old');
 });
 
-test('rendered IDs and local source references are namespaced without changing text or external URLs', () => {
+test('legacy detail IDs survive simplification without treating text or link destinations as IDs', () => {
   const html = '<h3 id="evaluation">Evaluation</h3><a id="ref" href="#source-code">Source</a><a href="https://github.com/">Code</a><code>id="plain"</code>';
-  assert.equal(namespaceProjectHtml(html, 'project-a'), '<h3 id="project-a--evaluation">Evaluation</h3><a id="project-a--ref" href="#project-a--source-code">Source</a><a href="https://github.com/">Code</a><code>id="plain"</code>');
+  assert.deepEqual(projectDetailAnchors(html, 'project-a'), ['project-a--evaluation', 'project-a--ref']);
+  assert.deepEqual(projectDetailAnchors('<p>No heading</p>', 'project-a'), []);
+});
+
+test('dashboard descriptions are required, concise, and free of placeholders', () => {
+  for (const description of [undefined, '', ' ', 'TODO', 'x'.repeat(601)]) {
+    assert.equal(analogAiSchema.safeParse({ ...valid(), description }).success, false);
+  }
 });
 
 test('catalog schema preserves calendar dates, source protocols, roles and source identities', () => {

@@ -1,3 +1,5 @@
+import { publicActivityDate, type PublicActivity } from './activity.ts';
+
 export const roleIds = ['benchmark', 'agent', 'eda-tool', 'dataset-environment'] as const;
 export type CatalogRole = typeof roleIds[number];
 export const roleLabels: Record<CatalogRole, string> = {
@@ -10,19 +12,22 @@ export const workflowLabels: Record<typeof workflowIds[number], string> = {
   reasoning: 'Reasoning', 'generate-edit': 'Generate / Edit', 'simulate-measure': 'Simulate / Measure',
   optimize: 'Optimize', 'eda-integration': 'EDA Integration', physical: 'Physical',
 };
-export const scopeLabels = { core: 'Core reviewed scope', supporting: 'Supporting / constrained reviewed scope' };
+export const scopeLabels = { core: 'Core scope', supporting: 'Supporting scope' };
 
-export function sortProjects<T extends { id: string; data: { name: string } }>(projects: readonly T[]): T[] {
+export function sortProjects<T extends { id: string; data: { name: string } }>(
+  projects: readonly T[], activity: Readonly<Record<string, PublicActivity>>,
+): T[] {
   const key = (name: string) => name.normalize('NFKC').toLowerCase().trim();
   const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
-  return [...projects].sort((a, b) => compare(key(a.data.name), key(b.data.name)) || compare(a.id, b.id));
+  return [...projects].sort((a, b) =>
+    compare(publicActivityDate(activity[b.id]), publicActivityDate(activity[a.id]))
+    || compare(key(a.data.name), key(b.data.name)) || compare(a.id, b.id));
 }
 
-/** Namespace only Astro-rendered attributes; never process external source documents. */
-export function namespaceProjectHtml(html: string, slug: string): string {
-  return html.replace(/<[^>]+>/g, (tag) => tag.replace(/\s(id|href)="([^"]*)"/g, (match, attribute, value) => {
-    if (attribute === 'id') return ` id="${slug}--${value}"`;
-    if (value.startsWith('#')) return ` href="#${slug}--${value.slice(1)}"`;
-    return match;
-  }));
+/** Retain old detail targets while the dashboard shows a shorter description. */
+export function projectDetailAnchors(html: string, slug: string): string[] {
+  return [...html.matchAll(/<[^>]+>/g)].flatMap(([tag]) => {
+    const id = tag.match(/\sid="([^"]+)"/)?.[1];
+    return id ? [`${slug}--${id}`] : [];
+  });
 }

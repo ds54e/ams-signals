@@ -3,6 +3,7 @@ name: "AnalogCoder-Pro"
 aliases: ["AnalogCoderPro"]
 roles: ["benchmark","agent"]
 summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair, and device-sizing research."
+description: "Turns a circuit request and port definitions into a candidate design, then uses specifications and waveform images to diagnose and repair it. Public tasks, sample circuits, and checking programs support experiments across amplifiers, mixers, comparators, oscillators, and filters."
 keywords: ["Netlist generation", "Waveform diagnosis", "ngspice", "Partial release"]
 workflow:
   reasoning: supporting

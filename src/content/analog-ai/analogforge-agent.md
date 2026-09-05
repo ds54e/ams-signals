@@ -3,6 +3,7 @@ name: "AnalogForge Agent"
 aliases: ["AnalogForge","analog-forge-agent"]
 roles: ["agent"]
 summary: "An experimental workbench for template-based circuit proposals and multi-objective search, with analytic fixtures as its default execution path."
+description: "Explores template-based proposals for OTAs, comparators, LDOs, references, and oscillators using analytic-fixture search. A separate native-simulation command checks netlists and PDK receipts before running a candidate."
 keywords: ["Templates", "Multi-objective", "Analytic default", "Experimental"]
 workflow:
   reasoning: supporting

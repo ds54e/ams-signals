@@ -3,6 +3,7 @@ name: "Analog Design Bench"
 aliases: ["Analog Design Bench V2"]
 roles: ["benchmark"]
 summary: "Benchmarks agents that edit circuit files and iterate with simulation to meet analog and RF electrical specifications."
+description: "Agents edit a supplied circuit and use development benches to meet electrical specifications. Tasks span RF filters, references, LDOs, amplifiers, and data converters, with automated measurements and task-specific PVT or Monte Carlo checks."
 keywords: ["RF / AMS", "ngspice", "SKY130", "Partial release"]
 workflow:
   generate-edit: core
