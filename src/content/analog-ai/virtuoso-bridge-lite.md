@@ -5,7 +5,6 @@ roles: ["eda-tool"]
 summary: "Connects external Python or CLI commands to Cadence Virtuoso for schematic, layout, and simulation operations. It supplies agent-facing EDA primitives rather than a circuit-design benchmark."
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
-notice: "An exposed operation is not a demonstrated optimization result. Higher-level search and specification closure require a separate agent or workflow."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
 sources:

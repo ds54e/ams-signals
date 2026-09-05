@@ -5,7 +5,7 @@ roles: ["benchmark"]
 summary: "A 50-question benchmark for reasoning about analog circuit diagrams and design decisions. Direct QA, file-based agentic QA, and experimental simulator-assisted runs all score the final answer."
 targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators, LNAs and TIAs"
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
-notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs. Simulator-assisted scores measure the final explanation, not circuit performance closure."
+notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
 sources:
@@ -33,7 +33,7 @@ Direct QA sends instructions and figures to the model. Agentic QA places those i
 
 ### Evaluation
 
-All modes use the final answer, reference solution, and shared rubric. Logs and scratch decks are not scored. The 0–4 guide was inferred for re-scoring new answers; historical article scores are not labels for new responses. [Rubric](#source-rubric)
+All modes use the final answer, reference solution, and shared rubric. Simulator-assisted scores measure the final explanation, not circuit performance closure. Logs and scratch decks are not scored. The 0–4 guide was inferred for re-scoring new answers; historical article scores are not labels for new responses. [Rubric](#source-rubric)
 
 ### Public artifacts
 

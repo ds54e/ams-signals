@@ -5,7 +5,7 @@ roles: ["agent"]
 summary: "A research workbench connecting circuit specifications, topology templates, PDK mappings, and multi-objective search. It separates LLM proposals from evidence-based evaluation, but its default workflow currently uses an analytic fixture."
 targets: "Template families for OTAs, comparators, LDOs, references, and oscillators"
 access: "Code, contracts, templates, and research documentation are public. Native execution requires ngspice/Xyce, pre-rendered netlists, immutable PDK receipts, and model dependency manifests."
-notice: "Thresholds are preregistered targets, not achieved results. Dashboard points are synthetic, all 45 PDK mappings are UNPINNED, and transistor-level benchmark, PVT, Monte Carlo, and DRC/LVS/PEX results are not claimed."
+notice: "Dashboard points are synthetic and native PDK mappings remain unpinned. Published thresholds are targets, not achieved results."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
 sources:
@@ -22,7 +22,7 @@ sources:
 ---
 ### Implemented and experimental paths
 
-Default runs use analytic-fixture-v1. Native simulation is a separate explicit command with netlist and PDK-receipt checks. SKY130, GF180MCU, and IHP SG13G2 mappings are defined but not pinned. qNEHVI and LLM+BO implementations are CI proxies, not publication baselines. [Implementation status](#source-review)
+Default runs use analytic-fixture-v1. Native simulation is a separate explicit command with netlist and PDK-receipt checks. All 45 mappings across SKY130, GF180MCU, and IHP SG13G2 remain unpinned; no transistor-level benchmark results are claimed. qNEHVI and LLM+BO implementations are CI proxies, not publication baselines. [Implementation status](#source-review)
 
 ### Planned evaluation
 

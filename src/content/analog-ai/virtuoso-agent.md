@@ -4,7 +4,6 @@ roles: ["agent"]
 summary: "An LLM proposes parameter updates for an existing circuit, then receives specification checks from simulation results. Separate backends use Maestro/Spectre or remote HSpice."
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
-notice: "This is parameter optimization infrastructure. An LC VCO specification template is neither a supplied circuit nor a measured design result."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
 sources:
@@ -22,4 +21,4 @@ A Markdown specification defines goals, tunable variables, and measurement rules
 
 ### Implementation boundary
 
-The Virtuoso path builds on virtuoso-bridge-lite, adding specification evaluation and LLM control. Public tests include mocks; integration requires an accessible EDA host. The repository does not establish unrestricted topology synthesis or verified operation across arbitrary PDKs and circuits. [Prerequisites and tests](#source-review)
+The Virtuoso path builds on virtuoso-bridge-lite, adding specification evaluation and LLM control. An LC VCO specification template is neither a supplied circuit nor a measured design result. Public tests include mocks; integration requires an accessible EDA host. The repository does not establish unrestricted topology synthesis or verified operation across arbitrary PDKs and circuits. [Prerequisites and tests](#source-review)

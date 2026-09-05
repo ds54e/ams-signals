@@ -5,7 +5,7 @@ roles: ["benchmark","dataset-environment"]
 summary: "A circuit optimization suite that separates netlists, design variables, and simulation testbenches. It provides an environment for methods such as reinforcement learning rather than an LLM-only task contract."
 targets: "Sensing front ends, voltage references, amplifiers, LDOs, and PLLs"
 access: "A 30-topology suite and optimization examples are public. The README explicitly identifies amplifiers and LDOs as supporting ngspice and Sky130; simulator and model setup is required."
-notice: "PLL inclusion does not establish identical open execution support for all 30 circuits. The README recommends ngspice 42 or later because of problems in some DC sweeps."
+notice: "PLL inclusion does not establish identical open execution support for all 30 circuits."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
 sources:
@@ -31,4 +31,4 @@ Optimizers change separate design-variable files and run the associated testbenc
 
 ### Version conditions
 
-PVT examples set process, supply, and temperature. Slew and settling metrics need transient-response processing; LDO extraction distinguishes light and heavy loads. The README also corrects an amplifier FoM penalty formula. Comparisons should match the simulator, extraction code, and metric revision. Suite membership alone establishes neither Monte Carlo nor layout coverage. [Extraction and correction](#source-review)
+PVT examples set process, supply, and temperature. Slew and settling metrics need transient-response processing; LDO extraction distinguishes light and heavy loads. The README recommends ngspice 42 or later because of problems in some DC sweeps and corrects an amplifier FoM penalty formula. Comparisons should match the simulator, extraction code, and metric revision. Suite membership alone establishes neither Monte Carlo nor layout coverage. [Extraction and correction](#source-review)
