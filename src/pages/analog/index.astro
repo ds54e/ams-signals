@@ -13,7 +13,7 @@ const entries = await getCollection('analog');
 const activity = validateActivity(entries, activityData);
 const projects = sortProjects(entries, activity.projects);
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
+const windowLabel = `${monthLabel(activity.months[11])}–${monthLabel(activity.months[0])} (newest to oldest)`;
 ---
 <BaseLayout title="Analog · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
   <section class="analog" data-analog aria-labelledby="catalog:heading">

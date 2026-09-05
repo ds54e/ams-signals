@@ -10,7 +10,7 @@ The English-only page starts directly with one compact index: **Project | Scope 
 
 Project names are plain text. On the same left-aligned wrapping title line, show only the name and available Website / Paper / Code / Results links, in that order. A single concrete description follows. Scope stages (Design, Synthesis, Verification, Layout) appear vertically, one per line, with small filled/open circles for core/supporting scope. No self-permalink links or fragment compatibility aliases are maintained.
 
-Every Activity row shows its compact, normal-weight date, twelve binary cells and `N/12 months`. Repository-backed records use reviewed monthly history from their canonical host, including GitLab. Paper/release/public-update records activate the reviewed event month without invented commit counts. Provenance is available through hover/accessibility metadata rather than a visible date prefix. Activity describes recorded public signals, never total development effort or quality.
+Every Activity row shows its compact, normal-weight date, twelve binary cells with the newest month at the left and oldest at the right, and `N/12 months`. Repository-backed records use reviewed monthly history from their canonical host, including GitLab. Paper/release/public-update records activate the reviewed event month without invented commit counts. Provenance is available through hover/accessibility metadata rather than a visible date prefix. Activity describes recorded public signals, never total development effort or quality.
 
 ## Domain and boundaries
 

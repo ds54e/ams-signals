@@ -301,6 +301,25 @@ test('compact activity dates retain year context without zero-padded days', () =
   assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
 });
 
+test('repository bands keep months and counts paired newest-first without mutating snapshot data', () => {
+  const months = Object.freeze(snapshot().months);
+  const commits = Object.freeze([0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+  const record = Object.freeze({ kind: 'github' as const, repository: 'example/project', defaultBranch: 'main',
+    lastCommitAt: '2026-09-05', commits });
+  const band = activityBand(record, months, []);
+  assert.deepEqual(band.cells.map((cell) => cell.month), [
+    '2026-09', '2026-08', '2026-07', '2026-06', '2026-05', '2026-04',
+    '2026-03', '2026-02', '2026-01', '2025-12', '2025-11', '2025-10',
+  ]);
+  assert.deepEqual(band.cells.map((cell) => cell.commits), [6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0]);
+  assert.equal(band.cells[0].detail, 'September 2026 · 6 default-branch commits');
+  assert.equal(band.cells[11].detail, 'October 2025 · 0 default-branch commits');
+  assert.equal(band.activeMonths, 6);
+  assert.deepEqual(activityBand(record, months, []), band);
+  assert.deepEqual(months, snapshot().months);
+  assert.deepEqual(commits, [0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+});
+
 test('ATLAS paper and ngspice release occupy their reviewed month without invented commit data', async () => {
   const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8')));
   for (const [id, date, type, label] of [
@@ -314,6 +333,8 @@ test('ATLAS paper and ngspice release occupy their reviewed month without invent
     assert.equal(record.kind, 'no-public-repo');
     assert.equal(band.date, date);
     assert.equal(band.cells.length, 12);
+    assert.equal(band.cells[0].month, snapshot.reviewedAt.slice(0, 7));
+    assert.equal(band.cells.findIndex((cell) => cell.active), id === 'atlas' ? 2 : 1);
     assert.equal(band.activeMonths, 1);
     assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [date.slice(0, 7)]);
     for (const cell of band.cells) {
@@ -330,7 +351,7 @@ test('ATLAS paper and ngspice release occupy their reviewed month without invent
 });
 
 test('point-signal bands retain calendar boundaries without clamping or changing freshness eligibility', () => {
-  const months = snapshot().months;
+  const months = Object.freeze(snapshot().months);
   const sources = [{ id: 'update', title: 'Reviewed public update' }];
   for (const lastPublicUpdateAt of ['2025-09-05', '2025-10-01', '2026-09-05']) {
     const record = { kind: 'public-update' as const, lastPublicUpdateType: 'public-update' as const,
@@ -338,6 +359,8 @@ test('point-signal bands retain calendar boundaries without clamping or changing
     const band = activityBand(record, months, sources);
     const expected = months.includes(lastPublicUpdateAt.slice(0, 7)) ? [lastPublicUpdateAt.slice(0, 7)] : [];
     assert.equal(band.cells.length, 12);
+    assert.equal(band.cells[0].month, '2026-09');
+    assert.equal(band.cells[11].month, '2025-10');
     assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), expected);
     assert.equal(band.activeMonths, expected.length);
     assert.ok(band.cells.every((cell) => !('commits' in cell)));

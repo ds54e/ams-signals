@@ -99,7 +99,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expectScopeCircles(page.locator(`.${prefix}-scope`));
   });
 
-  test(`${label} every row retains the reviewed twelve-month activity band`, async ({ page }) => {
+  test(`${label} every row shows twelve reviewed activity months with the newest physically leftmost`, async ({ page }) => {
     await open(page); await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
   });
 

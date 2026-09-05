@@ -42,5 +42,8 @@ export function activityBand(record: ActivityRecord, months: readonly string[], 
       };
     });
   }
+  // Reverse only the new rendering cells, keeping snapshot months/counts chronological.
+  // DOM, visual and accessible order all run from the latest month to the oldest.
+  cells.reverse();
   return { date, provenance, cells, activeMonths: cells.filter((cell) => cell.active).length };
 }

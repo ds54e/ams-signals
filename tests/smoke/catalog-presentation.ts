@@ -109,6 +109,12 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
     expect(item.summary).toBe(`${activeMonths}/12 months`);
     expect(item.months).toHaveLength(12);
+    const monthLabel = (month: string) => new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
+    expect(item.label).toContain(`${monthLabel(snapshot.months[11])}–${monthLabel(snapshot.months[0])} (newest to oldest)`);
+    expect(item.months[0].month).toBe(snapshot.reviewedAt.slice(0, 7));
+    expect(item.months[11].month).toBe(snapshot.months[0]);
+    expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
+    expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
     expect(item.activityWidth).toBeGreaterThanOrEqual(105);
@@ -120,7 +126,8 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.summaryRight).toBeLessThanOrEqual(item.activityRight);
     for (let index = 0; index < 12; index++) {
       const bucket = item.months[index];
-      const month = snapshot.months[index]; const count = record.commits?.[index];
+      const sourceIndex = 11 - index; // 0 months ago at the left, 11 months ago at the right.
+      const month = snapshot.months[sourceIndex]; const count = record.commits?.[sourceIndex];
       const active = repositoryBacked ? count! > 0 : month === date.slice(0, 7);
       const label = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
       expect(bucket.month).toBe(month);
