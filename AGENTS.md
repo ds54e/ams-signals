@@ -6,11 +6,15 @@ Before making research or product-design decisions, read `PROJECT_CONTEXT.md`. I
 
 Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add task-specific context but do not override this file or `PROJECT_CONTEXT.md`.
 
+For work on the standalone Analog AI catalog, also read `docs/analog-ai/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
+
 ## Purpose
 
 AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal verification activity across companies and people.
 
 The durable asset is the Golden factual timeline in `src/data/events/*.json`. The website is a viewer. Do not turn this repository into an evidence archive, company-rating database, or taxonomy project.
+
+The standalone Analog AI catalog is an explicit additional surface with its own scoped product contract in `docs/analog-ai/`. It does not change the semantics, inclusion rules, or export contract of the factual Timeline/Events corpus.
 
 ## Core rule
 
@@ -33,6 +37,8 @@ When committing Golden events, preserve only directly supportable public facts.
 9. Discard research material that does not improve the Golden timeline.
 10. Stop when the Golden timeline can be responsibly reassessed. Do not attempt to exhaust the web.
 
+The loop above governs Golden Timeline/Event research. Analog AI catalog research follows `docs/analog-ai/RESEARCH_SEED.md` and must not create Golden records merely to support catalog entries.
+
 ## Golden event rules
 
 Each Golden event should answer only:
@@ -44,7 +50,7 @@ Each Golden event should answer only:
 
 Do not add technology tags, maturity scores, confidence scores, strategic direction, disclosure scores, or inferred organization-wide conclusions to factual events.
 
-`kind` is an intentionally coarse public-signal type, not a technology classification. Use only `technical` for principally technical or standards milestones and `organizational` for principally organizational, business, or workforce milestones. Keep `affiliationChange` as independent optional metadata when responsibly supported.
+`kind` is an intentionally coarse public-signal type, not a technology classification. Use only `technical` for principally technical or standards milestones and `organizational` for principally organizational, business, and workforce milestones. Keep `affiliationChange` as independent optional metadata when responsibly supported.
 
 ### Preserve source modality
 
@@ -92,6 +98,8 @@ AMS Signals separates a factual evidence layer from researched editorial Article
 - Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
 - Preserve author-supplied Article prose. Do not rewrite, normalize, summarize, translate, expand, shorten, or fact-correct it unless the author explicitly requests that transformation.
 
+Analog AI catalog entries are separately authored technical catalog content. Their project-role classification and project-specific summaries are allowed only within the scope defined in `docs/analog-ai/`; they do not become Golden facts and do not alter Golden taxonomy rules.
+
 ## Data discipline
 
 Before committing:
@@ -108,6 +116,8 @@ Schema or fact-lint failures must be fixed. Duplicate warnings require judgment:
 
 `npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`.
 
+New Analog AI validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
+
 ## Technology choices
 
 Keep the implementation deliberately small:
@@ -119,6 +129,6 @@ Keep the implementation deliberately small:
 - plain CSS
 - small vanilla TypeScript/JavaScript where interaction is needed
 - no database or backend
-- no permanent technology taxonomy
+- no permanent technology taxonomy for the Golden factual corpus
 
 Do not introduce React, a CMS, vector database, runtime AI summaries, or source-archive infrastructure without a concrete need that cannot be met by the existing design.
