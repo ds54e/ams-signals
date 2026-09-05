@@ -55,6 +55,7 @@ All public-facing Analog AI content and UI are English only: page title and desc
 - Stable project anchors are required for sharing.
 - Project details may be expanded independently; do not use an exclusive accordion.
 - The useful project description must be visible before opening details.
+- Show the source-review date in the default view; reserve prominent notices for qualifications that materially affect interpretation or use.
 - A small catalog-specific “recent additions / major updates” area may exist, but it must not use Events or project repository commit timestamps as a substitute for editorial updates.
 
 See `IMPLEMENTATION_SPEC.md` for observable behavior and acceptance criteria.

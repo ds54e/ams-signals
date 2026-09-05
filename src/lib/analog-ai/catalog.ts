@@ -9,7 +9,7 @@ export const roleLabels: Record<CatalogRole, string> = {
 };
 
 export type CatalogState = { q: string; type: CatalogRole | '' };
-export type SearchableProject = { id: string; roles: readonly CatalogRole[]; text: string };
+export type SearchableProject = { id: string; roles: readonly CatalogRole[]; text: string; anchors?: readonly string[] };
 
 export function normalizeSearch(value: string): string {
   return value.normalize('NFKC').toLowerCase().trim();
@@ -49,10 +49,11 @@ export function catalogUrl(current: URL, state: CatalogState, hash = ''): URL {
 
 export function resolveCatalogUrl(url: URL, projects: readonly SearchableProject[]) {
   const parsed = parseCatalogUrl(url);
-  const target = projects.find((project) => project.id === parsed.hash);
+  const target = projects.find((project) => project.id === parsed.hash
+    || (parsed.hash.startsWith(`${project.id}--`) && project.anchors?.includes(parsed.hash)));
   const cleared = Boolean(target && !matchesProject(target, parsed));
   const state: CatalogState = cleared ? { q: '', type: '' } : { q: parsed.q, type: parsed.type };
-  return { state, target, cleared, url: catalogUrl(url, state, parsed.hash) };
+  return { state, target, anchor: target ? parsed.hash : undefined, cleared, url: catalogUrl(url, state, parsed.hash) };
 }
 
 /** Namespace only Astro-rendered attributes; never process external source documents. */

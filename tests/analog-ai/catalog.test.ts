@@ -9,6 +9,7 @@ import { analogAiSchema, validateCatalog } from '../../src/lib/analog-ai/schema.
 
 const project: SearchableProject = {
   id: 'sample-ldo', roles: ['benchmark', 'agent'], text: normalizeSearch('Sample LDO ngspice ベンチマーク PVT未評価'),
+  anchors: ['sample-ldo--evaluation', 'sample-ldo--source-code'],
 };
 
 test('NFKC, Latin case, whitespace and multiple query tokens use AND, including negative descriptions', () => {
@@ -64,6 +65,30 @@ test('known hashes keep compatible filters and clear incompatible filters withou
   assert.equal(unknown.cleared, false);
   assert.equal(unknown.url.hash, '#unknown');
   assert.equal(unknown.state.q, 'missing');
+});
+
+test('existing descendant hashes resolve their owner, preserve the target and obey filter conflicts', () => {
+  for (const hash of project.anchors!) {
+    const compatible = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=ldo&type=agent#${hash}`), [project]);
+    assert.equal(compatible.target, project);
+    assert.equal(compatible.anchor, hash);
+    assert.deepEqual(compatible.state, { q: 'ldo', type: 'agent' });
+    assert.equal(compatible.cleared, false);
+    const conflict = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=spectre&type=eda-tool#${hash}`), [project]);
+    assert.equal(conflict.target, project);
+    assert.equal(conflict.cleared, true);
+    assert.deepEqual(conflict.state, { q: '', type: '' });
+    assert.equal(conflict.url.search, '');
+    assert.equal(conflict.url.hash, `#${hash}`);
+  }
+  for (const hash of ['sample-ldo--missing', 'sample--evaluation', 'sample-ldo-extra--evaluation']) {
+    const unknown = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=missing#${hash}`), [project]);
+    assert.equal(unknown.target, undefined);
+    assert.equal(unknown.anchor, undefined);
+    assert.equal(unknown.cleared, false);
+    assert.equal(unknown.state.q, 'missing');
+    assert.equal(unknown.url.hash, `#${hash}`);
+  }
 });
 
 test('rendered heading and reference IDs are project-scoped without changing prose or external URLs', () => {

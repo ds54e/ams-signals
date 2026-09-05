@@ -74,6 +74,7 @@ const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
                 <ul class="catalog-roles" aria-label="Categories" data-searchable>
                   {data.roles.map((role) => <li>{roleLabels[role]}</li>)}
                 </ul>
+                <p class="catalog-reviewed">Reviewed <time datetime={data.reviewedAt}>{data.reviewedAt}</time></p>
               </header>
               <p class="catalog-summary" data-searchable>{data.summary}</p>
               {data.targets && <p class="catalog-meta" data-searchable><strong>Targets</strong>{data.targets}</p>}
@@ -95,7 +96,7 @@ const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
                   <ol>
                     {data.sources.map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{source.title}</a></li>)}
                   </ol>
-                  <p class="catalog-review">Added to catalog: <time datetime={data.addedAt}>{data.addedAt}</time> · Sources reviewed: <time datetime={data.reviewedAt}>{data.reviewedAt}</time></p>
+                  <p class="catalog-review">Added to catalog: <time datetime={data.addedAt}>{data.addedAt}</time></p>
                 </section>
               </details>
             </article>

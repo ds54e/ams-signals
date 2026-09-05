@@ -18,6 +18,7 @@
 .catalog-project { padding: 30px 0; border-top: 1px solid var(--border-strong); scroll-margin-top: 24px; }
 .catalog-project:target { border-top-color: var(--accent); }
 .catalog-project-header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 20px; }
+.catalog-reviewed { margin: 0 0 0 auto; color: var(--muted); font-size: 0.73rem; }
 .catalog-project h2 { font-size: 1.35rem; font-weight: 700; line-height: 1.4; letter-spacing: -0.025em; margin: 0; }
 .catalog-roles { display: flex; flex-wrap: wrap; gap: 5px 12px; color: var(--accent-ink); font-size: 0.74rem; font-weight: 650; }
 .catalog-summary { margin: 15px 0; line-height: 1.85; font-size: 0.95rem; }
@@ -54,6 +55,7 @@
   .catalog-fields { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   .catalog-project { padding: 26px 0; }
   .catalog-project-header { gap: 9px; }
+  .catalog-reviewed { flex-basis: 100%; margin-left: 0; }
   .catalog-meta { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .catalog-summary { font-size: 0.9rem; }
   .catalog-sources { padding: 14px; }

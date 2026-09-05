@@ -14,6 +14,7 @@ export function initializeCatalog() {
   const projects: SearchableProject[] = elements.map((element) => ({
     id: element.id,
     roles: JSON.parse(element.dataset.roles!),
+    anchors: [...element.querySelectorAll('[id]')].map((part) => part.id),
     text: normalizeSearch([
       ...JSON.parse(element.dataset.aliases!),
       ...[...element.querySelectorAll('[data-searchable]')].map((part) => part.textContent ?? ''),
@@ -50,7 +51,8 @@ export function initializeCatalog() {
     if (result.target) {
       const target = elements.find((element) => element.id === result.target!.id)!;
       target.querySelector('details')!.open = true;
-      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
+      const anchor = document.getElementById(result.anchor!)!;
+      requestAnimationFrame(() => anchor.scrollIntoView({ behavior: 'instant', block: 'start' }));
     }
   }
 

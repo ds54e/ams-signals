@@ -55,6 +55,7 @@ Show count as `Showing M of N projects`; a multi-role project counts once.
 The collapsed/default view must contain enough information to decide whether to investigate the project:
 
 - project name;
+- a subtle `Reviewed YYYY-MM-DD` indicator, visible without expanding the entry;
 - role(s);
 - about two concise English sentences explaining what it does and what makes it distinct;
 - optional circuit/domain targets when verified;
@@ -120,13 +121,15 @@ Use this page's own query parameters only:
 
 - `q` — text query;
 - `type` — one of the four role IDs, omitted for all;
-- hash — stable project slug.
+- hash — stable project slug or an existing namespaced descendant ID (`<project-slug>--...`).
 
 Examples:
 
 `/ams-signals/analog-ai/?q=ldo&type=benchmark`
 
 `/ams-signals/analog-ai/#evo-ldo-bench`
+
+`/ams-signals/analog-ai/#circuitrubric--source-method`
 
 Use `sitePath` or the current equivalent for internal URLs. Never hardcode a root path that drops the GitHub Pages base.
 
@@ -136,13 +139,13 @@ Unknown `type` falls back to all. Unknown hash does not redirect to a guessed pr
 
 ### Hash vs filter conflict
 
-When a known hash names a project:
+When a known hash names a project or one of its existing descendants:
 
 1. restore q/type from the URL;
 2. resolve the hash;
 3. if the project is visible under the restored filters, keep filters;
 4. otherwise clear q/type, synchronize the URL, and optionally show a short notice that filtering was cleared to show the linked project;
-5. open the project's details and bring it into view.
+5. open the owning project's details and bring the actual anchor into view, respecting its scroll margin and preserving the full hash.
 
 Do not insert the hashed project as a special exception while keeping contradictory counts/filters.
 
@@ -283,6 +286,7 @@ The implementation is not complete until these observable cases are covered:
 20. Existing factual data, Articles, and `/export.json` remain unchanged except for the intentional global-nav addition.
 21. Timeline/Events state and Analog AI state never leak into each other.
 22. All public-facing Analog AI UI and content are English only; existing Japanese Articles remain unchanged.
+23. Direct loading or reloading a namespaced detail/source anchor opens its owning project and reaches the actual target; compatible/conflicting filters follow the same rules as project hashes. Unknown descendant IDs do not resolve to a guessed owner.
 
 ## 16. Delivery
 
