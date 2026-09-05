@@ -2,7 +2,13 @@
 name: "sv-elab"
 aliases: ["yosys-slang"]
 description: "Slang-based SystemVerilog elaborator that lowers synthesizable designs into a word-level netlist for Yosys and other downstream flows."
-flow: {"design":"supporting","synthesis":"core"}
+scope:
+  design:
+    level: supporting
+    ai: false
+  synthesis:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +39,8 @@ Current Yosys integration and the separately buildable frontend should not be re
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Synthesizable SystemVerilog lowering into a word-level netlist is explicitly oriented toward synthesis consumers. Reusable design-representation transformation supports that purpose; it is not classified from parsing alone. [Reviewed source](#source-readme).
+
+Synthesis-oriented lowering is core Synthesis with supporting design-representation transformation. The reviewed implementation does not establish runtime AI; a policy allowing some AI assistance is insufficient development-provenance evidence. [AI/stage evidence](#source-readme).

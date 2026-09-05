@@ -2,7 +2,14 @@
 name: "uhdm2rtlil"
 aliases: []
 description: "Surelog/UHDM-to-RTLIL frontend importing SystemVerilog designs into Yosys, with equivalence and RTL co-simulation campaigns checking the translation."
-flow: {"synthesis":"core","verification":"supporting"}
+scope:
+  synthesis:
+    level: core
+    ai: false
+  verification:
+    level: supporting
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +40,8 @@ Campaign results concern the exercised designs and constructs. The frontend is n
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 UHDM-to-RTLIL lowering explicitly enables Yosys synthesis. Released equivalence/co-simulation campaigns support translation validation; they are not a standalone proof engine. The intermediate representation does not warrant a second Design mark by itself. [Reviewed source](#source-readme).
+
+UHDM-to-RTLIL compilation and translation-validation campaigns execute conventionally. The author documents Claude-driven core translation-handler development, making AI-built defining without turning synthesis into AI Synthesis. [AI/stage evidence](#source-readme).

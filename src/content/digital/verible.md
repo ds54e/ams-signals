@@ -2,7 +2,13 @@
 name: "Verible"
 aliases: []
 description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."
-flow: {"design":"core","verification":"supporting"}
+scope:
+  design:
+    level: core
+    ai: false
+  verification:
+    level: supporting
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +43,8 @@ Source-formatting and lint utilities do not perform logic synthesis. [Public upd
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Formatting, language services and source transformation support HDL authoring. Style lint provides secondary checking; neither parsing nor linting implies logic synthesis. [Reviewed source](#source-readme).
+
+HDL authoring/source transformations and supporting lint are conventional operations. No model-driven stage or distinctive AI development process is established. [AI/stage evidence](#source-readme).

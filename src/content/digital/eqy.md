@@ -2,7 +2,10 @@
 name: "EQY"
 aliases: []
 description: "Yosys-based equivalence-checking flow that matches and partitions reference and transformed designs, then proves correspondence with configurable strategies."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ A failed, timed-out or unproven partition is distinct from a successful equivale
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Partitioned equivalence proofs are the user-facing task. Yosys preparation and transformations serve that proof flow, not a separate synthesis deliverable. [Reviewed source](#source-readme).
+
+Partitioned equivalence checking is conventional Verification. Synthesis preparation is an internal dependency, not another user-facing stage or AI operation. [AI/stage evidence](#source-readme).

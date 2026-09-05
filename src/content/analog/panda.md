@@ -2,7 +2,16 @@
 name: "PANDA"
 summary: "A staged design-intent-to-layout analog flow."
 description: "Turns design intent into topology and sizing artifacts, then coordinates Virtuoso/Spectre execution, placement, routing and post-layout feedback through a staged analog design flow."
-flow: {"design":"core","simulation":"core","layout":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: false
+  layout:
+    level: core
+    ai: false
 access: "Configured Cadence/Virtuoso/Spectre host, PDK/PCells and placement/routing/verification backends; public code uses a noncommercial license."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -35,12 +44,14 @@ sources:
 
 ### Scope
 
-The author-linked repository implements stage contracts, constrained topology generation, sizing artifacts, true-PCell export and placement/routing orchestration. It exposes LVS, PEX and post-layout simulation adapters. Core physical scope refers to the implemented layout flow and documented runs, not a claim of universal signoff. Optimization is supporting because the generic flow can delegate to an external sizing backend. [Paper](#source-paper) · [Templates](#source-analogxpert-topology-templates-py) · [Backends](#source-docs-paper-gap-analysis-md) · [Placement](#source-place-py)
+The author-linked repository implements stage contracts, constrained topology generation, sizing artifacts, true-PCell export and placement/routing orchestration. It exposes LVS, PEX and post-layout simulation adapters. Layout refers to the implemented physical flow and documented runs, not a claim of universal signoff. The generic sizing flow can delegate to an external optimization backend. [Paper](#source-paper) · [Templates](#source-analogxpert-topology-templates-py) · [Backends](#source-docs-paper-gap-analysis-md) · [Placement](#source-place-py)
 
 ### Reported results
 
 The authors document a StrongARM comparator and a three-stage OTA. The OTA post-PEX measurements use a layout-matched netlist; exact LVS against the original topology still has a PCell property-expression mismatch. A zero wrapper exit code alone does not establish clean DRC. These are source-reported runs, not catalog reproductions. The public release is source-available under a noncommercial license. [Run report](#source-docs-panda-real-chain-repro-md) · [Simulator backend](#source-sizing-spectre-backend-py)
 
-### Flow scope
+### Scope classification
 
 Topology construction, simulator-backed sizing, placement/routing and post-layout checks are explicit workflow deliverables. Their inclusion describes scope, not independently reproduced signoff or automatic success on every example. [Reviewed source](#source-analogxpert-topology-templates-py).
+
+LLM-guided topology generation establishes AI Design. The reviewed sizing/Spectre adapters and constraint-driven placement/routing kernels provide conventional Simulation and Layout; a common agent/Skill boundary alone does not make those stages AI. [Agent workflow](#source-paper) · [Backend boundaries](#source-docs-paper-gap-analysis-md).

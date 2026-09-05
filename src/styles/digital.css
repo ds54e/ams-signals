@@ -12,12 +12,12 @@
 .digital-scope-mark.core { background: currentColor; }
 .digital-columns, .digital-project article { display: grid; grid-template-columns: var(--digital-columns); column-gap: 22px; }
 .digital-columns { padding-block: 9px; border-top: 1px solid var(--border-strong); color: var(--muted); font-size: 0.76rem; font-weight: 650; }
-.digital-list, .digital-flow, .digital-quicklinks, .digital-activity-strip { list-style: none; padding: 0; margin: 0; }
+.digital-list, .digital-scope, .digital-quicklinks, .digital-activity-strip { list-style: none; padding: 0; margin: 0; }
 .digital-project { padding: 17px 0 12px; border-top: 1px solid var(--border); }
 .digital-project h2 { margin: 0; font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
 .digital-description { font-size: 0.96rem; line-height: 1.6; margin: 7px 0 0; }
-.digital-flow { display: flex; flex-direction: column; align-items: start; gap: 3px; font-size: 0.86rem; line-height: 1.4; }
-.digital-flow li { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.digital-scope { display: flex; flex-direction: column; align-items: start; gap: 3px; font-size: 0.86rem; line-height: 1.4; }
+.digital-scope li { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .digital-activity { font-size: 0.86rem; min-width: 0; width: var(--digital-activity-width); }
 .digital-activity-latest { margin: 0; }
 .digital-activity-strip { display: grid; grid-template-columns: repeat(12, 5px); width: max-content; gap: 2px; margin: 7px 0 0; }

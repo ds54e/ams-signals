@@ -2,7 +2,10 @@
 name: "RTLDebugDBKit + RTLTracer"
 aliases: []
 description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,6 +41,8 @@ The database holds static relations, not runtime waveform values. Only RTLDebugD
 
 [Related RTLTracer source](#source-rtltracer).
 
-### Flow scope
+### Scope classification
 
 The elaborated SQLite dependency database and RTLTracer queries support read-only signal/debug analysis. Building a debug representation does not generate or transform the user's RTL design. [Reviewed source](#source-readme).
+
+The database and related tracer expose static design/debug relations for conventional Verification. Agent accessibility and an internal elaborator do not imply AI or a design-generation stage. [AI/stage evidence](#source-readme).

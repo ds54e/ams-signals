@@ -2,7 +2,13 @@
 name: "ASTRA"
 summary: "Reasoning-guided initialization and Bayesian transistor sizing."
 description: "Combines retrieved design knowledge and gm/ID initialization with Bayesian transistor sizing, using simulator feedback through an external evaluation adapter."
-flow: {"design":"core","simulation":"supporting"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: supporting
+    ai: false
 access: "Python, LLM access, a knowledge database, gm/ID tables and a configured ngspice/KATO simulation environment."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -34,6 +40,8 @@ The author repository implements RAG-assisted initialization, transistor-priorit
 
 The simulation adapter contains real ngspice calls but imports the external KATO/lyngspice environment and references local netlists and lookup tables. Those dependencies are not all in the captured tree. Simulation is supporting scope for this partial integration; optimization and reasoning are central implemented algorithms. No EDA-session or physical-design mark follows from the MCP interface alone. [Simulation adapter](#source-examples-simulation-ota-two-py)
 
-### Flow scope
+### Scope classification
 
 Design-knowledge retrieval, gm/ID initialization and Bayesian transistor sizing are central. The externally integrated simulator supplies supporting feedback. [Reviewed source](#source-readme-en-md).
+
+LLM reasoning, retrieved gm/ID knowledge and search prioritization materially choose transistor-sizing decisions. The external simulator interface remains conventional supporting Simulation. [AI/stage evidence](#source-readme-en-md).

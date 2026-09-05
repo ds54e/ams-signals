@@ -2,7 +2,10 @@
 name: "Icarus Verilog"
 aliases: []
 description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ SystemVerilog support remains a subset; the source does not support describing u
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Verilog/SystemVerilog simulation through the compiler and VVP runtime is the reviewed public use. Internal compilation and elaboration do not independently establish a circuit-design or logic-synthesis flow. [Reviewed source](#source-readme).
+
+HDL execution, testbenches and VPI belong to conventional Verification. Internal parsing/elaboration is not a separate Design stage. [AI/stage evidence](#source-readme).

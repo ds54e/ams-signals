@@ -2,7 +2,16 @@
 name: "Dr. RTL"
 aliases: []
 description: "Agentic RTL optimization loop that reads synthesis timing feedback, rewrites critical logic and uses sequential equivalence checks to select improved implementations."
-flow: {"design":"core","synthesis":"core","verification":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  synthesis:
+    level: core
+    ai: false
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +46,8 @@ The paper reports optimization results; the catalog does not reproduce them or i
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 RTL rewriting, synthesis timing/PPA evaluation and sequential equivalence checking are central to each optimization attempt. The reviewed DC/Formality/Jasper execution path does not establish placement or routing; synthesis timing alone receives no Layout mark. [Reviewed source](#source-readme).
+
+Claude agents analyze timing paths and rewrite RTL, giving AI Design. The reviewed evaluator is explicitly execution-only: DC synthesis and SEC run through a fixed tool command, with tool-derived verdicts. Those stages stay Synthesis and Verification; the reviewed path does not establish routed Layout or an AI proof/diagnostic engine. [AI/stage evidence](#source-readme).

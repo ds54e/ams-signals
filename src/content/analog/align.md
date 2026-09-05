@@ -3,7 +3,13 @@ name: "ALIGN"
 aliases: []
 summary: "Generates placed and routed analog layouts from circuit netlists and constraints."
 description: "Turns SPICE netlists and analog constraints into hierarchical, placed and routed GDSII layouts, with circuit annotation and parameterized primitive generation."
-flow: {"design":"supporting","layout":"core"}
+scope:
+  design:
+    level: supporting
+    ai: false
+  layout:
+    level: core
+    ai: false
 access: "Public Python/C++ flow, examples and PDK abstractions; each target technology requires compatible primitive and rule definitions."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,12 +35,14 @@ sources:
 
 ### Scope
 
-Recognizes circuit hierarchy, generates primitive layout cells and assembles constrained placement/routing. Layout is the core output, with supporting Design for hierarchy annotation; this is not unrestricted circuit-topology synthesis. [Flow](#source-readme) and [entry point](#source-implementation).
+Recognizes circuit hierarchy, generates primitive layout cells and assembles constrained placement/routing. Layout is the core output, with supporting Design for hierarchy annotation; this is not unrestricted circuit-topology synthesis. [Layout pipeline](#source-readme) and [entry point](#source-implementation).
 
 ### Release boundary
 
 The July 5 merge replaces legacy OTA benches with parameterized DUT wrappers and AC, CMRR, ICMR, OCMR, operating-point, PSRR and slew testbenches. This is substantive benchmark infrastructure maintenance, not evidence of newly reproduced electrical results. [Reviewed change](#source-activity).
 
-### Flow scope
+### Scope classification
 
 Circuit annotation reorganizes the supplied netlist into a hierarchy that enables the central primitive-generation, placement and routing flow; it does not select a new electrical topology. [Reviewed source](#source-readme).
+
+Circuit annotation supports deterministic layout synthesis. Neither automatic constraint handling nor the project name establishes learned inference in either stage. [AI/stage evidence](#source-readme).

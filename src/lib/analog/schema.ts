@@ -1,3 +1,5 @@
+import { scopeLevelSchema, stageScopeSchema } from '../catalog-scope.ts';
+import { scopeStageIds } from './catalog.ts';
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
@@ -27,11 +29,12 @@ export const analogSchema = z.object({
   aliases: z.array(text).default([]),
   summary: text.max(240, 'Keep the default summary to one concise sentence'),
   description: text.max(600, 'Keep the project description to one short paragraph'),
-  flow: z.object({
-    design: z.enum(['core', 'supporting']).optional(),
-    simulation: z.enum(['core', 'supporting']).optional(),
-    layout: z.enum(['core', 'supporting']).optional(),
-  }).strict().refine((flow) => Object.values(flow).some(Boolean), 'At least one reviewed Flow stage is required'),
+  scope: z.object({
+    design: stageScopeSchema.optional(),
+    simulation: stageScopeSchema.optional(),
+    layout: stageScopeSchema.optional(),
+    aiBuilt: scopeLevelSchema.optional(),
+  }).strict().refine((scope) => scopeStageIds.some((stage) => scope[stage]), 'At least one reviewed design-stage Scope is required'),
   targets: text.optional(),
   access: text,
   notice: text.optional(),

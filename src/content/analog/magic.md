@@ -3,7 +3,10 @@ name: "Magic"
 aliases: []
 summary: "Edits custom-IC layouts and extracts circuits and parasitics with technology rules."
 description: "VLSI layout editor with design-rule checking, circuit and parasitic extraction, and Tcl-driven custom-IC workflows used with open PDKs."
-flow: {"layout":"core"}
+scope:
+  layout:
+    level: core
+    ai: false
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,6 +35,8 @@ Provides interactive and scripted layout editing, design-rule checks and extract
 
 The September 1 implementation lets select command options operate without a layout-window cursor, including configuration-file settings. The following version-number-only commit does not establish meaningful freshness. [Substantive update](#source-activity).
 
-### Flow scope
+### Scope classification
 
 Geometry editing, design-rule checking and circuit/parasitic extraction belong to the custom-layout flow. Extracting a netlist from geometry does not imply circuit-topology generation. [Reviewed source](#source-readme).
+
+Interactive/scripted layout, DRC and extraction are conventional Layout. No reviewed model inference is involved in these operations. [AI/stage evidence](#source-readme).

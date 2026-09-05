@@ -2,7 +2,10 @@
 name: "Spec2Cov"
 aliases: []
 description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +36,8 @@ The README retains an older llm-verif clone example, but the verified canonical 
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Specification-driven testbench generation, simulator execution and coverage closure are verification tasks. Generated test stimulus is not an RTL design deliverable. [Reviewed source](#source-readme).
+
+Models generate and revise testbenches from specifications and coverage feedback. That is AI Verification, not generation of the DUT or a proof of correctness. [AI/stage evidence](#source-readme).

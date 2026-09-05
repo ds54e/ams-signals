@@ -2,7 +2,10 @@
 name: "Sentinel DV"
 aliases: []
 description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries across simulator artifacts."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,7 +32,7 @@ sources:
 
 ### Implementation context
 
-MCP tools and agent workflows provide runtime AI integration over verification evidence. [Reviewed source](#source-readme).
+MCP tools expose verification evidence to external agents; tool exposure alone does not establish an implemented model-driven diagnostic loop. [Reviewed source](#source-readme).
 
 ### Release boundary
 
@@ -37,6 +40,8 @@ Run submission and replay return commands for review; they do not execute simula
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Read-only triage of logs, assertions, coverage, regressions and waveform summaries is verification. The MCP interface does not itself generate or implement RTL. [Reviewed source](#source-readme).
+
+The read-only server exposes existing verification evidence to external agents. Its query interface and workflow instructions alone do not establish model inference within the tool, so Verification stays unprefixed. [AI/stage evidence](#source-readme).

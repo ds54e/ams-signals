@@ -3,7 +3,7 @@ import { catalogFixture, catalogIndexTests } from './catalog-index';
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
-  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith']);
+  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl']);
 
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await page.goto('./digital/');

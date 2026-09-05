@@ -2,7 +2,10 @@
 name: "wave-mcp"
 aliases: []
 description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured agent tools."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +36,8 @@ The tool reads existing simulation artifacts; it is not a simulator. Reported pr
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 FST queries, connectivity tracing and failure comparisons are debug/verification operations over existing artifacts. Static elaboration does not edit the design. [Reviewed source](#source-readme).
+
+Structured waveform, driver and X-tracing queries serve conventional Verification. The inspected server supplies tools to an external model rather than implementing model-driven debug decisions itself. [AI/stage evidence](#source-readme).

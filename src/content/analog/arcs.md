@@ -2,7 +2,13 @@
 name: "ARCS"
 summary: "Joint circuit-topology and component-value generation."
 description: "Generates circuit connectivity and component values from target specifications, then uses ngspice evaluation and simulation-reward training to improve candidates across power-converter, amplifier and filter families."
-flow: {"design":"core","simulation":"core"}
+scope:
+  design:
+    level: core
+    ai: true
+  simulation:
+    level: core
+    ai: false
 access: "Python/PyTorch and ngspice; generation and training depend on the selected released model and dataset configuration."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -40,6 +46,8 @@ The current implementation is under `src/arcs`, alongside an older `circuitgenie
 
 The repository contains a manuscript and recorded multi-seed comparisons. These are author-produced experiments; the catalog did not retrain models or reproduce the numbers. Generation, simulation and component optimization are core reviewed operations. No LLM reasoning or physical-layout mark is inferred from the generator. [Manuscript](#source-paper-arcs-paper-tex) · [Results](#source-results-arch-multiseed-json) · [Simulator](#source-src-arcs-spice-py)
 
-### Flow scope
+### Scope classification
 
 Learned topology/component-value generation and SPICE-based candidate evaluation are explicit parts of the released generation and ranking pipeline. [Reviewed source](#source-paper-arcs-paper-tex).
+
+The learned generator chooses topology and component values, giving AI Design. SPICE scoring remains numerical electrical evaluation rather than AI Simulation. [AI/stage evidence](#source-paper-arcs-paper-tex).

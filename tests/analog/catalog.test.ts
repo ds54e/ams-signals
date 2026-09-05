@@ -1,16 +1,21 @@
+import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import { test } from 'node:test';
 import { activityBand } from '../../src/lib/catalog-activity-band.ts';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { flowIds, flowLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
+import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
+
+
+const stageLevels = (scope: Record<string, unknown>) => Object.fromEntries(Object.entries(scope)
+  .filter(([stage]) => stage !== 'aiBuilt').map(([stage, value]) => [stage, (value as { level: string }).level]));
 
 const valid = () => ({
   name: 'Sample', summary: 'Evaluates circuit structure.', access: 'Requires Python.',
   description: 'Compares netlist connectivity and device ratios against reference circuits.',
-  flow: { design: 'core' },
+  scope: { design: { level: 'core', ai: false } },
   addedAt: '2026-09-05', reviewedAt: '2026-09-05',
   sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
 });
@@ -95,16 +100,16 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
     klayout: { layout: 'core' }, magic: { layout: 'core' },
     align: { design: 'supporting', layout: 'core' },
   };
-  for (const [id, flow] of Object.entries(baselines)) {
+  for (const [id, expectedLevels] of Object.entries(baselines)) {
     const project = projects.find((p) => p.id === id)!;
-    assert.ok(project, id); assert.deepEqual(project.data.flow, flow);
+    assert.ok(project, id); assert.deepEqual(stageLevels(project.data.scope), expectedLevels);
     if (id !== 'ngspice') {
       assert.equal(typeof activity.projects[id].repositoryId, 'number');
       assert.match(activity.projects[id].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
     }
   }
   const moved = 'ngspice-openvaf-enhancements';
-  assert.deepEqual(projects.find((p) => p.id === moved)!.data.flow, { simulation: 'core' });
+  assert.deepEqual(stageLevels(projects.find((p) => p.id === moved)!.data.scope), { simulation: 'core' });
   assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   assert.equal(typeof activity.projects[moved].repositoryId, 'number');
   assert.match(activity.projects[moved].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
@@ -134,7 +139,7 @@ test('optional pinned activity evidence preserves transferred identity and requi
   }
 });
 
-test('Analog Flow distinguishes design tasks, central evaluation, optional feedback and layout primitives', async () => {
+test('Analog Scope distinguishes design tasks, central evaluation, optional feedback and layout primitives', async () => {
   const scopes = {
     analogsage: { design: 'core', simulation: 'supporting' },
     autosizer: { design: 'core', simulation: 'core' },
@@ -147,9 +152,9 @@ test('Analog Flow distinguishes design tasks, central evaluation, optional feedb
     vcli: { design: 'core', simulation: 'core', layout: 'supporting' },
     zerosim: { simulation: 'core' }, evas: { simulation: 'core' },
   };
-  for (const [id, flow] of Object.entries(scopes)) {
+  for (const [id, expectedLevels] of Object.entries(scopes)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
-    assert.deepEqual(analogSchema.parse(frontmatter).flow, flow, id);
+    assert.deepEqual(stageLevels(analogSchema.parse(frontmatter).scope), expectedLevels, id);
   }
 });
 
@@ -176,15 +181,21 @@ test('stable slugs and bounded updates validate independently of re-review', () 
   assert.deepEqual(validateCatalog([], []), []);
 });
 
-test('Analog Flow has only three stages, reviewed states and at least one meaningful scope', () => {
-  assert.deepEqual(flowIds, ['design', 'simulation', 'layout']);
-  assert.deepEqual(flowIds.map((id) => flowLabels[id]), ['Design', 'Simulation', 'Layout']);
-  for (const flow of [undefined, {}, { design: undefined }, { design: 'planned' }, { design: false }, { design: null }, { quality: 'core' }, { verification: 'core' }]) {
-    assert.equal(analogSchema.safeParse({ ...valid(), flow }).success, false);
+test('Analog Scope requires explicit stage levels and AI booleans; AI-built alone is insufficient', () => {
+  assert.deepEqual(scopeStageIds, ['design', 'simulation', 'layout']);
+  assert.deepEqual(scopeStageIds.map((id) => scopeStageLabels[id]), ['Design', 'Simulation', 'Layout']);
+  const core = { level: 'core', ai: false };
+  for (const scope of [undefined, {}, { design: undefined }, { aiBuilt: 'core' },
+    { design: 'core' }, { design: null }, { design: { level: 'core' } },
+    { design: { ai: true } }, { design: { level: 'planned', ai: false } },
+    ...['true', 'false', 1, null].map((ai) => ({ design: { level: 'core', ai } })),
+    { design: { ...core, score: 1 } }, { 'verification': core }, { 'ai-design': core },
+    ...[true, 'ai-built', 'traditional', 'partial', null].map((aiBuilt) => ({ design: core, aiBuilt })),
+  ]) assert.equal(analogSchema.safeParse({ ...valid(), scope }).success, false, JSON.stringify(scope));
+  for (const ai of [true, false]) for (const aiBuilt of [undefined, 'core', 'supporting']) {
+    assert.ok(analogSchema.safeParse({ ...valid(), scope: { layout: { level: 'supporting', ai }, aiBuilt } }).success);
   }
-  assert.ok(analogSchema.safeParse({ ...valid(), flow: { simulation: 'supporting' } }).success);
-  assert.ok(analogSchema.safeParse({ ...valid(), flow: { design: 'core', layout: 'supporting' } }).success);
-  for (const removed of ['keywords', 'workflow']) {
+  for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
     assert.equal(analogSchema.safeParse({ ...valid(), [removed]: {} }).success, false);
   }
 });
@@ -332,4 +343,48 @@ test('point-signal bands retain calendar boundaries without clamping or changing
     assert.ok(band.cells.every((cell) => !('commits' in cell)));
     assert.equal(band.date, lastPublicUpdateAt);
   }
+});
+
+test('Scope rendering separates stage inference from development provenance and fixes display order', () => {
+  const scope = analogSchema.parse({ ...valid(), scope: {
+    aiBuilt: 'supporting', layout: { level: 'supporting', ai: false },
+    simulation: { level: 'core', ai: true }, design: { level: 'supporting', ai: true },
+  } }).scope;
+  const before = structuredClone(scope);
+  assert.deepEqual(scopeItems(scope, scopeStageLabels), [
+    { id: 'design', label: 'AI Design', level: 'supporting', ai: true, meaning: 'Supporting scope' },
+    { id: 'simulation', label: 'AI Simulation', level: 'core', ai: true, meaning: 'Core scope' },
+    { id: 'layout', label: 'Layout', level: 'supporting', ai: false, meaning: 'Supporting scope' },
+    { id: 'aiBuilt', label: 'AI-built', level: 'supporting', meaning: 'Partial or secondary AI development provenance' },
+  ]);
+  assert.deepEqual(scope, before);
+  const conventional = analogSchema.parse({ ...valid(), scope: { simulation: { level: 'core', ai: false }, aiBuilt: 'core' } }).scope;
+  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-built']);
+});
+
+test('Analog stage-specific AI decisions distinguish inference, numerical feedback and externally supplied agents', async () => {
+  const expected = {
+    zerosim: ['AI Simulation'], ngspice: ['Simulation'], klayout: ['Layout'],
+    analogsage: ['AI Design', 'Simulation'], autosizer: ['AI Design', 'Simulation'],
+    analoggym: ['Design', 'Simulation'], panda: ['AI Design', 'Simulation', 'Layout'],
+    atlas: ['AI Design', 'AI Simulation'], 'masala-chai': ['AI Design', 'AI Simulation'],
+    'evo-ldo-bench': ['AI Design', 'AI Simulation'],
+    'virtuoso-agent': ['AI Design', 'Simulation'],
+    'virtuoso-bridge-lite': ['Design', 'Simulation', 'Layout'], vcli: ['Design', 'Simulation', 'Layout'],
+    'gmoverid-skill': ['Design', 'Simulation'], circuitrubric: ['Design'],
+    'behavioral-veriloga-eval': ['Design', 'Simulation'], 'analogforge-agent': ['Design', 'Simulation'],
+    'ngspice-openvaf-enhancements': ['Simulation', 'AI-built'],
+  };
+  for (const [id, labels] of Object.entries(expected)) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    const scope = analogSchema.parse(frontmatter).scope;
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).map((x) => x.label), labels, id);
+  }
+  const files = (await readdir(new URL('../../src/content/analog/', import.meta.url))).filter((file) => file.endsWith('.md'));
+  const built = [];
+  for (const file of files) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${file}`, import.meta.url), 'utf8'));
+    if (frontmatter.scope.aiBuilt) built.push(file.slice(0, -3));
+  }
+  assert.deepEqual(built, ['ngspice-openvaf-enhancements']);
 });

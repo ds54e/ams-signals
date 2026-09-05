@@ -2,7 +2,10 @@
 name: "Surfer"
 aliases: []
 description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,6 +35,8 @@ Tracked as a conventional waveform viewer; no distinctive AI build process or AI
 
 Native and web builds have different feature availability. Activity uses reviewed first-parent monthly history from the canonical GitLab repository. [Public update](#source-activity).
 
-### Flow scope
+### Scope classification
 
 Waveform inspection, remote viewing and debug interaction serve verification. Canonical GitLab history remains the reviewed activity source. [Reviewed source](#source-readme).
+
+Waveform viewing and translations are conventional Verification. Canonical GitLab history remains activity provenance, independent of Scope. [AI/stage evidence](#source-readme).

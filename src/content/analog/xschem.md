@@ -3,7 +3,13 @@ name: "Xschem"
 aliases: []
 summary: "Edits hierarchical schematics and emits simulator-ready netlists."
 description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting, open-PDK examples and integration with ngspice and Xyce."
-flow: {"design":"core","simulation":"supporting"}
+scope:
+  design:
+    level: core
+    ai: false
+  simulation:
+    level: supporting
+    ai: false
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -38,6 +44,8 @@ Edits hierarchical, parameterized schematics and produces SPICE, Verilog and VHD
 
 The author advertises both GitHub and Codeberg during a migration. This snapshot uses only the explicitly requested, still-updated author GitHub repository; it does not combine host histories. Re-check the canonical host before refreshing after the transition. [Migration notice](#source-readme) and [official site](#source-site).
 
-### Flow scope
+### Scope classification
 
 Schematic capture and hierarchical netlisting are central. Simulator launch and result back-annotation support circuit analysis through external ngspice/Xyce tools. [Reviewed source](#source-readme).
+
+Schematic/netlist editing is conventional Design; simulator launch and back-annotation are supporting Simulation. Neither scripting nor external solver integration establishes AI inference. [AI/stage evidence](#source-readme).

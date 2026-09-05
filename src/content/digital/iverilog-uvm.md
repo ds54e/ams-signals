@@ -2,7 +2,11 @@
 name: "iverilog-uvm"
 aliases: []
 description: "Icarus-derived simulator extending SystemVerilog verification with UVM, constrained randomization, assertions, functional coverage and DPI-C."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +37,8 @@ Although derived from Icarus, the canonical public repository is not flagged as 
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 UVM, assertions, randomization, coverage and simulation are verification capabilities. Parser and future proof-engine work do not create separate Design or Synthesis scope. [Reviewed source](#source-readme).
+
+Runtime simulation and verification-language features are conventional Verification. Explicit author credit for Claude developing much of the core extension under human review makes AI-built defining, independently of runtime behavior. [AI/stage evidence](#source-readme).

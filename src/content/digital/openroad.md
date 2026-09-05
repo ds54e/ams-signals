@@ -2,7 +2,10 @@
 name: "OpenROAD"
 aliases: []
 description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."
-flow: {"layout":"core"}
+scope:
+  layout:
+    level: core
+    ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ The OpenROAD engine is distinct from OpenROAD-flow-scripts and OpenROAD-MCP. No 
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Floorplanning, placement, clock trees, routing and backend timing/extraction define this physical implementation entry. Separate RTL-to-GDS flow orchestration is not attributed to the engine merely from its surrounding toolchain. [Reviewed source](#source-readme).
+
+Placement, clock trees, routing and backend timing are conventional Layout algorithms. No AI behavior of downstream agents is attributed to the engine. [AI/stage evidence](#source-readme).

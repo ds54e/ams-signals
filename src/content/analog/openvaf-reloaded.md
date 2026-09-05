@@ -3,7 +3,10 @@ name: "OpenVAF-Reloaded"
 aliases: []
 summary: "Compiles Verilog-A device models into OSDI shared libraries."
 description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators, extending the original OpenVAF with compiler fixes and model-interface support."
-flow: {"simulation":"supporting"}
+scope:
+  simulation:
+    level: supporting
+    ai: false
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,6 +34,8 @@ Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator
 
 The verified default branch is mob, despite older master wording in the README. The maintained compiler exposes OSDI 0.4; the legacy OSDI 0.3 branch is documented as unmaintained. Simulator compatibility and available OSDI features are separate from compiler generation. [Interface boundary](#source-readme).
 
-### Flow scope
+### Scope classification
 
 The compiler turns Verilog-A models into OSDI libraries consumed by simulators. It enables simulation rather than executing electrical analyses itself; a single supporting stage is intentionally valid. [Reviewed source](#source-readme).
+
+Verilog-A-to-OSDI compilation enables numerical simulation in a host tool. This supporting stage does not use reviewed AI inference. [AI/stage evidence](#source-readme).

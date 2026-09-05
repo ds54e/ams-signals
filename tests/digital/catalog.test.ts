@@ -1,3 +1,4 @@
+import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import assert from 'node:assert/strict';
 import { activityBand } from '../../src/lib/catalog-activity-band.ts';
 import test from 'node:test';
@@ -7,9 +8,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
-import { flowIds, flowLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
+import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
+
+
+const stageLevels = (scope: Record<string, unknown>) => Object.fromEntries(Object.entries(scope)
+  .filter(([stage]) => stage !== 'aiBuilt').map(([stage, value]) => [stage, (value as { level: string }).level]));
 
 const directory = new URL('../../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
@@ -37,7 +42,7 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
     const record = snapshot.projects[p.id];
     const meaningful = hasRepositoryHistory(record) ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
     assert.ok(meaningful >= freshnessCutoff(snapshot.reviewedAt));
-    assert.ok(Object.values(p.data.flow).length > 0);
+    assert.ok(Object.values(p.data.scope).length > 0);
   }
 });
 
@@ -58,14 +63,21 @@ test('stable slugs reject ambiguity and duplicate authored entries', () => {
   assert.throws(() => validateCatalog([]), /empty/);
 });
 
-test('Digital Flow has four stages and accepts only reviewed core/supporting scope', () => {
-  assert.deepEqual(flowIds, ['design', 'synthesis', 'verification', 'layout']);
-  assert.deepEqual(flowIds.map((id) => flowLabels[id]), ['Design', 'Synthesis', 'Verification', 'Layout']);
-  for (const flow of [undefined, {}, { design: undefined }, { design: 'planned' }, { design: null }, { simulation: 'core' }, { quality: 'core' }]) {
-    assert.equal(digitalSchema.safeParse({ ...data(), flow }).success, false);
+test('Digital Scope requires explicit stage levels and AI booleans; AI-built alone is insufficient', () => {
+  assert.deepEqual(scopeStageIds, ['design', 'synthesis', 'verification', 'layout']);
+  assert.deepEqual(scopeStageIds.map((id) => scopeStageLabels[id]), ['Design', 'Synthesis', 'Verification', 'Layout']);
+  const core = { level: 'core', ai: false };
+  for (const scope of [undefined, {}, { design: undefined }, { aiBuilt: 'core' },
+    { design: 'core' }, { design: null }, { design: { level: 'core' } },
+    { design: { ai: true } }, { design: { level: 'planned', ai: false } },
+    ...['true', 'false', 1, null].map((ai) => ({ design: { level: 'core', ai } })),
+    { design: { ...core, score: 1 } }, { 'simulation': core }, { 'ai-design': core },
+    ...[true, 'ai-built', 'traditional', 'partial', null].map((aiBuilt) => ({ design: core, aiBuilt })),
+  ]) assert.equal(digitalSchema.safeParse({ ...data(), scope }).success, false, JSON.stringify(scope));
+  for (const ai of [true, false]) for (const aiBuilt of [undefined, 'core', 'supporting']) {
+    assert.ok(digitalSchema.safeParse({ ...data(), scope: { layout: { level: 'supporting', ai }, aiBuilt } }).success);
   }
-  assert.ok(digitalSchema.safeParse({ ...data(), flow: { verification: 'supporting' } }).success);
-  for (const removed of ['primary', 'areas', 'keywords', 'summary']) {
+  for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
     assert.equal(digitalSchema.safeParse({ ...data(), [removed]: {} }).success, false);
   }
 });
@@ -83,7 +95,7 @@ test('Digital classification follows user-facing operations rather than internal
     'dr-rtl': { design: 'core', synthesis: 'core', verification: 'core' },
     coresmith: { design: 'core', synthesis: 'core', verification: 'core', layout: 'core' },
   };
-  for (const [id, flow] of Object.entries(scopes)) assert.deepEqual(projects.find((p) => p.id === id)!.data.flow, flow, id);
+  for (const [id, expectedLevels] of Object.entries(scopes)) assert.deepEqual(stageLevels(projects.find((p) => p.id === id)!.data.scope), expectedLevels, id);
 });
 
 test('public text stays English, concise and single-paragraph', () => {
@@ -303,4 +315,37 @@ test('GitHub and GitLab render genuine reviewed counts with equal binary monthly
     assert.ok(band.provenance.includes(record.repository));
     assert.deepEqual(record, before);
   }
+});
+
+test('Digital AI stages follow implemented decisions rather than MCP or project-wide AI labels', () => {
+  const expected = {
+    'dr-rtl': ['AI Design', 'Synthesis', 'Verification'],
+    coresmith: ['AI Design', 'AI Synthesis', 'AI Verification', 'AI Layout'],
+    haven: ['AI Verification'], ucagent: ['AI Verification'], spec2cov: ['AI Verification'], verifyrtl: ['AI Verification'],
+    'wave-mcp': ['Verification'], 'sentinel-dv': ['Verification'], 'openroad-mcp': ['Layout'],
+    openada: ['Synthesis', 'Verification', 'Layout'],
+    'vivado-mcp': ['Synthesis', 'Verification', 'Layout', 'AI-built'],
+    xezim: ['Verification', 'AI-built'], pono: ['Verification'],
+    circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
+  };
+  for (const [id, labels] of Object.entries(expected)) {
+    const scope = projects.find((p) => p.id === id)!.data.scope;
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).map((x) => x.label), labels, id);
+  }
+  assert.deepEqual(projects.filter((p) => p.data.scope.aiBuilt).map((p) => p.id).sort(),
+    ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
+});
+
+test('Digital Scope displays supporting AI stages and partial AI-built without duplicating a stage', () => {
+  const scope = digitalSchema.parse({ ...data(), scope: {
+    layout: { level: 'supporting', ai: true }, aiBuilt: 'supporting',
+    verification: { level: 'core', ai: false }, synthesis: { level: 'supporting', ai: true },
+  } }).scope;
+  const items = scopeItems(scope, scopeStageLabels);
+  assert.deepEqual(items.map((x) => [x.id, x.label, x.level]), [
+    ['synthesis', 'AI Synthesis', 'supporting'], ['verification', 'Verification', 'core'],
+    ['layout', 'AI Layout', 'supporting'], ['aiBuilt', 'AI-built', 'supporting'],
+  ]);
+  assert.equal(new Set(items.map((x) => x.id)).size, items.length);
+  assert.equal(items.at(-1)!.ai, undefined);
 });

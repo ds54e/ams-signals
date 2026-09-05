@@ -2,7 +2,11 @@
 name: "xezim"
 aliases: ["sisSIM"]
 description: "Rust SystemVerilog simulator combining four-state event-driven execution, native compilation, UVM features and DPI/VPI interfaces with public conformance tests."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: false
+  aiBuilt: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,6 +37,8 @@ UVM and language conformance reports describe tested cases, not complete IEEE co
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 SystemVerilog execution, UVM and conformance checks define the public purpose. Internal bytecode/native compilation and elaboration serve verification, not a separate Design or Synthesis stage. [Reviewed source](#source-readme).
+
+SystemVerilog execution is conventional Verification. The authors identify AI agents as first-class core implementation contributors, giving defining AI-built provenance rather than AI Verification. [AI/stage evidence](#source-readme).

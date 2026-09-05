@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { flowIds, flowLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
+import { scopeStageLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
 import { monthLabel, shortDate } from '../../lib/digital/activity';
 import { validateActivity } from '../../lib/digital/schema';
+import { scopeItems } from '../../lib/catalog-scope';
 import { activityBand } from '../../lib/catalog-activity-band';
 import activityData from '../../data/digital-activity.json';
 import '../../styles/digital.css';
@@ -18,7 +19,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
     <h1 id="digital:heading" class="visually-hidden">Digital</h1>
     <section id="digital:index" aria-label="Project index">
       <div class="digital-columns" aria-hidden="true">
-        <div>Project</div><div>Flow</div><div>Activity</div>
+        <div>Project</div><div>Scope</div><div>Activity</div>
       </div>
       <ol class="digital-list" aria-label="Projects">
         {projects.map(({ data, id }) => {
@@ -35,14 +36,11 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 </div>
                 <p class="digital-description">{data.description}</p>
               </div>
-              <ul class="digital-flow" aria-label={`${data.name} Flow`}>
-                {flowIds.filter((stage) => data.flow[stage]).map((stage) => {
-                  const state = data.flow[stage]!;
-                  return <li data-flow={stage} data-scope={state} title={`${flowLabels[stage]}: ${scopeLabels[state]}`}>
-                    <span class:list={['digital-scope-mark', state]} aria-hidden="true" />
-                    <span>{flowLabels[stage]}</span><span class="visually-hidden">{`: ${scopeLabels[state]}`}</span>
-                  </li>;
-                })}
+              <ul class="digital-scope" aria-label={`${data.name} Scope`}>
+                {scopeItems(data.scope, scopeStageLabels).map((item) => <li data-scope-item={item.id} data-level={item.level} data-ai={item.ai} title={`${item.label}: ${item.meaning}`}>
+                  <span class:list={['digital-scope-mark', item.level]} aria-hidden="true" />
+                  <span>{item.label}</span><span class="visually-hidden">{`: ${item.meaning}`}</span>
+                </li>)}
               </ul>
               <div class="digital-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">Public activity: </span>

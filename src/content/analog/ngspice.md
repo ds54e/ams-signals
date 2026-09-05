@@ -3,7 +3,10 @@ name: "ngspice"
 aliases: []
 summary: "Simulates circuit netlists with SPICE analyses and device models."
 description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows."
-flow: {"simulation":"core"}
+scope:
+  simulation:
+    level: core
+    ai: false
 access: "Upstream source and releases are distributed through SourceForge; device libraries and model parameters are provided separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,6 +35,8 @@ Takes circuit netlists and device models into numerical circuit analyses, return
 
 The canonical distribution and source history are on SourceForge. The source-backed public update is the August 11 ngspice 47 release, with device-model, code-model noise and periodic-state changes. It is not a GitHub mirror's timestamp or a version-number-only commit. No synthetic GitHub strip is shown. [Substantive release](#source-release) and [upstream access](#source-development).
 
-### Flow scope
+### Scope classification
 
 DC, transient, AC, noise and compact-model analysis are the simulator's central operations. Upstream releases remain source-backed activity, not inferred repository history. [Reviewed source](#source-site).
+
+Numerical circuit analysis is conventional Simulation. The source-backed release date remains separate from repository history, and no runtime AI is inferred. [AI/stage evidence](#source-site).

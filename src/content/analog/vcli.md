@@ -3,7 +3,16 @@ name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
 description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers through structured agent commands."
-flow: {"design":"core","simulation":"core","layout":"supporting"}
+scope:
+  design:
+    level: core
+    ai: false
+  simulation:
+    level: core
+    ai: false
+  layout:
+    level: supporting
+    ai: false
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
@@ -41,6 +50,8 @@ Admin-enabled SKILL broadcast opens one connection per live local session using 
 
 The exposed EDA infrastructure does not itself demonstrate autonomous analog design, optimization quality, or specification closure. Those require a separate workflow and circuit-specific evaluation.
 
-### Flow scope
+### Scope classification
 
 Exposed schematic editing and Maestro/Spectre/PSF operations justify central design and simulation scope. SKILL geometry and stream-out helpers support layout without establishing autonomous placement or signoff. [Reviewed source](#source-review).
+
+The Rust CLI exposes schematic, simulation/result and supporting layout operations. JSON output, multi-session control and agent callers do not themselves implement AI within those stages. [AI/stage evidence](#source-review).

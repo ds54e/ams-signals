@@ -2,7 +2,10 @@
 name: "HAVEN"
 aliases: []
 description: "Generates UVM environments from protocol specifications through a constrained DSL, then refines coverage using VCS simulation and VC Formal feedback."
-flow: {"verification":"core"}
+scope:
+  verification:
+    level: core
+    ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -37,6 +40,8 @@ The released framework includes a 16-design suite. Coverage results are author-r
 
 [Implementation inspected](#source-implementation).
 
-### Flow scope
+### Scope classification
 
 Generated protocol sequences, UVM testbenches, coverage feedback and formal dead-code checks all serve verification. Creating a testbench is not generating the DUT design. [Reviewed source](#source-readme).
+
+LLMs generate protocol intent/testbench elements and refine coverage using simulator/formal feedback, so Verification is AI. Deterministic DSL emission and solver verdicts remain distinct from model proposals. [AI/stage evidence](#source-readme).

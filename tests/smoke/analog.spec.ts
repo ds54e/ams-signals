@@ -3,7 +3,7 @@ import { catalogFixture, catalogIndexTests } from './catalog-index';
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
-  ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem']);
+  ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout']);
 
 test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {
   await page.goto('./analog/');
