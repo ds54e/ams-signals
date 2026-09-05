@@ -53,7 +53,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
             `${id}--sources`,
             ...data.sources.filter((source) => !source.purpose).map((source) => `${id}--source-${source.id}`),
           ];
-          return <li id={id} class="catalog-project" data-catalog-project>
+          return <li id={id} class="catalog-project" data-catalog-project tabindex="-1">
             {aliases.map((anchor) => <span id={anchor} class="catalog-anchor" aria-hidden="true" />)}
             <article aria-labelledby={`${id}--name`}>
               <div class="catalog-overview">

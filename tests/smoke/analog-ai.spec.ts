@@ -255,11 +255,18 @@ test('keyboard navigation reaches the scroll region, project links and primary l
   for (let i = 0; i < 30 && !await region.evaluate((el) => el === document.activeElement); i += 1) await page.keyboard.press('Tab');
   await expect(region).toBeFocused();
   await page.keyboard.press('Tab');
-  await expect(page.locator('.landscape-table tbody a').first()).toBeFocused();
+  const firstLink = page.locator('.landscape-table tbody a').first();
+  await expect(firstLink).toBeFocused();
+  // Activate immediately, including while Tab's native focus scroll is settling.
   await page.keyboard.press('Enter');
   const row = page.locator(`#${ordered[0].id}`);
-  await expect(row.locator('h2')).toBeInViewport();
-  await row.locator('.catalog-permalink').focus();
+  await expect(page).toHaveURL(new RegExp(`#${ordered[0].id}$`));
+  await expect(row).toBeFocused();
+  // Native focus may center the row instead of aligning its top edge.
+  await expect(row.locator('h2')).toBeInViewport({ ratio: 1 });
+  await expect(row.locator('.catalog-description')).toBeInViewport({ ratio: 1 });
+  await page.keyboard.press('Tab');
+  await expect(row.locator('.catalog-permalink')).toBeFocused();
   if (activity.projects[ordered[0].id].kind === 'github') {
     await page.keyboard.press('Tab');
     await expect(row.locator('.activity-repository')).toBeFocused();
