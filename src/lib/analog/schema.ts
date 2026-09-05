@@ -1,4 +1,5 @@
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
+import { publicSignalTypes } from '../catalog-activity-band.ts';
 import { z } from 'astro/zod';
 import { roleIds } from './catalog.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
@@ -123,6 +124,7 @@ const repositoryActivity = githubActivity.extend({
 }).strict();
 const noRepositoryActivity = z.object({
   kind: z.literal('no-public-repo'),
+  lastPublicUpdateType: z.enum(publicSignalTypes),
   lastPublicUpdateAt: date.optional(),
   lastPublicUpdateSource: catalogSlug.optional(),
   notes: text.optional(),

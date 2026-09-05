@@ -226,6 +226,7 @@
     },
     "atlas": {
       "kind": "no-public-repo",
+      "lastPublicUpdateType": "paper",
       "lastPublicUpdateAt": "2026-07-15",
       "lastPublicUpdateSource": "paper"
     },
@@ -796,9 +797,10 @@
     },
     "ngspice": {
       "kind": "no-public-repo",
+      "lastPublicUpdateType": "release",
       "lastPublicUpdateAt": "2026-08-11",
       "lastPublicUpdateSource": "release",
-      "notes": "Canonical upstream source is hosted on SourceForge. The ngspice 47 release adds device-model, code-model noise and periodic-state changes; no GitHub mirror or synthetic monthly strip is used."
+      "notes": "Canonical upstream source is hosted on SourceForge. The ngspice 47 release adds device-model, code-model noise and periodic-state changes; the band records this release signal without a GitHub mirror or fabricated repository history."
     }
   }
 }

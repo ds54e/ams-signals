@@ -65,7 +65,7 @@ test('each authored project renders once, newest activity first, with a concise 
   expect(await rows(page).evaluateAll((elements) => elements.map((el) => el.id))).toEqual(ordered.map((p) => p.id));
   await expect(page.locator('[data-analog] details, [data-analog] summary')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1 })).toHaveClass('visually-hidden');
-  await expect(page.getByRole('heading', { level: 2 })).toHaveText(ordered.map((p) => `${p.name} #`));
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(ordered.map((p) => p.name));
   await expectIndexColumns(page.locator('.catalog-columns'));
   await expect(page.locator('.catalog-header, .catalog-updates, .catalog-reviewed, .catalog-publication-note, .catalog-section-heading, .catalog-sources, .catalog-detail, .catalog-summary')).toHaveCount(0);
   const text = await page.locator('[data-analog]').textContent();
@@ -75,7 +75,7 @@ test('each authored project renders once, newest activity first, with a concise 
   await expect(page.locator('[data-analog] input, [data-analog] select, [data-analog] button, [data-analog] form')).toHaveCount(0);
   for (const project of projects) {
     const row = page.locator(`#${project.id}`);
-    await expect(row.locator('h2')).toHaveText(`${project.name} #`);
+    await expect(row.locator('h2')).toHaveText(project.name);
     await expect(row.locator('.catalog-description')).toHaveText(project.description);
     await expect(row.locator('.catalog-description')).toBeVisible();
     expect((await row.textContent())!.split(project.description).length - 1).toBe(1);
@@ -140,7 +140,8 @@ test('domain membership and approved AI-built provenance stay distinct across bo
     await expect(page.locator(`[data-landscape-project="${id}"]`)).toHaveCount(1);
     await expect(page.locator(`#${id} .catalog-keywords [data-tag-kind="role"]`)).toHaveText('EDA Tool');
   }
-  await expect(page.locator('#ngspice .activity-strip, #ngspice .activity-repository')).toHaveCount(0);
+  await expect(page.locator('#ngspice .activity-strip > li')).toHaveCount(12);
+  await expect(page.locator('#ngspice [data-commits], #ngspice .activity-repository')).toHaveCount(0);
   await expect(page.locator('#ngspice .catalog-quicklinks').getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', /^https:\/\/sourceforge\.net\//);
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Digital');
@@ -152,26 +153,30 @@ test('domain membership and approved AI-built provenance stay distinct across bo
   await expect(page.locator('#verilator .digital-keywords [data-tag-kind="role"], #openroad-mcp .digital-keywords [data-tag-kind="role"]')).toHaveText(['EDA Tool', 'EDA Tool']);
 });
 
-test('public repository activity stacks date, compact binary band and month summary with accessible commit details', async ({ page }) => {
+test('every project stacks its public date, twelve binary signal cells and month summary', async ({ page }) => {
   await open(page);
   await expectActivityBands(rows(page), '.catalog-activity', activity);
 });
 
-test('projects without a verified repository show a neutral sourced date, with no invented activity strip', async ({ page }) => {
+test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {
   await open(page);
-  const paperProjects = projects.filter((p) => activity.projects[p.id].kind === 'no-public-repo');
-  expect(paperProjects.length).toBeGreaterThan(0);
-  for (const p of paperProjects) {
-    const row = page.locator(`#${p.id}`);
-    await expect(row.locator('.activity-strip')).toHaveCount(0);
-    await expect(row.locator('.catalog-activity time')).toHaveAttribute('datetime', activity.projects[p.id].lastPublicUpdateAt);
+  for (const [id, date, month, type, label] of [
+    ['atlas', 'Jul 15', '2026-07', 'paper', 'paper publication'],
+    ['ngspice', 'Aug 11', '2026-08', 'release', 'release'],
+  ]) {
+    const row = page.locator(`#${id}`);
+    await expect(row.locator('.activity-strip > li')).toHaveCount(12);
+    await expect(row.locator('.activity-latest')).toHaveText(date);
+    await expect(row.locator('.activity-summary')).toHaveText('1/12 months');
+    await expect(row.locator('.activity-strip .active')).toHaveCount(1);
+    await expect(row.locator('.activity-strip .active')).toHaveAttribute('data-month', month);
+    await expect(row.locator('.activity-strip .active')).toHaveAttribute('data-signal', type);
+    await expect(row.locator('.activity-strip .active')).toHaveAttribute('title', new RegExp(label + '$'));
+    await expect(row.locator('[data-commits], .activity-repository')).toHaveCount(0);
+    await expect(row.locator('.activity-strip li:not(.active)')).toHaveCount(11);
+    expect(await row.locator('.activity-strip li:not(.active)').first().getAttribute('title')).toContain('no reviewed public activity signal');
+    await expect(row.locator('.activity-latest time')).toHaveAttribute('title', new RegExp('^' + label + ':'));
     await expect(row.locator('.activity-latest a')).toHaveCount(0);
-    const source = p.sources.find((s: { id: string }) => s.id === activity.projects[p.id].lastPublicUpdateSource);
-    const displayedDate = await row.locator('.activity-latest time').textContent();
-    await expect(row.locator('.activity-latest')).toHaveText(`${source.purpose === 'paper' ? 'Paper ' : ''}${displayedDate}`);
-    await expect(row.locator('.activity-summary')).toHaveCount(0);
-    if (source.purpose) await expect(row.locator('.catalog-quicklinks').getByRole('link', { name: sourceLabels[source.purpose as keyof typeof sourceLabels], exact: true })).toHaveAttribute('href', source.url);
-    // Public-update provenance need not also be a primary-purpose quick link.
     await expect(row.locator('.catalog-quicklinks a')).not.toHaveCount(0);
   }
 });
@@ -258,6 +263,7 @@ test('without JavaScript, all descriptions, matrix, activity, links and native h
   await expect(page.locator('.landscape-table tbody tr')).toHaveCount(total);
   await expect(rows(page).locator('.catalog-description')).toHaveCount(total);
   await expect(rows(page).locator('.catalog-activity')).toHaveCount(total);
+  await expectActivityBands(rows(page), '.catalog-activity', activity);
   await expect(page.locator('#circuitrubric .catalog-quicklinks')).toBeVisible();
   for (const project of projects) await expect(page.locator(`#${project.id} .catalog-description`)).toBeVisible();
   await page.locator('#circuitrubric .catalog-permalink').click();

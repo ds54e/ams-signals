@@ -6,11 +6,13 @@ Read [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) for the data/UI contract a
 
 ## Page direction
 
-English only. Start with a compact five-axis matrix, followed by dense three-column project rows: Project, Keywords, Activity. The widest column contains a title with wrapping primary links beside it and one description below. Keywords combine role tags, optional AI-built and technical keywords in that order. Activity shows a date and a binary twelve-month band; source-backed updates have only their date. Use navigation label `Digital`, browser title `Digital · AMS Signals`, and visually hidden H1 `Digital`. Primary navigation is `Timeline | Events | Articles | Analog | Digital`. The only legend is `● core   ○ supporting`, drawn as matching filled/open CSS circles.
+English only. Start with a compact five-axis matrix, followed by dense three-column project rows: Project, Keywords, Activity. The widest column contains a title with left-aligned primary links immediately after it and one description below. Keywords combine role tags, optional AI-built and technical keywords in that order. Every Activity row shows a date, a binary twelve-month band and `N/12 months`. Use navigation label `Digital`, browser title `Digital · AMS Signals`, and visually hidden H1 `Digital`. Primary navigation is `Timeline | Events | Articles | Analog | Digital`. The only legend is `● core   ○ supporting`, drawn as matching filled/open CSS circles.
 
 No visible page/section headings, introduction, counts, review dates, methodology, search, filtering, tabs, disclosures, bibliography or scores. Research notes stay in authored Markdown and these internal documents. Scope marks describe reviewed scope, not quality, completeness, production readiness, performance or a progression ladder. A blank does not establish inability.
 
-Reviewed repository-backed monthly history produces a compact twelve-cell activity band, whether hosted on GitHub, GitLab or another canonical forge. Point updates without that history remain date-only. Cells indicate monthly presence, never commit-volume strength.
+The 12-month reviewed public activity band uses genuine monthly repository history for GitHub, GitLab or another canonical forge. Reviewed papers, releases and other point updates activate their event month in the same twelve-cell view, without invented commit counts. Every row shows only its date, band and `N/12 months`; event type and source remain in hover/accessibility metadata. Cells indicate monthly presence, never commit-volume strength or an absence of unrecorded development.
+
+The project name itself is the permalink, without a visible `#` or replacement icon. Quick links follow the name with a modest gap and wrap before the description.
 
 ## Product boundary
 

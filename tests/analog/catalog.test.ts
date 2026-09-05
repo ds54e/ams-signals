@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { activityBand } from '../../src/lib/catalog-activity-band.ts';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
@@ -234,14 +235,14 @@ test('each activity record belongs to one authored project and its verified Code
   assert.throws(() => validateActivity([entry()], unrelated), /verified Code source/);
 });
 
-test('no-repository records have no synthetic zero activity and public dates require a real source', () => {
+test('point records require reviewed provenance and never store fabricated repository counts', () => {
   const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
-  const record = { kind: 'no-public-repo', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  const record = { kind: 'no-public-repo', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
   assert.equal(hasRepositoryHistory(record), false);
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
   assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
-  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo' } } }), /requires verified meaningful activity/);
-  for (const bad of [{ ...record, lastPublicUpdateSource: undefined }, { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' }]) {
+  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo', lastPublicUpdateType: 'public-update' } } }), /requires verified meaningful activity/);
+  for (const bad of [{ ...record, lastPublicUpdateType: undefined }, { ...record, lastPublicUpdateType: 'commits' }, { ...record, lastPublicUpdateSource: undefined }, { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' }]) {
     assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false);
   }
   assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
@@ -281,7 +282,7 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
   // A recent cosmetic/bot commit may affect ordering, but cannot rescue a stale project.
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-04' } } }), /requires verified meaningful activity/);
   const paper = { ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } };
-  const publicUpdate = { kind: 'no-public-repo', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
+  const publicUpdate = { kind: 'no-public-repo', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
   assert.ok(validateActivity([paper], { ...snapshot(), projects: { sample: publicUpdate } }));
   assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
   // Advancing the snapshot requires curation even if no source files changed.
@@ -291,4 +292,48 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
 test('compact activity dates retain year context without zero-padded days', () => {
   assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
   assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
+});
+
+test('ATLAS paper and ngspice release occupy their reviewed month without invented commit data', async () => {
+  const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8')));
+  for (const [id, date, type, label] of [
+    ['atlas', '2026-07-15', 'paper', 'paper publication'],
+    ['ngspice', '2026-08-11', 'release', 'release'],
+  ]) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    const data = analogSchema.parse(frontmatter);
+    const record = snapshot.projects[id], before = structuredClone(record);
+    const band = activityBand(record, snapshot.months, data.sources);
+    assert.equal(record.kind, 'no-public-repo');
+    assert.equal(band.date, date);
+    assert.equal(band.cells.length, 12);
+    assert.equal(band.activeMonths, 1);
+    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [date.slice(0, 7)]);
+    for (const cell of band.cells) {
+      assert.equal(cell.signal, type);
+      assert.ok(!('commits' in cell));
+      assert.ok(!cell.detail.includes('commits'));
+      assert.ok(cell.detail.endsWith(cell.active ? label : 'no reviewed public activity signal'));
+      assert.equal(cell.source, cell.active ? (record as any).lastPublicUpdateSource : undefined);
+    }
+    assert.ok(band.provenance.startsWith(label + ':'));
+    assert.deepEqual(record, before);
+    assert.ok(!('commits' in record));
+  }
+});
+
+test('point-signal bands retain calendar boundaries without clamping or changing freshness eligibility', () => {
+  const months = snapshot().months;
+  const sources = [{ id: 'update', title: 'Reviewed public update' }];
+  for (const lastPublicUpdateAt of ['2025-09-05', '2025-10-01', '2026-09-05']) {
+    const record = { kind: 'public-update' as const, lastPublicUpdateType: 'public-update' as const,
+      lastPublicUpdateAt, lastPublicUpdateSource: 'update' };
+    const band = activityBand(record, months, sources);
+    const expected = months.includes(lastPublicUpdateAt.slice(0, 7)) ? [lastPublicUpdateAt.slice(0, 7)] : [];
+    assert.equal(band.cells.length, 12);
+    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), expected);
+    assert.equal(band.activeMonths, expected.length);
+    assert.ok(band.cells.every((cell) => !('commits' in cell)));
+    assert.equal(band.date, lastPublicUpdateAt);
+  }
 });

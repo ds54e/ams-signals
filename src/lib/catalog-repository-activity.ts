@@ -1,4 +1,4 @@
-/** Monthly history is explicitly reviewed; a public-update date alone never implies a strip. */
+/** Monthly repository history is explicitly reviewed; a point update never implies commits. */
 export function hasRepositoryHistory<T extends { kind: string }>(
   record: T,
 ): record is Extract<T, { kind: 'github' | 'repository' }> {

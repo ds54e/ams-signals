@@ -1,5 +1,15 @@
 # Digital implementation notes
 
+## Unified public activity band and title links (2026-09-05)
+
+Starting from `c61e917f50c96c6e0528985517cbe4709b11c3a5`, every row on both catalogs uses the **12-month reviewed public activity band**: date only, twelve binary cells, then `N/12 months`. Repository counts remain distinct from typed paper/release/public-update signals, which map their existing reviewed dates into event months without inventing commit history.
+
+Surfer's canonical GitLab record, default branch, head SHA, twelve buckets, latest/meaningful date and source provenance are unchanged from the review below. It retains **12/12 months**. The complete Digital activity JSON is byte-identical. On Analog, ATLAS and ngspice each gain a one-active-month view from their existing July paper and August release dates. Provenance remains accessible and in tooltips; no source prefix or repository name appears in Activity.
+
+The shared three-column geometry is **2.8fr / 1.15fr / 118px**, with **8 × 5px cells and 2px gaps**. Title links follow the project name using left-aligned, wrapping flex layout and a 16px gap. Visible `#` markers are removed while native permalinks remain. The only data additions are explicit point-event types on Analog; membership, classification, URLs, dates, buckets, sorting and eligibility stay unchanged.
+
+`npm run check`, explicit Analog **20/20** and Digital **21/21** unit tests, and the complete Chromium production-preview smoke suite **73/73** passed. Visual review covered both catalogs at **1440, 390 and 320px**, including matrices, dense/sparse bands, point events, title links and first/middle/last rows. Existing hash/history/no-JS/forced-color tests remain green. All 68 project Markdown files, both matrices, IDs/order/links, 283 other HTML pages and factual export are preserved; see the [paired integrity record](../analog/IMPLEMENTATION_NOTES.md#unified-public-activity-band-and-title-links-2026-09-05). Delivery is commit/push to `main`, **without Pages deployment**.
+
 ## Repository-band refinement (2026-09-05)
 
 Starting from `ad91816ac49ac4dcf9558663045ed515cde7c2cb`, reviewed non-GitHub monthly history can use `kind: repository` in either catalog. Source-backed point updates remain date-only. GitHub records and their refresh/identity checks are unchanged; the small shared module is catalog-only and performs no network fetching.
