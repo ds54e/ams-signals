@@ -2,7 +2,10 @@
 name: "CircuitRubric"
 aliases: ["CircuitRubric Bench","circuitrubric-bench"]
 roles: ["benchmark"]
-summary: "Grades LLM-generated SPICE netlists against canonical connectivity and relative device sizing. Prompt variants distinguish generating a topology from its name from transcribing explicitly specified wiring."
+summary: "Grades generated SPICE netlists by topology connectivity and relative device sizing, without circuit simulation."
+keywords: ["Topology", "Graph matching", "Relative sizing", "Structural only"]
+workflow:
+  generate-edit: core
 targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit structures"
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."
 notice: "FULL means a structural match, not a verified circuit. Bias point, gain, stability, and absolute component values are outside the evaluation scope."
@@ -29,3 +32,7 @@ Credit levels distinguish wiring errors, sizing errors, and extra devices around
 ### Prompt and result conditions
 
 The short prompt names the topology, verbose describes its architecture, and spec supplies device-level wiring. System prompts and reasoning settings form additional experimental variables. Published scores must be read with those conditions; most reported cells are single runs. [Results and limitations](#source-review)
+
+### Landscape scope
+
+Generate / Edit covers the generated netlist deliverable. Reasoning traces are not a separately graded output. Relative-ratio matching is a structural rubric, so it does not receive an Optimize mark or imply electrical specification closure. [Methodology](#source-method)

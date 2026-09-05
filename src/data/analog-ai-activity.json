@@ -1,0 +1,283 @@
+{
+  "reviewedAt": "2026-09-05",
+  "capturedAt": "2026-09-05T02:38:20.141Z",
+  "method": "first-parent-committer-utc",
+  "months": [
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "projects": {
+    "amsbench": {
+      "kind": "github",
+      "repository": "Why0912/AMSBench",
+      "defaultBranch": "main",
+      "headSha": "4f9867ca03fcf67f548ae7c1bdab0cd2cc11742f",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2025-06-18"
+    },
+    "analog-design-bench": {
+      "kind": "github",
+      "repository": "Arcadia-1/analog-design-bench",
+      "defaultBranch": "main",
+      "headSha": "33d5ff178704dcb3f2e40e2ae45070451ea9b72f",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-08-12",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+    },
+    "analogcoder-pro": {
+      "kind": "github",
+      "repository": "laiyao1/AnalogCoderPro",
+      "defaultBranch": "master",
+      "headSha": "05542af46020e5c37d5a7e3ca79da9f24626e1c9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-03-14"
+    },
+    "analogforge-agent": {
+      "kind": "github",
+      "repository": "appleweiping/analog-forge-agent",
+      "defaultBranch": "main",
+      "headSha": "70d98cfabb883156588c3302c1aeb56c547e3979",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      "lastCommitAt": "2026-08-11",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+    },
+    "analoggym": {
+      "kind": "github",
+      "repository": "CODA-Team/AnalogGym",
+      "defaultBranch": "main",
+      "headSha": "0a9d1390ade361e2b4a2d33181e22367edbb8afc",
+      "commits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2025-10-29"
+    },
+    "atlas": {
+      "kind": "no-public-repo",
+      "lastPublicUpdateAt": "2026-07-15",
+      "lastPublicUpdateSource": "paper"
+    },
+    "circuitrubric": {
+      "kind": "github",
+      "repository": "levantlabs/circuitrubric-bench",
+      "defaultBranch": "main",
+      "headSha": "f96512bf602152d1646c0cfc11ea7af8e6ade99f",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-06-23",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+    },
+    "evo-ldo-bench": {
+      "kind": "github",
+      "repository": "jialinlu/ldo_benchmark_for_agent",
+      "defaultBranch": "main",
+      "headSha": "fa54a6615dd0dc26ea19fd28d7ae3433f92768ff",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        4
+      ],
+      "lastCommitAt": "2026-09-03"
+    },
+    "netlistbench": {
+      "kind": "github",
+      "repository": "WoshiMayou/NetlistBench",
+      "defaultBranch": "main",
+      "headSha": "413c56f4fedd2c574d4be0ffcc66480504f8d364",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-08-04",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+    },
+    "razavi-bench": {
+      "kind": "github",
+      "repository": "Arcadia-1/razavi-bench",
+      "defaultBranch": "main",
+      "headSha": "a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        51,
+        39,
+        45,
+        0
+      ],
+      "lastCommitAt": "2026-08-17"
+    },
+    "vcli": {
+      "kind": "github",
+      "repository": "deanyou/virtuoso-cli",
+      "defaultBranch": "main",
+      "headSha": "1376468d05d1c4adc5dd3cdfdcf434421fb249ec",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        62,
+        0,
+        0,
+        22,
+        74,
+        134
+      ],
+      "lastCommitAt": "2026-09-04",
+      "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort."
+    },
+    "virtuoso-agent": {
+      "kind": "github",
+      "repository": "lixunqi12/virtuoso-agent",
+      "defaultBranch": "main",
+      "headSha": "54974c33c5f5a6d380b216ea12750aff6ee8bc99",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        12,
+        11,
+        10,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-03"
+    },
+    "virtuoso-bridge-lite": {
+      "kind": "github",
+      "repository": "Arcadia-1/virtuoso-bridge-lite",
+      "defaultBranch": "main",
+      "headSha": "ae8e26791c137e638e0f451f12a483d7f275ba0e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        459,
+        71,
+        12,
+        36,
+        23,
+        4
+      ],
+      "lastCommitAt": "2026-09-04"
+    }
+  }
+}

@@ -2,7 +2,12 @@
 name: "AMSbench"
 aliases: ["AMS Bench"]
 roles: ["benchmark","dataset-environment"]
-summary: "Evaluates schematic perception, circuit analysis, and circuit or testbench generation as separate tasks. Alongside visual and textual QA, design evaluation includes simulation checks rather than a single answer-accuracy metric."
+summary: "Benchmarks schematic perception, circuit reasoning, and circuit or testbench generation with separate evaluation contracts."
+keywords: ["Schematics", "Multimodal QA", "Generation", "Partial release"]
+workflow:
+  reasoning: core
+  generate-edit: core
+  simulate-measure: supporting
 targets: "Component and connectivity recognition, circuit functions and trade-offs, circuit generation"
 access: "Paper, Hugging Face data, and model/evaluation scripts are public. Design code uses PySpice and requires model endpoints."
 notice: "Design scripts require task and prompt files that are not bundled in the code repository."
@@ -39,3 +44,7 @@ Evaluator-side simulation should be distinguished from tools made available to t
 The released generation script refers to a task table and prompt files absent from the code repository. Those inputs must be arranged separately. [Dataset](#source-data) · [Implementation](#source-design)
 
 The paper describes sizing, layout, and interpreting simulation statistics and plots as future extensions. These are not included as implemented evaluation capabilities here. [Future work](#source-paper)
+
+### Landscape scope
+
+Reasoning and generation are central task families; the simulation mark is supporting because it describes evaluator-side checks, not a model-accessible simulator. Sizing and layout are future extensions, so they are blank. [Evaluation and future work](#source-paper)

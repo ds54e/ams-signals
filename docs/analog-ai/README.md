@@ -1,86 +1,34 @@
-# Analog AI catalog
+# Analog AI landscape and project index
 
-This directory is the entry point for work on the standalone Analog AI catalog in AMS Signals.
-
-Before implementing or editing this feature, read:
-
-1. `/AGENTS.md`
-2. `/PROJECT_CONTEXT.md`
-3. this file
-4. `IMPLEMENTATION_SPEC.md`
-5. `RESEARCH_SEED.md` when adding or reviewing catalog content
-
-## Product boundary
-
-Analog AI is a standalone technical catalog for analog/RF/AMS AI projects: benchmarks, design agents, EDA tools, and datasets or experiment environments.
-
-It is not a Timeline or Events derivative, and it is not a view of company AI activity.
-
-For this feature:
-
-- do not read or depend on Event, Company, Person, or Article records;
-- do not add Golden Events in order to add a catalog project;
-- do not add `relatedEvents`, Company IDs, or Person IDs to catalog data;
-- do not change `/export.json`;
-- do not reuse Timeline/Events filter state or domain-specific UI such as EventExplorer;
-- sharing the common site shell, typography, `sitePath`, build/test infrastructure, and other content-independent utilities is fine.
-
-A catalog change must be able to add, remove, or edit a project without changing Timeline/Events data or ordering.
+Read `/AGENTS.md`, `/PROJECT_CONTEXT.md`, this file, `IMPLEMENTATION_SPEC.md`, and `IMPLEMENTATION_NOTES.md` before changing this surface. Use `RESEARCH_SEED.md` as historical research leads, never as evidence.
 
 ## Reader goal
 
-The page should help an engineer answer:
+Understand the Analog AI landscape quickly, notice useful patterns, and open only the projects worth investigating.
 
-1. What projects exist?
-2. What does each one actually do?
-3. How is it different from the others?
-4. What is public, and what environment or tooling is required separately?
-5. Where are the primary source, paper, code, or published results?
+`/analog-ai/` is a compact technical landscape and project index for analog/RF/AMS benchmarks, agents, tools, and environments. It is not an editorial Article, searchable database, ranking, or evidence archive. Public UI and authored catalog content are English only; existing Japanese Articles remain independent.
 
-The catalog is a technical catalog and database-like reference surface, not an editorial Article, maturity ranking, or exhaustive evidence archive.
+## Page direction
 
-## Language
+- Header: **Analog AI**; **Benchmarks, agents, and tools for analog/RF/AMS design.**
+- A small project total, primary-source review statement, inline recent additions, and activity snapshot date.
+- An accessible HTML landscape matrix: Reasoning, Generate / Edit, Simulate / Measure, Optimize, EDA Integration, Physical.
+- One compact A–Z project index: project/one-sentence description, 3–5 keywords, public repository activity, and direct primary links.
+- Passive role labels and visible review dates; independently expandable native **Notes**, closed by default.
+- Stable project and descendant/source anchors. No search, filters, query state, history management, storage, or runtime fetching.
 
-All public-facing Analog AI content and UI are English only: page title and description, controls, role labels, project summaries, targets, access/environment statements, notices, expanded details, source labels, and catalog update notes. Do not create a bilingual version. Articles remain Japanese and independent from this catalog.
+Matrix marks describe reviewed scope, never maturity, autonomy, quality, or verified capability. A blank means no primary reviewed scope was identified, not inability. Public repository activity describes visibility in one verified primary repository, not total effort or quality. It uses a checked-in twelve-month snapshot separate from durable project research.
 
-## Initial UX direction
+## Product boundary
 
-- Navigation entry: `Analog AI`
-- Route: `/analog-ai/`
-- English page title: `Analog AI benchmarks and tools`
-- One project list; do not duplicate the same project into category sections.
-- Filter by one role at a time: Benchmark / Design Agent / EDA Tool / Dataset & Environment.
-- A project may have multiple roles and should still appear only once in the full list.
-- Text search plus role filter is sufficient for v1.
-- Stable project anchors are required for sharing.
-- Project details may be expanded independently; do not use an exclusive accordion.
-- The useful project description must be visible before opening details.
-- Show the source-review date in the default view; reserve prominent notices for qualifications that materially affect interpretation or use.
-- A small catalog-specific “recent additions / major updates” area may exist, but it must not use Events or project repository commit timestamps as a substitute for editorial updates.
+Do not depend on Event, Company, Person, or Article records; add Golden records to support a project; connect project metadata to Golden IDs; change factual semantics, viewer state, authored Articles, or `/export.json`. Shared site shell, typography, `sitePath`, and build/test infrastructure remain appropriate.
 
-See `IMPLEMENTATION_SPEC.md` for observable behavior and acceptance criteria.
+The existing Astro static output, plain CSS, and small TypeScript architecture stays. No database, frontend framework, charting library, runtime API, public catalog JSON endpoint, compare mode, project subpages, or new score system.
 
-## Research rule
+## Research and maintenance
 
-Do not turn prior ChatGPT prose into catalog facts. Re-check primary sources before writing initial content.
+Re-open primary material before editing research or workflow classification. Separate reasoning from generation, evaluator simulation from model tools, relative sizing from electrical optimization, implemented paths from experiments and plans, and paper results from released artifacts. Keep nuanced evidence and prerequisites in Notes. Do not reproduce paid model or commercial EDA experiments merely to classify a project.
 
-Keep these distinctions explicit when they matter:
+`IMPLEMENTATION_SPEC.md` defines behavior and validation. `IMPLEMENTATION_NOTES.md` records classification decisions, selected repositories, activity methodology, and checks. Catalog additions remain bounded and independently authored; repository commits are not catalog update notes.
 
-- reasoning-only track vs simulator/tool track;
-- topology/relative-size grading vs measured circuit performance;
-- source code being public vs a complete experiment being reproducible;
-- simulator integration being implemented vs a reported design result;
-- target/preregistered metric vs synthetic demo vs measured result;
-- PVT vs Monte Carlo vs PEX vs DRC/LVS;
-- support for some circuits in an open environment vs support for every circuit in a suite;
-- a narrow silicon demonstration vs general analog-design capability.
-
-A project may be interesting even when it is early-stage, but describe plans, implementations, author-reported results, and independent reproduction as different things.
-
-## Implementation scope
-
-Keep the existing stack: Astro static generation, plain CSS, and small client-side JavaScript/TypeScript. Do not add a CMS, database, runtime AI summaries, vector search, or a new frontend framework for this feature.
-
-The initial implementation should leave a reviewable diff and test results. Do not merge or deploy unless explicitly instructed.
-
-See [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) for the delivered structure, content decisions, maintenance workflow, and verification record. The implementation contract remains `IMPLEMENTATION_SPEC.md`.
+Delivery uses a reviewable branch and required checks. Merge/deploy only with user authorization; the landscape redesign request explicitly authorizes both after successful checks and self-review.

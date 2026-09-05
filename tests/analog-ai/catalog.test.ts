@@ -1,31 +1,23 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  catalogUrl, matchesProject, namespaceProjectHtml, normalizeSearch,
-  parseCatalogUrl, resolveCatalogUrl, sortProjects,
-} from '../../src/lib/analog-ai/catalog.ts';
-import type { SearchableProject } from '../../src/lib/analog-ai/catalog.ts';
-import { analogAiSchema, validateCatalog } from '../../src/lib/analog-ai/schema.ts';
+import { namespaceProjectHtml, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
+import { activityMonths, countActivity, shortDate } from '../../src/lib/analog-ai/activity.ts';
+import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
 
-const project: SearchableProject = {
-  id: 'sample-ldo', roles: ['benchmark', 'agent'], text: normalizeSearch('Sample LDO ngspice ベンチマーク PVT未評価'),
-  anchors: ['sample-ldo--evaluation', 'sample-ldo--source-code'],
-};
-
-test('NFKC, Latin case, whitespace and multiple query tokens use AND, including negative descriptions', () => {
-  assert.equal(normalizeSearch('  ＬＤＯ　ﾍﾞﾝﾁﾏｰｸ  '), 'ldo ベンチマーク');
-  assert.ok(matchesProject(project, { q: ' ＬＤＯ\tNGSPICE ', type: '' }));
-  assert.ok(matchesProject(project, { q: 'PVT', type: '' }));
-  assert.ok(matchesProject(project, { q: 'ﾍﾞﾝﾁﾏｰｸ', type: '' }));
-  assert.ok(!matchesProject(project, { q: 'LDO spectre', type: '' }));
+const valid = () => ({
+  name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
+  keywords: ['Topology', 'Relative sizing', 'Structural only'], workflow: { 'generate-edit': 'core' },
+  addedAt: '2026-09-05', reviewedAt: '2026-09-05',
+  sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
 });
-
-test('a multi-role project appears once under either role; search and role combine with AND', () => {
-  for (const type of ['', 'agent', 'benchmark'] as const) {
-    assert.equal([project].filter((p) => matchesProject(p, { q: 'LDO', type })).length, 1);
-  }
-  assert.ok(!matchesProject(project, { q: 'LDO', type: 'eda-tool' }));
-  assert.ok(!matchesProject(project, { q: 'spectre', type: 'agent' }));
+const entry = () => ({ id: 'sample', data: valid(), body: '### Evaluation\n\nReviewed public material. [Source](#source-code)' });
+const snapshot = () => ({
+  reviewedAt: '2026-09-05', capturedAt: '2026-09-05T03:00:00Z', method: 'first-parent-committer-utc',
+  months: ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09'],
+  projects: { sample: {
+    kind: 'github', repository: 'levantlabs/circuitrubric-bench', defaultBranch: 'main', headSha: 'a'.repeat(40),
+    commits: [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0], lastCommitAt: '2026-06-23',
+  } },
 });
 
 test('name order and slug ties are stable, immutable, and independent of review dates', () => {
@@ -40,108 +32,37 @@ test('name order and slug ties are stable, immutable, and independent of review 
   assert.deepEqual(sortProjects(input).map((p) => p.id), ['a', 'b', 'z']);
 });
 
-test('URL parsing tolerates unknown types, malformed hashes and arbitrary query text', () => {
-  const url = new URL('https://catalog.invalid/ams-signals/analog-ai/?q=%3Cscript%3E&type=__proto__#%E0%A4%A');
-  assert.deepEqual(parseCatalogUrl(url), { q: '<script>', type: '', hash: '%E0%A4%A' });
-  const next = catalogUrl(url, { q: 'LDO & ngspice', type: 'benchmark' });
-  assert.equal(next.pathname, '/ams-signals/analog-ai/');
-  assert.equal(next.searchParams.get('q'), 'LDO & ngspice');
-  assert.equal(next.hash, '');
-  const share = catalogUrl(next, { q: '', type: '' }, 'sample-ldo');
-  assert.equal(share.href, 'https://catalog.invalid/ams-signals/analog-ai/#sample-ldo');
+test('rendered IDs and local source references are namespaced without changing text or external URLs', () => {
+  const html = '<h3 id="evaluation">Evaluation</h3><a id="ref" href="#source-code">Source</a><a href="https://github.com/">Code</a><code>id="plain"</code>';
+  assert.equal(namespaceProjectHtml(html, 'project-a'), '<h3 id="project-a--evaluation">Evaluation</h3><a id="project-a--ref" href="#project-a--source-code">Source</a><a href="https://github.com/">Code</a><code>id="plain"</code>');
 });
 
-test('known hashes keep compatible filters and clear incompatible filters without count exceptions', () => {
-  const compatible = resolveCatalogUrl(new URL('https://catalog.invalid/?q=ldo&type=agent#sample-ldo'), [project]);
-  assert.deepEqual(compatible.state, { q: 'ldo', type: 'agent' });
-  assert.equal(compatible.cleared, false);
-  const conflict = resolveCatalogUrl(new URL('https://catalog.invalid/?q=spectre&type=eda-tool#sample-ldo'), [project]);
-  assert.deepEqual(conflict.state, { q: '', type: '' });
-  assert.equal(conflict.cleared, true);
-  assert.equal(conflict.url.search, '');
-  assert.equal(conflict.url.hash, '#sample-ldo');
-  const unknown = resolveCatalogUrl(new URL('https://catalog.invalid/?q=missing#unknown'), [project]);
-  assert.equal(unknown.target, undefined);
-  assert.equal(unknown.cleared, false);
-  assert.equal(unknown.url.hash, '#unknown');
-  assert.equal(unknown.state.q, 'missing');
-});
-
-test('existing descendant hashes resolve their owner, preserve the target and obey filter conflicts', () => {
-  for (const hash of project.anchors!) {
-    const compatible = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=ldo&type=agent#${hash}`), [project]);
-    assert.equal(compatible.target, project);
-    assert.equal(compatible.anchor, hash);
-    assert.deepEqual(compatible.state, { q: 'ldo', type: 'agent' });
-    assert.equal(compatible.cleared, false);
-    const conflict = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=spectre&type=eda-tool#${hash}`), [project]);
-    assert.equal(conflict.target, project);
-    assert.equal(conflict.cleared, true);
-    assert.deepEqual(conflict.state, { q: '', type: '' });
-    assert.equal(conflict.url.search, '');
-    assert.equal(conflict.url.hash, `#${hash}`);
-  }
-  for (const hash of ['sample-ldo--missing', 'sample--evaluation', 'sample-ldo-extra--evaluation']) {
-    const unknown = resolveCatalogUrl(new URL(`https://catalog.invalid/?q=missing#${hash}`), [project]);
-    assert.equal(unknown.target, undefined);
-    assert.equal(unknown.anchor, undefined);
-    assert.equal(unknown.cleared, false);
-    assert.equal(unknown.state.q, 'missing');
-    assert.equal(unknown.url.hash, `#${hash}`);
-  }
-});
-
-test('rendered heading and reference IDs are project-scoped without changing prose or external URLs', () => {
-  const html = '<h3 id="評価方法">評価方法</h3><a id="ref" href="#source-code">出典</a><a href="https://github.com/">Code</a><code>id="plain"</code>';
-  assert.equal(namespaceProjectHtml(html, 'project-a'), '<h3 id="project-a--評価方法">評価方法</h3><a id="project-a--ref" href="#project-a--source-code">出典</a><a href="https://github.com/">Code</a><code>id="plain"</code>');
-});
-
-const valid = () => ({
-  name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
-  addedAt: '2026-09-05', reviewedAt: '2026-09-05',
-  sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
-});
-const entry = () => ({ id: 'sample', data: valid(), body: '### Evaluation\n\nReviewed public material. [Source](#source-code)' });
-
-test('catalog schema validates dates, source protocols, roles and source identities', () => {
+test('catalog schema preserves calendar dates, source protocols, roles and source identities', () => {
   assert.ok(analogAiSchema.safeParse(valid()).success);
   for (const data of [
-    { ...valid(), addedAt: '2026-02-30' },
-    { ...valid(), reviewedAt: '2025-02-29' },
-    { ...valid(), roles: [] },
-    { ...valid(), roles: ['benchmark', 'benchmark'] },
-    { ...valid(), roles: ['mature'] },
+    { ...valid(), addedAt: '2026-02-30' }, { ...valid(), reviewedAt: '2025-02-29' },
+    { ...valid(), roles: [] }, { ...valid(), roles: ['benchmark', 'benchmark'] }, { ...valid(), roles: ['mature'] },
     { ...valid(), sources: [] },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'not a URL' }] },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'javascript:alert(1)' }] },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'ftp://github.com/a' }] },
+    ...['not a URL', 'javascript:alert(1)', 'ftp://github.com/a'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], purpose: 'paper' }] },
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], id: 'second' }] },
   ]) assert.equal(analogAiSchema.safeParse(data).success, false, JSON.stringify(data));
   assert.ok(analogAiSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
-  assert.ok(analogAiSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04' }).success);
+  assert.ok(analogAiSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
 });
 
-test('catalog rejects placeholder content and coupling to other site records', () => {
+test('catalog rejects placeholders and coupling to factual or editorial records', () => {
   for (const data of [
-    { ...valid(), summary: 'TODO: add summary' },
-    { ...valid(), relatedEvents: ['event-a'] },
-    { ...valid(), companies: ['company-a'] },
-    { ...valid(), people: ['person-a'] },
-    { ...valid(), confidence: 0.9 },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'https://example.com/paper' }] },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'https://demo.invalid/' }] },
-    { ...valid(), sources: [{ ...valid().sources[0], url: 'https://github.com/TODO/project' }] },
+    { ...valid(), summary: 'TODO: add summary' }, { ...valid(), relatedEvents: ['event-a'] },
+    { ...valid(), companies: ['company-a'] }, { ...valid(), people: ['person-a'] }, { ...valid(), confidence: 0.9 },
+    ...['https://example.com/paper', 'https://demo.invalid/', 'https://github.com/TODO/project'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
   ]) assert.equal(analogAiSchema.safeParse(data).success, false);
-  assert.throws(() => validateCatalog([{ ...entry(), body: 'TODO' }], []));
-  assert.throws(() => validateCatalog([{ ...entry(), body: '<script>bad</script>' }], []));
-  assert.throws(() => validateCatalog([{ ...entry(), body: 'https://example.com' }], []));
+  for (const body of ['TODO', '<script>bad</script>', 'https://example.com']) assert.throws(() => validateCatalog([{ ...entry(), body }], []));
   assert.throws(() => validateCatalog([{ ...entry(), body: '[Source](#source-missing)' }], []), /unknown source reference/);
 });
 
-test('stable slugs and bounded updates validate independently; re-review needs no update note', () => {
+test('stable slugs and bounded updates validate independently of re-review', () => {
   assert.deepEqual(validateCatalog([entry()], []), []);
-  assert.deepEqual(validateCatalog([{ ...entry(), data: { ...valid(), reviewedAt: '2026-09-06' } }], []), []);
   assert.throws(() => validateCatalog([entry(), entry()], []), /Duplicate catalog slug/);
   assert.throws(() => validateCatalog([{ ...entry(), id: 'Sample_Name' }], []));
   const update = { project: 'sample', date: '2026-09-05', kind: 'added', summary: 'Initial entry' };
@@ -151,4 +72,67 @@ test('stable slugs and bounded updates validate independently; re-review needs n
   assert.throws(() => validateCatalog([entry()], Array(4).fill(update)));
   assert.throws(() => validateCatalog([], [update]));
   assert.deepEqual(validateCatalog([], []), []);
+});
+
+test('keywords are bounded concise freeform text; workflow accepts only reviewed states and known fields', () => {
+  for (const keywords of [[], ['One', 'Two'], ['A', 'B', 'C', 'D', 'E', 'F'], ['One', 'one', 'Three'], ['One', 'Ｏｎｅ', 'Three'], ['One', 'Two', ' '], ['One', 'Two', 'x'.repeat(29)]]) {
+    assert.equal(analogAiSchema.safeParse({ ...valid(), keywords }).success, false);
+  }
+  for (const workflow of [{ reasoning: 'planned' }, { reasoning: false }, { reasoning: null }, { maturity: 'core' }, { physical: 'complete' }]) {
+    assert.equal(analogAiSchema.safeParse({ ...valid(), workflow }).success, false);
+  }
+  assert.ok(analogAiSchema.safeParse({ ...valid(), workflow: {} }).success);
+  assert.ok(analogAiSchema.safeParse({ ...valid(), workflow: { reasoning: 'core', physical: 'supporting' } }).success);
+});
+
+test('activity uses exactly twelve consecutive calendar months ending at the snapshot month', () => {
+  assert.deepEqual(activityMonths('2026-09-05'), snapshot().months);
+  assert.deepEqual(activityMonths('2024-02-29').slice(-3), ['2023-12', '2024-01', '2024-02']);
+  assert.ok(activitySchema.safeParse(snapshot()).success);
+  for (const months of [snapshot().months.slice(1), [...snapshot().months].reverse(), Array(12).fill('2026-09'), [...snapshot().months.slice(0, 11), '2026-13']]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), months }).success, false);
+  }
+});
+
+test('activity counting uses UTC committer dates and retains an old latest date', () => {
+  const result = countActivity(['2025-09-30T23:30:00-02:00', '2026-08-31T23:45:00-01:00', '2026-09-04T12:00:00Z'], '2026-09-05T03:00:00Z');
+  assert.deepEqual(result.commits, [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]);
+  assert.equal(result.lastCommitAt, '2026-09-04');
+  assert.deepEqual(countActivity(['2024-02-29T01:00:00Z'], '2026-09-05T03:00:00Z'), { commits: Array(12).fill(0), lastCommitAt: '2024-02-29' });
+  for (const dates of [[], ['invalid'], ['2026-09-05T04:00:00Z']]) assert.throws(() => countActivity(dates, '2026-09-05T03:00:00Z'));
+  assert.match(shortDate('2025-06-18', '2026-09-05'), /2025/);
+});
+
+test('activity validates identities, refs, timestamps, nonnegative integer counts, and last-date consistency', () => {
+  const good = snapshot().projects.sample;
+  for (const record of [
+    { ...good, commits: [] }, ...[-1, 1.5, NaN, Infinity].map((count) => ({ ...good, commits: [count, ...good.commits.slice(1)] })),
+    { ...good, repository: 'missing-owner' }, { ...good, repository: 'owner/..' }, { ...good, headSha: 'branch-name' },
+    ...['', '-main', 'foo..bar', 'foo/bar.lock', 'a b', 'main@{1}'].map((defaultBranch) => ({ ...good, defaultBranch })),
+    { ...good, lastCommitAt: '2026-02-30' }, { ...good, lastCommitAt: '2026-09-06' },
+    { ...good, lastCommitAt: '2026-05-01' }, { ...good, lastCommitAt: '2026-08-01' }, { ...good, score: 99 },
+  ]) assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: record } }).success, false, JSON.stringify(record));
+  for (const override of [{ reviewedAt: '2026-02-30' }, { capturedAt: 'invalid' }, { capturedAt: '2026-09-06T00:00:00Z' }, { method: 'all-refs' }]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), ...override }).success, false);
+  }
+});
+
+test('each activity record belongs to one authored project and its verified Code repository', () => {
+  assert.deepEqual(validateActivity([entry()], snapshot()), snapshot());
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: {} }), /Missing activity project/);
+  assert.throws(() => validateActivity([], snapshot()), /Unknown activity project/);
+  const unrelated = { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, repository: 'other/repo' } } };
+  assert.throws(() => validateActivity([entry()], unrelated), /verified Code source/);
+});
+
+test('no-repository records have no synthetic zero activity and public dates require a real source', () => {
+  const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
+  const record = { kind: 'no-public-repo', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
+  assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
+  assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo' } } }));
+  for (const bad of [{ ...record, lastPublicUpdateSource: undefined }, { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' }]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false);
+  }
+  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
 });
