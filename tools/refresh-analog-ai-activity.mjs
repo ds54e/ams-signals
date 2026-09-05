@@ -36,6 +36,8 @@ try {
     const headSha = (await run('git', [`--git-dir=${git}`, 'rev-parse', 'HEAD'])).trim();
     const log = await run('git', [`--git-dir=${git}`, 'log', '--first-parent', '--format=%cI', headSha]);
     histories.set(id, log.trim().split('\n'));
+    // Fresh commits do not automatically establish meaningful project activity.
+    // Preserve the manually reviewed date; validation requires re-curation when it ages out.
     records[id] = { ...record, defaultBranch: meta.default_branch, headSha };
     console.log(`${id}: captured ${record.repository} (${meta.default_branch}) at ${headSha.slice(0, 7)}`);
   }
@@ -47,7 +49,7 @@ try {
   });
   await writeFile(candidate, `${JSON.stringify(snapshot, null, 2)}\n`, { flag: 'wx' });
   await rename(candidate, destination);
-  console.log(`Saved complete snapshot ${reviewedAt}. Review changed counts, commit histories, repository notes, and paper-only status before committing.`);
+  console.log(`Saved complete snapshot ${reviewedAt}. Review commit histories, meaningful-activity dates, repository notes, and paper-only status before committing.`);
 } finally {
   await rm(candidate, { force: true });
   await rm(scratch, { recursive: true, force: true });

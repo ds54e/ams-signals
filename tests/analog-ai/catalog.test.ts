@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
-import { activityMonths, countActivity, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
+import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
 import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
 
 const valid = () => ({
@@ -17,7 +17,7 @@ const snapshot = () => ({
   months: ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09'],
   projects: { sample: {
     kind: 'github', repository: 'levantlabs/circuitrubric-bench', defaultBranch: 'main', headSha: 'a'.repeat(40),
-    commits: [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0], lastCommitAt: '2026-06-23',
+    commits: [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0], lastCommitAt: '2026-06-23', lastMeaningfulCommitAt: '2026-06-23',
   } },
 });
 
@@ -136,6 +136,8 @@ test('activity validates identities, refs, timestamps, nonnegative integer count
     { ...good, repository: 'missing-owner' }, { ...good, repository: 'owner/..' }, { ...good, headSha: 'branch-name' },
     ...['', '-main', 'foo..bar', 'foo/bar.lock', 'a b', 'main@{1}'].map((defaultBranch) => ({ ...good, defaultBranch })),
     { ...good, lastCommitAt: '2026-02-30' }, { ...good, lastCommitAt: '2026-09-06' },
+    { ...good, lastMeaningfulCommitAt: undefined }, { ...good, lastMeaningfulCommitAt: '2026-02-30' },
+    { ...good, lastMeaningfulCommitAt: '2026-06-24' },
     { ...good, lastCommitAt: '2026-05-01' }, { ...good, lastCommitAt: '2026-08-01' }, { ...good, score: 99 },
   ]) assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: record } }).success, false, JSON.stringify(record));
   for (const override of [{ reviewedAt: '2026-02-30' }, { capturedAt: 'invalid' }, { capturedAt: '2026-09-06T00:00:00Z' }, { method: 'all-refs' }]) {
@@ -156,9 +158,26 @@ test('no-repository records have no synthetic zero activity and public dates req
   const record = { kind: 'no-public-repo', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
   assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
-  assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo' } } }));
+  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo' } } }), /requires verified meaningful activity/);
   for (const bad of [{ ...record, lastPublicUpdateSource: undefined }, { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' }]) {
     assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false);
   }
   assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
+});
+
+test('rolling freshness uses an inclusive date boundary, not the twelve calendar-month buckets', () => {
+  assert.equal(freshnessCutoff('2026-09-05'), '2025-09-05');
+  assert.equal(freshnessCutoff('2024-02-29'), '2023-02-28');
+  assert.equal(freshnessCutoff('2025-03-01'), '2024-03-01');
+  const record = { ...snapshot().projects.sample, commits: Array(12).fill(0), lastCommitAt: '2025-09-05', lastMeaningfulCommitAt: '2025-09-05' };
+  assert.ok(validateActivity([entry()], { ...snapshot(), projects: { sample: record } }));
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...record, lastCommitAt: '2025-09-04', lastMeaningfulCommitAt: '2025-09-04' } } }), /on or after 2025-09-05/);
+  // A recent cosmetic/bot commit may affect ordering, but cannot rescue a stale project.
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-04' } } }), /requires verified meaningful activity/);
+  const paper = { ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } };
+  const publicUpdate = { kind: 'no-public-repo', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
+  assert.ok(validateActivity([paper], { ...snapshot(), projects: { sample: publicUpdate } }));
+  assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
+  // Advancing the snapshot requires curation even if no source files changed.
+  assert.throws(() => validateActivity([paper], { ...snapshot(), reviewedAt: '2026-09-06', capturedAt: '2026-09-06T03:00:00Z', projects: { sample: publicUpdate } }), /on or after 2025-09-06/);
 });

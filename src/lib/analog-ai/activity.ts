@@ -6,6 +6,13 @@ export function publicActivityDate(activity: PublicActivity): string {
   return activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt ?? '';
 }
 
+/** Inclusive rolling curation boundary, independent of the calendar-month strip. */
+export function freshnessCutoff(reviewedAt: string): string {
+  const [year, month, day] = reviewedAt.split('-').map(Number);
+  const lastDay = new Date(Date.UTC(year - 1, month, 0)).getUTCDate();
+  return `${String(year - 1).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(Math.min(day, lastDay)).padStart(2, '0')}`;
+}
+
 /** Twelve UTC calendar months, including the partial snapshot month. */
 export function activityMonths(reviewedAt: string): string[] {
   const end = new Date(`${reviewedAt.slice(0, 7)}-01T00:00:00Z`);

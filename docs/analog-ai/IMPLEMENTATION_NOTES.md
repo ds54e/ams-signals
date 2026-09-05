@@ -1,10 +1,10 @@
 # Analog AI implementation and review notes
 
-Current presentation refinement: 2026-09-05, based on `main` commit `9a99184`. The original landscape/source review below was completed on `analog-ai-landscape-redesign` from `4fa73e4650d7512d236004297aeb8be9a5cf4296`.
+Current active-catalog expansion: 2026-09-05, based on `main` commit `d3b6a4d5bb40bf20ad631adb307c88f9c2f9b4a5`. The compact-row presentation is preserved. The original landscape/source review below was completed on `analog-ai-landscape-redesign` from `4fa73e4650d7512d236004297aeb8be9a5cf4296`.
 
 ## Current structure and behavior
 
-- `src/content/analog-ai/*.md`: thirteen independent English entries, byte-unchanged in this pass. The existing bounded `description` supplies each row's one use-case/capability paragraph. The shorter summary, complete source arrays and research remain stored but are not repeated in the UI. No project claims, classifications, activity counts, repositories or review dates were re-researched or changed.
+- `src/content/analog-ai/*.md`: 27 independent English entries after 15 additions and removal of stale AMSBench. The twelve retained entries are byte-identical to the starting main. The existing bounded `description` supplies each row's one use-case/capability paragraph. The shorter summary, complete source arrays and research remain stored but are not repeated in the UI. New entries were reviewed against author repositories, targeted implementation files and available primary publications. The activity snapshot and freshness evidence were refreshed without changing ordering or visualization.
 - `src/pages/analog-ai/index.astro` and `src/styles/analog-ai.css`: the semantic six-column workflow matrix appears first, immediately followed by its compact legend. Project/Keywords/Activity/Links headers begin the index directly. No visible Landscape/Projects headings or shortcut. Rows use approximately 2.2/1.05/1.2/0.55 proportions: name and description, keywords, existing activity, then passive roles and primary-purpose links. Mobile stacks those four areas; only the matrix scrolls horizontally and its project column stays sticky.
 - `src/lib/analog-ai/catalog.ts`: unchanged immutable sort uses GitHub `lastCommitAt` or no-repository `lastPublicUpdateAt`, descending. Ties use NFKC-normalized lower-case name then slug; missing dates sort last. The obsolete catalog `browser.ts` is removed: native links/history now reach always-visible content without client code.
 - Search, filters, q/type state, IME handling, resets and custom history are removed. Old query strings have no effect. No browser storage, runtime fetch, database, or dependency was added.
@@ -12,15 +12,49 @@ Current presentation refinement: 2026-09-05, based on `main` commit `9a99184`. T
 - `src/data/analog-ai-activity.json`: volatile repository activity is separate from durable project research and the three bounded catalog addition notes. The page validates and renders the checked-in snapshot at build time.
 - Schema, unit tests and browser expectations use authored project IDs. Golden content, Article bodies, viewer code/state and factual export are independent and untouched.
 
-## Landscape classification review
+## Active curation review (2026-09-05)
 
-Re-opened all twelve primary repositories, their current default branches/READMEs and targeted implementation or task files, plus the AMSbench/ATLAS papers and official project sites. All twelve repository heads still match the revisions cited in the prior review; the activity snapshot pins those heads. ATLAS paper v1 remains the identified primary release; no official public ATLAS repository was verified by checking paper links and a targeted author/title search.
+The inclusive rolling cutoff is **2025-09-05**. Removal means no recent verifiable meaningful public activity, not that historical research lacks technical value. Every repository-backed entry has a manually inspected substantive commit at or after the cutoff; this evidence is separate from the latest raw commit used by the unchanged UI. Build validation enforces the rule relative to the checked-in review date, so a normal static build does not depend on the wall clock or GitHub.
+
+- **Removed AMSBench:** `Why0912/AMSBench` remains at `4f9867ca0`, last public default-branch commit 2025-06-18. No newer qualifying repository activity was verified.
+- **Withheld PPAAS:** the [2025-11-09 commit](https://github.com/SeunggeunKimkr/PPAAS/commit/cdd74aae4a9823f04908fec46d22c23a0f6fb8e5) only turns an author name into a homepage link. The latest code refactor is [2025-07-22 UTC](https://github.com/SeunggeunKimkr/PPAAS/commit/b8e5ac8ff1fb2d3d4e7ba2d82d3b670dc95293e1); remaining intervening README changes are also before the cutoff. A fresh cosmetic timestamp does not satisfy this pass's meaningful-activity rule.
+- **Withheld NetGen:** the [authors' release](https://github.com/getnen/NetGen-Failure-Aware-Orchestrator-Agents-for-Analog-Netlist-Generation) explicitly describes an archival results repository. Outside `runs/` it contains README and `problem_set.tsv`; thirty selected run archives expose generated netlists, prompts, traces and evaluation artifacts, not the runnable orchestrator implementation. Fresh results alone do not meet the requested implementation criterion. This is not a statement that the research or artifacts lack value.
+- All other existing entries pass. ATLAS stays under the existing no-repository/public-update mechanism. No additional paper-only project is introduced. The user's held candidates were not added merely to increase inventory.
+
+### New scope decisions
+
+Each entry links its pinned implementation evidence and complete source provenance. Default descriptions remain one concrete English paragraph; only the existing primary-purpose links appear in the UI.
+
+| Added project | Distinct scope and conservative classification decision |
+| --- | --- |
+| ASTRA | Retrieved design knowledge and gm/ID initialize staged Bayesian sizing. Simulation is supporting because the public adapter depends on external KATO, netlists and tables. |
+| ZeroSim | Learned amplifier performance surrogate; supporting evaluation scope, with no generated circuit, optimizer or model-accessible SPICE inference claim. |
+| AnalogToBi | Device-net bipartite topology generation and grammar checks. ERC is structural; no simulation/optimization mark for the captured generator path. |
+| ARCS | Autoregressive connectivity/component generation and actual ngspice rewards. Evaluator templates constrain the circuit families; inspect current `src/arcs`, not only the legacy tree. |
+| AnalogSAGE | Reasoning, topology exploration and numerical sizing with design memory. Use the author's original upstream, not the older paper-linked lab fork; simulation integration remains supporting. |
+| AutoSizer / AMS-SizingBench | One agent/benchmark entry, with 24 YAML circuit configurations. Optional missing ALIGN/Magic adapters do not justify a Physical mark. |
+| PANDA | Staged topology, EDA and physical flow; external generic sizing is supporting. Core layout scope does not imply every source-netlist LVS/signoff path is complete. |
+| LOADBench | 101 testbenches verified in the small Zenodo archive, plus public metric code and institutional paper abstract. Simulation supports dataset/evaluator tasks, not assumed agent tools. |
+| G-DiffPS | RF phase-shifter selection/sizing across six templates; constrained generation, core simulation/optimization. Retained results are a GNN ablation, not all paper experiments. |
+| EEschematic | Netlist to editable schematic via visual reasoning. Schematic symbol placement is not physical IC layout. |
+| vaBench | Current r53: 400 families / 1,200 model-generation, bugfix and testbench tasks. The agent-accessible EVAS runtime establishes simulation scope; old 300-row dashboard results are not relabeled as r53. |
+| EVAS | Independent versioned simulator/package used by vaBench. Event-driven behavioral execution and linting, not SPICE-equivalent circuit solving. |
+| gmoverid-skill | Executable characterization, device sizing and corner/Monte Carlo tools for agents. Lookup-based sizing is supporting optimization, not an autonomous circuit optimizer. |
+| AMS-IO-Agent / AMS-IO-Bench | One project with public schematic/layout/verification tooling and companion cases. Core physical scope is I/O-ring design; the paper's human-designed AMS core is not agent output. |
+| Masala-CHAI | Image-to-SPICE direction complements EEschematic. V2 simulation feedback is implemented but optional; the missing-ngspice success fallback earns only supporting scope. |
+
+### Evidence limits
+
+LOADBench's Paper link is the author institution's publication/abstract record; no full manuscript was retrieved. Its Zenodo metadata and 101 small `.cir` files were inspected without downloading multi-gigabyte simulation archives. G-DiffPS removed its manuscript and some tables in the latest code-only release, so broken README links are not surfaced. No current public vaBench website or r53 model leaderboard was verified; the checked-in legacy dashboard represents a different release and is not exposed as current Results. Author-reported results, proprietary EDA prerequisites, partial adapters and the Masala-CHAI refreshed-dataset release gap remain in research files, not added as dashboard methodology prose. No external model training, paid model call, commercial EDA run or benchmark reproduction was performed.
+
+## Retained Landscape classifications
+
+The twelve retained entries keep their previous source-reviewed classifications and prose. Their default-branch histories were rechecked for freshness. ATLAS v1 (2026-07-15) remains the sourced no-repository update; the new-implementation requirement applies to additions, not automatic removal of this existing fresh paper entry.
 
 Marks express reviewed scope, not scores or reproduced success. Core means a central reviewed task/interface; supporting includes a constrained task/track, auxiliary primitive, or incompletely released research path. A blank is not evidence of inability. Simulator use alone does not establish EDA session integration. Generation does not automatically imply an independently evaluated reasoning deliverable. PVT/Monte Carlo evaluation is not layout or silicon work.
 
 | Project | Deliberate classification and ambiguity resolution |
 | --- | --- |
-| AMSbench | Reasoning and generation core; simulation supporting **on the evaluator side**, not permission for the model to invoke a simulator. Future sizing/layout blank. Rechecked paper evaluation/future work and `CKT_design.py`. |
 | Analog Design Bench | Editing, simulator iteration and specification closure core. The bandgap task explicitly supplies model-accessible development benches and a separate evaluator; it grades electrical measurements, not topology. Reasoning not separately graded; no EDA-session or physical mark. |
 | AnalogCoder-Pro | Generation and simulation-backed repair core; waveform diagnosis supports the loop. Optimization supporting because BO is described in the research but the reviewed public checklist remains unfinished. Rechecked `run.py` and released tasks, not predecessor results. |
 | AnalogForge Agent | Supporting marks for proposal contracts, constrained templates, separate native simulation adapter and proxy/analytic optimization. The default is an analytic fixture; planned physical/PVT/MC studies do not earn marks. The all-supporting row reflects these particular contracts, not a maturity rating. |
@@ -44,41 +78,54 @@ The helper fetches repository metadata from public GitHub data using `gh`, reads
 
 Git does not record a reliable historical push/landing time. Fast-forward merges, timestamp edits, imports, squashes and history rewrites can move apparent activity between months. The data represents a public-history snapshot, never total development effort; this explanation stays in maintenance documentation. The last date is the latest committer date in the captured first-parent history, even if older than the displayed window. It includes the year when different from the snapshot year. An empty window is twelve dots, not an inactive-project declaration; no-repository entries get no synthetic strip.
 
-Repository-specific review found bulk publication in the short Analog Design Bench, CircuitRubric, NetlistBench and AnalogForge histories; this does not expose when earlier work occurred. vcli includes ten dependency-bot commits in September alongside other changes; the snapshot includes them and retains this in its data notes. No selected month was classified as active solely by detected bot authors. Bot attribution and subjects are only inspection aids, not a complete automated provenance classifier. No public activity is interpreted as project quality.
+Repository-specific review found bulk publication in the short Analog Design Bench, CircuitRubric, NetlistBench and AnalogForge histories; this does not expose when earlier work occurred. vcli includes ten dependency-bot commits in September alongside other changes; the snapshot includes them and retains this in its data notes. The bridge also records automated traffic updates; they remain raw strip events, while its September 2 Maestro timeout/escaping fix establishes substantive freshness. Bot attribution and subjects are inspection aids, not a complete automated provenance classifier. New histories include one-shot source/data releases and generated benchmark material; these are publication patterns, not evidence of sustained effort. No public activity is interpreted as project quality.
 
-| Project ID | Primary repository / default branch | Monthly counts (Oct 2025 → Sep 2026) | Latest UTC commit |
+| Project ID | Primary repository / default branch | Latest UTC commit or public update | Verified substantive commit date |
 | --- | --- | --- | --- |
-| amsbench | [Why0912/AMSBench](https://github.com/Why0912/AMSBench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | 2025-06-18 |
-| analog-design-bench | [Arcadia-1/analog-design-bench](https://github.com/Arcadia-1/analog-design-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 | 2026-08-12 |
-| analogcoder-pro | [laiyao1/AnalogCoderPro](https://github.com/laiyao1/AnalogCoderPro) / `master` | 0, 0, 0, 0, 4, 1, 0, 0, 0, 0, 0, 0 | 2026-03-14 |
-| analogforge-agent | [appleweiping/analog-forge-agent](https://github.com/appleweiping/analog-forge-agent) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0 | 2026-08-11 |
-| analoggym | [CODA-Team/AnalogGym](https://github.com/CODA-Team/AnalogGym) / `main` | 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | 2025-10-29 |
-| atlas | No verified public repository | No activity buckets | Paper 2026-07-15 |
-| circuitrubric | [levantlabs/circuitrubric-bench](https://github.com/levantlabs/circuitrubric-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0 | 2026-06-23 |
-| evo-ldo-bench | [jialinlu/ldo_benchmark_for_agent](https://github.com/jialinlu/ldo_benchmark_for_agent) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 4 | 2026-09-03 |
-| netlistbench | [WoshiMayou/NetlistBench](https://github.com/WoshiMayou/NetlistBench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 | 2026-08-04 |
-| razavi-bench | [Arcadia-1/razavi-bench](https://github.com/Arcadia-1/razavi-bench) / `main` | 0, 0, 0, 0, 0, 0, 0, 0, 51, 39, 45, 0 | 2026-08-17 |
-| vcli | [deanyou/virtuoso-cli](https://github.com/deanyou/virtuoso-cli) / `main` | 0, 0, 0, 0, 0, 0, 62, 0, 0, 22, 74, 134 | 2026-09-04 |
-| virtuoso-agent | [lixunqi12/virtuoso-agent](https://github.com/lixunqi12/virtuoso-agent) / `main` | 0, 0, 0, 0, 0, 0, 12, 11, 10, 1, 0, 0 | 2026-07-03 |
-| virtuoso-bridge-lite | [Arcadia-1/virtuoso-bridge-lite](https://github.com/Arcadia-1/virtuoso-bridge-lite) / `main` | 0, 0, 0, 0, 0, 0, 459, 71, 12, 36, 23, 4 | 2026-09-04 |
+| ams-io-agent | [Arcadia-1/AMS-IO-Agent](https://github.com/Arcadia-1/AMS-IO-Agent) / `main` | 2025-12-25 | 2025-12-25 |
+| analog-design-bench | [Arcadia-1/analog-design-bench](https://github.com/Arcadia-1/analog-design-bench) / `main` | 2026-08-12 | 2026-08-07 |
+| analogcoder-pro | [laiyao1/AnalogCoderPro](https://github.com/laiyao1/AnalogCoderPro) / `master` | 2026-03-14 | 2026-02-22 |
+| analogforge-agent | [appleweiping/analog-forge-agent](https://github.com/appleweiping/analog-forge-agent) / `main` | 2026-08-11 | 2026-08-11 |
+| analoggym | [CODA-Team/AnalogGym](https://github.com/CODA-Team/AnalogGym) / `main` | 2025-10-29 | 2025-10-29 |
+| analogsage | [wznmickey/AnalogSAGE](https://github.com/wznmickey/AnalogSAGE) / `main` | 2026-05-23 | 2026-05-23 |
+| analogtobi | [Seungmin0825/AnalogToBi](https://github.com/Seungmin0825/AnalogToBi) / `main` | 2026-05-07 | 2026-05-06 |
+| arcs | [tusharpathaknyu/ARCS](https://github.com/tusharpathaknyu/ARCS) / `main` | 2026-04-10 | 2026-03-27 |
+| astra | [IceLab-X/ASTRA](https://github.com/IceLab-X/ASTRA) / `main` | 2025-10-28 | 2025-10-28 |
+| atlas | No verified public repository | Paper 2026-07-15 | Sourced public update |
+| autosizer | [yuxi120407/AutoSizer](https://github.com/yuxi120407/AutoSizer) / `main` | 2026-05-26 | 2026-05-26 |
+| behavioral-veriloga-eval | [Arcadia-1/behavioral-veriloga-eval](https://github.com/Arcadia-1/behavioral-veriloga-eval) / `main` | 2026-07-28 | 2026-07-28 |
+| circuitrubric | [levantlabs/circuitrubric-bench](https://github.com/levantlabs/circuitrubric-bench) / `main` | 2026-06-23 | 2026-06-23 |
+| eeschematic | [eelab-dev/EEschematic](https://github.com/eelab-dev/EEschematic) / `main` | 2025-10-20 | 2025-10-19 |
+| evas | [Arcadia-1/EVAS](https://github.com/Arcadia-1/EVAS) / `main` | 2026-07-28 | 2026-07-28 |
+| evo-ldo-bench | [jialinlu/ldo_benchmark_for_agent](https://github.com/jialinlu/ldo_benchmark_for_agent) / `main` | 2026-09-03 | 2026-09-03 |
+| g-diffps | [ACADLab/G-DiffPS](https://github.com/ACADLab/G-DiffPS) / `main` | 2026-08-21 | 2026-08-21 |
+| gmoverid-skill | [Arcadia-1/gmoverid-skill](https://github.com/Arcadia-1/gmoverid-skill) / `main` | 2026-07-07 | 2026-07-07 |
+| loadbench | [FilipeAz/LOADBench-Scripts](https://github.com/FilipeAz/LOADBench-Scripts) / `main` | 2026-08-03 | 2026-08-03 |
+| masala-chai | [jitendra-bhandari/Masala-CHAI](https://github.com/jitendra-bhandari/Masala-CHAI) / `main` | 2026-08-09 | 2026-05-09 |
+| netlistbench | [WoshiMayou/NetlistBench](https://github.com/WoshiMayou/NetlistBench) / `main` | 2026-08-04 | 2026-08-04 |
+| panda | [PKU-IDEA/PANDA](https://github.com/PKU-IDEA/PANDA) / `main` | 2026-06-18 | 2026-06-18 |
+| razavi-bench | [Arcadia-1/razavi-bench](https://github.com/Arcadia-1/razavi-bench) / `main` | 2026-08-17 | 2026-08-17 |
+| vcli | [deanyou/virtuoso-cli](https://github.com/deanyou/virtuoso-cli) / `main` | 2026-09-04 | 2026-09-04 |
+| virtuoso-agent | [lixunqi12/virtuoso-agent](https://github.com/lixunqi12/virtuoso-agent) / `main` | 2026-07-03 | 2026-07-03 |
+| virtuoso-bridge-lite | [Arcadia-1/virtuoso-bridge-lite](https://github.com/Arcadia-1/virtuoso-bridge-lite) / `main` | 2026-09-04 | 2026-09-02 |
+| zerosim | [xz-group/ZeroSim](https://github.com/xz-group/ZeroSim) / `main` | 2026-04-24 | 2026-04-24 |
 
-The snapshot is authoritative for counts; this table records the redesign review. Future refreshes should update this review table or label it historical.
+The snapshot is authoritative for all twelve monthly counts, captured heads and reviewed substantive commit identities. Dates above use UTC; local August 20 for G-DiffPS becomes August 21, and local July 8 for gmoverid-skill becomes July 7. No paper publication date substitutes for repository activity.
 
 ## Maintenance and manual refresh
 
 1. Review primary sources before changing prose or scope. Keep stable filenames, four passive roles, short keywords, and `core|supporting` only; omit unreviewed/future scope. Do not create Golden records.
 2. Keep one source array with unique IDs/purposes. Cite local `#source-ID` references in research Markdown. Keep dashboard `description` focused on the actual use case and operations, with nuanced prerequisites and review evidence stored in the original metadata/body. A no-change review does not reorder the index or add a catalog update note; changes to the recorded latest public activity can reorder it.
 3. For activity, manually review/choose one Code repository or a sourced no-public-repository entry. Run `npm run refresh:analog-ai-activity` with Git and authenticated `gh`. It updates only the complete activity snapshot after all repositories succeed and validation passes; a failed request leaves the previous file intact. Temporary clones are removed. The helper is never part of check/build and is never shipped to the browser.
-4. Review the snapshot diff and captured histories for new default branches, bot-only months, bulk/imported history or changed ownership. The helper deliberately retains research notes and no-repository decisions; it cannot re-review them. Update those notes and independently revisit paper-only projects before committing. Do not treat running the helper as a source/content re-review.
+4. Review the snapshot diff and histories for changed ownership/default branches, automated or imported history. Manually verify a substantive first-parent commit, set `lastMeaningfulCommitAt` and record its hash in `notes`. The helper preserves that date; raw new commits never renew eligibility automatically. Validation rejects expired or missing evidence before replacing the snapshot. For additions/removals, curate the content and matching activity records together before invoking the refresh helper. Existing no-repository entries also need a fresh sourced public date. Do not treat the helper as a source/content review.
 5. Run `npm run check`, `npm run test:smoke`, and `git diff --check`. Compare existing factual/export and Article content to the branch base. Inventory and activity expectations derive from authored files; only stable interaction fixtures are named explicitly.
 
-## Initial project selection
+## Retained initial project selection
 
-The original ten candidates were retained and three further projects added after primary-source and artifact review. They cover different task contracts rather than a ranking of general design capability. The entries themselves contain the supporting source links.
+The retained entries below came from the initial implementation and review pass. AMSBench has since been removed by the freshness rule; its research lead remains historical in RESEARCH_SEED.md. The active population covers different task contracts rather than ranking general design capability.
 
 | Project | Reason for inclusion and important qualification |
 | --- | --- |
-| [AMSbench](../../src/content/analog-ai/amsbench.md) | Perception, analysis, and design evaluation; public scripts need additional inputs. The paper's pass@k definition is a fraction of generated answers passing simulation. |
 | [Analog Design Bench](../../src/content/analog-ai/analog-design-bench.md) | Agents editing circuits against electrical specifications. Website V2 lists 50 tasks; the reviewed public tree has 16 task directories. Task partial credit and the website aggregate are different measures. |
 | [AnalogCoder-Pro](../../src/content/analog-ai/analogcoder-pro.md) | Generation, waveform diagnosis/repair, and sizing research with public tasks and benches. BO updates and some ablation prompts remain unfinished in the reviewed checklist. Earlier AnalogCoder results are not reused as Pro results. |
 | [AnalogForge Agent](../../src/content/analog-ai/analogforge-agent.md) | Experimental workbench exposing the difference between a runnable fixture and a native evaluation path. Default runs are analytic, dashboard points synthetic, PDK mappings unpinned, and thresholds preregistered targets. |
@@ -101,7 +148,6 @@ These secondary leads remain outside the bounded initial population. Except for 
 | Candidate and primary starting point | Next check before inclusion |
 | --- | --- |
 | [AnalogXpert](https://arxiv.org/abs/2412.19824) | Verify current official implementation and the block-selection/connection task contract. |
-| [AMS-IO-Bench / AMS-IO-Agent](https://arxiv.org/html/2512.21613v1) | Inspect linked code and EDA requirements. The authors' I/O-ring silicon report has a narrow task scope. |
 | [OCB / CktGNN](https://github.com/zehao-dong/CktGNN) | Review dataset and simulation setup before adding another learning/optimization environment. |
 | [OSIRIS](https://huggingface.co/datasets/hardware-fab/osiris) | Public data and code archives are available; inspect their layout-generation and reproduction contract without treating archive presence as reproduction. |
 | [ORACLE](https://arxiv.org/abs/2608.04999) | Inspect implementation and the LLM's action-filtering role within optimization. |
@@ -113,7 +159,16 @@ Reviewed revision `9e5dcb453fd5313d43aa2e6239d1ef108ab834d0`. The code has typed
 
 The [16-PASS summary](https://github.com/Mauricio-xx/eda-agents/blob/9e5dcb453fd5313d43aa2e6239d1ef108ab834d0/bench/results/gap_closure_final/summary.json) combines checks, dry runs, mock digital metrics, and native tool runs. The [runner](https://github.com/Mauricio-xx/eda-agents/blob/9e5dcb453fd5313d43aa2e6239d1ef108ab834d0/src/eda_agents/bench/runner.py) counts missing-backend FAIL_INFRA results as skipped and excludes them from its pass-rate denominator. These modes can be traced in code, but the aggregate and generic agent entry point are not a clear demonstration of a general live analog-design workflow. Keeping this candidate out is a bounded catalog-selection decision, not a claim that its implementation is absent. A future entry should name specific live paths and prerequisites, with dry-run and missing-backend outcomes separated.
 
-## Compact-row refinement verification
+## Active-catalog expansion verification (2026-09-05)
+
+- `npm run check` passes: the existing factual validation/lint/duplicate checks, 27 catalog records and matching activity records, thirteen unit tests, 284 built pages and 2,740 internal anchors. The additional unit coverage exercises the inclusive rolling cutoff, leap-day handling, missing/future substantive dates, stale projects with fresh cosmetic commits, and sourced no-repository dates.
+- All 60 production-preview Chromium smoke tests pass (17 catalog and 43 existing-site cases). The unchanged inventory-derived browser expectations cover the expanded matrix and rows, recent-activity order, workflow markers, roles/keywords/primary links, no-JS readability, keyboard access, native project/descendant anchors, reload/history and viewer-state isolation. No browser assertion was weakened to admit new data.
+- Rendered inspection at 1440, 390 and 320px covers the full 27-row matrix, first/middle/last entries, repository and ATLAS no-repository activity, primary links and direct/reloaded source anchors. The desktop index still exposes about five complete rows per viewport; mobile has no page-level horizontal overflow, and only the matrix scrolls horizontally. No headings, disclosures or methodology prose were added. Page, CSS and catalog sorting/anchor implementation are byte-identical to the starting main.
+- All 54 pinned implementation/source paths for the additions exist in the inspected Git trees. Primary links were checked against author repositories, publications and released artifacts; LOADBench uses the valid `www.it.pt` institutional host. Activity records were checked against the captured default-branch first-parent histories. A simulated GitHub-access failure leaves the refresh helper's checked-in snapshot byte-identical and removes its temporary files.
+- All twelve retained catalog files, Golden data, Article bodies, shared viewer code, dependencies and workflow configuration remain unchanged. All 283 non-catalog HTML pages and `/export.json` are byte-identical to the deployed `d3b6a4d` Pages artifact. Export SHA-256 remains `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. `git diff --check` passes.
+- The review does not independently reproduce external model/benchmark results. Browser automation is Chromium-only. This pass stops after push and CI; Pages deployment requires a later instruction.
+
+## Previous compact-row refinement verification (`d3b6a4d`)
 
 - `npm run check` passes: original factual checks, catalog/activity validation, twelve unit tests, 284 built pages and 2,712 internal anchors. The sort, content schema constraints and activity snapshot are unchanged.
 - All 60 Chromium smoke tests pass (17 catalog cases and 43 existing-site cases). Expectations derive from authored entries. Tests cover the flat DOM, one visible description, roles/primary links in Links, absent disclosures/bibliography, matrix order/states, activity, keyboard traversal, native project and legacy hashes, reload/history, no-JS and viewer-state isolation. Anchor screenshots wait for native smooth scrolling to settle.

@@ -28,6 +28,8 @@ The existing Astro static output, plain CSS, and small TypeScript architecture s
 
 ## Research and maintenance
 
+The catalog represents currently active projects, not a historical archive. At each review, remove projects with no verifiable meaningful public activity in the preceding twelve months (inclusive cutoff for 2026-09-05: **2025-09-05**). GitHub projects require substantive default-branch implementation, task/data, result or technical-maintenance activity; cosmetic links and automated traffic/dependency churn alone do not renew eligibility. Existing no-repository entries require a sourced public project update. This rolling curation rule does not diminish the historical work's technical value. New additions in this pass require a real canonical public GitHub implementation, not a paper's promise of code.
+
 Re-open primary material before changing researched claims or workflow classification. Presentation summaries may condense the existing reviewed content without new claims. Separate reasoning from generation, evaluator simulation from model tools, relative sizing from electrical optimization, implemented paths from experiments and plans, and paper results from released artifacts. Preserve detailed research, prerequisites and activity methodology in the authored files and implementation notes; do not render them as dashboard explanations. Do not reproduce paid model or commercial EDA experiments merely to classify a project.
 
 `IMPLEMENTATION_SPEC.md` defines behavior and validation. `IMPLEMENTATION_NOTES.md` records classification decisions, selected repositories, activity methodology, and checks. Catalog additions remain bounded and independently authored; repository commits are not catalog update notes.
