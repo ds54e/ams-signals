@@ -1,6 +1,6 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
 
-export { roleIds, roleLabels, projectType, type CatalogRole } from '../catalog-roles.ts';
+export { roleIds, roleLabels, projectTags, type CatalogRole } from '../catalog-roles.ts';
 
 export const workflowIds = ['reasoning', 'generate-edit', 'simulate-measure', 'optimize', 'eda-integration', 'physical'] as const;
 export const workflowLabels: Record<typeof workflowIds[number], string> = {

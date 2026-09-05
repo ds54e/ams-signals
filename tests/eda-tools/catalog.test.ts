@@ -6,8 +6,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, edaToolsSchema, validateCatalog, validateActivity } from '../../src/lib/eda-tools/schema.ts';
+import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { aiIds, areaIds, sortProjects } from '../../src/lib/eda-tools/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, publicActivityDate } from '../../src/lib/eda-tools/activity.ts';
+import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate, shortMonth } from '../../src/lib/eda-tools/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/eda-tools-activity-support.mjs';
 
 const directory = new URL('../../src/content/eda-tools/', import.meta.url);
@@ -41,7 +42,13 @@ test('Digital has authored project roles while AI relations and primary categori
   assert.ok(!projects.some((p) => p.id === 'ngspice-openvaf-enhancements'));
   const agents = ['coresmith', 'dr-rtl', 'haven', 'spec2cov', 'ucagent', 'verifyrtl'];
   assert.deepEqual(projects.filter((p) => p.data.roles.includes('agent')).map((p) => p.id).sort(), agents);
-  for (const p of projects) assert.deepEqual(p.data.roles, [agents.includes(p.id) ? 'agent' : 'eda-tool']);
+  for (const p of projects) {
+    assert.deepEqual(p.data.roles, [agents.includes(p.id) ? 'agent' : 'eda-tool']);
+    assert.deepEqual(projectTags(p.data.roles, p.data.ai === 'ai-built'), [
+      ...p.data.roles.map((role) => ({ kind: 'role', label: roleLabels[role] })),
+      ...(p.data.ai === 'ai-built' ? [{ kind: 'ai', label: 'AI-built' }] : []),
+    ]);
+  }
   assert.deepEqual(projects.filter((p) => p.data.ai === 'ai-built').map((p) => p.id).sort(), ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
   for (const roles of [undefined, [], ['agent', 'agent'], ['simulation'], ['agent', 'benchmark', 'eda-tool']]) {
     assert.equal(edaToolsSchema.safeParse({ ...data(), roles }).success, false);
@@ -207,4 +214,12 @@ test('refresh rejects forks, private or replaced repositories and preserves the 
   assert.throws(() => verifyMeaningfulCommit(record, []), /absent/);
   assert.throws(() => verifyMeaningfulCommit(record, [[record.lastMeaningfulCommitSha, '2000-01-01T00:00:00Z']]), /date differs/);
   assert.deepEqual(record, before);
+});
+
+test('compact activity dates and shared month cues retain year context without zero-padded days', () => {
+  assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
+  assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
+  assert.equal(shortMonth('2025-10'), 'Oct');
+  assert.equal(shortMonth('2026-01'), 'Jan');
+  assert.equal(shortMonth('2026-09'), 'Sep');
 });

@@ -2,9 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { projectType, roleLabels } from '../../src/lib/catalog-roles.ts';
+import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
+import { activityMonths, countActivity, freshnessCutoff, shortDate, shortMonth, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
 import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
 
 const valid = () => ({
@@ -81,12 +81,16 @@ test('catalog schema preserves calendar dates, source protocols, roles and sourc
   assert.ok(analogAiSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
 });
 
-test('shared public types preserve authored roles and narrowly opt into AI-built provenance', () => {
+test('shared public tags preserve authored role order and narrowly opt into AI-built provenance', () => {
   assert.equal(roleLabels.agent, 'Agent');
-  assert.equal(projectType(['agent', 'benchmark']), 'Agent + Benchmark');
-  assert.equal(projectType(['benchmark', 'dataset-environment']), 'Benchmark + Dataset & Environment');
-  assert.equal(projectType(['eda-tool']), 'EDA Tool');
-  assert.equal(projectType(['eda-tool'], true), 'EDA Tool · AI-built');
+  const input = ['agent', 'benchmark'] as const;
+  assert.deepEqual(projectTags(input), [{ kind: 'role', label: 'Agent' }, { kind: 'role', label: 'Benchmark' }]);
+  assert.deepEqual(input, ['agent', 'benchmark']);
+  assert.deepEqual(projectTags(['benchmark', 'dataset-environment']), [
+    { kind: 'role', label: 'Benchmark' }, { kind: 'role', label: 'Dataset & Environment' },
+  ]);
+  assert.deepEqual(projectTags(['eda-tool']), [{ kind: 'role', label: 'EDA Tool' }]);
+  assert.deepEqual(projectTags(['eda-tool'], true), [{ kind: 'role', label: 'EDA Tool' }, { kind: 'ai', label: 'AI-built' }]);
   assert.ok(analogAiSchema.safeParse({ ...valid(), aiBuilt: true }).success);
   for (const aiBuilt of [false, 'true', 'ai-built', 'traditional']) {
     assert.equal(analogAiSchema.safeParse({ ...valid(), aiBuilt }).success, false);
@@ -257,4 +261,12 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
   assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
   // Advancing the snapshot requires curation even if no source files changed.
   assert.throws(() => validateActivity([paper], { ...snapshot(), reviewedAt: '2026-09-06', capturedAt: '2026-09-06T03:00:00Z', projects: { sample: publicUpdate } }), /on or after 2025-09-06/);
+});
+
+test('compact activity dates and shared month cues retain year context without zero-padded days', () => {
+  assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
+  assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
+  assert.equal(shortMonth('2025-10'), 'Oct');
+  assert.equal(shortMonth('2026-01'), 'Jan');
+  assert.equal(shortMonth('2026-09'), 'Sep');
 });

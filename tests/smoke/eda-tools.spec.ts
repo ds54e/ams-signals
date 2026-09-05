@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
+import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 const directory = new URL('../../src/content/eda-tools/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
@@ -50,9 +51,9 @@ test('EDA navigation, sparse English presentation and authored project rows rend
   await expect(page.locator('[data-eda-tools] input, [data-eda-tools] button, [data-eda-tools] select, [data-eda-tools] details, [data-eda-tools] summary, [data-eda-tools] form')).toHaveCount(0);
   expect(await page.locator('[data-eda-tools]').evaluate((el) => el.children[1].className)).toBe('eda-landscape');
   expect(await page.locator('[id="eda:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('eda-columns');
-  await expect(page.locator('.eda-columns span')).toHaveText(['Project', 'Keywords', 'Activity', 'Type / Links']);
+  await expectIndexColumns(page.locator('.eda-columns'), activity.months);
   expect(await page.locator('[data-eda-tools] ol, [data-eda-tools] ul').evaluateAll((lists) => lists.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
-  for (const forbidden of ['Traditional', 'AI-enabled', 'Design Agent', 'Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
+  for (const forbidden of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
     expect(await page.locator('[data-eda-tools]').textContent()).not.toContain(forbidden);
   }
   const rendered = await rows(page).evaluateAll((nodes) => nodes.map((el) => ({
@@ -60,17 +61,18 @@ test('EDA navigation, sparse English presentation and authored project rows rend
     name: el.querySelector('h2')!.textContent,
     description: el.querySelector('.eda-description')!.textContent,
     descriptions: el.querySelectorAll('.eda-description').length,
-    keywords: [...el.querySelectorAll('.eda-keywords li')].map((x) => x.textContent),
-    type: el.querySelector('.eda-type')!.textContent,
-    links: [...el.querySelectorAll<HTMLAnchorElement>('.eda-quicklinks a')].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
+    tags: [...el.querySelectorAll('.eda-keywords li')].map((x) => ({ kind: x.getAttribute('data-tag-kind'), label: x.textContent })),
+    links: [...el.querySelectorAll<HTMLAnchorElement>('.eda-title .eda-quicklinks a')].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
     linkCount: el.querySelectorAll('a').length,
   })));
   expect(rendered).toEqual(ordered.map((p) => {
     const links = p.sources.filter((s: any) => s.purpose).sort((a: any, b: any) => Object.keys(sourceLabels).indexOf(a.purpose) - Object.keys(sourceLabels).indexOf(b.purpose))
       .map((s: any) => ({ label: sourceLabels[s.purpose as keyof typeof sourceLabels], href: s.url }));
-    return { id: p.id, name: `${p.name} #`, description: p.description, descriptions: 1, keywords: p.keywords,
-      type: p.roles.map((role: keyof typeof roles) => roles[role]).join(' + ') + (p.ai === 'ai-built' ? ' · AI-built' : ''),
-      links, linkCount: 1 + links.length + (activity.projects[p.id].kind === 'github' ? 1 : 0) };
+    return { id: p.id, name: `${p.name} #`, description: p.description, descriptions: 1,
+      tags: [...p.roles.map((role: keyof typeof roles) => ({ kind: 'role', label: roles[role] })),
+        ...(p.ai === 'ai-built' ? [{ kind: 'ai', label: 'AI-built' }] : []),
+        ...p.keywords.map((label: string) => ({ kind: 'keyword', label }))],
+      links, linkCount: 1 + links.length };
   }));
   await nav.getByRole('link', { name: 'Analog', exact: true }).click();
   await expect(nav.locator('[aria-current="page"]')).toHaveText('Analog');
@@ -86,14 +88,14 @@ test('five-axis matrix has the exact authored scopes, matches list order and imm
     id: el.getAttribute('data-eda-landscape-project'),
     name: el.querySelector('th')!.textContent,
     scope: el.querySelector('th')!.getAttribute('scope'),
-    cells: [...el.querySelectorAll('td')].map((cell) => ({ area: cell.getAttribute('data-area'), state: cell.getAttribute('data-scope'), mark: cell.querySelector('[aria-hidden]')!.textContent, meaning: cell.querySelector('.visually-hidden')!.textContent })),
+    cells: [...el.querySelectorAll('td')].map((cell) => ({ area: cell.getAttribute('data-area'), state: cell.getAttribute('data-scope'), marks: cell.querySelectorAll('.eda-scope-mark').length })),
   })));
   expect(rendered).toEqual(ordered.map((p) => ({ id: p.id, name: p.name, scope: 'row', cells: areas.map((area) => ({
-    area, state: p.areas[area] ?? '', mark: p.areas[area] === 'core' ? '●' : p.areas[area] === 'supporting' ? '◐' : '',
-    meaning: p.areas[area] === 'core' ? 'Core scope' : p.areas[area] === 'supporting' ? 'Supporting scope' : 'No primary reviewed scope identified',
+    area, state: p.areas[area] ?? '', marks: p.areas[area] ? 1 : 0,
   })) })));
   expect(await rows(page).evaluateAll((nodes) => nodes.map((el) => el.id))).toEqual(rendered.map((p) => p.id));
-  await expect(page.locator('[id="eda:legend"] span')).toHaveText(['● core', '◐ supporting']);
+  await expectScopeCircles(table);
+  await expect(page.locator('[id="eda:legend"] > span')).toHaveText(['● core', '○ supporting']);
   expect(await page.locator('.eda-landscape-scroll').evaluate((el) => el.nextElementSibling?.id)).toBe('eda:legend');
   const audit = await page.evaluate(() => {
     const ids = [...document.querySelectorAll('[id]')].map((el) => el.id);
@@ -103,36 +105,10 @@ test('five-axis matrix has the exact authored scopes, matches list order and imm
   expect(audit).toEqual({ duplicates: [], missing: [] });
 });
 
-test('GitHub strips show twelve correct binary months, dates and repositories; non-GitHub updates remain neutral', async ({ page }) => {
+test('GitHub activity has twelve equal binary cells and accessible counts; non-GitHub dates have no fake band', async ({ page }) => {
   await open(page);
-  const rendered = await rows(page).evaluateAll((nodes) => nodes.map((el) => ({
-    id: el.id, kind: el.querySelector('.eda-activity')!.getAttribute('data-activity-kind'),
-    date: el.querySelector('time')!.getAttribute('datetime'),
-    repository: el.querySelector('.eda-activity-repository')?.textContent ?? null,
-    repositoryHref: el.querySelector('.eda-activity-repository')?.getAttribute('href') ?? null,
-    summary: el.querySelector('.eda-activity-summary')?.textContent ?? null,
-    months: [...el.querySelectorAll('.eda-activity-strip li')].map((li) => ({ mark: li.querySelector('[aria-hidden]')!.textContent, title: li.getAttribute('title'), accessible: li.querySelector('.visually-hidden')!.textContent })),
-    weight: Number(getComputedStyle(el.querySelector('time')!).fontWeight),
-  })));
-  for (const item of rendered) {
-    const record = activity.projects[item.id];
-    expect(item.kind).toBe(record.kind);
-    expect(item.date).toBe(date(item.id));
-    expect(item.weight).toBeGreaterThanOrEqual(600);
-    if (record.kind === 'public-update') {
-      expect(item.months).toEqual([]); expect(item.repository).toBeNull(); expect(item.summary).toBeNull();
-    } else {
-      expect(item.repository).toBe(record.repository);
-      expect(item.repositoryHref).toBe(`https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`);
-      expect(item.summary).toBe(`${record.commits.filter((n: number) => n > 0).length}/12 active months`);
-      expect(item.months).toEqual(activity.months.map((month: string, index: number) => {
-        const label = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
-        const title = `${label} · ${record.commits[index]} default-branch commits`;
-        return { mark: record.commits[index] > 0 ? '●' : '·', title, accessible: title };
-      }));
-    }
-  }
-  expect(rendered.some((item) => item.kind === 'public-update')).toBe(true);
+  await expectActivityBands(rows(page), '.eda-activity', activity);
+  expect(projects.some((project) => activity.projects[project.id].kind === 'public-update')).toBe(true);
 });
 
 test('native project hashes survive direct load, reload and browser back/forward', async ({ page }) => {
@@ -170,9 +146,6 @@ test('keyboard activation reaches the project and advances naturally to its prim
   await expect(row.locator('h2')).toBeInViewport({ ratio: 1 });
   await expect(row.locator('.eda-description')).toBeInViewport({ ratio: 1 });
   await page.keyboard.press('Tab'); await expect(row.locator('.eda-permalink')).toBeFocused();
-  if (activity.projects[ordered[0].id].kind === 'github') {
-    await page.keyboard.press('Tab'); await expect(row.locator('.eda-activity-repository')).toBeFocused();
-  }
   await page.keyboard.press('Tab'); await expect(row.locator('.eda-quicklinks a').first()).toBeFocused();
 });
 
@@ -204,19 +177,16 @@ for (const width of [1440, 390, 320]) {
       await page.screenshot({ path: info.outputPath(`eda-matrix-${width}-scrolled.png`) });
     }
     await page.locator('[id="eda:index"]').evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
-    const boxes = await rows(page).first().locator('article').evaluate((el) => [...el.children].map((child) => { const r = child.getBoundingClientRect(); return { width: r.width, left: r.left, top: r.top }; }));
-    expect(boxes).toHaveLength(4);
+    await expectTitleAndIndexGeometry(rows(page), 'eda', width);
+    await expectActivityBands(rows(page), '.eda-activity', activity);
     if (width === 1440) {
-      expect(boxes[0].width).toBeGreaterThan(boxes[3].width * 3);
-      expect(boxes[3].width).toBeLessThan(boxes[1].width);
       expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(4);
     } else {
-      expect(new Set(boxes.map((r) => r.left)).size).toBe(1);
-      expect(boxes.map((r) => r.top)).toEqual(boxes.map((r) => r.top).sort((a, b) => a - b));
+      await expect(page.locator('.eda-columns')).not.toBeVisible();
     }
     await page.screenshot({ path: info.outputPath(`eda-index-${width}.png`) });
     const manual = projects.find((p) => activity.projects[p.id].kind === 'public-update')!;
-    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, manual]) {
+    for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, manual, ...['xezim', 'haven', 'verilator'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${p.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
       await page.screenshot({ path: info.outputPath(`eda-row-${width}-${p.id}.png`) });
@@ -244,4 +214,11 @@ test('EDA has no runtime requests or viewer state and navigation preserves Timel
     if (name !== 'Articles') await expect(page.locator('[data-search]')).toHaveValue('');
     await page.goBack(); await expect(rows(page)).toHaveCount(projects.length);
   }
+});
+
+test('scope circles and binary activity stay distinct in forced-color mode', async ({ page }) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  await open(page);
+  await expectScopeCircles(page.locator('.eda-landscape-table'));
+  await expectActivityBands(rows(page), '.eda-activity', activity);
 });

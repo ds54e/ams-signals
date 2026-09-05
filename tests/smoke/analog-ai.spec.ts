@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { readdir, readFile } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
+import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 // Authored inventory and snapshot are independent expectations, not a fixed initial-project list.
 const directory = new URL('../../src/content/analog-ai/', import.meta.url);
@@ -65,10 +66,10 @@ test('each authored project renders once, newest activity first, with a concise 
   await expect(page.locator('[data-analog-ai] details, [data-analog-ai] summary')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1 })).toHaveClass('visually-hidden');
   await expect(page.getByRole('heading', { level: 2 })).toHaveText(ordered.map((p) => `${p.name} #`));
-  await expect(page.locator('.catalog-columns span')).toHaveText(['Project', 'Keywords', 'Activity', 'Type / Links']);
+  await expectIndexColumns(page.locator('.catalog-columns'), activity.months);
   await expect(page.locator('.catalog-header, .catalog-updates, .catalog-reviewed, .catalog-publication-note, .catalog-section-heading, .catalog-sources, .catalog-detail, .catalog-summary')).toHaveCount(0);
   const text = await page.locator('[data-analog-ai]').textContent();
-  for (const removed of ['Traditional', 'AI-enabled', 'Design Agent', 'Benchmarks, agents, and tools for analog/RF/AMS design.', 'Reviewed from primary public sources', 'Recent additions', 'Public repository activity snapshot:', 'A–Z', 'Public repository activity is a visibility signal', 'Current month is partial', 'Activity method.', 'no independent reproduction', 'Landscape', 'Projects ↓', 'What it does', 'Primary sources', 'Scroll horizontally to see all scopes.']) {
+  for (const removed of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Benchmarks, agents, and tools for analog/RF/AMS design.', 'Reviewed from primary public sources', 'Recent additions', 'Public repository activity snapshot:', 'A–Z', 'Public repository activity is a visibility signal', 'Current month is partial', 'Activity method.', 'no independent reproduction', 'Landscape', 'Projects ↓', 'What it does', 'Primary sources', 'Scroll horizontally to see all scopes.']) {
     expect(text).not.toContain(removed);
   }
   await expect(page.locator('[data-analog-ai] input, [data-analog-ai] select, [data-analog-ai] button, [data-analog-ai] form')).toHaveCount(0);
@@ -79,19 +80,23 @@ test('each authored project renders once, newest activity first, with a concise 
     await expect(row.locator('.catalog-description')).toBeVisible();
     expect((await row.textContent())!.split(project.description).length - 1).toBe(1);
     expect(await row.textContent()).not.toContain(project.summary);
-    await expect(row.locator('.catalog-overview .catalog-type')).toHaveCount(0);
-    await expect(row.locator('.catalog-links .catalog-type')).toHaveText(project.roles.map((role: keyof typeof roles) => roles[role]).join(' + ') + (project.aiBuilt ? ' · AI-built' : ''));
-    await expect(row.locator('.catalog-keywords li')).toHaveText(project.keywords);
-    const primarySources = project.sources.filter((s: { purpose?: string }) => s.purpose);
-    await expect(row.locator('.catalog-links a')).toHaveCount(primarySources.length);
+    await expect(row.locator('.catalog-type, .catalog-links')).toHaveCount(0);
+    expect(await row.locator('.catalog-keywords li').evaluateAll((tags) => tags.map((tag) => ({ kind: tag.getAttribute('data-tag-kind'), label: tag.textContent })))).toEqual([
+      ...project.roles.map((role: keyof typeof roles) => ({ kind: 'role', label: roles[role] })),
+      ...(project.aiBuilt ? [{ kind: 'ai', label: 'AI-built' }] : []),
+      ...project.keywords.map((label: string) => ({ kind: 'keyword', label })),
+    ]);
+    const primarySources = project.sources.filter((s: { purpose?: string }) => s.purpose).sort((a: any, b: any) => Object.keys(sourceLabels).indexOf(a.purpose) - Object.keys(sourceLabels).indexOf(b.purpose));
+    await expect(row.locator('.catalog-title .catalog-quicklinks a')).toHaveCount(primarySources.length);
     for (const source of primarySources) {
-      const link = row.locator('.catalog-links .catalog-quicklinks').getByRole('link', { name: sourceLabels[source.purpose as keyof typeof sourceLabels], exact: true });
+      const link = row.locator('.catalog-title .catalog-quicklinks').getByRole('link', { name: sourceLabels[source.purpose as keyof typeof sourceLabels], exact: true });
       await expect(link).toHaveAttribute('href', source.url);
       await expect(link).toBeVisible();
       await expect(row.locator(`[id="${project.id}--source-${source.id}"] a`)).toHaveAttribute('href', source.url);
     }
-    // Only primary-purpose links and the commit-history link are exposed, with no bibliography.
-    await expect(row.locator('a')).toHaveCount(1 + primarySources.length + (activity.projects[project.id].kind === 'github' ? 1 : 0));
+    await expect(row.locator('.catalog-title .catalog-quicklinks a')).toHaveText(primarySources.map((source: any) => sourceLabels[source.purpose as keyof typeof sourceLabels]));
+    // Every authored primary link remains directly beside the title; no bibliography or duplicate repository link.
+    await expect(row.locator('a')).toHaveCount(1 + primarySources.length);
   }
 });
 
@@ -108,11 +113,11 @@ test('Landscape contains every project with the authored state in each of the si
       const cell = row.locator(`[data-workflow="${stage}"]`);
       const scope = project.workflow[stage];
       await expect(cell).toHaveAttribute('data-scope', scope ?? '');
-      await expect(cell.locator('.scope-mark')).toHaveText(scope === 'core' ? '●' : scope === 'supporting' ? '◐' : '');
-      await expect(cell.locator('.visually-hidden')).toHaveText(scope === 'core' ? 'Core scope' : scope === 'supporting' ? 'Supporting scope' : 'Not specified');
+      await expect(cell.locator('.scope-mark')).toHaveCount(scope ? 1 : 0);
     }
   }
-  await expect(page.locator('[id="catalog:legend"] span')).toHaveText(['● core', '◐ supporting']);
+  await expectScopeCircles(table);
+  await expect(page.locator('[id="catalog:legend"] > span')).toHaveText(['● core', '○ supporting']);
   expect(await page.locator('.landscape-scroll').evaluate((el) => el.nextElementSibling?.id)).toBe('catalog:legend');
   expect(await page.locator('[id="catalog:landscape"]').evaluate((el) => el.firstElementChild?.className)).toBe('landscape-scroll');
   expect(await page.locator('[id="catalog:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('catalog-columns');
@@ -126,51 +131,30 @@ test('domain membership and approved AI-built provenance stay distinct across bo
   const moved = 'ngspice-openvaf-enhancements';
   const types = (selector: string) => page.locator(selector).evaluateAll((elements) => elements
     .filter((el) => el.textContent?.includes('AI-built')).map((el) => el.closest('li[id]')!.id).sort());
-  expect(await types('.catalog-type')).toEqual([moved]);
-  await expect(page.locator(`#${moved} .catalog-type`)).toHaveText('EDA Tool · AI-built');
+  expect(await types('.catalog-keywords [data-tag-kind="ai"]')).toEqual([moved]);
+  await expect(page.locator(`#${moved} .catalog-keywords [data-tag-kind]:not([data-tag-kind="keyword"])`)).toHaveText(['EDA Tool', 'AI-built']);
   await expect(page.locator(`#${moved} .catalog-permalink`)).toHaveAttribute('href', `/ams-signals/analog-ai/#${moved}`);
   const baselineIds = ['ngspice', 'xyce', 'xschem', 'openvaf-reloaded', 'klayout', 'magic', 'align'];
   for (const id of baselineIds) {
     await expect(page.locator(`[data-catalog-project][id="${id}"]`)).toHaveCount(1);
     await expect(page.locator(`[data-landscape-project="${id}"]`)).toHaveCount(1);
-    await expect(page.locator(`#${id} .catalog-type`)).toHaveText('EDA Tool');
+    await expect(page.locator(`#${id} .catalog-keywords [data-tag-kind="role"]`)).toHaveText('EDA Tool');
   }
   await expect(page.locator('#ngspice .activity-strip, #ngspice .activity-repository')).toHaveCount(0);
   await expect(page.locator('#ngspice .catalog-quicklinks').getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', /^https:\/\/sourceforge\.net\//);
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Digital / RTL');
   await expect(page.locator(`[data-eda-project][id="${moved}"], [data-eda-landscape-project="${moved}"]`)).toHaveCount(0);
-  expect(await types('.eda-type')).toEqual(['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
+  expect(await types('.eda-keywords [data-tag-kind="ai"]')).toEqual(['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
   for (const id of ['dr-rtl', 'verifyrtl', 'haven', 'ucagent', 'spec2cov', 'coresmith']) {
-    await expect(page.locator(`#${id} .eda-type`)).toHaveText('Agent');
+    await expect(page.locator(`#${id} .eda-keywords [data-tag-kind="role"]`)).toHaveText('Agent');
   }
-  await expect(page.locator('#verilator .eda-type, #openroad-mcp .eda-type')).toHaveText(['EDA Tool', 'EDA Tool']);
+  await expect(page.locator('#verilator .eda-keywords [data-tag-kind="role"], #openroad-mcp .eda-keywords [data-tag-kind="role"]')).toHaveText(['EDA Tool', 'EDA Tool']);
 });
 
-test('public repository activity renders exactly twelve binary months, explicit repositories and latest dates', async ({ page }) => {
+test('public repository activity shows twelve binary cells, compact dates and accessible commit details', async ({ page }) => {
   await open(page);
-  for (const project of projects) {
-    const record = activity.projects[project.id];
-    const row = page.locator(`#${project.id} .catalog-activity`);
-    await expect(row).toHaveAttribute('data-activity-kind', record.kind);
-    if (record.kind !== 'github') continue;
-    await expect(row.locator('.activity-repository')).toHaveText(record.repository);
-    await expect(row.locator('.activity-repository')).toHaveAttribute('href', `https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`);
-    await expect(row.locator('.activity-strip li')).toHaveCount(12);
-    for (let i = 0; i < 12; i += 1) {
-      const month = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${activity.months[i]}-01T00:00:00Z`));
-      const bucket = row.locator('.activity-strip li').nth(i);
-      await expect(bucket).toHaveAttribute('title', `${month} · ${record.commits[i]} default-branch commits`);
-      await expect(bucket.locator('[aria-hidden]')).toHaveText(record.commits[i] > 0 ? '●' : '·');
-      await expect(bucket.locator('.visually-hidden')).toHaveText(`${month} · ${record.commits[i]} default-branch commits`);
-    }
-    await expect(row.locator('.activity-summary')).toContainText(`${record.commits.filter((n: number) => n > 0).length}/12 active months`);
-    await expect(row.locator('time')).toHaveAttribute('datetime', record.lastCommitAt);
-    await expect(row.locator('.activity-latest')).toContainText('Latest');
-    expect(await row.locator('time').evaluate((el) => Number(getComputedStyle(el).fontWeight))).toBeGreaterThanOrEqual(600);
-    const positions = await row.evaluate((el) => ({ date: el.querySelector('time')!.getBoundingClientRect().top, strip: el.querySelector('.activity-strip')!.getBoundingClientRect().top }));
-    expect(positions.date).toBeLessThan(positions.strip);
-  }
+  await expectActivityBands(rows(page), '.catalog-activity', activity);
 });
 
 test('projects without a verified repository show a neutral sourced date, with no invented activity strip', async ({ page }) => {
@@ -183,7 +167,9 @@ test('projects without a verified repository show a neutral sourced date, with n
     await expect(row.locator('.catalog-activity time')).toHaveAttribute('datetime', activity.projects[p.id].lastPublicUpdateAt);
     await expect(row.locator('.activity-latest a')).toHaveCount(0);
     const source = p.sources.find((s: { id: string }) => s.id === activity.projects[p.id].lastPublicUpdateSource);
-    await expect(row.locator('.activity-latest')).toContainText(source.purpose === 'paper' ? 'Paper' : 'Update');
+    const displayedDate = await row.locator('.activity-latest time').textContent();
+    await expect(row.locator('.activity-latest')).toHaveText(`${source.purpose === 'paper' ? 'Paper ' : ''}${displayedDate}`);
+    await expect(row.locator('.activity-summary')).toHaveCount(0);
     if (source.purpose) await expect(row.locator('.catalog-quicklinks').getByRole('link', { name: sourceLabels[source.purpose as keyof typeof sourceLabels], exact: true })).toHaveAttribute('href', source.url);
     // Public-update provenance need not also be a primary-purpose quick link.
     await expect(row.locator('.catalog-quicklinks a')).not.toHaveCount(0);
@@ -301,10 +287,6 @@ test('keyboard navigation reaches the scroll region, project links and primary l
   await expect(row.locator('.catalog-description')).toBeInViewport({ ratio: 1 });
   await page.keyboard.press('Tab');
   await expect(row.locator('.catalog-permalink')).toBeFocused();
-  if (activity.projects[ordered[0].id].kind === 'github') {
-    await page.keyboard.press('Tab');
-    await expect(row.locator('.activity-repository')).toBeFocused();
-  }
   await page.keyboard.press('Tab');
   await expect(row.locator('.catalog-quicklinks a').first()).toBeFocused();
   for (let i = 0; i < await row.locator('.catalog-quicklinks a').count(); i += 1) await page.keyboard.press('Tab');
@@ -325,21 +307,16 @@ for (const width of [1440, 390, 320]) {
       await page.screenshot({ path: info.outputPath(`landscape-${width}-scrolled.png`) });
     }
     await page.locator('[id="catalog:index"]').evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
+    await expectTitleAndIndexGeometry(rows(page), 'catalog', width);
+    await expectActivityBands(rows(page), '.catalog-activity', activity);
     if (width === 1440) {
-      const columns = await rows(page).first().locator('article').evaluate((el) => [...el.children].map((column) => column.getBoundingClientRect().width));
-      expect(columns).toHaveLength(4);
-      expect(columns[0]).toBeGreaterThan(columns[3] * 3);
-      expect(columns[0]).toBeGreaterThan(columns[1] * 1.5);
-      expect(columns[3]).toBeLessThan(columns[1]);
       const completeRows = await rows(page).evaluateAll((elements) => elements.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length);
       expect(completeRows).toBeGreaterThanOrEqual(4);
       await page.screenshot({ path: info.outputPath('index-1440.png') });
     } else {
-      const areas = await rows(page).first().locator('article').evaluate((el) => [...el.children].map((column) => { const r = column.getBoundingClientRect(); return { top: r.top, left: r.left }; }));
-      expect(areas.map((a) => a.top)).toEqual(areas.map((a) => a.top).sort((a, b) => a - b));
-      expect(new Set(areas.map((a) => a.left)).size).toBe(1);
+      await expect(page.locator('.catalog-columns')).not.toBeVisible();
     }
-    for (const project of [ordered[0], ordered[Math.floor(total / 2)], ordered.at(-1)!]) {
+    for (const project of [ordered[0], ordered[Math.floor(total / 2)], ordered.at(-1)!, ...['panda', 'autosizer', 'ngspice-openvaf-enhancements'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${project.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
       await page.screenshot({ path: info.outputPath(`project-${width}-${project.id}.png`) });
@@ -381,4 +358,11 @@ test('catalog has no storage or runtime external requests and remains isolated f
     await page.goBack();
     await expect(rows(page)).toHaveCount(total);
   }
+});
+
+test('scope circles and binary activity stay distinct in forced-color mode', async ({ page }) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  await open(page);
+  await expectScopeCircles(page.locator('.landscape-table'));
+  await expectActivityBands(rows(page), '.catalog-activity', activity);
 });

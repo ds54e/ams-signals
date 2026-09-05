@@ -6,6 +6,9 @@ export const roleLabels: Record<CatalogRole, string> = {
   'dataset-environment': 'Dataset & Environment',
 };
 
-export function projectType(roles: readonly CatalogRole[], aiBuilt = false): string {
-  return roles.map((role) => roleLabels[role]).join(' + ') + (aiBuilt ? ' · AI-built' : '');
+export function projectTags(roles: readonly CatalogRole[], aiBuilt = false): { kind: 'role' | 'ai'; label: string }[] {
+  return [
+    ...roles.map((role) => ({ kind: 'role' as const, label: roleLabels[role] })),
+    ...(aiBuilt ? [{ kind: 'ai' as const, label: 'AI-built' }] : []),
+  ];
 }
