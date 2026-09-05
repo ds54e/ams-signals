@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sitePath } from '../../lib/paths';
+import { areaIds, areaLabels, primaryLabels, aiLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/eda-tools/catalog';
+import { monthLabel, shortDate } from '../../lib/eda-tools/activity';
+import { validateActivity } from '../../lib/eda-tools/schema';
+import activityData from '../../data/eda-tools-activity.json';
+import '../../styles/eda-tools.css';
+
+const entries = await getCollection('edaTools');
+const activity = validateActivity(entries, activityData);
+const projects = sortProjects(entries, activity.projects);
+const projectLink = (slug: string) => sitePath(`eda-tools/#${slug}`);
+const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
+---
+<BaseLayout title="EDA Tools · AMS Signals" description="Public EDA tools, project scope and repository activity." lang="en">
+  <section class="eda-tools" data-eda-tools aria-labelledby="eda:heading">
+    <h1 id="eda:heading" class="visually-hidden">EDA Tools</h1>
+    <section class="eda-landscape" aria-label="EDA landscape">
+      <div class="eda-landscape-scroll" role="region" aria-label="EDA matrix; scroll horizontally for all scopes" tabindex="0">
+        <table class="eda-landscape-table" aria-describedby="eda:legend">
+          <caption class="visually-hidden">EDA scope by project</caption>
+          <thead><tr><th scope="col">Project</th>{areaIds.map((id) => <th scope="col">{areaLabels[id]}</th>)}</tr></thead>
+          <tbody>{projects.map(({ id, data }) => <tr data-eda-landscape-project={id}>
+            <th scope="row"><a href={projectLink(id)}>{data.name}</a></th>
+            {areaIds.map((area) => {
+              const state = data.areas[area];
+              const meaning = state ? scopeLabels[state] : 'No primary reviewed scope identified';
+              return <td data-area={area} data-scope={state ?? ''} title={`${data.name} · ${areaLabels[area]}: ${meaning}`}>
+                <span aria-hidden="true" class:list={['eda-scope-mark', state]}>{state === 'core' ? '●' : state === 'supporting' ? '◐' : ''}</span>
+                <span class="visually-hidden">{meaning}</span>
+              </td>;
+            })}
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <p id="eda:legend" class="eda-legend"><span>● core</span><span>◐ supporting</span></p>
+    </section>
+
+    <section id="eda:index" aria-label="Project index">
+      <div class="eda-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Activity</span><span>Type / Links</span></div>
+      <ol class="eda-list" aria-label="Projects">
+        {projects.map(({ data, id }) => {
+          const record = activity.projects[id];
+          return <li id={id} class="eda-project" data-eda-project tabindex="-1">
+            <article aria-labelledby={`${id}--name`}>
+              <div class="eda-overview">
+                <h2 id={`${id}--name`}><a class="eda-permalink" href={projectLink(id)} aria-label={`Permalink to ${data.name}`}>{data.name}<span aria-hidden="true"> #</span></a></h2>
+                <p class="eda-description">{data.description}</p>
+              </div>
+              <ul class="eda-keywords" aria-label={`${data.name} keywords`}>{data.keywords.map((keyword) => <li>{keyword}</li>)}</ul>
+              <div class="eda-activity" data-activity-kind={record.kind}>
+                <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
+                {record.kind === 'github' ? <>
+                  <p class="eda-activity-latest">Latest <time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
+                  <a class="eda-activity-repository" href={`https://github.com/${record.repository}/commits/${encodeURIComponent(record.defaultBranch)}/`} title={`Default branch: ${record.defaultBranch}`}>{record.repository}</a>
+                  <ul class="eda-activity-strip" aria-label={`${data.name}: ${windowLabel}; default branch ${record.defaultBranch}`}>
+                    {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
+                      <span aria-hidden="true">{record.commits[index] > 0 ? '●' : '·'}</span>
+                      <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} default-branch commits</span>
+                    </li>)}
+                  </ul>
+                  <p class="eda-activity-summary">{record.commits.filter((count) => count > 0).length}/12 active months</p>
+                </> : <p class="eda-activity-latest">Update <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
+              </div>
+              <div class="eda-links">
+                <p class="eda-type">{primaryLabels[data.primary]} · <span>{aiLabels[data.ai]}</span></p>
+                <ul class="eda-quicklinks" aria-label={`${data.name} primary links`}>
+                  {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+                </ul>
+              </div>
+            </article>
+          </li>;
+        })}
+      </ol>
+    </section>
+  </section>
+</BaseLayout>
