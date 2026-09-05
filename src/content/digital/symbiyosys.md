@@ -2,13 +2,9 @@
 name: "SymbiYosys"
 aliases: ["sby"]
 roles: ["eda-tool"]
-primary: "formal-verification"
 ai: "traditional"
 description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."
-keywords: ["formal", "BMC", "prove/cover", "Yosys"]
-areas:
-  formal-verification: core
-  frontend-synthesis: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Proof, bounded-check and cover modes invoke Yosys transformations and external engines. Synthesis is supporting preparation for formal tasks. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Tracked as a conventional formal-flow driver, without an AI requirement. [Review
 The meaningful date uses the implemented rIC3 engine integration; later formatting and configuration cleanup do not renew it. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Bounded checks, proofs and cover tasks are the user-facing operations. Synthesis-tool preparation is an implementation dependency of the proof driver. [Reviewed source](#source-readme).

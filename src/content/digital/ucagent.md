@@ -2,13 +2,9 @@
 name: "UCAgent"
 aliases: []
 roles: ["agent"]
-primary: "formal-verification"
 ai: "ai-enabled"
 description: "Agentic unit-level verification environment that analyzes DUTs, generates and runs tests, checks coverage and connects external code agents through MCP."
-keywords: ["unit verification", "coverage", "MCP", "code agents"]
-areas:
-  formal-verification: core
-  simulation: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-DUT analysis, generated tests, execution checkers and coverage closure define the main workflow. Simulator bindings support the verification environment. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Agent backends and MCP collaboration are implemented runtime paths. The optional
 Public examples and checkers define specific execution contracts; their existence does not independently demonstrate arbitrary-DUT coverage closure. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+DUT analysis, generated tests, execution checkers and coverage closure are verification. MCP collaboration and code-agent backends do not independently establish DUT generation. [Reviewed source](#source-readme).

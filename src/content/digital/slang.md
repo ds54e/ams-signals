@@ -2,12 +2,9 @@
 name: "slang"
 aliases: []
 roles: ["eda-tool"]
-primary: "frontend-synthesis"
 ai: "traditional"
-description: "SystemVerilog compiler frontend providing parsing, type checking, semantic analysis and elaboration through reusable C++ and Python language services."
-keywords: ["SystemVerilog", "elaboration", "static analysis", "pyslang"]
-areas:
-  frontend-synthesis: core
+description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations for code tooling, including pyslang Python bindings."
+flow: {"design":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Parsing, semantic checking and elaboration are the reviewed product scope. Downstream consumers supply simulation or synthesis execution. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -44,3 +38,7 @@ Tracked as a conventional reusable compiler frontend; AI involvement is not a de
 Language services and elaborated design models should not be described as a standalone simulator or synthesis engine. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+The standalone frontend exposes elaborated design representations and round-trippable syntax for code generation/refactoring; this is more than a simulator's internal parser. Static diagnostics and linting support verification. It does not itself perform logic synthesis. [Reviewed source](#source-readme).

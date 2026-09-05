@@ -3,8 +3,7 @@ name: "ARCS"
 roles: ["eda-tool"]
 summary: "Joint circuit-topology and component-value generation."
 description: "Generates circuit connectivity and component values from target specifications, then uses ngspice evaluation and simulation-reward training to improve candidates across power-converter, amplifier and filter families."
-keywords: ["Topology generation","Component sizing","Simulation rewards","Power converters"]
-workflow: {"generate-edit":"core","simulate-measure":"core","optimize":"core"}
+flow: {"design":"core","simulation":"core"}
 access: "Python/PyTorch and ngspice; generation and training depend on the selected released model and dataset configuration."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -41,3 +40,7 @@ The current implementation is under `src/arcs`, alongside an older `circuitgenie
 ### Results
 
 The repository contains a manuscript and recorded multi-seed comparisons. These are author-produced experiments; the catalog did not retrain models or reproduce the numbers. Generation, simulation and component optimization are core reviewed operations. No LLM reasoning or physical-layout mark is inferred from the generator. [Manuscript](#source-paper-arcs-paper-tex) · [Results](#source-results-arch-multiseed-json) · [Simulator](#source-src-arcs-spice-py)
+
+### Flow scope
+
+Learned topology/component-value generation and SPICE-based candidate evaluation are explicit parts of the released generation and ranking pipeline. [Reviewed source](#source-paper-arcs-paper-tex).

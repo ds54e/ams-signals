@@ -4,10 +4,7 @@ aliases: []
 roles: ["eda-tool"]
 summary: "Edits hierarchical schematics and emits simulator-ready netlists."
 description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting, open-PDK examples and integration with ngspice and Xyce."
-keywords: ["Schematic capture", "Netlisting", "Open PDK", "Tcl"]
-workflow:
-  generate-edit: core
-  eda-integration: supporting
+flow: {"design":"core","simulation":"supporting"}
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -36,8 +33,12 @@ sources:
 
 ### Scope
 
-Edits hierarchical, parameterized schematics and produces SPICE, Verilog and VHDL netlists. Simulator invocation and backannotation support the editing workflow. Generate / Edit is core; EDA Integration is supporting. [Manual](#source-manual).
+Edits hierarchical, parameterized schematics and produces SPICE, Verilog and VHDL netlists. Simulator invocation and backannotation support the editing workflow. Design is core, with supporting Simulation through these external tools. [Manual](#source-manual).
 
 ### Release boundary
 
 The author advertises both GitHub and Codeberg during a migration. This snapshot uses only the explicitly requested, still-updated author GitHub repository; it does not combine host histories. Re-check the canonical host before refreshing after the transition. [Migration notice](#source-readme) and [official site](#source-site).
+
+### Flow scope
+
+Schematic capture and hierarchical netlisting are central. Simulator launch and result back-annotation support circuit analysis through external ngspice/Xyce tools. [Reviewed source](#source-readme).

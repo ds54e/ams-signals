@@ -2,14 +2,8 @@
 name: "virtuoso-agent"
 roles: ["agent"]
 summary: "Runs an LLM parameter-tuning loop for existing circuits using specification checks from Maestro/Spectre or remote HSpice."
-description: "Reads a Markdown specification of goals, tunable variables, and measurements, then proposes parameter updates and checks simulation results until the specification passes or the iteration limit is reached. Supports Maestro/Spectre with OCEAN and PSF, plus remote HSpice measurements."
-keywords: ["Cadence", "Maestro", "Spectre", "Closed-loop"]
-workflow:
-  reasoning: supporting
-  generate-edit: supporting
-  simulate-measure: core
-  optimize: core
-  eda-integration: core
+description: "Tunes circuit parameters against specification targets in a closed loop using Virtuoso/Maestro/Spectre measurements or remote HSpice simulations."
+flow: {"design":"core","simulation":"core"}
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
 addedAt: "2026-09-05"
@@ -31,6 +25,6 @@ A Markdown specification defines goals, tunable variables, and measurement rules
 
 The Virtuoso path builds on virtuoso-bridge-lite, adding specification evaluation and LLM control. An LC VCO specification template is neither a supplied circuit nor a measured design result. Public tests include mocks; integration requires an accessible EDA host. The repository does not establish unrestricted topology synthesis or verified operation across arbitrary PDKs and circuits. [Prerequisites and tests](#source-review)
 
-### Landscape scope
+### Flow scope
 
-Simulation, specification-driven optimization, and EDA integration define the loop. Reasoning supports parameter proposals; Generate / Edit is constrained to existing-circuit parameter changes, not unrestricted topology synthesis. No physical/layout scope is identified in this workflow. [Backend and execution contract](#source-review)
+Parameter editing, electrical measurements and iterative specification closure form the central loop through Virtuoso/Maestro/Spectre or remote HSpice. Layout is not inferred from its bridge dependency. [Reviewed source](#source-review).

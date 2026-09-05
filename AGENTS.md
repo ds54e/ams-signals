@@ -8,7 +8,7 @@ Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add ta
 
 For work on the standalone Analog catalog at `/analog/`, also read `docs/analog/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
 
-For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page, matrix describes scope, and authored roles describe project kind. Only proven AI-built development provenance is shown publicly; Digital AI-enabled/Traditional metadata stays internal. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
+For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page, Flow describes design-stage scope, and authored roles describe project kind. Only proven AI-built development provenance is shown publicly; Digital AI-enabled/Traditional metadata stays internal. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
 
 ## Purpose
 

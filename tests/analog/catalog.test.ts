@@ -4,14 +4,14 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
-import { projectDetailAnchors, sortProjects } from '../../src/lib/analog/catalog.ts';
+import { flowIds, flowLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 const valid = () => ({
   name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
   description: 'Compares netlist connectivity and device ratios against reference circuits.',
-  keywords: ['Topology', 'Relative sizing', 'Structural only'], workflow: { 'generate-edit': 'core' },
+  flow: { design: 'core' },
   addedAt: '2026-09-05', reviewedAt: '2026-09-05',
   sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
 });
@@ -53,12 +53,6 @@ test('public activity sorts newest first, using paper dates and deterministic na
   assert.deepEqual(sortProjects(input, activity).map((p) => p.id), expected);
   activity.old = { kind: 'github', lastCommitAt: '2026-09-05' };
   assert.equal(sortProjects(input, activity)[0].id, 'old');
-});
-
-test('legacy detail IDs survive simplification without treating text or link destinations as IDs', () => {
-  const html = '<h3 id="evaluation">Evaluation</h3><a id="ref" href="#source-code">Source</a><a href="https://github.com/">Code</a><code>id="plain"</code>';
-  assert.deepEqual(projectDetailAnchors(html, 'project-a'), ['project-a--evaluation', 'project-a--ref']);
-  assert.deepEqual(projectDetailAnchors('<p>No heading</p>', 'project-a'), []);
 });
 
 test('dashboard descriptions are required, concise, and free of placeholders', () => {
@@ -109,17 +103,15 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   validateCatalog(projects, []); validateActivity(projects, activity);
   assert.equal(projects.length, 35);
   const baselines = {
-    ngspice: { 'simulate-measure': 'core' },
-    xyce: { 'simulate-measure': 'core' },
-    xschem: { 'generate-edit': 'core', 'eda-integration': 'supporting' },
-    'openvaf-reloaded': { 'simulate-measure': 'supporting', 'eda-integration': 'core' },
-    klayout: { 'eda-integration': 'supporting', physical: 'core' },
-    magic: { physical: 'core' },
-    align: { 'generate-edit': 'core', physical: 'core' },
+    ngspice: { simulation: 'core' }, xyce: { simulation: 'core' },
+    xschem: { design: 'core', simulation: 'supporting' },
+    'openvaf-reloaded': { simulation: 'supporting' },
+    klayout: { layout: 'core' }, magic: { layout: 'core' },
+    align: { design: 'supporting', layout: 'core' },
   };
-  for (const [id, workflow] of Object.entries(baselines)) {
+  for (const [id, flow] of Object.entries(baselines)) {
     const project = projects.find((p) => p.id === id)!;
-    assert.ok(project, id); assert.deepEqual(project.data.workflow, workflow);
+    assert.ok(project, id); assert.deepEqual(project.data.flow, flow);
     assert.deepEqual(project.data.roles, ['eda-tool']);
     assert.equal(project.data.aiBuilt, undefined);
     if (id !== 'ngspice') {
@@ -129,7 +121,7 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   }
   const moved = 'ngspice-openvaf-enhancements';
   assert.deepEqual(projects.filter((p) => p.data.aiBuilt).map((p) => p.id), [moved]);
-  assert.deepEqual(projects.find((p) => p.id === moved)!.data.workflow, { 'simulate-measure': 'core', 'eda-integration': 'core' });
+  assert.deepEqual(projects.find((p) => p.id === moved)!.data.flow, { simulation: 'core' });
   assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   assert.equal(typeof activity.projects[moved].repositoryId, 'number');
   assert.match(activity.projects[moved].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
@@ -159,6 +151,25 @@ test('optional pinned activity evidence preserves transferred identity and requi
   }
 });
 
+test('Analog Flow distinguishes design tasks, central evaluation, optional feedback and layout primitives', async () => {
+  const scopes = {
+    analogsage: { design: 'core', simulation: 'supporting' },
+    autosizer: { design: 'core', simulation: 'core' },
+    analoggym: { design: 'core', simulation: 'core' },
+    panda: { design: 'core', simulation: 'core', layout: 'core' },
+    eeschematic: { design: 'core' }, circuitrubric: { design: 'core' },
+    'razavi-bench': { design: 'core', simulation: 'supporting' },
+    'virtuoso-agent': { design: 'core', simulation: 'core' },
+    'virtuoso-bridge-lite': { design: 'core', simulation: 'core', layout: 'supporting' },
+    vcli: { design: 'core', simulation: 'core', layout: 'supporting' },
+    zerosim: { simulation: 'core' }, evas: { simulation: 'core' },
+  };
+  for (const [id, flow] of Object.entries(scopes)) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    assert.deepEqual(analogSchema.parse(frontmatter).flow, flow, id);
+  }
+});
+
 test('catalog rejects placeholders and coupling to factual or editorial records', () => {
   for (const data of [
     { ...valid(), summary: 'TODO: add summary' }, { ...valid(), relatedEvents: ['event-a'] },
@@ -182,15 +193,17 @@ test('stable slugs and bounded updates validate independently of re-review', () 
   assert.deepEqual(validateCatalog([], []), []);
 });
 
-test('keywords are bounded concise freeform text; workflow accepts only reviewed states and known fields', () => {
-  for (const keywords of [[], ['One', 'Two'], ['A', 'B', 'C', 'D', 'E', 'F'], ['One', 'one', 'Three'], ['One', 'Ｏｎｅ', 'Three'], ['One', 'Two', ' '], ['One', 'Two', 'x'.repeat(29)]]) {
-    assert.equal(analogSchema.safeParse({ ...valid(), keywords }).success, false);
+test('Analog Flow has only three stages, reviewed states and at least one meaningful scope', () => {
+  assert.deepEqual(flowIds, ['design', 'simulation', 'layout']);
+  assert.deepEqual(flowIds.map((id) => flowLabels[id]), ['Design', 'Simulation', 'Layout']);
+  for (const flow of [undefined, {}, { design: undefined }, { design: 'planned' }, { design: false }, { design: null }, { quality: 'core' }, { verification: 'core' }]) {
+    assert.equal(analogSchema.safeParse({ ...valid(), flow }).success, false);
   }
-  for (const workflow of [{ reasoning: 'planned' }, { reasoning: false }, { reasoning: null }, { maturity: 'core' }, { physical: 'complete' }]) {
-    assert.equal(analogSchema.safeParse({ ...valid(), workflow }).success, false);
+  assert.ok(analogSchema.safeParse({ ...valid(), flow: { simulation: 'supporting' } }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), flow: { design: 'core', layout: 'supporting' } }).success);
+  for (const removed of ['keywords', 'workflow']) {
+    assert.equal(analogSchema.safeParse({ ...valid(), [removed]: {} }).success, false);
   }
-  assert.ok(analogSchema.safeParse({ ...valid(), workflow: {} }).success);
-  assert.ok(analogSchema.safeParse({ ...valid(), workflow: { reasoning: 'core', physical: 'supporting' } }).success);
 });
 
 test('activity uses exactly twelve consecutive calendar months ending at the snapshot month', () => {

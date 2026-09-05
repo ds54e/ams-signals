@@ -2,13 +2,9 @@
 name: "HAVEN"
 aliases: []
 roles: ["agent"]
-primary: "formal-verification"
 ai: "ai-enabled"
-description: "Spec-driven UVM generator translating LLM protocol intent through a constrained DSL, then using VCS coverage and VC Formal feedback to refine stimulus."
-keywords: ["UVM generation", "protocol DSL", "coverage closure", "VCS", "VC Formal"]
-areas:
-  formal-verification: core
-  simulation: supporting
+description: "Generates UVM environments from protocol specifications through a constrained DSL, then refines coverage using VCS simulation and VC Formal feedback."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "results"
 ---
 
-### Scope
-
-LLM planning and DSL-to-UVM code generation feed simulation and coverage-directed stimulus refinement. VC Formal identifies unreachable coverage targets. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ LLM inference is an operating component of the generation and coverage loop, so 
 The released framework includes a 16-design suite. Coverage results are author-reported, and formal exclusion of unreachable targets is not proof of overall DUT correctness. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Generated protocol sequences, UVM testbenches, coverage feedback and formal dead-code checks all serve verification. Creating a testbench is not generating the DUT design. [Reviewed source](#source-readme).

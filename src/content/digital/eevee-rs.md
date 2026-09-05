@@ -2,14 +2,9 @@
 name: "eevee-rs"
 aliases: []
 roles: ["eda-tool"]
-primary: "simulation"
 ai: "traditional"
 description: "Rust event-driven SystemVerilog simulator with four-state execution, class elaboration and early runs of the unmodified Accellera UVM library."
-keywords: ["SystemVerilog", "UVM", "event-driven", "Rust"]
-areas:
-  simulation: core
-  formal-verification: core
-  frontend-synthesis: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,9 +24,6 @@ sources:
     url: "https://github.com/dellerbr/eevee-rs/commit/f37ad6a3c742685e25a37335c66fd7288ed27501"
 ---
 
-### Scope
-
-The runtime schedules events and nonblocking assignments, while class elaboration enables UVM execution probes. UVM is a central development target, so verification is core scope. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -42,3 +34,7 @@ Tracked as a conventional simulator implementation. The reviewed material does n
 The public release is pre-alpha. Demonstrated UVM probes and strict/resilient elaboration modes do not imply complete UVM or IEEE 1800-2023 conformance. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+SystemVerilog execution and UVM testbench behavior are the central purpose. Internal parsing, elaboration and code generation serve simulation and do not establish Design or Synthesis. [Reviewed source](#source-readme).

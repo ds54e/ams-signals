@@ -2,14 +2,9 @@
 name: "VerifyRTL"
 aliases: []
 roles: ["agent"]
-primary: "formal-verification"
 ai: "ai-enabled"
 description: "LLM-assisted verification pipeline generating plans and properties, running Icarus simulations and SymbiYosys checks, and explaining failures with trace evidence."
-keywords: ["verification plan", "SVA", "SymbiYosys", "coverage", "LLM"]
-areas:
-  formal-verification: core
-  simulation: supporting
-  debug-waveform: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,9 +24,6 @@ sources:
     url: "https://github.com/nimishadeepak10/verify-rtl/commit/c455810d41412873ae549c0131dcf18c50755662"
 ---
 
-### Scope
-
-Planning, property generation and tool-grounded checks are core verification operations. Simulation backends and trace explanations support the loop. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -42,3 +34,7 @@ LLMs propose verification artifacts and explanations at runtime; actual simulati
 Coverage, bounded checks and unbounded proofs are separate outcomes. Unsupported temporal property forms are not silently interpreted as equivalent same-cycle checks. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Plans, properties, Icarus runs, SymbiYosys checks and trace explanations serve verification. Coverage and bounded/unbounded proof outcomes remain distinct. [Reviewed source](#source-readme).

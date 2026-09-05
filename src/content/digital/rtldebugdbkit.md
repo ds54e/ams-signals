@@ -2,13 +2,9 @@
 name: "RTLDebugDBKit + RTLTracer"
 aliases: []
 roles: ["eda-tool"]
-primary: "debug-waveform"
 ai: "traditional"
 description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."
-keywords: ["static RTL debug", "SQLite", "fanin/fanout", "bit tracing"]
-areas:
-  debug-waveform: core
-  frontend-synthesis: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,9 +27,6 @@ sources:
     url: "https://github.com/neveltyc/RTLTracer"
 ---
 
-### Scope
-
-RTLDebugDBKit exports slang-elaborated structure and dependency facts. RTLTracer consumes its versioned database for path and bit-window propagation. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -46,3 +39,7 @@ The database holds static relations, not runtime waveform values. Only RTLDebugD
 [Implementation inspected](#source-implementation).
 
 [Related RTLTracer source](#source-rtltracer).
+
+### Flow scope
+
+The elaborated SQLite dependency database and RTLTracer queries support read-only signal/debug analysis. Building a debug representation does not generate or transform the user's RTL design. [Reviewed source](#source-readme).

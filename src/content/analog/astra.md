@@ -2,9 +2,8 @@
 name: "ASTRA"
 roles: ["agent"]
 summary: "Reasoning-guided initialization and Bayesian transistor sizing."
-description: "Combines retrieved analog design knowledge and gm/ID lookup tables with LLM-selected transistor priorities to initialize sizing and focus Bayesian optimization on a two-stage OTA."
-keywords: ["gm/ID","Knowledge retrieval","Bayesian sizing","OTA"]
-workflow: {"reasoning":"core","generate-edit":"supporting","simulate-measure":"supporting","optimize":"core"}
+description: "Combines retrieved design knowledge and gm/ID initialization with Bayesian transistor sizing, using simulator feedback through an external evaluation adapter."
+flow: {"design":"core","simulation":"supporting"}
 access: "Python, LLM access, a knowledge database, gm/ID tables and a configured ngspice/KATO simulation environment."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -35,3 +34,7 @@ The author repository implements RAG-assisted initialization, transistor-priorit
 ### Release boundary
 
 The simulation adapter contains real ngspice calls but imports the external KATO/lyngspice environment and references local netlists and lookup tables. Those dependencies are not all in the captured tree. Simulation is supporting scope for this partial integration; optimization and reasoning are central implemented algorithms. No EDA-session or physical-design mark follows from the MCP interface alone. [Simulation adapter](#source-examples-simulation-ota-two-py)
+
+### Flow scope
+
+Design-knowledge retrieval, gm/ID initialization and Bayesian transistor sizing are central. The externally integrated simulator supplies supporting feedback. [Reviewed source](#source-readme-en-md).

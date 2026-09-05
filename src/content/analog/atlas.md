@@ -3,13 +3,8 @@ name: "ATLAS"
 aliases: ["ATLAS SAR ADC"]
 roles: ["agent"]
 summary: "A paper-described SAR ADC flow using expert templates, LLM planning and netlist assembly, and simulation-guided sizing."
-description: "The paper describes agents selecting comparator, DAC, and SAR-logic templates, adjusting bit width, assembling a SAR ADC, and adapting its testbench. Simulation feedback supports debugging, while a sizing agent selects variables and ranges for Bayesian optimization."
-keywords: ["SAR ADC", "Spectre", "Template-based", "Paper-only", "Human-in-the-loop"]
-workflow:
-  reasoning: supporting
-  generate-edit: supporting
-  simulate-measure: core
-  optimize: supporting
+description: "The paper describes template-based SAR ADC assembly and sizing, with Spectre testbench feedback and expert checks guiding the agent flow."
+flow: {"design":"core","simulation":"core"}
 targets: "SAR ADCs assembled from comparator, DAC, and SAR-logic templates"
 access: "Paper available; a public ATLAS implementation was not verified. Main experiments use GPT-4o, Cadence Spectre, and GPDK45."
 notice: "Human experts check agent components and rectify testbenches. The reported work excludes layout."
@@ -29,6 +24,6 @@ Retrieved design knowledge guides template selection and parameterization. Agent
 
 The authors report an eight-bit SAR ADC simulation meeting their selected specifications, plus additional case studies. This supports a constrained design strategy with expert intervention, not unrestricted topology synthesis, full autonomy, or fabricated-silicon performance. [Experiments and limitations](#source-paper)
 
-### Landscape scope
+### Flow scope
 
-Planning and generation are constrained by retrieved expert knowledge and component templates. Simulation is central to the reported validation; sizing uses an external optimizer with LLM-selected parameters and ranges. These marks describe the paper, not a verified code release. Human intervention remains part of the flow, and layout is excluded. [Method and experiments](#source-paper)
+Template selection, SAR ADC assembly and sizing are central design tasks in the paper; testbench adaptation and Spectre validation are also central. Core describes that reported task scope, not release completeness, unconstrained synthesis or autonomy. [Reviewed source](#source-paper).

@@ -2,14 +2,9 @@
 name: "CIRCT"
 aliases: []
 roles: ["eda-tool"]
-primary: "frontend-synthesis"
 ai: "traditional"
 description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs, synthesis transformations, simulation-oriented lowering and formal-checking tools."
-keywords: ["MLIR", "hardware IR", "compiler infrastructure", "synthesis"]
-areas:
-  frontend-synthesis: core
-  simulation: supporting
-  formal-verification: supporting
+flow: {"design":"core","synthesis":"core","verification":"supporting"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Upstream hardware IR and transformations are central. LLHD event semantics and the upstream circt-bmc/LEC tools justify supporting simulation and formal scope. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -46,3 +38,7 @@ This entry is upstream LLVM CIRCT. A general AI contribution policy does not mak
 Only upstream files and tools were used for classification. No Normal-fork conformance or simulator results are attributed to upstream. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Hardware IR construction/lowering and synthesis-oriented transformations are central upstream capabilities. LLHD and upstream BMC/LEC tooling support verification; no unavailable Normal Computing fork functionality is attributed upstream. [Reviewed source](#source-readme).

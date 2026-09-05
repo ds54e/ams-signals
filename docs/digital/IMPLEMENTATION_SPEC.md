@@ -1,45 +1,41 @@
 # Digital implementation contract
 
-## Isolation and files
+## Isolation and data
 
-Use the `digital` Astro Markdown collection at `src/content/digital/*.md`, a Digital-specific page, schema/catalog/activity modules and CSS. Do not refactor Analog to share its schema. Static activity lives separately in `src/data/digital-activity.json`. Body prose is internal research and is never rendered by the page.
+Use the `digital` Astro collection in `src/content/digital/`, its own schema/catalog/activity modules in `src/lib/digital/`, page in `src/pages/digital/` and stylesheet in `src/styles/digital.css`. Activity stays in `src/data/digital-activity.json`. Catalogs share only small content-independent helpers and the site shell; never couple them to factual/editorial records or export.
 
-Use `Digital` after `Analog` in primary navigation, using the deployment base path and route-specific `aria-current="page"`. Use browser title `Digital · AMS Signals`, hidden H1 `Digital`, and metadata describing RTL/digital tools and agents. It must not participate in Timeline/Events filter links or storage. The page, library, tests and documentation live in `src/pages/digital/`, `src/lib/digital/`, `tests/digital/` and `docs/digital/`; styling is `src/styles/digital.css`. Only `/analog/` and `/digital/` are supported catalog routes. Do not generate removed routes, redirects, aliases or compatibility scripts.
+Public route `/digital/`, hidden H1 `Digital`, title `Digital · AMS Signals`. Use technical domain metadata, unchanged noindex/nofollow, and **Timeline | Events | Analog | Digital | Articles** navigation with correct base-path URLs and `aria-current`. There is no client catalog state or fetching.
 
-## Strict content schema
+Strict schema: `name`, optional `aliases`, one or two distinct `roles`, internal `ai` (`ai-built`, `ai-enabled`, `traditional`), one English single-paragraph `description` (600 characters), required `flow`, `access`, valid `addedAt`/`reviewedAt`, and `sources`. Review cannot precede addition.
 
-Filenames are unique stable lowercase hyphenated slugs. Each record contains:
+Source IDs are unique stable slugs; URLs are public HTTP(S), non-placeholder and credential-free. At most one source per quick-link purpose (`official`, `paper`, `code`, `results`). Markdown stores durable implementation, classification and release notes with validated local `#source-ID` references; keep external URLs in frontmatter. Body prose is not rendered on the index. Unknown fields fail validation. Keep stable filenames/project IDs for content identity, not as a public fragment-navigation contract.
 
-| Field | Contract |
-| --- | --- |
-| `name`, `aliases` | Project identity; aliases default to an empty array. |
-| `roles` | One or two distinct values from the shared catalog role enum: `agent`, `benchmark`, `eda-tool`, `dataset-environment`. Public labels are Agent, Benchmark, EDA Tool, Dataset & Environment. |
-| `primary` | Exactly one of `simulation`, `frontend-synthesis`, `formal-verification`, `debug-waveform`, `flow-physical`. |
-| `ai` | Exactly `ai-built`, `ai-enabled` or `traditional`, retained internally. Only `ai-built` is rendered publicly. |
-| `description` | One concise English paragraph, at most 600 characters; shown once below the name. |
-| `keywords` | 3–5 English strings, at most 28 characters each; normalized duplicates rejected. |
-| `areas` | Only the five primary-category keys, each optional `core` or `supporting`; at least one core and `areas[primary] === "core"`. |
-| `access` | Internal implementation/release-access context. |
-| `addedAt`, `reviewedAt` | Valid quoted calendar dates; review cannot precede addition. Hidden in the public UI. |
-| `sources` | Unique stable source IDs, titles and valid public HTTP(S) URLs; no more than one `official`, `paper`, `code` or `results` purpose. Additional research sources have no purpose. |
+## Flow
 
-The Markdown body holds durable Scope / Classification / Release boundary notes and local `#source-ID` references. Keep URLs in frontmatter; reject raw external URLs, HTML and unknown local source references. Unknown schema fields and placeholder content fail validation.
+The strict required `flow` object accepts only the following optional fields, ordered as listed; each value is `core` or `supporting`. At least one defined stage is required. An enabling tool may legitimately have only supporting scope; do not manufacture a core mark to satisfy validation.
 
-## Matrix and index
+- `design` → Design: RTL generation/editing/repair and user-facing design representation/IR transformations. A simulator's internal parser or a read-only debug database does not establish this stage.
+- `synthesis` → Synthesis: logic synthesis, technology mapping, synthesis-driven optimization and actual synthesis/PPA loops.
+- `verification` → Verification: RTL/gate simulation, testbenches, formal/model/equivalence checking, coverage, debug and waveform inspection.
+- `layout` → Layout: floorplanning, placement, CTS, routing, backend timing/closure and implementation flows.
 
-Matrix columns, in order: Simulation; Frontend / Synth; Formal / Verify; Debug / Wave; Flow / Physical. Use an accessible HTML table with row/column headers and a hidden caption. Use equally sized CSS-drawn circles, filled for core and open/bordered for supporting, with legend `● core   ○ supporting`. Missing metadata renders a blank with no circle. Tooltips and accessible labels communicate `Core scope`, `Supporting scope` and `No reviewed scope`. Preserve the distinction in monochrome and forced-color modes; do not depend on Unicode glyph shapes. Marks do not measure quality or maturity.
+Review standalone frontends individually: reusable design APIs differ from synthesis-oriented lowering. Testbench/assertion generation belongs to Verification, not DUT Design. Synthesis timing alone is not Layout; clock-tree synthesis belongs to Layout, not logic Synthesis.
 
-The matrix is the first visible content. The compact legend immediately follows it. Its first column sticks within a horizontally scrollable, keyboard-focusable region. Narrow screens scroll only this region, not the page.
+Core is a central user-facing capability/task/deliverable. Supporting is a secondary, optional, feedback, integration or enabling role. Re-review each project against its sources; do not derive scope from its name or dependencies. Plans get no marks. Missing stages are omitted and do not assert inability. Roles, AI provenance and Flow remain independent authored concepts.
 
-Both matrix and index sort by `lastCommitAt` for reviewed repository-backed history or `lastPublicUpdateAt` otherwise, descending; then NFKC-normalized lowercase trimmed project name, then slug, ascending. Sorting does not mutate authored inventory and does not use meaningful activity as the ordering date.
+## Index and accessibility
 
-The index begins with column labels, not a section heading. Use exactly three columns: Project, Keywords, Activity, using `minmax(0, 2.8fr) minmax(0, 1.15fr) 108px` at unchanged page width. The fixed Activity column returns the remaining space to Project and Keywords. Mobile stacks the same three areas. Render individual role tags first in authored order, followed by an `AI-built` tag only for explicitly approved entries, then the existing technical keywords. Use one restrained visual tag group with `data-tag-kind` for role/AI/keyword distinctions; keep the underlying metadata separate. Never display primary category, AI-enabled or Traditional as public type labels. Keep Website / Paper / Code / Results links in that order beside the title, using a wrapping, left-aligned flex row with links immediately after the name and a 16px gap. Let links wrap directly below on small screens; no truncation, icons or fixed-width link box. Keep the description below this title row and preserve every primary URL. Do not show full research sources, prerequisites or notes. The project name is the native permalink, without a visible `#` or replacement icon; retain its accessible label. Native hash anchors identify focusable project rows; no client JavaScript is needed for permalinks, reload or history.
+Only **Project | Flow | Activity**. The column-header row is the first visible catalog content. Catalog max width is **1120px**, centered within the existing page shell; no global width change. Desktop columns are **`minmax(0, 1fr) 236px 108px`**, with **22px gaps**. At full width Project is **732px**. Below 900px stack the three areas in document order and hide the desktop header. No horizontal scrolling, oversized cards or extra prose.
 
-## Domain membership
+Each row has an article with an accessible name, plain-text H2, compact authored role metadata followed by approved AI-built, then external links. Use a baseline-aligned wrapping flex title row, left aligned with **12px gaps**. Links remain Website, Paper, Code, Results, in that order and only when authored. No icons, self-links, fragment aliases or empty research-anchor elements. IDs required for article labelling remain. A single concise capability description appears below; retain essential technical identifiers naturally when condensing it.
 
-Keep the 33 existing Digital entries after moving Ngspice + OpenVAF Enhancements and its complete activity record to Analog. Dr. RTL, VerifyRTL, HAVEN, UCAgent, Spec2Cov and CoreSmith have the authored Agent role; all other current Digital entries use EDA Tool. Preserve their areas, primary category, internal AI relations, activity and source notes. The AI-built set is unchanged except for the moved entry: xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp. The moved entry keeps its slug on Analog; no duplicated record or redirect remains here.
+Flow is a labelled list of inline wrapping stages, not forced separate lines. Each item has the stage label, a same-size CSS circle (filled core, open supporting), a matching tooltip and accessible Core scope/Supporting scope text. Shape works in monochrome and forced colors. No standalone legend or overview.
 
-## Activity snapshot
+Sort by latest public activity descending: repository `lastCommitAt`, otherwise `lastPublicUpdateAt`; then NFKC-normalized lower-case trimmed name and slug ascending. Do not mutate authored input. Meaningful dates govern eligibility, not ordering. Month counts never rank projects.
+
+Without JavaScript, all rows, Flow, activity metadata and external links work in static HTML. There are no disclosures, storage, search, filtering, self-permalink handlers or compatibility scripts. Preserve all source URLs and the independent Timeline/Events viewer.
+
+## Reviewed public activity
 
 Top-level fields: `reviewedAt`, UTC `capturedAt` on that date, `method: first-parent-committer-utc`, exactly twelve consecutive calendar `months` ending in the snapshot month, and one `projects` record per catalog slug. The current month is partial. Unknown or missing project IDs fail validation.
 
@@ -62,12 +58,12 @@ The **12-month reviewed public activity band** is a rendering view shared by bot
 
 For point cells, titles/accessibility text say `July 2026 · paper publication`, `August 2026 · release` or the corresponding public update. Other months say `no reviewed public activity signal`, never `0 commits`. An inactive month does not establish that development stopped. Every row retains date / twelve binary cells / `N/12 months`. Commit volume never changes visible strength; source types, source IDs and raw repository counts stay available in metadata and hover/accessibility detail. No public methodology prose is added.
 
-## Refresh and validation
+## Validation and delivery
 
-`npm run refresh:digital-activity` is manual only. For GitHub it verifies public/nonfork/nonarchived repository identity, including numeric repository ID to reject replacements, resolves the default branch, makes a bare blob-filtered single-branch clone and counts first-parent committer dates in UTC. It verifies that the manually recorded meaningful commit remains in that first-parent history with the same date. It never advances that date/SHA. Non-GitHub monthly records and point updates are preserved for manual review; a changed month window cannot silently shift their buckets.
+`validate:digital` and `test:digital` run inside `npm run check`. Validate stable unique IDs, strict nonempty Flow and supported states, independent role/provenance fields, concise descriptions, source URLs/IDs/purposes, complete activity coverage, valid consecutive months/counts/dates, canonical identities and inclusive meaningful freshness. Keep all existing activity, Golden and companion-catalog checks.
 
-Refresh builds and validates the entire candidate snapshot before atomic replacement. A network, identity, history or freshness failure leaves the checked-in snapshot intact. It is not imported by build/browser code and is not part of `npm run check`.
+The manual `refresh:digital-activity` command is not a build/check/browser dependency. It verifies repository identity and first-parent history, preserves manually reviewed meaningful dates and non-GitHub records, validates the whole proposed snapshot, then replaces it atomically. Network/identity/history failure leaves checked-in data intact.
 
-`validate:digital` and `test:digital` are deterministic parts of `npm run check`. Test strict schema, source identity, curation, dates, buckets, sorting, real first-parent merge semantics and refresh safeguards. Keep all existing Golden/Analog validation intact.
+The production-preview Chromium suite derives inventory/source/Flow/activity expectations from authored data. It checks one row per project, ordering, plain-text titles, metadata before quick links, exact Flow labels and circle accessibility, all-row twelve-cell bands, real repository counts vs point-event provenance, keyboard/no-JS operation, no runtime requests/storage, navigation order and state isolation. Inspect first/middle/last and multi-link rows at **1440, 1280, 1024, 390 and 320px**, including forced colors and no page overflow. Preserve existing non-catalog behavior and the robots directive.
 
-Chromium production-preview tests cover inventory, exact authored matrix/activity states, CSS filled/open scope circles, twelve equal compact binary cells independent of commit volume, date/band/summary placement, full `N/12 months` text, no header month cue, three columns, role/AI tags before technical keywords, title-row links and wrap geometry, ordering, navigation, sparse English UI, quick links, native hash/history behavior, keyboard and no-JS access, 1440/390/320px geometry and state isolation. Run the entire smoke suite, inspect both catalogs visually, and compare the factual export with the pre-change build. Navigation wording changes must not change factual/Article page bodies, content data or viewer semantics. Verify cross-catalog membership, approved AI-built display, shared roles, preserved retained hashes and the source-backed ngspice release band with no fabricated commit counts on Analog.
+Run `npm run check`, both catalog unit commands, `npm run test:smoke` and `git diff --check`. Compare source arrays, retained metadata, activity JSON, factual content, Article bodies and `/export.json` against the starting state. Review the full diff and rendered density. Commit/push to `main` with normal history after successful checks; **do not deploy or change deployment configuration**.

@@ -3,8 +3,7 @@ name: "EEschematic"
 roles: ["agent"]
 summary: "Multimodal conversion from netlists to editable schematics."
 description: "Converts SPICE netlists into editable schematic descriptions, using multimodal reasoning and visual feedback to place symbols and refine wiring for analog circuits."
-keywords: ["Netlist to schematic","Visual reasoning","Symbol placement","Editable diagrams"]
-workflow: {"reasoning":"core","generate-edit":"core"}
+flow: {"design":"core"}
 access: "Python/Jupyter and multimodal LLM access; the released notebooks require local paths and rendering setup."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,4 +30,8 @@ The authors' notebooks translate textual netlists into JSON-like schematic descr
 
 ### Classification
 
-Reasoning and artifact generation are core. Symbol placement and diagram symmetry do not earn a Physical mark; no circuit-performance optimization or simulator-in-the-loop claim is inferred from visual refinement. The notebooks retain environment-specific paths and model credentials must be supplied by the operator. [Placement prompt](#source-netlist-to-schema-place-prompt-txt)
+Schematic interpretation and generation are core Design. Symbol placement and diagram symmetry do not establish IC layout; no circuit-performance optimization or simulator-in-the-loop claim is inferred from visual refinement. The notebooks retain environment-specific paths and model credentials must be supplied by the operator. [Placement prompt](#source-netlist-to-schema-place-prompt-txt)
+
+### Flow scope
+
+The output is an editable schematic reconstructed from a netlist. Symbol placement and drawing geometry belong to circuit representation, not integrated-circuit layout. [Reviewed source](#source-netlist-to-schema-test-action-test-ota1-ipynb).

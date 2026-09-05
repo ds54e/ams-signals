@@ -2,13 +2,9 @@
 name: "EQY"
 aliases: []
 roles: ["eda-tool"]
-primary: "formal-verification"
 ai: "traditional"
 description: "Yosys-based equivalence-checking flow that matches and partitions reference and transformed designs, then proves correspondence with configurable strategies."
-keywords: ["equivalence checking", "LEC", "SAT", "Yosys"]
-areas:
-  formal-verification: core
-  frontend-synthesis: supporting
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,9 +28,6 @@ sources:
     purpose: "official"
 ---
 
-### Scope
-
-Design matching, partition generation and proof strategies are the primary operations; Yosys processing supports them. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +38,7 @@ Tracked as a conventional equivalence checker. No AI runtime or distinctive AI b
 A failed, timed-out or unproven partition is distinct from a successful equivalence proof. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+Partitioned equivalence proofs are the user-facing task. Yosys preparation and transformations serve that proof flow, not a separate synthesis deliverable. [Reviewed source](#source-readme).

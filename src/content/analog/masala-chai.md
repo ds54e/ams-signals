@@ -3,8 +3,7 @@ name: "Masala-CHAI"
 roles: ["agent","dataset-environment"]
 summary: "Schematic-image reconstruction into SPICE netlists."
 description: "Reconstructs SPICE netlists from schematic images using component detection and multimodal connectivity reasoning, with a V2 agent loop that revises candidates from judge feedback and optional ngspice simulation."
-keywords: ["Schematic images","SPICE reconstruction","Visual reasoning","Simulation feedback"]
-workflow: {"reasoning":"core","generate-edit":"core","simulate-measure":"supporting"}
+flow: {"design":"core","simulation":"supporting"}
 access: "Python, object-detection weights and multimodal LLM access; install ngspice for actual simulation feedback."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -35,3 +34,7 @@ The current V2 code corrects component detections, infers connectivity, generate
 ### Version and simulation boundaries
 
 The paper's 7,500-schematic corpus and downstream model results predate V2; the current README still says the updated dataset will be available later. Do not claim that the complete refreshed corpus is downloadable. The V2 netlist runner marks a missing-ngspice path successful while logging that simulation was skipped. Simulation is consequently supporting/optional scope, and that status alone is not electrical verification. [Paper](#source-paper) · [Release state](#source-readme-md) · [Runner](#source-agents-v2-agents-netlist-agent-py)
+
+### Flow scope
+
+Schematic-image interpretation and SPICE reconstruction are central. Optional ngspice logs provide feedback to the V2 revision loop; a skipped simulator path is not a successful electrical check. [Reviewed source](#source-readme-md).

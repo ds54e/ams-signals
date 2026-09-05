@@ -3,10 +3,8 @@ name: "CircuitRubric"
 aliases: ["CircuitRubric Bench","circuitrubric-bench"]
 roles: ["benchmark"]
 summary: "Grades generated SPICE netlists by topology connectivity and relative device sizing, without circuit simulation."
-description: "Compares generated netlists against reference circuits using graph matching that preserves device types and terminal roles. Checks relative W, L, multiplicity, and passive-component ratios, with grading that distinguishes wiring errors, sizing errors, and extra devices."
-keywords: ["Topology", "Graph matching", "Relative sizing", "Structural only"]
-workflow:
-  generate-edit: core
+description: "Grades generated analog netlists by graph matching and relative device sizing, identifying topology and connectivity errors through structural scoring."
+flow: {"design":"core"}
 targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit structures"
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."
 notice: "FULL means a structural match, not a verified circuit. Bias point, gain, stability, and absolute component values are outside the evaluation scope."
@@ -34,6 +32,6 @@ Credit levels distinguish wiring errors, sizing errors, and extra devices around
 
 The short prompt names the topology, verbose describes its architecture, and spec supplies device-level wiring. System prompts and reasoning settings form additional experimental variables. Published scores must be read with those conditions; most reported cells are single runs. [Results and limitations](#source-review)
 
-### Landscape scope
+### Flow scope
 
-Generate / Edit covers the generated netlist deliverable. Reasoning traces are not a separately graded output. Relative-ratio matching is a structural rubric, so it does not receive an Optimize mark or imply electrical specification closure. [Methodology](#source-method)
+The task generates circuit netlists and grades topology and relative device sizing. Structural graph scoring is not electrical simulation or specification-driven sizing optimization. [Reviewed source](#source-review).

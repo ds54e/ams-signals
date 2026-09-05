@@ -2,15 +2,9 @@
 name: "CoreSmith"
 aliases: []
 roles: ["agent"]
-primary: "flow-physical"
 ai: "ai-enabled"
-description: "Agentic chip-design workflow taking requirements through RTL generation, testbench simulation, synthesis and physical-design checks toward GDS artifacts."
-keywords: ["prompt-to-GDS", "RTL", "verification", "Yosys", "OpenROAD"]
-areas:
-  flow-physical: core
-  formal-verification: core
-  simulation: supporting
-  frontend-synthesis: supporting
+description: "Carries requirements through RTL generation, testbench execution, Yosys synthesis and OpenROAD/Magic physical checks toward GDS artifacts."
+flow: {"design":"core","synthesis":"core","verification":"core","layout":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -34,9 +28,6 @@ sources:
     purpose: "results"
 ---
 
-### Scope
-
-Coverage-driven verification and backend implementation/check loops are central workflow gates. External simulators and synthesis tools support them. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -47,3 +38,7 @@ LangGraph orchestrates LLM design, verification and debug agents at runtime, wit
 PPABench outcomes are author-reported and include waivers and a blocked design. The description does not imply fabricated silicon or universally autonomous signoff. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+The public pipeline explicitly generates RTL, runs testbenches, synthesizes with Yosys and drives OpenROAD/Magic backend stages. These are user-facing workflow deliverables, not marks inferred from installed dependencies. [Reviewed source](#source-readme).

@@ -4,9 +4,7 @@ aliases: []
 roles: ["eda-tool"]
 summary: "Simulates circuit netlists with SPICE analyses and device models."
 description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows."
-keywords: ["SPICE", "Circuit simulation", "Compact models", "OSDI"]
-workflow:
-  simulate-measure: core
+flow: {"simulation":"core"}
 access: "Upstream source and releases are distributed through SourceForge; device libraries and model parameters are provided separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,8 +27,12 @@ sources:
 
 ### Scope
 
-Takes circuit netlists and device models into numerical circuit analyses, returning voltages, currents, noise and other measurements. Simulate / Measure is core. Schematic entry and optimization are separate tools. [Project overview](#source-site).
+Takes circuit netlists and device models into numerical circuit analyses, returning voltages, currents, noise and other measurements. Simulation is core. Schematic entry and optimization are separate tools. [Project overview](#source-site).
 
 ### Release boundary
 
 The canonical distribution and source history are on SourceForge. The source-backed public update is the August 11 ngspice 47 release, with device-model, code-model noise and periodic-state changes. It is not a GitHub mirror's timestamp or a version-number-only commit. No synthetic GitHub strip is shown. [Substantive release](#source-release) and [upstream access](#source-development).
+
+### Flow scope
+
+DC, transient, AC, noise and compact-model analysis are the simulator's central operations. Upstream releases remain source-backed activity, not inferred repository history. [Reviewed source](#source-site).

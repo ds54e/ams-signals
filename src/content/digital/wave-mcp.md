@@ -2,13 +2,9 @@
 name: "wave-mcp"
 aliases: []
 roles: ["eda-tool"]
-primary: "debug-waveform"
 ai: "ai-enabled"
-description: "Agent-facing waveform and RTL query backend exposing FST values, hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured tools."
-keywords: ["FST", "SystemVerilog", "X tracing", "MCP"]
-areas:
-  debug-waveform: core
-  formal-verification: supporting
+description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured agent tools."
+flow: {"verification":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,9 +24,6 @@ sources:
     url: "https://github.com/Tencent/wave-mcp/commit/cbd367ada0da49ca9cd5ef34dd201f751cfb5ea5"
 ---
 
-### Scope
-
-FST queries and pyslang-based static connectivity/driver analysis form the core debug scope. Comparison and failure analysis support verification. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -41,3 +34,7 @@ The MCP server exposes actual waveform and RTL query operations to agents, estab
 The tool reads existing simulation artifacts; it is not a simulator. Reported production and query-accuracy results were not independently reproduced. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+FST queries, connectivity tracing and failure comparisons are debug/verification operations over existing artifacts. Static elaboration does not edit the design. [Reviewed source](#source-readme).

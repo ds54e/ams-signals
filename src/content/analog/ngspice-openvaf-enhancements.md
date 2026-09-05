@@ -5,10 +5,7 @@ roles: ["eda-tool"]
 aiBuilt: true
 summary: "Extends ngspice simulation and OpenVAF compilation in a Claude-assisted development tree."
 description: "Claude-assisted development effort extending ngspice and OpenVAF together, adding Verilog-A language coverage, compiler correctness and SPICE simulation capabilities."
-keywords: ["SPICE", "Verilog-A", "OpenVAF", "OSDI", "Claude Code"]
-workflow:
-  simulate-measure: core
-  eda-integration: core
+flow: {"simulation":"core"}
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -34,7 +31,7 @@ sources:
 
 ### Scope
 
-The repository carries both simulator and Verilog-A compiler source. SPICE execution and compiler-to-simulator OSDI integration are core Simulate / Measure and EDA Integration scope in the Analog landscape. [Project documentation](#source-readme).
+The repository carries both simulator and Verilog-A compiler source. SPICE execution and compiler-to-simulator OSDI integration serve the Simulation stage. [Project documentation](#source-readme).
 
 ### Classification
 
@@ -45,3 +42,7 @@ The author explicitly presents the development effort as Claude-assisted; core c
 These enhancements belong to this combined development tree and are not automatically upstream ngspice/OpenVAF features. Automated binary publishing is excluded from the meaningful-activity decision. [Public update](#source-activity).
 
 [Implementation inspected](#source-implementation).
+
+### Flow scope
+
+The project extends SPICE execution and Verilog-A model compilation for simulation. Compiler internals do not establish circuit-design generation, and enhancement-branch functionality is not automatically upstream functionality. [Reviewed source](#source-readme).

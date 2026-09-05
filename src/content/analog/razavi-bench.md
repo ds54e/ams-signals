@@ -4,11 +4,7 @@ aliases: ["Razavi Bench"]
 roles: ["benchmark"]
 summary: "Benchmarks reasoning about analog circuit diagrams through direct QA, agentic answers, and an experimental simulator-assisted mode."
 description: "Evaluates answers to analog-circuit questions using diagrams, reference solutions, and a shared rubric. Supports direct QA and workspace-based agents, with an experimental ngspice mode for generating scratch decks and exploring circuit behavior."
-keywords: ["Circuit reasoning", "Multimodal QA", "ngspice", "Final-answer grading"]
-workflow:
-  reasoning: core
-  generate-edit: supporting
-  simulate-measure: supporting
+flow: {"design":"core","simulation":"supporting"}
 targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators, LNAs and TIAs"
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
@@ -45,6 +41,6 @@ All modes use the final answer, reference solution, and shared rubric. Simulator
 
 Published judge scores and answers support inspection and re-grading. They do not replace expert review. Viewing and local evaluation rights should be distinguished from redistribution or training permission. [Release and usage terms](#source-review)
 
-### Landscape scope
+### Flow scope
 
-Reasoning is core. Supporting generation/editing and simulation refer to scratch decks in the experimental ngspice treatment, not a graded circuit-design deliverable. Only final answers are scored, and reference-assisted curated netlists are excluded from official inputs. [Mode and input contract](#source-modes)
+Circuit reasoning is the central benchmark task. The optional agentic ngspice treatment supplies supporting simulation evidence; grading remains answer-based. [Reviewed source](#source-review).

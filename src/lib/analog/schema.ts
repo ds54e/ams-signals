@@ -30,18 +30,11 @@ export const analogSchema = z.object({
   aiBuilt: z.literal(true).optional(),
   summary: text.max(240, 'Keep the default summary to one concise sentence'),
   description: text.max(600, 'Keep the project description to one short paragraph'),
-  keywords: z.array(text.max(28)).min(3).max(5).refine(
-    (values) => new Set(values.map((value) => value.normalize('NFKC').toLowerCase())).size === values.length,
-    'Duplicate keyword',
-  ),
-  workflow: z.object({
-    reasoning: z.enum(['core', 'supporting']).optional(),
-    'generate-edit': z.enum(['core', 'supporting']).optional(),
-    'simulate-measure': z.enum(['core', 'supporting']).optional(),
-    optimize: z.enum(['core', 'supporting']).optional(),
-    'eda-integration': z.enum(['core', 'supporting']).optional(),
-    physical: z.enum(['core', 'supporting']).optional(),
-  }).strict(),
+  flow: z.object({
+    design: z.enum(['core', 'supporting']).optional(),
+    simulation: z.enum(['core', 'supporting']).optional(),
+    layout: z.enum(['core', 'supporting']).optional(),
+  }).strict().refine((flow) => Object.values(flow).some(Boolean), 'At least one reviewed Flow stage is required'),
   targets: text.optional(),
   access: text,
   notice: text.optional(),

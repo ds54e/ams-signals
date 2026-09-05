@@ -4,10 +4,7 @@ aliases: []
 roles: ["eda-tool"]
 summary: "Compiles Verilog-A device models into OSDI shared libraries."
 description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators, extending the original OpenVAF with compiler fixes and model-interface support."
-keywords: ["Verilog-A", "OSDI", "Compiler", "Compact models"]
-workflow:
-  simulate-measure: supporting
-  eda-integration: core
+flow: {"simulation":"supporting"}
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -29,8 +26,12 @@ sources:
 
 ### Scope
 
-Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator API. The compiler-to-simulator interface is core EDA Integration; Simulate / Measure is supporting because execution occurs in the host simulator. [Compiler documentation](#source-readme) and [OSDI header](#source-interface).
+Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator API. Simulation is supporting because execution occurs in the host simulator. [Compiler documentation](#source-readme) and [OSDI header](#source-interface).
 
 ### Release boundary
 
 The verified default branch is mob, despite older master wording in the README. The maintained compiler exposes OSDI 0.4; the legacy OSDI 0.3 branch is documented as unmaintained. Simulator compatibility and available OSDI features are separate from compiler generation. [Interface boundary](#source-readme).
+
+### Flow scope
+
+The compiler turns Verilog-A models into OSDI libraries consumed by simulators. It enables simulation rather than executing electrical analyses itself; a single supporting stage is intentionally valid. [Reviewed source](#source-readme).
