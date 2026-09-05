@@ -1,12 +1,8 @@
 import { expect, type Locator } from '@playwright/test';
 
-export async function expectIndexColumns(columns: Locator, months: string[]) {
-  await expect(columns.locator(':scope > div')).toHaveCount(3);
-  await expect(columns.locator(':scope > div').nth(0)).toHaveText('Project');
-  await expect(columns.locator(':scope > div').nth(1)).toHaveText('Keywords');
-  await expect(columns.locator(':scope > div').nth(2).locator(':scope > span')).toHaveText('Activity');
-  const monthName = (month: string) => new Intl.DateTimeFormat('en', { month: 'short', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
-  await expect(columns.locator('[class$="activity-range"] > span')).toHaveText([monthName(months[0]), monthName(months.at(-1)!)]);
+export async function expectIndexColumns(columns: Locator) {
+  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Keywords', 'Activity']);
+  await expect(columns.locator('[class$="activity-range"]')).toHaveCount(0);
 }
 
 export async function expectScopeCircles(table: Locator) {
@@ -56,16 +52,24 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const activity = el.querySelector<HTMLElement>(selector)!;
     const time = activity.querySelector('time')!;
     const strip = activity.querySelector('ul');
+    const stripBox = strip?.getBoundingClientRect();
+    const summary = activity.querySelector<HTMLElement>('[class$="activity-summary"]');
+    const summaryBox = summary?.getBoundingClientRect();
     return {
       id: el.id, kind: activity.getAttribute('data-activity-kind'), text: activity.innerText,
       date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
-      dateBottom: time.getBoundingClientRect().bottom, stripTop: strip?.getBoundingClientRect().top,
+      dateBottom: time.getBoundingClientRect().bottom,
+      stripTop: stripBox?.top, stripBottom: stripBox?.bottom, stripWidth: stripBox?.width, stripRight: stripBox?.right,
+      activityWidth: activity.getBoundingClientRect().width,
       label: strip?.getAttribute('aria-label') ?? null, links: activity.querySelectorAll('a').length,
-      summary: activity.querySelector('[class$="activity-summary"]')?.textContent ?? null,
+      summary: summary?.textContent ?? null, summaryTop: summaryBox?.top, summaryRight: summaryBox?.right,
       months: [...activity.querySelectorAll<HTMLElement>('ul > li')].map((li) => {
         const style = getComputedStyle(li); const box = li.getBoundingClientRect();
+        const accessible = li.querySelector<HTMLElement>('.visually-hidden')!;
+        const accessibleBox = accessible.getBoundingClientRect();
         return { month: li.dataset.month, count: li.dataset.commits, active: li.classList.contains('active'),
-          title: li.title, accessible: li.querySelector('.visually-hidden')!.textContent,
+          title: li.title, accessible: accessible.textContent,
+          accessibleWidth: accessibleBox.width, accessibleHeight: accessibleBox.height,
           width: box.width, height: box.height, left: box.left, fill: style.backgroundColor,
           border: style.borderColor, borderWidth: parseFloat(style.borderWidth), opacity: style.opacity,
         };
@@ -91,9 +95,14 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.text).not.toContain(record.repository!);
     expect(item.label).toContain(record.repository!);
     expect(item.label).toContain(`default branch ${record.defaultBranch}`);
-    expect(item.summary).toBe(`${record.commits!.filter((count) => count > 0).length}/12 mo`);
+    expect(item.summary).toBe(`${record.commits!.filter((count) => count > 0).length}/12 months`);
     expect(item.months).toHaveLength(12);
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
+    expect(item.stripBottom).toBeLessThan(item.summaryTop!);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(170);
+    expect(item.activityWidth).toBeLessThanOrEqual(190);
+    expect(item.stripWidth).toBeCloseTo(item.activityWidth, 1);
+    expect(item.summaryRight).toBeCloseTo(item.stripRight!, 1);
     for (let index = 0; index < 12; index++) {
       const bucket = item.months[index];
       const month = snapshot.months[index]; const count = record.commits![index];
@@ -102,12 +111,18 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.active).toBe(count > 0);
       expect(bucket.title).toBe(`${label} · ${count} default-branch commits`);
       expect(bucket.accessible).toBe(bucket.title);
+      expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
       expect(bucket.width).toBeGreaterThanOrEqual(10); expect(bucket.height).toBeGreaterThanOrEqual(10);
+      expect(bucket.width).toBeLessThanOrEqual(12); expect(bucket.height).toBeLessThanOrEqual(12);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
       expect(bucket.fill).toBe(count > 0 ? bucket.border : 'rgba(0, 0, 0, 0)');
-      if (index) expect(bucket.left).toBeGreaterThan(item.months[index - 1].left);
+      if (index) {
+        const previous = item.months[index - 1];
+        const gap = bucket.left - previous.left - previous.width;
+        expect(gap).toBeGreaterThanOrEqual(2); expect(gap).toBeLessThanOrEqual(3);
+      }
     }
   }
   // Every active month has the same visual weight, irrespective of raw commit volume.
@@ -130,7 +145,8 @@ export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalo
     expect(row.columns, row.id).toHaveLength(3);
     if (width === 1440) {
       expect(row.columns[0].width).toBeGreaterThan(row.columns[1].width * 2);
-      expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 2);
+      expect(row.columns[0].width).toBeGreaterThan(row.columns[2].width * 3.5);
+      expect(row.columns[2].width).toBeLessThanOrEqual(190);
       expect(row.columns[0].right).toBeLessThan(row.columns[1].left);
       expect(row.columns[1].right).toBeLessThan(row.columns[2].left);
     } else {

@@ -4,7 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, shortDate, shortMonth, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
+import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
 import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
 
 const valid = () => ({
@@ -263,10 +263,7 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
   assert.throws(() => validateActivity([paper], { ...snapshot(), reviewedAt: '2026-09-06', capturedAt: '2026-09-06T03:00:00Z', projects: { sample: publicUpdate } }), /on or after 2025-09-06/);
 });
 
-test('compact activity dates and shared month cues retain year context without zero-padded days', () => {
+test('compact activity dates retain year context without zero-padded days', () => {
   assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
   assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
-  assert.equal(shortMonth('2025-10'), 'Oct');
-  assert.equal(shortMonth('2026-01'), 'Jan');
-  assert.equal(shortMonth('2026-09'), 'Sep');
 });

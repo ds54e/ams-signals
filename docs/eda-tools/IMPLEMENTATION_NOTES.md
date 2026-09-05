@@ -1,6 +1,16 @@
 # Digital / RTL implementation notes
 
-## Three-column presentation refinement (2026-09-05)
+## Activity density refinement (2026-09-05)
+
+Presentation-only follow-up to `e7f2cbabff576c239f162f3f9d8f8881db0666e2`:
+
+- The header is only Activity. GitHub rows stack date, twelve-cell band, then right-aligned `N/12 months`; exact months and raw counts remain in tooltips, accessible text and data attributes.
+- Both desktop grids use `minmax(0, 2.7fr) minmax(0, 1.15fr) 177px`. A fixed Activity column avoids unused space after the band. Cells are 12px square with 3px gaps, always binary. At 1440px the columns measure about **754 / 321 / 177px**; Project grows from 645px and the previous 260px band shrinks to 177px. On mobile Activity retains its natural width and left alignment.
+- `npm run check`, both explicit unit commands (**17 Analog / 18 Digital**), and the full production-preview Chromium smoke suite (**73/73**) passed. Shared smoke assertions now verify the plain header, date/band/summary order, full month wording, compact dimensions and preserved month/count accessibility. Existing activity, matrix, hash/history, no-JS and navigation coverage stays intact.
+- Visual review of both pages at **1440, 390 and 320px** covered dense and sparse activity, first/middle/last rows, multi-link titles and ngspice. No page overflow or link overlap; descriptions gain desktop width and activity no longer stretches. ngspice, ATLAS and Surfer have sourced dates with no fake band/count.
+- All **352 content/data files**, both matrix HTML blocks, **283 non-catalog HTML pages** and `/export.json` are byte-identical to the baseline. All existing catalog IDs and navigable URLs are preserved. Export SHA-256: `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. No membership, source, classification, activity eligibility/date/bucket, navigation or deployment changes. Browser automation remains Chromium-only; delivery is commit/push to `main`, **without Pages deployment**.
+
+## Previous three-column presentation refinement (2026-09-05)
 
 Starting at `7d86cd0c864747d7971d3d7337c6faa2b0be0794`, both catalogs keep their reviewed content, classifications, activity snapshot, eligibility and native URLs. The change is presentation only:
 

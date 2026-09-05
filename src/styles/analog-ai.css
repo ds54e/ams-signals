@@ -1,5 +1,6 @@
 .analog-ai {
-  --catalog-columns: minmax(0, 2.5fr) minmax(0, 1.15fr) minmax(0, 1.2fr);
+  --catalog-activity-width: 177px;
+  --catalog-columns: minmax(0, 2.7fr) minmax(0, 1.15fr) var(--catalog-activity-width);
   overflow-wrap: anywhere;
 }
 .analog-ai h1, .analog-ai h2 { letter-spacing: -0.02em; }
@@ -34,17 +35,14 @@
 .catalog-description { font-size: 0.96rem; line-height: 1.6; margin: 7px 0 0; }
 .catalog-keywords { display: flex; flex-wrap: wrap; align-content: start; align-items: start; gap: 5px 7px; font-size: 0.86rem; }
 .catalog-keywords li { background: var(--surface-tint); padding: 3px 7px; border-radius: 2px; }
-.catalog-activity { font-size: 0.86rem; min-width: 0; width: 100%; max-width: 260px; }
+.catalog-activity { font-size: 0.86rem; min-width: 0; width: var(--catalog-activity-width); }
 .activity-latest { margin: 0; }
-.activity-strip { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3px; margin: 7px 0 0; }
+.activity-strip { display: grid; grid-template-columns: repeat(12, 12px); gap: 3px; margin: 7px 0 0; }
 .activity-strip li { box-sizing: border-box; height: 12px; border: 1px solid var(--border-strong); background: transparent; }
 .activity-strip li.active { border-color: var(--accent-ink); background: var(--accent-ink); }
-.activity-summary { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.activity-summary { margin: 4px 0 0; font-size: 0.82rem; color: var(--muted); text-align: right; white-space: nowrap; }
 .catalog-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
 .catalog-title > h2 { min-width: 0; }
-.activity-top, .activity-range { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.activity-column { max-width: 260px; }
-.activity-range { margin-top: 3px; font-size: 0.72rem; font-weight: 400; }
 .catalog-quicklinks { display: flex; flex-wrap: wrap; gap: 5px 11px; align-content: start; font-size: 0.86rem; }
 .catalog-quicklinks a { display: inline-block; padding-block: 2px; }
 .catalog-anchor { position: absolute; top: 17px; left: 0; width: 1px; height: 1px; }
