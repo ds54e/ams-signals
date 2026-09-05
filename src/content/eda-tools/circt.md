@@ -1,6 +1,7 @@
 ---
 name: "CIRCT"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs, synthesis transformations, simulation-oriented lowering and formal-checking tools."

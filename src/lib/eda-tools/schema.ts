@@ -1,5 +1,6 @@
 import { z } from 'astro/zod';
 import { aiIds, areaIds } from './catalog.ts';
+import { roleIds } from '../catalog-roles.ts';
 import { activityMonths, freshnessCutoff } from './activity.ts';
 
 export const catalogSlug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a stable lowercase hyphenated filename');
@@ -23,6 +24,7 @@ const scope = z.enum(['core', 'supporting']).optional();
 export const edaToolsSchema = z.object({
   name: publicText,
   aliases: z.array(text).default([]),
+  roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
   primary: z.enum(areaIds),
   ai: z.enum(aiIds),
   description: publicText.max(600, 'Keep one concise project description'),

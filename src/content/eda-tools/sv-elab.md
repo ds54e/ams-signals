@@ -1,6 +1,7 @@
 ---
 name: "sv-elab"
 aliases: ["yosys-slang"]
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "Slang-based SystemVerilog elaborator that lowers synthesizable designs into a word-level netlist for Yosys and other downstream flows."

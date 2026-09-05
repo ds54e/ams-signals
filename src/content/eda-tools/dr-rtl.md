@@ -1,6 +1,7 @@
 ---
 name: "Dr. RTL"
 aliases: []
+roles: ["agent"]
 primary: "frontend-synthesis"
 ai: "ai-enabled"
 description: "Agentic RTL optimization loop that reads synthesis timing feedback, rewrites critical logic and uses sequential equivalence checks to select improved implementations."

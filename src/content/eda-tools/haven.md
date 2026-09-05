@@ -1,6 +1,7 @@
 ---
 name: "HAVEN"
 aliases: []
+roles: ["agent"]
 primary: "formal-verification"
 ai: "ai-enabled"
 description: "Spec-driven UVM generator translating LLM protocol intent through a constrained DSL, then using VCS coverage and VC Formal feedback to refine stimulus."

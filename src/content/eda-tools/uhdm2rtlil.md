@@ -1,6 +1,7 @@
 ---
 name: "uhdm2rtlil"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "ai-built"
 description: "Surelog/UHDM-to-RTLIL frontend importing SystemVerilog designs into Yosys, with equivalence and RTL co-simulation campaigns checking the translation."

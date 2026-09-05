@@ -2,7 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
-import { areaIds, areaLabels, primaryLabels, aiLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/eda-tools/catalog';
+import { areaIds, areaLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/eda-tools/catalog';
+import { projectType } from '../../lib/catalog-roles';
 import { monthLabel, shortDate } from '../../lib/eda-tools/activity';
 import { validateActivity } from '../../lib/eda-tools/schema';
 import activityData from '../../data/eda-tools-activity.json';
@@ -14,9 +15,9 @@ const projects = sortProjects(entries, activity.projects);
 const projectLink = (slug: string) => sitePath(`eda-tools/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
-<BaseLayout title="EDA Tools · AMS Signals" description="Public EDA tools, project scope and repository activity." lang="en">
+<BaseLayout title="Digital / RTL · AMS Signals" description="RTL/digital tools and agents for simulation, compilation, verification, formal, debug and implementation flows." lang="en">
   <section class="eda-tools" data-eda-tools aria-labelledby="eda:heading">
-    <h1 id="eda:heading" class="visually-hidden">EDA Tools</h1>
+    <h1 id="eda:heading" class="visually-hidden">Digital / RTL</h1>
     <section class="eda-landscape" aria-label="EDA landscape">
       <div class="eda-landscape-scroll" role="region" aria-label="EDA matrix; scroll horizontally for all scopes" tabindex="0">
         <table class="eda-landscape-table" aria-describedby="eda:legend">
@@ -65,7 +66,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 </> : <p class="eda-activity-latest">Update <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
               </div>
               <div class="eda-links">
-                <p class="eda-type">{primaryLabels[data.primary]} · <span>{aiLabels[data.ai]}</span></p>
+                <p class="eda-type">{projectType(data.roles, data.ai === 'ai-built')}</p>
                 <ul class="eda-quicklinks" aria-label={`${data.name} primary links`}>
                   {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
                 </ul>

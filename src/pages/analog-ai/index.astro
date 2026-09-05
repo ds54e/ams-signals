@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
-import { projectDetailAnchors, roleLabels, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
+import { projectDetailAnchors, projectType, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
 import { monthLabel, shortDate } from '../../lib/analog-ai/activity';
 import { validateActivity } from '../../lib/analog-ai/schema';
 import activityData from '../../data/analog-ai-activity.json';
@@ -15,9 +15,9 @@ const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results:
 const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
-<BaseLayout title="Analog AI · AMS Signals" description="Analog/RF/AMS design projects and public activity." lang="en">
+<BaseLayout title="Analog / AMS · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
   <section class="analog-ai" data-analog-ai aria-labelledby="catalog:heading">
-    <h1 id="catalog:heading" class="visually-hidden">Analog AI</h1>
+    <h1 id="catalog:heading" class="visually-hidden">Analog / AMS</h1>
 
     <section id="catalog:landscape" class="catalog-landscape" aria-label="Workflow landscape">
       <div class="landscape-scroll" role="region" aria-label="Landscape matrix; scroll horizontally for all scopes" tabindex="0">
@@ -41,7 +41,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
     </section>
 
     <section id="catalog:index" aria-label="Project index">
-      <div class="catalog-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Activity</span><span>Links</span></div>
+      <div class="catalog-columns" aria-hidden="true"><span>Project</span><span>Keywords</span><span>Activity</span><span>Type / Links</span></div>
       <ol class="catalog-list" aria-label="Projects">
         {projects.map((project) => {
           const { data, id } = project;
@@ -78,7 +78,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
                 </>}
               </div>
               <div class="catalog-links">
-                <ul class="catalog-roles" aria-label={`${data.name} roles`}>{data.roles.map((role) => <li>{roleLabels[role]}</li>)}</ul>
+                <p class="catalog-type">{projectType(data.roles, data.aiBuilt)}</p>
                 <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
                   {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li id={`${id}--source-${source.id}`}><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
                 </ul>

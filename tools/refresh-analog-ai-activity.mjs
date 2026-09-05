@@ -26,7 +26,8 @@ try {
   for (const [id, record] of Object.entries(previous.projects)) {
     if (record.kind === 'no-public-repo') { records[id] = record; continue; }
     const meta = JSON.parse(await run('gh', ['api', `repos/${record.repository}`]));
-    if (meta.private || meta.fork || meta.full_name.toLowerCase() !== record.repository.toLowerCase()) {
+    if (meta.private || meta.fork || meta.archived || meta.full_name.toLowerCase() !== record.repository.toLowerCase()
+      || (record.repositoryId !== undefined && meta.id !== record.repositoryId)) {
       throw new Error(`${id}: repository identity/access changed; review the primary source manually`);
     }
     await run('git', ['check-ref-format', `refs/heads/${meta.default_branch}`]);
@@ -34,8 +35,15 @@ try {
     await run('git', ['clone', '--quiet', '--bare', '--filter=blob:none', '--single-branch', '--branch', meta.default_branch,
       `https://github.com/${record.repository}.git`, git]);
     const headSha = (await run('git', [`--git-dir=${git}`, 'rev-parse', 'HEAD'])).trim();
-    const log = await run('git', [`--git-dir=${git}`, 'log', '--first-parent', '--format=%cI', headSha]);
-    histories.set(id, log.trim().split('\n'));
+    const log = await run('git', [`--git-dir=${git}`, 'log', '--first-parent', '--format=%H\t%cI', headSha]);
+    const history = log.trim().split('\n').map((line) => line.split('\t'));
+    if (record.lastMeaningfulCommitSha) {
+      const date = history.find(([sha]) => sha === record.lastMeaningfulCommitSha)?.[1];
+      if (!date || new Date(date).toISOString().slice(0, 10) !== record.lastMeaningfulCommitAt) {
+        throw new Error(`${id}: meaningful commit is absent from first-parent history or its date differs; review manually`);
+      }
+    }
+    histories.set(id, history.map(([, date]) => date));
     // Fresh commits do not automatically establish meaningful project activity.
     // Preserve the manually reviewed date; validation requires re-curation when it ages out.
     records[id] = { ...record, defaultBranch: meta.default_branch, headSha };

@@ -36,6 +36,19 @@ test('authored EDA inventory, provenance and snapshot validate together', () => 
   }
 });
 
+test('Digital has authored project roles while AI relations and primary categories stay separate', () => {
+  assert.equal(projects.length, 33);
+  assert.ok(!projects.some((p) => p.id === 'ngspice-openvaf-enhancements'));
+  const agents = ['coresmith', 'dr-rtl', 'haven', 'spec2cov', 'ucagent', 'verifyrtl'];
+  assert.deepEqual(projects.filter((p) => p.data.roles.includes('agent')).map((p) => p.id).sort(), agents);
+  for (const p of projects) assert.deepEqual(p.data.roles, [agents.includes(p.id) ? 'agent' : 'eda-tool']);
+  assert.deepEqual(projects.filter((p) => p.data.ai === 'ai-built').map((p) => p.id).sort(), ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
+  for (const roles of [undefined, [], ['agent', 'agent'], ['simulation'], ['agent', 'benchmark', 'eda-tool']]) {
+    assert.equal(edaToolsSchema.safeParse({ ...data(), roles }).success, false);
+  }
+  assert.ok(edaToolsSchema.safeParse({ ...data(), roles: ['agent', 'benchmark'] }).success);
+});
+
 test('stable slugs reject ambiguity and duplicate authored entries', () => {
   for (const id of ['Upper', 'with space', '../escape', 'nested/slug', 'x--y', 'x_1', '']) assert.equal(catalogSlug.safeParse(id).success, false);
   assert.throws(() => validateCatalog([...projects, github]), /Duplicate catalog slug/);

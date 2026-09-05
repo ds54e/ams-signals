@@ -1,6 +1,7 @@
 ---
 name: "Spec2Cov"
 aliases: []
+roles: ["agent"]
 primary: "formal-verification"
 ai: "ai-enabled"
 description: "Specification-driven testbench generation loop feeding Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."

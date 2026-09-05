@@ -12,23 +12,39 @@ const key = (value: string) => value.normalize('NFKC').toLowerCase().trim();
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 const ordered = [...projects].sort((a, b) => compare(date(b.id), date(a.id)) || compare(key(a.name), key(b.name)) || compare(a.id, b.id));
 const areas = ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical'];
-const categoryLabels = { simulation: 'Simulation', 'frontend-synthesis': 'Frontend / Synthesis', 'formal-verification': 'Formal / Verification', 'debug-waveform': 'Debug / Waveform', 'flow-physical': 'Flow / Physical' };
-const aiLabels = { 'ai-built': 'AI-built', 'ai-enabled': 'AI-enabled', traditional: 'Traditional' };
+const roles = { agent: 'Agent', benchmark: 'Benchmark', 'eda-tool': 'EDA Tool', 'dataset-environment': 'Dataset & Environment' };
 const sourceLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 const rows = (page: Page) => page.locator('[data-eda-project]');
 const open = (page: Page, hash = '') => page.goto(`./eda-tools/${hash}`);
 const noOverflow = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+async function settleScroll(page: Page) {
+  await page.evaluate(() => new Promise<void>((resolve, reject) => {
+    let previous = scrollY, stableFrames = 0;
+    const timeout = setTimeout(() => reject(new Error('Native scroll did not settle')), 5000);
+    const frame = () => {
+      stableFrames = scrollY === previous ? stableFrames + 1 : 0;
+      previous = scrollY;
+      if (stableFrames >= 12) { clearTimeout(timeout); resolve(); }
+      else requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }));
+}
+
 
 test('EDA navigation, sparse English presentation and authored project rows render without duplicate details', async ({ page }) => {
   const response = await open(page);
   expect(response!.ok()).toBe(true);
   const nav = page.getByRole('navigation', { name: 'Primary' });
-  await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog AI', 'EDA Tools']);
-  await expect(nav.locator('[aria-current="page"]')).toHaveText('EDA Tools');
-  await expect(nav.getByRole('link', { name: 'EDA Tools', exact: true })).toHaveAttribute('href', '/ams-signals/eda-tools/');
+  await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog', 'Digital']);
+  await expect(nav.locator('[aria-current="page"]')).toHaveText('Digital');
+  await expect(nav.getByRole('link', { name: 'Digital', exact: true })).toHaveAttribute('href', '/ams-signals/eda-tools/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   const h1 = page.getByRole('heading', { level: 1 });
   await expect(h1).toHaveClass('visually-hidden');
+  await expect(h1).toHaveText('Digital / RTL');
+  await expect(page).toHaveTitle('Digital / RTL · AMS Signals');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RTL\/digital tools and agents/);
   expect((await h1.boundingBox())!.width).toBeLessThanOrEqual(1);
   expect(await page.locator('[data-eda-tools]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
   await expect(page.locator('[data-eda-tools] input, [data-eda-tools] button, [data-eda-tools] select, [data-eda-tools] details, [data-eda-tools] summary, [data-eda-tools] form')).toHaveCount(0);
@@ -36,7 +52,7 @@ test('EDA navigation, sparse English presentation and authored project rows rend
   expect(await page.locator('[id="eda:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('eda-columns');
   await expect(page.locator('.eda-columns span')).toHaveText(['Project', 'Keywords', 'Activity', 'Type / Links']);
   expect(await page.locator('[data-eda-tools] ol, [data-eda-tools] ul').evaluateAll((lists) => lists.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
-  for (const forbidden of ['Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
+  for (const forbidden of ['Traditional', 'AI-enabled', 'Design Agent', 'Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
     expect(await page.locator('[data-eda-tools]').textContent()).not.toContain(forbidden);
   }
   const rendered = await rows(page).evaluateAll((nodes) => nodes.map((el) => ({
@@ -53,11 +69,11 @@ test('EDA navigation, sparse English presentation and authored project rows rend
     const links = p.sources.filter((s: any) => s.purpose).sort((a: any, b: any) => Object.keys(sourceLabels).indexOf(a.purpose) - Object.keys(sourceLabels).indexOf(b.purpose))
       .map((s: any) => ({ label: sourceLabels[s.purpose as keyof typeof sourceLabels], href: s.url }));
     return { id: p.id, name: `${p.name} #`, description: p.description, descriptions: 1, keywords: p.keywords,
-      type: `${categoryLabels[p.primary as keyof typeof categoryLabels]} · ${aiLabels[p.ai as keyof typeof aiLabels]}`,
+      type: p.roles.map((role: keyof typeof roles) => roles[role]).join(' + ') + (p.ai === 'ai-built' ? ' · AI-built' : ''),
       links, linkCount: 1 + links.length + (activity.projects[p.id].kind === 'github' ? 1 : 0) };
   }));
-  await nav.getByRole('link', { name: 'Analog AI', exact: true }).click();
-  await expect(nav.locator('[aria-current="page"]')).toHaveText('Analog AI');
+  await nav.getByRole('link', { name: 'Analog', exact: true }).click();
+  await expect(nav.locator('[aria-current="page"]')).toHaveText('Analog');
   await expect(page.locator('[data-analog-ai]')).toBeVisible();
   await expect(page.locator('[data-eda-tools]')).toHaveCount(0);
 });
@@ -123,14 +139,18 @@ test('native project hashes survive direct load, reload and browser back/forward
   const middle = ordered[Math.floor(ordered.length / 2)]; const last = ordered.at(-1)!;
   await open(page, `#${middle.id}`);
   await expect(page.locator(`#${middle.id} h2`)).toBeInViewport();
+  await settleScroll(page);
   await page.reload();
   await expect(page.locator(`#${middle.id} .eda-description`)).toBeInViewport();
+  await settleScroll(page);
   const next = page.locator('.eda-landscape-table').getByRole('link', { name: last.name, exact: true });
   await next.scrollIntoViewIfNeeded();
+  await settleScroll(page);
   const previousY = await page.evaluate(() => scrollY);
   await next.click();
   await expect(page).toHaveURL(new RegExp(`#${last.id}$`));
   await expect(page.locator(`#${last.id} h2`)).toBeInViewport();
+  await settleScroll(page);
   await page.goBack(); await expect(page).toHaveURL(new RegExp(`#${middle.id}$`));
   // Native history restores where the reader was browsing before following the link.
   await expect.poll(() => page.evaluate((y) => Math.abs(scrollY - y), previousY)).toBeLessThan(3);
@@ -207,7 +227,7 @@ for (const width of [1440, 390, 320]) {
 test('EDA has no runtime requests or viewer state and navigation preserves Timeline/Events isolation', async ({ page }) => {
   await page.goto('./events/?q=PLL&kind=organizational&companies=apple');
   const nav = page.getByRole('navigation', { name: 'Primary' });
-  const link = nav.getByRole('link', { name: 'EDA Tools', exact: true });
+  const link = nav.getByRole('link', { name: 'Digital', exact: true });
   await expect(link).not.toHaveAttribute('data-filter-view-link');
   await expect(link).not.toHaveAttribute('data-filter-surface');
   const before = await page.evaluate(() => Object.entries(localStorage));

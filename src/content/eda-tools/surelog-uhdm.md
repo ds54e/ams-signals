@@ -1,6 +1,7 @@
 ---
 name: "Surelog + UHDM"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."

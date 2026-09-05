@@ -1,6 +1,7 @@
 ---
 name: "EQY"
 aliases: []
+roles: ["eda-tool"]
 primary: "formal-verification"
 ai: "traditional"
 description: "Yosys-based equivalence-checking flow that matches and partitions reference and transformed designs, then proves correspondence with configurable strategies."

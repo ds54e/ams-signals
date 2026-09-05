@@ -1,6 +1,7 @@
 ---
 name: "VerifyRTL"
 aliases: []
+roles: ["agent"]
 primary: "formal-verification"
 ai: "ai-enabled"
 description: "LLM-assisted verification pipeline generating plans and properties, running Icarus simulations and SymbiYosys checks, and explaining failures with trace evidence."

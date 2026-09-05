@@ -1,6 +1,7 @@
 ---
 name: "CoreSmith"
 aliases: []
+roles: ["agent"]
 primary: "flow-physical"
 ai: "ai-enabled"
 description: "Agentic chip-design workflow taking requirements through RTL generation, testbench simulation, synthesis and physical-design checks toward GDS artifacts."

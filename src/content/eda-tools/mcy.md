@@ -1,6 +1,7 @@
 ---
 name: "MCY"
 aliases: []
+roles: ["eda-tool"]
 primary: "formal-verification"
 ai: "traditional"
 description: "Mutation-coverage flow that mutates synthesized RTL, filters equivalent mutations with formal checks and measures which changes a self-checking testbench detects."

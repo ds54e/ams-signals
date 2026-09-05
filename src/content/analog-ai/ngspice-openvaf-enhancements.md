@@ -1,13 +1,14 @@
 ---
 name: "Ngspice + OpenVAF Enhancements"
 aliases: []
-primary: "simulation"
-ai: "ai-built"
-description: "Joint ngspice and OpenVAF development tree extending SPICE simulation and Verilog-A compilation, including OSDI integration and language-correctness fixes."
+roles: ["eda-tool"]
+aiBuilt: true
+summary: "Extends ngspice simulation and OpenVAF compilation in a Claude-assisted development tree."
+description: "Claude-assisted development effort extending ngspice and OpenVAF together, adding Verilog-A language coverage, compiler correctness and SPICE simulation capabilities."
 keywords: ["SPICE", "Verilog-A", "OpenVAF", "OSDI", "Claude Code"]
-areas:
-  simulation: core
-  frontend-synthesis: core
+workflow:
+  simulate-measure: core
+  eda-integration: core
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -33,7 +34,7 @@ sources:
 
 ### Scope
 
-The repository carries both simulator and Verilog-A compiler source. Each is a central implementation surface, so both Simulation and Frontend/Synth are core. [Project documentation](#source-readme).
+The repository carries both simulator and Verilog-A compiler source. SPICE execution and compiler-to-simulator OSDI integration are core Simulate / Measure and EDA Integration scope in the Analog landscape. [Project documentation](#source-readme).
 
 ### Classification
 

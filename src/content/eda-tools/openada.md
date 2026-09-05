@@ -1,6 +1,7 @@
 ---
 name: "OpenADA"
 aliases: []
+roles: ["eda-tool"]
 primary: "flow-physical"
 ai: "ai-enabled"
 description: "Local agent-to-EDA interface running circuit simulation, measurement, synthesis and DRC/LVS operations through tool drivers that return structured evidence."

@@ -1,6 +1,7 @@
 ---
 name: "slang"
 aliases: []
+roles: ["eda-tool"]
 primary: "frontend-synthesis"
 ai: "traditional"
 description: "SystemVerilog compiler frontend providing parsing, type checking, semantic analysis and elaboration through reusable C++ and Python language services."

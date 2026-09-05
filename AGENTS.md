@@ -6,9 +6,9 @@ Before making research or product-design decisions, read `PROJECT_CONTEXT.md`. I
 
 Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add task-specific context but do not override this file or `PROJECT_CONTEXT.md`.
 
-For work on the standalone Analog AI catalog, also read `docs/analog-ai/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
+For work on the standalone Analog / AMS catalog at `/analog-ai/`, also read `docs/analog-ai/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
 
-For the standalone EDA Tools catalog, read `docs/eda-tools/README.md` and its linked contract. Its EDA scope and AI-relation labels are local to that independent catalog; they do not change Analog AI or Golden facts, viewer state, Articles or `/export.json`.
+For the standalone Digital / RTL catalog at `/eda-tools/`, read `docs/eda-tools/README.md` and its linked contract. The retained internal folder names do not define the page split: domain chooses the page, matrix describes scope, and authored roles describe project kind. Only proven AI-built development provenance is shown publicly; Digital AI-enabled/Traditional metadata stays internal. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
 
 ## Purpose
 
@@ -16,7 +16,7 @@ AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal v
 
 The durable asset is the Golden factual timeline in `src/data/events/*.json`. The website is a viewer. Do not turn this repository into an evidence archive, company-rating database, or taxonomy project.
 
-The standalone Analog AI catalog is an explicit additional surface with its own scoped product contract in `docs/analog-ai/`. It does not change the semantics, inclusion rules, or export contract of the factual Timeline/Events corpus.
+The standalone Analog and Digital catalogs have scoped product contracts in `docs/analog-ai/` and `docs/eda-tools/`. They do not change the semantics, inclusion rules, or export contract of the factual Timeline/Events corpus.
 
 ## Core rule
 
@@ -39,7 +39,7 @@ When committing Golden events, preserve only directly supportable public facts.
 9. Discard research material that does not improve the Golden timeline.
 10. Stop when the Golden timeline can be responsibly reassessed. Do not attempt to exhaust the web.
 
-The loop above governs Golden Timeline/Event research. Analog AI catalog research follows `docs/analog-ai/RESEARCH_SEED.md` and must not create Golden records merely to support catalog entries.
+The loop above governs Golden Timeline/Event research. Catalog research follows its current domain contract; `docs/analog-ai/RESEARCH_SEED.md` supplies historical leads and must not create Golden records merely to support catalog entries.
 
 ## Golden event rules
 
@@ -100,7 +100,7 @@ AMS Signals separates a factual evidence layer from researched editorial Article
 - Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
 - Preserve author-supplied Article prose. Do not rewrite, normalize, summarize, translate, expand, shorten, or fact-correct it unless the author explicitly requests that transformation.
 
-Analog AI catalog entries are separately authored technical catalog content. Their project-role classification and project-specific summaries are allowed only within the scope defined in `docs/analog-ai/`; they do not become Golden facts and do not alter Golden taxonomy rules.
+Analog and Digital catalog entries are separately authored technical catalog content. Their project-role classification and project-specific summaries are allowed only within the scopes defined in `docs/analog-ai/` and `docs/eda-tools/`; they do not become Golden facts and do not alter Golden taxonomy rules.
 
 ## Data discipline
 
@@ -118,7 +118,7 @@ Schema or fact-lint failures must be fixed. Duplicate warnings require judgment:
 
 `npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`.
 
-New Analog AI validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
+Domain-catalog validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
 
 ## Technology choices
 

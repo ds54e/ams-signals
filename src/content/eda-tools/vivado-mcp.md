@@ -1,6 +1,7 @@
 ---
 name: "vivado_mcp"
 aliases: []
+roles: ["eda-tool"]
 primary: "flow-physical"
 ai: "ai-built"
 description: "MCP server keeping a persistent Vivado Tcl session and exposing FPGA project, synthesis, implementation, timing and XSim operations to agents."

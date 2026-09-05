@@ -1,6 +1,7 @@
 ---
 name: "Verilator"
 aliases: []
+roles: ["eda-tool"]
 primary: "simulation"
 ai: "traditional"
 description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models with assertion, coverage and waveform support."

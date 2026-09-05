@@ -35,8 +35,8 @@ const inTimeline = Astro.url.pathname === sitePath('');
         <a href={sitePath('')} data-filter-view-link data-filter-surface="timeline" aria-current={inTimeline ? 'page' : undefined}>Timeline</a>
         <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
         <a href={sitePath('articles/')} aria-current={inArticles ? 'page' : undefined}>Articles</a>
-        <a href={sitePath('analog-ai/')} aria-current={inAnalogAi ? 'page' : undefined}>Analog AI</a>
-        <a href={sitePath('eda-tools/')} aria-current={inEdaTools ? 'page' : undefined}>EDA Tools</a>
+        <a href={sitePath('analog-ai/')} aria-current={inAnalogAi ? 'page' : undefined}>Analog</a>
+        <a href={sitePath('eda-tools/')} aria-current={inEdaTools ? 'page' : undefined}>Digital</a>
       </nav>
     </header>
     <main class="page-shell">

@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile, readdir } from 'node:fs/promises';
+import { parseFrontmatter } from 'astro/markdown';
+import { projectType, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
 import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
 import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
@@ -68,6 +71,7 @@ test('catalog schema preserves calendar dates, source protocols, roles and sourc
   for (const data of [
     { ...valid(), addedAt: '2026-02-30' }, { ...valid(), reviewedAt: '2025-02-29' },
     { ...valid(), roles: [] }, { ...valid(), roles: ['benchmark', 'benchmark'] }, { ...valid(), roles: ['mature'] },
+    { ...valid(), roles: ['agent', 'benchmark', 'eda-tool'] },
     { ...valid(), sources: [] },
     ...['not a URL', 'javascript:alert(1)', 'ftp://github.com/a'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], purpose: 'paper' }] },
@@ -75,6 +79,79 @@ test('catalog schema preserves calendar dates, source protocols, roles and sourc
   ]) assert.equal(analogAiSchema.safeParse(data).success, false, JSON.stringify(data));
   assert.ok(analogAiSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
   assert.ok(analogAiSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
+});
+
+test('shared public types preserve authored roles and narrowly opt into AI-built provenance', () => {
+  assert.equal(roleLabels.agent, 'Agent');
+  assert.equal(projectType(['agent', 'benchmark']), 'Agent + Benchmark');
+  assert.equal(projectType(['benchmark', 'dataset-environment']), 'Benchmark + Dataset & Environment');
+  assert.equal(projectType(['eda-tool']), 'EDA Tool');
+  assert.equal(projectType(['eda-tool'], true), 'EDA Tool · AI-built');
+  assert.ok(analogAiSchema.safeParse({ ...valid(), aiBuilt: true }).success);
+  for (const aiBuilt of [false, 'true', 'ai-built', 'traditional']) {
+    assert.equal(analogAiSchema.safeParse({ ...valid(), aiBuilt }).success, false);
+  }
+  assert.equal(analogAiSchema.safeParse({ ...valid(), ai: 'ai-enabled' }).success, false);
+});
+
+test('Analog domain membership, baseline scopes and moved provenance validate as one reviewed population', async () => {
+  const directory = new URL('../../src/content/analog-ai/', import.meta.url);
+  const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
+    const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
+    return { id: file.slice(0, -3), data: analogAiSchema.parse(frontmatter), body: content };
+  }));
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-ai-activity.json', import.meta.url), 'utf8'));
+  validateCatalog(projects, []); validateActivity(projects, activity);
+  assert.equal(projects.length, 35);
+  const baselines = {
+    ngspice: { 'simulate-measure': 'core' },
+    xyce: { 'simulate-measure': 'core' },
+    xschem: { 'generate-edit': 'core', 'eda-integration': 'supporting' },
+    'openvaf-reloaded': { 'simulate-measure': 'supporting', 'eda-integration': 'core' },
+    klayout: { 'eda-integration': 'supporting', physical: 'core' },
+    magic: { physical: 'core' },
+    align: { 'generate-edit': 'core', physical: 'core' },
+  };
+  for (const [id, workflow] of Object.entries(baselines)) {
+    const project = projects.find((p) => p.id === id)!;
+    assert.ok(project, id); assert.deepEqual(project.data.workflow, workflow);
+    assert.deepEqual(project.data.roles, ['eda-tool']);
+    assert.equal(project.data.aiBuilt, undefined);
+    if (id !== 'ngspice') {
+      assert.equal(typeof activity.projects[id].repositoryId, 'number');
+      assert.match(activity.projects[id].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
+    }
+  }
+  const moved = 'ngspice-openvaf-enhancements';
+  assert.deepEqual(projects.filter((p) => p.data.aiBuilt).map((p) => p.id), [moved]);
+  assert.deepEqual(projects.find((p) => p.id === moved)!.data.workflow, { 'simulate-measure': 'core', 'eda-integration': 'core' });
+  assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
+  assert.equal(typeof activity.projects[moved].repositoryId, 'number');
+  assert.match(activity.projects[moved].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
+  const digital = await readdir(new URL('../../src/content/eda-tools/', import.meta.url));
+  assert.ok(!digital.includes(`${moved}.md`));
+  const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/eda-tools-activity.json', import.meta.url), 'utf8'));
+  assert.ok(!(moved in digitalActivity.projects));
+  assert.equal(activity.projects.ngspice.kind, 'no-public-repo');
+  assert.equal(activity.projects.ngspice.lastPublicUpdateAt, '2026-08-11');
+  assert.ok(!('commits' in activity.projects.ngspice));
+  const code = projects.find((p) => p.id === 'ngspice')!.data.sources.find((s) => s.purpose === 'code')!;
+  assert.equal(new URL(code.url).hostname, 'sourceforge.net');
+});
+
+test('optional pinned activity evidence preserves transferred identity and requires its source', () => {
+  const s = snapshot();
+  const record = { ...s.projects.sample, repositoryId: 123, lastMeaningfulCommitSha: 'b'.repeat(40) };
+  const value = { ...s, projects: { sample: record } };
+  assert.throws(() => validateActivity([entry()], value), /meaningful commit requires/);
+  const sample = entry();
+  const project = { ...sample, data: { ...sample.data, sources: [...sample.data.sources, {
+    id: 'activity', title: 'Substantive commit', url: `https://github.com/${record.repository}/commit/${record.lastMeaningfulCommitSha}`,
+  }] } };
+  assert.ok(validateActivity([project], value));
+  for (const change of [{ repositoryId: -1 }, { repositoryId: 0.5 }, { lastMeaningfulCommitSha: 'branch' }, { lastMeaningfulCommitAt: '2026-05-01' }]) {
+    assert.equal(activitySchema.safeParse({ ...s, projects: { sample: { ...record, ...change } } }).success, false);
+  }
 });
 
 test('catalog rejects placeholders and coupling to factual or editorial records', () => {
