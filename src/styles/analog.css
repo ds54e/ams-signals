@@ -1,10 +1,10 @@
-.analog-ai {
+.analog {
   --catalog-activity-width: 177px;
   --catalog-columns: minmax(0, 2.7fr) minmax(0, 1.15fr) var(--catalog-activity-width);
   overflow-wrap: anywhere;
 }
-.analog-ai h1, .analog-ai h2 { letter-spacing: -0.02em; }
-.analog-ai a { color: var(--accent-ink); }
+.analog h1, .analog h2 { letter-spacing: -0.02em; }
+.analog a { color: var(--accent-ink); }
 .activity-latest time { white-space: nowrap; font-weight: 650; font-variant-numeric: tabular-nums; }
 .catalog-landscape { margin-bottom: 24px; }
 .landscape-scroll { position: relative; overflow-x: auto; border-block: 1px solid var(--border-strong); scroll-padding-inline: 180px 12px; }

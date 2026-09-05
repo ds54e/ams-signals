@@ -1,4 +1,4 @@
-# Analog / AMS landscape and project index
+# Analog landscape and project index
 
 Read `/AGENTS.md`, `/PROJECT_CONTEXT.md`, this file, `IMPLEMENTATION_SPEC.md`, and `IMPLEMENTATION_NOTES.md` before changing this surface. Use `RESEARCH_SEED.md` as historical research leads, never as evidence.
 
@@ -6,11 +6,11 @@ Read `/AGENTS.md`, `/PROJECT_CONTEXT.md`, this file, `IMPLEMENTATION_SPEC.md`, a
 
 Understand the analog/RF/AMS landscape quickly, notice useful patterns, and open only the projects worth investigating.
 
-`/analog-ai/` is a compact technical landscape and project index for analog/RF/AMS tools, agents, benchmarks, datasets and infrastructure. The internal `analog-ai` paths remain; domain chooses the page, not AI involvement. It is not an editorial Article, searchable database, ranking, or evidence archive. Public UI and authored catalog content are English only; existing Japanese Articles remain independent.
+`/analog/` is a compact technical landscape and project index for analog/RF/AMS tools, agents, benchmarks, datasets and infrastructure. Domain chooses the page, not AI involvement. It is not an editorial Article, searchable database, ranking, or evidence archive. Public UI and authored catalog content are English only; existing Japanese Articles remain independent.
 
 ## Page direction
 
-- Start directly with the workflow matrix and put its compact legend immediately below. Keep an accessible, visually hidden `Analog / AMS` heading; navigation provides visible page context. Do not show Landscape/Projects headings or a Projects shortcut.
+- Start directly with the workflow matrix and put its compact legend immediately below. Keep an accessible, visually hidden `Analog` heading; navigation provides visible page context. Do not show Landscape/Projects headings or a Projects shortcut.
 - No introductory prose, project total, additions, review dates, snapshot metadata, or methodology paragraphs in the dashboard.
 - Use CSS-drawn filled/open circles for `● core` / `○ supporting`, with accessible scope labels.
 - An accessible HTML landscape matrix: Reasoning, Generate / Edit, Simulate / Measure, Optimize, EDA Integration, Physical.
@@ -23,7 +23,7 @@ Matrix marks describe reviewed scope, never maturity, autonomy, quality, or veri
 
 ## Domain and type model
 
-Primary navigation is `Timeline | Events | Articles | Analog | Digital`. This route has browser title `Analog / AMS · AMS Signals` and hidden H1 `Analog / AMS`; `/eda-tools/` is the Digital / RTL companion. URLs and collection directories stay unchanged.
+Primary navigation is `Timeline | Events | Articles | Analog | Digital`. This route has browser title `Analog · AMS Signals` and hidden H1 `Analog`; `/digital/` is the Digital companion. The canonical route is `/analog/`, backed by the `analog` collection and directories. `/digital/` is the only other catalog route; removed routes have no redirects or aliases.
 
 The matrix describes scope; one or two authored roles describe project kind: Agent, Benchmark, EDA Tool, Dataset & Environment. Render roles as individual tags in authored order before technical keywords. An optional `aiBuilt: true` adds an `AI-built` tag after roles only when software-development provenance directly supports it. Roles, provenance and technical keywords remain separate in the data. It is currently approved only for Ngspice + OpenVAF Enhancements. AI research alone does not establish AI-built provenance. Do not introduce an Analog three-way AI classification or display AI-enabled/Traditional labels.
 

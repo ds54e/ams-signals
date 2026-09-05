@@ -2,22 +2,22 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
-import { projectDetailAnchors, projectTags, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
-import { monthLabel, shortDate } from '../../lib/analog-ai/activity';
-import { validateActivity } from '../../lib/analog-ai/schema';
-import activityData from '../../data/analog-ai-activity.json';
-import '../../styles/analog-ai.css';
+import { projectDetailAnchors, projectTags, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog/catalog';
+import { monthLabel, shortDate } from '../../lib/analog/activity';
+import { validateActivity } from '../../lib/analog/schema';
+import activityData from '../../data/analog-activity.json';
+import '../../styles/analog.css';
 
-const entries = await getCollection('analogAi');
+const entries = await getCollection('analog');
 const activity = validateActivity(entries, activityData);
 const projects = sortProjects(entries, activity.projects);
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-const projectLink = (slug: string) => sitePath(`analog-ai/#${slug}`);
+const projectLink = (slug: string) => sitePath(`analog/#${slug}`);
 const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.months[11])}`;
 ---
-<BaseLayout title="Analog / AMS · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
-  <section class="analog-ai" data-analog-ai aria-labelledby="catalog:heading">
-    <h1 id="catalog:heading" class="visually-hidden">Analog / AMS</h1>
+<BaseLayout title="Analog · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
+  <section class="analog" data-analog aria-labelledby="catalog:heading">
+    <h1 id="catalog:heading" class="visually-hidden">Analog</h1>
 
     <section id="catalog:landscape" class="catalog-landscape" aria-label="Workflow landscape">
       <div class="landscape-scroll" role="region" aria-label="Landscape matrix; scroll horizontally for all scopes" tabindex="0">

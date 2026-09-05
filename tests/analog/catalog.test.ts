@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
-import { projectDetailAnchors, sortProjects } from '../../src/lib/analog-ai/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog-ai/activity.ts';
-import { analogAiSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog-ai/schema.ts';
+import { projectDetailAnchors, sortProjects } from '../../src/lib/analog/catalog.ts';
+import { activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
+import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 const valid = () => ({
   name: 'Sample', roles: ['benchmark'], summary: 'Evaluates circuit structure.', access: 'Requires Python.',
@@ -62,12 +62,12 @@ test('legacy detail IDs survive simplification without treating text or link des
 
 test('dashboard descriptions are required, concise, and free of placeholders', () => {
   for (const description of [undefined, '', ' ', 'TODO', 'x'.repeat(601)]) {
-    assert.equal(analogAiSchema.safeParse({ ...valid(), description }).success, false);
+    assert.equal(analogSchema.safeParse({ ...valid(), description }).success, false);
   }
 });
 
 test('catalog schema preserves calendar dates, source protocols, roles and source identities', () => {
-  assert.ok(analogAiSchema.safeParse(valid()).success);
+  assert.ok(analogSchema.safeParse(valid()).success);
   for (const data of [
     { ...valid(), addedAt: '2026-02-30' }, { ...valid(), reviewedAt: '2025-02-29' },
     { ...valid(), roles: [] }, { ...valid(), roles: ['benchmark', 'benchmark'] }, { ...valid(), roles: ['mature'] },
@@ -76,9 +76,9 @@ test('catalog schema preserves calendar dates, source protocols, roles and sourc
     ...['not a URL', 'javascript:alert(1)', 'ftp://github.com/a'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], purpose: 'paper' }] },
     { ...valid(), sources: [...valid().sources, { ...valid().sources[0], id: 'second' }] },
-  ]) assert.equal(analogAiSchema.safeParse(data).success, false, JSON.stringify(data));
-  assert.ok(analogAiSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
-  assert.ok(analogAiSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
+  ]) assert.equal(analogSchema.safeParse(data).success, false, JSON.stringify(data));
+  assert.ok(analogSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04', roles: ['benchmark', 'agent'] }).success);
 });
 
 test('shared public tags preserve authored role order and narrowly opt into AI-built provenance', () => {
@@ -91,20 +91,20 @@ test('shared public tags preserve authored role order and narrowly opt into AI-b
   ]);
   assert.deepEqual(projectTags(['eda-tool']), [{ kind: 'role', label: 'EDA Tool' }]);
   assert.deepEqual(projectTags(['eda-tool'], true), [{ kind: 'role', label: 'EDA Tool' }, { kind: 'ai', label: 'AI-built' }]);
-  assert.ok(analogAiSchema.safeParse({ ...valid(), aiBuilt: true }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), aiBuilt: true }).success);
   for (const aiBuilt of [false, 'true', 'ai-built', 'traditional']) {
-    assert.equal(analogAiSchema.safeParse({ ...valid(), aiBuilt }).success, false);
+    assert.equal(analogSchema.safeParse({ ...valid(), aiBuilt }).success, false);
   }
-  assert.equal(analogAiSchema.safeParse({ ...valid(), ai: 'ai-enabled' }).success, false);
+  assert.equal(analogSchema.safeParse({ ...valid(), ai: 'ai-enabled' }).success, false);
 });
 
 test('Analog domain membership, baseline scopes and moved provenance validate as one reviewed population', async () => {
-  const directory = new URL('../../src/content/analog-ai/', import.meta.url);
+  const directory = new URL('../../src/content/analog/', import.meta.url);
   const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
     const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
-    return { id: file.slice(0, -3), data: analogAiSchema.parse(frontmatter), body: content };
+    return { id: file.slice(0, -3), data: analogSchema.parse(frontmatter), body: content };
   }));
-  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-ai-activity.json', import.meta.url), 'utf8'));
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
   validateCatalog(projects, []); validateActivity(projects, activity);
   assert.equal(projects.length, 35);
   const baselines = {
@@ -132,9 +132,9 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   assert.equal(typeof activity.projects[moved].repositoryId, 'number');
   assert.match(activity.projects[moved].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
-  const digital = await readdir(new URL('../../src/content/eda-tools/', import.meta.url));
+  const digital = await readdir(new URL('../../src/content/digital/', import.meta.url));
   assert.ok(!digital.includes(`${moved}.md`));
-  const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/eda-tools-activity.json', import.meta.url), 'utf8'));
+  const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
   assert.ok(!(moved in digitalActivity.projects));
   assert.equal(activity.projects.ngspice.kind, 'no-public-repo');
   assert.equal(activity.projects.ngspice.lastPublicUpdateAt, '2026-08-11');
@@ -163,7 +163,7 @@ test('catalog rejects placeholders and coupling to factual or editorial records'
     { ...valid(), summary: 'TODO: add summary' }, { ...valid(), relatedEvents: ['event-a'] },
     { ...valid(), companies: ['company-a'] }, { ...valid(), people: ['person-a'] }, { ...valid(), confidence: 0.9 },
     ...['https://example.com/paper', 'https://demo.invalid/', 'https://github.com/TODO/project'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
-  ]) assert.equal(analogAiSchema.safeParse(data).success, false);
+  ]) assert.equal(analogSchema.safeParse(data).success, false);
   for (const body of ['TODO', '<script>bad</script>', 'https://example.com']) assert.throws(() => validateCatalog([{ ...entry(), body }], []));
   assert.throws(() => validateCatalog([{ ...entry(), body: '[Source](#source-missing)' }], []), /unknown source reference/);
 });
@@ -183,13 +183,13 @@ test('stable slugs and bounded updates validate independently of re-review', () 
 
 test('keywords are bounded concise freeform text; workflow accepts only reviewed states and known fields', () => {
   for (const keywords of [[], ['One', 'Two'], ['A', 'B', 'C', 'D', 'E', 'F'], ['One', 'one', 'Three'], ['One', 'Ｏｎｅ', 'Three'], ['One', 'Two', ' '], ['One', 'Two', 'x'.repeat(29)]]) {
-    assert.equal(analogAiSchema.safeParse({ ...valid(), keywords }).success, false);
+    assert.equal(analogSchema.safeParse({ ...valid(), keywords }).success, false);
   }
   for (const workflow of [{ reasoning: 'planned' }, { reasoning: false }, { reasoning: null }, { maturity: 'core' }, { physical: 'complete' }]) {
-    assert.equal(analogAiSchema.safeParse({ ...valid(), workflow }).success, false);
+    assert.equal(analogSchema.safeParse({ ...valid(), workflow }).success, false);
   }
-  assert.ok(analogAiSchema.safeParse({ ...valid(), workflow: {} }).success);
-  assert.ok(analogAiSchema.safeParse({ ...valid(), workflow: { reasoning: 'core', physical: 'supporting' } }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), workflow: {} }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), workflow: { reasoning: 'core', physical: 'supporting' } }).success);
 });
 
 test('activity uses exactly twelve consecutive calendar months ending at the snapshot month', () => {

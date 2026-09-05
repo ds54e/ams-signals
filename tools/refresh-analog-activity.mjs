@@ -5,21 +5,21 @@ import { mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promi
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
-import { activityMonths, countActivity } from '../src/lib/analog-ai/activity.ts';
-import { validateActivity } from '../src/lib/analog-ai/schema.ts';
+import { activityMonths, countActivity } from '../src/lib/analog/activity.ts';
+import { validateActivity } from '../src/lib/analog/schema.ts';
 
 const exec = promisify(execFile);
 const run = async (command, args) => (await exec(command, args, {
   timeout: 120_000, maxBuffer: 32 * 1024 * 1024, env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
 })).stdout;
-const directory = new URL('../src/content/analog-ai/', import.meta.url);
+const directory = new URL('../src/content/analog/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
   id: file.slice(0, -3), data: parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
 })));
-const destination = new URL('../src/data/analog-ai-activity.json', import.meta.url);
+const destination = new URL('../src/data/analog-activity.json', import.meta.url);
 const previous = validateActivity(projects, JSON.parse(await readFile(destination, 'utf8')));
-const scratch = await mkdtemp(join(tmpdir(), 'analog-ai-activity-'));
-const candidate = new URL(`../src/data/.analog-ai-activity-${process.pid}.tmp`, import.meta.url);
+const scratch = await mkdtemp(join(tmpdir(), 'analog-activity-'));
+const candidate = new URL(`../src/data/.analog-activity-${process.pid}.tmp`, import.meta.url);
 try {
   const records = {};
   const histories = new Map();

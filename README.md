@@ -14,9 +14,13 @@ An absent Golden Event means only that the current public-source review did not 
 
 Articles are authored Markdown documents kept separately under `src/content/articles/`. They may synthesize and interpret public research beyond the Golden corpus and may point readers to directly useful Golden Events. That relationship is intentionally one-way: factual Event pages do not reference editorial Articles. Article-specific sources remain Article references, and neither those sources nor the Article's interpretations automatically become Golden facts.
 
-## Analog AI catalog
+## Analog and Digital catalogs
 
-The independent `/analog-ai/` page is an English technical reference for analog/RF/AMS AI benchmarks, design agents, EDA tools, and experiment environments. Project entries live in `src/content/analog-ai/`; the compact workflow matrix and project index both show the latest public activity first. Each row contains one capability description, keywords, activity, and roles with direct primary links. Stable project and legacy source bookmarks work with native anchors, without disclosures or a search/filter interface. The catalog does not depend on Golden records or Articles and does not enter the factual export. See [the catalog specification](docs/analog-ai/README.md) and [implementation and review notes](docs/analog-ai/IMPLEMENTATION_NOTES.md).
+The independent English catalogs at `/analog/` and `/digital/` cover analog/RF/AMS projects and RTL/digital projects respectively. Each starts with a scope matrix, followed by activity-sorted Project / Keywords / Activity rows. Primary links sit beside the project title; role and AI-built tags share the keyword area. Native project and source hashes work without JavaScript. The catalogs do not depend on Golden records or Articles and do not enter the factual export.
+
+The `analog` and `digital` Astro collections have their own `src/content/`, `src/lib/`, `src/pages/`, `tests/` and `docs/` directories. Activity snapshots are `src/data/analog-activity.json` and `src/data/digital-activity.json`; styles are `src/styles/analog.css` and `src/styles/digital.css`. See the [Analog contract](docs/analog/README.md) and [Digital contract](docs/digital/README.md). Only the two canonical routes are supported; there are no compatibility pages or redirects.
+
+Use `npm run validate:analog`, `npm run test:analog`, `npm run validate:digital` and `npm run test:digital`; all are included in `npm run check`. Repository-history refreshes are separate manual commands: `npm run refresh:analog-activity` and `npm run refresh:digital-activity`. They never run during a normal build or in the browser.
 
 ## Maintaining the record
 

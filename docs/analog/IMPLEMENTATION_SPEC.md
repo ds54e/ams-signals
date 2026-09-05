@@ -1,23 +1,23 @@
-# Analog / AMS landscape implementation spec
+# Analog landscape implementation spec
 
 Date: 2026-09-05
 Status: domain catalog and compact dashboard contract
 
 ## 1. Scope and independence
 
-Build a compact technical landscape and project index at `/analog-ai/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Maintain an active, bounded population without a fixed project count; preserve the compact presentation when curating content.
+Build a compact technical landscape and project index at `/analog/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Maintain an active, bounded population without a fixed project count; preserve the compact presentation when curating content.
 
 Apply a rolling twelve-month freshness rule at each snapshot review. For 2026-09-05 the inclusive cutoff is 2025-09-05. A GitHub project requires verified substantive default-branch activity on or after that date; an existing no-repository project requires a sourced public update. Remove stale entries from the active catalog. Cosmetic changes or automated statistics alone do not establish meaningful activity. This is curation, not a judgment on historical technical value, and is not explained in the browsing UI. New entries require real public implementation in a verified canonical repository or upstream source distribution; a promised code release is insufficient. A canonical non-GitHub release may use the source-backed public-update mechanism without a synthetic GitHub strip. Related agent/benchmark components share one entry unless they have distinct maintained implementations and lifecycles.
 
-All public Analog / AMS UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
+All public Analog UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
 
 Use Astro static output, plain CSS, and small vanilla TypeScript. No new framework, chart library, backend, runtime external fetch, score/ranking, compare mode, or project subpages.
 
-Public navigation is `Analog`, browser title is `Analog / AMS · AMS Signals`, and metadata describes analog/RF/AMS tools, agents and benchmarks. The companion `Digital` page at `/eda-tools/` covers RTL/digital projects. Internal paths remain unchanged; domain chooses the page, matrix describes scope, roles describe kind, and AI-built optionally describes development provenance. The shared role-label helper is content-independent and never used for Golden classification.
+Public navigation is `Analog`, browser title is `Analog · AMS Signals`, and metadata describes analog/RF/AMS tools, agents and benchmarks. The companion `Digital` page at `/digital/` covers RTL/digital projects. The `analog` collection and `src/content/analog/`, `src/lib/analog/`, `src/pages/analog/`, `tests/analog/` and `docs/analog/` directories share the public domain name. Domain chooses the page, matrix describes scope, roles describe kind, and AI-built optionally describes development provenance. The shared role-label helper is content-independent and never used for Golden classification.
 
 ## 2. Hierarchy and density
 
-1. An accessible visually hidden `Analog / AMS` heading; no visible title or introduction.
+1. An accessible visually hidden `Analog` heading; no visible title or introduction.
 2. The workflow matrix first, with a small `● core` / `○ supporting` legend directly below; no visible Landscape heading or Projects shortcut.
 3. The project column-header row begins the index, in the same order as the matrix; no visible Projects heading.
 
@@ -56,7 +56,9 @@ Keep the required plain-text `description` (at most 600 characters) focused on t
 
 ## 5. URL and JavaScript
 
-Retained project hashes keep their IDs. Ngspice + OpenVAF Enhancements keeps its slug at `/analog-ai/#ngspice-openvaf-enhancements` after the authored record moves from Digital; no duplicate row or redirect is added at its previous location. Keep `/analog-ai/#project-slug` and published namespaced descendants such as `/analog-ai/#circuitrubric--source-method`. Native fragment navigation reaches the always-visible project or primary link on direct load, reload, hash navigation, and browser back/forward. Old detail/research-source bookmarks lead to the project description. Unknown/malformed hashes remain inert. Use native links/history and `sitePath` for the deployment base. Preserve the complete hash.
+`/analog/` and `/digital/` are the only supported catalog routes. Do not generate removed routes, redirects, aliases or compatibility scripts. New builds contain `dist/analog/index.html` and `dist/digital/index.html`.
+
+Retained project hashes keep their IDs. Ngspice + OpenVAF Enhancements keeps its slug at `/analog/#ngspice-openvaf-enhancements` after the authored record moves from Digital; no duplicate row or redirect is added at its previous location. Keep `/analog/#project-slug` and published namespaced descendants such as `/analog/#circuitrubric--source-method`. Native fragment navigation reaches the always-visible project or primary link on direct load, reload, hash navigation, and browser back/forward. Old detail/research-source bookmarks lead to the project description. Unknown/malformed hashes remain inert. Use native links/history and `sitePath` for the deployment base. Preserve the complete hash.
 
 Remove search, categories, reset, visible filtering counts/messages, query matching, q/type parsing/state, edit-session history, IME logic, and filter visibility/conflicts. Old query strings are inert; do not implement query migration or a new URL state machine. No localStorage. With no disclosure to open, the catalog needs no client JavaScript; remove the obsolete anchor-opening code.
 
@@ -70,7 +72,7 @@ Use exactly one verified primary public repository per project, explicitly recor
 
 The legacy activity kind `no-public-repo` means no verified canonical GitHub history for this visualization: it also accommodates a real SourceForge source repository. Never present this internal enum as a claim that ngspice lacks public code.
 
-Separate volatile activity into `src/data/analog-ai-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability. Optional `repositoryId` and `lastMeaningfulCommitSha` preserve stronger identity/provenance for transferred and newly reviewed records; all new GitHub baselines include both. A supplied meaningful SHA requires its exact commit URL in content sources and agreement with a nonempty month bucket. The refresh script checks a supplied numeric ID and confirms a supplied meaningful SHA/date in first-parent history, without advancing it automatically.
+Separate volatile activity into `src/data/analog-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability. Optional `repositoryId` and `lastMeaningfulCommitSha` preserve stronger identity/provenance for transferred and newly reviewed records; all new GitHub baselines include both. A supplied meaningful SHA requires its exact commit URL in content sources and agreement with a nonempty month bucket. The refresh script checks a supplied numeric ID and confirms a supplied meaningful SHA/date in first-parent history, without advancing it automatically.
 
 For GitHub records also require `lastMeaningfulCommitAt`: the date of the most recent substantive commit verified during manual review, with the inspected commit recorded in `notes`. This conservative freshness evidence can precede `lastCommitAt` and must never follow it. Eligibility uses the meaningful date; ordering and the unchanged raw monthly strip use the actual latest committer date/history. The refresh helper preserves the reviewed meaningful date, never promotes a bot/cosmetic commit automatically, and refuses to replace the snapshot if eligibility has expired. The rolling cutoff is a calendar date one year before review (February 29 clamps to February 28), separate from the twelve displayed calendar months.
 

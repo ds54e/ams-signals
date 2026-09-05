@@ -1,4 +1,12 @@
-# Digital / RTL implementation notes
+# Digital implementation notes
+
+## Complete catalog naming update (2026-09-05)
+
+Starting from `f27a98fb37df14f25fa33bd7c6d8243f6c8fa73f`, the public names and canonical routes are **Analog** at `/analog/` and **Digital** at `/digital/`. Hidden H1s and browser-title prefixes match those names. Collections, source directories, CSS namespaces, tools, npm commands and tests now use the same terminology; no removed-route or command aliases remain.
+
+The **33 Digital / 35 Analog** projects retain their exact Markdown content, source URLs, slugs and activity snapshots. All **352 content/data files** are byte-identical after relocation. The three-column index, compact binary activity band, matrix scope marks and native hash behavior are unchanged.
+
+`npm run check`, the explicit Analog (**17/17**) and Digital (**18/18**) unit commands, and all **73 Chromium smoke tests** passed. Both catalogs were visually inspected at **1440, 390 and 320px**, including sticky matrices, title links and source-backed activity. Only the two canonical catalog routes are built; no generated links use removed routes. All **283 other HTML pages** change only their catalog navigation URLs, and `/export.json` retains SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`. See the [paired integrity record](../analog/IMPLEMENTATION_NOTES.md#complete-catalog-naming-update-2026-09-05). Delivery is commit/push to `main`, **without Pages deployment**.
 
 ## Activity density refinement (2026-09-05)
 
@@ -33,7 +41,7 @@ Prior review sections retain their historical research and validation context.
 
 ## Previous domain organization review (2026-09-05)
 
-The public surface is now **Digital / RTL** at the unchanged `/eda-tools/` URL, paired with Analog / AMS at `/analog-ai/`. Internal directory/collection names and five matrix axes remain stable. Navigation is Timeline, Events, Articles, Analog, Digital. Both pages keep a hidden H1, matrix first, compact legend and four-column activity-sorted index.
+The domain review separated Digital from Analog by technical domain while retaining the five matrix axes. It introduced navigation labels Timeline, Events, Articles, Analog, Digital. At that stage both pages used a hidden H1, matrix first, compact legend and four-column activity-sorted index; subsequent presentation and naming changes are recorded above.
 
 There are **33 Digital entries**: the previous 34 minus **Ngspice + OpenVAF Enhancements**, transferred to Analog with its entire reviewed activity record. No other membership, descriptions, matrix marks, internal AI classifications or repository histories change. All remaining project hashes and quick links stay valid; the moved slug now belongs only to the Analog collection and page. No redirects are added.
 
@@ -55,7 +63,7 @@ The original source review below remains the evidence for retained classificatio
 
 Browser automation remains Chromium-only. External simulation/benchmark results were not independently reproduced; existing repository snapshots remain pinned rather than implicitly re-reviewed.
 
-## Original EDA Tools release review
+## Original Digital release review
 
 Reviewed on **2026-09-05** against the inclusive **2025-09-05** meaningful-activity cutoff. Of the bounded 35 candidates, **34 are included**: 33 canonical GitHub repositories and one source-backed GitLab project (Surfer). SANGAM is omitted under the conservative meaningful-activity rule. No watch-list projects were added.
 
@@ -172,17 +180,17 @@ The official site links to `gitlab.com/surfer-project/surfer`, whose public API 
 ## Manual refresh procedure
 
 1. Re-open the canonical source and inspect substantive default-branch changes. For accepted updates, change the manually curated meaningful date/SHA together with its content source URL; leave them unchanged for cosmetic/bot traffic.
-2. Run `npm run refresh:eda-tools-activity` with `gh` and Git available. It verifies identity and first-parent history, preserves manual records, validates the whole snapshot and replaces it atomically. Any failure leaves production data intact.
+2. Run `npm run refresh:digital-activity` with `gh` and Git available. It verifies identity and first-parent history, preserves manual records, validates the whole snapshot and replaces it atomically. Any failure leaves production data intact.
 3. Review the JSON diff, especially default-branch changes and raw latest dates. Re-review Surfer directly on GitLab; its manual update is never automatically replaced with a mirror.
 4. Run `npm run check` and `npm run test:smoke`. Refresh is never part of those commands or a normal build.
 
 ## Original release validation record
 
-- `npm run check`: passed, including Golden validation/fact lint/duplicate review, 27-project Analog AI validation, all 13 unchanged Analog AI unit tests, 34-project EDA validation, all 16 EDA unit tests, the 285-page build and 3,098 internal-anchor checks.
-- `npm run test:smoke`: **70/70 Chromium tests passed**, including 10 new EDA cases and all existing Analog AI, Activity Matrix and release checks. Existing release assertions changed only to expect and verify the new navigation link.
+- `npm run check`: passed, including Golden validation/fact lint/duplicate review, 27-project Analog validation, all 13 unchanged Analog unit tests, 34-project Digital validation, all 16 Digital unit tests, the 285-page build and 3,098 internal-anchor checks.
+- `npm run test:smoke`: **70/70 Chromium tests passed**, including 10 new Digital cases and all existing Analog, Activity Matrix and release checks. Existing release assertions changed only to expect and verify the new navigation link.
 - Source-history cross-check: all **33 GitHub repository IDs, captured tips, twelve first-parent buckets and manually reviewed meaningful commit dates** matched the captured primary histories. Visible external Website/Paper/Results destinations were checked; the invalid Surelog website was removed.
 - Visual review at **1440, 390 and 320px** covered the matrix, horizontal scrolling/sticky names, first/middle/last projects, GitHub activity, Surfer's non-GitHub state and compact primary links. Desktop shows several complete rows; mobile has no page-level horizontal overflow. A default-list-marker styling defect found during review was fixed. Notes/bibliography, duplicate descriptions and explanatory controls remain absent.
-- Analog AI desktop/mobile screenshots were inspected. Its implementation, content, activity data, styles and unit/smoke files are unchanged. Across the pre-change and final builds, **all 284 existing HTML `<main>` contents are byte-identical**; only the authorized global navigation gains a link.
+- Analog desktop/mobile screenshots were inspected. Its implementation, content, activity data, styles and unit/smoke files are unchanged. Across the pre-change and final builds, **all 284 existing HTML `<main>` contents are byte-identical**; only the authorized global navigation gains a link.
 - `/export.json` is byte-identical to the pre-change build. SHA-256: `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`.
 - `git diff --check` passed. No new dependency or deployment configuration was introduced; this change is not deployed in this pass.
 

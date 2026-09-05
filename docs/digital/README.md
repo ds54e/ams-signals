@@ -1,12 +1,12 @@
-# Digital / RTL
+# Digital
 
-The independent `/eda-tools/` catalog helps readers quickly identify RTL/digital tools and agents, their scope and recent public activity. It covers compilers, simulators, verification, formal, debug and implementation flows. Internal `eda-tools` paths remain, while domain chooses the public page; `/analog-ai/` is the Analog / AMS companion.
+The independent `/digital/` catalog helps readers quickly identify RTL/digital tools and agents, their scope and recent public activity. It covers compilers, simulators, verification, formal, debug and implementation flows. Domain chooses the page; `/analog/` is the Analog companion. The canonical route is `/digital/`, backed by the `digital` collection and directories. Removed catalog routes have no redirects or aliases.
 
 Read [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) for the data/UI contract and [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) for source review, classification decisions, exclusions and validation.
 
 ## Page direction
 
-English only. Start with a compact five-axis matrix, followed by dense three-column project rows: Project, Keywords, Activity. The widest column contains a title with wrapping primary links beside it and one description below. Keywords combine role tags, optional AI-built and technical keywords in that order. Activity shows a date and a binary twelve-month band; source-backed updates have only their date. Use navigation label `Digital`, browser title `Digital / RTL · AMS Signals`, and visually hidden H1 `Digital / RTL`. Primary navigation is `Timeline | Events | Articles | Analog | Digital`. The only legend is `● core   ○ supporting`, drawn as matching filled/open CSS circles.
+English only. Start with a compact five-axis matrix, followed by dense three-column project rows: Project, Keywords, Activity. The widest column contains a title with wrapping primary links beside it and one description below. Keywords combine role tags, optional AI-built and technical keywords in that order. Activity shows a date and a binary twelve-month band; source-backed updates have only their date. Use navigation label `Digital`, browser title `Digital · AMS Signals`, and visually hidden H1 `Digital`. Primary navigation is `Timeline | Events | Articles | Analog | Digital`. The only legend is `● core   ○ supporting`, drawn as matching filled/open CSS circles.
 
 No visible page/section headings, introduction, counts, review dates, methodology, search, filtering, tabs, disclosures, bibliography or scores. Research notes stay in authored Markdown and these internal documents. Scope marks describe reviewed scope, not quality, completeness, production readiness, performance or a progression ladder. A blank does not establish inability.
 

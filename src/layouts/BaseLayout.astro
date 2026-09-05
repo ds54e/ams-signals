@@ -15,8 +15,8 @@ const {
 } = Astro.props;
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
 const inArticles = Astro.url.pathname.startsWith(sitePath('articles/'));
-const inAnalogAi = Astro.url.pathname.startsWith(sitePath('analog-ai/'));
-const inEdaTools = Astro.url.pathname.startsWith(sitePath('eda-tools/'));
+const inAnalog = Astro.url.pathname.startsWith(sitePath('analog/'));
+const inDigital = Astro.url.pathname.startsWith(sitePath('digital/'));
 const inTimeline = Astro.url.pathname === sitePath('');
 ---
 <!doctype html>
@@ -35,8 +35,8 @@ const inTimeline = Astro.url.pathname === sitePath('');
         <a href={sitePath('')} data-filter-view-link data-filter-surface="timeline" aria-current={inTimeline ? 'page' : undefined}>Timeline</a>
         <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
         <a href={sitePath('articles/')} aria-current={inArticles ? 'page' : undefined}>Articles</a>
-        <a href={sitePath('analog-ai/')} aria-current={inAnalogAi ? 'page' : undefined}>Analog</a>
-        <a href={sitePath('eda-tools/')} aria-current={inEdaTools ? 'page' : undefined}>Digital</a>
+        <a href={sitePath('analog/')} aria-current={inAnalog ? 'page' : undefined}>Analog</a>
+        <a href={sitePath('digital/')} aria-current={inDigital ? 'page' : undefined}>Digital</a>
       </nav>
     </header>
     <main class="page-shell">

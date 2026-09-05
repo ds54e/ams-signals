@@ -33,7 +33,7 @@ Publication is a sequence of explicit owner actions. Normal CI never deploys the
    PLAYWRIGHT_BASE_URL=https://ds54e.github.io/ams-signals/ npx playwright test
    ```
 
-8. Confirm the deployed home page still contains `<meta name="robots" content="noindex, nofollow">` and manually inspect the Timeline, Events view, `/export.json`, one Event-to-source path, and a narrow viewport.
+8. Confirm the deployed home page still contains `<meta name="robots" content="noindex, nofollow">` and manually inspect the Timeline, Events view, Articles, `/analog/`, `/digital/`, `/export.json`, one Event-to-source path, and a narrow viewport. Confirm that the built catalog routes are only `/analog/` and `/digital/`, with no compatibility pages or redirects.
 9. Create the agreed v1.0 tag and GitHub Release only after the deployed site passes those checks.
 
 Repository description/topics and deletion of already-merged branches are presentation choices. A license or an explicit no-license decision is required owner review, but none of those choices should be hidden inside deployment automation.

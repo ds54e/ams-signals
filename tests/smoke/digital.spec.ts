@@ -3,11 +3,11 @@ import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
-const directory = new URL('../../src/content/eda-tools/', import.meta.url);
+const directory = new URL('../../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
   id: file.slice(0, -3), ...parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
 })));
-const activity = JSON.parse(await readFile(new URL('../../src/data/eda-tools-activity.json', import.meta.url), 'utf8'));
+const activity = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
 const date = (id: string) => activity.projects[id].lastCommitAt ?? activity.projects[id].lastPublicUpdateAt;
 const key = (value: string) => value.normalize('NFKC').toLowerCase().trim();
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
@@ -15,8 +15,8 @@ const ordered = [...projects].sort((a, b) => compare(date(b.id), date(a.id)) || 
 const areas = ['simulation', 'frontend-synthesis', 'formal-verification', 'debug-waveform', 'flow-physical'];
 const roles = { agent: 'Agent', benchmark: 'Benchmark', 'eda-tool': 'EDA Tool', 'dataset-environment': 'Dataset & Environment' };
 const sourceLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-const rows = (page: Page) => page.locator('[data-eda-project]');
-const open = (page: Page, hash = '') => page.goto(`./eda-tools/${hash}`);
+const rows = (page: Page) => page.locator('[data-digital-project]');
+const open = (page: Page, hash = '') => page.goto(`./digital/${hash}`);
 const noOverflow = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 async function settleScroll(page: Page) {
   await page.evaluate(() => new Promise<void>((resolve, reject) => {
@@ -33,36 +33,36 @@ async function settleScroll(page: Page) {
 }
 
 
-test('EDA navigation, sparse English presentation and authored project rows render without duplicate details', async ({ page }) => {
+test('Digital navigation, sparse English presentation and authored project rows render without duplicate details', async ({ page }) => {
   const response = await open(page);
   expect(response!.ok()).toBe(true);
   const nav = page.getByRole('navigation', { name: 'Primary' });
   await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Articles', 'Analog', 'Digital']);
   await expect(nav.locator('[aria-current="page"]')).toHaveText('Digital');
-  await expect(nav.getByRole('link', { name: 'Digital', exact: true })).toHaveAttribute('href', '/ams-signals/eda-tools/');
+  await expect(nav.getByRole('link', { name: 'Digital', exact: true })).toHaveAttribute('href', '/ams-signals/digital/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   const h1 = page.getByRole('heading', { level: 1 });
   await expect(h1).toHaveClass('visually-hidden');
-  await expect(h1).toHaveText('Digital / RTL');
-  await expect(page).toHaveTitle('Digital / RTL · AMS Signals');
+  await expect(h1).toHaveText('Digital');
+  await expect(page).toHaveTitle('Digital · AMS Signals');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RTL\/digital tools and agents/);
   expect((await h1.boundingBox())!.width).toBeLessThanOrEqual(1);
-  expect(await page.locator('[data-eda-tools]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
-  await expect(page.locator('[data-eda-tools] input, [data-eda-tools] button, [data-eda-tools] select, [data-eda-tools] details, [data-eda-tools] summary, [data-eda-tools] form')).toHaveCount(0);
-  expect(await page.locator('[data-eda-tools]').evaluate((el) => el.children[1].className)).toBe('eda-landscape');
-  expect(await page.locator('[id="eda:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('eda-columns');
-  await expectIndexColumns(page.locator('.eda-columns'));
-  expect(await page.locator('[data-eda-tools] ol, [data-eda-tools] ul').evaluateAll((lists) => lists.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
+  expect(await page.locator('[data-digital]').textContent()).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
+  await expect(page.locator('[data-digital] input, [data-digital] button, [data-digital] select, [data-digital] details, [data-digital] summary, [data-digital] form')).toHaveCount(0);
+  expect(await page.locator('[data-digital]').evaluate((el) => el.children[1].className)).toBe('digital-landscape');
+  expect(await page.locator('[id="digital:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('digital-columns');
+  await expectIndexColumns(page.locator('.digital-columns'));
+  expect(await page.locator('[data-digital] ol, [data-digital] ul').evaluateAll((lists) => lists.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   for (const forbidden of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
-    expect(await page.locator('[data-eda-tools]').textContent()).not.toContain(forbidden);
+    expect(await page.locator('[data-digital]').textContent()).not.toContain(forbidden);
   }
   const rendered = await rows(page).evaluateAll((nodes) => nodes.map((el) => ({
     id: el.id,
     name: el.querySelector('h2')!.textContent,
-    description: el.querySelector('.eda-description')!.textContent,
-    descriptions: el.querySelectorAll('.eda-description').length,
-    tags: [...el.querySelectorAll('.eda-keywords li')].map((x) => ({ kind: x.getAttribute('data-tag-kind'), label: x.textContent })),
-    links: [...el.querySelectorAll<HTMLAnchorElement>('.eda-title .eda-quicklinks a')].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
+    description: el.querySelector('.digital-description')!.textContent,
+    descriptions: el.querySelectorAll('.digital-description').length,
+    tags: [...el.querySelectorAll('.digital-keywords li')].map((x) => ({ kind: x.getAttribute('data-tag-kind'), label: x.textContent })),
+    links: [...el.querySelectorAll<HTMLAnchorElement>('.digital-title .digital-quicklinks a')].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
     linkCount: el.querySelectorAll('a').length,
   })));
   expect(rendered).toEqual(ordered.map((p) => {
@@ -76,30 +76,30 @@ test('EDA navigation, sparse English presentation and authored project rows rend
   }));
   await nav.getByRole('link', { name: 'Analog', exact: true }).click();
   await expect(nav.locator('[aria-current="page"]')).toHaveText('Analog');
-  await expect(page.locator('[data-analog-ai]')).toBeVisible();
-  await expect(page.locator('[data-eda-tools]')).toHaveCount(0);
+  await expect(page.locator('[data-analog]')).toBeVisible();
+  await expect(page.locator('[data-digital]')).toHaveCount(0);
 });
 
 test('five-axis matrix has the exact authored scopes, matches list order and immediately precedes its legend', async ({ page }) => {
   await open(page);
-  const table = page.getByRole('table', { name: 'EDA scope by project' });
+  const table = page.getByRole('table', { name: 'Digital scope by project' });
   await expect(table.locator('thead th')).toHaveText(['Project', 'Simulation', 'Frontend / Synth', 'Formal / Verify', 'Debug / Wave', 'Flow / Physical']);
   const rendered = await table.locator('tbody tr').evaluateAll((nodes) => nodes.map((el) => ({
-    id: el.getAttribute('data-eda-landscape-project'),
+    id: el.getAttribute('data-digital-landscape-project'),
     name: el.querySelector('th')!.textContent,
     scope: el.querySelector('th')!.getAttribute('scope'),
-    cells: [...el.querySelectorAll('td')].map((cell) => ({ area: cell.getAttribute('data-area'), state: cell.getAttribute('data-scope'), marks: cell.querySelectorAll('.eda-scope-mark').length })),
+    cells: [...el.querySelectorAll('td')].map((cell) => ({ area: cell.getAttribute('data-area'), state: cell.getAttribute('data-scope'), marks: cell.querySelectorAll('.digital-scope-mark').length })),
   })));
   expect(rendered).toEqual(ordered.map((p) => ({ id: p.id, name: p.name, scope: 'row', cells: areas.map((area) => ({
     area, state: p.areas[area] ?? '', marks: p.areas[area] ? 1 : 0,
   })) })));
   expect(await rows(page).evaluateAll((nodes) => nodes.map((el) => el.id))).toEqual(rendered.map((p) => p.id));
   await expectScopeCircles(table);
-  await expect(page.locator('[id="eda:legend"] > span')).toHaveText(['● core', '○ supporting']);
-  expect(await page.locator('.eda-landscape-scroll').evaluate((el) => el.nextElementSibling?.id)).toBe('eda:legend');
+  await expect(page.locator('[id="digital:legend"] > span')).toHaveText(['● core', '○ supporting']);
+  expect(await page.locator('.digital-landscape-scroll').evaluate((el) => el.nextElementSibling?.id)).toBe('digital:legend');
   const audit = await page.evaluate(() => {
     const ids = [...document.querySelectorAll('[id]')].map((el) => el.id);
-    const anchors = [...document.querySelectorAll<HTMLAnchorElement>('[data-eda-tools] a')].filter((a) => a.origin === location.origin && a.hash);
+    const anchors = [...document.querySelectorAll<HTMLAnchorElement>('[data-digital] a')].filter((a) => a.origin === location.origin && a.hash);
     return { duplicates: ids.filter((id, i) => ids.indexOf(id) !== i), missing: anchors.filter((a) => !document.getElementById(a.hash.slice(1))).map((a) => a.hash) };
   });
   expect(audit).toEqual({ duplicates: [], missing: [] });
@@ -107,7 +107,7 @@ test('five-axis matrix has the exact authored scopes, matches list order and imm
 
 test('GitHub activity stacks date, compact binary band and month summary; non-GitHub dates have no fake band', async ({ page }) => {
   await open(page);
-  await expectActivityBands(rows(page), '.eda-activity', activity);
+  await expectActivityBands(rows(page), '.digital-activity', activity);
   expect(projects.some((project) => activity.projects[project.id].kind === 'public-update')).toBe(true);
 });
 
@@ -117,9 +117,9 @@ test('native project hashes survive direct load, reload and browser back/forward
   await expect(page.locator(`#${middle.id} h2`)).toBeInViewport();
   await settleScroll(page);
   await page.reload();
-  await expect(page.locator(`#${middle.id} .eda-description`)).toBeInViewport();
+  await expect(page.locator(`#${middle.id} .digital-description`)).toBeInViewport();
   await settleScroll(page);
-  const next = page.locator('.eda-landscape-table').getByRole('link', { name: last.name, exact: true });
+  const next = page.locator('.digital-landscape-table').getByRole('link', { name: last.name, exact: true });
   await next.scrollIntoViewIfNeeded();
   await settleScroll(page);
   const previousY = await page.evaluate(() => scrollY);
@@ -136,65 +136,65 @@ test('native project hashes survive direct load, reload and browser back/forward
 
 test('keyboard activation reaches the project and advances naturally to its primary links', async ({ page }) => {
   await open(page);
-  const region = page.getByRole('region', { name: 'EDA matrix; scroll horizontally for all scopes' });
+  const region = page.getByRole('region', { name: 'Digital matrix; scroll horizontally for all scopes' });
   for (let i = 0; i < 20 && !await region.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
   await expect(region).toBeFocused();
-  await page.keyboard.press('Tab'); await expect(page.locator('.eda-landscape-table tbody a').first()).toBeFocused();
+  await page.keyboard.press('Tab'); await expect(page.locator('.digital-landscape-table tbody a').first()).toBeFocused();
   await page.keyboard.press('Enter');
   const row = page.locator(`#${ordered[0].id}`);
   await expect(row).toBeFocused();
   await expect(row.locator('h2')).toBeInViewport({ ratio: 1 });
-  await expect(row.locator('.eda-description')).toBeInViewport({ ratio: 1 });
-  await page.keyboard.press('Tab'); await expect(row.locator('.eda-permalink')).toBeFocused();
-  await page.keyboard.press('Tab'); await expect(row.locator('.eda-quicklinks a').first()).toBeFocused();
+  await expect(row.locator('.digital-description')).toBeInViewport({ ratio: 1 });
+  await page.keyboard.press('Tab'); await expect(row.locator('.digital-permalink')).toBeFocused();
+  await page.keyboard.press('Tab'); await expect(row.locator('.digital-quicklinks a').first()).toBeFocused();
 });
 
-test('all EDA content and native hashes work without JavaScript', async ({ browser, baseURL }) => {
+test('all Digital content and native hashes work without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
   const page = await context.newPage();
   await open(page);
   await expect(rows(page)).toHaveCount(projects.length);
-  await expect(page.locator('.eda-landscape-table tbody tr')).toHaveCount(projects.length);
-  await expect(rows(page).locator('.eda-description')).toHaveText(ordered.map((p) => p.description));
-  await expect(rows(page).locator('.eda-activity')).toHaveCount(projects.length);
-  await page.locator('.eda-landscape-table tbody a').last().click();
+  await expect(page.locator('.digital-landscape-table tbody tr')).toHaveCount(projects.length);
+  await expect(rows(page).locator('.digital-description')).toHaveText(ordered.map((p) => p.description));
+  await expect(rows(page).locator('.digital-activity')).toHaveCount(projects.length);
+  await page.locator('.digital-landscape-table tbody a').last().click();
   await expect(page.locator(`#${ordered.at(-1)!.id} h2`)).toBeInViewport();
   await page.reload(); await expect(page.locator(`#${ordered.at(-1)!.id} h2`)).toBeInViewport();
-  await expect(page.locator(`#${ordered.at(-1)!.id} .eda-quicklinks a`).first()).toBeVisible();
+  await expect(page.locator(`#${ordered.at(-1)!.id} .digital-quicklinks a`).first()).toBeVisible();
   await context.close();
 });
 
 for (const width of [1440, 390, 320]) {
-  test(`EDA matrix and compact index fit ${width}px with sticky names and no page overflow`, async ({ page }, info) => {
+  test(`Digital matrix and compact index fit ${width}px with sticky names and no page overflow`, async ({ page }, info) => {
     await page.setViewportSize({ width, height: 900 }); await open(page); await noOverflow(page);
-    await page.screenshot({ path: info.outputPath(`eda-matrix-${width}.png`) });
+    await page.screenshot({ path: info.outputPath(`digital-matrix-${width}.png`) });
     if (width < 760) {
-      const scroll = page.locator('.eda-landscape-scroll');
+      const scroll = page.locator('.digital-landscape-scroll');
       expect(await scroll.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
       await scroll.evaluate((el) => { el.scrollLeft = el.scrollWidth; });
       const left = await scroll.evaluate((el) => ({ container: el.getBoundingClientRect().left, name: el.querySelector('tbody th')!.getBoundingClientRect().left, scrolled: el.scrollLeft }));
       expect(left.scrolled).toBeGreaterThan(0); expect(Math.abs(left.name - left.container)).toBeLessThan(2);
-      await page.screenshot({ path: info.outputPath(`eda-matrix-${width}-scrolled.png`) });
+      await page.screenshot({ path: info.outputPath(`digital-matrix-${width}-scrolled.png`) });
     }
-    await page.locator('[id="eda:index"]').evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
-    await expectTitleAndIndexGeometry(rows(page), 'eda', width);
-    await expectActivityBands(rows(page), '.eda-activity', activity);
+    await page.locator('[id="digital:index"]').evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
+    await expectTitleAndIndexGeometry(rows(page), 'digital', width);
+    await expectActivityBands(rows(page), '.digital-activity', activity);
     if (width === 1440) {
       expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(4);
     } else {
-      await expect(page.locator('.eda-columns')).not.toBeVisible();
+      await expect(page.locator('.digital-columns')).not.toBeVisible();
     }
-    await page.screenshot({ path: info.outputPath(`eda-index-${width}.png`) });
+    await page.screenshot({ path: info.outputPath(`digital-index-${width}.png`) });
     const manual = projects.find((p) => activity.projects[p.id].kind === 'public-update')!;
     for (const p of [ordered[0], ordered[Math.floor(projects.length / 2)], ordered.at(-1)!, manual, ...['xezim', 'haven', 'verilator'].map((id) => projects.find((p) => p.id === id)!)]) {
       await page.locator(`#${p.id}`).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
       await noOverflow(page);
-      await page.screenshot({ path: info.outputPath(`eda-row-${width}-${p.id}.png`) });
+      await page.screenshot({ path: info.outputPath(`digital-row-${width}-${p.id}.png`) });
     }
   });
 }
 
-test('EDA has no runtime requests or viewer state and navigation preserves Timeline/Events isolation', async ({ page }) => {
+test('Digital has no runtime requests or viewer state and navigation preserves Timeline/Events isolation', async ({ page }) => {
   await page.goto('./events/?q=PLL&kind=organizational&companies=apple');
   const nav = page.getByRole('navigation', { name: 'Primary' });
   const link = nav.getByRole('link', { name: 'Digital', exact: true });
@@ -204,7 +204,7 @@ test('EDA has no runtime requests or viewer state and navigation preserves Timel
   const requests: string[] = [];
   page.on('request', (request) => { if (new URL(request.url()).origin !== new URL(page.url()).origin) requests.push(request.url()); });
   await link.click(); await expect(rows(page)).toHaveCount(projects.length);
-  await page.locator('.eda-permalink').first().click();
+  await page.locator('.digital-permalink').first().click();
   expect(await page.evaluate(() => Object.entries(localStorage))).toEqual(before);
   expect(requests).toEqual([]);
   for (const name of ['Timeline', 'Events', 'Articles']) {
@@ -219,6 +219,6 @@ test('EDA has no runtime requests or viewer state and navigation preserves Timel
 test('scope circles and binary activity stay distinct in forced-color mode', async ({ page }) => {
   await page.emulateMedia({ forcedColors: 'active' });
   await open(page);
-  await expectScopeCircles(page.locator('.eda-landscape-table'));
-  await expectActivityBands(rows(page), '.eda-activity', activity);
+  await expectScopeCircles(page.locator('.digital-landscape-table'));
+  await expectActivityBands(rows(page), '.digital-activity', activity);
 });

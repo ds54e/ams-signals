@@ -21,7 +21,7 @@ const sourceUrl = z.string().url().refine((value) => {
 }, 'Use a public HTTP(S) source URL');
 const scope = z.enum(['core', 'supporting']).optional();
 
-export const edaToolsSchema = z.object({
+export const digitalSchema = z.object({
   name: publicText,
   aliases: z.array(text).default([]),
   roles: z.array(z.enum(roleIds)).min(1).max(2).refine((roles) => new Set(roles).size === roles.length, 'Duplicate role'),
@@ -59,13 +59,13 @@ export const edaToolsSchema = z.object({
 });
 
 export function validateCatalog(projects: readonly { id: string; data: unknown; body?: string }[]) {
-  if (!projects.length) throw new Error('EDA catalog must not be empty');
+  if (!projects.length) throw new Error('Digital catalog must not be empty');
   const ids = new Set<string>();
   for (const project of projects) {
     catalogSlug.parse(project.id);
     if (ids.has(project.id)) throw new Error(`Duplicate catalog slug: ${project.id}`);
     ids.add(project.id);
-    const data = edaToolsSchema.parse(project.data);
+    const data = digitalSchema.parse(project.data);
     const body = text.parse(project.body ?? '');
     if (/https?:\/\/|<\/?[a-z][\s\S]*?>/iu.test(body)) {
       throw new Error(`${project.id}: use Markdown and local source references; keep URLs in sources`);
@@ -130,7 +130,7 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
   for (const project of projects) {
     const record = snapshot.projects[project.id];
     if (!record) throw new Error(`Missing activity project: ${project.id}`);
-    const data = edaToolsSchema.parse(project.data);
+    const data = digitalSchema.parse(project.data);
     if (data.reviewedAt > snapshot.reviewedAt) throw new Error(`${project.id}: review is after the snapshot`);
     const code = data.sources.find((source) => source.purpose === 'code');
     if (record.kind === 'github') {

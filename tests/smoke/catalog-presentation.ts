@@ -131,7 +131,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
   expect(new Set(active.map((month) => `${month.fill}/${month.opacity}/${month.height}`)).size).toBe(1);
 }
 
-export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalog' | 'eda', width: number) {
+export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalog' | 'digital', width: number) {
   const geometry = await rows.evaluateAll((nodes, p) => nodes.map((el) => {
     const rect = (node: Element) => { const r = node.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
     return {
