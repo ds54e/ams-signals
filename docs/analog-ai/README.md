@@ -81,3 +81,5 @@ A project may be interesting even when it is early-stage, but describe plans, im
 Keep the existing stack: Astro static generation, plain CSS, and small client-side JavaScript/TypeScript. Do not add a CMS, database, runtime AI summaries, vector search, or a new frontend framework for this feature.
 
 The initial implementation should leave a reviewable diff and test results. Do not merge or deploy unless explicitly instructed.
+
+See [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) for the delivered structure, content decisions, maintenance workflow, and verification record. The implementation contract remains `IMPLEMENTATION_SPEC.md`.

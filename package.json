@@ -8,10 +8,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "validate": "node tools/validate.mjs",
+    "validate:analog-ai": "node tools/validate-analog-ai.mjs",
+    "test:analog-ai": "node --test tests/analog-ai/*.test.ts",
     "lint:facts": "node tools/fact-lint.mjs",
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:internal-links": "node tools/internal-link-check.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run build && npm run check:internal-links",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog-ai && npm run test:analog-ai && npm run build && npm run check:internal-links",
     "test:smoke": "npm run build && playwright test"
   },
   "dependencies": {
