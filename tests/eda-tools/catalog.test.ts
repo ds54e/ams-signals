@@ -8,7 +8,7 @@ import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, edaToolsSchema, validateCatalog, validateActivity } from '../../src/lib/eda-tools/schema.ts';
 import { projectTags, roleLabels } from '../../src/lib/catalog-roles.ts';
 import { aiIds, areaIds, sortProjects } from '../../src/lib/eda-tools/catalog.ts';
-import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate, shortMonth } from '../../src/lib/eda-tools/activity.ts';
+import { activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/eda-tools/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/eda-tools-activity-support.mjs';
 
 const directory = new URL('../../src/content/eda-tools/', import.meta.url);
@@ -216,10 +216,7 @@ test('refresh rejects forks, private or replaced repositories and preserves the 
   assert.deepEqual(record, before);
 });
 
-test('compact activity dates and shared month cues retain year context without zero-padded days', () => {
+test('compact activity dates retain year context without zero-padded days', () => {
   assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
   assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
-  assert.equal(shortMonth('2025-10'), 'Oct');
-  assert.equal(shortMonth('2026-01'), 'Jan');
-  assert.equal(shortMonth('2026-09'), 'Sep');
 });

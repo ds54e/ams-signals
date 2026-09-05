@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
 import { areaIds, areaLabels, scopeLabels, linkLabels, sortProjects } from '../../lib/eda-tools/catalog';
 import { projectTags } from '../../lib/catalog-roles';
-import { monthLabel, shortMonth, shortDate } from '../../lib/eda-tools/activity';
+import { monthLabel, shortDate } from '../../lib/eda-tools/activity';
 import { validateActivity } from '../../lib/eda-tools/schema';
 import activityData from '../../data/eda-tools-activity.json';
 import '../../styles/eda-tools.css';
@@ -41,8 +41,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
 
     <section id="eda:index" aria-label="Project index">
       <div class="eda-columns" aria-hidden="true">
-        <div>Project</div><div>Keywords</div>
-        <div class="eda-activity-column"><span>Activity</span><div class="eda-activity-range" title={windowLabel}><span>{shortMonth(activity.months[0])}</span><span>{shortMonth(activity.months[11])}</span></div></div>
+        <div>Project</div><div>Keywords</div><div>Activity</div>
       </div>
       <ol class="eda-list" aria-label="Projects">
         {projects.map(({ data, id }) => {
@@ -65,15 +64,13 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
               <div class="eda-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
                 {record.kind === 'github' ? <>
-                  <div class="eda-activity-top">
-                    <p class="eda-activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
-                    <span class="eda-activity-summary">{record.commits.filter((count) => count > 0).length}/12 mo</span>
-                  </div>
+                  <p class="eda-activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
                   <ul class="eda-activity-strip" aria-label={`${data.name}: ${windowLabel}; ${record.repository}, default branch ${record.defaultBranch}`}>
                     {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} data-month={month} data-commits={record.commits[index]} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
                       <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} default-branch commits</span>
                     </li>)}
                   </ul>
+                  <p class="eda-activity-summary">{record.commits.filter((count) => count > 0).length}/12 months</p>
                 </> : <p class="eda-activity-latest"><time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
               </div>
             </article>

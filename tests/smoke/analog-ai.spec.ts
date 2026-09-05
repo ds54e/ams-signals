@@ -66,7 +66,7 @@ test('each authored project renders once, newest activity first, with a concise 
   await expect(page.locator('[data-analog-ai] details, [data-analog-ai] summary')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1 })).toHaveClass('visually-hidden');
   await expect(page.getByRole('heading', { level: 2 })).toHaveText(ordered.map((p) => `${p.name} #`));
-  await expectIndexColumns(page.locator('.catalog-columns'), activity.months);
+  await expectIndexColumns(page.locator('.catalog-columns'));
   await expect(page.locator('.catalog-header, .catalog-updates, .catalog-reviewed, .catalog-publication-note, .catalog-section-heading, .catalog-sources, .catalog-detail, .catalog-summary')).toHaveCount(0);
   const text = await page.locator('[data-analog-ai]').textContent();
   for (const removed of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Benchmarks, agents, and tools for analog/RF/AMS design.', 'Reviewed from primary public sources', 'Recent additions', 'Public repository activity snapshot:', 'A–Z', 'Public repository activity is a visibility signal', 'Current month is partial', 'Activity method.', 'no independent reproduction', 'Landscape', 'Projects ↓', 'What it does', 'Primary sources', 'Scroll horizontally to see all scopes.']) {
@@ -152,7 +152,7 @@ test('domain membership and approved AI-built provenance stay distinct across bo
   await expect(page.locator('#verilator .eda-keywords [data-tag-kind="role"], #openroad-mcp .eda-keywords [data-tag-kind="role"]')).toHaveText(['EDA Tool', 'EDA Tool']);
 });
 
-test('public repository activity shows twelve binary cells, compact dates and accessible commit details', async ({ page }) => {
+test('public repository activity stacks date, compact binary band and month summary with accessible commit details', async ({ page }) => {
   await open(page);
   await expectActivityBands(rows(page), '.catalog-activity', activity);
 });

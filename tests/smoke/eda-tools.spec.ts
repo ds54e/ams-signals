@@ -51,7 +51,7 @@ test('EDA navigation, sparse English presentation and authored project rows rend
   await expect(page.locator('[data-eda-tools] input, [data-eda-tools] button, [data-eda-tools] select, [data-eda-tools] details, [data-eda-tools] summary, [data-eda-tools] form')).toHaveCount(0);
   expect(await page.locator('[data-eda-tools]').evaluate((el) => el.children[1].className)).toBe('eda-landscape');
   expect(await page.locator('[id="eda:index"]').evaluate((el) => el.firstElementChild?.className)).toBe('eda-columns');
-  await expectIndexColumns(page.locator('.eda-columns'), activity.months);
+  await expectIndexColumns(page.locator('.eda-columns'));
   expect(await page.locator('[data-eda-tools] ol, [data-eda-tools] ul').evaluateAll((lists) => lists.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   for (const forbidden of ['Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Reviewed ', 'Recent additions', 'Methodology', 'freshness cutoff', 'AI-assisted', 'AI-native', 'What it does', 'Primary sources', 'A–Z']) {
     expect(await page.locator('[data-eda-tools]').textContent()).not.toContain(forbidden);
@@ -105,7 +105,7 @@ test('five-axis matrix has the exact authored scopes, matches list order and imm
   expect(audit).toEqual({ duplicates: [], missing: [] });
 });
 
-test('GitHub activity has twelve equal binary cells and accessible counts; non-GitHub dates have no fake band', async ({ page }) => {
+test('GitHub activity stacks date, compact binary band and month summary; non-GitHub dates have no fake band', async ({ page }) => {
   await open(page);
   await expectActivityBands(rows(page), '.eda-activity', activity);
   expect(projects.some((project) => activity.projects[project.id].kind === 'public-update')).toBe(true);

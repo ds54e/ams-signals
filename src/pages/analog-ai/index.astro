@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
 import { projectDetailAnchors, projectTags, sortProjects, workflowIds, workflowLabels, scopeLabels } from '../../lib/analog-ai/catalog';
-import { monthLabel, shortMonth, shortDate } from '../../lib/analog-ai/activity';
+import { monthLabel, shortDate } from '../../lib/analog-ai/activity';
 import { validateActivity } from '../../lib/analog-ai/schema';
 import activityData from '../../data/analog-ai-activity.json';
 import '../../styles/analog-ai.css';
@@ -42,8 +42,7 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
 
     <section id="catalog:index" aria-label="Project index">
       <div class="catalog-columns" aria-hidden="true">
-        <div>Project</div><div>Keywords</div>
-        <div class="activity-column"><span>Activity</span><div class="activity-range" title={windowLabel}><span>{shortMonth(activity.months[0])}</span><span>{shortMonth(activity.months[11])}</span></div></div>
+        <div>Project</div><div>Keywords</div><div>Activity</div>
       </div>
       <ol class="catalog-list" aria-label="Projects">
         {projects.map((project) => {
@@ -75,15 +74,13 @@ const windowLabel = `${monthLabel(activity.months[0])}–${monthLabel(activity.m
               <div class="catalog-activity" data-activity-kind={record.kind}>
                 <span class="visually-hidden">{record.kind === 'github' ? 'Public repository activity: ' : 'Public activity: '}</span>
                 {record.kind === 'github' ? <>
-                  <div class="activity-top">
-                    <p class="activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
-                    <span class="activity-summary">{record.commits.filter((count) => count > 0).length}/12 mo</span>
-                  </div>
+                  <p class="activity-latest"><time datetime={record.lastCommitAt}>{shortDate(record.lastCommitAt, activity.reviewedAt)}</time></p>
                   <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}; ${record.repository}, default branch ${record.defaultBranch}`}>
                     {activity.months.map((month, index) => <li class:list={{ active: record.commits[index] > 0 }} data-month={month} data-commits={record.commits[index]} title={`${monthLabel(month)} · ${record.commits[index]} default-branch commits`}>
                       <span class="visually-hidden">{monthLabel(month)} · {record.commits[index]} default-branch commits</span>
                     </li>)}
                   </ul>
+                  <p class="activity-summary">{record.commits.filter((count) => count > 0).length}/12 months</p>
                 </> : <>
                   {record.lastPublicUpdateAt && <p class="activity-latest">{data.sources.find((source) => source.id === record.lastPublicUpdateSource)?.purpose === 'paper' ? 'Paper ' : ''} <time datetime={record.lastPublicUpdateAt}>{shortDate(record.lastPublicUpdateAt, activity.reviewedAt)}</time></p>}
                 </>}
