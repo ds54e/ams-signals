@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-09-05",
-  "capturedAt": "2026-09-05T02:38:20.141Z",
+  "capturedAt": "2026-09-05T05:08:50.944Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -17,15 +17,15 @@
     "2026-09"
   ],
   "projects": {
-    "amsbench": {
+    "ams-io-agent": {
       "kind": "github",
-      "repository": "Why0912/AMSBench",
+      "repository": "Arcadia-1/AMS-IO-Agent",
       "defaultBranch": "main",
-      "headSha": "4f9867ca03fcf67f548ae7c1bdab0cd2cc11742f",
+      "headSha": "046a2e3edccd76322ab3e47c4dd9a5a1eded1e8a",
       "commits": [
         0,
-        0,
-        0,
+        7,
+        13,
         0,
         0,
         0,
@@ -36,7 +36,9 @@
         0,
         0
       ],
-      "lastCommitAt": "2025-06-18"
+      "lastCommitAt": "2025-12-25",
+      "lastMeaningfulCommitAt": "2025-12-25",
+      "notes": "Substantive implementation/task/result activity reviewed at 00e666131ad99320d5c47f3281da4d9956ef9e30: Update configuration to disable logging and modify test cases. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analog-design-bench": {
       "kind": "github",
@@ -58,7 +60,8 @@
         0
       ],
       "lastCommitAt": "2026-08-12",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+      "lastMeaningfulCommitAt": "2026-08-07",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at fb0ec30463d005d3e463caf4e48ab9a26008e869: Initial public release. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analogcoder-pro": {
       "kind": "github",
@@ -79,7 +82,9 @@
         0,
         0
       ],
-      "lastCommitAt": "2026-03-14"
+      "lastCommitAt": "2026-03-14",
+      "lastMeaningfulCommitAt": "2026-02-22",
+      "notes": "Substantive implementation/task/result activity reviewed at 9803c902141071ed4f98722f00ee3999a35ee106: update first generation python file. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analogforge-agent": {
       "kind": "github",
@@ -101,7 +106,8 @@
         0
       ],
       "lastCommitAt": "2026-08-11",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+      "lastMeaningfulCommitAt": "2026-08-11",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 12a33d71bd6215004ed3b769a271fb265c019f6c: feat: implement auditable core workbench. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analoggym": {
       "kind": "github",
@@ -122,12 +128,152 @@
         0,
         0
       ],
-      "lastCommitAt": "2025-10-29"
+      "lastCommitAt": "2025-10-29",
+      "lastMeaningfulCommitAt": "2025-10-29",
+      "notes": "Substantive implementation/task/result activity reviewed at 0a9d1390ade361e2b4a2d33181e22367edbb8afc: Add files via upload. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "analogsage": {
+      "kind": "github",
+      "repository": "wznmickey/AnalogSAGE",
+      "defaultBranch": "main",
+      "headSha": "dc6dd652efeff9918497d4b19f18ceda8cf08b5d",
+      "commits": [
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-23",
+      "lastMeaningfulCommitAt": "2026-05-23",
+      "notes": "Substantive implementation/task/result activity reviewed at dc6dd652efeff9918497d4b19f18ceda8cf08b5d: Update candidate.py. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "analogtobi": {
+      "kind": "github",
+      "repository": "Seungmin0825/AnalogToBi",
+      "defaultBranch": "main",
+      "headSha": "e2033e9e5347dd0b702d24a8809de0c0f5470f87",
+      "commits": [
+        0,
+        3,
+        0,
+        0,
+        4,
+        2,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-07",
+      "lastMeaningfulCommitAt": "2026-05-06",
+      "notes": "Substantive implementation/task/result activity reviewed at 7c7d89d8a4cf4c7aeae190b93b5bf6740df734be: Refactor preprocessing pipeline and evaluation metrics. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "arcs": {
+      "kind": "github",
+      "repository": "tusharpathaknyu/ARCS",
+      "defaultBranch": "main",
+      "headSha": "b14a1f2afcced3d3a339ecb4d0927be4305c426d",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        20,
+        123,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-10",
+      "lastMeaningfulCommitAt": "2026-03-27",
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "astra": {
+      "kind": "github",
+      "repository": "IceLab-X/ASTRA",
+      "defaultBranch": "main",
+      "headSha": "dfcaf188bd1b013d392dff693af06a65fe53fa71",
+      "commits": [
+        11,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2025-10-28",
+      "lastMeaningfulCommitAt": "2025-10-28",
+      "notes": "Substantive implementation/task/result activity reviewed at dfcaf188bd1b013d392dff693af06a65fe53fa71: update. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "atlas": {
       "kind": "no-public-repo",
       "lastPublicUpdateAt": "2026-07-15",
       "lastPublicUpdateSource": "paper"
+    },
+    "autosizer": {
+      "kind": "github",
+      "repository": "yuxi120407/AutoSizer",
+      "defaultBranch": "main",
+      "headSha": "1b9b8f6498e2c7ad3b650bbbc78c8e3b0e1205e1",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-26",
+      "lastMeaningfulCommitAt": "2026-05-26",
+      "notes": "Substantive implementation/task/result activity reviewed at 97ef89f5e34a46eb8a508ed68b15afea2f551044: Release: clean paths, add test_magic_pex.py, add README. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "behavioral-veriloga-eval": {
+      "kind": "github",
+      "repository": "Arcadia-1/behavioral-veriloga-eval",
+      "defaultBranch": "main",
+      "headSha": "7b5616dc52195ec275ec6d21c71d7763613702cd",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        72,
+        3,
+        103,
+        596,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-28",
+      "lastMeaningfulCommitAt": "2026-07-28",
+      "notes": "Substantive implementation/task/result activity reviewed at 7b5616dc52195ec275ec6d21c71d7763613702cd: Promote r53 on EVAS 0.8.7 (#507). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "circuitrubric": {
       "kind": "github",
@@ -149,7 +295,54 @@
         0
       ],
       "lastCommitAt": "2026-06-23",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+      "lastMeaningfulCommitAt": "2026-06-23",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 36fc0ee5e43e562f0d17ee124096fca12532eb8d: Add Claude reasoning-effort runs and Gemini model data. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "eeschematic": {
+      "kind": "github",
+      "repository": "eelab-dev/EEschematic",
+      "defaultBranch": "main",
+      "headSha": "71c6c78a13d9d4ad65940956945109400b13d754",
+      "commits": [
+        17,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2025-10-20",
+      "lastMeaningfulCommitAt": "2025-10-19",
+      "notes": "Substantive implementation/task/result activity reviewed at dd57e5ec4a29108e431c1732c7a67b21e36c63ef: example netlists. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "evas": {
+      "kind": "github",
+      "repository": "Arcadia-1/EVAS",
+      "defaultBranch": "main",
+      "headSha": "6cb6fa7a7dac70fc0d4120126d8cf74258e6637b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        68,
+        2,
+        8,
+        31,
+        95,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-28",
+      "lastMeaningfulCommitAt": "2026-07-28",
+      "notes": "Substantive implementation/task/result activity reviewed at 5a3925103bb6d8cc7c0a60541b98d0160c4d607d: Merge pull request #122 from BucketSran/fix/spectre-event-timer-residuals. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "evo-ldo-bench": {
       "kind": "github",
@@ -170,7 +363,101 @@
         24,
         4
       ],
-      "lastCommitAt": "2026-09-03"
+      "lastCommitAt": "2026-09-03",
+      "lastMeaningfulCommitAt": "2026-09-03",
+      "notes": "Substantive implementation/task/result activity reviewed at fa54a6615dd0dc26ea19fd28d7ae3433f92768ff: Support scoped formal benchmark reports. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "g-diffps": {
+      "kind": "github",
+      "repository": "ACADLab/G-DiffPS",
+      "defaultBranch": "main",
+      "headSha": "18837578cffac275f2a86ddeed69254f231b9c73",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      "lastCommitAt": "2026-08-21",
+      "lastMeaningfulCommitAt": "2026-08-21",
+      "notes": "Substantive implementation/task/result activity reviewed at 496fb22a85000a2cbf30ecc8a6326021596ed576: Merge pull request #1 from ACADLab/release/mlcad-code. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "gmoverid-skill": {
+      "kind": "github",
+      "repository": "Arcadia-1/gmoverid-skill",
+      "defaultBranch": "main",
+      "headSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        21,
+        0,
+        3,
+        0,
+        10,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-07",
+      "lastMeaningfulCommitAt": "2026-07-07",
+      "notes": "Substantive implementation/task/result activity reviewed at 8feb841f3684898d7aa44225b62e16263a501e3c: Reorganize Sky130 examples. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "loadbench": {
+      "kind": "github",
+      "repository": "FilipeAz/LOADBench-Scripts",
+      "defaultBranch": "main",
+      "headSha": "03cc45620afbbbee19652d83d625f26f3368d951",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        5,
+        0
+      ],
+      "lastCommitAt": "2026-08-03",
+      "lastMeaningfulCommitAt": "2026-08-03",
+      "notes": "Substantive implementation/task/result activity reviewed at dfb0582658fcdeef77aee73462ac6300c3cf6f41: Added circuit generation coverage script. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "masala-chai": {
+      "kind": "github",
+      "repository": "jitendra-bhandari/Masala-CHAI",
+      "defaultBranch": "main",
+      "headSha": "fc61c0404f45e5385bc0159d834544bb148643de",
+      "commits": [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "lastCommitAt": "2026-08-09",
+      "lastMeaningfulCommitAt": "2026-05-09",
+      "notes": "Substantive implementation/task/result activity reviewed at c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b: Merge pull request #11 from jitendra-bhandari/subhash. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "netlistbench": {
       "kind": "github",
@@ -192,7 +479,31 @@
         0
       ],
       "lastCommitAt": "2026-08-04",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time."
+      "lastMeaningfulCommitAt": "2026-08-04",
+      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 66e0cbcc04489da3fce9b8b497751a42dd943c24: NetlistBench: benchmark, oracle, runners, and example run. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "panda": {
+      "kind": "github",
+      "repository": "PKU-IDEA/PANDA",
+      "defaultBranch": "main",
+      "headSha": "9e53e43c0d29bdc8c0f326640b9d66c7075e841b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-06-18",
+      "lastMeaningfulCommitAt": "2026-06-18",
+      "notes": "Substantive implementation/task/result activity reviewed at 9e53e43c0d29bdc8c0f326640b9d66c7075e841b: Release PANDA open-source snapshot. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "razavi-bench": {
       "kind": "github",
@@ -213,7 +524,9 @@
         45,
         0
       ],
-      "lastCommitAt": "2026-08-17"
+      "lastCommitAt": "2026-08-17",
+      "lastMeaningfulCommitAt": "2026-08-17",
+      "notes": "Substantive implementation/task/result activity reviewed at a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa: Merge pull request #22 from hydra20251/fix-custom-domain-api. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "vcli": {
       "kind": "github",
@@ -235,7 +548,8 @@
         134
       ],
       "lastCommitAt": "2026-09-04",
-      "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort."
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort. Substantive implementation/task/result activity reviewed at 1376468d05d1c4adc5dd3cdfdcf434421fb249ec: fix(gui-debug): SSH mode screenshot download + remote dir creation. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "virtuoso-agent": {
       "kind": "github",
@@ -256,7 +570,9 @@
         0,
         0
       ],
-      "lastCommitAt": "2026-07-03"
+      "lastCommitAt": "2026-07-03",
+      "lastMeaningfulCommitAt": "2026-07-03",
+      "notes": "Substantive implementation/task/result activity reviewed at 54974c33c5f5a6d380b216ea12750aff6ee8bc99: Release: SABLE framework snapshot. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "virtuoso-bridge-lite": {
       "kind": "github",
@@ -277,7 +593,32 @@
         23,
         4
       ],
-      "lastCommitAt": "2026-09-04"
+      "lastCommitAt": "2026-09-04",
+      "lastMeaningfulCommitAt": "2026-09-02",
+      "notes": "Substantive implementation/task/result activity reviewed at a0486318f6e75297391aec9bc074c5d67dbcd214: fix(maestro): escape outputs and enforce run timeout (#149). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+    },
+    "zerosim": {
+      "kind": "github",
+      "repository": "xz-group/ZeroSim",
+      "defaultBranch": "main",
+      "headSha": "9af8a6976cf1aae9788eedcd882b7cc201ee95ef",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-24",
+      "lastMeaningfulCommitAt": "2026-04-24",
+      "notes": "Substantive implementation/task/result activity reviewed at 9af8a6976cf1aae9788eedcd882b7cc201ee95ef: init. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     }
   }
 }

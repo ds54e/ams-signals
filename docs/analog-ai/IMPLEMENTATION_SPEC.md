@@ -1,11 +1,13 @@
 # Analog AI landscape implementation spec
 
 Date: 2026-09-05
-Status: dashboard refinement contract; supersedes earlier presentation and ordering requirements
+Status: active-project curation and compact dashboard contract
 
 ## 1. Scope and independence
 
-Build a compact technical landscape and project index at `/analog-ai/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Preserve the thirteen reviewed projects and existing research data in the repository.
+Build a compact technical landscape and project index at `/analog-ai/`. The reader should understand the field quickly, notice recent public activity, and reach relevant projects. Maintain an active, bounded population without a fixed project count; preserve the compact presentation when curating content.
+
+Apply a rolling twelve-month freshness rule at each snapshot review. For 2026-09-05 the inclusive cutoff is 2025-09-05. A GitHub project requires verified substantive default-branch activity on or after that date; an existing no-repository project requires a sourced public update. Remove stale entries from the active catalog. Cosmetic changes or automated statistics alone do not establish meaningful activity. This is curation, not a judgment on historical technical value, and is not explained in the browsing UI. New entries require real public implementation in a verified canonical GitHub repository; a promised code release is insufficient. Related agent/benchmark components share one entry unless they have distinct maintained implementations and lifecycles.
 
 All public Analog AI UI/content is English only. Do not modify Golden Events, Companies, People, existing Article bodies, factual export schema/content, `/export.json`, or Timeline/Events state. Catalog code may share content-independent infrastructure only. Do not add a public JSON API.
 
@@ -48,7 +50,7 @@ Keep `keywords`: three to five short, nonempty, distinct freeform phrases (maxim
 
 Expose available Website, Paper, Code, Results links directly in the Links column, derived from the existing single source array (one link per purpose). Provide a stable project permalink. Do not render What it does, any disclosure or separate detail panel, or the full Primary sources bibliography.
 
-Keep the required plain-text `description` (at most 600 characters) focused on the main use case and useful operations. Existing summaries, complete source arrays, Markdown research, targets, access, notices, dates and activity notes remain stored unchanged; do not turn them into extra dashboard prose. Retain legacy Markdown heading IDs, bibliography IDs and non-primary source IDs as empty aliases at the project description. Primary-purpose source IDs stay on the visible primary links. Namespace all aliases by project slug.
+Keep the required plain-text `description` (at most 600 characters) focused on the main use case and useful operations. Keep summaries, complete source arrays, Markdown research, targets, access, notices, dates and activity notes in the authored data; update them when research warrants, without turning them into extra dashboard prose. Retain legacy Markdown heading IDs, bibliography IDs and non-primary source IDs as empty aliases at each retained project's description. Primary-purpose source IDs stay on the visible primary links. Namespace all aliases by project slug. Removing a stale entry also removes its catalog anchors; no historical project page is created.
 
 ## 5. URL and JavaScript
 
@@ -65,6 +67,8 @@ The compact column label is `Activity`; accessible labels identify public reposi
 Use exactly one verified primary public repository per project, explicitly recorded, and its current default branch. Never sum repositories or count non-landed PR refs. Without a verified repository show the sourced public date when known, labelled Paper or Update, without an invented activity strip.
 
 Separate volatile activity into `src/data/analog-ai-activity.json`. Include explicit snapshot date, ordered twelve calendar months ending in the snapshot month (current month is partial), project IDs, activity kind, repository, default branch, monthly integer counts, last default-branch commit date, and optional last public update date for no-repository projects. Record a pinned repository head and collection time for auditability.
+
+For GitHub records also require `lastMeaningfulCommitAt`: the date of the most recent substantive commit verified during manual review, with the inspected commit recorded in `notes`. This conservative freshness evidence can precede `lastCommitAt` and must never follow it. Eligibility uses the meaningful date; ordering and the unchanged raw monthly strip use the actual latest committer date/history. The refresh helper preserves the reviewed meaningful date, never promotes a bot/cosmetic commit automatically, and refuses to replace the snapshot if eligibility has expired. The rolling cutoff is a calendar date one year before review (February 29 clamps to February 28), separate from the twelve displayed calendar months.
 
 Display twelve equal binary month marks: `●` at least one recorded commit, `·` zero. Expose raw counts/month names/default branch through accessible labels and title. Put a prominent `Latest Mon DD` date above the repository link and strip; retain `N/12 active months` below. The window remains in accessible strip labels, not visible explanatory prose. Do not map counts to visual weight or quality.
 
@@ -84,6 +88,7 @@ Keep original Golden validation/check stages. Validate stable unique slugs, role
 - nonnegative integer counts, explicit valid repository identifiers/default branches;
 - valid snapshot, capture, commit/public-update dates and pinned head;
 - consistency between snapshot window/counts/dates and source repository.
+- verified meaningful activity at or after the rolling cutoff, including sourced dates for no-repository entries; a recent raw commit cannot rescue stale meaningful activity.
 
 Refactor catalog unit/browser tests for the simpler product. Derive inventory from authored data; keep named anchor/behavior fixtures where useful. Cover inventory/order, English UI/content, one visible description, roles only in Links, keywords, matrix state markers, activity and no-repository state, primary-purpose links only, permalinks, descendant load/reload/history, valid unique IDs, keyboard use, no-JS readability, state isolation, and 1440/390/320 layouts without page overflow. Assert that redundant headings, shortcuts, disclosures and bibliography are absent. Remove obsolete disclosure/search/filter tests rather than preserving removed product behavior.
 

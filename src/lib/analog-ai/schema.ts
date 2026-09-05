@@ -1,6 +1,6 @@
 import { z } from 'astro/zod';
 import { roleIds } from './catalog.ts';
-import { activityMonths } from './activity.ts';
+import { activityMonths, freshnessCutoff } from './activity.ts';
 
 export const catalogSlug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a stable lowercase hyphenated filename');
 const text = z.string().trim().min(1).refine(
@@ -106,6 +106,7 @@ const githubActivity = z.object({
   headSha: z.string().regex(/^[a-f0-9]{40}$/),
   commits: z.array(z.number().int().nonnegative().safe()).length(12),
   lastCommitAt: date,
+  lastMeaningfulCommitAt: date,
   notes: text.optional(),
 }).strict();
 const noRepositoryActivity = z.object({
@@ -131,6 +132,9 @@ export const activitySchema = z.object({
     const last = activity.kind === 'github' ? activity.lastCommitAt : activity.lastPublicUpdateAt;
     if (last && last > snapshot.reviewedAt) context.addIssue({ code: 'custom', path: ['projects', id], message: 'Activity date is after the snapshot' });
     if (activity.kind === 'github') {
+      if (activity.lastMeaningfulCommitAt > activity.lastCommitAt) {
+        context.addIssue({ code: 'custom', path: ['projects', id, 'lastMeaningfulCommitAt'], message: 'Meaningful activity cannot follow the last commit' });
+      }
       const latestMonth = activity.lastCommitAt.slice(0, 7);
       if (snapshot.months.some((month, index) => (month > latestMonth && activity.commits[index] > 0)
         || (month === latestMonth && activity.commits[index] === 0))) {
@@ -144,6 +148,7 @@ export const activitySchema = z.object({
 
 export function validateActivity(projects: readonly { id: string; data: unknown }[], value: unknown) {
   const snapshot = activitySchema.parse(value);
+  const cutoff = freshnessCutoff(snapshot.reviewedAt);
   const ids = new Set(projects.map((project) => project.id));
   for (const id of Object.keys(snapshot.projects)) {
     if (!ids.has(id)) throw new Error(`Unknown activity project: ${id}`);
@@ -165,6 +170,10 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
       if (activity.lastPublicUpdateSource && !data.sources.some((source) => source.id === activity.lastPublicUpdateSource)) {
         throw new Error(`${project.id}: unknown public update source`);
       }
+    }
+    const meaningfulDate = activity.kind === 'github' ? activity.lastMeaningfulCommitAt : activity.lastPublicUpdateAt;
+    if (!meaningfulDate || meaningfulDate < cutoff) {
+      throw new Error(`${project.id}: active catalog requires verified meaningful activity on or after ${cutoff}`);
     }
   }
   return snapshot;
