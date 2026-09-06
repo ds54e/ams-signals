@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { expectIndexColumns, expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
+import { expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
@@ -43,9 +43,11 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect((await h1.boundingBox())!.width).toBeLessThanOrEqual(1);
     const catalog = page.locator(`[data-catalog="${domain}"]`);
     expect(await catalog.evaluate((el) => [...el.children].map((x) => x.tagName))).toEqual(['H1', 'SECTION']);
-    await expect(catalog.locator('section > :first-child')).toHaveClass(/\bcatalog-columns\b/);
-    await expectIndexColumns(page.locator(`.catalog-columns`));
-    await expect(catalog.locator('table, input, select, button, form, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
+    await expect(catalog.getByRole('search')).toBeVisible();
+    await expect(catalog.getByRole('status')).toHaveText(`${projects.length} projects`);
+    await expect(catalog.locator('table, [role="columnheader"], .catalog-columns')).toHaveCount(0);
+    await expect(catalog.locator('form + [data-catalog-empty] + ol')).toHaveCount(1);
+    await expect(catalog.locator('table, button, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
     for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
@@ -71,6 +73,88 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(new Set(ids).size).toBe(ids.length);
     await expect(catalog.locator('a[href^="#"], a[href*="/analog/#"], a[href*="/digital/#"]')).toHaveCount(0);
     expect(await catalog.locator('ol, ul').evaluateAll((nodes) => nodes.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
+  });
+
+  test(`${label} Search uses visible project text with Unicode normalization`, async ({ page }) => {
+    await open(page);
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
+    const publicText = (p: any) => [p.name, p.description,
+      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
+      p.scope.aiBuilt ? 'AI-built' : '',
+    ].join(' ');
+    const aiProjects = ordered.filter((p) => /\bAI\b/i.test(publicText(p))).map((p) => p.id);
+    expect(aiProjects.length).toBeGreaterThan(0); expect(aiProjects.length).toBeLessThan(projects.length);
+    await search.fill('  ＡＩ　');
+    await expect.poll(visibleIds).toEqual(aiProjects);
+    await expect(page.getByRole('status')).toHaveText(`${aiProjects.length} of ${projects.length} projects`);
+    await expect(row(page, domain === 'analog' ? 'panda' : 'xezim')).toBeVisible();
+    await expect(row(page, domain === 'analog' ? 'ngspice' : 'verilator')).toBeHidden();
+
+    await search.fill('AI Design');
+    const combinedWords = await visibleIds();
+    expect(combinedWords.length).toBeGreaterThan(0);
+    expect(combinedWords.every((id) => aiProjects.includes(id))).toBe(true);
+    await search.fill('ＡＩ　 ｄｅｓｉｇｎ');
+    await expect.poll(visibleIds).toEqual(combinedWords);
+    await search.press('Enter'); expect(new URL(page.url()).search).toBe('');
+
+    // Name and description are searchable; hidden evidence/Scope meanings are not.
+    const target = ordered.find((p) => p.id === (domain === 'analog' ? 'ngspice' : 'surfer'))!;
+    await search.fill(target.name); await expect(row(page, target.id)).toBeVisible();
+    const word = domain === 'analog' ? 'device-model' : 'transaction';
+    await search.fill(word); await expect(row(page, target.id)).toBeVisible();
+    await search.fill('Defining AI development provenance');
+    await expect(rows(page).filter({ visible: true })).toHaveCount(0);
+    await expect(page.getByRole('status')).toHaveText(`0 of ${projects.length} projects`);
+    await expect(page.getByText('No projects match.', { exact: true })).toBeVisible();
+    await search.fill('　 ');
+    await expect.poll(visibleIds).toEqual(ordered.map((p) => p.id));
+    await expect(page.getByRole('status')).toHaveText(`${projects.length} projects`);
+    await expect(page.getByText('No projects match.', { exact: true })).toBeHidden();
+  });
+
+  test(`${label} Scope matches each stage regardless of level/AI and combines with Search using AND`, async ({ page }) => {
+    await open(page);
+    const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
+    await expect(filter.locator('option')).toHaveText(['All scopes', ...Object.values(scopeStageLabels)]);
+    for (const stage of Object.keys(scopeStageLabels)) {
+      await filter.selectOption(stage);
+      const expected = ordered.filter((p) => p.scope[stage]).map((p) => p.id);
+      await expect.poll(visibleIds).toEqual(expected);
+      await expect(page.getByRole('status')).toHaveText(`${expected.length} of ${projects.length} projects`);
+    }
+    await filter.selectOption(''); await search.fill('AI');
+    const ai = await visibleIds();
+    await filter.selectOption('design');
+    const expected = ordered.filter((p) => ai.includes(p.id) && p.scope.design).map((p) => p.id);
+    expect(expected.length).toBeGreaterThan(0); expect(expected.length).toBeLessThan(ai.length);
+    await expect.poll(visibleIds).toEqual(expected);
+    await expect(row(page, domain === 'analog' ? 'panda' : 'dr-rtl')).toBeVisible();
+    await expect(row(page, domain === 'analog' ? 'circuitrubric' : 'yosys')).toBeHidden();
+    await search.fill('no-matching-project-92741');
+    await expect(page.getByText('No projects match.', { exact: true })).toBeVisible();
+    await filter.selectOption(''); await search.fill('');
+    await expect.poll(visibleIds).toEqual(ordered.map((p) => p.id));
+  });
+
+  test(`${label} search waits for composed text and keeps focus while updating`, async ({ page }) => {
+    await open(page);
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    await search.focus();
+    await search.evaluate((input: HTMLInputElement) => {
+      input.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }));
+      input.value = 'ＡＩ';
+      input.dispatchEvent(new InputEvent('input', { bubbles: true, isComposing: true }));
+    });
+    await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
+    await search.dispatchEvent('compositionend');
+    await expect(page.getByRole('status')).toContainText(`of ${projects.length} projects`);
+    await expect(search).toBeFocused();
+    await search.fill('');
+    await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
   });
 
   test(`${label} vertical Scope preserves every authored stage and its accessible meaning`, async ({ page }) => {
@@ -102,10 +186,15 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await open(page); await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 
-  test(`${label} keyboard navigation reaches only useful external actions after the site navigation`, async ({ page }) => {
+  test(`${label} keyboard navigation reaches filters, then the useful external actions`, async ({ page }) => {
     await open(page);
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    for (let i = 0; i < 8 && !await search.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
+    await expect(search).toBeFocused();
+    expect(await search.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
+    await page.keyboard.press('Tab'); await expect(page.getByRole('combobox', { name: 'Scope', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab');
     const first = rows(page).first().locator(`.catalog-quicklinks a`).first();
-    for (let i = 0; i < 10 && !await first.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
     await expect(first).toBeFocused();
     const allLinks = rows(page).locator(`.catalog-quicklinks a`);
     await page.keyboard.press('Tab'); await expect(allLinks.nth(1)).toBeFocused();
@@ -119,6 +208,9 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} descriptions, Scope, activity and external links work without JavaScript`, async ({ browser, baseURL }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
     const page = await context.newPage(); await open(page);
+    await expect(page.getByRole('searchbox')).toHaveCount(0);
+    await expect(page.locator('[data-catalog-filters]')).toBeHidden();
+    await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
     await expect(rows(page)).toHaveCount(projects.length);
     await expect(rows(page).locator(`.catalog-description`)).toHaveText(ordered.map((p) => p.description));
     await expectScopeCircles(page.locator(`.catalog-scope`));
@@ -138,10 +230,36 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expectTitleAndIndexGeometry(rows(page), width);
       await expectActivityBands(rows(page), `.catalog-activity`, activity);
       if (width >= 1024) {
-        await expect(page.locator(`.catalog-columns`)).toBeVisible();
         expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(4);
-      } else await expect(page.locator(`.catalog-columns`)).not.toBeVisible();
+      }
+      await expect(page.locator('.catalog-columns')).toHaveCount(0);
+      const toolbar = page.locator('[data-catalog-filters]');
+      const geometry = await toolbar.evaluate((el) => {
+        const s = getComputedStyle(el);
+        const rect = (selector: string) => { const r = el.querySelector(selector)!.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
+        return { borders: [s.borderTopWidth, s.borderBottomWidth], shadow: s.boxShadow,
+          search: rect('input'), scope: rect('select'), count: rect('[role="status"]') };
+      });
+      expect(geometry.borders).toEqual(['0px', '0px']); expect(geometry.shadow).toBe('none');
+      if (width >= 1024) {
+        expect(geometry.search.width).toBe(300); expect(geometry.scope.width).toBe(150);
+        expect(geometry.count.right).toBeCloseTo((await toolbar.boundingBox())!.x + (await toolbar.boundingBox())!.width, 1);
+      } else {
+        expect(geometry.search.bottom).toBeLessThan(geometry.scope.top);
+        expect(geometry.search.left).toBe(geometry.scope.left);
+        expect(geometry.scope.right).toBeLessThan(geometry.count.left);
+      }
       await page.screenshot({ path: info.outputPath(`${domain}-index-${width}.png`) });
+      if (width < 1024) {
+        await page.getByRole('searchbox', { name: 'Search projects' }).fill('AI');
+        await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('design');
+        await noOverflow(page);
+        await expect(page.getByRole('status')).toHaveText(`${await rows(page).filter({ visible: true }).count()} of ${projects.length} projects`);
+        await expect(page.getByRole('status')).toBeInViewport();
+        await page.screenshot({ path: info.outputPath(`${domain}-filtered-${width}.png`) });
+        await page.getByRole('searchbox', { name: 'Search projects' }).fill('');
+        await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('');
+      }
       const selected = new Set([ordered[0].id, ordered[Math.floor(projects.length / 2)].id, ordered.at(-1)!.id, ...inspect]);
       for (const id of selected) {
         await row(page, id).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
@@ -161,7 +279,9 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const external: string[] = [];
     page.on('request', (request) => { if (new URL(request.url()).origin !== new URL(page.url()).origin) external.push(request.url()); });
     await link.click(); await expect(rows(page)).toHaveCount(projects.length);
-    await rows(page).last().scrollIntoViewIfNeeded();
+    await page.getByRole('searchbox', { name: 'Search projects' }).fill('AI');
+    await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('design');
+    expect(new URL(page.url()).search).toBe('');
     expect(await page.evaluate(() => Object.entries(localStorage))).toEqual(before);
     expect(external).toEqual([]);
     for (const name of ['Timeline', 'Events', 'Articles']) {

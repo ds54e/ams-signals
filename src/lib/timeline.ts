@@ -2,7 +2,9 @@ import type { EventEntry } from './content';
 import { eventYear, sortEventsNewestFirst } from './content';
 
 export const TIMELINE_HISTORICAL_CUTOFF = 2020;
-export const TIMELINE_MARK_SIZE = 14;
+// Shared by context Timeline placement, Matrix packing and their transparent buttons.
+// The smaller visible glyph is styled separately in event-explorer.css.
+export const TIMELINE_HIT_SIZE = 18;
 export const TIMELINE_RECENT_MICRO_SLOT_PITCH = 9;
 export const TIMELINE_HISTORICAL_MICRO_SLOT_PITCH = 7;
 export const TIMELINE_RECENT_BAND_GAP = 11;
@@ -75,7 +77,7 @@ function packBands(events: EventEntry[], microSlotPitch: number): TimelineBand[]
 
     band.events.push(event);
     for (const key of eventLaneKeys) band.occupiedLaneKeys.add(key);
-    band.width = TIMELINE_MARK_SIZE + ((band.events.length - 1) * microSlotPitch);
+    band.width = TIMELINE_HIT_SIZE + ((band.events.length - 1) * microSlotPitch);
   }
 
   return bands;
@@ -140,7 +142,7 @@ export function buildTimelineGeometry(events: EventEntry[]): TimelineGeometry {
       bands.forEach((band, bandIndex) => {
         band.events.forEach((event, microSlot) => {
           positionByEventId.set(event.data.id, {
-            x: timelineOffset + bandOffset + (TIMELINE_MARK_SIZE / 2) + (microSlot * microSlotPitch),
+            x: timelineOffset + bandOffset + (TIMELINE_HIT_SIZE / 2) + (microSlot * microSlotPitch),
             segmentKey: group.key,
             band: bandIndex,
             microSlot,

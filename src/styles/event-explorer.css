@@ -1,4 +1,4 @@
-.event-explorer { min-width: 0; }
+.event-explorer { --timeline-glyph-size: 8px; --timeline-active-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); min-width: 0; }
 .event-explorer[data-surface="events"] {
   width: min(100%, var(--layout-listing));
   margin-inline: auto;
@@ -11,16 +11,10 @@
   position: relative;
   z-index: 100;
   isolation: isolate;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-end;
-  margin-bottom: 20px;
-  padding-block: 14px;
-  border-block: 1px solid var(--border);
 }
-/* The first result row supplies the closing rule for the listing toolbar. */
-.event-explorer[data-surface="events"] .event-filter-utility { border-bottom: 0; margin-bottom: 4px; }
+/* Result-row padding supplies the whitespace below controls, without a rule. */
+.event-explorer[data-surface="events"] .event-filter-utility { margin-bottom: 0; }
+.result-event:nth-child(1 of :not([hidden])) { border-top: 0; }
 .event-filters {
   display: flex;
   flex: 0 1 auto;
@@ -50,20 +44,6 @@
   font-weight: 670;
   letter-spacing: 0.01em;
 }
-.event-filters input,
-.event-filters select {
-  width: 100%;
-  min-height: 44px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface-raised);
-  color: var(--text);
-  border-radius: var(--radius-control);
-  padding: 9px 12px;
-  font-size: var(--type-ui);
-}
-.event-filters input::placeholder { color: var(--muted); }
-.event-filters input:hover,
-.event-filters select:hover { border-color: var(--accent); }
 .company-picker {
   position: relative;
   flex: 0 0 240px;
@@ -304,30 +284,40 @@
   top: 50%;
   border-top: 1px solid var(--border-strong);
 }
+/* A shared visible glyph inside a larger hit target in every Timeline view. */
+.timeline-mark {
+  display: grid;
+  place-items: center;
+  width: var(--timeline-hit-size);
+  height: var(--timeline-hit-size);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.timeline-glyph {
+  width: var(--timeline-glyph-size);
+  height: var(--timeline-glyph-size);
+  border: 1px solid color-mix(in srgb, var(--surface) 82%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 24%, transparent);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.timeline-mark.event-kind-technical .timeline-glyph,
+.legend-mark.event-kind-technical { background: var(--technical); }
+.timeline-mark.event-kind-organizational .timeline-glyph,
+.legend-mark.event-kind-organizational { background: var(--organizational); border-radius: 2px; }
+.timeline-mark:hover { z-index: 5; }
+.timeline-mark:hover .timeline-glyph { transform: scale(1.15); }
+.timeline-mark.is-active { z-index: 5; }
+.timeline-mark.is-active .timeline-glyph { box-shadow: var(--timeline-active-ring); }
 .event-mark {
   position: absolute;
   left: var(--x);
   top: 50%;
   z-index: 1;
-  width: 14px;
-  height: 14px;
-  padding: 0;
-  border: 2px solid var(--surface);
-  border-radius: 50%;
   transform: translate(-50%, -50%);
-  cursor: pointer;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 20%, transparent);
-  transition: transform 120ms ease, box-shadow 120ms ease;
 }
-.event-mark:hover { z-index: 4; transform: translate(-50%, -50%) scale(1.28); }
-.event-mark.is-active {
-  z-index: 5;
-  box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent);
-}
-.event-mark.event-kind-organizational,
-.legend-mark.event-kind-organizational { border-radius: 3px; }
-.event-kind-technical { background-color: var(--technical); }
-.event-kind-organizational { background-color: var(--organizational); }
 .empty-note { color: var(--muted); padding: 18px; margin: 0; }
 
 .activity-matrix-shell {
@@ -479,38 +469,7 @@
 .activity-mark {
   position: relative;
   z-index: 2;
-  display: grid;
-  place-items: center;
-  width: var(--bundle-cell-size);
-  height: var(--bundle-cell-size);
-  flex: 0 0 var(--bundle-cell-size);
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.activity-glyph {
-  display: grid;
-  place-items: center;
-  width: 8px;
-  height: 8px;
-  border: 1px solid color-mix(in srgb, var(--surface) 82%, transparent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 24%, transparent);
-  transition: transform 120ms ease, box-shadow 120ms ease;
-}
-.activity-mark.event-kind-technical,
-.activity-mark.event-kind-organizational { background: transparent; }
-.activity-mark.event-kind-technical .activity-glyph { background: var(--technical); }
-.activity-mark.event-kind-organizational .activity-glyph {
-  background: var(--organizational);
-  border-radius: 2px;
-}
-.activity-mark:hover { z-index: 5; }
-.activity-mark:hover .activity-glyph { transform: scale(1.28); }
-.activity-mark.is-active { z-index: 7; }
-.activity-mark.is-active .activity-glyph {
-  box-shadow: 0 0 0 2px var(--surface), 0 0 0 5px var(--accent);
+  flex: 0 0 var(--timeline-hit-size);
 }
 
 .event-detail {
@@ -574,7 +533,9 @@
 .result-section { max-width: none; }
 .result-date { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; }
 .result-date time { text-transform: uppercase; }
-.signal-type { color: var(--muted); font-size: var(--type-micro); line-height: var(--leading-meta); }
+.signal-type { display: inline-block; padding: 3px 5px; border-radius: 3px; color: var(--bg); font-size: 10px; font-weight: 600; line-height: 1.4; letter-spacing: 0.025em; text-transform: uppercase; }
+.signal-type-technical { background: var(--technical); }
+.signal-type-organizational { background: var(--organizational); }
 .result-context { margin: 6px 0 0; }
 .result-match {
   width: fit-content;
@@ -600,7 +561,7 @@
   .activity-matrix-shell { --matrix-label-width: 148px; }
 }
 @media (max-width: 760px) {
-  .event-filter-utility { gap: 10px; margin-bottom: 16px; padding-block: 12px; }
+  .event-filter-utility { gap: 10px; }
   .event-filters { gap: 10px; }
   .search-control, .select-control, .company-picker,
   .event-explorer[data-surface="events"] .search-control { flex: 1 1 100%; width: 100%; min-width: 0; }
@@ -611,5 +572,13 @@
   .result-date { align-items: center; flex-direction: row; flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .event-mark, .activity-glyph { transition: none; }
+  .timeline-glyph { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .timeline-glyph { forced-color-adjust: none; border-color: CanvasText; box-shadow: none; }
+  .timeline-mark.event-kind-technical .timeline-glyph,
+  .timeline-mark.event-kind-organizational .timeline-glyph { background: CanvasText; }
+  .timeline-mark.is-active .timeline-glyph { box-shadow: 0 0 0 2px Canvas, 0 0 0 4px Highlight; }
+  .signal-type { border: 1px solid CanvasText; }
 }

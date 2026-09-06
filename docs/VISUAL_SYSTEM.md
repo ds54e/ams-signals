@@ -1,15 +1,16 @@
 # AMS Signals visual system
 
-AMS Signals is a text-first technical research index and editorial site. Equivalent information shares typography, spacing, separators and contextual-link treatment. Different page functions retain different outer widths. The warm background, green accent and light/dark semantic palette remain; ordinary rows are flat. Accent identifies links, selection and Scope, not decorative badges.
+AMS Signals is a text-first technical research index and editorial site. Equivalent information shares typography, spacing, separators and contextual-link treatment. Reading, listing and explorer surfaces retain distinct functional widths; all four index lists share one listing measure. The warm background, green accent and light/dark semantic palette remain; ordinary rows are flat. Accent identifies links, selection and Scope, not decorative badges.
 
 ## Ownership and cascade
 
 - `src/styles/foundation.css`: semantic colors, intentional system/Japanese font fallbacks, type/spacing/layout tokens, reset, site shell, focus and reduced-motion rules.
 - `src/styles/index.css`: shared `.index-*` title, summary, date, metadata, link and row primitives. Used by Articles, Events and both catalogs.
-- `src/styles/event-explorer.css`: filter controls/popover, Timeline geometry/inspector and Events-specific row structure.
+- `src/styles/filters.css`: native input/select styling and the rule-free utility toolbar used by Catalog, Events and Timeline.
+- `src/styles/event-explorer.css`: company picker/popover, shared Timeline glyphs, geometry/inspector and Events-specific row structure.
 - `src/styles/articles.css`: long-form prose, citations and related-content structure. Article bodies are not styled as index summaries.
-- `src/styles/global.css`: ordered imports of the four modules above, followed by factual record/entity document context. `BaseLayout.astro` loads this entry point.
-- `src/styles/catalog.css`: the single authoritative Catalog presentation, loaded by `CatalogIndex.astro`. Domain pages independently load and validate their own collections, sort projects and prepare Scope/activity views. The component renders the prepared data; it does not own research or domain schemas.
+- `src/styles/global.css`: ordered imports of the modules above, followed by factual record/entity document context. `BaseLayout.astro` loads this entry point.
+- `src/styles/catalog.css`: the single authoritative Catalog presentation, loaded by `CatalogIndex.astro`. Domain pages independently load and validate their own collections, sort projects and prepare Scope/activity views. The component renders the prepared data and enhances Search/Scope with `src/scripts/catalog-filter.ts`; it does not own research or domain schemas.
 
 Do not create a second domain stylesheet or tune equivalent index text with unrelated literal sizes. Component extraction is useful for the identical catalog markup; shared CSS primitives are sufficient for the semantically different Article and Event rows. No frontend framework, webfont service or runtime data fetching is introduced.
 
@@ -21,10 +22,10 @@ Do not create a second domain stylesheet or tune equivalent index text with unre
 | Index summary / project description / Event fact | 15px / 400, muted | 1.65 |
 | Control text | 14px | native control line box, at least 40px high |
 | Contextual links, metadata, Scope | 13px / 400 | 1.45; Scope 1.4 |
-| Dates, column labels, activity month summary | 12px; dates and month summary 400 | 1.45 |
+| Dates and activity month summary | 12px; dates and month summary 400 | 1.45 |
 | Long-form Article prose | 17px / 400 | 1.85 |
 
-Index rows have **22px top / 24px bottom** padding and a subtle one-pixel rule. Title-to-summary gap is **9px**. Dates use a shared monospace stack and tabular numerals. Scope stays vertically stacked with **3px** gaps and **9px** filled/open CSS circles; its semantics do not change. Quick links remain directly beside plain-text project names at **13px**, with natural baseline-aligned wrapping.
+Index rows have **22px top / 24px bottom** padding and a subtle one-pixel rule. Title-to-summary gap is **9px**. Dates use a shared monospace stack and tabular numerals. Scope stays vertically stacked with **2px** gaps and **9px** filled/open CSS circles; its semantics do not change. Quick links remain directly beside plain-text project names at **13px**, with natural baseline-aligned wrapping.
 
 The font stack starts with `system-ui`, platform UI fonts and local Japanese fallbacks. There is no unloaded Inter declaration and no remote font download. Japanese titles have zero tracking and strict line breaking; Latin index titles use only −0.005em tracking. Short titles/summaries use `text-wrap: pretty` as progressive enhancement. Article prose retains comfortable size on mobile and is never converted into an index summary.
 
@@ -33,26 +34,35 @@ The font stack starts with `system-ui`, platform UI fonts and local Japanese fal
 | Token | Maximum | Use |
 | --- | --- | --- |
 | `--layout-reading` | 800px | Article body / factual reading pages |
-| `--layout-listing` | 920px | Articles and Events indexes |
-| `--layout-catalog` | 1120px | Project / Scope / Activity |
+| `--layout-listing` | 920px | Articles, Events, Analog and Digital indexes |
 | `--layout-explorer` | 1360px | Site shell / Timeline explorer |
 
-At full desktop width, the dated listing grid is **108px + 22px gap + 790px copy**. The catalog grid is **794px Project + 170px Scope + 112px Activity**, with **22px gaps**. Their primary text measures are therefore similar without forcing their outer containers to match.
+At full desktop width, the dated listing grid is **108px + 22px gap + 790px copy**. The catalog grid is **678px Project + 122px Scope + 88px Activity**, with **16px gaps**. All four listing surfaces have identical outer edges. Catalog descriptions can wrap to two or three lines without reducing their shared 15px size. The visible Project / Scope / Activity header row is removed; list structure and alignment supply the hierarchy.
 
 Catalog columns stack in Project → Scope → Activity order at 900px and below. Article/Event dates stack at 760px and below. Neither index needs horizontal scrolling. The Timeline retains its own locally scrolling visualization. Navigation remains Timeline | Events | Analog | Digital | Articles, normally 15px; at 360px and below it uses 14px with 5px gaps so all five links fit at 320px.
 
 ## Activity and utility surfaces
 
-Every project retains its **12-month reviewed public activity band**, latest month **left**, oldest **right**. The visual cells are **7px wide × 5px high**, with **2px** gaps and a natural **106px** band. Activity is a quiet three-line group: normal-weight date, band, `N/12 months`. Empty cells use a discernible outline; active cells have one fixed filled appearance. Contrast is tested for both text and cell boundaries in light and dark modes; forced colors retains filled/open distinctions.
+Every project retains its **12-month reviewed public activity band**, latest month **left**, oldest **right**. The visual cells are **4px wide × 8px high**, with **2px** gaps and a natural **70px** band. Within an **88px** column, Activity is a quiet three-line group: normal-weight date, band, `N/12 months`. Empty cells use a discernible outline; active cells have one fixed filled appearance. Contrast is tested for both text and cell boundaries in light and dark modes; forced colors retains filled/open distinctions.
 
 Repository-backed rows preserve genuine monthly counts and canonical provenance, including Surfer's GitLab history. Point events such as ATLAS and ngspice mark their reviewed paper/release month without fabricated commits. Counts, dates, eligibility, sorting, source metadata and newest-first accessible/hover labels are unchanged.
 
-Events filters form a flat utility toolbar with rules, no enclosing rounded card or shadow, and 44px controls with 14px text. The first result row supplies its closing rule, avoiding two adjacent separators. The company picker keeps a raised popover on desktop and an in-flow panel on mobile. Timeline visualization/inspector surfaces remain legitimate bounded interactive areas. Event signal types remain factual text; their list treatment no longer resembles colored badges.
+Catalog, Events and Timeline filters use whitespace, with **no toolbar border-block rules**, enclosing card or shadow. Native controls remain **44px** high with **14px** text. The first Catalog/Event row has no top rule and supplies **22px** padding below the controls; Timeline has **20px** below the toolbar before the visualization. Other row separators remain subtle. The company picker stays raised on desktop and in-flow on mobile.
+
+Catalog controls are a **300px Search**, **150px Scope select** and a right-aligned **13px normal-weight result count**. Search expands to a full row below 600px; Scope and count remain compact below it. Search matches only public name, description and rendered Scope labels, with Unicode/case/whitespace normalization. Stage filtering ignores AI and core/supporting distinctions, and combines with Search using AND. The form is hidden until JavaScript enhancement; all content remains available without JavaScript. No URL state, storage, fetches, hidden tags or EventExplorer dependencies are added.
+
+Events use compact filled **Technical blue / Organizational rust** badges: uppercase **10px/600**, **3px radius**, and **3px × 5px padding**. The light/dark semantic colors remain unchanged; contrasting foreground and readable text preserve category recognition. Timeline legends stay lighter and use category shapes.
+
+## Timeline glyphs and hit targets
+
+All global, company and person Timeline marks use the same `.timeline-mark > .timeline-glyph` primitive. The visible glyph is **8×8px**: Technical circle, Organizational **2px-radius** square. An **18×18px transparent button** supplies the interaction area. `TIMELINE_HIT_SIZE` owns that value for context placement, Matrix bundle packing and the rendered CSS variable, preventing target overlap from being hidden behind a smaller packing rectangle.
+
+Selection uses the same **2px surface gap / 4px outer accent ring** on the glyph; hover scales only the glyph to **1.15×**. Keyboard focus remains visible on the larger button. Sticky labels continue to occlude scrolling marks. Forced colors retain category shapes and a system-color selection ring. Existing chronological projection, grouping, filtering, factual content and inspector behavior are unchanged.
 
 ## Review and verification
 
 Visual review covers `/`, `/events/`, `/analog/`, `/digital/` and `/articles/` at **1440×900, 1280×800, 1024×768, 390×844 and 320×568**, plus dark mode, Japanese Article prose and the open company picker. Baseline, first-pass and refinement screenshots are local review artifacts, not a checked-in screenshot archive.
 
-Screenshot review led to removing the duplicate rule under Events controls, aligning the Activity line box with its 12px date, strengthening empty-cell outlines, and tightening only the smallest navigation layout. The shared copy measure and calmer Catalog row rhythm were retained. Catalog descriptions are secondary, Article/Event summaries are larger than before, and Activity is no longer a tall barcode.
+Screenshot review of the density pass retained **88px Activity** so year-bearing dates fit without reducing type size. A first **20px Timeline hit target** expanded Apple's dense global row to three visual rows; refining it to **18px** retains a two-row cluster while keeping the same 8px glyph and a larger click target. Search/Scope/count controls fit at 320px without squeezing description text. The filled Event badges restore immediate category recognition, while toolbar rules and Catalog column-heading chrome are absent.
 
-`tests/smoke/visual-system.spec.ts` checks computed hierarchy, color contrast, functional widths, Japanese spacing/prose, navigation, toolbar controls and low-profile newest-left cells. The existing catalog suites still check every authored Scope, source, project order and monthly signal, no-JS/keyboard behavior, forced colors and responsive geometry. Existing release tests retain Timeline/Events interaction, Articles, entity pages, noindex and export coverage. Run `npm run check` and the full Chromium `npm run test:smoke` before publishing; use the same suite against production after the established manual Pages deployment.
+`tests/smoke/visual-system.spec.ts` checks computed hierarchy, color contrast, shared listing edges, Japanese spacing/prose, navigation, toolbar controls and narrow vertical newest-left cells. `tests/smoke/timeline-visual.spec.ts` checks matching global/company/person glyph and hit geometry, category colors/shapes, selection, keyboard/forced colors and filled Event badges. The catalog suites check filtering/count/empty/no-JS behavior in addition to every authored Scope, source, project order and monthly signal, no-JS/keyboard behavior, forced colors and responsive geometry. Existing release tests retain Timeline/Events interaction, Articles, entity pages, noindex and export coverage. Run `npm run check` and the full Chromium `npm run test:smoke` before publishing; use the same suite against production after the established manual Pages deployment.

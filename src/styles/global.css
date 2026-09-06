@@ -1,6 +1,7 @@
 /* Cascade order: foundation → shared indexes → surface structure → document context. */
 @import './foundation.css';
 @import './index.css';
+@import './filters.css';
 @import './event-explorer.css';
 @import './articles.css';
 
