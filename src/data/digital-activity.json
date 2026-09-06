@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-09-06",
-  "capturedAt": "2026-09-06T10:27:19.856Z",
+  "capturedAt": "2026-09-06T11:09:11.164Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -858,6 +858,128 @@
       "lastCommitAt": "2026-09-05",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "1b53da61b4ada47576818851dc6a4018d81d1dcb"
+    },
+    "spade": {
+      "kind": "repository",
+      "repository": "https://gitlab.com/spade-lang/spade",
+      "repositoryId": "20965359",
+      "defaultBranch": "main",
+      "headSha": "c48e232694966e52104498c4887ee6c860f17114",
+      "commits": [
+        17,
+        21,
+        24,
+        49,
+        31,
+        28,
+        56,
+        18,
+        44,
+        6,
+        28,
+        3
+      ],
+      "lastCommitAt": "2026-09-05",
+      "lastMeaningfulCommitAt": "2026-09-05",
+      "lastMeaningfulCommitSha": "c48e232694966e52104498c4887ee6c860f17114",
+      "capturedAt": "2026-09-06T10:52:22.561959Z",
+      "lastMeaningfulCommitSource": "activity"
+    },
+    "kanagawa": {
+      "kind": "github",
+      "repository": "microsoft/kanagawa",
+      "repositoryId": 1054333720,
+      "defaultBranch": "main",
+      "headSha": "98a2d8cbe16b74bf15a46c46a19b319c1a0bf78e",
+      "commits": [
+        50,
+        15,
+        4,
+        0,
+        4,
+        1,
+        3,
+        3,
+        0,
+        0,
+        5,
+        1
+      ],
+      "lastCommitAt": "2026-09-02",
+      "lastMeaningfulCommitAt": "2026-09-02",
+      "lastMeaningfulCommitSha": "98a2d8cbe16b74bf15a46c46a19b319c1a0bf78e"
+    },
+    "siliconcompiler": {
+      "kind": "github",
+      "repository": "siliconcompiler/siliconcompiler",
+      "repositoryId": 320398696,
+      "defaultBranch": "main",
+      "headSha": "d499d5bca16bd54d1390312a7c4de6c47ea646d2",
+      "commits": [
+        146,
+        110,
+        81,
+        91,
+        95,
+        74,
+        77,
+        52,
+        56,
+        126,
+        132,
+        25
+      ],
+      "lastCommitAt": "2026-09-06",
+      "lastMeaningfulCommitAt": "2026-09-06",
+      "lastMeaningfulCommitSha": "d499d5bca16bd54d1390312a7c4de6c47ea646d2"
+    },
+    "amaranth": {
+      "kind": "github",
+      "repository": "amaranth-lang/amaranth",
+      "repositoryId": 236501540,
+      "defaultBranch": "main",
+      "headSha": "56f1cab5a19240d54e1bf587a27d831bade6de61",
+      "commits": [
+        7,
+        0,
+        5,
+        7,
+        2,
+        2,
+        7,
+        1,
+        0,
+        2,
+        3,
+        1
+      ],
+      "lastCommitAt": "2026-09-04",
+      "lastMeaningfulCommitAt": "2026-08-23",
+      "lastMeaningfulCommitSha": "e3c9215e195443aefde6c9591409d74802bdd10f"
+    },
+    "dynamatic": {
+      "kind": "github",
+      "repository": "EPFL-LAP/dynamatic",
+      "repositoryId": 571607607,
+      "defaultBranch": "main",
+      "headSha": "83bfa9897f9a1b37d695b2c29e2bef4d2df449e6",
+      "commits": [
+        28,
+        24,
+        35,
+        30,
+        29,
+        44,
+        33,
+        46,
+        25,
+        21,
+        12,
+        1
+      ],
+      "lastCommitAt": "2026-09-04",
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "lastMeaningfulCommitSha": "83bfa9897f9a1b37d695b2c29e2bef4d2df449e6"
     }
   }
 }

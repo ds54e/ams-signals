@@ -96,6 +96,11 @@ test('Digital classification follows user-facing operations rather than internal
     circt: ['design', 'synthesis', 'verification'],
     veryl: ['design', 'synthesis', 'verification'],
     xls: ['design', 'synthesis', 'verification'],
+    spade: ['design', 'synthesis', 'verification', 'layout'],
+    kanagawa: ['design', 'synthesis'],
+    siliconcompiler: ['synthesis', 'verification', 'layout'],
+    amaranth: ['design', 'synthesis', 'verification', 'layout'],
+    dynamatic: ['design', 'synthesis', 'verification', 'layout'],
     'dr-rtl': ['design', 'synthesis', 'verification'],
     coresmith: ['design', 'synthesis', 'verification', 'layout'],
   };
@@ -344,6 +349,11 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
     veryl: ['Design', 'Synthesis', 'Verification', 'AI-built'],
     xls: ['Design', 'Synthesis', 'Verification'],
+    spade: ['Design', 'Synthesis', 'Verification', 'Layout'],
+    kanagawa: ['Design', 'Synthesis'],
+    siliconcompiler: ['Synthesis', 'Verification', 'Layout'],
+    amaranth: ['Design', 'Synthesis', 'Verification', 'Layout'],
+    dynamatic: ['Design', 'Synthesis', 'Verification', 'Layout'],
   };
   for (const [id, labels] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;

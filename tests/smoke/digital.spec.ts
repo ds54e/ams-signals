@@ -3,24 +3,33 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
-  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls']);
+  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
+    'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic']);
 
 catalogSearchRegression(fixture, {
   Veryl: ['veryl'],
-  SystemVerilog: ['verilator', 'icarus-verilog', 'veryl', 'xls'],
-  HDL: ['veryl'],
-  RTL: ['veryl'],
-  simulator: ['verilator', 'icarus-verilog', 'veryl'],
+  SystemVerilog: ['verilator', 'icarus-verilog', 'veryl', 'xls', 'spade', 'kanagawa'],
+  HDL: ['veryl', 'spade', 'amaranth'],
+  RTL: ['veryl', 'spade', 'kanagawa', 'dynamatic'],
+  simulator: ['verilator', 'icarus-verilog', 'veryl', 'amaranth'],
   cocotb: ['veryl'],
   UVM: ['haven', 'xezim'],
-  formal: ['pono', 'symbiyosys', 'verifyrtl'],
-  waveform: ['surfer', 'what', 'vitamin'],
-  Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil'],
-  OpenROAD: ['openroad', 'coresmith'],
-  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl', 'veryl', 'xls'],
+  formal: ['pono', 'symbiyosys', 'verifyrtl', 'siliconcompiler'],
+  waveform: ['surfer', 'what', 'vitamin', 'amaranth'],
+  Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil', 'spade', 'siliconcompiler', 'amaranth'],
+  OpenROAD: ['openroad', 'coresmith', 'siliconcompiler'],
+  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl', 'veryl', 'xls', 'siliconcompiler', 'amaranth'],
   XLS: ['xls'],
-  HLS: ['xls'],
+  HLS: ['xls', 'kanagawa', 'dynamatic'],
   DSLX: ['xls'],
+  Spade: ['spade'],
+  Kanagawa: ['kanagawa'],
+  SiliconCompiler: ['siliconcompiler'],
+  Amaranth: ['amaranth'],
+  Python: ['amaranth', 'cocotb'],
+  Dynamatic: ['dynamatic'],
+  MLIR: ['circt', 'dynamatic'],
+  dataflow: ['dynamatic'],
   AI: ['xezim', 'haven', 'veryl'],
 });
 
