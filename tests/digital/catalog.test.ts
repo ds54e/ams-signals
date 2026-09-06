@@ -1,6 +1,6 @@
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import assert from 'node:assert/strict';
-import { activityBand } from '../../src/lib/catalog-activity-band.ts';
+import { activityBand, activityDateLabel } from '../../src/lib/catalog-activity-band.ts';
 import test from 'node:test';
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
@@ -9,7 +9,7 @@ import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
 import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
-import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate, shortDate } from '../../src/lib/digital/activity.ts';
+import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate } from '../../src/lib/digital/activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
 
@@ -302,8 +302,8 @@ test('refresh rejects forks, private or replaced repositories and preserves the 
 });
 
 test('compact activity dates retain year context without zero-padded days', () => {
-  assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
-  assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
+  assert.equal(activityDateLabel('2026-09-05'), 'Sep 5, 2026');
+  assert.equal(activityDateLabel('2025-10-01'), 'Oct 1, 2025');
 });
 
 test('GitHub and GitLab render genuine counts newest-first with equal binary monthly states', () => {

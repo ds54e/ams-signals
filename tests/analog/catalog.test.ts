@@ -1,11 +1,11 @@
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import { test } from 'node:test';
-import { activityBand } from '../../src/lib/catalog-activity-band.ts';
+import { activityBand, activityDateLabel } from '../../src/lib/catalog-activity-band.ts';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
-import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, shortDate, type PublicActivity } from '../../src/lib/analog/activity.ts';
+import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, type PublicActivity } from '../../src/lib/analog/activity.ts';
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 
@@ -214,7 +214,7 @@ test('activity counting uses UTC committer dates and retains an old latest date'
   assert.equal(result.lastCommitAt, '2026-09-04');
   assert.deepEqual(countActivity(['2024-02-29T01:00:00Z'], '2026-09-05T03:00:00Z'), { commits: Array(12).fill(0), lastCommitAt: '2024-02-29' });
   for (const dates of [[], ['invalid'], ['2026-09-05T04:00:00Z']]) assert.throws(() => countActivity(dates, '2026-09-05T03:00:00Z'));
-  assert.match(shortDate('2025-06-18', '2026-09-05'), /2025/);
+  assert.match(activityDateLabel('2025-06-18'), /2025/);
 });
 
 test('activity validates identities, refs, timestamps, nonnegative integer counts, and last-date consistency', () => {
@@ -296,8 +296,8 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
 });
 
 test('compact activity dates retain year context without zero-padded days', () => {
-  assert.equal(shortDate('2026-09-05', '2026-09-05'), 'Sep 5');
-  assert.equal(shortDate('2025-10-01', '2026-09-05'), 'Oct 1, 2025');
+  assert.equal(activityDateLabel('2026-09-05'), 'Sep 5, 2026');
+  assert.equal(activityDateLabel('2025-10-01'), 'Oct 1, 2025');
 });
 
 test('repository bands keep months and counts paired newest-first without mutating snapshot data', () => {

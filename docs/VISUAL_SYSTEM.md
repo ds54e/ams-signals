@@ -22,7 +22,7 @@ Do not create a second domain stylesheet or tune equivalent index text with unre
 | Index summary / project description / Event fact | 15px / 400, muted | 1.65 |
 | Control text | 14px | native control line box, at least 40px high |
 | Contextual links and metadata | 13px / 400 | 1.45 |
-| Scope category labels | 12px / 500 | 1.35 |
+| Scope category labels | 11px / 500 | 1.35 |
 | Dates | 12px / 400 | 1.45 |
 | Long-form Article prose | 17px / 400 | 1.85 |
 
@@ -44,7 +44,7 @@ At 760px and below catalogs put the project body first and its compact metadata 
 
 ## Activity and utility surfaces
 
-Every project retains its **12-month reviewed public activity band**, latest month **left**, oldest **right**. The visual cells are **4px wide × 8px high**, with **2px** gaps and a natural **70px** band. The rail starts with a normal-weight date, **6px** of separation before the ticks and only **4px** before Scope labels. No month total is visible; the accessible band label retains that contextual count. Empty cells use a discernible outline; active cells have one fixed filled appearance. Contrast is tested for both text and cell boundaries in light and dark modes; forced colors retains filled/open distinctions.
+Every project retains its **12-month reviewed public activity band**, latest month **left**, oldest **right**. The visual cells are **5px wide × 10px high**, with **2px** gaps and a natural **82px** band. The rail starts with a normal-weight date including its actual year (`Sep 5, 2026`), **4px** of separation before the ticks and **6px** before Scope labels. No month total is visible; the accessible band label retains that contextual count. Empty cells use a discernible outline; active cells have one fixed filled appearance. Contrast is tested for both text and cell boundaries in light and dark modes; forced colors retains filled/open distinctions.
 
 Repository-backed rows preserve genuine monthly counts and canonical provenance, including Surfer's GitLab history. Point events such as ATLAS and ngspice mark their reviewed paper/release month without fabricated commits. Counts, dates, eligibility, sorting, source metadata and newest-first accessible/hover labels are unchanged.
 
@@ -58,15 +58,15 @@ Events use compact filled **Technical blue / Organizational rust** badges: upper
 
 ## Scope category palette
 
-Stage presence is the category; AI prefixes inherit the same class/color. Only AI-built uses a provenance color. Each label has its own background, with **white foreground in light mode** and **#14231f in dark mode**. All text/fill pairs exceed 4.5:1 contrast. Scope is recognizable from its text even without color; forced colors uses CanvasText/Canvas with a system-color outline. These styles are confined to the shared catalog stylesheet and do not alter Event or Timeline semantic colors.
+Stage presence is the category; AI prefixes inherit the same class/color. Fills are muted relatives of the Event blue/rust palette, with lower saturation and compact title-case text; the Event colors themselves stay unchanged. Only AI-built uses a provenance color. Each label has its own background, with **white foreground in light mode** and **#14231f in dark mode**. All text/fill pairs exceed 4.5:1 contrast. Scope is recognizable from its text even without color; forced colors uses CanvasText/Canvas with a system-color outline. These styles are confined to the shared catalog stylesheet and do not alter Event or Timeline semantic colors.
 
 | Category | Light fill | Dark fill |
 | --- | --- | --- |
-| Design / AI Design | #286859 | #7fb4a4 |
-| Simulation / AI Simulation; Verification / AI Verification | #386f93 (Technical blue) | #79acd0 |
-| Synthesis / AI Synthesis | #886018 | #d4b36b |
-| Layout / AI Layout | #9a5c4d (Organizational rust) | #d38b79 |
-| AI-built | #73598b | #bba4ce |
+| Design / AI Design | #4d7066 | #91aaa1 |
+| Simulation / AI Simulation; Verification / AI Verification | #536f82 | #94a8b6 |
+| Synthesis / AI Synthesis | #807047 | #b4a27b |
+| Layout / AI Layout | #89675d | #b89b8f |
+| AI-built | #766681 | #ab9db5 |
 
 Activity retains its existing neutral/accent colors and binary fill. Category colors never encode its age or commit volume.
 
@@ -80,6 +80,6 @@ Selection uses the same **2px surface gap / 4px outer accent ring** on the glyph
 
 Visual review covers `/`, `/events/`, `/analog/`, `/digital/` and `/articles/` at **1440×900, 1280×800, 1024×768, 390×844 and 320×568**, plus dark mode, Japanese Article prose and the open company picker. Baseline, first-pass and refinement screenshots are local review artifacts, not a checked-in screenshot archive.
 
-Screenshot review of the rail pass increased Scope labels from **11px/600 to 12px/500**, improving legibility while reducing typographic heaviness. The label line height is **1.35**, padding **2px vertical / 6px horizontal**, radius **3px**; no marker or strength distinction accompanies the text. The **150px** rail keeps even AI Verification readable and leaves the project body wider than the preceding three-column layout. A first **20px Timeline hit target** expanded Apple's dense global row to three visual rows; refining it to **18px** retains a two-row cluster while keeping the same 8px glyph and a larger click target. Search/Scope/count controls fit at 320px without squeezing description text. The filled Event badges restore immediate category recognition, while toolbar rules and Catalog column-heading chrome are absent.
+Direct screenshot comparison with Events reduced Scope labels to **11px** with **2px vertical / 5px horizontal padding** and **2px radius**. An initial **550 weight** still selected a visibly heavy system-font face, so the refined version uses **500**. Muted category fills reduce the block’s visual weight while **5×10px ticks** keep activity legible; a **4px date-to-strip / 6px strip-to-Scope** rhythm separates the two metadata types without a blank line. The shared `activityDateLabel` formatter always includes the event’s year; the component owns this formatting rather than duplicating it in domain data preparation. The **150px** rail keeps even AI Verification readable and leaves the project body wider than the preceding three-column layout. A first **20px Timeline hit target** expanded Apple's dense global row to three visual rows; refining it to **18px** retains a two-row cluster while keeping the same 8px glyph and a larger click target. Search/Scope/count controls fit at 320px without squeezing description text. The filled Event badges restore immediate category recognition, while toolbar rules and Catalog column-heading chrome are absent.
 
 `tests/smoke/visual-system.spec.ts` checks computed hierarchy, color contrast, shared listing edges, Japanese spacing/prose, navigation, toolbar controls and narrow vertical newest-left cells. `tests/smoke/timeline-visual.spec.ts` checks matching global/company/person glyph and hit geometry, category colors/shapes, selection, keyboard/forced colors and filled Event badges. The catalog suites check filtering/count/empty/no-JS behavior in addition to every authored Scope, source, project order and monthly signal, no-JS/keyboard behavior, forced colors and responsive geometry. Existing release tests retain Timeline/Events interaction, Articles, entity pages, noindex and export coverage. Run `npm run check` and the full Chromium `npm run test:smoke` before publishing; use the same suite against production after the established manual Pages deployment.

@@ -19,6 +19,12 @@ export function monthLabel(month: string): string {
     .format(new Date(`${month}-01T00:00:00Z`));
 }
 
+/** The reviewed event's own year is always visible, independently of the snapshot. */
+export function activityDateLabel(date: string): string {
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(`${date}T00:00:00Z`));
+}
+
 /** A render-only view of validated records: point signals never become commit buckets. */
 export function activityBand(record: ActivityRecord, months: readonly string[], sources: readonly { id: string; title: string }[]) {
   let date: string, provenance: string, cells: ActivityCell[];
