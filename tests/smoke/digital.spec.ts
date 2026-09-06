@@ -7,7 +7,7 @@ catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verificat
 
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await page.goto('./digital/');
-  const surfer = fixture.row(page, 'surfer').locator('.digital-activity');
+  const surfer = fixture.row(page, 'surfer').locator('.catalog-activity');
   expect(fixture.activity.projects.surfer.kind).toBe('repository');
   expect(fixture.activity.projects.surfer.repository).toBe('https://gitlab.com/surfer-project/surfer');
   await expect(surfer.locator('ul > li')).toHaveCount(12);
@@ -16,6 +16,6 @@ test('reviewed GitHub and GitLab histories share compact binary activity bands',
   await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-month', '2025-10');
   await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-commits', '47');
   await expect(surfer.locator('time')).toHaveAttribute('datetime', '2026-09-04');
-  await expect(surfer.locator('.digital-activity-summary')).toHaveText('12/12 months');
+  await expect(surfer.locator('.activity-summary')).toHaveText('12/12 months');
   expect(await surfer.innerText()).not.toContain('gitlab.com');
 });

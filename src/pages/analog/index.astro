@@ -1,64 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CatalogIndex from '../../components/CatalogIndex.astro';
 import { sortProjects, scopeStageLabels } from '../../lib/analog/catalog';
-import { monthLabel, shortDate } from '../../lib/analog/activity';
+import { shortDate } from '../../lib/analog/activity';
 import { validateActivity } from '../../lib/analog/schema';
 import { scopeItems } from '../../lib/catalog-scope';
 import { activityBand } from '../../lib/catalog-activity-band';
 import activityData from '../../data/analog-activity.json';
-import '../../styles/analog.css';
 
 const entries = await getCollection('analog');
 const activity = validateActivity(entries, activityData);
-const projects = sortProjects(entries, activity.projects);
-const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-const windowLabel = `${monthLabel(activity.months[11])}–${monthLabel(activity.months[0])} (newest to oldest)`;
+const projects = sortProjects(entries, activity.projects).map(({ data, id }) => {
+  const record = activity.projects[id];
+  const band = activityBand(record, activity.months, data.sources);
+  return {
+    id, name: data.name, description: data.description, sources: data.sources,
+    scope: scopeItems(data.scope, scopeStageLabels),
+    activity: { ...band, kind: record.kind, dateLabel: shortDate(band.date, activity.reviewedAt) },
+  };
+});
 ---
 <BaseLayout title="Analog · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
-  <section class="analog" data-analog aria-labelledby="catalog:heading">
-    <h1 id="catalog:heading" class="visually-hidden">Analog</h1>
-
-    <section id="catalog:index" aria-label="Project index">
-      <div class="catalog-columns" aria-hidden="true">
-        <div>Project</div><div>Scope</div><div>Activity</div>
-      </div>
-      <ol class="catalog-list" aria-label="Projects">
-        {projects.map((project) => {
-          const { data, id } = project;
-          const record = activity.projects[id];
-          const band = activityBand(record, activity.months, data.sources);
-          return <li class="catalog-project" data-catalog-project={id}>
-            <article aria-labelledby={`${id}--name`}>
-              <div class="catalog-overview">
-                <div class="catalog-title">
-                  <h2 id={`${id}--name`}>{data.name}</h2>
-                  <ul class="catalog-quicklinks" aria-label={`${data.name} primary links`}>
-                    {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
-                  </ul>
-                </div>
-                <p class="catalog-description">{data.description}</p>
-              </div>
-              <ul class="catalog-scope" aria-label={`${data.name} Scope`}>
-                {scopeItems(data.scope, scopeStageLabels).map((item) => <li data-scope-item={item.id} data-level={item.level} data-ai={item.ai} title={`${item.label}: ${item.meaning}`}>
-                  <span class:list={['scope-mark', item.level]} aria-hidden="true" />
-                  <span>{item.label}</span><span class="visually-hidden">{`: ${item.meaning}`}</span>
-                </li>)}
-              </ul>
-              <div class="catalog-activity" data-activity-kind={record.kind}>
-                <span class="visually-hidden">Public activity: </span>
-                <p class="activity-latest"><time datetime={band.date} title={band.provenance}>{shortDate(band.date, activity.reviewedAt)}</time></p>
-                <ul class="activity-strip" aria-label={`${data.name}: ${windowLabel}; ${band.provenance}`}>
-                  {band.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
-                    <span class="visually-hidden">{cell.detail}</span>
-                  </li>)}
-                </ul>
-                <p class="activity-summary">{band.activeMonths}/12 months</p>
-              </div>
-            </article>
-          </li>;
-        })}
-      </ol>
-    </section>
-  </section>
+  <CatalogIndex domain="analog" title="Analog" months={activity.months} projects={projects} />
 </BaseLayout>

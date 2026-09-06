@@ -1,61 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { scopeStageLabels, linkLabels, sortProjects } from '../../lib/digital/catalog';
-import { monthLabel, shortDate } from '../../lib/digital/activity';
+import CatalogIndex from '../../components/CatalogIndex.astro';
+import { sortProjects, scopeStageLabels } from '../../lib/digital/catalog';
+import { shortDate } from '../../lib/digital/activity';
 import { validateActivity } from '../../lib/digital/schema';
 import { scopeItems } from '../../lib/catalog-scope';
 import { activityBand } from '../../lib/catalog-activity-band';
 import activityData from '../../data/digital-activity.json';
-import '../../styles/digital.css';
 
 const entries = await getCollection('digital');
 const activity = validateActivity(entries, activityData);
-const projects = sortProjects(entries, activity.projects);
-const windowLabel = `${monthLabel(activity.months[11])}–${monthLabel(activity.months[0])} (newest to oldest)`;
+const projects = sortProjects(entries, activity.projects).map(({ data, id }) => {
+  const record = activity.projects[id];
+  const band = activityBand(record, activity.months, data.sources);
+  return {
+    id, name: data.name, description: data.description, sources: data.sources,
+    scope: scopeItems(data.scope, scopeStageLabels),
+    activity: { ...band, kind: record.kind, dateLabel: shortDate(band.date, activity.reviewedAt) },
+  };
+});
 ---
 <BaseLayout title="Digital · AMS Signals" description="RTL/digital tools and agents for simulation, compilation, verification, formal, debug and implementation flows." lang="en">
-  <section class="digital" data-digital aria-labelledby="digital:heading">
-    <h1 id="digital:heading" class="visually-hidden">Digital</h1>
-    <section id="digital:index" aria-label="Project index">
-      <div class="digital-columns" aria-hidden="true">
-        <div>Project</div><div>Scope</div><div>Activity</div>
-      </div>
-      <ol class="digital-list" aria-label="Projects">
-        {projects.map(({ data, id }) => {
-          const record = activity.projects[id];
-          const band = activityBand(record, activity.months, data.sources);
-          return <li class="digital-project" data-digital-project={id}>
-            <article aria-labelledby={`${id}--name`}>
-              <div class="digital-overview">
-                <div class="digital-title">
-                  <h2 id={`${id}--name`}>{data.name}</h2>
-                  <ul class="digital-quicklinks" aria-label={`${data.name} primary links`}>
-                    {data.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
-                  </ul>
-                </div>
-                <p class="digital-description">{data.description}</p>
-              </div>
-              <ul class="digital-scope" aria-label={`${data.name} Scope`}>
-                {scopeItems(data.scope, scopeStageLabels).map((item) => <li data-scope-item={item.id} data-level={item.level} data-ai={item.ai} title={`${item.label}: ${item.meaning}`}>
-                  <span class:list={['digital-scope-mark', item.level]} aria-hidden="true" />
-                  <span>{item.label}</span><span class="visually-hidden">{`: ${item.meaning}`}</span>
-                </li>)}
-              </ul>
-              <div class="digital-activity" data-activity-kind={record.kind}>
-                <span class="visually-hidden">Public activity: </span>
-                <p class="digital-activity-latest"><time datetime={band.date} title={band.provenance}>{shortDate(band.date, activity.reviewedAt)}</time></p>
-                <ul class="digital-activity-strip" aria-label={`${data.name}: ${windowLabel}; ${band.provenance}`}>
-                  {band.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
-                    <span class="visually-hidden">{cell.detail}</span>
-                  </li>)}
-                </ul>
-                <p class="digital-activity-summary">{band.activeMonths}/12 months</p>
-              </div>
-            </article>
-          </li>;
-        })}
-      </ol>
-    </section>
-  </section>
+  <CatalogIndex domain="digital" title="Digital" months={activity.months} projects={projects} />
 </BaseLayout>

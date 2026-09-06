@@ -528,25 +528,25 @@ const matrixMarkLabel = (event: EventEntry) => (
   </div>}
 
   {surface === 'events' && <section class="result-section" aria-label="Events">
-    <div class="result-list" data-result-list>
+    <div class="result-list index-list" data-result-list>
       {newestFirst.map((event) => {
         const contexts = renderContextLinks(event);
         return (
-          <article class="result-event" data-event-result data-event-id={event.data.id}>
+          <article class="result-event index-row index-dated-row" data-event-result data-event-id={event.data.id}>
             <div class="result-date">
-              <time datetime={event.data.when.start}>{formatWhen(event)}</time>
-              <span class={`kind-badge event-kind-${event.data.kind}`}>{kindLabels[event.data.kind]}</span>
+              <time class="index-date" datetime={event.data.when.start}>{formatWhen(event)}</time>
+              <span class="signal-type" data-signal-type={event.data.kind}>{kindLabels[event.data.kind]}</span>
             </div>
             <div class="result-body">
-              <h3><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
+              <h3 class="index-title"><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
               {contexts.length > 0 && (
-                <p class="result-context">
+                <p class="result-context index-links">
                   {contexts.map((entry, index) => (
                     <><a href={entry.href}>{entry.name}</a>{index < contexts.length - 1 ? <span aria-hidden="true"> · </span> : null}</>
                   ))}
                 </p>
               )}
-              <p class="result-fact">{event.data.fact}</p>
+              <p class="result-fact index-summary">{event.data.fact}</p>
               <p class="result-match" data-result-match hidden></p>
             </div>
           </article>

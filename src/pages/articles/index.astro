@@ -15,13 +15,13 @@ const articles = sortArticlesNewestFirst(await getCollection('articles'));
     <h1 id="articles-heading" class="visually-hidden">Articles</h1>
 
     {articles.length > 0 ? (
-      <ol class="article-list">
+      <ol class="article-list index-list">
         {articles.map((article) => (
-          <li>
-            <time datetime={article.data.published}>{article.data.published}</time>
+          <li class="index-row index-dated-row">
+            <time class="index-date" datetime={article.data.published}>{article.data.published}</time>
             <div class="article-list-body">
-              <h2><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h2>
-              <p>{article.data.summary}</p>
+              <h2 class="index-title"><a href={sitePath(`articles/${article.id}/`)}>{article.data.title}</a></h2>
+              <p class="index-summary">{article.data.summary}</p>
             </div>
           </li>
         ))}

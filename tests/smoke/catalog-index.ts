@@ -14,16 +14,15 @@ export async function catalogFixture(domain: 'analog' | 'digital') {
   const key = (name: string) => name.normalize('NFKC').toLowerCase().trim();
   const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
   const ordered = [...projects].sort((a, b) => compare(date(b.id), date(a.id)) || compare(key(a.name), key(b.name)) || compare(a.id, b.id));
-  const prefix = domain === 'analog' ? 'catalog' : 'digital';
-  const attribute = `data-${prefix}-project`;
-  return { domain, prefix, attribute, projects, ordered, activity,
+  const attribute = 'data-catalog-project';
+  return { domain, attribute, projects, ordered, activity,
     rows: (page: Page) => page.locator(`[${attribute}]`),
     row: (page: Page, id: string) => page.locator(`[${attribute}="${id}"]`),
   };
 }
 
 export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixture>>, scopeStageLabels: Record<string, string>, inspect: string[]) {
-  const { domain, prefix, attribute, projects, ordered, activity, rows, row } = fixture;
+  const { domain, attribute, projects, ordered, activity, rows, row } = fixture;
   const label = domain === 'analog' ? 'Analog' : 'Digital';
   const open = (page: Page) => page.goto(`./${domain}/`);
   const noOverflow = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -42,25 +41,25 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const h1 = page.getByRole('heading', { level: 1 });
     await expect(h1).toHaveText(label); await expect(h1).toHaveClass('visually-hidden');
     expect((await h1.boundingBox())!.width).toBeLessThanOrEqual(1);
-    const catalog = page.locator(`[data-${domain}]`);
+    const catalog = page.locator(`[data-catalog="${domain}"]`);
     expect(await catalog.evaluate((el) => [...el.children].map((x) => x.tagName))).toEqual(['H1', 'SECTION']);
-    expect(await catalog.locator('section').evaluate((el) => el.firstElementChild?.className)).toBe(`${prefix}-columns`);
-    await expectIndexColumns(page.locator(`.${prefix}-columns`));
+    await expect(catalog.locator('section > :first-child')).toHaveClass(/\bcatalog-columns\b/);
+    await expectIndexColumns(page.locator(`.catalog-columns`));
     await expect(catalog.locator('table, input, select, button, form, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
     for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
     await expect(catalog.locator('[data-tag-kind], [class$="-metadata"]')).toHaveCount(0);
-    const rendered = await rows(page).evaluateAll((nodes, { prefix, attribute }) => nodes.map((el) => ({
+    const rendered = await rows(page).evaluateAll((nodes, attribute) => nodes.map((el) => ({
       id: el.getAttribute(attribute), rowId: el.id,
       name: el.querySelector('h2')!.textContent, nameLinks: el.querySelectorAll('h2 a').length,
-      description: el.querySelector(`.${prefix}-description`)!.textContent,
-      descriptions: el.querySelectorAll(`.${prefix}-description`).length,
-      title: el.querySelector<HTMLElement>(`.${prefix}-title`)!.innerText.replace(/\s+/g, ' ').trim(),
-      titleChildren: [...el.querySelector(`.${prefix}-title`)!.children].map((x) => x.tagName),
-      links: [...el.querySelectorAll<HTMLAnchorElement>(`.${prefix}-title .${prefix}-quicklinks a`)].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
+      description: el.querySelector(`.catalog-description`)!.textContent,
+      descriptions: el.querySelectorAll(`.catalog-description`).length,
+      title: el.querySelector<HTMLElement>(`.catalog-title`)!.innerText.replace(/\s+/g, ' ').trim(),
+      titleChildren: [...el.querySelector(`.catalog-title`)!.children].map((x) => x.tagName),
+      links: [...el.querySelectorAll<HTMLAnchorElement>(`.catalog-title .catalog-quicklinks a`)].map((x) => ({ label: x.textContent, href: x.getAttribute('href') })),
       linkCount: el.querySelectorAll('a').length,
-    })), { prefix, attribute });
+    })), attribute);
     expect(rendered).toEqual(ordered.map((p) => {
       const links = p.sources.filter((s: any) => s.purpose).sort((a: any, b: any) => Object.keys(linkLabels).indexOf(a.purpose) - Object.keys(linkLabels).indexOf(b.purpose))
         .map((s: any) => ({ label: linkLabels[s.purpose as keyof typeof linkLabels], href: s.url }));
@@ -96,19 +95,19 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       expect(new Set(cells.map((cell) => cell.stage)).size).toBe(cells.length);
       expect(cells.length).toBeGreaterThan(0);
     }
-    await expectScopeCircles(page.locator(`.${prefix}-scope`));
+    await expectScopeCircles(page.locator(`.catalog-scope`));
   });
 
   test(`${label} every row shows twelve reviewed activity months with the newest physically leftmost`, async ({ page }) => {
-    await open(page); await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
+    await open(page); await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 
   test(`${label} keyboard navigation reaches only useful external actions after the site navigation`, async ({ page }) => {
     await open(page);
-    const first = rows(page).first().locator(`.${prefix}-quicklinks a`).first();
+    const first = rows(page).first().locator(`.catalog-quicklinks a`).first();
     for (let i = 0; i < 10 && !await first.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
     await expect(first).toBeFocused();
-    const allLinks = rows(page).locator(`.${prefix}-quicklinks a`);
+    const allLinks = rows(page).locator(`.catalog-quicklinks a`);
     await page.keyboard.press('Tab'); await expect(allLinks.nth(1)).toBeFocused();
     const href = (await first.getAttribute('href'))!;
     await page.route(href, (route) => route.fulfill({ contentType: 'text/html', body: '<h1>Primary source destination</h1>' }));
@@ -121,10 +120,10 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
     const page = await context.newPage(); await open(page);
     await expect(rows(page)).toHaveCount(projects.length);
-    await expect(rows(page).locator(`.${prefix}-description`)).toHaveText(ordered.map((p) => p.description));
-    await expectScopeCircles(page.locator(`.${prefix}-scope`));
-    await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
-    const last = rows(page).last().locator(`.${prefix}-quicklinks a`).first();
+    await expect(rows(page).locator(`.catalog-description`)).toHaveText(ordered.map((p) => p.description));
+    await expectScopeCircles(page.locator(`.catalog-scope`));
+    await expectActivityBands(rows(page), `.catalog-activity`, activity);
+    const last = rows(page).last().locator(`.catalog-quicklinks a`).first();
     await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
     const href = (await last.getAttribute('href'))!;
     await page.route(href, (route) => route.fulfill({ contentType: 'text/html', body: '<h1>Primary source destination</h1>' }));
@@ -133,15 +132,15 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await context.close();
   });
 
-  for (const width of [1440, 1280, 1024, 390, 320]) {
+  for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568]]) {
     test(`${label} compact index fits ${width}px without overflow or overlapping content`, async ({ page }, info) => {
-      await page.setViewportSize({ width, height: 900 }); await open(page); await noOverflow(page);
-      await expectTitleAndIndexGeometry(rows(page), prefix, width);
-      await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
+      await page.setViewportSize({ width, height }); await open(page); await noOverflow(page);
+      await expectTitleAndIndexGeometry(rows(page), width);
+      await expectActivityBands(rows(page), `.catalog-activity`, activity);
       if (width >= 1024) {
-        await expect(page.locator(`.${prefix}-columns`)).toBeVisible();
+        await expect(page.locator(`.catalog-columns`)).toBeVisible();
         expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(4);
-      } else await expect(page.locator(`.${prefix}-columns`)).not.toBeVisible();
+      } else await expect(page.locator(`.catalog-columns`)).not.toBeVisible();
       await page.screenshot({ path: info.outputPath(`${domain}-index-${width}.png`) });
       const selected = new Set([ordered[0].id, ordered[Math.floor(projects.length / 2)].id, ordered.at(-1)!.id, ...inspect]);
       for (const id of selected) {
@@ -176,7 +175,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
 
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active' }); await open(page);
-    await expectScopeCircles(page.locator(`.${prefix}-scope`));
-    await expectActivityBands(rows(page), `.${prefix}-activity`, activity);
+    await expectScopeCircles(page.locator(`.catalog-scope`));
+    await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 }

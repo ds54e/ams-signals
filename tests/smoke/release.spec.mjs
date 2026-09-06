@@ -954,7 +954,7 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator('.result-heading')).toHaveCount(0);
   const resultSection = page.locator('.result-section[aria-label="Events"]');
   await expect(resultSection).toBeVisible();
-  await expect(resultSection.locator(':scope > :first-child')).toHaveClass('result-list');
+  await expect(resultSection.locator(':scope > :first-child')).toHaveClass(/\bresult-list\b/);
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
   await expect(page.locator('[data-status]')).toHaveText('185 of 185 events');
   await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('185 of 185 events');
@@ -972,7 +972,7 @@ test('Events is the chronological textual view without a Timeline or inspector',
   expect(ids.length).toBeGreaterThan(0);
   expect(new Set(ids).size).toBe(ids.length);
   await expect(page.locator('[data-event-result]').first().locator('time')).toBeVisible();
-  await expect(page.locator('[data-event-result]').first().locator('.kind-badge')).toBeVisible();
+  await expect(page.locator('[data-event-result]').first().locator('.signal-type')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.result-fact')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.result-body h3 a')).toBeVisible();
   await expect(page.locator('.result-links, [data-event-result] a[href^="http"]')).toHaveCount(0);
@@ -2470,11 +2470,11 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await page.locator('[data-kind]').selectOption('technical');
   await expect(page.locator('[data-status]')).toHaveText('126 of 185 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
-  await expect(page.locator('.kind-badge.event-kind-organizational:visible')).toHaveCount(0);
+  await expect(page.locator('.signal-type[data-signal-type="organizational"]:visible')).toHaveCount(0);
   await page.locator('[data-kind]').selectOption('organizational');
   await expect(page.locator('[data-status]')).toHaveText('59 of 185 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('organizational');
-  await expect(page.locator('[data-event-result]:visible .kind-badge')).toHaveText(
+  await expect(page.locator('[data-event-result]:visible .signal-type')).toHaveText(
     Array(59).fill('Organizational'),
   );
 
@@ -2498,7 +2498,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expect(page.locator('[data-kind]')).toHaveValue('all');
   expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
 
-  expect(new Set(await page.locator('.kind-badge').allTextContents())).toEqual(new Set(['Technical', 'Organizational']));
+  expect(new Set(await page.locator('.signal-type').allTextContents())).toEqual(new Set(['Technical', 'Organizational']));
   await page.goto('./events/ecosystem-2025-02-uvm-ms-1-standard/');
   await expect(page.locator('.event-meta')).toContainText('Technical');
   await page.goto('./events/sitime-2023-keiichi-kajino-japan-verification-manager/');

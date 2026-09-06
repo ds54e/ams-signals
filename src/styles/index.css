@@ -1,0 +1,18 @@
+/* Shared editorial index hierarchy. Containers retain their functional widths. */
+.index-list { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--border); }
+.index-row { padding-block: var(--index-row-before) var(--index-row-after); border-top: 1px solid var(--border); }
+.index-dated-row { display: grid; grid-template-columns: 108px minmax(0, 1fr); column-gap: var(--index-column-gap); }
+.index-title { margin: 0; font-size: var(--type-index-title); font-weight: 700; line-height: var(--leading-index-title); letter-spacing: -0.005em; text-wrap: pretty; overflow-wrap: anywhere; }
+.index-title:lang(ja) { letter-spacing: 0; line-break: strict; }
+.index-title a { color: var(--text); font-weight: inherit; text-decoration: none; }
+.index-title a:hover { color: var(--accent-ink); text-decoration: underline; }
+.index-summary { margin: var(--index-copy-gap) 0 0; font-size: var(--type-index-summary); font-weight: 400; line-height: var(--leading-index-summary); color: var(--muted); text-wrap: pretty; overflow-wrap: anywhere; }
+.index-summary:lang(ja) { line-break: strict; }
+.index-meta { color: var(--muted); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
+.index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.index-label { color: var(--muted); font-size: var(--type-micro); font-weight: 600; line-height: var(--leading-meta); }
+.index-links { color: var(--accent-ink); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
+.index-links a { color: var(--accent-ink); }
+@media (max-width: 760px) {
+  .index-dated-row { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+}

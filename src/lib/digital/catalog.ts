@@ -4,7 +4,6 @@ export const scopeStageIds = ['design', 'synthesis', 'verification', 'layout'] a
 export const scopeStageLabels: Record<typeof scopeStageIds[number], string> = {
   design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout',
 };
-export const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 
 export function sortProjects<T extends { id: string; data: { name: string } }>(
   projects: readonly T[], activity: Readonly<Record<string, PublicActivity>>,

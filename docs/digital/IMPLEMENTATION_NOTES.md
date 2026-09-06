@@ -1,12 +1,18 @@
 # Digital implementation and review notes
 
+## Shared visual system (2026-09-06)
+
+The current presentation uses `CatalogIndex.astro`, one `catalog.css`, and the shared index typography/rhythm described in [VISUAL_SYSTEM.md](../VISUAL_SYSTEM.md). Domain pages retain their own validation, sorting and data preparation. The two former domain stylesheets are removed. The full-width grid is Project **794px**, Scope **170px**, Activity **112px**, with **22px** gaps inside **1120px**. Activity uses quiet **7×5px** horizontal ticks, **2px** gaps and a **106px** intrinsic band. Latest month remains leftmost; dates are normal-weight 12px metadata. No content, classifications, reviewed activity or source URLs change in this presentation refactor.
+
+Both catalogs pass the shared visual-system checks and **79/79 Chromium** production-preview tests; see the [paired validation and data-integrity record](../analog/IMPLEMENTATION_NOTES.md#shared-visual-system-2026-09-06). The Digital unit suite passes **24/24** without changes to its data-model tests.
+
 ## Scope migration (2026-09-06)
 
 Starting commit: `ce23da8f0d036fd4648d943fe22c807f7b141dab`. Retain **35 Analog / 33 Digital** projects. Re-read all descriptions and classification notes and reopen primary material for all 68 entries, using the existing pinned source revisions and the ATLAS paper. Additional linked implementation inspection resolves stage-specific AI involvement. Every content file records a Scope decision with a local source reference. This is not an activity refresh or an independent reproduction of external EDA/benchmark results.
 
 The single public index is **Project | Scope | Activity**. Each stage records an explicit core/supporting level and AI boolean; AI-built is optional, separate and last. Role metadata, project-wide AI enums and the former flat stage field have no retained compatibility layer. Descriptions already include the useful technical identifiers from the preceding cleanup, so this migration preserves descriptions and source arrays exactly.
 
-Keep the **1120px** width and **Project 798px / Scope 170px / Activity 108px** at full width, with 22px gaps. Scope is vertical, 3px gaps and 1.4 line height. Name and primary links use the existing left-aligned wrapping title row. Activity keeps weight-400 dates and **5×12px upright cells / 2px gaps / 82px band**, including canonical GitLab Surfer and point-event ATLAS/ngspice. No new public prose, controls, storage or client code is introduced.
+Scope remains vertical with a left-aligned wrapping title/link row. Activity retains canonical GitLab Surfer and point-event ATLAS/ngspice. Current geometry and typography are maintained in the shared visual-system section above; this migration introduced no public prose, controls, storage or client code.
 
 ## Scope validation
 
