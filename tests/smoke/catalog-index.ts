@@ -114,6 +114,8 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const combinedWords = await visibleIds();
     expect(combinedWords.length).toBeGreaterThan(0);
     expect(combinedWords.every((id) => aiProjects.includes(id))).toBe(true);
+    await search.fill('AI DESIGN'); // Match the rendered uppercase badge text too.
+    await expect.poll(visibleIds).toEqual(combinedWords);
     await search.fill('ＡＩ　 ｄｅｓｉｇｎ');
     await expect.poll(visibleIds).toEqual(combinedWords);
     await search.press('Enter'); expect(new URL(page.url()).search).toBe('');
