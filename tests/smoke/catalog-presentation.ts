@@ -54,7 +54,8 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     visible.querySelectorAll('.visually-hidden').forEach((node) => node.remove());
     return {
       id: el.getAttribute('data-catalog-project'), kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
-      date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
+      date: time.getAttribute('datetime'), dateText: time.textContent!, dateRendered: time.innerText,
+      dateTransform: getComputedStyle(time).textTransform, weight: Number(getComputedStyle(time).fontWeight),
       dateLine: time.parentElement!.innerText, provenance: time.title,
       dateBottom: time.getBoundingClientRect().bottom, dateRight: time.getBoundingClientRect().right,
       stripTop: stripBox?.top, stripBottom: stripBox?.bottom, stripWidth: stripBox?.width, stripRight: stripBox?.right, stripLeft: stripBox?.left,
@@ -82,9 +83,11 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.dateText).toBe(new Intl.DateTimeFormat('en-US', {
       month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
     }).format(new Date(`${date}T00:00:00Z`)));
-    expect(item.dateText).toMatch(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/);
+    expect(item.dateRendered).toBe(item.dateText.toUpperCase());
+    expect(item.dateRendered).toMatch(/^[A-Z]{3} [1-9]\d?, \d{4}$/);
+    expect(item.dateTransform).toBe('uppercase');
     expect(item.weight).toBe(400);
-    expect(item.dateLine).toBe(item.dateText);
+    expect(item.dateLine).toBe(item.dateRendered);
     expect(item.text).toBe(item.dateText);
     expect(item.text).not.toMatch(/\/12|months/);
     for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
@@ -102,9 +105,12 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.label).toContain(`${activeMonths} months with reviewed public activity`);
     expect(item.months).toHaveLength(12);
     const monthLabel = (month: string) => new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
-    expect(item.label).toContain(`${monthLabel(snapshot.months[11])}–${monthLabel(snapshot.months[0])} (newest to oldest)`);
-    expect(item.months[0].month).toBe(snapshot.reviewedAt.slice(0, 7));
-    expect(item.months[11].month).toBe(snapshot.months[0]);
+    expect(item.label).toContain(`${monthLabel(snapshot.months[0])}–${monthLabel(snapshot.months[11])} (oldest to newest)`);
+    expect(item.label).not.toMatch(/newest (?:to oldest|(?:on|at) the left)|newest-left/i);
+    expect(item.months.map((month) => month.month)).toEqual(snapshot.months);
+    expect(new Set(item.months.map((month) => month.month)).size).toBe(12);
+    expect(item.months[0].month).toBe(snapshot.months[0]);
+    expect(item.months[11].month).toBe(snapshot.reviewedAt.slice(0, 7));
     expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
@@ -115,8 +121,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
     for (let index = 0; index < 12; index++) {
       const bucket = item.months[index];
-      const sourceIndex = 11 - index; // 0 months ago at the left, 11 months ago at the right.
-      const month = snapshot.months[sourceIndex]; const count = record.commits?.[sourceIndex];
+      const month = snapshot.months[index]; const count = record.commits?.[index];
       const active = repositoryBacked ? count! > 0 : month === date.slice(0, 7);
       const label = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
       expect(bucket.month).toBe(month);

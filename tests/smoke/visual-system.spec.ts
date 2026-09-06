@@ -52,7 +52,7 @@ async function indexStyles(page: Page) {
     const style = (selector: string) => {
       const s = getComputedStyle(row.querySelector(selector)!);
       return { size: parseFloat(s.fontSize), weight: s.fontWeight, line: parseFloat(s.lineHeight),
-        color: s.color, font: s.fontFamily, tracking: s.letterSpacing, margin: parseFloat(s.marginTop) };
+        color: s.color, font: s.fontFamily, tracking: s.letterSpacing, transform: s.textTransform, margin: parseFloat(s.marginTop) };
     };
     const s = getComputedStyle(row);
     const separator = getComputedStyle(row.nextElementSibling!);
@@ -88,6 +88,7 @@ for (const viewport of viewports) {
       expect(report.summary.margin).toBe(9);
       expect(report.date.size).toBe(12); expect(report.date.weight).toBe('400');
       expect(report.date.font).toContain('monospace');
+      expect(report.date.transform).toBe('uppercase');
       expect(report.title.font).toContain('system-ui'); expect(report.title.font).not.toContain('Inter');
       expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe('0px');
       expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
@@ -116,7 +117,8 @@ for (const viewport of viewports) {
     // All four listing surfaces now share outer edges as well as typography.
     expect(new Set(reports.map((r) => r.summary.color)).size).toBe(1);
     expect(new Set(reports.map((r) => r.title.color)).size).toBe(1);
-    expect(new Set(reports.map((r) => r.date.color)).size).toBe(1);
+    // Catalog and Events dates share font, size, weight, spacing, line height and muted color.
+    for (const report of reports.slice(1)) expect(report.date).toEqual(reports[0].date);
     expect(new Set(reports.map((r) => r.separator.join('/'))).size).toBe(1);
     expect(reports[0].separator[0]).toBe('1px');
     expect(new Set(edges.map((r) => JSON.stringify(r))).size).toBe(1);
@@ -242,7 +244,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         }));
         for (const badge of badges) expect(contrast(badge.color, badge.fill), `${surface} ${badge.label} badge contrast`).toBeGreaterThanOrEqual(4.5);
         expect(styles.cells).toHaveLength(12);
-        expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort().reverse());
+        expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort());
         for (let i = 0; i < 12; i++) {
           expect(styles.cells[i].width).toBe(5); expect(styles.cells[i].height).toBe(10);
           if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(7);

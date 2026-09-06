@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { formatDate } from './date-format.ts';
 
 export type EventEntry = CollectionEntry<'events'>;
 export type CompanyEntry = CollectionEntry<'companies'>;
@@ -51,13 +52,5 @@ export function orderCompaniesByGoldenEventCount(
 
 export function formatWhen(event: EventEntry): string {
   const { start, end, precision } = event.data.when;
-  const format = (value: string) => {
-    const [year, month, day] = value.split('-').map(Number);
-    if (precision === 'year') return String(year);
-    if (precision === 'month') {
-      return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month - 1, 1)));
-    }
-    return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month - 1, day)));
-  };
-  return end ? `${format(start)} – ${format(end)}` : format(start);
+  return end ? `${formatDate(start, precision)} – ${formatDate(end, precision)}` : formatDate(start, precision);
 }

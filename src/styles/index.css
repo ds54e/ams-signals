@@ -11,7 +11,7 @@
 .index-summary:lang(ja) { line-break: strict; }
 .index-meta, .index-count { color: var(--muted); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-count { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; text-transform: uppercase; }
 .index-links { color: var(--accent-ink); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-links a { color: var(--accent-ink); }
 /* Event kinds and Catalog Scope share one compact category-label family. */

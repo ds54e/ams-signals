@@ -1,5 +1,9 @@
 # Analog implementation and review notes
 
+## Chronological activity and shared dates (2026-09-06)
+
+Starting commit: `e99ab67abe2c3831a9660fd536a71c24586fce92`. Activity now reads oldest on the left to newest/current on the right. Removing the render-only reversal preserves all twelve month/value pairs, counts, signals, provenance, dates and project order. Hover text, hidden descriptions and `data-month` stay paired; the accessible window label says “oldest to newest”. Catalog and Events share a calendar formatter and uppercase `.index-date` styling (`SEP 5, 2026`), retaining normal-weight monospace typography. The date → activity → Scope rail and its dimensions are unchanged.
+
 ## Shared categorical palette (2026-09-06)
 
 Starting commit: `d677b9a93147aa3c3798966749063ea99dfea1a0`. A further chroma reduction moves all five category colors into `foundation.css`. Catalog Scope, Events badges and Timeline glyphs/legends now share the same blue and rust through the existing Technical/Organizational aliases; AI-built remains a separate muted red. The shared label primitive owns foreground and forced-colors styling as well as its unchanged typography and dimensions. The [visual system](../VISUAL_SYSTEM.md) records both palettes, mappings and measured contrast.
@@ -18,7 +22,7 @@ Membership, Scope/AI booleans, source arrays, Markdown research bodies and every
 
 ## Compact Scope labels (2026-09-06)
 
-Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. This change introduced the paired metadata-rail/project-body index at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
+Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. This change introduced the paired metadata-rail/project-body index at the shared 920px listing width. Date → twelve activity ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
 
 The [explicit per-project Scope review](../CATALOG_SCOPE_REVIEW.md) records all 20 reassessed assignments, retained/removed decisions, primary evidence and the full 68-description review. Membership stays **35 Analog / 33 Digital**. Source arrays, review/activity dates, repository identities, SHAs and buckets are unchanged. Scope AI booleans remain unchanged for retained stages. AI-built is now optional true, with the same seven evidenced projects across both domains.
 

@@ -19,12 +19,6 @@ export function monthLabel(month: string): string {
     .format(new Date(`${month}-01T00:00:00Z`));
 }
 
-/** The reviewed event's own year is always visible, independently of the snapshot. */
-export function activityDateLabel(date: string): string {
-  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
-    .format(new Date(`${date}T00:00:00Z`));
-}
-
 /** A render-only view of validated records: point signals never become commit buckets. */
 export function activityBand(record: ActivityRecord, months: readonly string[], sources: readonly { id: string; title: string }[]) {
   let date: string, provenance: string, cells: ActivityCell[];
@@ -48,8 +42,6 @@ export function activityBand(record: ActivityRecord, months: readonly string[], 
       };
     });
   }
-  // Reverse only the new rendering cells, keeping snapshot months/counts chronological.
-  // DOM, visual and accessible order all run from the latest month to the oldest.
-  cells.reverse();
+  // Keep snapshot months/counts paired in chronological DOM, visual and accessible order.
   return { date, provenance, cells, activeMonths: cells.filter((cell) => cell.active).length };
 }

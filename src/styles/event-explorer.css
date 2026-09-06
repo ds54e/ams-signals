@@ -528,7 +528,6 @@
 
 .result-section { max-width: none; }
 .result-date { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; }
-.result-date time { text-transform: uppercase; }
 .signal-type-technical { --category-fill: var(--technical); }
 .signal-type-organizational { --category-fill: var(--organizational); }
 .result-context { margin: 6px 0 0; }
