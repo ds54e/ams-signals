@@ -5,7 +5,6 @@ summary: "Grades generated SPICE netlists by topology connectivity and relative 
 description: "Grades generated analog netlists by graph matching and relative device sizing, identifying topology and connectivity errors through structural scoring."
 scope:
   design:
-    level: core
     ai: false
 targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit structures"
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."

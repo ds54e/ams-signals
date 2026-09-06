@@ -4,10 +4,8 @@ summary: "Analog design agents with simulation-grounded memory."
 description: "Uses LLM agents for topology exploration and transistor sizing in SKY130 op-amps, combining retrieved circuit knowledge with ngspice feedback and memory of earlier attempts."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: supporting
     ai: false
 access: "Python, LLM access, knowledge/topology databases, SKY130 and a configured ngspice simulation workspace."
 addedAt: "2026-09-05"
@@ -41,7 +39,7 @@ The paper links the lab's `xz-group/AnalogSAGE`, which GitHub identifies as a fo
 
 ### Scope and release
 
-Topology proposals, reflection/memory and numerical sizing are implemented in public Python files. `BO.py` writes parameter files, invokes ngspice and scores measured specifications. The surrounding research scripts retain local task/database paths and a `simulation` adapter import not shipped as that module. Simulation receives a supporting mark for this integration boundary; the ten-task paper results are not independently reproduced or a turnkey-release claim. [Topology loop](#source-tolology-py) · [Sizing loop](#source-sizing-py) · [Numerical backend](#source-bo-py)
+Topology proposals, reflection/memory and numerical sizing are implemented in public Python files. `BO.py` writes parameter files, invokes ngspice and scores measured specifications. The surrounding research scripts retain local task/database paths and a `simulation` adapter import not shipped as that module. Simulation is retained for the explicit ngspice execution and measurement path; the ten-task paper results are not independently reproduced or a turnkey-release claim. [Topology loop](#source-tolology-py) · [Sizing loop](#source-sizing-py) · [Numerical backend](#source-bo-py)
 
 ### Scope classification
 

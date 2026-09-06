@@ -26,6 +26,6 @@ test('reviewed GitHub and GitLab histories share compact binary activity bands',
   await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-month', '2025-10');
   await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-commits', '47');
   await expect(surfer.locator('time')).toHaveAttribute('datetime', '2026-09-04');
-  await expect(surfer.locator('.activity-summary')).toHaveText('12/12 months');
+  await expect(surfer.locator('.activity-summary')).toHaveCount(0);
   expect(await surfer.innerText()).not.toContain('gitlab.com');
 });

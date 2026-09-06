@@ -4,10 +4,8 @@ summary: "Agent-usable device characterization and gm/ID sizing tools."
 description: "Supports transistor sizing with gm/ID lookups of widths and operating points, plus ngspice examples and SKY130 PVT/Monte Carlo sweeps."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
 access: "Python, ngspice and the selected transistor models; SKY130 examples require the local PDK."
 addedAt: "2026-09-05"
@@ -34,7 +32,7 @@ The repository ships agent instructions alongside executable characterization, s
 
 ### Classification
 
-Simulation is core. Optimization is supporting for lookup-based device sizing and operating-point selection, not an autonomous multi-objective circuit optimizer. Agent-usable instructions do not make the package an independent reasoning agent, and ngspice use alone does not imply EDA-session control. Results depend on the selected models; PTM examples and foundry PDK simulations are distinct environments.
+Simulation covers device characterization; Design covers lookup-based sizing and operating-point selection, without an autonomous multi-objective optimizer. Agent-usable instructions do not make the package an independent reasoning agent, and ngspice use alone does not imply EDA-session control. Results depend on the selected models; PTM examples and foundry PDK simulations are distinct environments.
 
 ### Scope classification
 

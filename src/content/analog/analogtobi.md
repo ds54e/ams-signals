@@ -4,7 +4,6 @@ summary: "Circuit-type-conditioned generation of device-net graphs."
 description: "Generates transistor-level circuit topologies from circuit-type tokens with a grammar-constrained language model over device-net bipartite graphs, then checks structural validity and novelty."
 scope:
   design:
-    level: core
     ai: true
 access: "Python/PyTorch, the released topology data and trained generator/classifier weights."
 addedAt: "2026-09-05"

@@ -5,13 +5,10 @@ summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic op
 description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers through structured agent commands."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
   layout:
-    level: supporting
     ai: false
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
@@ -54,4 +51,4 @@ The exposed EDA infrastructure does not itself demonstrate autonomous analog des
 
 Exposed schematic editing and Maestro/Spectre/PSF operations justify central design and simulation scope. SKILL geometry and stream-out helpers support layout without establishing autonomous placement or signoff. [Reviewed source](#source-review).
 
-The Rust CLI exposes schematic, simulation/result and supporting layout operations. JSON output, multi-session control and agent callers do not themselves implement AI within those stages. [AI/stage evidence](#source-review).
+The Rust CLI exposes schematic, simulation/result and layout geometry operations. JSON output, multi-session control and agent callers do not themselves implement AI within those stages. [AI/stage evidence](#source-review).

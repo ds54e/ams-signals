@@ -4,7 +4,6 @@ aliases: []
 description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured agent tools."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

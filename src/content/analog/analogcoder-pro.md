@@ -5,10 +5,8 @@ summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair
 description: "Generates analog netlists from circuit requests, then uses ngspice results and waveform images to diagnose and repair candidates with multimodal LLMs."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: true
 targets: "Amplifiers, mixers, comparators, oscillators, filters, and related circuits"
 access: "Task tables, sample circuits, testbenches, LLM run scripts, and waveform examples are public. Requires Python, ngspice, PySpice, and a separately configured model endpoint."

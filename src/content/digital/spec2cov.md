@@ -4,7 +4,6 @@ aliases: []
 description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
 scope:
   verification:
-    level: core
     ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

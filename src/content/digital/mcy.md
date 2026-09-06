@@ -4,7 +4,6 @@ aliases: []
 description: "Uses Yosys netlist mutations and formal filtering to measure whether a self-checking testbench detects meaningful RTL faults."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

@@ -5,7 +5,6 @@ summary: "Edits custom-IC layouts and extracts circuits and parasitics with tech
 description: "VLSI layout editor with design-rule checking, circuit and parasitic extraction, and Tcl-driven custom-IC workflows used with open PDKs."
 scope:
   layout:
-    level: core
     ai: false
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
@@ -29,7 +28,7 @@ sources:
 
 ### Scope
 
-Provides interactive and scripted layout editing, design-rule checks and extraction into circuit representations. Layout is core. Tcl support is part of the layout tool rather than a separate agent or EDA-session integration claim. [Maintainer documentation](#source-readme).
+Provides interactive and scripted layout editing, design-rule checks and extraction into circuit representations. These are Layout operations. Tcl support is part of the layout tool rather than a separate agent or EDA-session integration claim. [Maintainer documentation](#source-readme).
 
 ### Release boundary
 

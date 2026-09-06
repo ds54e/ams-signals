@@ -1,4 +1,4 @@
-import { scopeLevelSchema, stageScopeSchema } from '../catalog-scope.ts';
+import { stageScopeSchema } from '../catalog-scope.ts';
 import { scopeStageIds } from './catalog.ts';
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
@@ -33,7 +33,7 @@ export const analogSchema = z.object({
     design: stageScopeSchema.optional(),
     simulation: stageScopeSchema.optional(),
     layout: stageScopeSchema.optional(),
-    aiBuilt: scopeLevelSchema.optional(),
+    aiBuilt: z.literal(true).optional(),
   }).strict().refine((scope) => scopeStageIds.some((stage) => scope[stage]), 'At least one reviewed design-stage Scope is required'),
   targets: text.optional(),
   access: text,

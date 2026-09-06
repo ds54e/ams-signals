@@ -4,9 +4,8 @@ aliases: []
 description: "Rust simulator for four-state Verilog/SystemVerilog execution, with a native backend, VCD/FST waveform output and differential tests against Icarus."
 scope:
   verification:
-    level: core
     ai: false
-  aiBuilt: core
+  aiBuilt: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"

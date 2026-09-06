@@ -4,10 +4,8 @@ aliases: []
 description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations for code tooling, including pyslang Python bindings."
 scope:
   design:
-    level: core
     ai: false
   verification:
-    level: supporting
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
@@ -47,4 +45,4 @@ Language services and elaborated design models should not be described as a stan
 
 The standalone frontend exposes elaborated design representations and round-trippable syntax for code generation/refactoring; this is more than a simulator's internal parser. Static diagnostics and linting support verification. It does not itself perform logic synthesis. [Reviewed source](#source-readme).
 
-Reusable syntax/design models support conventional Design, with secondary static diagnostics in Verification. Neither compiler internals nor use by an external model warrants an AI prefix. [AI/stage evidence](#source-readme).
+Reusable syntax/design models support conventional Design, with standalone static diagnostics and linting in Verification. Neither compiler internals nor use by an external model warrants an AI prefix. [AI/stage evidence](#source-readme).

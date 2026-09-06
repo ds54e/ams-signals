@@ -4,7 +4,6 @@ aliases: []
 description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

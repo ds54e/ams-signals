@@ -4,10 +4,8 @@ aliases: []
 description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."
 scope:
   design:
-    level: core
     ai: false
   verification:
-    level: supporting
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
@@ -45,6 +43,6 @@ Source-formatting and lint utilities do not perform logic synthesis. [Public upd
 
 ### Scope classification
 
-Formatting, language services and source transformation support HDL authoring. Style lint provides secondary checking; neither parsing nor linting implies logic synthesis. [Reviewed source](#source-readme).
+Formatting, language services and source transformation support HDL authoring. The standalone style linter provides source checking; neither parsing nor linting implies logic synthesis. [Reviewed source](#source-readme).
 
-HDL authoring/source transformations and supporting lint are conventional operations. No model-driven stage or distinctive AI development process is established. [AI/stage evidence](#source-readme).
+HDL authoring/source transformations and standalone lint are conventional operations. No model-driven stage or distinctive AI development process is established. [AI/stage evidence](#source-readme).

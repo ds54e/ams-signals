@@ -5,7 +5,6 @@ summary: "Simulates circuit netlists with SPICE analyses and device models."
 description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows."
 scope:
   simulation:
-    level: core
     ai: false
 access: "Upstream source and releases are distributed through SourceForge; device libraries and model parameters are provided separately."
 addedAt: "2026-09-05"
@@ -29,7 +28,7 @@ sources:
 
 ### Scope
 
-Takes circuit netlists and device models into numerical circuit analyses, returning voltages, currents, noise and other measurements. Simulation is core. Schematic entry and optimization are separate tools. [Project overview](#source-site).
+Takes circuit netlists and device models into numerical circuit analyses, returning voltages, currents, noise and other measurements. These are Simulation operations. Schematic entry and optimization are separate tools. [Project overview](#source-site).
 
 ### Release boundary
 

@@ -5,7 +5,6 @@ summary: "Runs SPICE-compatible circuit analyses on serial and parallel platform
 description: "Sandia-developed SPICE-compatible circuit simulator with parallel execution, DC, transient, AC, noise and harmonic-balance analyses, and compact-device models."
 scope:
   simulation:
-    level: core
     ai: false
 access: "Public C++ implementation; build and solver-library requirements are documented by Sandia."
 addedAt: "2026-09-05"
@@ -29,7 +28,7 @@ sources:
 
 ### Scope
 
-Takes circuit netlists and device models into numerical analyses, including harmonic balance and sensitivity calculations. Simulation is core. Parallel execution is implemented through MPI and solver interfaces. [Project scope](#source-readme).
+Takes circuit netlists and device models into numerical analyses, including harmonic balance and sensitivity calculations. These are Simulation operations. Parallel execution is implemented through MPI and solver interfaces. [Project scope](#source-readme).
 
 ### Release boundary
 

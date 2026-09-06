@@ -5,7 +5,6 @@ summary: "Benchmarks recognition, editing, and structural comparison of existing
 description: "Tests recognition, editing, hierarchy and structural equivalence of SPICE netlists in 2,342 cases across 24 task families, using a deterministic canonical-IR grader."
 scope:
   design:
-    level: core
     ai: false
 targets: "SPICE connectivity, device parameters, terminal roles, hierarchy, and structural equivalence"
 access: "The v2 release supplies 2,342 cases across 24 task families, prompts, Python graders, runners, and sample model outputs. Structural scoring requires no simulator or PDK; new model runs require an endpoint."

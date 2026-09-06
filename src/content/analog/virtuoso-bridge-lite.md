@@ -5,13 +5,10 @@ summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maes
 description: "Python and CLI bridge for local or remote Virtuoso schematic editing, SKILL layout operations and Maestro setup, with standalone Spectre execution and PSF result parsing."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
   layout:
-    level: supporting
     ai: false
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
@@ -39,6 +36,6 @@ Standalone Spectre execution and PSF parsing are also provided. Spectre and the 
 
 ### Scope classification
 
-Schematic editing, Maestro setup, standalone Spectre and PSF extraction are exposed operations. Layout primitives provide supporting geometry control, not a demonstrated autonomous physical-design flow. [Reviewed source](#source-review).
+Schematic editing, Maestro setup, standalone Spectre and PSF extraction are exposed operations. Layout primitives provide geometry editing and export, not a demonstrated autonomous physical-design flow. [Reviewed source](#source-review).
 
-Schematic, simulation/result and supporting geometry interfaces are conventional operations. MCP/CLI/Python access for a separately supplied agent does not establish model-driven behavior inside the bridge. [AI/stage evidence](#source-review).
+Schematic, simulation/result and geometry interfaces are conventional operations. MCP/CLI/Python access for a separately supplied agent does not establish model-driven behavior inside the bridge. [AI/stage evidence](#source-review).

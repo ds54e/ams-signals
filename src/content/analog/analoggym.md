@@ -5,10 +5,8 @@ summary: "Provides circuit netlists, tunable variables, and simulation benches f
 description: "Analog sizing benchmark with ngspice testbenches for amplifiers and LDOs, SKY130 examples, PVT evaluation and reinforcement-learning environments."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
 targets: "Sensing front ends, voltage references, amplifiers, LDOs, and PLLs"
 access: "A 30-topology suite and optimization examples are public. The README explicitly identifies amplifiers and LDOs as supporting ngspice and Sky130; simulator and model setup is required."

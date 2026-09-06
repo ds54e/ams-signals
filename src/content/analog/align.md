@@ -4,11 +4,7 @@ aliases: []
 summary: "Generates placed and routed analog layouts from circuit netlists and constraints."
 description: "Turns SPICE netlists and analog constraints into hierarchical, placed and routed GDSII layouts, with circuit annotation and parameterized primitive generation."
 scope:
-  design:
-    level: supporting
-    ai: false
   layout:
-    level: core
     ai: false
 access: "Public Python/C++ flow, examples and PDK abstractions; each target technology requires compatible primitive and rule definitions."
 addedAt: "2026-09-05"
@@ -35,7 +31,7 @@ sources:
 
 ### Scope
 
-Recognizes circuit hierarchy, generates primitive layout cells and assembles constrained placement/routing. Layout is the core output, with supporting Design for hierarchy annotation; this is not unrestricted circuit-topology synthesis. [Layout pipeline](#source-readme) and [entry point](#source-implementation).
+Recognizes circuit hierarchy, generates primitive layout cells and assembles constrained placement/routing. Layout is the output. Hierarchy annotation prepares that layout flow and does not constitute a separate circuit-design deliverable. [Layout pipeline](#source-readme) and [entry point](#source-implementation).
 
 ### Release boundary
 

@@ -24,7 +24,7 @@ test('ATLAS and ngspice map reviewed point signals to their month without fabric
     const row = fixture.row(page, id);
     await expect(row.locator('.activity-strip > li')).toHaveCount(12);
     await expect(row.locator('.activity-latest')).toHaveText(date);
-    await expect(row.locator('.activity-summary')).toHaveText('1/12 months');
+    await expect(row.locator('.activity-summary')).toHaveCount(0);
     await expect(row.locator('.activity-strip .active')).toHaveCount(1);
     await expect(row.locator('.activity-strip .active')).toHaveAttribute('data-month', month);
     await expect(row.locator('.activity-strip > li').nth(id === 'atlas' ? 2 : 1)).toHaveClass('active');

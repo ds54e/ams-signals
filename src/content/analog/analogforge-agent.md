@@ -5,10 +5,8 @@ summary: "An experimental workbench for template-based circuit proposals and mul
 description: "Template-based analog sizing prototype with bounded parameter search, analytic fixtures and a separate ngspice/Xyce netlist execution path."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: supporting
     ai: false
 targets: "Template families for OTAs, comparators, LDOs, references, and oscillators"
 access: "Code, contracts, templates, and research documentation are public. Native execution requires ngspice/Xyce, pre-rendered netlists, immutable PDK receipts, and model dependency manifests."

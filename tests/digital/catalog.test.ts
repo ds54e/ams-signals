@@ -13,8 +13,7 @@ import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, p
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
 
-const stageLevels = (scope: Record<string, unknown>) => Object.fromEntries(Object.entries(scope)
-  .filter(([stage]) => stage !== 'aiBuilt').map(([stage, value]) => [stage, (value as { level: string }).level]));
+const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiBuilt');
 
 const directory = new URL('../../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
@@ -63,19 +62,19 @@ test('stable slugs reject ambiguity and duplicate authored entries', () => {
   assert.throws(() => validateCatalog([]), /empty/);
 });
 
-test('Digital Scope requires explicit stage levels and AI booleans; AI-built alone is insufficient', () => {
+test('Digital Scope requires stage presence and explicit AI booleans, with no strength model', () => {
   assert.deepEqual(scopeStageIds, ['design', 'synthesis', 'verification', 'layout']);
   assert.deepEqual(scopeStageIds.map((id) => scopeStageLabels[id]), ['Design', 'Synthesis', 'Verification', 'Layout']);
-  const core = { level: 'core', ai: false };
-  for (const scope of [undefined, {}, { design: undefined }, { aiBuilt: 'core' },
-    { design: 'core' }, { design: null }, { design: { level: 'core' } },
-    { design: { ai: true } }, { design: { level: 'planned', ai: false } },
-    ...['true', 'false', 1, null].map((ai) => ({ design: { level: 'core', ai } })),
-    { design: { ...core, score: 1 } }, { 'simulation': core }, { 'ai-design': core },
-    ...[true, 'ai-built', 'traditional', 'partial', null].map((aiBuilt) => ({ design: core, aiBuilt })),
+  const stage = { ai: false };
+  for (const scope of [undefined, {}, { design: undefined }, { aiBuilt: true },
+    { design: 'core' }, { design: null }, { design: {} },
+    ...['core', 'supporting', 'planned'].map((level) => ({ design: { ...stage, level } })),
+    ...['true', 'false', 1, null].map((ai) => ({ design: { ai } })),
+    { design: { ...stage, score: 1 } }, { 'simulation': stage }, { 'ai-design': stage },
+    ...[false, 'core', 'supporting', 'ai-built', 'traditional', null].map((aiBuilt) => ({ design: stage, aiBuilt })),
   ]) assert.equal(digitalSchema.safeParse({ ...data(), scope }).success, false, JSON.stringify(scope));
-  for (const ai of [true, false]) for (const aiBuilt of [undefined, 'core', 'supporting']) {
-    assert.ok(digitalSchema.safeParse({ ...data(), scope: { layout: { level: 'supporting', ai }, aiBuilt } }).success);
+  for (const ai of [true, false]) for (const aiBuilt of [undefined, true]) {
+    assert.ok(digitalSchema.safeParse({ ...data(), scope: { layout: { ai }, aiBuilt } }).success);
   }
   for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
     assert.equal(digitalSchema.safeParse({ ...data(), [removed]: {} }).success, false);
@@ -84,18 +83,18 @@ test('Digital Scope requires explicit stage levels and AI booleans; AI-built alo
 
 test('Digital classification follows user-facing operations rather than internal compiler dependencies', () => {
   const scopes = {
-    'icarus-verilog': { verification: 'core' }, xezim: { verification: 'core' },
-    pono: { verification: 'core' }, surfer: { verification: 'core' },
-    openroad: { layout: 'core' },
-    slang: { design: 'core', verification: 'supporting' },
-    'surelog-uhdm': { design: 'core' },
-    'sv-elab': { design: 'supporting', synthesis: 'core' },
-    uhdm2rtlil: { synthesis: 'core', verification: 'supporting' },
-    circt: { design: 'core', synthesis: 'core', verification: 'supporting' },
-    'dr-rtl': { design: 'core', synthesis: 'core', verification: 'core' },
-    coresmith: { design: 'core', synthesis: 'core', verification: 'core', layout: 'core' },
+    'icarus-verilog': ['verification'], xezim: ['verification'],
+    pono: ['verification'], surfer: ['verification'],
+    openroad: ['layout'],
+    slang: ['design', 'verification'],
+    'surelog-uhdm': ['design'],
+    'sv-elab': ['synthesis'],
+    uhdm2rtlil: ['synthesis'],
+    circt: ['design', 'synthesis', 'verification'],
+    'dr-rtl': ['design', 'synthesis', 'verification'],
+    coresmith: ['design', 'synthesis', 'verification', 'layout'],
   };
-  for (const [id, expectedLevels] of Object.entries(scopes)) assert.deepEqual(stageLevels(projects.find((p) => p.id === id)!.data.scope), expectedLevels, id);
+  for (const [id, expectedStages] of Object.entries(scopes)) assert.deepEqual(stages(projects.find((p) => p.id === id)!.data.scope), expectedStages, id);
 });
 
 test('public text stays English, concise and single-paragraph', () => {
@@ -345,15 +344,15 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
 });
 
-test('Digital Scope displays supporting AI stages and partial AI-built without duplicating a stage', () => {
+test('Digital Scope displays composed AI stages and AI-built without duplicating a stage', () => {
   const scope = digitalSchema.parse({ ...data(), scope: {
-    layout: { level: 'supporting', ai: true }, aiBuilt: 'supporting',
-    verification: { level: 'core', ai: false }, synthesis: { level: 'supporting', ai: true },
+    layout: { ai: true }, aiBuilt: true,
+    verification: { ai: false }, synthesis: { ai: true },
   } }).scope;
   const items = scopeItems(scope, scopeStageLabels);
-  assert.deepEqual(items.map((x) => [x.id, x.label, x.level]), [
-    ['synthesis', 'AI Synthesis', 'supporting'], ['verification', 'Verification', 'core'],
-    ['layout', 'AI Layout', 'supporting'], ['aiBuilt', 'AI-built', 'supporting'],
+  assert.deepEqual(items.map((x) => [x.id, x.label]), [
+    ['synthesis', 'AI Synthesis'], ['verification', 'Verification'],
+    ['layout', 'AI Layout'], ['aiBuilt', 'AI-built'],
   ]);
   assert.equal(new Set(items.map((x) => x.id)).size, items.length);
   assert.equal(items.at(-1)!.ai, undefined);

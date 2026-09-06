@@ -4,10 +4,8 @@ aliases: []
 description: "RTL synthesis framework providing logic optimization, technology mapping and formal primitives for FPGA and ASIC flows."
 scope:
   synthesis:
-    level: core
     ai: false
   verification:
-    level: supporting
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
@@ -47,4 +45,4 @@ Full proof workflows are typically provided by downstream drivers such as SBY an
 
 RTL optimization and technology mapping are synthesis operations. Formal transformations and solver-facing primitives support verification; full proof flows are usually orchestrated by separate drivers. [Reviewed source](#source-readme).
 
-RTL optimization/mapping and supporting formal primitives execute conventionally. Their use inside an agent loop does not make upstream Yosys AI Synthesis. [AI/stage evidence](#source-readme).
+RTL optimization/mapping and formal primitives execute conventionally. Their use inside an agent loop does not make upstream Yosys AI Synthesis. [AI/stage evidence](#source-readme).

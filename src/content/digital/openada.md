@@ -4,13 +4,10 @@ aliases: []
 description: "Local agent-to-EDA interface running circuit simulation, measurement, synthesis and DRC/LVS operations through tool drivers that return structured evidence."
 scope:
   synthesis:
-    level: supporting
     ai: false
   verification:
-    level: core
     ai: false
   layout:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
@@ -44,6 +41,6 @@ Experimental oscillator/testbench profiles are bounded. The reverted knowledge-g
 
 ### Scope classification
 
-Explicit drivers expose RTL checks/tests and layout DRC/LVS with retained evidence. Mapped Yosys synthesis is a supporting operation in the broader tool contract; synthesis-stage timing is not physical closure. No RTL editing is inferred from netlisting or tool integration. [Reviewed source](#source-readme).
+Explicit drivers expose RTL checks/tests and layout DRC/LVS with retained evidence. Mapped Yosys synthesis is an exposed operation with netlist and evidence outputs; synthesis-stage timing is not physical closure. No RTL editing is inferred from netlisting or tool integration. [Reviewed source](#source-readme).
 
 Deterministic drivers expose synthesis, verification and physical-check operations to external agents. The contract/interface itself does not implement an AI decision-maker for those stages; future MCP plans do not change that assessment. [AI/stage evidence](#source-readme).

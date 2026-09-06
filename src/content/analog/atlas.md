@@ -5,10 +5,8 @@ summary: "A paper-described SAR ADC flow using expert templates, LLM planning an
 description: "The paper describes template-based SAR ADC assembly and sizing, with Spectre testbench feedback and expert checks guiding the agent flow."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: true
 targets: "SAR ADCs assembled from comparator, DAC, and SAR-logic templates"
 access: "Paper available; a public ATLAS implementation was not verified. Main experiments use GPT-4o, Cadence Spectre, and GPDK45."
@@ -31,6 +29,6 @@ The authors report an eight-bit SAR ADC simulation meeting their selected specif
 
 ### Scope classification
 
-Template selection, SAR ADC assembly and sizing are central design tasks in the paper; testbench adaptation and Spectre validation are also central. Core describes that reported task scope, not release completeness, unconstrained synthesis or autonomy. [Reviewed source](#source-paper).
+Template selection, SAR ADC assembly and sizing are central design tasks in the paper; testbench adaptation and Spectre validation are also central. These describe the reported tasks, not release completeness, unconstrained synthesis or autonomy. [Reviewed source](#source-paper).
 
-The paper describes LLM planning/template modification and a testbench-creation/debugger loop using simulation errors, supporting AI Design and AI Simulation. These are reported workflow capabilities, not a public implementation reproduction or a claim of layout generation. [AI/stage evidence](#source-paper).
+The paper describes LLM planning/template modification and a testbench-creation/debugger loop using simulation errors, justifying AI Design and AI Simulation. These are reported workflow capabilities, not a public implementation reproduction or a claim of layout generation. [AI/stage evidence](#source-paper).

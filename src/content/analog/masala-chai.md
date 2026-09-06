@@ -4,10 +4,8 @@ summary: "Schematic-image reconstruction into SPICE netlists."
 description: "Reconstructs SPICE netlists from schematic images using component detection and multimodal connectivity reasoning, with a V2 agent loop that revises candidates from judge feedback and optional ngspice simulation."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: supporting
     ai: true
 access: "Python, object-detection weights and multimodal LLM access; install ngspice for actual simulation feedback."
 addedAt: "2026-09-05"
@@ -38,10 +36,10 @@ The current V2 code corrects component detections, infers connectivity, generate
 
 ### Version and simulation boundaries
 
-The paper's 7,500-schematic corpus and downstream model results predate V2; the current README still says the updated dataset will be available later. Do not claim that the complete refreshed corpus is downloadable. The V2 netlist runner marks a missing-ngspice path successful while logging that simulation was skipped. Simulation is consequently supporting/optional scope, and that status alone is not electrical verification. [Paper](#source-paper) · [Release state](#source-readme-md) · [Runner](#source-agents-v2-agents-netlist-agent-py)
+The paper's 7,500-schematic corpus and downstream model results predate V2; the current README still says the updated dataset will be available later. Do not claim that the complete refreshed corpus is downloadable. The V2 netlist runner marks a missing-ngspice path successful while logging that simulation was skipped. Simulation is retained for the implemented V2 log/diagnosis loop when ngspice runs; a skipped run is not electrical verification. [Paper](#source-paper) · [Release state](#source-readme-md) · [Runner](#source-agents-v2-agents-netlist-agent-py)
 
 ### Scope classification
 
 Schematic-image interpretation and SPICE reconstruction are central. Optional ngspice logs provide feedback to the V2 revision loop; a skipped simulator path is not a successful electrical check. [Reviewed source](#source-readme-md).
 
-Multimodal agents reconstruct connectivity and netlists, giving AI Design. The V2 LLM judge explicitly consumes optional simulation logs and returns diagnosis/revision feedback, giving supporting AI Simulation; missing-ngspice runs still do not establish electrical validation. [V2 judge and simulation feedback](#source-agents-v2-workflow-py).
+Multimodal agents reconstruct connectivity and netlists, giving AI Design. The V2 LLM judge explicitly consumes optional simulation logs and returns diagnosis/revision feedback, giving AI Simulation; missing-ngspice runs still do not establish electrical validation. [V2 judge and simulation feedback](#source-agents-v2-workflow-py).

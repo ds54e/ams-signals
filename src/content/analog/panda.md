@@ -4,13 +4,10 @@ summary: "A staged design-intent-to-layout analog flow."
 description: "Coordinates LLM-guided analog topology generation, transistor sizing and placement/routing, with hooks for Virtuoso/Spectre simulation and parasitic extraction (PEX)."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: false
   layout:
-    level: core
     ai: false
 access: "Configured Cadence/Virtuoso/Spectre host, PDK/PCells and placement/routing/verification backends; public code uses a noncommercial license."
 addedAt: "2026-09-05"

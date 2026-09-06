@@ -5,10 +5,8 @@ summary: "LLM-guided sizing strategies with AMS-SizingBench."
 description: "Uses an LLM to choose sizing variables, ranges and optimization strategies, then runs ngspice-backed search across the AMS-SizingBench circuit configurations."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: false
 access: "Python, LLM access, SKY130 and ngspice; optional layout/PEX paths require separately supplied tool adapters."
 addedAt: "2026-09-05"

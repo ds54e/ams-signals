@@ -4,7 +4,6 @@ aliases: []
 description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

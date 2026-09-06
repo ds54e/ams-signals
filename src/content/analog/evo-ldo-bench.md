@@ -5,10 +5,8 @@ summary: "Benchmarks LDO reasoning separately from controlled SKY130/ngspice cir
 description: "Benchmarks LLM reasoning about low-dropout regulators (LDOs), with a separate SKY130/ngspice tool track for circuit edits, simulation setup and failure diagnosis."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: supporting
     ai: true
 targets: "LDO constraint calculations, diagnosis, workflow planning, and SKY130 circuit repair"
 access: "Task packages, structured answer contracts, graders, and runners are public. Tool tracks additionally require a fixed SKY130 revision, ngspice, and an evaluator isolated from the model workspace."
@@ -41,6 +39,6 @@ Developers report native ngspice 46 replay of reference candidates; this is not 
 
 ### Scope classification
 
-LDO reasoning, diagnosis and sizing/planning are the main tasks. Simulation is supporting scope because actual SKY130/ngspice circuit closure belongs to a separate tool track, not the tool-free reasoning track. [Reviewed source](#source-review).
+LDO reasoning, diagnosis and sizing/planning are the main tasks. Simulation covers the separate SKY130/ngspice tool track, which explicitly tests circuit closure and simulator operation; the reasoning track remains tool-free. [Reviewed source](#source-review).
 
-Model inference answers the central circuit-reasoning tasks, giving AI Design. In the separate tool-agent track, the model repairs simulation configuration, diagnoses evidence-bound failures and selects controlled runs; that limited track justifies supporting AI Simulation without changing the reasoning-only contract. [Reasoning runner](#source-review) · [Tool-agent diagnosis contract](#source-tools).
+Model inference answers the central circuit-reasoning tasks, giving AI Design. In the separate tool-agent track, the model repairs simulation configuration, diagnoses evidence-bound failures and selects controlled runs; that limited track justifies AI Simulation without changing the reasoning-only contract. [Reasoning runner](#source-review) · [Tool-agent diagnosis contract](#source-tools).
