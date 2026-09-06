@@ -844,7 +844,7 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   await expect(bundle).toHaveAttribute('data-bundle-member-count', '4');
   await expect(bundle).toHaveAttribute('data-bundle-columns', '2');
   await expect(bundle).toHaveAttribute('data-bundle-rows', '2');
-  await expect(bundle).toHaveAttribute('data-bundle-width-px', '34');
+  await expect(bundle).toHaveAttribute('data-bundle-width-px', '38');
   await expect(bundle).toHaveAttribute('data-bundle-mode', 'period');
   await expect(bundle).toHaveAttribute('data-time-band', 'years-2015-2019');
   await expect(bundle).not.toHaveAttribute('data-bundle-window');
@@ -853,8 +853,8 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
   await expect(page.locator('[data-cluster-count], [data-detail-cluster], .is-cluster, .is-mixed')).toHaveCount(0);
   await expect(bundle.locator('[data-bundle-member].event-kind-technical')).toHaveCount(4);
   const bundleKindShapes = await page.locator('[data-group="both"]').evaluate((group) => {
-    const technical = group.querySelector('[data-bundle-member].event-kind-technical .activity-glyph');
-    const organizational = group.querySelector('[data-bundle-member].event-kind-organizational .activity-glyph');
+    const technical = group.querySelector('[data-bundle-member].event-kind-technical .timeline-glyph');
+    const organizational = group.querySelector('[data-bundle-member].event-kind-organizational .timeline-glyph');
     return {
       technicalRadius: getComputedStyle(technical).borderRadius,
       organizationalRadius: getComputedStyle(organizational).borderRadius,
@@ -924,7 +924,7 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
     members[1].classList.remove('event-kind-technical');
     members[1].classList.add('event-kind-organizational');
     return members.map((member) => {
-      const glyphStyle = getComputedStyle(member.querySelector('.activity-glyph'));
+      const glyphStyle = getComputedStyle(member.querySelector('.timeline-glyph'));
       return {
         borderRadius: glyphStyle.borderRadius,
         background: glyphStyle.backgroundColor,
@@ -1591,7 +1591,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
-  await expect(matrix).toHaveAttribute('data-track-width', '650');
+  await expect(matrix).toHaveAttribute('data-track-width', '662');
   await expect(matrix).toHaveAttribute('data-time-band-count', '7');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
@@ -1613,14 +1613,14 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 144, maxEventsPerRow: 7, startPx: 0, endPx: 144, zone: 'recent', resolution: 'continuous' },
     { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 114, maxEventsPerRow: 4, startPx: 144, endPx: 258, zone: 'recent', resolution: 'continuous' },
     { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 104, maxEventsPerRow: 3, startPx: 258, endPx: 362, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 68, maxEventsPerRow: 3, startPx: 362, endPx: 430, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2020-2022', label: '2020–2022', ariaLabel: '2020–2022', startYear: 2020, endYear: 2022, widthPx: 76, maxEventsPerRow: 3, startPx: 430, endPx: 506, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 506, endPx: 582, zone: 'earlier', resolution: 'bucket' },
-    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 68, maxEventsPerRow: 5, startPx: 582, endPx: 650, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 74, maxEventsPerRow: 3, startPx: 362, endPx: 436, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2022', label: '2020–2022', ariaLabel: '2020–2022', startYear: 2020, endYear: 2022, widthPx: 76, maxEventsPerRow: 3, startPx: 436, endPx: 512, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 512, endPx: 588, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 74, maxEventsPerRow: 5, startPx: 588, endPx: 662, zone: 'earlier', resolution: 'bucket' },
   ]);
   expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
   expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(4);
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(650);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(662);
   await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(6);
   await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
   await expect(page.locator('.activity-zone-label')).toHaveCount(0);
@@ -1658,7 +1658,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / 650) * 100;
+    return (xPx / 662) * 100;
   };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
@@ -1708,7 +1708,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 650) * 100;
+  const normalizedWindow = (proximityPx / 662) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     visualRowCount: Number(node.getAttribute('data-visual-row-count')),
@@ -1785,8 +1785,8 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   expect(aprilMayBundle).toMatchObject({
     columns: 2,
     rowCount: 2,
-    bundleWidthPx: 34,
-    collisionWidthPx: 34,
+    bundleWidthPx: 38,
+    collisionWidthPx: 38,
     rowStart: 0,
     rowEnd: 2,
   });
@@ -1801,13 +1801,13 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     januaryNovemberBundle.xPx - octoberBundle.xPx,
   ) - ((januaryNovemberBundle.collisionWidthPx + octoberBundle.collisionWidthPx) / 2);
   expect(januaryOctoberHorizontalSeparation).toBeLessThan(0);
-  expect(januaryOctoberHorizontalSeparation).toBeGreaterThan(-1);
+  expect(januaryOctoberHorizontalSeparation).toBeGreaterThan(-4);
   expect(januaryNovemberBundle.rowStart).toBe(0);
   expect(octoberBundle.rowStart).toBe(1);
-  expect(octoberBundle.top - januaryNovemberBundle.top).toBe(18);
+  expect(octoberBundle.top - januaryNovemberBundle.top).toBe(20);
   expect(rows.find(({ lane }) => lane === 'company:apple')).toMatchObject({
     visualRowCount: 2,
-    height: 44,
+    height: 48,
   });
   for (const row of rows) {
     expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
@@ -1844,7 +1844,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     for (const bundle of row.bundles) {
       expect(bundle.columns).toBe(expectedActivityBundleColumns(bundle.ids.length));
       expect(bundle.rowCount).toBe(Math.ceil(bundle.ids.length / bundle.columns));
-      expect(bundle.bundleWidthPx).toBe((bundle.columns * 16) + ((bundle.columns - 1) * 2));
+      expect(bundle.bundleWidthPx).toBe((bundle.columns * 18) + ((bundle.columns - 1) * 2));
       expect(bundle.collisionWidthPx).toBe(bundle.bundleWidthPx);
       expect(bundle.x, `${row.lane} bundle mean`).toBeCloseTo(
         bundle.members.reduce((sum, member) => sum + member.x, 0) / bundle.members.length,
@@ -2278,7 +2278,7 @@ test('global Matrix is one accessible interleaved view with restrained entity co
     const guideStyle = getComputedStyle(row.querySelector('.activity-guides span'));
     const labelStyle = getComputedStyle(row.querySelector('.matrix-entity-label'));
     const mark = row.querySelector('[data-matrix-mark]');
-    const glyph = mark.querySelector('.activity-glyph');
+    const glyph = mark.querySelector('.timeline-glyph');
     return {
       rowHeight: row.getBoundingClientRect().height,
       rowBorder: rowStyle.borderBottomWidth,
@@ -2300,9 +2300,8 @@ test('global Matrix is one accessible interleaved view with restrained entity co
   expect(visualGrammar.labelWhiteSpace).toBe('nowrap');
   expect(visualGrammar.labelOverflow).toBe('hidden');
   expect(visualGrammar.labelTextOverflow).toBe('ellipsis');
-  expect(visualGrammar.hitWidth).toBeGreaterThanOrEqual(14);
-  expect(visualGrammar.hitWidth).toBeLessThanOrEqual(18);
-  expect(visualGrammar.glyphWidth).toBeLessThanOrEqual(14);
+  expect(visualGrammar.hitWidth).toBe(18);
+  expect(visualGrammar.glyphWidth).toBe(8);
   const longLabel = page.locator('[data-group="both"] [data-matrix-row][data-entity-id="cadence"] .matrix-entity-label');
   await expect(longLabel).toHaveText('Cadence');
   await expect(longLabel).toHaveAttribute('title', 'Cadence');

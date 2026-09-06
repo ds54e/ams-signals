@@ -20,9 +20,11 @@ async function indexStyles(page: Page) {
         color: s.color, font: s.fontFamily, tracking: s.letterSpacing, margin: parseFloat(s.marginTop) };
     };
     const s = getComputedStyle(row);
+    const separator = getComputedStyle(row.nextElementSibling!);
     return {
       title: style('.index-title'), summary: style('.index-summary'), date: style('.index-date'),
       padding: [parseFloat(s.paddingTop), parseFloat(s.paddingBottom)],
+      separator: [separator.borderTopWidth, separator.borderTopColor],
       border: [s.borderTopWidth, s.borderTopColor], background: s.backgroundColor, radius: s.borderRadius,
       copyWidth: row.querySelector('.index-summary')!.getBoundingClientRect().width,
     };
@@ -33,6 +35,7 @@ for (const viewport of viewports) {
   test(`shared index hierarchy and functional widths at ${viewport.width}px`, async ({ page }) => {
     await page.setViewportSize(viewport);
     const reports = [];
+    const edges = [];
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -50,7 +53,7 @@ for (const viewport of viewports) {
       expect(report.date.size).toBe(12); expect(report.date.weight).toBe('400');
       expect(report.date.font).toContain('monospace');
       expect(report.title.font).toContain('system-ui'); expect(report.title.font).not.toContain('Inter');
-      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe('1px');
+      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe(surface === 'articles' ? '1px' : '0px');
       expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
       if (surface === 'articles') {
         expect(parseFloat(report.title.tracking) || 0).toBe(0);
@@ -58,22 +61,26 @@ for (const viewport of viewports) {
         expect(await page.locator('.index-title').first().innerText()).toMatch(/[\p{Script=Hiragana}\p{Script=Han}]/u);
       }
       const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : surface === 'articles' ? '.listing-page' : '[data-event-explorer-root]');
-      const max = surface === 'analog' || surface === 'digital' ? 1120 : 920;
+      const max = 920;
       const box = (await content.boundingBox())!;
+      edges.push({ x: box.x, width: box.width });
       expect(box.width).toBeLessThanOrEqual(max);
       expect(box.x).toBeCloseTo((viewport.width - box.width) / 2, 1);
       if (viewport.width >= 1280) expect(box.width).toBe(max);
       const navLines = await nav.getByRole('link').evaluateAll((links) => links.map((link) => Math.round(link.getBoundingClientRect().top)));
       expect(new Set(navLines).size).toBe(1);
     }
-    // Equivalent information shares a hierarchy; different page functions keep different containers.
+    // All four listing surfaces now share outer edges as well as typography.
     expect(new Set(reports.map((r) => r.summary.color)).size).toBe(1);
     expect(new Set(reports.map((r) => r.title.color)).size).toBe(1);
     expect(new Set(reports.map((r) => r.date.color)).size).toBe(1);
-    expect(new Set(reports.map((r) => r.border.join('/'))).size).toBe(1);
+    expect(new Set(reports.map((r) => r.separator.join('/'))).size).toBe(1);
+    expect(reports[0].separator[0]).toBe('1px');
+    expect(new Set(edges.map((r) => JSON.stringify(r))).size).toBe(1);
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(Math.max(...reports.map((r) => r.copyWidth)) - Math.min(...reports.map((r) => r.copyWidth))).toBeLessThan(10);
+      expect(reports[0].copyWidth).toBe(678);
+      expect(reports[2].copyWidth).toBe(790);
     }
 
     await open(page, '');
@@ -124,8 +131,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(styles.cells).toHaveLength(12);
         expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort().reverse());
         for (let i = 0; i < 12; i++) {
-          expect(styles.cells[i].width).toBe(7); expect(styles.cells[i].height).toBe(5);
-          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(9);
+          expect(styles.cells[i].width).toBe(4); expect(styles.cells[i].height).toBe(8);
+          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(6);
         }
       }
     }
@@ -138,7 +145,7 @@ test('Events toolbar is flat while its controls and company popover remain usabl
   const style = await utility.evaluate((el) => {
     const s = getComputedStyle(el); return { background: s.backgroundColor, shadow: s.boxShadow, radius: s.borderRadius, top: s.borderTopWidth, side: s.borderLeftWidth };
   });
-  expect(style).toEqual({ background: 'rgba(0, 0, 0, 0)', shadow: 'none', radius: '0px', top: '1px', side: '0px' });
+  expect(style).toEqual({ background: 'rgba(0, 0, 0, 0)', shadow: 'none', radius: '0px', top: '0px', side: '0px' });
   for (const selector of ['[data-search]', '[data-kind]', '.company-picker summary']) {
     const control = utility.locator(selector);
     expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(40);

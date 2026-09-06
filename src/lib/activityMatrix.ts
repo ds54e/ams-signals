@@ -1,8 +1,9 @@
 import type { CompanyEntry, EventEntry, PersonEntry } from './content';
 import { dateNumber, eventYear, sortEventsNewestFirst } from './content';
+import { TIMELINE_HIT_SIZE } from './timeline';
 
 export const ACTIVITY_MATRIX_BUNDLE_PROXIMITY = 32;
-export const ACTIVITY_MATRIX_BUNDLE_CELL_SIZE = 16;
+export const ACTIVITY_MATRIX_BUNDLE_CELL_SIZE = TIMELINE_HIT_SIZE;
 export const ACTIVITY_MATRIX_BUNDLE_GAP = 2;
 export const ACTIVITY_MATRIX_VISUAL_ROW_PITCH = ACTIVITY_MATRIX_BUNDLE_CELL_SIZE + ACTIVITY_MATRIX_BUNDLE_GAP;
 export const ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS = 3;

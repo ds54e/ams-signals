@@ -6,13 +6,15 @@ Read `AGENTS.md`, `PROJECT_CONTEXT.md`, this file, [IMPLEMENTATION_SPEC.md](IMPL
 
 At `/digital/`, quickly understand what an RTL/digital project does, what it covers, where AI materially participates and whether it has recent public activity.
 
-The English-only page starts directly with one compact index: **Project | Scope | Activity**. Keep the visually hidden H1 `Digital`, browser title `Digital · AMS Signals`, and no visible title, introduction, counts, review dates or methodology. No overview block, standalone legend, search, filters, tabs, disclosures, rankings or project subpages.
+The English-only page is one compact project index with Project, Scope and Activity areas, without a visible column-heading row. Keep the visually hidden H1 `Digital`, browser title `Digital · AMS Signals`, and no visible title, introduction, review dates or methodology. A lightweight Search / All scopes toolbar and quiet result count enhance the list when JavaScript is available. No overview block, standalone legend, tabs, disclosures, rankings or project subpages.
+
+Search matches the public name, description and rendered Scope labels. The single stage selector ignores core/supporting and AI/non-AI differences; Search and Scope combine with AND. Filtering is local to the current page, without URL state, storage or EventExplorer coupling. Without JavaScript the toolbar stays hidden and every project remains readable.
 
 Project names are plain text. On the same left-aligned wrapping title line, show only the name and available Website / Paper / Code / Results links, in that order. A single concrete description follows. Scope stages (Design, Synthesis, Verification, Layout) appear vertically, one per line, with small filled/open circles for core/supporting scope. No self-permalink links or fragment compatibility aliases are maintained.
 
 Every Activity row shows its compact, normal-weight date, twelve binary cells with the newest month at the left and oldest at the right, and `N/12 months`. Repository-backed records use reviewed monthly history from their canonical host, including GitLab. Paper/release/public-update records activate the reviewed event month without invented commit counts. Provenance is available through hover/accessibility metadata rather than a visible date prefix. Activity describes recorded public signals, never total development effort or quality.
 
-Both catalogs share one presentation component and stylesheet. Typography and row rhythm follow the site-wide [visual system](../VISUAL_SYSTEM.md), while domain data and validation remain independent.
+Both catalogs share one presentation component, filter script and stylesheet, and use the same 920px listing width as Articles and Events. Typography and row rhythm follow the site-wide [visual system](../VISUAL_SYSTEM.md), while domain data and validation remain independent.
 
 ## Domain and boundaries
 

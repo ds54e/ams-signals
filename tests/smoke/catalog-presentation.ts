@@ -1,10 +1,5 @@
 import { expect, type Locator } from '@playwright/test';
 
-export async function expectIndexColumns(columns: Locator) {
-  await expect(columns.locator(':scope > div')).toHaveText(['Project', 'Scope', 'Activity']);
-  await expect(columns.locator('[class$="activity-range"]')).toHaveCount(0);
-}
-
 export async function expectScopeCircles(scope: Locator) {
   expect(await scope.evaluateAll((nodes) => nodes.map((el) => el.textContent).join(' '))).not.toContain('◐');
   const cells = await scope.locator('li[data-scope-item][data-level]').evaluateAll((nodes) => nodes.map((cell) => {
@@ -117,9 +112,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(105);
-    expect(item.activityWidth).toBeLessThanOrEqual(115);
-    expect(item.stripWidth).toBeCloseTo(106, 1);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(82);
+    expect(item.activityWidth).toBeLessThanOrEqual(88);
+    expect(item.stripWidth).toBeCloseTo(70, 1);
     expect(item.stripWidth).toBeLessThan(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
     expect(item.summaryLeft).toBeCloseTo(item.stripLeft!, 1);
@@ -141,9 +136,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBe(7); expect(bucket.height).toBe(5);
-      // Low horizontal ticks keep activity secondary to the project text.
-      expect(bucket.width / bucket.height).toBeGreaterThan(1);
+      expect(bucket.width).toBe(4); expect(bucket.height).toBe(8);
+      // Narrow vertical ticks retain a compact recent-activity pattern.
+      expect(bucket.height / bucket.width).toBeGreaterThan(1);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
       expect(bucket.fill).toBe(active ? bucket.border : 'rgba(0, 0, 0, 0)');
       if (index) {
@@ -178,16 +173,16 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
   }));
   for (const row of geometry) {
     expect(row.columns).toHaveLength(3);
-    expect(row.row.width).toBeLessThanOrEqual(1120);
+    expect(row.row.width).toBeLessThanOrEqual(920);
     if (width >= 1024) {
       expect(row.columns[0].width).toBeGreaterThan(610);
-      expect(row.columns[1].width).toBe(170);
-      expect(row.columns[2].width).toBe(112);
-      expect(row.columns[1].left - row.columns[0].right).toBe(22);
-      expect(row.columns[2].left - row.columns[1].right).toBe(22);
+      expect(row.columns[1].width).toBe(122);
+      expect(row.columns[2].width).toBe(88);
+      expect(row.columns[1].left - row.columns[0].right).toBe(16);
+      expect(row.columns[2].left - row.columns[1].right).toBe(16);
       if (width >= 1280) {
-        expect(row.row.width).toBe(1120);
-        expect(row.columns[0].width).toBe(794);
+        expect(row.row.width).toBe(920);
+        expect(row.columns[0].width).toBe(678);
       }
     } else {
       expect(new Set(row.columns.map((column) => column.left)).size).toBe(1);
@@ -221,7 +216,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     for (let index = 1; index < row.scopeItems.length; index++) {
       const previous = row.scopeItems[index - 1], current = row.scopeItems[index];
       expect(current.left).toBeCloseTo(previous.left, 1);
-      expect(current.top - previous.bottom).toBeCloseTo(3, 1);
+      expect(current.top - previous.bottom).toBeCloseTo(2, 1);
     }
     for (const item of row.scopeItems) {
       expect(item.left).toBeGreaterThanOrEqual(row.columns[1].left);

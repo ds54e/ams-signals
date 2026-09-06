@@ -22,5 +22,5 @@ const projects = sortProjects(entries, activity.projects).map(({ data, id }) => 
 });
 ---
 <BaseLayout title="Digital · AMS Signals" description="RTL/digital tools and agents for simulation, compilation, verification, formal, debug and implementation flows." lang="en">
-  <CatalogIndex domain="digital" title="Digital" months={activity.months} projects={projects} />
+  <CatalogIndex domain="digital" title="Digital" stages={scopeStageLabels} months={activity.months} projects={projects} />
 </BaseLayout>

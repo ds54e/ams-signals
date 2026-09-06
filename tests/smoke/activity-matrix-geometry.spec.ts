@@ -53,13 +53,13 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
   expect(bands.map(({ label }) => label)).toEqual([
     '2026', '2025', '2024', '2023', '2020–2022', '2015–2019', '≤2014',
   ]);
-  expect(bands.map(({ widthPx }) => widthPx)).toEqual([144, 114, 104, 52, 76, 76, 68]);
+  expect(bands.map(({ widthPx }) => widthPx)).toEqual([144, 114, 104, 54, 76, 76, 74]);
   expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([7, 4, 3, 2, 3, 4, 5]);
   expect(bands.map(({ resolution }) => resolution)).toEqual([
     'continuous', 'continuous', 'continuous',
     'bucket', 'bucket', 'bucket', 'bucket',
   ]);
-  expect(bands.at(-1)?.endPx).toBe(634);
+  expect(bands.at(-1)?.endPx).toBe(642);
 
   const futureBands = deriveActivityMatrixTimeBands(2027);
   expect(futureBands.map(({ key }) => key)).toEqual([
@@ -90,7 +90,7 @@ test('band sizing clamps recent density and protects earlier labels and bundles'
     'year-2023': 3,
   });
   expect(dense.slice(0, 3).map(({ widthPx }) => widthPx)).toEqual([160, 154, 100]);
-  expect(dense[3].widthPx).toBe(68);
+  expect(dense[3].widthPx).toBe(74);
 });
 
 test('recent time remains chronological across variable-width years while earlier periods share centers', () => {
@@ -168,9 +168,9 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   expect(ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS).toBe(3);
   expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns)).toEqual([1, 2, 3, 2, 3, 3]);
   expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleRows)).toEqual([1, 1, 1, 2, 2, 2]);
-  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleWidthPx)).toEqual([16, 34, 52, 34, 52, 52]);
+  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleWidthPx)).toEqual([18, 38, 58, 38, 58, 58]);
 
-  for (const [memberCount, collisionWidthPx] of [[1, 16], [2, 34], [3, 52], [4, 34], [5, 52], [6, 52]]) {
+  for (const [memberCount, collisionWidthPx] of [[1, 18], [2, 38], [3, 58], [4, 38], [5, 58], [6, 58]]) {
     const [bundle] = buildActivityMatrixBundles(
       Array.from({ length: memberCount }, (_, index) => event(`period-${memberCount}-${index}`, '2023', 'year')),
       deriveActivityMatrixTimeBands(2026, currentDensity),
@@ -188,8 +188,8 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeGreaterThan(32);
   expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeLessThan(36);
   expect(separatedSingles.map(({ collisionWidthPx, rowStart }) => ({ collisionWidthPx, rowStart }))).toEqual([
-    { collisionWidthPx: 16, rowStart: 0 },
-    { collisionWidthPx: 16, rowStart: 0 },
+    { collisionWidthPx: 18, rowStart: 0 },
+    { collisionWidthPx: 18, rowStart: 0 },
   ]);
 
   const bundles = buildActivityMatrixBundles([
@@ -207,8 +207,8 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   }))).toEqual(Array(2).fill({
     columnCount: 3,
     rowCount: 1,
-    bundleWidthPx: 52,
-    collisionWidthPx: 52,
+    bundleWidthPx: 58,
+    collisionWidthPx: 58,
   }));
   expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeGreaterThan(32);
   expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeLessThan(52);
@@ -216,7 +216,7 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
 });
 
 test('row-aware packing reuses free visual rows without weakening rectangle separation', () => {
-  expect(ACTIVITY_MATRIX_VISUAL_ROW_PITCH).toBe(18);
+  expect(ACTIVITY_MATRIX_VISUAL_ROW_PITCH).toBe(20);
 
   const packableBundles = [
     { xPx: 0, collisionWidthPx: 34, rowCount: 2 },

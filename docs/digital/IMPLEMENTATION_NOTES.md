@@ -1,10 +1,14 @@
 # Digital implementation and review notes
 
-## Shared visual system (2026-09-06)
+## Current visual density and filtering (2026-09-06)
 
-The current presentation uses `CatalogIndex.astro`, one `catalog.css`, and the shared index typography/rhythm described in [VISUAL_SYSTEM.md](../VISUAL_SYSTEM.md). Domain pages retain their own validation, sorting and data preparation. The two former domain stylesheets are removed. The full-width grid is Project **794px**, Scope **170px**, Activity **112px**, with **22px** gaps inside **1120px**. Activity uses quiet **7×5px** horizontal ticks, **2px** gaps and a **106px** intrinsic band. Latest month remains leftmost; dates are normal-weight 12px metadata. No content, classifications, reviewed activity or source URLs change in this presentation refactor.
+Starting commit: `08f01bf57fa96764752fe7e6cb63fbb442180505`. The shared `CatalogIndex.astro`, `catalog.css` and small `catalog-filter.ts` now use the **920px listing width** shared by Articles and Events. Desktop columns are **678px Project / 122px Scope / 88px Activity**, with **16px gaps**, and there is no visible column-heading row. Activity is a **70px** newest-left band of **4×8px vertical cells** with **2px gaps**. Scope gaps are **2px**; the shared 17px title / 15px description scale and 22px/24px row rhythm remain.
 
-Both catalogs pass the shared visual-system checks and **79/79 Chromium** production-preview tests; see the [paired validation and data-integrity record](../analog/IMPLEMENTATION_NOTES.md#shared-visual-system-2026-09-06). The Digital unit suite passes **24/24** without changes to its data-model tests.
+Search indexes only the public name, description and rendered Scope labels. It normalizes Unicode/case/separators/whitespace and combines all query terms with the single underlying-stage filter using AND. Short terms such as AI match words. Count is `N projects` by default, `N of TOTAL projects` while filtering, with a quiet zero-results message. The native form appears only after enhancement, uses no fetching/URL state/storage and remains independent of EventExplorer. The complete static list is readable without JavaScript.
+
+Timeline/Events share the rule-free control styling. Event badges restore blue Technical / rust Organizational recognition. Timeline visible glyphs are 8px with shared 18px hit targets and consistent selection, after screenshot review reduced an initial 20px target that expanded dense rows unnecessarily. See [VISUAL_SYSTEM.md](../VISUAL_SYSTEM.md) for ownership, dimensions and review coverage. Catalog content, Scope, sources and activity records are unchanged.
+
+Validation: `npm run check` and **91/91 production-preview Chromium tests** pass, including **23 Analog / 24 Digital** unit tests. The [paired validation record](../analog/IMPLEMENTATION_NOTES.md#current-visual-density-and-filtering-2026-09-06) documents responsive/filter/dark-mode screenshots, viewer regression checks, **352 unchanged content/data files**, and the unchanged factual export hash. Deployment uses the existing manual Pages workflow, followed by production browser and artifact verification.
 
 ## Scope migration (2026-09-06)
 

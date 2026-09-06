@@ -10,7 +10,6 @@
 .index-summary:lang(ja) { line-break: strict; }
 .index-meta { color: var(--muted); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; }
-.index-label { color: var(--muted); font-size: var(--type-micro); font-weight: 600; line-height: var(--leading-meta); }
 .index-links { color: var(--accent-ink); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-links a { color: var(--accent-ink); }
 @media (max-width: 760px) {
