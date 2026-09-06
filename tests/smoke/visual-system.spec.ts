@@ -124,7 +124,7 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(752);
+      expect(reports[0].copyWidth).toBe(754);
       expect(reports[2].copyWidth).toBe(790);
     }
 
@@ -145,7 +145,7 @@ function contrast(a: number[], b: number[]) {
 }
 
 for (const colorScheme of ['light', 'dark'] as const) {
-  test(`Catalog and Events share badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
+  test(`Catalog and Events share uppercase badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
     const badgeStyles = async (selector: string) => page.locator(selector).evaluateAll((nodes) => nodes.map((el) => {
       const s = getComputedStyle(el);
@@ -169,7 +169,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       expect(scope.length).toBeGreaterThan(0);
       for (const badge of scope) {
         expect(badge.typography).toEqual(events[0].typography);
-        expect(badge.transform).toBe('none');
+        expect(badge.transform).toBe('uppercase');
       }
       const palette = await page.locator('.catalog').evaluate((el, stage) => {
         const rgb = (selector: string) => getComputedStyle(el.querySelector(selector)!).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number);

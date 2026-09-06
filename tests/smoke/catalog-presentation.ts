@@ -5,7 +5,8 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   const items = await scope.locator('li[data-scope-item]').evaluateAll((nodes) => nodes.map((el) => {
     const style = getComputedStyle(el), box = el.getBoundingClientRect();
     return { id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'),
-      text: el.textContent!.trim(), classes: [...el.classList], color: style.color, fill: style.backgroundColor,
+      text: el.textContent!.trim(), renderedText: (el as HTMLElement).innerText.trim(), transform: style.textTransform,
+      classes: [...el.classList], color: style.color, fill: style.backgroundColor,
       radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize), weight: Number(style.fontWeight),
       paddingX: parseFloat(style.paddingLeft), paddingY: parseFloat(style.paddingTop),
       width: box.width, outline: style.outlineStyle,
@@ -15,6 +16,8 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   for (const item of items) {
     expect(item.classes).toEqual(['category-label', 'scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]);
     expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-built$/);
+    expect(item.transform).toBe('uppercase');
+    expect(item.renderedText).toBe(item.text.toUpperCase());
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
     expect(item.radius).toBeGreaterThanOrEqual(2); expect(item.radius).toBeLessThanOrEqual(3);
     expect(item.font).toBe(10); expect(item.weight).toBe(600);
@@ -170,10 +173,10 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     if (width >= 1024) {
       expect(row.columns[0].width).toBe(150);
       expect(row.columns[1].width).toBeGreaterThan(680);
-      expect(row.columns[1].left - row.columns[0].right).toBe(18);
+      expect(row.columns[1].left - row.columns[0].right).toBe(16);
       if (width >= 1280) {
         expect(row.row.width).toBe(920);
-        expect(row.columns[1].width).toBe(752);
+        expect(row.columns[1].width).toBe(754);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);
@@ -181,7 +184,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     }
     expect(row.date.bottom).toBeLessThan(row.strip.top);
     expect(row.strip.top - row.date.bottom).toBeCloseTo(4, 1);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeCloseTo(8, 1);
+    expect(row.scopeItems[0].top - row.strip.bottom).toBeCloseTo(10, 1);
     expect(row.justify).toBe('flex-start');
     expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
     expect(row.name.left).toBeCloseTo(row.title.left, 1);
