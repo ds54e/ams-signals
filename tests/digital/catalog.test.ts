@@ -22,6 +22,7 @@ const projects = await Promise.all((await readdir(directory)).filter((file) => f
   return { id: file.slice(0, -3), data: digitalSchema.parse(frontmatter), body: content };
 }));
 const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8')));
+const dayAfterReview = new Date(Date.parse(`${snapshot.reviewedAt}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
 const surfer = projects.find((p) => p.id === 'surfer')!;
 const data = () => structuredClone(github.data);
@@ -46,9 +47,10 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
   }
 });
 
-test('Digital preserves domain membership and rejects obsolete role/AI fields', () => {
-  assert.equal(projects.length, 33);
-  assert.ok(!projects.some((p) => p.id === 'ngspice-openvaf-enhancements'));
+test('Digital preserves domain membership and rejects obsolete role/AI fields', async () => {
+  const analogIds = new Set((await readdir(new URL('../../src/content/analog/', import.meta.url)))
+    .filter((file) => file.endsWith('.md')).map((file) => file.slice(0, -3)));
+  assert.ok(projects.every((p) => !analogIds.has(p.id)));
   for (const p of projects) {
     for (const field of ['roles', 'ai', 'aiBuilt']) assert.ok(!(field in p.data));
   }
@@ -92,6 +94,8 @@ test('Digital classification follows user-facing operations rather than internal
     'sv-elab': ['synthesis'],
     uhdm2rtlil: ['synthesis'],
     circt: ['design', 'synthesis', 'verification'],
+    veryl: ['design', 'synthesis', 'verification'],
+    xls: ['design', 'synthesis', 'verification'],
     'dr-rtl': ['design', 'synthesis', 'verification'],
     coresmith: ['design', 'synthesis', 'verification', 'layout'],
   };
@@ -149,7 +153,7 @@ test('GitHub activity requires explicit identity, branch, hashes and nonnegative
 test('commit buckets agree with latest and manually reviewed meaningful dates', () => {
   for (const changes of [
     { commits: Array(12).fill(0) },
-    { lastCommitAt: '2026-09-06' },
+    { lastCommitAt: dayAfterReview },
     { lastCommitAt: '2026-07-01', lastMeaningfulCommitAt: '2026-07-01', commits: Array(12).fill(1) },
     { lastCommitAt: '2026-01-01', lastMeaningfulCommitAt: '2026-02-01' },
   ]) {
@@ -241,7 +245,7 @@ test('generic repository records enforce identity, complete monthly history and 
     { repository: 'invalid' }, { repository: 'https://github.com/mirror/surfer' },
     { repository: 'https://gitlab.com/' }, { repository: 'https://gitlab.com/surfer-project/surfer?branch=main' },
     { repositoryId: undefined }, { repositoryId: '' }, { defaultBranch: 'bad..branch' },
-    { capturedAt: undefined }, { capturedAt: '2026-08-31T00:00:00Z' }, { capturedAt: '2026-09-06T00:00:00Z' },
+    { capturedAt: undefined }, { capturedAt: '2026-08-31T00:00:00Z' }, { capturedAt: `${dayAfterReview}T00:00:00Z` },
     { capturedAt: '2026-09-03T00:00:00Z' }, { commits: undefined }, { commits: [1] },
     { commits: Array(12).fill(-1) }, { commits: Array(12).fill(0.5) }, { commits: Array(12).fill(0) },
     { headSha: 'main' }, { lastMeaningfulCommitSha: undefined }, { lastMeaningfulCommitAt: '2025-09-04' },
@@ -338,13 +342,15 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     'vivado-mcp': ['Synthesis', 'Verification', 'Layout', 'AI-built'],
     xezim: ['Verification', 'AI-built'], pono: ['Verification'],
     circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
+    veryl: ['Design', 'Synthesis', 'Verification', 'AI-built'],
+    xls: ['Design', 'Synthesis', 'Verification'],
   };
   for (const [id, labels] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;
     assert.deepEqual(scopeItems(scope, scopeStageLabels).map((x) => x.label), labels, id);
   }
   assert.deepEqual(projects.filter((p) => p.data.scope.aiBuilt).map((p) => p.id).sort(),
-    ['iverilog-uvm', 'uhdm2rtlil', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
+    ['iverilog-uvm', 'uhdm2rtlil', 'veryl', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
 });
 
 test('Digital Scope displays composed AI stages and AI-built without duplicating a stage', () => {

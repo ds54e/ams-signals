@@ -3,17 +3,25 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
-  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl']);
+  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls']);
 
 catalogSearchRegression(fixture, {
-  SystemVerilog: ['verilator', 'icarus-verilog'],
+  Veryl: ['veryl'],
+  SystemVerilog: ['verilator', 'icarus-verilog', 'veryl', 'xls'],
+  HDL: ['veryl'],
+  RTL: ['veryl'],
+  simulator: ['verilator', 'icarus-verilog', 'veryl'],
+  cocotb: ['veryl'],
   UVM: ['haven', 'xezim'],
   formal: ['pono', 'symbiyosys', 'verifyrtl'],
   waveform: ['surfer', 'what', 'vitamin'],
   Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil'],
   OpenROAD: ['openroad', 'coresmith'],
-  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl'],
-  AI: ['xezim', 'haven'],
+  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl', 'veryl', 'xls'],
+  XLS: ['xls'],
+  HLS: ['xls'],
+  DSLX: ['xls'],
+  AI: ['xezim', 'haven', 'veryl'],
 });
 
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
