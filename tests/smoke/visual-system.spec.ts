@@ -279,17 +279,26 @@ test('Events toolbar is flat while its controls and company popover remain usabl
 });
 
 test('Japanese reading measure and prose stay comfortable on desktop and mobile', async ({ page }) => {
+  const articles = ['apple-rnm-modeling-verification-operations', 'uvm-ms-2011-to-2025', 'ams-nettypes-interoperability'];
   for (const viewport of [viewports[0], viewports[3], viewports[4]]) {
-    await page.setViewportSize(viewport); await open(page, 'articles');
-    await page.locator('.article-list h2 a').first().click();
-    await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
-    const styles = await page.locator('.article-body').evaluate((el) => {
-      const s = getComputedStyle(el);
-      return { size: parseFloat(s.fontSize), line: parseFloat(s.lineHeight), width: el.getBoundingClientRect().width, breaking: s.lineBreak, tracking: getComputedStyle(document.querySelector('h1')!).letterSpacing };
-    });
-    expect(styles.size).toBe(17); expect(styles.line).toBeCloseTo(17 * 1.85, 1);
-    expect(styles.width).toBeLessThanOrEqual(800); expect(styles.breaking).toBe('strict');
-    expect(parseFloat(styles.tracking) || 0).toBe(0);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+    await page.setViewportSize(viewport);
+    const mobile = viewport.width <= 760;
+    const size = mobile ? 16 : 17;
+    for (const article of articles) {
+      await open(page, `articles/${article}`);
+      await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+      const styles = await page.locator('.article-body').evaluate((el) => {
+        const s = getComputedStyle(el);
+        const p = getComputedStyle(el.querySelector(':scope > p')!);
+        return { size: parseFloat(s.fontSize), line: parseFloat(s.lineHeight), width: el.getBoundingClientRect().width,
+          paragraphMargins: [parseFloat(p.marginTop), parseFloat(p.marginBottom)],
+          breaking: s.lineBreak, tracking: getComputedStyle(document.querySelector('h1')!).letterSpacing };
+      });
+      expect(styles.size).toBe(size); expect(styles.line).toBeCloseTo(size * (mobile ? 1.72 : 1.85), 1);
+      for (const margin of styles.paragraphMargins) expect(margin).toBeCloseTo(size * (mobile ? 1.02 : 1.15), 1);
+      expect(styles.width).toBeLessThanOrEqual(800); expect(styles.breaking).toBe('strict');
+      expect(parseFloat(styles.tracking) || 0).toBe(0);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+    }
   }
 });

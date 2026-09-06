@@ -24,11 +24,14 @@ Do not create a second domain stylesheet or tune equivalent index text with unre
 | Contextual links and metadata | 13px / 400 | 1.45 |
 | Event / Scope category labels | 10px / 600 | 1.4 |
 | Dates | 12px / 400 | 1.45 |
-| Long-form Article prose | 17px / 400 | 1.85 |
+| Long-form Article prose, above 760px | 17px / 400 | 1.85 |
+| Long-form Article prose, 760px and below | 16px / 400 | 1.72 |
 
 Index rows have **22px top / 24px bottom** padding and subtle one-pixel separators between rows; the first visible row has no top rule, including after filtering. Title-to-summary gap is **9px**. Dates use a shared monospace stack and tabular numerals. Scope is a vertical stack of filled, fit-content category labels with **3px** gaps. Its presence-only schema and review decisions are described in [CATALOG_SCOPE_REVIEW.md](CATALOG_SCOPE_REVIEW.md). Quick links remain directly beside plain-text project names at **13px**, with natural baseline-aligned wrapping.
 
 The font stack starts with `system-ui`, platform UI fonts and local Japanese fallbacks. There is no unloaded Inter declaration and no remote font download. Japanese titles have zero tracking and strict line breaking; Latin index titles use only −0.005em tracking. Short titles/summaries use `text-wrap: pretty` as progressive enhancement. Article prose retains comfortable size on mobile and is never converted into an index summary.
+
+Individual Article bodies use **1.15em** paragraph margins above 760px and **1.02em (16.32px)** at 760px and below. The mobile rhythm makes Japanese paragraphs denser while retaining distinct paragraph breaks. Article headers and Articles index typography retain their existing sizes and spacing. Body heading sizes and margins also remain: mobile h2 is **1.32rem**, and h3 is **1.16rem**. Lists and blockquotes inherit the mobile body rhythm; code blocks and tables retain local horizontal scrolling, and images remain responsive.
 
 ## Functional measures
 
@@ -85,6 +88,8 @@ Selection uses the same **2px surface gap / 4px outer accent ring** on the glyph
 ## Review and verification
 
 Visual review covers `/`, `/events/`, `/analog/`, `/digital/` and `/articles/` at **1440×900, 1280×800, 1024×768, 390×844 and 320×568**, plus dark mode, Japanese Article prose and the open company picker. Baseline, first-pass and refinement screenshots are local review artifacts, not a checked-in screenshot archive.
+
+Mobile Article typography is compared before/after at **390×844 and 320×568** on the Apple RNM operations article (long prose), UVM-MS history (headings, lists, quotes and tables), and AMS nettype interoperability (inline code). A temporary browser sample covers h3, ordered lists, code blocks and wide images that current authored articles do not contain. Computed-style checks retain the desktop body rhythm and verify the smaller mobile type, tighter line height and paragraph margins. Desktop Article and Articles index measurements remain identical to their baselines.
 
 Side-by-side Catalog/Events review retains the shared uppercase badge primitive. The **122px rail / 12px body gap** removes unused horizontal space while **10px strip-to-Scope spacing** keeps activity and classification distinct. Long labels such as AI Verification fit inside the rail without changing 10px badge text. Existing **5×10px ticks** remain balanced against the 20px badge height. Light/dark review compares the whole palette on broad-flow projects such as CoreSmith and PANDA, with AI-built examples alongside conventional stages.
 

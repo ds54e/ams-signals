@@ -114,6 +114,7 @@
 .article-related a { color: var(--accent-ink); font-size: 0.9rem; font-weight: 650; line-height: 1.42; }
 
 @media (max-width: 760px) {
-  .article-body { margin-top: 28px; }
+  .article-body { margin-top: 28px; font-size: 1rem; line-height: 1.72; }
+  .article-body p { margin-block: 1.02em; }
   .article-body h2 { font-size: 1.32rem; }
 }
