@@ -1,7 +1,7 @@
 ---
 name: "HAVEN"
 aliases: []
-description: "Generates UVM environments from protocol specifications through a constrained DSL, then refines coverage using VCS simulation and VC Formal feedback."
+description: "Uses an LLM to turn protocol specifications into UVM tests through a constrained DSL, then targets uncovered behavior with VCS and VC Formal feedback."
 scope:
   verification:
     level: core

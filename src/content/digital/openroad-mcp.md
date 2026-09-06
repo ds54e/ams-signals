@@ -1,7 +1,7 @@
 ---
 name: "OpenROAD-MCP"
 aliases: []
-description: "Official MCP interface managing persistent OpenROAD sessions and ORFS runs, with design commands, reports, metrics and physical-flow checks for agents."
+description: "MCP server for persistent OpenROAD and OpenROAD-flow-scripts sessions, exposing physical-design commands, reports and metrics to agents."
 scope:
   layout:
     level: core

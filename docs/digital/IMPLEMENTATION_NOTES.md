@@ -1,5 +1,15 @@
 # Digital implementation and review notes
 
+## Description and alignment review (2026-09-06)
+
+Starting commit: `f64d4c5e668870af1e7689c8d6e721923710f94a`. Read all **33 Digital** descriptions, full classification/release notes and source records. Reopened the existing pinned primary READMEs for changes; revised **9 descriptions** and left **24** intact. This changes only public `description` fields, preserving Scope/AI, membership, source arrays, body notes, review dates and all activity evidence, including Surfer's canonical GitLab history.
+
+Dr. RTL now states the LLM rewrite → synthesis timing → sequential-equivalence loop and timing/area comparison, without claiming power optimization from its timing/area score. CoreSmith identifies LLM-generated RTL/testbenches and the Yosys/OpenROAD/Magic path toward GDS. HAVEN distinguishes LLM protocol intent from constrained DSL generation; VerifyRTL names the real simulation/formal backends and trace explanation. Pono explicitly says formal model checking; uhdm2rtlil names synthesis; vitamin names VCD/FST output. Search regressions cover SystemVerilog, UVM, formal, waveform, Yosys, OpenROAD and AI.
+
+Counts follow the controls directly in the shared `.index-count` style; the first visible row has no top rule. No new filter logic, taxonomy, data refresh or presentation path is introduced. See the [paired review](../analog/IMPLEMENTATION_NOTES.md#description-and-alignment-review-2026-09-06) and [visual system](../VISUAL_SYSTEM.md).
+
+Validation: `npm run check` and **93/93 Chromium smoke tests** pass. The paired review records all-row integrity, the unchanged factual export, responsive/dark screenshots, normalized technical-term searches and toolbar/count geometry.
+
 ## Current visual density and filtering (2026-09-06)
 
 Starting commit: `08f01bf57fa96764752fe7e6cb63fbb442180505`. The shared `CatalogIndex.astro`, `catalog.css` and small `catalog-filter.ts` now use the **920px listing width** shared by Articles and Events. Desktop columns are **678px Project / 122px Scope / 88px Activity**, with **16px gaps**, and there is no visible column-heading row. Activity is a **70px** newest-left band of **4×8px vertical cells** with **2px gaps**. Scope gaps are **2px**; the shared 17px title / 15px description scale and 22px/24px row rhythm remain.

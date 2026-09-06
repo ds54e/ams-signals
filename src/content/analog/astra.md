@@ -1,7 +1,7 @@
 ---
 name: "ASTRA"
 summary: "Reasoning-guided initialization and Bayesian transistor sizing."
-description: "Combines retrieved design knowledge and gm/ID initialization with Bayesian transistor sizing, using simulator feedback through an external evaluation adapter."
+description: "Guides transistor sizing with an LLM and retrieved gm/ID knowledge, using simulator feedback to initialize designs and prioritize Bayesian optimization."
 scope:
   design:
     level: core

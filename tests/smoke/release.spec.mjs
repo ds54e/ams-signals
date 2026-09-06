@@ -207,6 +207,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     summary: row.querySelector('.article-list-body > p')?.textContent?.trim() ?? '',
   })));
   expect(articleEntries.length, 'Articles index should publish at least one Article').toBeGreaterThan(0);
+  await expect(page.locator('.article-index > .index-count')).toHaveText(`${articleEntries.length} articles`);
 
   const articles = articleEntries.map(({ title, href }) => ({
     title,
@@ -1937,7 +1938,7 @@ test('Timeline utility bar places count and legend beside the compact controls',
   const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
   expect(representedIds).toHaveLength(163);
-  await expect(summary.locator(':scope > .event-filter-status')).toHaveText('163 of 185 events');
+  await expect(summary.locator(':scope > .index-count')).toHaveText('163 of 185 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
@@ -1972,7 +1973,7 @@ test('Timeline utility bar places count and legend beside the compact controls',
   expect(layout.search.width).toBeGreaterThanOrEqual(220);
   expect(layout.search.width).toBeLessThanOrEqual(340);
   expect(layout.company.left).toBeGreaterThan(layout.search.right);
-  expect(layout.summary.left).toBeGreaterThan(layout.company.right + 100);
+  expect(layout.summary.left - layout.company.right).toBeCloseTo(12, 1);
   expect(Math.abs(layout.search.top - layout.company.top)).toBeLessThanOrEqual(1);
   expect(Math.abs(layout.summary.top - layout.company.top)).toBeLessThanOrEqual(1);
   expect(layout.legendLeft).toBeGreaterThan(layout.statusRight);

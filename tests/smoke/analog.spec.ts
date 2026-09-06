@@ -1,9 +1,19 @@
 import { expect, test } from '@playwright/test';
-import { catalogFixture, catalogIndexTests } from './catalog-index';
+import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './catalog-index';
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
   ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout']);
+
+catalogSearchRegression(fixture, {
+  ngspice: ['ngspice', 'analoggym', 'autosizer'],
+  Virtuoso: ['virtuoso-agent', 'virtuoso-bridge-lite', 'vcli'],
+  'Verilog-A': ['evas', 'openvaf-reloaded'],
+  SKY130: ['analoggym', 'gmoverid-skill'],
+  AI: ['analogsage', 'zerosim'],
+  layout: ['klayout', 'magic'],
+  sizing: ['autosizer', 'astra', 'analogsage', 'gmoverid-skill'],
+});
 
 test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {
   await page.goto('./analog/');

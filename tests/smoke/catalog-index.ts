@@ -21,6 +21,25 @@ export async function catalogFixture(domain: 'analog' | 'digital') {
   };
 }
 
+export function catalogSearchRegression(fixture: Awaited<ReturnType<typeof catalogFixture>>, queries: Record<string, string[]>) {
+  test(`${fixture.domain} descriptions keep identifying technical terms discoverable`, async ({ page }) => {
+    await page.goto(`./${fixture.domain}/`);
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    for (const [query, ids] of Object.entries(queries)) {
+      await test.step(query, async () => {
+        await search.fill(query);
+        for (const id of ids) await expect(fixture.row(page, id)).toBeVisible();
+        const count = await fixture.rows(page).filter({ visible: true }).count();
+        expect(count).toBeGreaterThanOrEqual(ids.length);
+        expect(count).toBeLessThan(fixture.projects.length);
+        await expect(page.getByRole('status')).toHaveText(`${count} of ${fixture.projects.length} projects`);
+        // Filtering a later row into first position must not restore a top rule.
+        await expect(fixture.rows(page).filter({ visible: true }).first()).toHaveCSS('border-top-width', '0px');
+      });
+    }
+  });
+}
+
 export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixture>>, scopeStageLabels: Record<string, string>, inspect: string[]) {
   const { domain, attribute, projects, ordered, activity, rows, row } = fixture;
   const label = domain === 'analog' ? 'Analog' : 'Digital';
@@ -243,11 +262,12 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       expect(geometry.borders).toEqual(['0px', '0px']); expect(geometry.shadow).toBe('none');
       if (width >= 1024) {
         expect(geometry.search.width).toBe(300); expect(geometry.scope.width).toBe(150);
-        expect(geometry.count.right).toBeCloseTo((await toolbar.boundingBox())!.x + (await toolbar.boundingBox())!.width, 1);
+        expect(geometry.count.left - geometry.scope.right).toBeCloseTo(12, 1);
       } else {
         expect(geometry.search.bottom).toBeLessThan(geometry.scope.top);
         expect(geometry.search.left).toBe(geometry.scope.left);
         expect(geometry.scope.right).toBeLessThan(geometry.count.left);
+        expect(geometry.count.left - geometry.scope.right).toBeCloseTo(12, 1);
       }
       await page.screenshot({ path: info.outputPath(`${domain}-index-${width}.png`) });
       if (width < 1024) {

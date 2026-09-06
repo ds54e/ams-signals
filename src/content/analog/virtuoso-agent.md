@@ -1,7 +1,7 @@
 ---
 name: "virtuoso-agent"
 summary: "Runs an LLM parameter-tuning loop for existing circuits using specification checks from Maestro/Spectre or remote HSpice."
-description: "Tunes circuit parameters against specification targets in a closed loop using Virtuoso/Maestro/Spectre measurements or remote HSpice simulations."
+description: "Uses an LLM to tune circuit parameters toward specification targets from Virtuoso/Maestro/Spectre measurements or remote HSpice simulation results."
 scope:
   design:
     level: core

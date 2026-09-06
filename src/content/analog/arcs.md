@@ -1,7 +1,7 @@
 ---
 name: "ARCS"
 summary: "Joint circuit-topology and component-value generation."
-description: "Generates circuit connectivity and component values from target specifications, then uses ngspice evaluation and simulation-reward training to improve candidates across power-converter, amplifier and filter families."
+description: "Generates and sizes circuits within predefined topology families from target specifications, using an autoregressive model trained with ngspice rewards for converters, amplifiers and filters."
 scope:
   design:
     level: core

@@ -2,7 +2,7 @@
 name: "virtuoso-bridge-lite"
 aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
-description: "Connects Python or CLI workflows to local or remote Virtuoso sessions for SKILL execution, schematic planning, layout geometry, and Maestro setup. Also provides standalone Spectre execution and PSF result parsing."
+description: "Python and CLI bridge for local or remote Virtuoso schematic editing, SKILL layout operations and Maestro setup, with standalone Spectre execution and PSF result parsing."
 scope:
   design:
     level: core

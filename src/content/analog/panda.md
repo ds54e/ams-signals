@@ -1,7 +1,7 @@
 ---
 name: "PANDA"
 summary: "A staged design-intent-to-layout analog flow."
-description: "Turns design intent into topology and sizing artifacts, then coordinates Virtuoso/Spectre execution, placement, routing and post-layout feedback through a staged analog design flow."
+description: "Coordinates LLM-guided analog topology generation, transistor sizing and placement/routing, with hooks for Virtuoso/Spectre simulation and parasitic extraction (PEX)."
 scope:
   design:
     level: core

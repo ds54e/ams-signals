@@ -225,7 +225,7 @@ const matrixMarkLabel = (event: EventEntry) => (
     </div>
 
     <div class="event-filter-summary">
-      <p class="event-filter-status" data-status aria-live="polite"></p>
+      <p class="index-count" data-status aria-live="polite"></p>
       {showTimeline && <div class="kind-legend" aria-label="Signal type legend">
         {kindOrder.map((kind) => (
           <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>

@@ -2,7 +2,7 @@
 name: "AnalogForge Agent"
 aliases: ["AnalogForge","analog-forge-agent"]
 summary: "An experimental workbench for template-based circuit proposals and multi-objective search, with analytic fixtures as its default execution path."
-description: "Explores template-based analog circuits with bounded parameter search, analytic fixtures and a separately configured native-simulator path."
+description: "Template-based analog sizing prototype with bounded parameter search, analytic fixtures and a separate ngspice/Xyce netlist execution path."
 scope:
   design:
     level: core

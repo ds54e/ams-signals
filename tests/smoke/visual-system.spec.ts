@@ -1,4 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
+import { readdir } from 'node:fs/promises';
+
+const articleCount = (await readdir(new URL('../../src/content/articles/', import.meta.url))).filter((file) => file.endsWith('.md')).length;
 
 const viewports = [
   { width: 1440, height: 900 }, { width: 1280, height: 800 },
@@ -10,6 +13,38 @@ async function open(page: Page, surface: string) {
   expect((await page.goto(`./${surface ? `${surface}/` : ''}`))!.ok()).toBe(true);
   await page.evaluate(() => document.fonts.ready);
   if (surface === 'events' || surface === '') await expect(page.locator('[data-status]')).toContainText('events');
+}
+
+async function expectToolbarReadingOrder(page: Page) {
+  const toolbar = page.locator('.filter-toolbar');
+  const geometry = await toolbar.evaluate((el) => {
+    const box = (node: Element) => {
+      const r = node.getBoundingClientRect();
+      return { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
+    };
+    const controls = [...el.querySelectorAll('[data-catalog-search], [data-catalog-scope], [data-search], [data-kind], [data-company-picker] > summary')];
+    const count = el.querySelector('.index-count')!;
+    const legend = el.querySelector('.kind-legend');
+    const summary = el.querySelector('.event-filter-summary');
+    const s = getComputedStyle(el);
+    return { toolbar: box(el), lastControl: box(controls.at(-1)!), count: box(count), legend: legend ? box(legend) : null,
+      borders: [s.borderTopWidth, s.borderBottomWidth],
+      countMargin: getComputedStyle(count).marginLeft, summaryMargin: summary ? getComputedStyle(summary).marginLeft : '0px' };
+  });
+  expect(geometry.borders).toEqual(['0px', '0px']);
+  expect(geometry.countMargin).toBe('0px'); expect(geometry.summaryMargin).toBe('0px');
+  const { count, lastControl, legend } = geometry;
+  if (count.top < lastControl.bottom) {
+    expect(count.left - lastControl.right).toBeCloseTo(12, 1);
+  } else {
+    expect(count.left).toBeCloseTo(geometry.toolbar.left, 1);
+  }
+  if (legend) {
+    if (legend.top < count.bottom) expect(legend.left).toBeGreaterThan(count.right);
+    else expect(legend.left).toBeCloseTo(count.left, 1);
+    expect(legend.right).toBeLessThanOrEqual(geometry.toolbar.right + 1);
+  }
+  expect(count.right).toBeLessThanOrEqual(geometry.toolbar.right);
 }
 
 async function indexStyles(page: Page) {
@@ -36,6 +71,7 @@ for (const viewport of viewports) {
     await page.setViewportSize(viewport);
     const reports = [];
     const edges = [];
+    const counts = [];
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -53,13 +89,20 @@ for (const viewport of viewports) {
       expect(report.date.size).toBe(12); expect(report.date.weight).toBe('400');
       expect(report.date.font).toContain('monospace');
       expect(report.title.font).toContain('system-ui'); expect(report.title.font).not.toContain('Inter');
-      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe(surface === 'articles' ? '1px' : '0px');
+      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe('0px');
       expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
       if (surface === 'articles') {
         expect(parseFloat(report.title.tracking) || 0).toBe(0);
         await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
         expect(await page.locator('.index-title').first().innerText()).toMatch(/[\p{Script=Hiragana}\p{Script=Han}]/u);
-      }
+        await expect(page.locator('.article-index > .index-count')).toHaveText(`${articleCount} articles`);
+        await expect(page.locator('.article-index > .index-count + .article-list')).toHaveCount(1);
+        await expect(page.locator('.article-list > li')).toHaveCount(articleCount);
+      } else await expectToolbarReadingOrder(page);
+      counts.push(await page.locator('.index-count').evaluate((el) => {
+        const s = getComputedStyle(el);
+        return { size: s.fontSize, weight: s.fontWeight, color: s.color, line: s.lineHeight, numeric: s.fontVariantNumeric };
+      }));
       const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : surface === 'articles' ? '.listing-page' : '[data-event-explorer-root]');
       const max = 920;
       const box = (await content.boundingBox())!;
@@ -77,6 +120,8 @@ for (const viewport of viewports) {
     expect(new Set(reports.map((r) => r.separator.join('/'))).size).toBe(1);
     expect(reports[0].separator[0]).toBe('1px');
     expect(new Set(edges.map((r) => JSON.stringify(r))).size).toBe(1);
+    expect(new Set(counts.map((r) => JSON.stringify(r))).size).toBe(1);
+    expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
       expect(reports[0].copyWidth).toBe(678);
@@ -87,6 +132,7 @@ for (const viewport of viewports) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
     expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('1360px');
     await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
+    await expectToolbarReadingOrder(page);
   });
 }
 

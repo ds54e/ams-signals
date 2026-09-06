@@ -5,7 +5,7 @@ AMS Signals is a text-first technical research index and editorial site. Equival
 ## Ownership and cascade
 
 - `src/styles/foundation.css`: semantic colors, intentional system/Japanese font fallbacks, type/spacing/layout tokens, reset, site shell, focus and reduced-motion rules.
-- `src/styles/index.css`: shared `.index-*` title, summary, date, metadata, link and row primitives. Used by Articles, Events and both catalogs.
+- `src/styles/index.css`: shared `.index-*` title, summary, date, metadata/count, link and row primitives. Used by Articles, Events and both catalogs.
 - `src/styles/filters.css`: native input/select styling and the rule-free utility toolbar used by Catalog, Events and Timeline.
 - `src/styles/event-explorer.css`: company picker/popover, shared Timeline glyphs, geometry/inspector and Events-specific row structure.
 - `src/styles/articles.css`: long-form prose, citations and related-content structure. Article bodies are not styled as index summaries.
@@ -25,7 +25,7 @@ Do not create a second domain stylesheet or tune equivalent index text with unre
 | Dates and activity month summary | 12px; dates and month summary 400 | 1.45 |
 | Long-form Article prose | 17px / 400 | 1.85 |
 
-Index rows have **22px top / 24px bottom** padding and a subtle one-pixel rule. Title-to-summary gap is **9px**. Dates use a shared monospace stack and tabular numerals. Scope stays vertically stacked with **2px** gaps and **9px** filled/open CSS circles; its semantics do not change. Quick links remain directly beside plain-text project names at **13px**, with natural baseline-aligned wrapping.
+Index rows have **22px top / 24px bottom** padding and subtle one-pixel separators between rows; the first visible row has no top rule, including after filtering. Title-to-summary gap is **9px**. Dates use a shared monospace stack and tabular numerals. Scope stays vertically stacked with **2px** gaps and **9px** filled/open CSS circles; its semantics do not change. Quick links remain directly beside plain-text project names at **13px**, with natural baseline-aligned wrapping.
 
 The font stack starts with `system-ui`, platform UI fonts and local Japanese fallbacks. There is no unloaded Inter declaration and no remote font download. Japanese titles have zero tracking and strict line breaking; Latin index titles use only −0.005em tracking. Short titles/summaries use `text-wrap: pretty` as progressive enhancement. Article prose retains comfortable size on mobile and is never converted into an index summary.
 
@@ -47,9 +47,11 @@ Every project retains its **12-month reviewed public activity band**, latest mon
 
 Repository-backed rows preserve genuine monthly counts and canonical provenance, including Surfer's GitLab history. Point events such as ATLAS and ngspice mark their reviewed paper/release month without fabricated commits. Counts, dates, eligibility, sorting, source metadata and newest-first accessible/hover labels are unchanged.
 
-Catalog, Events and Timeline filters use whitespace, with **no toolbar border-block rules**, enclosing card or shadow. Native controls remain **44px** high with **14px** text. The first Catalog/Event row has no top rule and supplies **22px** padding below the controls; Timeline has **20px** below the toolbar before the visualization. Other row separators remain subtle. The company picker stays raised on desktop and in-flow on mobile.
+Catalog, Events and Timeline filters use whitespace, with **no toolbar border-block rules**, enclosing card or shadow. Native controls remain **44px** high with **14px** text. The first Catalog/Event row supplies **22px** padding below the controls; Timeline has **20px** below the toolbar before the visualization. Other row separators remain subtle. The company picker stays raised on desktop and in-flow on mobile.
 
-Catalog controls are a **300px Search**, **150px Scope select** and a right-aligned **13px normal-weight result count**. Search expands to a full row below 600px; Scope and count remain compact below it. Search matches only public name, description and rendered Scope labels, with Unicode/case/whitespace normalization. Stage filtering ignores AI and core/supporting distinctions, and combines with Search using AND. The form is hidden until JavaScript enhancement; all content remains available without JavaScript. No URL state, storage, fetches, hidden tags or EventExplorer dependencies are added.
+Catalog controls are a **300px Search**, **150px Scope select** followed immediately by a **13px normal-weight result count**, with **12px** gaps. Search expands to a full row below 600px; Scope and count remain compact below it. Search matches only public name, description and rendered Scope labels, with Unicode/case/whitespace normalization. Stage filtering ignores AI and core/supporting distinctions, and combines with Search using AND. The form is hidden until JavaScript enhancement; all content remains available without JavaScript. No URL state, storage, fetches, hidden tags or EventExplorer dependencies are added.
+
+All filter toolbars read left to right: **controls → count/status → legend**, with natural wrapping and no auto margin pushing status to the far edge. `.index-count` is shared by projects, events and articles: 13px, muted, normal weight and tabular numerals. Articles shows the actual authored collection count above its list, without adding controls or a first-row rule.
 
 Events use compact filled **Technical blue / Organizational rust** badges: uppercase **10px/600**, **3px radius**, and **3px × 5px padding**. The light/dark semantic colors remain unchanged; contrasting foreground and readable text preserve category recognition. Timeline legends stay lighter and use category shapes.
 
