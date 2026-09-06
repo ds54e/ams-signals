@@ -529,9 +529,8 @@
 .result-section { max-width: none; }
 .result-date { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; }
 .result-date time { text-transform: uppercase; }
-.signal-type { color: var(--bg); }
-.signal-type-technical { background: var(--technical); }
-.signal-type-organizational { background: var(--organizational); }
+.signal-type-technical { --category-fill: var(--technical); }
+.signal-type-organizational { --category-fill: var(--organizational); }
 .result-context { margin: 6px 0 0; }
 .result-match {
   width: fit-content;
@@ -575,5 +574,4 @@
   .timeline-mark.event-kind-technical .timeline-glyph,
   .timeline-mark.event-kind-organizational .timeline-glyph { background: CanvasText; }
   .timeline-mark.is-active .timeline-glyph { box-shadow: 0 0 0 2px Canvas, 0 0 0 4px Highlight; }
-  .signal-type { border: 1px solid CanvasText; }
 }

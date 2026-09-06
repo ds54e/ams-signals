@@ -1,5 +1,11 @@
 # Analog implementation and review notes
 
+## Shared categorical palette (2026-09-06)
+
+Starting commit: `d677b9a93147aa3c3798966749063ea99dfea1a0`. A further chroma reduction moves all five category colors into `foundation.css`. Catalog Scope, Events badges and Timeline glyphs/legends now share the same blue and rust through the existing Technical/Organizational aliases; AI-built remains a separate muted red. The shared label primitive owns foreground and forced-colors styling as well as its unchanged typography and dimensions. The [visual system](../VISUAL_SYSTEM.md) records both palettes, mappings and measured contrast.
+
+This cleanup leaves every authored content/data file, description, Scope assignment, activity value, layout and filter unchanged. Browser coverage changes the foundation tokens to verify that all surfaces inherit them, alongside light/dark contrast and forced-colors checks.
+
 ## Palette and description refinement (2026-09-06)
 
 Starting commit: `1abb5e4e476684d2b0dbf084ce7b39b8a82df32e`. Both catalogs now use the same **122px rail / 12px gap / 786px body** at the unchanged 920px listing width. A coordinated teal, blue, yellow-olive, copper and crimson palette replaces the closely spaced hues; dark mode uses the same identities with separately chosen fills. The [visual system](../VISUAL_SYSTEM.md) records exact values and measured contrast. Uppercase Events badge typography, 10px Activity-to-Scope spacing and 5×10px ticks remain unchanged.

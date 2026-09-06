@@ -4,7 +4,7 @@ AMS Signals is a text-first technical research index and editorial site. Equival
 
 ## Ownership and cascade
 
-- `src/styles/foundation.css`: semantic colors, intentional system/Japanese font fallbacks, type/spacing/layout tokens, reset, site shell, focus and reduced-motion rules.
+- `src/styles/foundation.css`: the authoritative categorical palette and semantic aliases, other semantic colors, intentional system/Japanese font fallbacks, type/spacing/layout tokens, reset, site shell, focus and reduced-motion rules.
 - `src/styles/index.css`: shared `.index-*` title, summary, date, metadata/count, link, category-label and row primitives. Used by Articles, Events and both catalogs.
 - `src/styles/filters.css`: native input/select styling and the rule-free utility toolbar used by Catalog, Events and Timeline.
 - `src/styles/event-explorer.css`: company picker/popover, shared Timeline glyphs, geometry/inspector and Events-specific row structure.
@@ -54,23 +54,25 @@ Catalog controls are a **300px Search**, **150px Scope select** followed immedia
 
 All filter toolbars read left to right: **controls → count/status → legend**, with natural wrapping and no auto margin pushing status to the far edge. `.index-count` is shared by projects, events and articles: 13px, muted, normal weight and tabular numerals. Articles shows the actual authored collection count above its list, without adding controls or a first-row rule.
 
-Events and Scope use the shared `.category-label` primitive in `index.css`: system sans **10px/600**, **1.4 line height**, **0.025em tracking**, **3px radius**, and **3px × 5px padding**. Both badge families render uppercase through that primitive. Events retains **Technical blue / Organizational rust**; Scope retains its stage-specific palette. CSS casing leaves authored labels and case-insensitive search unchanged. Neither surface overrides the shared typography or badge geometry. Event semantic colors remain unchanged; contrasting foreground and readable text preserve category recognition. Timeline legends stay lighter and use category shapes.
+Events and Scope use the shared `.category-label` primitive in `index.css`: system sans **10px/600**, **1.4 line height**, **0.025em tracking**, **3px radius**, and **3px × 5px padding**. Both badge families render uppercase through that primitive, which also owns the foreground, fill and forced-colors treatment. Page-specific classes only set `--category-fill` to the appropriate shared token. CSS casing leaves authored labels and case-insensitive search unchanged. Neither surface overrides the shared typography or badge geometry. Timeline legends stay lighter and use category shapes.
 
-## Scope category palette
+## Shared categorical palette
 
-Stage presence is the category; AI prefixes inherit the same class/color. The palette is one system of five separated hue families: green/teal Design, blue evaluation/checking, yellow-olive Synthesis, copper Layout and crimson AI-built. Simulation and Verification intentionally share blue across domains. The warm labels separate by hue rather than adding saturation or badge weight, and AI-built stays red-family without using error/alert styling. Event and Timeline colors do not change.
+`foundation.css` defines one restrained set of five hue families for Catalog, Events and Timeline. `--technical` aliases `--category-blue`; `--organizational` aliases `--category-rust`. Events badges, Timeline glyphs and legends therefore use exactly the same blue as Simulation/Verification and the same rust as Layout. Catalog and Event styles contain no separate palette literals or dark-mode color overrides. This shares presentation only: Catalog Scope and Golden Event kinds remain independent information models.
 
-The foreground is **#ffffff in light mode** and **#14231f in dark mode**. Dark fills are selected together to preserve those hue identities at restrained chroma. The following WCAG contrast ratios are calculated from sRGB relative luminance, not estimated visually; every pair exceeds 4.5:1 for small text.
+AI prefixes inherit their stage's color. All five fills move toward neutral while retaining green/teal, medium blue, mustard, copper and crimson identities. AI-built stays a distinct muted red and does not use the danger token. Opacity remains **1**. Blue and rust do not increase relative luminance over the previous Event colors in either theme.
 
-| Category | Light fill | Text contrast | Dark fill | Text contrast |
-| --- | --- | --- | --- | --- |
-| Design / AI Design | #3b6e61 | 5.85:1 | #91b4a4 | 7.19:1 |
-| Simulation / AI Simulation; Verification / AI Verification | #3975a3 | 4.94:1 | #8fb7d5 | 7.68:1 |
-| Synthesis / AI Synthesis | #766d2a | 5.26:1 | #bdb06d | 7.44:1 |
-| Layout / AI Layout | #a2583a | 5.26:1 | #c79572 | 6.18:1 |
-| AI-built | #9b415b | 6.36:1 | #c68b9a | 5.86:1 |
+`--category-ink` supplies **#ffffff in light mode** and **#14231f in dark mode** to every category label. Dark fills are deliberately selected together to preserve hue identity at restrained chroma. The following WCAG contrast ratios use sRGB relative luminance; every label pair exceeds 4.5:1 for small text.
 
-Scope remains recognizable from its text without color. Forced colors uses CanvasText/Canvas with a system-color outline. These styles stay in the shared catalog stylesheet.
+| Foundation token | Meaning, including AI-prefixed stages | Light fill | Text contrast | Dark fill | Text contrast |
+| --- | --- | --- | --- | --- | --- |
+| `--category-green` | Design | #4f7065 | 5.47:1 | #95b0a3 | 6.99:1 |
+| `--category-blue` | Simulation, Verification, Technical Events/Timeline | #4b6d89 | 5.46:1 | #8fa9be | 6.66:1 |
+| `--category-gold` | Synthesis | #787043 | 5.00:1 | #b4ac7e | 7.09:1 |
+| `--category-rust` | Layout, Organizational Events/Timeline | #886454 | 5.25:1 | #b69682 | 5.95:1 |
+| `--category-red` | AI-built development provenance | #8d5967 | 5.59:1 | #bb959f | 6.13:1 |
+
+Labels remain recognizable from text without color. The shared rule in `index.css` uses CanvasText/Canvas and a system-color outline in forced colors. Timeline preserves its Technical circle and Organizational rounded square, including forced colors. Blue/rust glyphs exceed **4.76:1** against the normal background and surface in light mode and **6.31:1** in dark mode; geometry and selection treatment are unchanged.
 
 Activity retains its existing neutral/accent colors and binary fill. Category colors never encode its age or commit volume.
 
@@ -88,6 +90,8 @@ Side-by-side Catalog/Events review retains the shared uppercase badge primitive.
 
 All 68 project descriptions were reread with their existing primary evidence; 33 Analog and 33 Digital descriptions gained useful workflow, artifact or capability-boundary context. G-DiffPS and Masala-CHAI stayed concise and unchanged. A refinement after initial screenshots shortened the Ngspice/OpenVAF and iverilog-uvm copy and made uhdm2rtlil's added context about the synthesis path. Longer descriptions retain the shared text size and row rhythm; the shorter 768px-high desktop viewport may show three complete rows and part of the fourth. No Scope, source or activity data changed.
 
-The shared date formatter always includes the activity date's year. Search/Scope/count controls still fit at 320px without squeezing descriptions. The previously refined **18px Timeline hit target** retains Apple's two-row cluster with the same 8px glyph. Event badges, Articles count and all left-grouped toolbars remain unchanged.
+The shared date formatter always includes the activity date's year. Search/Scope/count controls still fit at 320px without squeezing descriptions. The previously refined **18px Timeline hit target** retains Apple's two-row cluster with the same 8px glyph. Event badge typography/geometry, Articles count and all left-grouped toolbars remain unchanged.
 
-`tests/smoke/visual-system.spec.ts` checks computed badge parity with Events, five separated Scope hue families and identical cross-domain colors, hierarchy, color contrast, shared listing edges, Japanese spacing/prose, navigation, toolbar controls and narrow vertical newest-left cells. `tests/smoke/timeline-visual.spec.ts` checks matching global/company/person glyph and hit geometry, category colors/shapes, selection, keyboard/forced colors and filled Event badges. The catalog suites check filtering/count/empty/no-JS behavior in addition to every authored Scope, source, project order and monthly signal, no-JS/keyboard behavior, forced colors and responsive geometry. Existing release tests retain Timeline/Events interaction, Articles, entity pages, noindex and export coverage. Run `npm run check` and the full Chromium `npm run test:smoke` before publishing; use the same suite against production after the established manual Pages deployment.
+The subsequent shared-palette cleanup changes colors and their ownership only. Whole-palette screenshots compare CoreSmith's Design/Synthesis/Verification/Layout labels with Analog rows that include Simulation and AI-built, alongside Events containing both kinds. Light and dark review checks quieter badges, green/blue and gold/rust separation, distinctly red AI-built, and readable Timeline marks. Project/event titles remain the primary reading entry points. All authored data, descriptions, activity snapshots, layout, typography and filtering are unchanged in this cleanup.
+
+`tests/smoke/category-palette.spec.ts` checks root token parity across both catalogs, Events and global/company/person Timelines in light/dark modes, exact semantic mapping, label/glyph contrast, opacity and shapes. It then changes the foundation tokens in the browser and verifies that every consumer follows, catching independent hard-coded fills. It also checks identical readable forced-colors labels. `tests/smoke/visual-system.spec.ts` checks computed badge typography/geometry parity with Events, five separated Scope hue families and identical cross-domain colors, hierarchy, color contrast, shared listing edges, Japanese spacing/prose, navigation, toolbar controls and narrow vertical newest-left cells. `tests/smoke/timeline-visual.spec.ts` checks matching global/company/person glyph and hit geometry, category colors/shapes, selection, keyboard/forced colors and filled Event badges. The catalog suites check filtering/count/empty/no-JS behavior in addition to every authored Scope, source, project order and monthly signal, no-JS/keyboard behavior, forced colors and responsive geometry. Existing release tests retain Timeline/Events interaction, Articles, entity pages, noindex and export coverage. Run `npm run check` and the full Chromium `npm run test:smoke` before publishing; use the same suite against production after the established manual Pages deployment.
