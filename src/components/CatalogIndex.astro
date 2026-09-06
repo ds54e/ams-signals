@@ -1,0 +1,62 @@
+---
+import type { scopeItems } from '../lib/catalog-scope';
+import type { activityBand } from '../lib/catalog-activity-band';
+import { monthLabel } from '../lib/catalog-activity-band';
+import '../styles/catalog.css';
+
+const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
+interface Props {
+  domain: 'analog' | 'digital';
+  title: string;
+  months: readonly string[];
+  projects: readonly {
+    id: string;
+    name: string;
+    description: string;
+    scope: ReturnType<typeof scopeItems>;
+    activity: ReturnType<typeof activityBand> & { kind: string; dateLabel: string };
+    sources: readonly { url: string; purpose?: keyof typeof linkLabels }[];
+  }[];
+}
+const { domain, title, months, projects } = Astro.props;
+const windowLabel = `${monthLabel(months[11])}–${monthLabel(months[0])} (newest to oldest)`;
+---
+<section class="catalog" data-catalog={domain} aria-labelledby="catalog:heading">
+  <h1 id="catalog:heading" class="visually-hidden">{title}</h1>
+  <section aria-label="Project index">
+    <div class="catalog-columns index-label" aria-hidden="true">
+      <div>Project</div><div>Scope</div><div>Activity</div>
+    </div>
+    <ol class="catalog-list index-list" aria-label="Projects">
+      {projects.map((project) => <li class="catalog-project index-row" data-catalog-project={project.id}>
+        <article class="catalog-row" aria-labelledby={`${project.id}--name`}>
+          <div class="catalog-overview">
+            <div class="catalog-title">
+              <h2 class="index-title" id={`${project.id}--name`}>{project.name}</h2>
+              <ul class="catalog-quicklinks index-links" aria-label={`${project.name} primary links`}>
+                {project.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+              </ul>
+            </div>
+            <p class="catalog-description index-summary">{project.description}</p>
+          </div>
+          <ul class="catalog-scope" aria-label={`${project.name} Scope`}>
+            {project.scope.map((item) => <li data-scope-item={item.id} data-level={item.level} data-ai={item.ai} title={`${item.label}: ${item.meaning}`}>
+              <span class:list={['scope-mark', item.level]} aria-hidden="true" />
+              <span>{item.label}</span><span class="visually-hidden">{`: ${item.meaning}`}</span>
+            </li>)}
+          </ul>
+          <div class="catalog-activity" data-activity-kind={project.activity.kind}>
+            <span class="visually-hidden">Public activity: </span>
+            <p class="activity-latest"><time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{project.activity.dateLabel}</time></p>
+            <ul class="activity-strip" aria-label={`${project.name}: ${windowLabel}; ${project.activity.provenance}`}>
+              {project.activity.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
+                <span class="visually-hidden">{cell.detail}</span>
+              </li>)}
+            </ul>
+            <p class="activity-summary index-meta">{project.activity.activeMonths}/12 months</p>
+          </div>
+        </article>
+      </li>)}
+    </ol>
+  </section>
+</section>

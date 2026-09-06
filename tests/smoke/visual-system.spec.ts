@@ -1,0 +1,173 @@
+import { expect, test, type Page } from '@playwright/test';
+
+const viewports = [
+  { width: 1440, height: 900 }, { width: 1280, height: 800 },
+  { width: 1024, height: 768 }, { width: 390, height: 844 }, { width: 320, height: 568 },
+];
+const indexes = ['analog', 'digital', 'articles', 'events'];
+
+async function open(page: Page, surface: string) {
+  expect((await page.goto(`./${surface ? `${surface}/` : ''}`))!.ok()).toBe(true);
+  await page.evaluate(() => document.fonts.ready);
+  if (surface === 'events' || surface === '') await expect(page.locator('[data-status]')).toContainText('events');
+}
+
+async function indexStyles(page: Page) {
+  return page.locator('.index-row').first().evaluate((row) => {
+    const style = (selector: string) => {
+      const s = getComputedStyle(row.querySelector(selector)!);
+      return { size: parseFloat(s.fontSize), weight: s.fontWeight, line: parseFloat(s.lineHeight),
+        color: s.color, font: s.fontFamily, tracking: s.letterSpacing, margin: parseFloat(s.marginTop) };
+    };
+    const s = getComputedStyle(row);
+    return {
+      title: style('.index-title'), summary: style('.index-summary'), date: style('.index-date'),
+      padding: [parseFloat(s.paddingTop), parseFloat(s.paddingBottom)],
+      border: [s.borderTopWidth, s.borderTopColor], background: s.backgroundColor, radius: s.borderRadius,
+      copyWidth: row.querySelector('.index-summary')!.getBoundingClientRect().width,
+    };
+  });
+}
+
+for (const viewport of viewports) {
+  test(`shared index hierarchy and functional widths at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    const reports = [];
+    for (const surface of indexes) {
+      await open(page, surface);
+      const nav = page.getByRole('navigation', { name: 'Primary' });
+      await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
+      await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+      const report = await indexStyles(page);
+      reports.push(report);
+      expect(report.title.size).toBe(17); expect(report.title.weight).toBe('700');
+      expect(report.title.line).toBeCloseTo(17 * 1.35, 1);
+      expect(report.summary.size).toBe(15); expect(report.summary.weight).toBe('400');
+      expect(report.summary.line).toBeCloseTo(15 * 1.65, 1);
+      expect(report.summary.margin).toBe(9);
+      expect(report.date.size).toBe(12); expect(report.date.weight).toBe('400');
+      expect(report.date.font).toContain('monospace');
+      expect(report.title.font).toContain('system-ui'); expect(report.title.font).not.toContain('Inter');
+      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe('1px');
+      expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
+      if (surface === 'articles') {
+        expect(parseFloat(report.title.tracking) || 0).toBe(0);
+        await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+        expect(await page.locator('.index-title').first().innerText()).toMatch(/[\p{Script=Hiragana}\p{Script=Han}]/u);
+      }
+      const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : surface === 'articles' ? '.listing-page' : '[data-event-explorer-root]');
+      const max = surface === 'analog' || surface === 'digital' ? 1120 : 920;
+      const box = (await content.boundingBox())!;
+      expect(box.width).toBeLessThanOrEqual(max);
+      expect(box.x).toBeCloseTo((viewport.width - box.width) / 2, 1);
+      if (viewport.width >= 1280) expect(box.width).toBe(max);
+      const navLines = await nav.getByRole('link').evaluateAll((links) => links.map((link) => Math.round(link.getBoundingClientRect().top)));
+      expect(new Set(navLines).size).toBe(1);
+    }
+    // Equivalent information shares a hierarchy; different page functions keep different containers.
+    expect(new Set(reports.map((r) => r.summary.color)).size).toBe(1);
+    expect(new Set(reports.map((r) => r.title.color)).size).toBe(1);
+    expect(new Set(reports.map((r) => r.date.color)).size).toBe(1);
+    expect(new Set(reports.map((r) => r.border.join('/'))).size).toBe(1);
+    expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
+    if (viewport.width >= 1280) {
+      expect(Math.max(...reports.map((r) => r.copyWidth)) - Math.min(...reports.map((r) => r.copyWidth))).toBeLessThan(10);
+    }
+
+    await open(page, '');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+    expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('1360px');
+    await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
+  });
+}
+
+function contrast(a: number[], b: number[]) {
+  const luminance = (rgb: number[]) => rgb.slice(0, 3).map((n) => n / 255)
+    .map((n) => n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4)
+    .reduce((sum, n, i) => sum + n * [0.2126, 0.7152, 0.0722][i], 0);
+  const values = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (values[0] + 0.05) / (values[1] + 0.05);
+}
+
+for (const colorScheme of ['light', 'dark'] as const) {
+  test(`text hierarchy and quiet activity retain contrast in ${colorScheme} mode`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme });
+    for (const surface of indexes) {
+      await open(page, surface);
+      const palette = await page.evaluate(() => {
+        const ctx = document.createElement('canvas').getContext('2d')!;
+        const rgb = (color: string) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = color; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data]; };
+        const color = (selector: string, property: 'color' | 'borderColor' = 'color') => {
+          const node = document.querySelector(selector);
+          return node ? rgb(getComputedStyle(node)[property]) : null;
+        };
+        return { bg: rgb(getComputedStyle(document.documentElement).backgroundColor),
+          title: color('.index-title'), summary: color('.index-summary'), date: color('.index-date'),
+          links: color('.index-links a'), scope: color('.catalog-scope'),
+          active: color('.activity-strip li.active', 'borderColor'), inactive: color('.activity-strip li:not(.active)', 'borderColor') };
+      });
+      for (const [key, value] of Object.entries(palette)) {
+        if (!value || key === 'bg') continue;
+        expect(contrast(value, palette.bg), `${surface} ${key} contrast`).toBeGreaterThanOrEqual(['active', 'inactive'].includes(key) ? 3 : 4.5);
+      }
+      if (surface === 'analog' || surface === 'digital') {
+        const styles = await page.locator('.catalog-project').first().evaluate((row) => {
+          const size = (selector: string) => getComputedStyle(row.querySelector(selector)!).fontSize;
+          const cells = [...row.querySelectorAll('.activity-strip li')].map((el) => {
+            const r = el.getBoundingClientRect(); return { month: el.getAttribute('data-month'), x: r.x, width: r.width, height: r.height };
+          });
+          return { links: size('.catalog-quicklinks'), scope: size('.catalog-scope'), summary: size('.activity-summary'), cells };
+        });
+        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('13px'); expect(styles.summary).toBe('12px');
+        expect(styles.cells).toHaveLength(12);
+        expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort().reverse());
+        for (let i = 0; i < 12; i++) {
+          expect(styles.cells[i].width).toBe(7); expect(styles.cells[i].height).toBe(5);
+          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(9);
+        }
+      }
+    }
+  });
+}
+
+test('Events toolbar is flat while its controls and company popover remain usable', async ({ page }) => {
+  await open(page, 'events');
+  const utility = page.locator('.event-filter-utility');
+  const style = await utility.evaluate((el) => {
+    const s = getComputedStyle(el); return { background: s.backgroundColor, shadow: s.boxShadow, radius: s.borderRadius, top: s.borderTopWidth, side: s.borderLeftWidth };
+  });
+  expect(style).toEqual({ background: 'rgba(0, 0, 0, 0)', shadow: 'none', radius: '0px', top: '1px', side: '0px' });
+  for (const selector of ['[data-search]', '[data-kind]', '.company-picker summary']) {
+    const control = utility.locator(selector);
+    expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(40);
+    expect(await control.evaluate((el) => getComputedStyle(el).fontSize)).toBe('14px');
+  }
+  await page.locator('[data-search]').fill('PLL');
+  await page.locator('[data-kind]').selectOption('technical');
+  await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
+  await expect(page).toHaveURL(/q=PLL/);
+  const summary = page.locator('.company-picker summary');
+  await summary.focus(); await page.keyboard.press('Enter');
+  await expect(page.locator('.company-picker-panel')).toBeVisible();
+  expect(await page.locator('.company-picker-panel').evaluate((el) => getComputedStyle(el).boxShadow)).not.toBe('none');
+  await page.keyboard.press('Tab');
+  expect(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
+});
+
+test('Japanese reading measure and prose stay comfortable on desktop and mobile', async ({ page }) => {
+  for (const viewport of [viewports[0], viewports[3], viewports[4]]) {
+    await page.setViewportSize(viewport); await open(page, 'articles');
+    await page.locator('.article-list h2 a').first().click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+    const styles = await page.locator('.article-body').evaluate((el) => {
+      const s = getComputedStyle(el);
+      return { size: parseFloat(s.fontSize), line: parseFloat(s.lineHeight), width: el.getBoundingClientRect().width, breaking: s.lineBreak, tracking: getComputedStyle(document.querySelector('h1')!).letterSpacing };
+    });
+    expect(styles.size).toBe(17); expect(styles.line).toBeCloseTo(17 * 1.85, 1);
+    expect(styles.width).toBeLessThanOrEqual(800); expect(styles.breaking).toBe('strict');
+    expect(parseFloat(styles.tracking) || 0).toBe(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+  }
+});

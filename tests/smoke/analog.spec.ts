@@ -36,5 +36,5 @@ test('Analog retains the moved enhancement project exactly once with its primary
   await expect(moved).toHaveCount(1);
   await expect(moved.getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', 'https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
-  await expect(page.locator('[data-digital-project="ngspice-openvaf-enhancements"]')).toHaveCount(0);
+  await expect(page.locator('[data-catalog-project="ngspice-openvaf-enhancements"]')).toHaveCount(0);
 });

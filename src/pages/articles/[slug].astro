@@ -65,7 +65,7 @@ const { Content } = await render(article);
         <ol>
           {relatedEvents.map((event) => (
             <li>
-              <time datetime={event.data.when.start}>{event.data.when.start.slice(0, 4)}</time>
+              <time class="index-date" datetime={event.data.when.start}>{event.data.when.start.slice(0, 4)}</time>
               <a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a>
             </li>
           ))}

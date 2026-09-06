@@ -12,6 +12,8 @@ Project names are plain text. On the same left-aligned wrapping title line, show
 
 Every Activity row shows its compact, normal-weight date, twelve binary cells with the newest month at the left and oldest at the right, and `N/12 months`. Repository-backed records use reviewed monthly history from their canonical host, including GitLab. Paper/release/public-update records activate the reviewed event month without invented commit counts. Provenance is available through hover/accessibility metadata rather than a visible date prefix. Activity describes recorded public signals, never total development effort or quality.
 
+Both catalogs share one presentation component and stylesheet. Typography and row rhythm follow the site-wide [visual system](../VISUAL_SYSTEM.md), while domain data and validation remain independent.
+
 ## Domain and boundaries
 
 Domain chooses the page and Scope describes its design-stage scope. Core means a central user-facing capability/task/deliverable; supporting means a secondary, optional, feedback or enabling role. Neither measures maturity, autonomy or reproduced success. Do not add stages solely for internal dependencies or future plans.

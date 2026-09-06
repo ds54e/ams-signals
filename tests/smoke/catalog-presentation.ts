@@ -57,12 +57,12 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const time = activity.querySelector('time')!;
     const strip = activity.querySelector('ul');
     const stripBox = strip?.getBoundingClientRect();
-    const summary = activity.querySelector<HTMLElement>('[class$="activity-summary"]');
+    const summary = activity.querySelector<HTMLElement>('.activity-summary');
     const summaryBox = summary?.getBoundingClientRect();
     const visible = activity.cloneNode(true) as HTMLElement;
     visible.querySelectorAll('.visually-hidden').forEach((node) => node.remove());
     return {
-      id: el.getAttribute('data-catalog-project') ?? el.getAttribute('data-digital-project'), kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
+      id: el.getAttribute('data-catalog-project'), kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
       date: time.getAttribute('datetime'), dateText: time.textContent, weight: Number(getComputedStyle(time).fontWeight),
       dateLine: time.parentElement!.innerText, provenance: time.title,
       dateBottom: time.getBoundingClientRect().bottom, dateRight: time.getBoundingClientRect().right,
@@ -118,8 +118,8 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.stripBottom).toBeLessThan(item.summaryTop!);
     expect(item.activityWidth).toBeGreaterThanOrEqual(105);
-    expect(item.activityWidth).toBeLessThanOrEqual(110);
-    expect(item.stripWidth).toBeCloseTo(82, 1);
+    expect(item.activityWidth).toBeLessThanOrEqual(115);
+    expect(item.stripWidth).toBeCloseTo(106, 1);
     expect(item.stripWidth).toBeLessThan(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
     expect(item.summaryLeft).toBeCloseTo(item.stripLeft!, 1);
@@ -141,9 +141,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBe(5); expect(bucket.height).toBe(12);
-      // Upright segments, like an HP gauge; the full twelve-month band stays short.
-      expect(bucket.height / bucket.width).toBeGreaterThanOrEqual(2);
+      expect(bucket.width).toBe(7); expect(bucket.height).toBe(5);
+      // Low horizontal ticks keep activity secondary to the project text.
+      expect(bucket.width / bucket.height).toBeGreaterThan(1);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
       expect(bucket.fill).toBe(active ? bucket.border : 'rgba(0, 0, 0, 0)');
       if (index) {
@@ -159,35 +159,35 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
   expect(new Set(active.map((month) => `${month.fill}/${month.opacity}/${month.height}`)).size).toBe(1);
 }
 
-export async function expectTitleAndIndexGeometry(rows: Locator, prefix: 'catalog' | 'digital', width: number) {
-  const geometry = await rows.evaluateAll((nodes, p) => nodes.map((el) => {
+export async function expectTitleAndIndexGeometry(rows: Locator, width: number) {
+  const geometry = await rows.evaluateAll((nodes) => nodes.map((el) => {
     const rect = (node: Element) => { const r = node.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
-    const title = el.querySelector(`.${p}-title`)!;
+    const title = el.querySelector(`.catalog-title`)!;
     return {
       columns: [...el.querySelector('article')!.children].map(rect), row: rect(el),
       title: rect(title), name: rect(el.querySelector('h2')!),
       justify: getComputedStyle(title).justifyContent,
       titleChildren: [...title.children].map(rect),
       nameLinks: el.querySelectorAll('h2 a').length, nameText: el.querySelector('h2')!.textContent,
-      links: [...el.querySelectorAll(`.${p}-title .${p}-quicklinks a`)].map(rect),
-      description: rect(el.querySelector(`.${p}-description`)!),
-      scopeStyle: getComputedStyle(el.querySelector(`.${p}-scope`)!).display,
-      scopeDirection: getComputedStyle(el.querySelector(`.${p}-scope`)!).flexDirection,
+      links: [...el.querySelectorAll(`.catalog-title .catalog-quicklinks a`)].map(rect),
+      description: rect(el.querySelector(`.catalog-description`)!),
+      scopeStyle: getComputedStyle(el.querySelector(`.catalog-scope`)!).display,
+      scopeDirection: getComputedStyle(el.querySelector(`.catalog-scope`)!).flexDirection,
       scopeItems: [...el.querySelectorAll('[data-scope-item]')].map(rect),
     };
-  }), prefix);
+  }));
   for (const row of geometry) {
     expect(row.columns).toHaveLength(3);
     expect(row.row.width).toBeLessThanOrEqual(1120);
     if (width >= 1024) {
       expect(row.columns[0].width).toBeGreaterThan(610);
       expect(row.columns[1].width).toBe(170);
-      expect(row.columns[2].width).toBe(108);
+      expect(row.columns[2].width).toBe(112);
       expect(row.columns[1].left - row.columns[0].right).toBe(22);
       expect(row.columns[2].left - row.columns[1].right).toBe(22);
       if (width >= 1280) {
         expect(row.row.width).toBe(1120);
-        expect(row.columns[0].width).toBe(798);
+        expect(row.columns[0].width).toBe(794);
       }
     } else {
       expect(new Set(row.columns.map((column) => column.left)).size).toBe(1);
