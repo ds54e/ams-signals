@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CatalogIndex from '../../components/CatalogIndex.astro';
 import { sortProjects, scopeStageLabels } from '../../lib/analog/catalog';
-import { shortDate } from '../../lib/analog/activity';
 import { validateActivity } from '../../lib/analog/schema';
 import { scopeItems } from '../../lib/catalog-scope';
 import { activityBand } from '../../lib/catalog-activity-band';
@@ -17,7 +16,7 @@ const projects = sortProjects(entries, activity.projects).map(({ data, id }) => 
   return {
     id, name: data.name, description: data.description, sources: data.sources,
     scope: scopeItems(data.scope, scopeStageLabels),
-    activity: { ...band, kind: record.kind, dateLabel: shortDate(band.date, activity.reviewedAt) },
+    activity: { ...band, kind: record.kind },
   };
 });
 ---

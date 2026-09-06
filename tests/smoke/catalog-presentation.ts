@@ -6,7 +6,7 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     const style = getComputedStyle(el), box = el.getBoundingClientRect();
     return { id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'),
       text: el.textContent!.trim(), classes: [...el.classList], color: style.color, fill: style.backgroundColor,
-      radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize),
+      radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize), weight: Number(style.fontWeight),
       paddingX: parseFloat(style.paddingLeft), paddingY: parseFloat(style.paddingTop),
       width: box.width, outline: style.outlineStyle,
     };
@@ -17,7 +17,8 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-built$/);
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
     expect(item.radius).toBeGreaterThanOrEqual(2); expect(item.radius).toBeLessThanOrEqual(3);
-    expect(item.font).toBeGreaterThanOrEqual(11); expect(item.font).toBeLessThanOrEqual(12);
+    expect(item.font).toBeGreaterThanOrEqual(10.5); expect(item.font).toBeLessThanOrEqual(11.5);
+    expect(item.weight).toBeGreaterThanOrEqual(500); expect(item.weight).toBeLessThanOrEqual(600);
     expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
     expect(item.width).toBeLessThan(145);
@@ -76,9 +77,10 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     const date = repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
     expect(item.kind).toBe(record.kind);
     expect(item.date).toBe(date);
-    expect(item.dateText).toBe(new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'UTC',
-      ...(date.slice(0, 4) !== snapshot.reviewedAt.slice(0, 4) ? { year: 'numeric' } : {}),
+    expect(item.dateText).toBe(new Intl.DateTimeFormat('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
     }).format(new Date(`${date}T00:00:00Z`)));
+    expect(item.dateText).toMatch(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/);
     expect(item.weight).toBe(400);
     expect(item.dateLine).toBe(item.dateText);
     expect(item.text).toBe(item.dateText);
@@ -104,9 +106,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(70);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(82);
     expect(item.activityWidth).toBeLessThanOrEqual(150);
-    expect(item.stripWidth).toBeCloseTo(70, 1);
+    expect(item.stripWidth).toBeCloseTo(82, 1);
     expect(item.stripWidth).toBeLessThanOrEqual(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
     for (let index = 0; index < 12; index++) {
@@ -126,7 +128,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBe(4); expect(bucket.height).toBe(8);
+      expect(bucket.width).toBe(5); expect(bucket.height).toBe(10);
       // Narrow vertical ticks retain a compact recent-activity pattern.
       expect(bucket.height / bucket.width).toBeGreaterThan(1);
       expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
@@ -179,8 +181,9 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
       expect(row.columns[1].bottom).toBeLessThan(row.columns[0].top);
     }
     expect(row.date.bottom).toBeLessThan(row.strip.top);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeGreaterThanOrEqual(3);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeLessThanOrEqual(6);
+    expect(row.strip.top - row.date.bottom).toBeCloseTo(4, 1);
+    expect(row.scopeItems[0].top - row.strip.bottom).toBeGreaterThanOrEqual(5);
+    expect(row.scopeItems[0].top - row.strip.bottom).toBeLessThanOrEqual(7);
     expect(row.justify).toBe('flex-start');
     expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
     expect(row.name.left).toBeCloseTo(row.title.left, 1);

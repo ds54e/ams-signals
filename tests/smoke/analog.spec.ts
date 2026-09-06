@@ -18,8 +18,8 @@ catalogSearchRegression(fixture, {
 test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {
   await page.goto('./analog/');
   for (const [id, date, month, type, label] of [
-    ['atlas', 'Jul 15', '2026-07', 'paper', 'paper publication'],
-    ['ngspice', 'Aug 11', '2026-08', 'release', 'release'],
+    ['atlas', 'Jul 15, 2026', '2026-07', 'paper', 'paper publication'],
+    ['ngspice', 'Aug 11, 2026', '2026-08', 'release', 'release'],
   ]) {
     const row = fixture.row(page, id);
     await expect(row.locator('.activity-strip > li')).toHaveCount(12);

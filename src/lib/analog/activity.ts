@@ -27,13 +27,6 @@ export function activityMonths(reviewedAt: string): string[] {
   });
 }
 
-export function shortDate(date: string, snapshotDate: string): string {
-  return new Intl.DateTimeFormat('en', {
-    month: 'short', day: 'numeric', timeZone: 'UTC',
-    ...(date.slice(0, 4) !== snapshotDate.slice(0, 4) ? { year: 'numeric' as const } : {}),
-  }).format(new Date(`${date}T00:00:00Z`));
-}
-
 /** Input is the captured tip's full first-parent history, not branch/ref search results. */
 export function countActivity(dates: readonly string[], capturedAt: string) {
   const reviewedAt = capturedAt.slice(0, 10);

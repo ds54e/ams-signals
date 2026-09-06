@@ -1,7 +1,7 @@
 ---
 import type { scopeItems } from '../lib/catalog-scope';
 import type { activityBand } from '../lib/catalog-activity-band';
-import { monthLabel } from '../lib/catalog-activity-band';
+import { activityDateLabel, monthLabel } from '../lib/catalog-activity-band';
 import '../styles/catalog.css';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
@@ -15,7 +15,7 @@ interface Props {
     name: string;
     description: string;
     scope: ReturnType<typeof scopeItems>;
-    activity: ReturnType<typeof activityBand> & { kind: string; dateLabel: string };
+    activity: ReturnType<typeof activityBand> & { kind: string };
     sources: readonly { url: string; purpose?: keyof typeof linkLabels }[];
   }[];
 }
@@ -46,7 +46,7 @@ const windowLabel = `${monthLabel(months[11])}–${monthLabel(months[0])} (newes
           <div class="catalog-rail">
             <div class="catalog-activity" data-activity-kind={project.activity.kind}>
               <span class="visually-hidden">Public activity: </span>
-              <p class="activity-latest"><time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{project.activity.dateLabel}</time></p>
+              <p class="activity-latest"><time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{activityDateLabel(project.activity.date)}</time></p>
               <ul class="activity-strip" aria-label={`${project.name}: ${windowLabel}; ${project.activity.activeMonths} months with reviewed public activity; ${project.activity.provenance}`}>
                 {project.activity.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
                   <span class="visually-hidden">{cell.detail}</span>

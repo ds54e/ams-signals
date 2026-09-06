@@ -173,7 +173,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           });
           return { links: size('.catalog-quicklinks'), scope: size('.scope-label'), cells };
         });
-        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('12px');
+        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('11px');
         const badges = await page.locator('.scope-label').evaluateAll((nodes) => nodes.map((el) => {
           const s = getComputedStyle(el), rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
@@ -182,8 +182,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(styles.cells).toHaveLength(12);
         expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort().reverse());
         for (let i = 0; i < 12; i++) {
-          expect(styles.cells[i].width).toBe(4); expect(styles.cells[i].height).toBe(8);
-          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(6);
+          expect(styles.cells[i].width).toBe(5); expect(styles.cells[i].height).toBe(10);
+          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(7);
         }
       }
     }
