@@ -54,7 +54,7 @@ const windowLabel = `${monthLabel(months[11])}–${monthLabel(months[0])} (newes
               </ul>
             </div>
             <ul class="catalog-scope" aria-label={`${project.name} Scope`}>
-              {project.scope.map((item) => <li class:list={['scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]} data-scope-item={item.id} data-ai={item.ai}>
+              {project.scope.map((item) => <li class:list={['category-label', 'scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]} data-scope-item={item.id} data-ai={item.ai}>
                 <span data-scope-label>{item.label}</span>
               </li>)}
             </ul>

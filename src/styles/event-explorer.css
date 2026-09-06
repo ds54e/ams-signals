@@ -529,7 +529,7 @@
 .result-section { max-width: none; }
 .result-date { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; }
 .result-date time { text-transform: uppercase; }
-.signal-type { display: inline-block; padding: 3px 5px; border-radius: 3px; color: var(--bg); font-size: 10px; font-weight: 600; line-height: 1.4; letter-spacing: 0.025em; text-transform: uppercase; }
+.signal-type { color: var(--bg); text-transform: uppercase; }
 .signal-type-technical { background: var(--technical); }
 .signal-type-organizational { background: var(--organizational); }
 .result-context { margin: 6px 0 0; }

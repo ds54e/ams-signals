@@ -535,7 +535,7 @@ const matrixMarkLabel = (event: EventEntry) => (
           <article class="result-event index-row index-dated-row" data-event-result data-event-id={event.data.id}>
             <div class="result-date">
               <time class="index-date" datetime={event.data.when.start}>{formatWhen(event)}</time>
-              <span class={`signal-type signal-type-${event.data.kind}`} data-signal-type={event.data.kind}>{kindLabels[event.data.kind]}</span>
+              <span class={`category-label signal-type signal-type-${event.data.kind}`} data-signal-type={event.data.kind}>{kindLabels[event.data.kind]}</span>
             </div>
             <div class="result-body">
               <h3 class="index-title"><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
