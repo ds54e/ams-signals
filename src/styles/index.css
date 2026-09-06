@@ -15,7 +15,10 @@
 .index-links { color: var(--accent-ink); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-links a { color: var(--accent-ink); }
 /* Event kinds and Catalog Scope share one compact category-label family. */
-.category-label { display: inline-block; width: fit-content; padding: 3px 5px; border-radius: 3px; font: 600 0.625rem/1.4 var(--font-sans); letter-spacing: 0.025em; text-transform: uppercase; white-space: nowrap; }
+.category-label { display: inline-block; width: fit-content; padding: 3px 5px; border-radius: 3px; font: 600 0.625rem/1.4 var(--font-sans); letter-spacing: 0.025em; text-transform: uppercase; white-space: nowrap; color: var(--category-ink); background: var(--category-fill); }
 @media (max-width: 760px) {
   .index-dated-row { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+}
+@media (forced-colors: active) {
+  .category-label { color: CanvasText; background: Canvas; outline: 1px solid CanvasText; outline-offset: -1px; }
 }

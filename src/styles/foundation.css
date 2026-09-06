@@ -11,8 +11,15 @@
   --accent: #086b57;
   --accent-ink: #064c40;
   --accent-soft: #dcece6;
-  --technical: #386f93;
-  --organizational: #9a5c4d;
+  /* One categorical palette for list labels, Timeline glyphs and legends. */
+  --category-green: #4f7065;
+  --category-blue: #4b6d89;
+  --category-gold: #787043;
+  --category-rust: #886454;
+  --category-red: #8d5967;
+  --category-ink: #ffffff;
+  --technical: var(--category-blue);
+  --organizational: var(--category-rust);
   --entity-company: var(--text);
   --entity-person: #315f55;
   --danger-muted: #8b4b43;
@@ -51,8 +58,12 @@
     --accent: #79c9b2;
     --accent-ink: #a0ddcc;
     --accent-soft: #183c31;
-    --technical: #79acd0;
-    --organizational: #d38b79;
+    --category-green: #95b0a3;
+    --category-blue: #8fa9be;
+    --category-gold: #b4ac7e;
+    --category-rust: #b69682;
+    --category-red: #bb959f;
+    --category-ink: #14231f;
     --entity-company: var(--text);
     --entity-person: #afd2c8;
     --danger-muted: #d29489;

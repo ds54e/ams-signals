@@ -1,13 +1,5 @@
 /* One presentation for both independently prepared domain catalogs. */
 .catalog {
-  /* Five hue families; evaluation/checking shares blue across both domains. */
-  --scope-design: #3b6e61;
-  --scope-simulation: #3975a3;
-  --scope-verification: var(--scope-simulation);
-  --scope-synthesis: #766d2a;
-  --scope-layout: #a2583a;
-  --scope-ai-built: #9b415b;
-  --scope-ink: #ffffff;
   max-width: var(--layout-listing);
   margin-inline: auto;
   overflow-wrap: anywhere;
@@ -24,13 +16,11 @@
 .catalog-quicklinks { display: flex; flex-wrap: wrap; gap: 5px 11px; align-content: start; }
 .catalog-quicklinks a { display: inline-block; padding-block: 2px; }
 .catalog-scope { display: flex; flex-direction: column; align-items: start; gap: 3px; }
-.scope-label { color: var(--scope-ink); }
-.scope-design { background: var(--scope-design); }
-.scope-simulation { background: var(--scope-simulation); }
-.scope-synthesis { background: var(--scope-synthesis); }
-.scope-verification { background: var(--scope-verification); }
-.scope-layout { background: var(--scope-layout); }
-.scope-ai-built { background: var(--scope-ai-built); }
+.scope-design { --category-fill: var(--category-green); }
+.scope-simulation, .scope-verification { --category-fill: var(--category-blue); }
+.scope-synthesis { --category-fill: var(--category-gold); }
+.scope-layout { --category-fill: var(--category-rust); }
+.scope-ai-built { --category-fill: var(--category-red); }
 .catalog-activity { min-width: 0; }
 .activity-latest { margin: 0; font-size: var(--type-micro); line-height: var(--leading-meta); }
 .activity-latest time { white-space: nowrap; }
@@ -46,18 +36,7 @@
 @media (max-width: 600px) {
   .catalog-search { flex-basis: 100%; }
 }
-@media (prefers-color-scheme: dark) {
-  .catalog {
-    --scope-design: #91b4a4;
-    --scope-simulation: #8fb7d5;
-    --scope-synthesis: #bdb06d;
-    --scope-layout: #c79572;
-    --scope-ai-built: #c68b9a;
-    --scope-ink: #14231f;
-  }
-}
 @media (forced-colors: active) {
-  .scope-label { color: CanvasText; background: Canvas; outline: 1px solid CanvasText; outline-offset: -1px; }
   .activity-strip li, .activity-strip li.active { forced-color-adjust: none; color: CanvasText; border-color: CanvasText; }
   .activity-strip li.active { background: CanvasText; }
 }
