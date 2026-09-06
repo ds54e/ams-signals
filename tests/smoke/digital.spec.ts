@@ -30,7 +30,7 @@ catalogSearchRegression(fixture, {
   Dynamatic: ['dynamatic'],
   MLIR: ['circt', 'dynamatic'],
   dataflow: ['dynamatic'],
-  AI: ['xezim', 'haven', 'veryl'],
+  AI: ['haven', 'ucagent'],
 });
 
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {

@@ -1,5 +1,13 @@
 # Digital implementation and review notes
 
+## AI-built provenance audit (2026-09-06)
+
+Starting commit: `4345198dda42819bb099e3bb7c98e593254057c4`, after the Digital expansion. The [complete 75-project audit](../AI_BUILT_REVIEW.md) was written before catalog data changed and now governs AI-built provenance. Across both domains: **8 previous labels, 6 kept, 2 removed, 1 added, 7 final**, all Tier A. Digital now has five AI-built projects: iverilog-uvm, uhdm2rtlil, vivado_mcp, WHAT and xezim. Veryl and vitamin retain useful development notes with the project-level badge omitted.
+
+The definition now requires substantial, directly evidenced development provenance of the project itself, independently of runtime AI. Earlier AI-built judgments below are historical and superseded by this audit. Functional descriptions, stage booleans, activity snapshots, visual design, Golden data and Articles are unchanged. Generic schema/rendering regressions replace hardcoded project-provenance lists.
+
+Validation: `npm run check` passed, including both domain validators, 24 Analog and 25 Digital unit tests, fact lint, duplicate review, a 285-page build and 2,976 internal anchors. `npm run test:smoke` passed **98/98** after replacing an outdated hardcoded search expectation with inventory-derived matches. Manual before/after review at 1440px and 390px confirmed all three badge changes and retained styling; smoke coverage also passed at 320px. The 75-project matrix matches the final data. A 378-file baseline comparison found changes only in the three intended catalog entries; `/export.json` retained SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`.
+
 ## Chronological activity and shared dates (2026-09-06)
 
 Starting commit: `e99ab67abe2c3831a9660fd536a71c24586fce92`. Activity now reads oldest on the left to newest/current on the right. Removing the render-only reversal preserves all twelve month/value pairs, counts, signals, provenance, dates and project order. Hover text, hidden descriptions and `data-month` stay paired; the accessible window label says “oldest to newest”. Catalog and Events share a calendar formatter and uppercase `.index-date` styling (`SEP 5, 2026`), retaining normal-weight monospace typography. The date → activity → Scope rail and its dimensions are unchanged.

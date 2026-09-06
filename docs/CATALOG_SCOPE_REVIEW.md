@@ -33,6 +33,8 @@ Reopened 48 existing pinned README/implementation documents across these project
 
 ## AI development provenance
 
+This is the historical judgment from the Scope simplification pass. The later [full AI-built provenance audit](AI_BUILT_REVIEW.md) supersedes these label decisions under the stricter project-level definition.
+
 There were **zero former supporting AI-built assignments**. The seven already evidenced projects retain `aiBuilt: true`: Ngspice + OpenVAF Enhancements (Analog); xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp (Digital). No new AI-built assertion is introduced. Retained stage AI booleans stay unchanged; conventional simulation/synthesis does not gain an AI prefix because its software was developed with AI.
 
 ## Full description review

@@ -107,7 +107,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await search.fill('  ＡＩ　');
     await expect.poll(visibleIds).toEqual(aiProjects);
     await expect(page.getByRole('status')).toHaveText(`${aiProjects.length} of ${projects.length} projects`);
-    await expect(row(page, domain === 'analog' ? 'panda' : 'xezim')).toBeVisible();
+    await expect(row(page, aiProjects[0])).toBeVisible();
     await expect(row(page, domain === 'analog' ? 'ngspice' : 'verilator')).toBeHidden();
 
     await search.fill('AI Design');
@@ -153,8 +153,8 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const expected = ordered.filter((p) => ai.includes(p.id) && p.scope.design).map((p) => p.id);
     expect(expected.length).toBeGreaterThan(0); expect(expected.length).toBeLessThan(ai.length);
     await expect.poll(visibleIds).toEqual(expected);
-    await expect(row(page, domain === 'analog' ? 'panda' : 'dr-rtl')).toBeVisible();
-    await expect(row(page, domain === 'analog' ? 'circuitrubric' : 'yosys')).toBeHidden();
+    await expect(row(page, expected[0])).toBeVisible();
+    await expect(row(page, ai.find((id) => !expected.includes(id))!)).toBeHidden();
     await search.fill('no-matching-project-92741');
     await expect(page.getByText('No projects match.', { exact: true })).toBeVisible();
     await filter.selectOption(''); await search.fill('');

@@ -193,11 +193,28 @@ test('Analog Scope requires stage presence and explicit AI booleans, with no str
     { design: { ...stage, score: 1 } }, { 'verification': stage }, { 'ai-design': stage },
     ...[false, 'core', 'supporting', 'ai-built', 'traditional', null].map((aiBuilt) => ({ design: stage, aiBuilt })),
   ]) assert.equal(analogSchema.safeParse({ ...valid(), scope }).success, false, JSON.stringify(scope));
-  for (const ai of [true, false]) for (const aiBuilt of [undefined, true]) {
-    assert.ok(analogSchema.safeParse({ ...valid(), scope: { layout: { ai }, aiBuilt } }).success);
-  }
   for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
     assert.equal(analogSchema.safeParse({ ...valid(), [removed]: {} }).success, false);
+  }
+});
+
+test('Analog AI-built stays true-or-absent and independent of every runtime AI stage', () => {
+  for (const stage of scopeStageIds) for (const ai of [false, true]) for (const built of [false, true]) {
+    const scope = analogSchema.parse({ ...valid(), scope: {
+      [stage]: { ai }, ...(built ? { aiBuilt: true } : {}),
+    } }).scope;
+    assert.equal(scope[stage]!.ai, ai);
+    assert.equal(Object.hasOwn(scope, 'aiBuilt'), built);
+    assert.equal(scope.aiBuilt, built ? true : undefined);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels), [
+      { id: stage, label: `${ai ? 'AI ' : ''}${scopeStageLabels[stage]}`, ai },
+      ...(built ? [{ id: 'aiBuilt', label: 'AI-built' }] : []),
+    ]);
+  }
+  for (const field of ['aiBuiltStrength', 'aiBuiltTier', 'aiBuiltLevel', 'aiBuiltConfidence']) {
+    const scope = { design: { ai: false }, aiBuilt: true };
+    assert.equal(analogSchema.safeParse({ ...valid(), scope: { ...scope, [field]: 'A' } }).success, false);
+    assert.equal(analogSchema.safeParse({ ...valid(), scope, [field]: 'A' }).success, false);
   }
 });
 
@@ -406,18 +423,11 @@ test('Analog stage-specific AI decisions distinguish inference, numerical feedba
     'virtuoso-bridge-lite': ['Design', 'Simulation', 'Layout'], vcli: ['Design', 'Simulation', 'Layout'],
     'gmoverid-skill': ['Design', 'Simulation'], circuitrubric: ['Design'],
     'behavioral-veriloga-eval': ['Design', 'Simulation'], 'analogforge-agent': ['Design', 'Simulation'],
-    'ngspice-openvaf-enhancements': ['Simulation', 'AI-built'],
+    'ngspice-openvaf-enhancements': ['Simulation'],
   };
   for (const [id, labels] of Object.entries(expected)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const scope = analogSchema.parse(frontmatter).scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).map((x) => x.label), labels, id);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiBuilt').map((x) => x.label), labels, id);
   }
-  const files = (await readdir(new URL('../../src/content/analog/', import.meta.url))).filter((file) => file.endsWith('.md'));
-  const built = [];
-  for (const file of files) {
-    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${file}`, import.meta.url), 'utf8'));
-    if (frontmatter.scope.aiBuilt) built.push(file.slice(0, -3));
-  }
-  assert.deepEqual(built, ['ngspice-openvaf-enhancements']);
 });

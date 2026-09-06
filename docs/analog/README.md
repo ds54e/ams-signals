@@ -20,7 +20,9 @@ Both catalogs share one presentation component, filter script and stylesheet, an
 
 Domain chooses the page. A present Scope stage means the project materially participates in that user-facing design stage; it is not a score or a promise of completeness. Do not add stages for internal dependencies, incidental adapters or future plans. Every project needs at least one design-flow stage.
 
-The title line has no classification labels. Each present Scope stage contains only an explicit `ai` boolean. Render either the normal stage name or its `AI `-prefixed form, never both. Optional `scope.aiBuilt: true` is a separate final label for meaningful AI-assisted/AI-led software development. Runtime stage AI is not inferred from an MCP interface, a model used elsewhere or AI-authored commits. There is no strength field, role label or project-wide AI enum.
+The title line has no classification labels. Each present Scope stage contains only an explicit `ai` boolean. Render either the normal stage name or its `AI `-prefixed form, never both. Optional `scope.aiBuilt: true` is a separate final label: **AI-BUILT means “Substantial, directly evidenced AI-assisted development provenance of the project itself.” Runtime AI and AI-BUILT are independent.** Runtime stage AI is not inferred from an MCP interface, a model used elsewhere or AI-authored commits. There is no strength field, role label or project-wide AI enum.
+
+The [AI-built provenance review](../AI_BUILT_REVIEW.md) records the full-project audit and internal evidence tiers. Require a notable, directly supported implementation contribution; ambiguous project-level provenance stays unlabeled. A significant subsystem must characterize the current project to justify the badge.
 
 The [Scope simplification review](../CATALOG_SCOPE_REVIEW.md) records every reassessed secondary assignment and the description review. Filled labels use stage colors; AI-prefixed forms retain that same color, while AI-built uses a distinct provenance color. Text carries meaning without color.
 

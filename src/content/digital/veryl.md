@@ -9,7 +9,6 @@ scope:
     ai: false
   verification:
     ai: false
-  aiBuilt: true
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-09-06"
@@ -81,6 +80,6 @@ The latest first-parent commit is September 4 documentation maintenance. The sep
 
 Design covers RTL authoring and transpilation; Synthesis covers native gate synthesis and PPA estimation; Verification includes simulation and testbenches under the existing Digital stage definition. The reviewed capabilities do not establish Layout.
 
-AI-built records substantial development assistance to the native simulator subsystem. In the March 13 maintainer article, dalance says the broad architecture was already nearly complete before Claude Code implemented module instantiation and remaining syntax under human planning and structural review. Claude ran tests, generated and debugged a Wallace multiplier benchmark, and used performance counters and Cranelift assembly to identify a branch-related bottleneck. The maintainer reports months of planned syntax work completed in days, without giving a manual-versus-AI code percentage. [Original account](#source-claude-development).
+The March 13 maintainer article documents significant Claude-assisted native simulator development. dalance says the broad architecture was already nearly complete before Claude Code implemented module instantiation and remaining syntax under human planning and structural review. Claude also ran tests, generated and debugged a Wallace multiplier benchmark, and investigated a branch-related performance bottleneck. [Original account](#source-claude-development).
 
-The engine landing remains an ancestor of the reviewed revision, the Wallace benchmark remains present, and the current CLI invokes the evolved simulator. This makes assistance to a shipped, substantial subsystem meaningful development provenance under the catalog rule. It does not establish AI authorship of the original HDL, compiler or simulator architecture. All three runtime stage booleans remain false. Keep one Veryl entry: the simulator is a crate and test backend within the same toolchain, without a separate reviewed product identity. [Engine landing](#source-simulator-landing); [retained benchmark](#source-simulator-benchmark); [current CLI](#source-test-cli).
+The engine landing remains in current history, the Wallace benchmark remains present, and the CLI invokes the evolved simulator. The contribution therefore matters to a shipped, substantial subsystem. Its documented extent does not characterize creation of Veryl's whole HDL/compiler/toolchain, so the project-level AI-built badge is omitted. The account does not attribute the original HDL, compiler or simulator architecture to AI. All three runtime stage booleans remain false. The simulator remains part of this one Veryl entry. [Engine landing](#source-simulator-landing); [retained benchmark](#source-simulator-benchmark); [current CLI](#source-test-cli).

@@ -10,6 +10,8 @@ For work on the standalone Analog catalog at `/analog/`, also read `docs/analog/
 
 For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page. Scope records meaningful design-stage presence with an AI boolean and optional true AI-built development provenance, without strength levels. Date, twelve activity ticks and colored Scope labels form a compact metadata rail beside project content. The title line contains only the project name and primary links; roles and project-wide AI enums are absent; AI information belongs only in structured Scope. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
 
+Both catalogs define **AI-BUILT** as “Substantial, directly evidenced AI-assisted development provenance of the project itself.” Runtime AI and AI-BUILT are independent. Follow the [shared provenance audit policy](docs/AI_BUILT_REVIEW.md); ambiguous project-level evidence stays unlabeled, and internal evidence tiers never become public fields.
+
 ## Purpose
 
 AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal verification activity across companies and people.
