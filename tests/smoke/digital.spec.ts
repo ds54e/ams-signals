@@ -1,9 +1,19 @@
 import { expect, test } from '@playwright/test';
-import { catalogFixture, catalogIndexTests } from './catalog-index';
+import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './catalog-index';
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
   ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl']);
+
+catalogSearchRegression(fixture, {
+  SystemVerilog: ['verilator', 'icarus-verilog'],
+  UVM: ['haven', 'xezim'],
+  formal: ['pono', 'symbiyosys', 'verifyrtl'],
+  waveform: ['surfer', 'what', 'vitamin'],
+  Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil'],
+  OpenROAD: ['openroad', 'coresmith'],
+  AI: ['xezim', 'haven'],
+});
 
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await page.goto('./digital/');

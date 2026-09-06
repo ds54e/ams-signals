@@ -9,10 +9,7 @@
 .catalog-toolbar { margin-bottom: 0; }
 .catalog-search { flex: 0 1 300px; min-width: 0; }
 .catalog-scope-filter { flex: 0 0 150px; }
-.catalog-count { margin: 0 0 0 auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .catalog-empty { margin: 0; padding-block: var(--index-row-before); }
-/* Row padding supplies the whitespace below the controls, without a closing rule. */
-.catalog-project:nth-child(1 of :not([hidden])) { border-top: 0; }
 .catalog-scope, .catalog-quicklinks, .activity-strip { list-style: none; padding: 0; margin: 0; }
 .catalog-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-start; gap: 4px 12px; }
 .catalog-title > h2 { min-width: 0; }

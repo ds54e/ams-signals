@@ -14,7 +14,6 @@
 }
 /* Result-row padding supplies the whitespace below controls, without a rule. */
 .event-explorer[data-surface="events"] .event-filter-utility { margin-bottom: 0; }
-.result-event:nth-child(1 of :not([hidden])) { border-top: 0; }
 .event-filters {
   display: flex;
   flex: 0 1 auto;
@@ -157,14 +156,11 @@
   justify-content: flex-start;
   gap: 8px 18px;
   min-height: 44px;
-  margin-left: auto;
-  padding: 0 2px;
+  margin: 0;
   color: var(--muted);
   font-size: var(--type-meta);
   line-height: var(--leading-meta);
 }
-.event-filter-summary p { margin: 0; }
-.event-filter-status { font-weight: 400; font-variant-numeric: tabular-nums; }
 .kind-legend {
   display: flex;
   flex-wrap: wrap;
@@ -556,7 +552,6 @@
 @media (max-width: 840px) {
   .event-filters { flex: 1 1 100%; }
   .search-control { flex: 1 1 340px; }
-  .event-filter-summary { margin-left: 0; }
   .desktop-timeline { --lane-label-width: 132px; }
   .activity-matrix-shell { --matrix-label-width: 148px; }
 }

@@ -1,5 +1,15 @@
 # Analog implementation and review notes
 
+## Description and alignment review (2026-09-06)
+
+Starting commit: `f64d4c5e668870af1e7689c8d6e721923710f94a`. Read all **35 Analog** descriptions, full classification/release notes and cited source records. Reopened the existing pinned primary README/implementation/paper or dataset sources for changes; revised **14 descriptions** and left **21** intact. This editorial pass changes only public `description` fields: membership, Scope/AI, source arrays, body notes, review dates and activity evidence stay unchanged.
+
+The revisions put useful operations and identifying nouns first: LLM topology/sizing decisions, Verilog-A behavioral simulation, separate LDO reasoning/tool tasks, gm/ID lookup with PVT/Monte Carlo examples, and dataset/benchmark identity. Preserve substantive boundaries: AnalogForge has analytic fixtures and a separate native netlist path; ARCS generates within predefined topology families; PANDA coordinates stages with external simulation/PEX hooks; Razavi's ngspice mode remains experimental. ATLAS's existing paper-based wording remains appropriate. Search regressions cover ngspice, Virtuoso, Verilog-A, SKY130, AI, layout and sizing without hidden metadata.
+
+Counts now follow controls directly, using the same `.index-count` as Events and Articles. The first visible row has no top rule on any index; Articles adds only its actual collection count. Existing 920px width, 122px Scope, 88px Activity, 4×8px newest-left ticks, source provenance and shared typography are retained. See [VISUAL_SYSTEM.md](../VISUAL_SYSTEM.md).
+
+Validation: `npm run check` passes (23 Analog / 24 Digital unit tests, 285 built pages, 2,976 internal anchors); the full Chromium production-preview suite passes **93/93**. Screenshot review covers all six main/context surfaces at 1440, 1280, 1024, 390 and 320px, filter/empty states and dark mode. The final refinement keeps the identifying phrase “transistor sizing” in AnalogSAGE and gmoverid-skill after an actual Search check found the earlier wording missed them. All 68 source arrays, Scope records and Markdown bodies, both activity snapshots, Golden data and Article content remain identical; only the 23 approved public descriptions change among the 352 content/data files. `/export.json` retains SHA-256 `67586997053b77e6215c53ce12188a5013d0bb6b1e0411370570c67a94bd1aeb`.
+
 ## Current visual density and filtering (2026-09-06)
 
 Starting commit: `08f01bf57fa96764752fe7e6cb63fbb442180505`. The shared `CatalogIndex.astro`, `catalog.css` and small `catalog-filter.ts` now use the **920px listing width** shared by Articles and Events. Desktop columns are **678px Project / 122px Scope / 88px Activity**, with **16px gaps**, and there is no visible column-heading row. Activity is a **70px** newest-left band of **4×8px vertical cells** with **2px gaps**. Scope gaps are **2px**; the shared 17px title / 15px description scale and 22px/24px row rhythm remain.

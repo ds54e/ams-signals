@@ -1,7 +1,7 @@
 ---
 name: "VerifyRTL"
 aliases: []
-description: "LLM-assisted verification pipeline generating plans and properties, running Icarus simulations and SymbiYosys checks, and explaining failures with trace evidence."
+description: "Generates verification plans and properties with an LLM, runs Icarus simulations and SymbiYosys formal checks, and explains failures from execution traces."
 scope:
   verification:
     level: core

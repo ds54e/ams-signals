@@ -1,7 +1,7 @@
 ---
 name: "uhdm2rtlil"
 aliases: []
-description: "Surelog/UHDM-to-RTLIL frontend importing SystemVerilog designs into Yosys, with equivalence and RTL co-simulation campaigns checking the translation."
+description: "Imports elaborated SystemVerilog from Surelog/UHDM into Yosys RTLIL for synthesis, with equivalence and co-simulation tests for translation correctness."
 scope:
   synthesis:
     level: core

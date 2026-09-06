@@ -1,7 +1,7 @@
 ---
 name: "Dr. RTL"
 aliases: []
-description: "Agentic RTL optimization loop that reads synthesis timing feedback, rewrites critical logic and uses sequential equivalence checks to select improved implementations."
+description: "Uses an LLM to rewrite RTL from synthesis timing feedback, then checks candidates with sequential equivalence and compares their timing and area."
 scope:
   design:
     level: core

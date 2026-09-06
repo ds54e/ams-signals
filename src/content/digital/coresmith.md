@@ -1,7 +1,7 @@
 ---
 name: "CoreSmith"
 aliases: []
-description: "Carries requirements through RTL generation, testbench execution, Yosys synthesis and OpenROAD/Magic physical checks toward GDS artifacts."
+description: "Uses LLM agents to generate and repair RTL/testbenches, then drive Yosys synthesis, OpenROAD placement/routing and Magic checks toward GDS output."
 scope:
   design:
     level: core

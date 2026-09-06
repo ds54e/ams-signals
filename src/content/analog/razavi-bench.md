@@ -2,7 +2,7 @@
 name: "Razavi-Bench"
 aliases: ["Razavi Bench"]
 summary: "Benchmarks reasoning about analog circuit diagrams through direct QA, agentic answers, and an experimental simulator-assisted mode."
-description: "Evaluates answers to analog-circuit questions using diagrams, reference solutions, and a shared rubric. Supports direct QA and workspace-based agents, with an experimental ngspice mode for generating scratch decks and exploring circuit behavior."
+description: "Benchmarks LLM answers to illustrated analog-circuit questions against reference solutions, with direct QA, workspace-agent and experimental ngspice-assisted modes."
 scope:
   design:
     level: core

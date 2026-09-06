@@ -1,7 +1,7 @@
 ---
 name: "EVAS"
 summary: "An event-driven simulator for behavioral Verilog-A."
-description: "Runs event-driven Verilog-A models with Spectre-style testbenches to produce transient waveforms, and exposes static lint diagnostics for agent-driven model development and repair."
+description: "Event-driven behavioral Verilog-A simulator that runs Spectre-style testbenches, produces transient waveforms and emits machine-readable lint diagnostics."
 scope:
   simulation:
     level: core

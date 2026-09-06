@@ -37,7 +37,7 @@ const windowLabel = `${monthLabel(months[11])}–${monthLabel(months[0])} (newes
           {Object.entries(stages).map(([id, label]) => <option value={id}>{label}</option>)}
         </select>
       </label>
-      <p class="catalog-count index-meta" data-catalog-count role="status" aria-live="polite" aria-atomic="true">{projects.length} projects</p>
+      <p class="index-count" data-catalog-count role="status" aria-live="polite" aria-atomic="true">{projects.length} projects</p>
     </form>
     <p class="catalog-empty index-meta" data-catalog-empty hidden>No projects match.</p>
     <ol class="catalog-list index-list" id="catalog:projects" aria-label="Projects">

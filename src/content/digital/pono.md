@@ -1,7 +1,7 @@
 ---
 name: "Pono"
 aliases: []
-description: "Extensible SMT-based model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
+description: "SMT-based formal model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
 scope:
   verification:
     level: core

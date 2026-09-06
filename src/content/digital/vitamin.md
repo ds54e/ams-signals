@@ -1,7 +1,7 @@
 ---
 name: "vitamin"
 aliases: []
-description: "Rust four-state SystemVerilog simulator with native execution and parser, elaboration and runtime semantics checked against Icarus and Verilator differential tests."
+description: "Rust simulator for four-state Verilog/SystemVerilog execution, with a native backend, VCD/FST waveform output and differential tests against Icarus."
 scope:
   verification:
     level: core

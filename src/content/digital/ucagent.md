@@ -1,7 +1,7 @@
 ---
 name: "UCAgent"
 aliases: []
-description: "Agentic unit-level verification environment that analyzes DUTs, generates and runs tests, checks coverage and connects external code agents through MCP."
+description: "Uses LLMs to analyze DUTs and generate unit tests, refining them from execution and coverage feedback, with MCP support for external coding agents."
 scope:
   verification:
     level: core
