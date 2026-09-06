@@ -1,7 +1,7 @@
 ---
 name: "WHAT"
 aliases: []
-description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis."
+description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis. Users can follow signals between source and waveforms, inspect values at the current cursor and save the resulting debug session."
 scope:
   verification:
     ai: false

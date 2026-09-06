@@ -2,7 +2,7 @@
 name: "ATLAS"
 aliases: ["ATLAS SAR ADC"]
 summary: "A paper-described SAR ADC flow using expert templates, LLM planning and netlist assembly, and simulation-guided sizing."
-description: "The paper describes template-based SAR ADC assembly and sizing, with Spectre testbench feedback and expert checks guiding the agent flow."
+description: "Paper-described SAR ADC flow that uses LLM agents to select and connect expert circuit templates, adapt testbenches and choose sizing ranges. Spectre simulation feedback and expert checks guide iteration; the reported workflow stops before layout."
 scope:
   design:
     ai: true

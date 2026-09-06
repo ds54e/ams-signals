@@ -1,7 +1,7 @@
 ---
 name: "LOADBench"
 summary: "Open op-amp data and metrics for analog machine learning."
-description: "Dataset and benchmark covering 101 SKY130 op-amp topologies, with ngspice testbenches and metrics for topology generation/selection, inverse sizing and multi-objective optimization."
+description: "Dataset and benchmark covering 101 SKY130 op-amp topologies with ngspice testbenches and electrical performance data. Python metrics evaluate topology generation/selection, inverse sizing and multi-objective optimization, keeping structural coverage separate from simulation-based performance comparisons."
 scope:
   design:
     ai: false

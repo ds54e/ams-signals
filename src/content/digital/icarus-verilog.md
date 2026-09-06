@@ -1,7 +1,7 @@
 ---
 name: "Icarus Verilog"
 aliases: []
-description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset, VVP execution and VPI extensions for testbenches and external tools."
+description: "Verilog compiler and event-driven simulator supporting a SystemVerilog subset. The compiler emits code for the VVP runtime, while VPI extensions connect testbenches and external tools; the separate iverilog-uvm project develops additional verification-language and UVM support."
 scope:
   verification:
     ai: false

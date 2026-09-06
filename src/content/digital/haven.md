@@ -1,7 +1,7 @@
 ---
 name: "HAVEN"
 aliases: []
-description: "Uses an LLM to turn protocol specifications into UVM tests through a constrained DSL, then targets uncovered behavior with VCS and VC Formal feedback."
+description: "Uses an LLM to turn protocol specifications into UVM testbenches through a constrained DSL. Structured JSON intent is translated into SystemVerilog, then VCS execution and VC Formal feedback guide repair and testing of uncovered behavior."
 scope:
   verification:
     ai: true

@@ -1,7 +1,7 @@
 ---
 name: "OpenROAD"
 aliases: []
-description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."
+description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing. It supplies the backend operations used within RTL-to-GDS flows; surrounding orchestration and agent interfaces are provided separately by projects such as OpenROAD-flow-scripts and OpenROAD-MCP."
 scope:
   layout:
     ai: false

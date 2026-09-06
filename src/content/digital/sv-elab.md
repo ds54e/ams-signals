@@ -1,7 +1,7 @@
 ---
 name: "sv-elab"
 aliases: ["yosys-slang"]
-description: "Slang-based SystemVerilog elaborator that lowers synthesizable designs into a word-level netlist for Yosys and other downstream flows."
+description: "Slang-based SystemVerilog elaborator that lowers synthesizable designs into a word-level netlist. It is integrated into current Yosys and OpenROAD synthesis tooling and can also be built as a frontend component, carrying design semantics into downstream synthesis flows."
 scope:
   synthesis:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "ZeroSim"
 summary: "A transformer surrogate for analog performance prediction."
-description: "Predicts amplifier performance from circuit topology and device parameters using a transformer surrogate, with training and evaluation for transfer to previously unseen topologies."
+description: "Predicts amplifier performance from circuit topology and device parameters using a transformer surrogate. Training and evaluation target transfer to unseen topologies; separate ngspice scripts generate simulation data, while inference returns learned estimates rather than executing a circuit solver."
 scope:
   simulation:
     ai: true

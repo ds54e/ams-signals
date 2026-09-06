@@ -2,7 +2,7 @@
 name: "Ngspice + OpenVAF Enhancements"
 aliases: []
 summary: "Extends ngspice simulation and OpenVAF compilation in a Claude-assisted development tree."
-description: "Claude-assisted development effort extending ngspice and OpenVAF together, adding Verilog-A language coverage, compiler correctness and SPICE simulation capabilities."
+description: "Claude-assisted development project extending ngspice SPICE simulation and OpenVAF Verilog-A compilation. Language features and correctness fixes are developed together through OSDI model integration; they are not automatically features of either upstream project."
 scope:
   simulation:
     ai: false

@@ -2,7 +2,7 @@
 name: "ALIGN"
 aliases: []
 summary: "Generates placed and routed analog layouts from circuit netlists and constraints."
-description: "Turns SPICE netlists and analog constraints into hierarchical, placed and routed GDSII layouts, with circuit annotation and parameterized primitive generation."
+description: "Generates hierarchical analog layouts from SPICE netlists and circuit constraints. The flow annotates circuit hierarchy, builds parameterized primitive cells and assembles placed and routed GDSII geometry using technology-specific layout rules."
 scope:
   layout:
     ai: false

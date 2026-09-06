@@ -1,7 +1,7 @@
 ---
 name: "Surelog + UHDM"
 aliases: []
-description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."
+description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models. Serialized models and VPI access let downstream synthesis, simulation, lint and formal tools consume a shared representation without implementing their own complete SystemVerilog frontend."
 scope:
   design:
     ai: false

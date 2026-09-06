@@ -12,6 +12,7 @@ catalogSearchRegression(fixture, {
   waveform: ['surfer', 'what', 'vitamin'],
   Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil'],
   OpenROAD: ['openroad', 'coresmith'],
+  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl'],
   AI: ['xezim', 'haven'],
 });
 

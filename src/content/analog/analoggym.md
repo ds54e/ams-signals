@@ -2,7 +2,7 @@
 name: "AnalogGym"
 aliases: ["Analog Gym"]
 summary: "Provides circuit netlists, tunable variables, and simulation benches for evaluating analog sizing and optimization methods."
-description: "Analog sizing benchmark with ngspice testbenches for amplifiers and LDOs, SKY130 examples, PVT evaluation and reinforcement-learning environments."
+description: "Analog sizing benchmark with ngspice testbenches for amplifiers and LDOs, SKY130 examples and PVT evaluation. Optimizers update separate design-variable files, run electrical measurements and use the supplied extraction code or reinforcement-learning environments to evaluate candidates."
 scope:
   design:
     ai: false

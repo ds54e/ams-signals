@@ -1,7 +1,7 @@
 ---
 name: "Yosys"
 aliases: []
-description: "RTL synthesis framework providing logic optimization, technology mapping and formal primitives for FPGA and ASIC flows."
+description: "RTL synthesis framework for Verilog/SystemVerilog logic optimization and FPGA/ASIC technology mapping. Scripts compose reusable passes into synthesis flows, while formal transformations and solver-facing primitives support verification drivers such as SymbiYosys and EQY."
 scope:
   synthesis:
     ai: false

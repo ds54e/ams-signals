@@ -1,7 +1,7 @@
 ---
 name: "Pono"
 aliases: []
-description: "SMT-based formal model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
+description: "SMT-based formal model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms. Its C++ implementation uses the Smt-Switch solver interface, with transition-system APIs for building verification applications and inspecting proof or counterexample outcomes."
 scope:
   verification:
     ai: false

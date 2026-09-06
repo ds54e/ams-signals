@@ -1,7 +1,7 @@
 ---
 name: "EEschematic"
 summary: "Multimodal conversion from netlists to editable schematics."
-description: "Converts SPICE netlists into editable schematic descriptions, using multimodal reasoning and visual feedback to place symbols and refine wiring for analog circuits."
+description: "Converts SPICE netlists into editable schematic descriptions using multimodal reasoning and visual feedback. Released notebooks refine symbol positions and wiring from rendered circuit images, producing a structured diagram representation rather than a physical IC layout."
 scope:
   design:
     ai: true

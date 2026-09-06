@@ -2,7 +2,7 @@
 name: "Analog Design Bench"
 aliases: ["Analog Design Bench V2"]
 summary: "Benchmarks agents that edit circuit files and iterate with simulation to meet analog and RF electrical specifications."
-description: "Benchmarks agent-written analog circuits with runnable ngspice testbenches, including SKY130 designs, PVT sweeps and electrical performance checks."
+description: "Benchmarks agents that edit analog and RF circuits to meet electrical specifications. Task packages combine starter netlists, ngspice testbenches and graded measurements, including SKY130 designs with task-specific PVT sweeps or Monte Carlo checks."
 scope:
   design:
     ai: false

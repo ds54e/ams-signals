@@ -1,7 +1,7 @@
 ---
 name: "ASTRA"
 summary: "Reasoning-guided initialization and Bayesian transistor sizing."
-description: "Guides transistor sizing with an LLM and retrieved gm/ID knowledge, using simulator feedback to initialize designs and prioritize Bayesian optimization."
+description: "Guides transistor sizing with an LLM and retrieved gm/ID knowledge. It initializes feasible designs, identifies influential transistor parameters and prioritizes staged Bayesian optimization, with a two-stage OTA example using a separately configured ngspice simulation environment."
 scope:
   design:
     ai: true

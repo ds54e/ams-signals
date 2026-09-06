@@ -1,7 +1,7 @@
 ---
 name: "Dr. RTL"
 aliases: []
-description: "Uses an LLM to rewrite RTL from synthesis timing feedback, then checks candidates with sequential equivalence and compares their timing and area."
+description: "Uses an LLM to rewrite RTL from synthesis timing feedback, then checks candidates with sequential equivalence and compares timing and area. Tool-derived verdicts determine which version advances, while iteration records preserve the attempted transformations and their evaluation results."
 scope:
   design:
     ai: true

@@ -1,7 +1,7 @@
 ---
 name: "AnalogToBi"
 summary: "Circuit-type-conditioned generation of device-net graphs."
-description: "Generates transistor-level circuit topologies from circuit-type tokens with a grammar-constrained language model over device-net bipartite graphs, then checks structural validity and novelty."
+description: "Generates transistor-level circuit topologies from circuit-type tokens with a grammar-constrained language model. Device-net bipartite graphs encode component connections, and structural validity and novelty checks assess the generated topologies without measuring electrical performance."
 scope:
   design:
     ai: true

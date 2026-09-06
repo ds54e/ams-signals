@@ -1,7 +1,7 @@
 ---
 name: "iverilog-uvm"
 aliases: []
-description: "Icarus-derived simulator extending SystemVerilog verification with UVM, constrained randomization, assertions, functional coverage and DPI-C."
+description: "Experimental Icarus-derived SystemVerilog simulator extending UVM, constrained randomization, assertions, functional coverage and DPI-C support. Development uses Claude under human review, with conformance tests tracking behavior against the unmodified Accellera library and language standards."
 scope:
   verification:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "VerifyRTL"
 aliases: []
-description: "Generates verification plans and properties with an LLM, runs Icarus simulations and SymbiYosys formal checks, and explains failures from execution traces."
+description: "Generates verification plans and properties with an LLM, runs Icarus simulations and SymbiYosys formal checks, and explains failures from execution traces. Simulator and solver results determine the verdicts, keeping coverage, bounded checks and unbounded proofs distinct."
 scope:
   verification:
     ai: true

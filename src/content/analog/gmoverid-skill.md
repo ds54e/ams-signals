@@ -1,7 +1,7 @@
 ---
 name: "gmoverid-skill"
 summary: "Agent-usable device characterization and gm/ID sizing tools."
-description: "Supports transistor sizing with gm/ID lookups of widths and operating points, plus ngspice examples and SKY130 PVT/Monte Carlo sweeps."
+description: "Python tools for transistor sizing through gm/ID characterization and lookup tables. Cached device sweeps yield widths and operating points for current, speed or gain targets, alongside ngspice examples and SKY130 PVT/Monte Carlo simulation scripts."
 scope:
   design:
     ai: false

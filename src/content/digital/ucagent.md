@@ -1,7 +1,7 @@
 ---
 name: "UCAgent"
 aliases: []
-description: "Uses LLMs to analyze DUTs and generate unit tests, refining them from execution and coverage feedback, with MCP support for external coding agents."
+description: "Uses LLMs to analyze DUTs and generate unit tests, refining them from execution and coverage feedback. Configurable stages and checkers guide the workflow, with MCP collaboration allowing external coding agents to participate in test development and coverage closure."
 scope:
   verification:
     ai: true

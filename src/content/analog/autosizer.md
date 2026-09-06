@@ -2,7 +2,7 @@
 name: "AutoSizer"
 aliases: ["AMS-SizingBench"]
 summary: "LLM-guided sizing strategies with AMS-SizingBench."
-description: "Uses an LLM to choose sizing variables, ranges and optimization strategies, then runs ngspice-backed search across the AMS-SizingBench circuit configurations."
+description: "Uses an LLM to choose transistor-sizing variables, ranges and optimization strategies, then runs ngspice-backed search. Its companion AMS-SizingBench supplies 24 analog and mixed-signal circuit configurations, with SKY130 examples and an outer strategy loop around numerical candidate evaluation."
 scope:
   design:
     ai: true
