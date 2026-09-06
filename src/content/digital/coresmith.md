@@ -4,16 +4,12 @@ aliases: []
 description: "Uses LLM agents to generate and repair RTL/testbenches, then drive Yosys synthesis, OpenROAD placement/routing and Magic checks toward GDS output."
 scope:
   design:
-    level: core
     ai: true
   synthesis:
-    level: core
     ai: true
   verification:
-    level: core
     ai: true
   layout:
-    level: core
     ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

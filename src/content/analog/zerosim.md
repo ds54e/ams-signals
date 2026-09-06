@@ -4,7 +4,6 @@ summary: "A transformer surrogate for analog performance prediction."
 description: "Predicts amplifier performance from circuit topology and device parameters using a transformer surrogate, with training and evaluation for transfer to previously unseen topologies."
 scope:
   simulation:
-    level: core
     ai: true
 access: "Python/PyTorch, training data and model weights; ngspice is used by the separate dataset-generation scripts."
 addedAt: "2026-09-05"
@@ -39,7 +38,7 @@ The model takes encoded circuit nodes and device parameters and regresses perfor
 
 ### Classification
 
-Learned performance estimation is core Simulation under the Scope definition, while inference itself is not a SPICE solver. The paper's cross-topology accuracy and acceleration are reported research results. There is no circuit-generation, optimizer, EDA-control or layout mark merely because a surrogate could be used downstream. [Paper](#source-paper) · [Data-generation implementation](#source-circuit-ga-amp-py)
+Learned performance estimation is Simulation under the Scope definition, while inference itself is not a SPICE solver. The paper's cross-topology accuracy and acceleration are reported research results. There is no circuit-generation, optimizer, EDA-control or layout mark merely because a surrogate could be used downstream. [Paper](#source-paper) · [Data-generation implementation](#source-circuit-ga-amp-py)
 
 ### Scope classification
 

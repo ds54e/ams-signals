@@ -5,10 +5,8 @@ summary: "Behavioral Verilog-A model, repair and testbench tasks."
 description: "Tests agents on behavioral Verilog-A model generation, bug repair and testbench writing across 400 circuit families, with 1,200 tasks and an EVAS-equipped execution environment."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
 access: "Public task bundles and Python/Docker tooling; the r53 runtime pins EVAS 0.8.7. Model access is supplied separately."
 addedAt: "2026-09-05"
@@ -41,7 +39,7 @@ The captured v4/r53 manifest and task index contain 400 families in three forms:
 
 ### Simulation and release surfaces
 
-The public runtime gives an agent Bash and EVAS for visible tests; a matched no-EVAS arm also exists. Simulation is therefore core tool-track scope, not merely an evaluator-only assumption. EVAS is a separately maintained simulator/package and receives its own catalog entry. [Runtime](#source-benchmark-vabench-release-v4-public-agent-runtime-readme-md)
+The public runtime gives an agent Bash and EVAS for visible tests; a matched no-EVAS arm also exists. Simulation is therefore a user-facing tool-track operation, not merely an evaluator-only assumption. EVAS is a separately maintained simulator/package and receives its own catalog entry. [Runtime](#source-benchmark-vabench-release-v4-public-agent-runtime-readme-md)
 
 The root README and legacy dashboard describe older releases; the dashboard's 300 rows must not replace r53's task counts. r53 reuses source-bound certification and does not claim a fresh full-suite simulation or Spectre gate. No current r53 model leaderboard was verified, so the catalog does not expose legacy dashboard data as current Results. [Release note](#source-benchmark-vabench-release-v4-r53-release-certification-md) · [Legacy dashboard](#source-docs-data-site-summary-json)
 

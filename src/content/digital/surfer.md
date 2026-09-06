@@ -4,7 +4,6 @@ aliases: []
 description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

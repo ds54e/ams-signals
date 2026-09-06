@@ -4,7 +4,6 @@ aliases: ["sby"]
 description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

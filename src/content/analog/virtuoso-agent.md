@@ -4,10 +4,8 @@ summary: "Runs an LLM parameter-tuning loop for existing circuits using specific
 description: "Uses an LLM to tune circuit parameters toward specification targets from Virtuoso/Maestro/Spectre measurements or remote HSpice simulation results."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: false
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."

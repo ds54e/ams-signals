@@ -5,10 +5,8 @@ summary: "Benchmarks reasoning about analog circuit diagrams through direct QA, 
 description: "Benchmarks LLM answers to illustrated analog-circuit questions against reference solutions, with direct QA, workspace-agent and experimental ngspice-assisted modes."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: supporting
     ai: false
 targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators, LNAs and TIAs"
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
@@ -48,6 +46,6 @@ Published judge scores and answers support inspection and re-grading. They do no
 
 ### Scope classification
 
-Circuit reasoning is the central benchmark task. The optional agentic ngspice treatment supplies supporting simulation evidence; grading remains answer-based. [Reviewed source](#source-review).
+Circuit reasoning is the central benchmark task. The optional agentic ngspice treatment supplies simulation evidence through a documented execution mode; grading remains answer-based. [Reviewed source](#source-review).
 
-The direct and workspace modes run models to answer circuit-reasoning questions, giving AI Design. The optional ngspice treatment supplies supporting numerical evidence; the reviewed benchmark still grades the answer rather than an AI simulator. [AI/stage evidence](#source-review).
+The direct and workspace modes run models to answer circuit-reasoning questions, giving AI Design. The optional ngspice treatment supplies numerical evidence; the reviewed benchmark still grades the answer rather than an AI simulator. [AI/stage evidence](#source-review).

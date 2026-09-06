@@ -4,10 +4,8 @@ summary: "Graph-conditioned RF phase-shifter synthesis."
 description: "Selects among six RF phase-shifter topologies and predicts component values with a graph-conditioned flow policy, using analytic circuit priors and ngspice feedback to meet phase, loss and matching targets."
 scope:
   design:
-    level: core
     ai: true
   simulation:
-    level: core
     ai: false
 access: "Python/PyTorch, ngspice and released policy checkpoints; optional LLM netlist paths require separate model access."
 addedAt: "2026-09-05"
@@ -37,7 +35,7 @@ sources:
 
 ### Scope
 
-The release contains graph encoders, a conditional flow-matching policy, learned topology scoring, six netlist templates and ngspice evaluation. Component synthesis and topology selection target RF phase shifters; this is a different use case from op-amp sizing. Design is core for the explicit topology-selection and parameter-generation task; the choices remain constrained to the evaluated templates. Physical layout is not implied by RF transmission-line parameters. [Framework](#source-framework-md) · [Selector](#source-inference-topology-select-py) · [Environment](#source-env-phaseshifter-env-py)
+The release contains graph encoders, a conditional flow-matching policy, learned topology scoring, six netlist templates and ngspice evaluation. Component synthesis and topology selection target RF phase shifters; this is a different use case from op-amp sizing. Design covers the explicit topology-selection and parameter-generation task; the choices remain constrained to the evaluated templates. Physical layout is not implied by RF transmission-line parameters. [Framework](#source-framework-md) · [Selector](#source-inference-topology-select-py) · [Environment](#source-env-phaseshifter-env-py)
 
 ### Release boundary
 

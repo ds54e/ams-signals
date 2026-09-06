@@ -4,7 +4,6 @@ aliases: []
 description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

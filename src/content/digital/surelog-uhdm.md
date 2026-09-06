@@ -4,7 +4,6 @@ aliases: []
 description: "SystemVerilog preprocessing, parsing and elaboration stack that exports UHDM design models and VPI access for downstream EDA tools."
 scope:
   design:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
@@ -43,6 +42,6 @@ Activity uses Surelog only, including its integration of a substantive UHDM enum
 
 ### Scope classification
 
-The combined entry produces a reusable elaborated design representation and exposes design-model APIs. Downstream synthesis, simulation and formal consumers do not make those independent core operations of Surelog/UHDM. [Reviewed source](#source-readme).
+The combined entry produces a reusable elaborated design representation and exposes design-model APIs. Downstream synthesis, simulation and formal consumers do not make those independent operations of Surelog/UHDM. [Reviewed source](#source-readme).
 
 Elaboration and reusable UHDM design models are conventional Design infrastructure. Downstream consumers and incidental AI assistance do not create additional AI stages or defining AI-built provenance. [AI/stage evidence](#source-readme).

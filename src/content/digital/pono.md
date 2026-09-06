@@ -4,7 +4,6 @@ aliases: []
 description: "SMT-based formal model checker for safety and liveness properties, with bounded, inductive and IC3-style algorithms."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

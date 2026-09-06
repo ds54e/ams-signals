@@ -1,36 +1,12 @@
 # Digital implementation and review notes
 
-## Description and alignment review (2026-09-06)
+## Compact Scope labels (2026-09-06)
 
-Starting commit: `f64d4c5e668870af1e7689c8d6e721923710f94a`. Read all **33 Digital** descriptions, full classification/release notes and source records. Reopened the existing pinned primary READMEs for changes; revised **9 descriptions** and left **24** intact. This changes only public `description` fields, preserving Scope/AI, membership, source arrays, body notes, review dates and all activity evidence, including Surfer's canonical GitLab history.
+Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. The paired catalog now uses a 150px metadata rail and flexible project body at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
 
-Dr. RTL now states the LLM rewrite → synthesis timing → sequential-equivalence loop and timing/area comparison, without claiming power optimization from its timing/area score. CoreSmith identifies LLM-generated RTL/testbenches and the Yosys/OpenROAD/Magic path toward GDS. HAVEN distinguishes LLM protocol intent from constrained DSL generation; VerifyRTL names the real simulation/formal backends and trace explanation. Pono explicitly says formal model checking; uhdm2rtlil names synthesis; vitamin names VCD/FST output. Search regressions cover SystemVerilog, UVM, formal, waveform, Yosys, OpenROAD and AI.
+The [explicit per-project Scope review](../CATALOG_SCOPE_REVIEW.md) records all 20 reassessed assignments, retained/removed decisions, primary evidence and the full 68-description review. Membership stays **35 Analog / 33 Digital**. Source arrays, review/activity dates, repository identities, SHAs and buckets are unchanged. Scope AI booleans remain unchanged for retained stages. AI-built is now optional true, with the same seven evidenced projects across both domains.
 
-Counts follow the controls directly in the shared `.index-count` style; the first visible row has no top rule. No new filter logic, taxonomy, data refresh or presentation path is introduced. See the [paired review](../analog/IMPLEMENTATION_NOTES.md#description-and-alignment-review-2026-09-06) and [visual system](../VISUAL_SYSTEM.md).
-
-Validation: `npm run check` and **93/93 Chromium smoke tests** pass. The paired review records all-row integrity, the unchanged factual export, responsive/dark screenshots, normalized technical-term searches and toolbar/count geometry.
-
-## Current visual density and filtering (2026-09-06)
-
-Starting commit: `08f01bf57fa96764752fe7e6cb63fbb442180505`. The shared `CatalogIndex.astro`, `catalog.css` and small `catalog-filter.ts` now use the **920px listing width** shared by Articles and Events. Desktop columns are **678px Project / 122px Scope / 88px Activity**, with **16px gaps**, and there is no visible column-heading row. Activity is a **70px** newest-left band of **4×8px vertical cells** with **2px gaps**. Scope gaps are **2px**; the shared 17px title / 15px description scale and 22px/24px row rhythm remain.
-
-Search indexes only the public name, description and rendered Scope labels. It normalizes Unicode/case/separators/whitespace and combines all query terms with the single underlying-stage filter using AND. Short terms such as AI match words. Count is `N projects` by default, `N of TOTAL projects` while filtering, with a quiet zero-results message. The native form appears only after enhancement, uses no fetching/URL state/storage and remains independent of EventExplorer. The complete static list is readable without JavaScript.
-
-Timeline/Events share the rule-free control styling. Event badges restore blue Technical / rust Organizational recognition. Timeline visible glyphs are 8px with shared 18px hit targets and consistent selection, after screenshot review reduced an initial 20px target that expanded dense rows unnecessarily. See [VISUAL_SYSTEM.md](../VISUAL_SYSTEM.md) for ownership, dimensions and review coverage. Catalog content, Scope, sources and activity records are unchanged.
-
-Validation: `npm run check` and **91/91 production-preview Chromium tests** pass, including **23 Analog / 24 Digital** unit tests. The [paired validation record](../analog/IMPLEMENTATION_NOTES.md#current-visual-density-and-filtering-2026-09-06) documents responsive/filter/dark-mode screenshots, viewer regression checks, **352 unchanged content/data files**, and the unchanged factual export hash. Deployment uses the existing manual Pages workflow, followed by production browser and artifact verification.
-
-## Scope migration (2026-09-06)
-
-Starting commit: `ce23da8f0d036fd4648d943fe22c807f7b141dab`. Retain **35 Analog / 33 Digital** projects. Re-read all descriptions and classification notes and reopen primary material for all 68 entries, using the existing pinned source revisions and the ATLAS paper. Additional linked implementation inspection resolves stage-specific AI involvement. Every content file records a Scope decision with a local source reference. This is not an activity refresh or an independent reproduction of external EDA/benchmark results.
-
-The single public index is **Project | Scope | Activity**. Each stage records an explicit core/supporting level and AI boolean; AI-built is optional, separate and last. Role metadata, project-wide AI enums and the former flat stage field have no retained compatibility layer. Descriptions already include the useful technical identifiers from the preceding cleanup, so this migration preserves descriptions and source arrays exactly.
-
-Scope remains vertical with a left-aligned wrapping title/link row. Activity retains canonical GitLab Surfer and point-event ATLAS/ngspice. Current geometry and typography are maintained in the shared visual-system section above; this migration introduced no public prose, controls, storage or client code.
-
-## Scope validation
-
-Both catalogs pass the full deterministic suite and **70/70 Chromium smoke tests**; explicit unit tests pass Analog **22/22** and Digital **24/24**. See the [paired validation and integrity record](../analog/IMPLEMENTATION_NOTES.md#scope-validation) for viewport review, unchanged source/activity data, non-catalog HTML and export hashes.
+The [visual system](../VISUAL_SYSTEM.md) records final dimensions, colors, responsive behavior and the screenshot refinement. Search and stage filtering still combine with AND using public text only. Without JavaScript every project remains readable. Events badges, Articles count, left-grouped toolbars and Timeline glyphs are preserved.
 
 ## AI classification judgments
 
@@ -38,19 +14,7 @@ Both catalogs pass the full deterministic suite and **70/70 Chromium smoke tests
 - **Dr. RTL** has AI Design. Its README calls the synthesis/SEC evaluator execution-only, and the pinned orchestrator chooses RTL attempts from tool-derived results. Synthesis and Verification remain unprefixed; no routed Layout or AI proof engine is inferred. This deliberately narrows the illustrative all-agent interpretation to the checked implementation.
 - **HAVEN**, **UCAgent**, **Spec2Cov** and **VerifyRTL** have AI Verification for implemented test/property generation, diagnosis or coverage decision loops. Those are not DUT Design stages.
 - **wave-mcp**, **Sentinel DV**, **OpenROAD-MCP**, **OpenADA** and **vivado_mcp** expose tools/evidence to outside agents. Their MCP/CLI boundary alone does not prove AI behavior inside a stage.
-- Defining AI-built is retained from direct development evidence for **xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp**. Their executed simulator/compiler/debug/tool operations remain conventional. **Pono**, upstream **CIRCT** and other established tools do not gain this signal from occasional AI commits. No partial AI-built claim was added without material evidence; the schema/rendering supports and tests the supporting form.
-
-## Stage coverage decisions
-
-- Standalone simulators (**Icarus**, **iverilog-uvm**, **eevee-rs**, **Verilator**, **vitamin**, **xezim**) have core Verification only. Their internal parsers/elaborators/compilers do not establish Design or Synthesis. Waveform/debug tools, formal drivers and testbench agents also serve Verification; generating tests is not generating the DUT.
-- **slang** exposes reusable, round-trippable design representations/code tooling (Design), with supporting static diagnostics (Verification). **Surelog + UHDM** produces the elaborated design model (Design); downstream synthesis/simulation consumers are not automatically separate stages.
-- **sv-elab** has core Synthesis with supporting Design for reusable word-level lowering. **uhdm2rtlil** is explicitly a synthesis frontend, with supporting verification campaigns; it does not gain Design simply for having an IR. **Verible** supports HDL authoring/formatting (Design) and secondary lint (Verification), not logic synthesis.
-- **CIRCT** has core Design and Synthesis, plus supporting upstream LLHD/BMC/LEC Verification. The unavailable Normal fork supplies no evidence.
-- **Dr. RTL** has core Design, Synthesis and Verification. Reopened README and existing execution evidence describe DC/Formality/Jasper runs and synthesis timing; Layout is omitted because no placement/routing flow is established. **CoreSmith** explicitly generates RTL, tests, Yosys synthesis and OpenROAD/Magic backend outputs, so all four stages are core.
-- **OpenROAD** and **OpenROAD-MCP** are core Layout for their physical implementation operations. Do not inherit every surrounding flow dependency. **vivado_mcp** directly exposes synthesis and implementation, with supporting XSim Verification.
-- **OpenADA** retains core Verification and Layout for native checks/tests and DRC/LVS; mapped synthesis is supporting in its broader tool contract. Synthesis-stage timing does not establish physical closure, and tool integration alone does not establish Design.
-
-Each of the 33 authored files records its own Scope decision with cited evidence. No activity snapshot or source URL changes in this migration.
+- AI-built is retained from direct development evidence for **xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp**. Their executed simulator/compiler/debug/tool operations remain conventional. **Pono**, upstream **CIRCT** and other established tools do not gain this signal from occasional AI commits. No additional AI-built claim is introduced in the simplification.
 
 ## Original Digital release review
 

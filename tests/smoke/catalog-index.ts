@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { expectScopeCircles, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
+import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
@@ -70,7 +70,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
     for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
-    await expect(catalog.locator('[data-tag-kind], [class$="-metadata"]')).toHaveCount(0);
+    await expect(catalog.locator('[data-tag-kind], [data-level], .scope-mark, .activity-summary')).toHaveCount(0);
     const rendered = await rows(page).evaluateAll((nodes, attribute) => nodes.map((el) => ({
       id: el.getAttribute(attribute), rowId: el.id,
       name: el.querySelector('h2')!.textContent, nameLinks: el.querySelectorAll('h2 a').length,
@@ -118,7 +118,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect.poll(visibleIds).toEqual(combinedWords);
     await search.press('Enter'); expect(new URL(page.url()).search).toBe('');
 
-    // Name and description are searchable; hidden evidence/Scope meanings are not.
+    // Name and description are searchable; hidden evidence are not.
     const target = ordered.find((p) => p.id === (domain === 'analog' ? 'ngspice' : 'surfer'))!;
     await search.fill(target.name); await expect(row(page, target.id)).toBeVisible();
     const word = domain === 'analog' ? 'device-model' : 'transaction';
@@ -133,7 +133,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(page.getByText('No projects match.', { exact: true })).toBeHidden();
   });
 
-  test(`${label} Scope matches each stage regardless of level/AI and combines with Search using AND`, async ({ page }) => {
+  test(`${label} Scope matches each stage with either AI label and combines with Search using AND`, async ({ page }) => {
     await open(page);
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
     const search = page.getByRole('searchbox', { name: 'Search projects' });
@@ -176,29 +176,23 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
   });
 
-  test(`${label} vertical Scope preserves every authored stage and its accessible meaning`, async ({ page }) => {
+  test(`${label} Scope labels preserve stage presence, AI composition and category order`, async ({ page }) => {
     await open(page);
     for (const p of projects) {
       const scope = row(page, p.id).getByRole('list', { name: `${p.name} Scope`, exact: true });
       const cells = await scope.locator('li').evaluateAll((nodes) => nodes.map((el) => ({
-        stage: el.getAttribute('data-scope-item'), level: el.getAttribute('data-level'), ai: el.getAttribute('data-ai'),
-        title: el.getAttribute('title'), text: el.textContent?.trim(),
+        stage: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), text: el.textContent?.trim(),
       })));
-      const expected: { stage: string; level: string; ai: string | null; title: string; text: string }[] = Object.entries(scopeStageLabels).filter(([stage]) => p.scope[stage]).map(([stage, label]) => {
-        const { level, ai } = p.scope[stage];
-        const text = `${ai ? 'AI ' : ''}${label}: ${level === 'core' ? 'Core' : 'Supporting'} scope`;
-        return { stage, level, ai: String(ai), title: text, text };
+      const expected: { stage: string; ai: string | null; text: string }[] = Object.entries(scopeStageLabels).filter(([stage]) => p.scope[stage]).map(([stage, label]) => {
+        const { ai } = p.scope[stage];
+        return { stage, ai: String(ai), text: `${ai ? 'AI ' : ''}${label}` };
       });
-      if (p.scope.aiBuilt) {
-        const meaning = p.scope.aiBuilt === 'core' ? 'Defining AI development provenance' : 'Partial or secondary AI development provenance';
-        const text = `AI-built: ${meaning}`;
-        expected.push({ stage: 'aiBuilt', level: p.scope.aiBuilt, ai: null, title: text, text });
-      }
+      if (p.scope.aiBuilt) expected.push({ stage: 'aiBuilt', ai: null, text: 'AI-built' });
       expect(cells).toEqual(expected);
       expect(new Set(cells.map((cell) => cell.stage)).size).toBe(cells.length);
       expect(cells.length).toBeGreaterThan(0);
     }
-    await expectScopeCircles(page.locator(`.catalog-scope`));
+    await expectScopeLabels(page.locator(`.catalog-scope`));
   });
 
   test(`${label} every row shows twelve reviewed activity months with the newest physically leftmost`, async ({ page }) => {
@@ -232,7 +226,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
     await expect(rows(page)).toHaveCount(projects.length);
     await expect(rows(page).locator(`.catalog-description`)).toHaveText(ordered.map((p) => p.description));
-    await expectScopeCircles(page.locator(`.catalog-scope`));
+    await expectScopeLabels(page.locator(`.catalog-scope`));
     await expectActivityBands(rows(page), `.catalog-activity`, activity);
     const last = rows(page).last().locator(`.catalog-quicklinks a`).first();
     await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
@@ -315,7 +309,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
 
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active' }); await open(page);
-    await expectScopeCircles(page.locator(`.catalog-scope`));
+    await expectScopeLabels(page.locator(`.catalog-scope`), true);
     await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 }

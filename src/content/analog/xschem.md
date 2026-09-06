@@ -5,10 +5,8 @@ summary: "Edits hierarchical schematics and emits simulator-ready netlists."
 description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting, open-PDK examples and integration with ngspice and Xyce."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: supporting
     ai: false
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
@@ -38,7 +36,7 @@ sources:
 
 ### Scope
 
-Edits hierarchical, parameterized schematics and produces SPICE, Verilog and VHDL netlists. Simulator invocation and backannotation support the editing workflow. Design is core, with supporting Simulation through these external tools. [Manual](#source-manual).
+Edits hierarchical, parameterized schematics and produces SPICE, Verilog and VHDL netlists. Simulator invocation and backannotation support the editing workflow. Design covers schematic editing; Simulation covers integrated run control, waveform inspection and result backannotation. [Manual](#source-manual).
 
 ### Release boundary
 
@@ -48,4 +46,4 @@ The author advertises both GitHub and Codeberg during a migration. This snapshot
 
 Schematic capture and hierarchical netlisting are central. Simulator launch and result back-annotation support circuit analysis through external ngspice/Xyce tools. [Reviewed source](#source-readme).
 
-Schematic/netlist editing is conventional Design; simulator launch and back-annotation are supporting Simulation. Neither scripting nor external solver integration establishes AI inference. [AI/stage evidence](#source-readme).
+Schematic/netlist editing is conventional Design; simulator launch and back-annotation serve Simulation. Neither scripting nor external solver integration establishes AI inference. [AI/stage evidence](#source-readme).

@@ -4,7 +4,6 @@ aliases: []
 description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries across simulator artifacts."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

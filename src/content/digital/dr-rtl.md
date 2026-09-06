@@ -4,13 +4,10 @@ aliases: []
 description: "Uses an LLM to rewrite RTL from synthesis timing feedback, then checks candidates with sequential equivalence and compares their timing and area."
 scope:
   design:
-    level: core
     ai: true
   synthesis:
-    level: core
     ai: false
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

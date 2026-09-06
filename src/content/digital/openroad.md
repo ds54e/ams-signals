@@ -4,7 +4,6 @@ aliases: []
 description: "Physical-design implementation engine for floorplanning, placement, clock-tree synthesis, timing analysis and routing within RTL-to-GDS flows."
 scope:
   layout:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

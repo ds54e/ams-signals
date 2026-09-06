@@ -5,10 +5,8 @@ summary: "Benchmarks agents that edit circuit files and iterate with simulation 
 description: "Benchmarks agent-written analog circuits with runnable ngspice testbenches, including SKY130 designs, PVT sweeps and electrical performance checks."
 scope:
   design:
-    level: core
     ai: false
   simulation:
-    level: core
     ai: false
 targets: "RF filters and matching networks, references, LDOs, amplifiers, ADCs and DACs"
 access: "Task packages, starter circuits, development benches, verifiers, and environment definitions are being released progressively. Public tasks require ngspice and, where specified, SKY130 models and a container environment."

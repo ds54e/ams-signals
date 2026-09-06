@@ -8,7 +8,7 @@ Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add ta
 
 For work on the standalone Analog catalog at `/analog/`, also read `docs/analog/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
 
-For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page. Scope records design-stage coverage, stage-specific AI involvement and separate AI-built development provenance. The title line contains only the project name and primary links; roles and project-wide AI enums are absent; AI information belongs only in structured Scope. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
+For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page. Scope records meaningful design-stage presence with an AI boolean and optional true AI-built development provenance, without strength levels. Date, twelve activity ticks and colored Scope labels form a compact metadata rail beside project content. The title line contains only the project name and primary links; roles and project-wide AI enums are absent; AI information belongs only in structured Scope. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
 
 ## Purpose
 

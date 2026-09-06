@@ -5,7 +5,6 @@ summary: "Views, edits and verifies IC layouts with programmable geometry and PC
 description: "Layout editor and verification platform with Python/Ruby scripting, PCells, DRC/LVS and GDS/OASIS support for custom integrated-circuit workflows."
 scope:
   layout:
-    level: core
     ai: false
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
@@ -29,7 +28,7 @@ sources:
 
 ### Scope
 
-Reads and edits layout geometry and hierarchy, generates parameterized cells and executes scripting-based checks. Layout is core; scripting and external library/technology interfaces enable those layout operations. [Official feature overview](#source-site) and [implementation](#source-readme).
+Reads and edits layout geometry and hierarchy, generates parameterized cells and executes scripting-based checks. These are Layout operations; scripting and external library/technology interfaces enable those layout operations. [Official feature overview](#source-site) and [implementation](#source-readme).
 
 ### Release boundary
 

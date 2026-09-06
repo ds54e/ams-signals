@@ -4,7 +4,6 @@ aliases: []
 description: "Uses an LLM to turn protocol specifications into UVM tests through a constrained DSL, then targets uncovered behavior with VCS and VC Formal feedback."
 scope:
   verification:
-    level: core
     ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

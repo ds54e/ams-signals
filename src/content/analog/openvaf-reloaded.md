@@ -5,7 +5,6 @@ summary: "Compiles Verilog-A device models into OSDI shared libraries."
 description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators, extending the original OpenVAF with compiler fixes and model-interface support."
 scope:
   simulation:
-    level: supporting
     ai: false
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
@@ -28,7 +27,7 @@ sources:
 
 ### Scope
 
-Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator API. Simulation is supporting because execution occurs in the host simulator. [Compiler documentation](#source-readme) and [OSDI header](#source-interface).
+Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator API. The delivered model libraries serve Simulation; electrical execution occurs in the host simulator. [Compiler documentation](#source-readme) and [OSDI header](#source-interface).
 
 ### Release boundary
 
@@ -36,6 +35,6 @@ The verified default branch is mob, despite older master wording in the README. 
 
 ### Scope classification
 
-The compiler turns Verilog-A models into OSDI libraries consumed by simulators. It enables simulation rather than executing electrical analyses itself; a single supporting stage is intentionally valid. [Reviewed source](#source-readme).
+The compiler turns Verilog-A models into OSDI libraries consumed by simulators. The compiled simulation models are the user-facing deliverable; the host simulator executes electrical analyses. [Reviewed source](#source-readme).
 
-Verilog-A-to-OSDI compilation enables numerical simulation in a host tool. This supporting stage does not use reviewed AI inference. [AI/stage evidence](#source-readme).
+Verilog-A-to-OSDI compilation enables numerical simulation in a host tool. This compiler path does not use reviewed AI inference. [AI/stage evidence](#source-readme).

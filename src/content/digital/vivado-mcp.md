@@ -4,15 +4,12 @@ aliases: []
 description: "MCP server keeping a persistent Vivado Tcl session and exposing FPGA project, synthesis, implementation, timing and XSim operations to agents."
 scope:
   synthesis:
-    level: core
     ai: false
   verification:
-    level: supporting
     ai: false
   layout:
-    level: core
     ai: false
-  aiBuilt: core
+  aiBuilt: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -45,6 +42,6 @@ Available Vivado commands are infrastructure, not demonstrated autonomous FPGA d
 
 ### Scope classification
 
-Persistent Vivado commands directly expose synthesis and implementation; XSim is a supporting verification path. Raw Tcl access alone does not establish RTL design generation. [Reviewed source](#source-readme).
+Persistent Vivado commands directly expose synthesis and implementation; XSim exposes behavioral and netlist simulation for Verification. Raw Tcl access alone does not establish RTL design generation. [Reviewed source](#source-readme).
 
-The server exposes conventional synthesis, XSim and implementation commands. The author states that the server was built through Claude conversations, making AI-built defining; the transport does not itself make these AI stages. [AI/stage evidence](#source-readme).
+The server exposes conventional synthesis, XSim and implementation commands. The author states that the server was built through Claude conversations, justifying AI-built; the transport does not itself make these AI stages. [AI/stage evidence](#source-readme).

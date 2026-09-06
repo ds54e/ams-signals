@@ -4,7 +4,6 @@ aliases: []
 description: "MCP server for persistent OpenROAD and OpenROAD-flow-scripts sessions, exposing physical-design commands, reports and metrics to agents."
 scope:
   layout:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

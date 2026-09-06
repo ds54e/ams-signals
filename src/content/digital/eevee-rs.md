@@ -4,7 +4,6 @@ aliases: []
 description: "Rust event-driven SystemVerilog simulator with four-state execution, class elaboration and early runs of the unmodified Accellera UVM library."
 scope:
   verification:
-    level: core
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"

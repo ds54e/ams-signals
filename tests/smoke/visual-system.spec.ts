@@ -124,7 +124,7 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(678);
+      expect(reports[0].copyWidth).toBe(746);
       expect(reports[2].copyWidth).toBe(790);
     }
 
@@ -158,7 +158,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         };
         return { bg: rgb(getComputedStyle(document.documentElement).backgroundColor),
           title: color('.index-title'), summary: color('.index-summary'), date: color('.index-date'),
-          links: color('.index-links a'), scope: color('.catalog-scope'),
+          links: color('.index-links a'),
           active: color('.activity-strip li.active', 'borderColor'), inactive: color('.activity-strip li:not(.active)', 'borderColor') };
       });
       for (const [key, value] of Object.entries(palette)) {
@@ -171,9 +171,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const cells = [...row.querySelectorAll('.activity-strip li')].map((el) => {
             const r = el.getBoundingClientRect(); return { month: el.getAttribute('data-month'), x: r.x, width: r.width, height: r.height };
           });
-          return { links: size('.catalog-quicklinks'), scope: size('.catalog-scope'), summary: size('.activity-summary'), cells };
+          return { links: size('.catalog-quicklinks'), scope: size('.scope-label'), cells };
         });
-        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('13px'); expect(styles.summary).toBe('12px');
+        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('12px');
+        const badges = await page.locator('.scope-label').evaluateAll((nodes) => nodes.map((el) => {
+          const s = getComputedStyle(el), rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
+          return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
+        }));
+        for (const badge of badges) expect(contrast(badge.color, badge.fill), `${surface} ${badge.label} badge contrast`).toBeGreaterThanOrEqual(4.5);
         expect(styles.cells).toHaveLength(12);
         expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort().reverse());
         for (let i = 0; i < 12; i++) {

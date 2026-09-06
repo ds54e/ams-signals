@@ -4,7 +4,6 @@ aliases: []
 description: "Generates verification plans and properties with an LLM, runs Icarus simulations and SymbiYosys formal checks, and explains failures from execution traces."
 scope:
   verification:
-    level: core
     ai: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
