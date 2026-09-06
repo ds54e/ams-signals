@@ -5,10 +5,9 @@ description: "Rust simulator for four-state Verilog/SystemVerilog execution with
 scope:
   verification:
     ai: false
-  aiBuilt: true
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-09-06"
 sources:
   - id: "code"
     title: "Canonical vitamin repository"
@@ -26,12 +25,18 @@ sources:
   - id: "ai-development"
     title: "Core parser work with repeated AI co-authorship"
     url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/02f507d0dac686055c32c64be0e28ff7f0c68306"
+  - id: "development-history"
+    title: "Development history spanning the VM and later language implementation"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/830bea95dd89e2a7dbba13f0bda5054efdf83cb0/docs/DEVLOG.md"
+  - id: "development-sample"
+    title: "Current elaborator and runtime work with Claude co-authorship"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/1af12ffb035b8a3ac593ccbcdca340582a3dacba"
 ---
 
 
 ### Implementation context
 
-Sustained Claude co-authorship appears on core parser, constant-folding, elaboration and runtime commits, including the reviewed implementation change. This is material core development, not an isolated documentation contribution. [Reviewed source](#source-ai-development).
+Sustained Claude co-authorship appears on parser, constant-folding, elaboration and runtime commits. The development history also records the bytecode VM and subsequent language work. This is meaningful implementation assistance, but the credits and progress records do not establish the extent of AI's implementation responsibility clearly enough for a project-level AI-built badge. [Parser contribution](#source-ai-development); [development history](#source-development-history); [current elaborator/runtime contribution](#source-development-sample).
 
 ### Release boundary
 
@@ -43,4 +48,4 @@ Public conformance tests establish their tested subset; they do not establish un
 
 Four-state RTL execution and differential conformance testing serve simulation/verification. Internal parser, elaborator and native compiler stages receive no independent Design mark. [Reviewed source](#source-readme).
 
-Four-state execution and differential checks are conventional Verification. Sustained Claude co-authorship on parser, elaboration and runtime implementation establishes defining AI-built provenance, not an AI simulation engine. [AI/stage evidence](#source-ai-development).
+Four-state execution and differential checks are conventional Verification. Development assistance does not introduce AI into the simulator's execution, and the stronger project-level AI-built classification is omitted. [Development evidence](#source-development-history).

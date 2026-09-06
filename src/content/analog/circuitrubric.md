@@ -6,11 +6,12 @@ description: "Grades generated analog SPICE netlists by graph matching and relat
 scope:
   design:
     ai: false
+  aiBuilt: true
 targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit structures"
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."
 notice: "FULL means a structural match, not a verified circuit. Bias point, gain, stability, and absolute component values are outside the evaluation scope."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-09-06"
 sources:
   - id: "code"
     title: "Public repository"
@@ -22,6 +23,9 @@ sources:
   - id: "method"
     title: "Methodology: graph matching and sizing ratios"
     url: "https://github.com/levantlabs/circuitrubric-bench/blob/f96512bf602152d1646c0cfc11ea7af8e6ade99f/docs/methodology.md"
+  - id: "development-disclosure"
+    title: "Project construction disclosure: AI-assisted corpus and tooling"
+    url: "https://github.com/levantlabs/circuitrubric-bench/blob/f96512bf602152d1646c0cfc11ea7af8e6ade99f/NOTICE.md"
 ---
 ### Evaluation
 
@@ -38,3 +42,5 @@ The short prompt names the topology, verbose describes its architecture, and spe
 The task generates circuit netlists and grades topology and relative device sizing. Structural graph scoring is not electrical simulation or specification-driven sizing optimization. [Reviewed source](#source-review).
 
 Generated topology/netlist structure and relative sizing are the graded Design task. The structural oracle is deterministic; evaluating LLM submissions does not make it an AI generator. [AI/stage evidence](#source-review).
+
+The project's construction disclosure states that its corpus and tooling were drafted with AI assistance and reviewed by a human analog designer. AI-built records that software-development provenance; the tooling disclosure supplies the basis independently of generated benchmark submissions or fixtures. It does not imply AI inference in structural grading. [Development disclosure](#source-development-disclosure).

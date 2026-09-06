@@ -76,11 +76,28 @@ test('Digital Scope requires stage presence and explicit AI booleans, with no st
     { design: { ...stage, score: 1 } }, { 'simulation': stage }, { 'ai-design': stage },
     ...[false, 'core', 'supporting', 'ai-built', 'traditional', null].map((aiBuilt) => ({ design: stage, aiBuilt })),
   ]) assert.equal(digitalSchema.safeParse({ ...data(), scope }).success, false, JSON.stringify(scope));
-  for (const ai of [true, false]) for (const aiBuilt of [undefined, true]) {
-    assert.ok(digitalSchema.safeParse({ ...data(), scope: { layout: { ai }, aiBuilt } }).success);
-  }
   for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
     assert.equal(digitalSchema.safeParse({ ...data(), [removed]: {} }).success, false);
+  }
+});
+
+test('Digital AI-built stays true-or-absent and independent of every runtime AI stage', () => {
+  for (const stage of scopeStageIds) for (const ai of [false, true]) for (const built of [false, true]) {
+    const scope = digitalSchema.parse({ ...data(), scope: {
+      [stage]: { ai }, ...(built ? { aiBuilt: true } : {}),
+    } }).scope;
+    assert.equal(scope[stage]!.ai, ai);
+    assert.equal(Object.hasOwn(scope, 'aiBuilt'), built);
+    assert.equal(scope.aiBuilt, built ? true : undefined);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels), [
+      { id: stage, label: `${ai ? 'AI ' : ''}${scopeStageLabels[stage]}`, ai },
+      ...(built ? [{ id: 'aiBuilt', label: 'AI-built' }] : []),
+    ]);
+  }
+  for (const field of ['aiBuiltStrength', 'aiBuiltTier', 'aiBuiltLevel', 'aiBuiltConfidence']) {
+    const scope = { design: { ai: false }, aiBuilt: true };
+    assert.equal(digitalSchema.safeParse({ ...data(), scope: { ...scope, [field]: 'A' } }).success, false);
+    assert.equal(digitalSchema.safeParse({ ...data(), scope, [field]: 'A' }).success, false);
   }
 });
 
@@ -344,10 +361,10 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     haven: ['AI Verification'], ucagent: ['AI Verification'], spec2cov: ['AI Verification'], verifyrtl: ['AI Verification'],
     'wave-mcp': ['Verification'], 'sentinel-dv': ['Verification'], 'openroad-mcp': ['Layout'],
     openada: ['Synthesis', 'Verification', 'Layout'],
-    'vivado-mcp': ['Synthesis', 'Verification', 'Layout', 'AI-built'],
-    xezim: ['Verification', 'AI-built'], pono: ['Verification'],
+    'vivado-mcp': ['Synthesis', 'Verification', 'Layout'],
+    xezim: ['Verification'], pono: ['Verification'],
     circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
-    veryl: ['Design', 'Synthesis', 'Verification', 'AI-built'],
+    veryl: ['Design', 'Synthesis', 'Verification'],
     xls: ['Design', 'Synthesis', 'Verification'],
     spade: ['Design', 'Synthesis', 'Verification', 'Layout'],
     kanagawa: ['Design', 'Synthesis'],
@@ -357,10 +374,8 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
   };
   for (const [id, labels] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).map((x) => x.label), labels, id);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiBuilt').map((x) => x.label), labels, id);
   }
-  assert.deepEqual(projects.filter((p) => p.data.scope.aiBuilt).map((p) => p.id).sort(),
-    ['iverilog-uvm', 'uhdm2rtlil', 'veryl', 'vitamin', 'vivado-mcp', 'what', 'xezim']);
 });
 
 test('Digital Scope displays composed AI stages and AI-built without duplicating a stage', () => {
