@@ -13,12 +13,11 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   }));
   expect(items.length).toBeGreaterThan(0);
   for (const item of items) {
-    expect(item.classes).toEqual(['scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]);
+    expect(item.classes).toEqual(['category-label', 'scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]);
     expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-built$/);
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
     expect(item.radius).toBeGreaterThanOrEqual(2); expect(item.radius).toBeLessThanOrEqual(3);
-    expect(item.font).toBeGreaterThanOrEqual(10.5); expect(item.font).toBeLessThanOrEqual(11.5);
-    expect(item.weight).toBeGreaterThanOrEqual(500); expect(item.weight).toBeLessThanOrEqual(600);
+    expect(item.font).toBe(10); expect(item.weight).toBe(600);
     expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
     expect(item.width).toBeLessThan(145);
@@ -171,10 +170,10 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     if (width >= 1024) {
       expect(row.columns[0].width).toBe(150);
       expect(row.columns[1].width).toBeGreaterThan(680);
-      expect(row.columns[1].left - row.columns[0].right).toBe(24);
+      expect(row.columns[1].left - row.columns[0].right).toBe(18);
       if (width >= 1280) {
         expect(row.row.width).toBe(920);
-        expect(row.columns[1].width).toBe(746);
+        expect(row.columns[1].width).toBe(752);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);
@@ -182,8 +181,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     }
     expect(row.date.bottom).toBeLessThan(row.strip.top);
     expect(row.strip.top - row.date.bottom).toBeCloseTo(4, 1);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeGreaterThanOrEqual(5);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeLessThanOrEqual(7);
+    expect(row.scopeItems[0].top - row.strip.bottom).toBeCloseTo(8, 1);
     expect(row.justify).toBe('flex-start');
     expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
     expect(row.name.left).toBeCloseTo(row.title.left, 1);

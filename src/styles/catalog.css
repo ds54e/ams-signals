@@ -1,18 +1,18 @@
 /* One presentation for both independently prepared domain catalogs. */
 .catalog {
   --scope-design: #4d7066;
-  --scope-simulation: #536f82;
+  --scope-simulation: #44799b;
   --scope-verification: var(--scope-simulation);
   --scope-synthesis: #807047;
   --scope-layout: #89675d;
-  --scope-ai-built: #766681;
+  --scope-ai-built: #976368;
   --scope-ink: #ffffff;
   max-width: var(--layout-listing);
   margin-inline: auto;
   overflow-wrap: anywhere;
 }
-.catalog-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 24px; }
-.catalog-rail { display: flex; flex-direction: column; align-items: start; gap: 6px; }
+.catalog-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 18px; }
+.catalog-rail { display: flex; flex-direction: column; align-items: start; gap: 8px; }
 .catalog-toolbar { margin-bottom: 0; }
 .catalog-search { flex: 0 1 300px; min-width: 0; }
 .catalog-scope-filter { flex: 0 0 150px; }
@@ -23,7 +23,7 @@
 .catalog-quicklinks { display: flex; flex-wrap: wrap; gap: 5px 11px; align-content: start; }
 .catalog-quicklinks a { display: inline-block; padding-block: 2px; }
 .catalog-scope { display: flex; flex-direction: column; align-items: start; gap: 3px; }
-.scope-label { width: fit-content; padding: 2px 5px; border-radius: 2px; font-size: 0.6875rem; font-weight: 500; line-height: 1.35; color: var(--scope-ink); white-space: nowrap; }
+.scope-label { color: var(--scope-ink); }
 .scope-design { background: var(--scope-design); }
 .scope-simulation { background: var(--scope-simulation); }
 .scope-synthesis { background: var(--scope-synthesis); }
@@ -46,7 +46,7 @@
   .catalog-search { flex-basis: 100%; }
 }
 @media (prefers-color-scheme: dark) {
-  .catalog { --scope-design: #91aaa1; --scope-simulation: #94a8b6; --scope-synthesis: #b4a27b; --scope-layout: #b89b8f; --scope-ai-built: #ab9db5; --scope-ink: #14231f; }
+  .catalog { --scope-design: #91aaa1; --scope-simulation: #90b4cd; --scope-synthesis: #b4a27b; --scope-layout: #b89b8f; --scope-ai-built: #c59c9f; --scope-ink: #14231f; }
 }
 @media (forced-colors: active) {
   .scope-label { color: CanvasText; background: Canvas; outline: 1px solid CanvasText; outline-offset: -1px; }

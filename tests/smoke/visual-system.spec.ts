@@ -124,7 +124,7 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(746);
+      expect(reports[0].copyWidth).toBe(752);
       expect(reports[2].copyWidth).toBe(790);
     }
 
@@ -145,6 +145,45 @@ function contrast(a: number[], b: number[]) {
 }
 
 for (const colorScheme of ['light', 'dark'] as const) {
+  test(`Catalog and Events share badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme });
+    const badgeStyles = async (selector: string) => page.locator(selector).evaluateAll((nodes) => nodes.map((el) => {
+      const s = getComputedStyle(el);
+      return {
+        typography: { family: s.fontFamily, size: s.fontSize, weight: s.fontWeight, tracking: s.letterSpacing,
+          line: s.lineHeight, padding: s.padding, radius: s.borderRadius },
+        transform: s.textTransform,
+      };
+    }));
+    await open(page, 'events');
+    const events = await badgeStyles('[data-event-result] .category-label');
+    expect(events.length).toBeGreaterThan(0);
+    expect(events[0].typography).toMatchObject({ size: '10px', weight: '600', line: '14px', tracking: '0.25px', padding: '3px 5px', radius: '3px' });
+    for (const badge of events) {
+      expect(badge.typography).toEqual(events[0].typography);
+      expect(badge.transform).toBe('uppercase');
+    }
+    for (const surface of ['analog', 'digital']) {
+      await open(page, surface);
+      const scope = await badgeStyles('.catalog-scope .category-label');
+      expect(scope.length).toBeGreaterThan(0);
+      for (const badge of scope) {
+        expect(badge.typography).toEqual(events[0].typography);
+        expect(badge.transform).toBe('none');
+      }
+      const palette = await page.locator('.catalog').evaluate((el, stage) => {
+        const rgb = (selector: string) => getComputedStyle(el.querySelector(selector)!).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number);
+        return { design: rgb('.scope-design'), blue: rgb(`.scope-${stage}`), aiBuilt: rgb('.scope-ai-built') };
+      }, surface === 'analog' ? 'simulation' : 'verification');
+      // Green/teal, distinctly blue, and muted red provenance in either theme.
+      expect(palette.design[1] - palette.design[2]).toBeGreaterThanOrEqual(5);
+      expect(palette.blue[2] - palette.blue[1]).toBeGreaterThanOrEqual(20);
+      expect(palette.blue[2] - palette.blue[0]).toBeGreaterThanOrEqual(40);
+      expect(palette.aiBuilt[0] - palette.aiBuilt[1]).toBeGreaterThanOrEqual(20);
+      expect(palette.aiBuilt[0] - palette.aiBuilt[2]).toBeGreaterThanOrEqual(20);
+    }
+  });
+
   test(`text hierarchy and quiet activity retain contrast in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
     for (const surface of indexes) {
@@ -173,7 +212,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           });
           return { links: size('.catalog-quicklinks'), scope: size('.scope-label'), cells };
         });
-        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('11px');
+        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('10px');
         const badges = await page.locator('.scope-label').evaluateAll((nodes) => nodes.map((el) => {
           const s = getComputedStyle(el), rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
