@@ -1,7 +1,7 @@
 ---
 name: "Surfer"
 aliases: []
-description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with remote viewing and extensible value translations."
+description: "Native and web waveform viewer for VCD, FST, GHW and transaction data, with extensible value translations. Client-server mode lets users inspect remote waveform files without copying them locally; the browser build offers a subset of native features."
 scope:
   verification:
     ai: false

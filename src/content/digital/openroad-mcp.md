@@ -1,7 +1,7 @@
 ---
 name: "OpenROAD-MCP"
 aliases: []
-description: "MCP server for persistent OpenROAD and OpenROAD-flow-scripts sessions, exposing physical-design commands, reports and metrics to agents."
+description: "MCP server exposing persistent OpenROAD and OpenROAD-flow-scripts sessions to external agents. It runs physical-design commands and makes session history, reports and metrics available for inspection, while the underlying OpenROAD tools perform the layout operations."
 scope:
   layout:
     ai: false

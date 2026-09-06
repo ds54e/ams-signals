@@ -1,7 +1,7 @@
 ---
 name: "Spec2Cov"
 aliases: []
-description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior."
+description: "Generates testbenches from specifications and feeds Verilator or Questa coverage back to an LLM to target uncovered RTL behavior. The project includes hardware-module setups and experiment scripts for compiling tests, running simulations and collecting code-coverage results."
 scope:
   verification:
     ai: true

@@ -1,7 +1,7 @@
 ---
 name: "EQY"
 aliases: []
-description: "Yosys-based equivalence-checking flow that matches and partitions reference and transformed designs, then proves correspondence with configurable strategies."
+description: "Yosys-based formal equivalence-checking flow that matches and partitions reference and transformed designs. Configurable proof strategies work on the partitions, making it possible to inspect which portions were proven and which remain failed, timed out or unproven."
 scope:
   verification:
     ai: false

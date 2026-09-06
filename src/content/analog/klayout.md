@@ -2,7 +2,7 @@
 name: "KLayout"
 aliases: []
 summary: "Views, edits and verifies IC layouts with programmable geometry and PCells."
-description: "Layout editor and verification platform with Python/Ruby scripting, PCells, DRC/LVS and GDS/OASIS support for custom integrated-circuit workflows."
+description: "Layout editor and verification platform for custom integrated circuits, with GDS/OASIS support. Python/Ruby scripts and parameterized cells automate geometry construction, while programmable DRC/LVS checks use technology-specific rules to examine layout and connectivity."
 scope:
   layout:
     ai: false

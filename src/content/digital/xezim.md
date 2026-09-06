@@ -1,7 +1,7 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
-description: "Rust SystemVerilog simulator combining four-state event-driven execution, native compilation, UVM features and DPI/VPI interfaces with public conformance tests."
+description: "Rust SystemVerilog simulator combining four-state event-driven execution, native compilation, UVM features and DPI/VPI interfaces. It translates HDL into an executable simulation representation and waveform traces, with public conformance tests tracking the behavior of implemented language features."
 scope:
   verification:
     ai: false

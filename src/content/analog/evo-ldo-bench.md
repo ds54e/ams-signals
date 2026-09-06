@@ -2,7 +2,7 @@
 name: "EvoLDO-Bench"
 aliases: ["EvoLDO","ldo_benchmark_for_agent"]
 summary: "Benchmarks LDO reasoning separately from controlled SKY130/ngspice circuit-repair and tool-agent tasks."
-description: "Benchmarks LLM reasoning about low-dropout regulators (LDOs), with a separate SKY130/ngspice tool track for circuit edits, simulation setup and failure diagnosis."
+description: "Benchmarks LLM reasoning about low-dropout regulators (LDOs), with separate SKY130/ngspice tasks for circuit edits, simulation setup and failure diagnosis. The reasoning track grades structured answers without tools; controlled tool tracks also evaluate execution and evidence handling."
 scope:
   design:
     ai: true

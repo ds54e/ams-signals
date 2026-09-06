@@ -2,7 +2,7 @@
 name: "Xschem"
 aliases: []
 summary: "Edits hierarchical schematics and emits simulator-ready netlists."
-description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting, open-PDK examples and integration with ngspice and Xyce."
+description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting and open-PDK examples. It emits SPICE, Verilog and VHDL netlists and integrates simulator run control, waveform inspection and result backannotation with tools such as ngspice and Xyce."
 scope:
   design:
     ai: false

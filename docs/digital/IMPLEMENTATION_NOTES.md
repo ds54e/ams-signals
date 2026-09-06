@@ -1,8 +1,18 @@
 # Digital implementation and review notes
 
+## Palette and description refinement (2026-09-06)
+
+Starting commit: `1abb5e4e476684d2b0dbf084ce7b39b8a82df32e`. Both catalogs now use the same **122px rail / 12px gap / 786px body** at the unchanged 920px listing width. A coordinated teal, blue, yellow-olive, copper and crimson palette replaces the closely spaced hues; dark mode uses the same identities with separately chosen fills. The [visual system](../VISUAL_SYSTEM.md) records exact values and measured contrast. Uppercase Events badge typography, 10px Activity-to-Scope spacing and 5×10px ticks remain unchanged.
+
+All **33 Digital descriptions** were reread and expanded using the existing source references and classification notes, reopening pinned READMEs and implementation files. The additional sentence identifies the execution model, downstream artifact, tool integration or important workflow boundary. This is a description review, not an activity refresh or Scope reassessment.
+
+Examples include cocotb's simulator-event scheduling, Verilator's generated-model harness, EQY's partition/proof outcomes, and CoreSmith's explicit human-review paths. Surfer's native/client-server and browser distinction comes from its canonical GitLab README, not a mirror. Sentinel replay still produces commands rather than running simulations. The experimental Icarus-derived UVM project and eevee-rs do not claim complete language conformance. After screenshot review, iverilog-uvm was tightened and uhdm2rtlil's second sentence focused on the Surelog-to-Yosys synthesis path.
+
+Membership, Scope/AI booleans, source arrays, Markdown research bodies and every activity snapshot value are unchanged. Search regressions cover SystemVerilog, UVM, Yosys, OpenROAD, formal, waveform, synthesis and AI using only visible content.
+
 ## Compact Scope labels (2026-09-06)
 
-Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. The paired catalog now uses a 150px metadata rail and flexible project body at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
+Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. This change introduced the paired metadata-rail/project-body index at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
 
 The [explicit per-project Scope review](../CATALOG_SCOPE_REVIEW.md) records all 20 reassessed assignments, retained/removed decisions, primary evidence and the full 68-description review. Membership stays **35 Analog / 33 Digital**. Source arrays, review/activity dates, repository identities, SHAs and buckets are unchanged. Scope AI booleans remain unchanged for retained stages. AI-built is now optional true, with the same seven evidenced projects across both domains.
 

@@ -1,7 +1,7 @@
 ---
 name: "AnalogSAGE"
 summary: "Analog design agents with simulation-grounded memory."
-description: "Uses LLM agents for topology exploration and transistor sizing in SKY130 op-amps, combining retrieved circuit knowledge with ngspice feedback and memory of earlier attempts."
+description: "Uses LLM agents for topology exploration and transistor sizing in SKY130 op-amps. Retrieved circuit knowledge and memory of earlier attempts guide topology proposals and sizing ranges, while Bayesian search evaluates candidates through ngspice feedback."
 scope:
   design:
     ai: true

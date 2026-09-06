@@ -245,7 +245,9 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expectTitleAndIndexGeometry(rows(page), width);
       await expectActivityBands(rows(page), `.catalog-activity`, activity);
       if (width >= 1024) {
-        expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(4);
+        // Two-sentence descriptions can leave the fourth row partially visible at 768px high.
+        const minimumCompleteRows = height >= 800 ? 4 : 3;
+        expect(await rows(page).evaluateAll((nodes) => nodes.filter((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }).length)).toBeGreaterThanOrEqual(minimumCompleteRows);
       }
       await expect(page.locator('.catalog-columns')).toHaveCount(0);
       const toolbar = page.locator('[data-catalog-filters]');

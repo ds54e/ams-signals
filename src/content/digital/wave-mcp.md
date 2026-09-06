@@ -1,7 +1,7 @@
 ---
 name: "wave-mcp"
 aliases: []
-description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons as structured agent tools."
+description: "MCP backend exposing FST waveform values, SystemVerilog hierarchy, drivers, fan-in, X propagation and waveform comparisons. It combines pyslang design analysis with existing simulation artifacts to answer structured debug queries; simulation itself remains in the user's tool flow."
 scope:
   verification:
     ai: false

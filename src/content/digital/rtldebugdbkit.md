@@ -1,7 +1,7 @@
 ---
 name: "RTLDebugDBKit + RTLTracer"
 aliases: []
-description: "Elaborates SystemVerilog into an instance-level SQLite dependency database, then traces signals, drivers, fan-in, fan-out and bit-level paths through that data."
+description: "Elaborates SystemVerilog into an instance-level SQLite dependency database for static RTL debug. The companion RTLTracer follows signals, drivers, fan-in, fan-out and bit-level paths through that data; stored relations describe design structure rather than runtime waveform values."
 scope:
   verification:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "EVAS"
 summary: "An event-driven simulator for behavioral Verilog-A."
-description: "Event-driven behavioral Verilog-A simulator that runs Spectre-style testbenches, produces transient waveforms and emits machine-readable lint diagnostics."
+description: "Event-driven behavioral Verilog-A simulator that accepts Spectre-style testbenches and produces transient waveforms and machine-readable lint diagnostics. Its Rust engine evaluates voltage-mode behavioral models; it does not solve transistor-level SPICE networks through KCL/MNA."
 scope:
   simulation:
     ai: false

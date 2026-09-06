@@ -2,7 +2,7 @@
 name: "AnalogCoder-Pro"
 aliases: ["AnalogCoderPro"]
 summary: "Combines LLM circuit generation with waveform-guided diagnosis, repair, and device-sizing research."
-description: "Generates analog netlists from circuit requests, then uses ngspice results and waveform images to diagnose and repair candidates with multimodal LLMs."
+description: "Uses multimodal LLMs to generate analog netlists and diagnose or repair candidates from ngspice results and waveform images. Circuit requests specify input/output ports, while released sample circuits and testbenches support generation and feedback experiments."
 scope:
   design:
     ai: true

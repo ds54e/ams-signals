@@ -2,7 +2,7 @@
 name: "Magic"
 aliases: []
 summary: "Edits custom-IC layouts and extracts circuits and parasitics with technology rules."
-description: "VLSI layout editor with design-rule checking, circuit and parasitic extraction, and Tcl-driven custom-IC workflows used with open PDKs."
+description: "VLSI layout editor with design-rule checking, circuit extraction and parasitic extraction (PEX) for custom-IC workflows. Interactive editing and Tcl scripts operate on layout geometry, with technology files supplying the process-specific rules used by open PDKs."
 scope:
   layout:
     ai: false

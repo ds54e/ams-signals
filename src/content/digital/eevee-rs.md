@@ -1,7 +1,7 @@
 ---
 name: "eevee-rs"
 aliases: []
-description: "Rust event-driven SystemVerilog simulator with four-state execution, class elaboration and early runs of the unmodified Accellera UVM library."
+description: "Pre-alpha Rust SystemVerilog simulator with four-state event-driven execution, class elaboration and early runs of the unmodified Accellera UVM library. An event kernel and register-bytecode interpreter execute processes; broader UVM workflows and language conformance remain under development."
 scope:
   verification:
     ai: false

@@ -2,7 +2,7 @@
 name: "Xyce"
 aliases: []
 summary: "Runs SPICE-compatible circuit analyses on serial and parallel platforms."
-description: "Sandia-developed SPICE-compatible circuit simulator with parallel execution, DC, transient, AC, noise and harmonic-balance analyses, and compact-device models."
+description: "Sandia-developed SPICE-compatible circuit simulator with DC, transient, AC, noise and harmonic-balance analyses. Its C++ implementation supports MPI-based parallel execution and compact-device models, with an XDM netlist translator for adapting supported external SPICE syntax."
 scope:
   simulation:
     ai: false

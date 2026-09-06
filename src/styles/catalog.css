@@ -1,17 +1,18 @@
 /* One presentation for both independently prepared domain catalogs. */
 .catalog {
-  --scope-design: #4d7066;
-  --scope-simulation: #44799b;
+  /* Five hue families; evaluation/checking shares blue across both domains. */
+  --scope-design: #3b6e61;
+  --scope-simulation: #3975a3;
   --scope-verification: var(--scope-simulation);
-  --scope-synthesis: #807047;
-  --scope-layout: #89675d;
-  --scope-ai-built: #976368;
+  --scope-synthesis: #766d2a;
+  --scope-layout: #a2583a;
+  --scope-ai-built: #9b415b;
   --scope-ink: #ffffff;
   max-width: var(--layout-listing);
   margin-inline: auto;
   overflow-wrap: anywhere;
 }
-.catalog-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 16px; }
+.catalog-row { display: grid; grid-template-columns: 122px minmax(0, 1fr); column-gap: 12px; }
 .catalog-rail { display: flex; flex-direction: column; align-items: start; gap: 10px; }
 .catalog-toolbar { margin-bottom: 0; }
 .catalog-search { flex: 0 1 300px; min-width: 0; }
@@ -46,7 +47,14 @@
   .catalog-search { flex-basis: 100%; }
 }
 @media (prefers-color-scheme: dark) {
-  .catalog { --scope-design: #91aaa1; --scope-simulation: #90b4cd; --scope-synthesis: #b4a27b; --scope-layout: #b89b8f; --scope-ai-built: #c59c9f; --scope-ink: #14231f; }
+  .catalog {
+    --scope-design: #91b4a4;
+    --scope-simulation: #8fb7d5;
+    --scope-synthesis: #bdb06d;
+    --scope-layout: #c79572;
+    --scope-ai-built: #c68b9a;
+    --scope-ink: #14231f;
+  }
 }
 @media (forced-colors: active) {
   .scope-label { color: CanvasText; background: Canvas; outline: 1px solid CanvasText; outline-offset: -1px; }

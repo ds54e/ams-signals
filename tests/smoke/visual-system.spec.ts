@@ -124,7 +124,7 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(754);
+      expect(reports[0].copyWidth).toBe(786);
       expect(reports[2].copyWidth).toBe(790);
     }
 
@@ -142,6 +142,14 @@ function contrast(a: number[], b: number[]) {
     .reduce((sum, n, i) => sum + n * [0.2126, 0.7152, 0.0722][i], 0);
   const values = [luminance(a), luminance(b)].sort((x, y) => y - x);
   return (values[0] + 0.05) / (values[1] + 0.05);
+}
+
+function hue(rgb: number[]) {
+  const [r, g, b] = rgb.map((n) => n / 255);
+  const high = Math.max(r, g, b), low = Math.min(r, g, b), span = high - low;
+  if (!span) return NaN; // A gray palette must not pass category-separation checks.
+  const sector = high === r ? (g - b) / span : high === g ? (b - r) / span + 2 : (r - g) / span + 4;
+  return (sector * 60 + 360) % 360;
 }
 
 for (const colorScheme of ['light', 'dark'] as const) {
@@ -163,6 +171,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       expect(badge.typography).toEqual(events[0].typography);
       expect(badge.transform).toBe('uppercase');
     }
+    const palettes: Record<string, Record<string, number[]>> = {};
     for (const surface of ['analog', 'digital']) {
       await open(page, surface);
       const scope = await badgeStyles('.catalog-scope .category-label');
@@ -172,16 +181,30 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(badge.transform).toBe('uppercase');
       }
       const palette = await page.locator('.catalog').evaluate((el, stage) => {
-        const rgb = (selector: string) => getComputedStyle(el.querySelector(selector)!).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number);
-        return { design: rgb('.scope-design'), blue: rgb(`.scope-${stage}`), aiBuilt: rgb('.scope-ai-built') };
-      }, surface === 'analog' ? 'simulation' : 'verification');
-      // Green/teal, distinctly blue, and muted red provenance in either theme.
-      expect(palette.design[1] - palette.design[2]).toBeGreaterThanOrEqual(5);
-      expect(palette.blue[2] - palette.blue[1]).toBeGreaterThanOrEqual(20);
-      expect(palette.blue[2] - palette.blue[0]).toBeGreaterThanOrEqual(40);
-      expect(palette.aiBuilt[0] - palette.aiBuilt[1]).toBeGreaterThanOrEqual(20);
-      expect(palette.aiBuilt[0] - palette.aiBuilt[2]).toBeGreaterThanOrEqual(20);
+        const rgb = (selector: string) => {
+          const node = el.querySelector(selector);
+          return node ? getComputedStyle(node).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number) : null;
+        };
+        return Object.fromEntries(Object.entries({ design: rgb('.scope-design'), blue: rgb(`.scope-${stage}`),
+          synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), aiBuilt: rgb('.scope-ai-built') }).filter(([, value]) => value));
+      }, surface === 'analog' ? 'simulation' : 'verification') as Record<string, number[]>;
+      palettes[surface] = palette;
+      // Review the full system: teal, blue, yellow-olive, copper and crimson.
+      // Broad hue families allow tuning without allowing the warm categories to merge.
+      const families = { design: [145, 180], blue: [195, 220], synthesis: [43, 65], layout: [10, 30], aiBuilt: [330, 355] };
+      for (const [stage, color] of Object.entries(palette)) {
+        const h = hue(color), [min, max] = families[stage as keyof typeof families];
+        expect(h, `${surface} ${stage} hue`).toBeGreaterThanOrEqual(min);
+        expect(h, `${surface} ${stage} hue`).toBeLessThanOrEqual(max);
+      }
+      const hues = Object.values(palette).map(hue);
+      for (let i = 0; i < hues.length; i++) for (let j = i + 1; j < hues.length; j++) {
+        const distance = Math.abs(hues[i] - hues[j]);
+        expect(Math.min(distance, 360 - distance), 'Scope hue separation').toBeGreaterThanOrEqual(24);
+      }
     }
+    // Equivalent stages use the same palette, including Analog Simulation and Digital Verification.
+    for (const [stage, color] of Object.entries(palettes.analog)) expect(color).toEqual(palettes.digital[stage]);
   });
 
   test(`text hierarchy and quiet activity retain contrast in ${colorScheme} mode`, async ({ page }) => {

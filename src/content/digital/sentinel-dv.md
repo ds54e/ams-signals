@@ -1,7 +1,7 @@
 ---
 name: "Sentinel DV"
 aliases: []
-description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries across simulator artifacts."
+description: "Read-only MCP server for triaging UVM logs, assertions, coverage, regressions and waveform summaries. Exported verification artifacts are indexed in DuckDB for structured agent queries; replay operations produce reviewable commands rather than launching simulations or modifying RTL."
 scope:
   verification:
     ai: false

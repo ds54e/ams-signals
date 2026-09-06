@@ -1,7 +1,7 @@
 ---
 name: "MCY"
 aliases: []
-description: "Uses Yosys netlist mutations and formal filtering to measure whether a self-checking testbench detects meaningful RTL faults."
+description: "Measures how well a self-checking testbench detects meaningful RTL faults using Yosys netlist mutations and formal filtering. Mutated designs run against the testbench, and result views help identify undetected changes that call for stronger checks."
 scope:
   verification:
     ai: false

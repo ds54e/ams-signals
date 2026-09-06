@@ -1,7 +1,7 @@
 ---
 name: "vivado_mcp"
 aliases: []
-description: "MCP server keeping a persistent Vivado Tcl session and exposing FPGA project, synthesis, implementation, timing and XSim operations to agents."
+description: "MCP server keeping a persistent Vivado Tcl session for FPGA synthesis, implementation, timing and XSim operations. External agents can query the design, inspect utilization or timing reports and request bitstream generation without restarting Vivado for each command."
 scope:
   synthesis:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "slang"
 aliases: []
-description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations for code tooling, including pyslang Python bindings."
+description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations. Its standalone tool performs static analysis, while C++ APIs and pyslang Python bindings support source inspection, refactoring and integration into other compilers or developer tools."
 scope:
   design:
     ai: false

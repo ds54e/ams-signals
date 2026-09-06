@@ -2,7 +2,7 @@
 name: "AMS-IO-Agent"
 aliases: ["AMS-IO-Bench"]
 summary: "Structured-intent generation of AMS I/O rings."
-description: "Converts pin plans and design intent into AMS I/O-ring schematics and layouts, using structured intent graphs, Virtuoso SKILL generation and Calibre DRC/LVS checks; includes the companion AMS-IO-Bench cases."
+description: "Uses LLM interpretation of pin plans and design intent to generate AMS I/O-ring schematics and layouts. Structured intent graphs guide pad placement and domain isolation, with Virtuoso SKILL generation, Calibre DRC/LVS checks and companion AMS-IO-Bench cases."
 scope:
   design:
     ai: true

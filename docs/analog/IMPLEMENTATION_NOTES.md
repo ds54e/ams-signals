@@ -1,8 +1,18 @@
 # Analog implementation and review notes
 
+## Palette and description refinement (2026-09-06)
+
+Starting commit: `1abb5e4e476684d2b0dbf084ce7b39b8a82df32e`. Both catalogs now use the same **122px rail / 12px gap / 786px body** at the unchanged 920px listing width. A coordinated teal, blue, yellow-olive, copper and crimson palette replaces the closely spaced hues; dark mode uses the same identities with separately chosen fills. The [visual system](../VISUAL_SYSTEM.md) records exact values and measured contrast. Uppercase Events badge typography, 10px Activity-to-Scope spacing and 5×10px ticks remain unchanged.
+
+All **35 Analog descriptions** were reread against their entry's existing primary-source references and classification notes. **33 changed**; G-DiffPS and Masala-CHAI already explained their mechanism and simulation boundary, so their concise descriptions remain. Expansions use the existing pinned READMEs/implementation files, official simulator documentation, LOADBench's release metadata and ATLAS's author paper. This is a description review, not an activity refresh or Scope reassessment.
+
+Useful added context includes vcli's session registry/daemon and local/SSH dispatch; AnalogDesignBench's task-specific PVT/Monte Carlo checks; and CircuitRubric's structural grading without electrical-performance claims. ATLAS remains paper-described and pre-layout. EVAS remains a behavioral engine rather than a transistor-network solver; ZeroSim's learned estimates remain distinct from ngspice data generation. Ngspice/OpenVAF enhancements are explicitly separate from upstream capabilities. Initial screenshots prompted a shorter enhancement-project description while retaining that boundary.
+
+Membership, Scope/AI booleans, source arrays, Markdown research bodies and every activity snapshot value are unchanged. Search regressions cover ngspice, Virtuoso, Spectre, Verilog-A, SKY130, sizing, layout and AI using only visible content.
+
 ## Compact Scope labels (2026-09-06)
 
-Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. The paired catalog now uses a 150px metadata rail and flexible project body at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
+Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`. This change introduced the paired metadata-rail/project-body index at the shared 920px listing width. Date → twelve newest-left ticks → filled category labels form one compact block. The month total is non-visible. The common component, filter and style path remains authoritative; no compatibility schema or second taxonomy is retained.
 
 The [explicit per-project Scope review](../CATALOG_SCOPE_REVIEW.md) records all 20 reassessed assignments, retained/removed decisions, primary evidence and the full 68-description review. Membership stays **35 Analog / 33 Digital**. Source arrays, review/activity dates, repository identities, SHAs and buckets are unchanged. Scope AI booleans remain unchanged for retained stages. AI-built is now optional true, with the same seven evidenced projects across both domains.
 

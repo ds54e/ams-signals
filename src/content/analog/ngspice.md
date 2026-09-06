@@ -2,7 +2,7 @@
 name: "ngspice"
 aliases: []
 summary: "Simulates circuit netlists with SPICE analyses and device models."
-description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows."
+description: "Open-source SPICE circuit simulator for DC, transient, AC, noise and device-model analysis in analog and custom-IC workflows. It takes circuit netlists and model parameters and returns voltages, currents and other electrical quantities as plots or data files."
 scope:
   simulation:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "CIRCT"
 aliases: []
-description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs, synthesis transformations, simulation-oriented lowering and formal-checking tools."
+description: "MLIR/LLVM hardware compiler infrastructure with reusable hardware IRs and synthesis transformations. Compiler pipelines lower design representations for downstream tools, while LLHD models event-based execution and upstream formal-checking tools support verification of hardware behavior."
 scope:
   design:
     ai: false

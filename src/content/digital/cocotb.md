@@ -1,7 +1,7 @@
 ---
 name: "cocotb"
 aliases: []
-description: "Python coroutine-based verification framework that drives and observes HDL simulators through simulator interfaces, triggers and testbench scheduling."
+description: "Python coroutine-based verification framework for driving and observing Verilog, SystemVerilog and VHDL designs in HDL simulators. Triggers and testbench scheduling coordinate stimulus and checks with simulator events, allowing tests to use Python libraries alongside the simulator's execution engine."
 scope:
   verification:
     ai: false

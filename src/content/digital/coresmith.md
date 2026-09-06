@@ -1,7 +1,7 @@
 ---
 name: "CoreSmith"
 aliases: []
-description: "Uses LLM agents to generate and repair RTL/testbenches, then drive Yosys synthesis, OpenROAD placement/routing and Magic checks toward GDS output."
+description: "Uses LLM agents to generate and repair RTL/testbenches, then drive Yosys synthesis, OpenROAD placement/routing and Magic checks toward GDS output. LangGraph coordinates the stages and backend repair loops, with explicit interruption and human-review paths when decisions are needed."
 scope:
   design:
     ai: true

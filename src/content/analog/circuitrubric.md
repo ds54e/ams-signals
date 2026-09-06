@@ -2,7 +2,7 @@
 name: "CircuitRubric"
 aliases: ["CircuitRubric Bench","circuitrubric-bench"]
 summary: "Grades generated SPICE netlists by topology connectivity and relative device sizing, without circuit simulation."
-description: "Grades generated analog netlists by graph matching and relative device sizing, identifying topology and connectivity errors through structural scoring."
+description: "Grades generated analog SPICE netlists by graph matching and relative device sizing. Its fixtures and Python grader identify topology, connectivity and sizing-ratio errors without a simulator or PDK; the score describes structure rather than electrical performance."
 scope:
   design:
     ai: false

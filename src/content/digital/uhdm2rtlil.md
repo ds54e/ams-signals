@@ -1,7 +1,7 @@
 ---
 name: "uhdm2rtlil"
 aliases: []
-description: "SystemVerilog synthesis frontend that imports elaborated Surelog/UHDM designs into Yosys RTLIL."
+description: "SystemVerilog synthesis frontend that imports elaborated Surelog/UHDM designs into Yosys RTLIL. Surelog handles preprocessing and elaboration before translation, allowing Yosys optimization and technology-mapping passes to operate on the imported circuit."
 scope:
   synthesis:
     ai: false

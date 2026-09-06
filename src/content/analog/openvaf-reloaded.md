@@ -2,7 +2,7 @@
 name: "OpenVAF-Reloaded"
 aliases: []
 summary: "Compiles Verilog-A device models into OSDI shared libraries."
-description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators, extending the original OpenVAF with compiler fixes and model-interface support."
+description: "Community-maintained Verilog-A compiler that produces OSDI shared libraries for SPICE-class simulators. Extending the original OpenVAF, it fixes model-compilation issues and develops the OSDI 0.4 interface; numerical circuit analysis runs in a compatible host simulator."
 scope:
   simulation:
     ai: false

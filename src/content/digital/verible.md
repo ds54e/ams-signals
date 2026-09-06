@@ -1,7 +1,7 @@
 ---
 name: "Verible"
 aliases: []
-description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities."
+description: "SystemVerilog developer-tool suite providing parsing, linting, formatting, language-server support and source-analysis utilities. Its parser handles unpreprocessed source for editor and single-file workflows, with reusable components for building additional HDL tooling without a full simulation or synthesis run."
 scope:
   design:
     ai: false

@@ -1,7 +1,7 @@
 ---
 name: "OpenADA"
 aliases: []
-description: "Local agent-to-EDA interface running circuit simulation, measurement, synthesis and DRC/LVS operations through tool drivers that return structured evidence."
+description: "Local agent-to-EDA interface for circuit simulation, measurement, synthesis and DRC/LVS operations. Drivers translate structured intent into native tool actions, including ngspice/Xyce, Yosys and KLayout paths, and return evidence while preserving the original design and result files."
 scope:
   synthesis:
     ai: false

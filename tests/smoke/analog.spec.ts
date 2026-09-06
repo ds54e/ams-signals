@@ -8,6 +8,7 @@ catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout:
 catalogSearchRegression(fixture, {
   ngspice: ['ngspice', 'analoggym', 'autosizer'],
   Virtuoso: ['virtuoso-agent', 'virtuoso-bridge-lite', 'vcli'],
+  Spectre: ['panda', 'atlas', 'vcli', 'virtuoso-agent'],
   'Verilog-A': ['evas', 'openvaf-reloaded'],
   SKY130: ['analoggym', 'gmoverid-skill'],
   AI: ['analogsage', 'zerosim'],

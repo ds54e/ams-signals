@@ -1,7 +1,7 @@
 ---
 name: "SymbiYosys"
 aliases: ["sby"]
-description: "Driver for Yosys-based formal flows orchestrating bounded checks, inductive proofs and cover analysis across supported engines and solvers."
+description: "Driver for Yosys-based formal verification flows, orchestrating bounded checks, inductive proofs and cover analysis. Task configurations select engines and solvers, while the driver manages their execution and collects proof status or counterexample traces for inspection."
 scope:
   verification:
     ai: false

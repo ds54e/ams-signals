@@ -2,7 +2,7 @@
 name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
-description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers through structured agent commands."
+description: "Rust CLI for concurrent Virtuoso sessions, exposing schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers. A session registry and daemon dispatch commands locally or through SSH, returning structured output for scripts and agent workflows."
 scope:
   design:
     ai: false

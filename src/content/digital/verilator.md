@@ -1,7 +1,7 @@
 ---
 name: "Verilator"
 aliases: []
-description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models with assertion, coverage and waveform support."
+description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models. The generated models execute with a simulation harness, with assertions, coverage collection and waveform output supporting testbench-driven verification and debug."
 scope:
   verification:
     ai: false
