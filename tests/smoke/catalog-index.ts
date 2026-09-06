@@ -197,7 +197,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expectScopeLabels(page.locator(`.catalog-scope`));
   });
 
-  test(`${label} every row shows twelve reviewed activity months with the newest physically leftmost`, async ({ page }) => {
+  test(`${label} every row preserves twelve month/value pairs from oldest left to newest right`, async ({ page }) => {
     await open(page); await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 

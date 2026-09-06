@@ -1,6 +1,8 @@
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import { test } from 'node:test';
-import { activityBand, activityDateLabel } from '../../src/lib/catalog-activity-band.ts';
+import { activityBand } from '../../src/lib/catalog-activity-band.ts';
+import { formatDate } from '../../src/lib/date-format.ts';
+import { formatWhen } from '../../src/lib/content.ts';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
@@ -214,7 +216,7 @@ test('activity counting uses UTC committer dates and retains an old latest date'
   assert.equal(result.lastCommitAt, '2026-09-04');
   assert.deepEqual(countActivity(['2024-02-29T01:00:00Z'], '2026-09-05T03:00:00Z'), { commits: Array(12).fill(0), lastCommitAt: '2024-02-29' });
   for (const dates of [[], ['invalid'], ['2026-09-05T04:00:00Z']]) assert.throws(() => countActivity(dates, '2026-09-05T03:00:00Z'));
-  assert.match(activityDateLabel('2025-06-18'), /2025/);
+  assert.match(formatDate('2025-06-18'), /2025/);
 });
 
 test('activity validates identities, refs, timestamps, nonnegative integer counts, and last-date consistency', () => {
@@ -295,24 +297,32 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
   assert.throws(() => validateActivity([paper], { ...snapshot(), reviewedAt: '2026-09-06', capturedAt: '2026-09-06T03:00:00Z', projects: { sample: publicUpdate } }), /on or after 2025-09-06/);
 });
 
-test('compact activity dates retain year context without zero-padded days', () => {
-  assert.equal(activityDateLabel('2026-09-05'), 'Sep 5, 2026');
-  assert.equal(activityDateLabel('2025-10-01'), 'Oct 1, 2025');
+test('shared calendar labels retain years, unpadded days and Event precision/ranges', () => {
+  assert.equal(formatDate('2026-09-05'), 'Sep 5, 2026');
+  assert.equal(formatDate('2026-08-04'), 'Aug 4, 2026');
+  assert.equal(formatDate('2025-12-31'), 'Dec 31, 2025');
+  assert.equal(formatDate('2024-02-29'), 'Feb 29, 2024');
+  for (const [when, expected] of [
+    [{ start: '2026-09-05', precision: 'day' }, 'Sep 5, 2026'],
+    [{ start: '2026-08', end: '2026-09', precision: 'month' }, 'Aug 2026 – Sep 2026'],
+    [{ start: '2025', precision: 'year' }, '2025'],
+    [{ start: '2025-12-31', end: '2026-01-02', precision: 'day' }, 'Dec 31, 2025 – Jan 2, 2026'],
+  ]) assert.equal(formatWhen({ data: { when } } as any), expected);
 });
 
-test('repository bands keep months and counts paired newest-first without mutating snapshot data', () => {
+test('repository bands keep months and counts paired oldest-first without mutating snapshot data', () => {
   const months = Object.freeze(snapshot().months);
   const commits = Object.freeze([0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
   const record = Object.freeze({ kind: 'github' as const, repository: 'example/project', defaultBranch: 'main',
     lastCommitAt: '2026-09-05', commits });
   const band = activityBand(record, months, []);
   assert.deepEqual(band.cells.map((cell) => cell.month), [
-    '2026-09', '2026-08', '2026-07', '2026-06', '2026-05', '2026-04',
-    '2026-03', '2026-02', '2026-01', '2025-12', '2025-11', '2025-10',
+    '2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03',
+    '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09',
   ]);
-  assert.deepEqual(band.cells.map((cell) => cell.commits), [6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1, 0]);
-  assert.equal(band.cells[0].detail, 'September 2026 · 6 default-branch commits');
-  assert.equal(band.cells[11].detail, 'October 2025 · 0 default-branch commits');
+  assert.deepEqual(band.cells.map((cell) => cell.commits), [0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+  assert.equal(band.cells[0].detail, 'October 2025 · 0 default-branch commits');
+  assert.equal(band.cells[11].detail, 'September 2026 · 6 default-branch commits');
   assert.equal(band.activeMonths, 6);
   assert.deepEqual(activityBand(record, months, []), band);
   assert.deepEqual(months, snapshot().months);
@@ -332,8 +342,9 @@ test('ATLAS paper and ngspice release occupy their reviewed month without invent
     assert.equal(record.kind, 'no-public-repo');
     assert.equal(band.date, date);
     assert.equal(band.cells.length, 12);
-    assert.equal(band.cells[0].month, snapshot.reviewedAt.slice(0, 7));
-    assert.equal(band.cells.findIndex((cell) => cell.active), id === 'atlas' ? 2 : 1);
+    assert.equal(band.cells[0].month, snapshot.months[0]);
+    assert.equal(band.cells[11].month, snapshot.reviewedAt.slice(0, 7));
+    assert.equal(band.cells.findIndex((cell) => cell.active), id === 'atlas' ? 9 : 10);
     assert.equal(band.activeMonths, 1);
     assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [date.slice(0, 7)]);
     for (const cell of band.cells) {
@@ -358,8 +369,8 @@ test('point-signal bands retain calendar boundaries without clamping or changing
     const band = activityBand(record, months, sources);
     const expected = months.includes(lastPublicUpdateAt.slice(0, 7)) ? [lastPublicUpdateAt.slice(0, 7)] : [];
     assert.equal(band.cells.length, 12);
-    assert.equal(band.cells[0].month, '2026-09');
-    assert.equal(band.cells[11].month, '2025-10');
+    assert.equal(band.cells[0].month, '2025-10');
+    assert.equal(band.cells[11].month, '2026-09');
     assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), expected);
     assert.equal(band.activeMonths, expected.length);
     assert.ok(band.cells.every((cell) => !('commits' in cell)));

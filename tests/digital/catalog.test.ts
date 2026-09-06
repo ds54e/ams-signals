@@ -1,6 +1,7 @@
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import assert from 'node:assert/strict';
-import { activityBand, activityDateLabel } from '../../src/lib/catalog-activity-band.ts';
+import { activityBand } from '../../src/lib/catalog-activity-band.ts';
+import { formatDate } from '../../src/lib/date-format.ts';
 import test from 'node:test';
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
@@ -191,7 +192,9 @@ test('point updates require sources and cannot silently acquire repository bucke
   assert.equal(band.cells.length, 12);
   assert.equal(band.activeMonths, 1);
   assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), ['2026-09']);
-  assert.equal(band.cells[0].detail, 'September 2026 · public update');
+  assert.equal(band.cells[0].month, '2025-10');
+  assert.equal(band.cells[11].month, '2026-09');
+  assert.equal(band.cells[11].detail, 'September 2026 · public update');
   assert.ok(band.cells.every((cell) => !('commits' in cell)));
   for (const lastPublicUpdateType of [undefined, 'github', 'unknown']) {
     const changed = pointActivity(); Object.assign(changed.projects[surfer.id], { lastPublicUpdateType });
@@ -223,10 +226,10 @@ test('Surfer uses reviewed canonical GitLab first-parent history without changin
   assert.deepEqual(record.commits, [47,51,99,35,66,28,31,40,10,32,17,7]);
   const band = activityBand(record, snapshot.months, surfer.data.sources);
   assert.equal(band.cells.length, 12);
-  assert.equal(band.cells[0].month, '2026-09');
-  assert.equal(band.cells[0].detail, 'September 2026 · 7 default-branch commits');
-  assert.equal(band.cells[11].month, '2025-10');
-  assert.equal(band.cells[11].detail, 'October 2025 · 47 default-branch commits');
+  assert.equal(band.cells[0].month, '2025-10');
+  assert.equal(band.cells[0].detail, 'October 2025 · 47 default-branch commits');
+  assert.equal(band.cells[11].month, '2026-09');
+  assert.equal(band.cells[11].detail, 'September 2026 · 7 default-branch commits');
   assert.equal(band.activeMonths, 12);
   assert.doesNotThrow(() => verifyMeaningfulCommit(record, [[record.headSha, '2026-09-04T11:44:01Z']]));
   const before = pointActivity();
@@ -302,11 +305,11 @@ test('refresh rejects forks, private or replaced repositories and preserves the 
 });
 
 test('compact activity dates retain year context without zero-padded days', () => {
-  assert.equal(activityDateLabel('2026-09-05'), 'Sep 5, 2026');
-  assert.equal(activityDateLabel('2025-10-01'), 'Oct 1, 2025');
+  assert.equal(formatDate('2026-09-05'), 'Sep 5, 2026');
+  assert.equal(formatDate('2025-10-01'), 'Oct 1, 2025');
 });
 
-test('GitHub and GitLab render genuine counts newest-first with equal binary monthly states', () => {
+test('GitHub and GitLab render genuine counts oldest-first with equal binary monthly states', () => {
   const beforeSnapshot = structuredClone(snapshot);
   for (const project of projects) {
     const record = snapshot.projects[project.id], before = structuredClone(record);
@@ -314,9 +317,9 @@ test('GitHub and GitLab render genuine counts newest-first with equal binary mon
     const band = activityBand(record, snapshot.months, project.data.sources);
     assert.equal(band.date, record.lastCommitAt);
     assert.equal(band.cells.length, 12);
-    assert.deepEqual(band.cells.map((cell) => cell.month), [...snapshot.months].reverse());
-    assert.deepEqual(band.cells.map((cell) => cell.commits), [...record.commits].reverse());
-    assert.deepEqual(band.cells.map((cell) => cell.active), record.commits.map((count) => count > 0).reverse());
+    assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+    assert.deepEqual(band.cells.map((cell) => cell.commits), record.commits);
+    assert.deepEqual(band.cells.map((cell) => cell.active), record.commits.map((count) => count > 0));
     assert.equal(band.activeMonths, record.commits.filter((count) => count > 0).length);
     assert.ok(band.cells.every((cell) => cell.signal === 'repository' && cell.detail.endsWith(`${cell.commits} default-branch commits`)));
     assert.ok(band.provenance.includes(record.repository));
