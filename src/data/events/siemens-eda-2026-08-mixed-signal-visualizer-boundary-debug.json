@@ -1,0 +1,20 @@
+{
+  "id": "siemens-eda-2026-08-mixed-signal-visualizer-boundary-debug",
+  "when": {
+    "start": "2026-08-12",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["siemens-eda"],
+  "people": [],
+  "headline": "Siemens describes mixed-signal boundary debugging with MS Visualizer",
+  "fact": "Siemens published a technical overview of Symphony Pro's Mixed-Signal Visualizer for AMS verification. It describes linked hierarchy, netlist, source, and variable views; generated schematics for checking connectivity and port mapping; and paired analog/digital signal representations for inspecting A2D/D2A conversion and boundary elements.",
+  "sources": [
+    {
+      "title": "Siemens overview of AMS debugging with Mixed-Signal Visualizer",
+      "url": "https://blogs.sw.siemens.com/cicv/2026/08/12/from-complexity-to-clarity-simplifying-ams-verification-with-mixed-signal-visualizer/",
+      "checkedAt": "2026-09-07",
+      "summary": "Siemens authors describe mixed-hierarchy navigation, automatic schematics, and analog/digital boundary inspection in an August 12, 2026 article."
+    }
+  ]
+}

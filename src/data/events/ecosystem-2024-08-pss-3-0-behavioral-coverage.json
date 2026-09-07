@@ -1,0 +1,20 @@
+{
+  "id": "ecosystem-2024-08-pss-3-0-behavioral-coverage",
+  "when": {
+    "start": "2024-08-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "Accellera releases PSS 3.0 with behavioral coverage",
+  "fact": "Accellera announced board approval and immediate availability of Portable Test and Stimulus Standard 3.0. Its principal addition is behavioral coverage, which specifies action-order and data combinations that generated scenarios should exercise. The release also adds cooperative multitasking, address-space groups, and mapping of PSS lists to SystemVerilog.",
+  "sources": [
+    {
+      "title": "Accellera announcement of PSS 3.0 approval and availability",
+      "url": "https://www.accellera.org/news/press-releases/402-accellera-unveils-portable-test-and-stimulus-standard-3-0-ushering-in-a-new-era-of-verification-efficiency",
+      "checkedAt": "2026-09-07",
+      "summary": "Dated August 29, 2024; identifies behavioral coverage and enumerates the additional language features in the released standard."
+    }
+  ]
+}
