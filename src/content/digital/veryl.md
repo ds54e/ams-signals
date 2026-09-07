@@ -9,6 +9,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The maintainer reports that Claude Code implemented module instantiation and much of the remaining native-simulator syntax after its overall structure was in place. The simulator remains integrated with Veryl’s native test command."
+  sources: ["claude-development", "test-cli"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-09-06"
@@ -49,7 +54,7 @@ sources:
     title: "Veryl 0.21.0 release announcement"
     url: "https://veryl-lang.org/blog/announcing-veryl-0-21-0/"
   - id: "claude-development"
-    title: "dalance: VerylにおけるClaude Codeの活用, March 13, 2026"
+    title: "dalance: Using Claude Code in Veryl, March 13, 2026"
     url: "https://zenn.dev/dalance/articles/2a6b1b0ce92442"
   - id: "simulator-landing"
     title: "Native simulator engine landing retained in current history"
@@ -82,4 +87,8 @@ Design covers RTL authoring and transpilation; Synthesis covers native gate synt
 
 The March 13 maintainer article documents significant Claude-assisted native simulator development. dalance says the broad architecture was already nearly complete before Claude Code implemented module instantiation and remaining syntax under human planning and structural review. Claude also ran tests, generated and debugged a Wallace multiplier benchmark, and investigated a branch-related performance bottleneck. [Original account](#source-claude-development).
 
-The engine landing remains in current history, the Wallace benchmark remains present, and the CLI invokes the evolved simulator. The contribution therefore matters to a shipped, substantial subsystem. Its documented extent does not characterize creation of Veryl's whole HDL/compiler/toolchain, so the project-level AI-built badge is omitted. The account does not attribute the original HDL, compiler or simulator architecture to AI. All three runtime stage booleans remain false. The simulator remains part of this one Veryl entry. [Engine landing](#source-simulator-landing); [retained benchmark](#source-simulator-benchmark); [current CLI](#source-test-cli).
+The engine landing remains in current history, the Wallace benchmark remains present, and the CLI invokes the evolved simulator. The contribution therefore matters to a shipped, substantial subsystem. Its documented extent supports AI-ASSISTED for the native simulator, while it does not characterize creation of Veryl's whole HDL/compiler/toolchain. The account does not attribute the original HDL, compiler or simulator architecture to AI. All three runtime stage booleans remain false. The simulator remains part of this one Veryl entry. [Engine landing](#source-simulator-landing); [retained benchmark](#source-simulator-benchmark); [current CLI](#source-test-cli).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer explicitly describes Claude Code implementing module instantiation and much of the remaining syntax after the simulator structure already existed. Current native-test dispatch and simulator crate confirm integration; this is significant simulator assistance, not creation of the HDL/compiler. [Maintainer account](#source-claude-development); [Current native-test integration](#source-test-cli).

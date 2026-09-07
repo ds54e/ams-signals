@@ -21,6 +21,36 @@
 .scope-synthesis { --category-fill: var(--category-gold); }
 .scope-layout { --category-fill: var(--category-rust); }
 .scope-ai-built { --category-fill: var(--category-red); }
+.catalog-scope .scope-ai-assisted { color: var(--category-red); background: transparent; box-shadow: inset 0 0 0 1px currentColor; }
+[data-ai-development] { margin-top: 5px; }
+.catalog-provenance-toggle {
+  position: relative;
+  display: block;
+  margin: -3px -5px;
+  padding: 3px 5px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* Increase the touch target without changing the shared 20px badge geometry. */
+.catalog-provenance-toggle::after { content: ''; position: absolute; inset: -3px; }
+.catalog-provenance-toggle:hover { text-decoration: underline; text-underline-offset: 2px; }
+.catalog-provenance {
+  grid-column: 1 / -1;
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--category-red);
+}
+.catalog-provenance-heading { margin: 0; font-size: 13px; font-weight: 600; }
+.catalog-provenance-summary { margin: 5px 0; font-size: 14px; line-height: 1.6; }
+.catalog-provenance-sources { display: flex; flex-wrap: wrap; gap: 4px 16px; list-style: none; margin: 0; padding: 0; }
+.catalog-provenance-sources a { display: inline-block; padding-block: 4px; }
 .catalog-activity { min-width: 0; }
 .activity-latest { margin: 0; font-size: var(--type-micro); line-height: var(--leading-meta); }
 .activity-latest time { white-space: nowrap; }
@@ -32,11 +62,14 @@
   .catalog-overview { order: -1; }
   .catalog-quicklinks { gap: 5px 16px; }
   .catalog-quicklinks a { padding-block: 5px; }
+  .catalog-provenance { margin-top: 0; }
 }
 @media (max-width: 600px) {
   .catalog-search { flex-basis: 100%; }
 }
 @media (forced-colors: active) {
+  .catalog-scope .scope-ai-assisted { color: CanvasText; background: Canvas; box-shadow: none; }
+  .catalog-provenance { border-color: CanvasText; }
   .activity-strip li, .activity-strip li.active { forced-color-adjust: none; color: CanvasText; border-color: CanvasText; }
   .activity-strip li.active { background: CanvasText; }
 }

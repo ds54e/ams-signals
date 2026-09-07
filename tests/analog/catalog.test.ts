@@ -1,3 +1,4 @@
+import { developmentEvidence, provenanceSchemaTests } from '../catalog-provenance.ts';
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import { test } from 'node:test';
 import { activityBand } from '../../src/lib/catalog-activity-band.ts';
@@ -11,7 +12,7 @@ import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, t
 import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
 
 
-const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiBuilt');
+const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiDevelopment');
 
 const valid = () => ({
   name: 'Sample', summary: 'Evaluates circuit structure.', access: 'Requires Python.',
@@ -198,24 +199,11 @@ test('Analog Scope requires stage presence and explicit AI booleans, with no str
   }
 });
 
-test('Analog AI-built stays true-or-absent and independent of every runtime AI stage', () => {
-  for (const stage of scopeStageIds) for (const ai of [false, true]) for (const built of [false, true]) {
-    const scope = analogSchema.parse({ ...valid(), scope: {
-      [stage]: { ai }, ...(built ? { aiBuilt: true } : {}),
-    } }).scope;
-    assert.equal(scope[stage]!.ai, ai);
-    assert.equal(Object.hasOwn(scope, 'aiBuilt'), built);
-    assert.equal(scope.aiBuilt, built ? true : undefined);
-    assert.deepEqual(scopeItems(scope, scopeStageLabels), [
-      { id: stage, label: `${ai ? 'AI ' : ''}${scopeStageLabels[stage]}`, ai },
-      ...(built ? [{ id: 'aiBuilt', label: 'AI-built' }] : []),
-    ]);
-  }
-  for (const field of ['aiBuiltStrength', 'aiBuiltTier', 'aiBuiltLevel', 'aiBuiltConfidence']) {
-    const scope = { design: { ai: false }, aiBuilt: true };
-    assert.equal(analogSchema.safeParse({ ...valid(), scope: { ...scope, [field]: 'A' } }).success, false);
-    assert.equal(analogSchema.safeParse({ ...valid(), scope, [field]: 'A' }).success, false);
-  }
+provenanceSchemaTests('Analog', analogSchema, valid, scopeStageIds);
+
+test('Analog provenance re-review does not advance the activity snapshot', () => {
+  const project = { ...entry(), data: { ...valid(), scope: { design: { ai: false }, aiDevelopment: 'assisted' }, developmentEvidence: developmentEvidence() } };
+  assert.deepEqual(validateActivity([project], snapshot()), snapshot());
 });
 
 test('activity uses exactly twelve consecutive calendar months ending at the snapshot month', () => {
@@ -396,8 +384,8 @@ test('point-signal bands retain calendar boundaries without clamping or changing
 });
 
 test('Scope rendering separates stage inference from development provenance and fixes display order', () => {
-  const scope = analogSchema.parse({ ...valid(), scope: {
-    aiBuilt: true, layout: { ai: false },
+  const scope = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: {
+    aiDevelopment: 'assisted', layout: { ai: false },
     simulation: { ai: true }, design: { ai: true },
   } }).scope;
   const before = structuredClone(scope);
@@ -405,11 +393,11 @@ test('Scope rendering separates stage inference from development provenance and 
     { id: 'design', label: 'AI Design', ai: true },
     { id: 'simulation', label: 'AI Simulation', ai: true },
     { id: 'layout', label: 'Layout', ai: false },
-    { id: 'aiBuilt', label: 'AI-built' },
+    { id: 'aiDevelopment', label: 'AI-ASSISTED', aiDevelopment: 'assisted' },
   ]);
   assert.deepEqual(scope, before);
-  const conventional = analogSchema.parse({ ...valid(), scope: { simulation: { ai: false }, aiBuilt: true } }).scope;
-  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-built']);
+  const conventional = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: { simulation: { ai: false }, aiDevelopment: 'built' } }).scope;
+  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-BUILT']);
 });
 
 test('Analog stage-specific AI decisions distinguish inference, numerical feedback and externally supplied agents', async () => {
@@ -428,6 +416,6 @@ test('Analog stage-specific AI decisions distinguish inference, numerical feedba
   for (const [id, labels] of Object.entries(expected)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const scope = analogSchema.parse(frontmatter).scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiBuilt').map((x) => x.label), labels, id);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
   }
 });

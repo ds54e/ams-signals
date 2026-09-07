@@ -4,18 +4,18 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   await expect(scope.locator('.scope-mark, [data-level], [aria-hidden="true"]')).toHaveCount(0);
   const items = await scope.locator('li[data-scope-item]').evaluateAll((nodes) => nodes.map((el) => {
     const style = getComputedStyle(el), box = el.getBoundingClientRect();
-    return { id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'),
+    return { id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), development: el.getAttribute('data-ai-development'),
       text: el.textContent!.trim(), renderedText: (el as HTMLElement).innerText.trim(), transform: style.textTransform,
       classes: [...el.classList], color: style.color, fill: style.backgroundColor,
       radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize), weight: Number(style.fontWeight),
       paddingX: parseFloat(style.paddingLeft), paddingY: parseFloat(style.paddingTop),
-      width: box.width, outline: style.outlineStyle,
+      width: box.width, height: box.height, outline: style.outlineStyle, shadow: style.boxShadow,
     };
   }));
   expect(items.length).toBeGreaterThan(0);
   for (const item of items) {
-    expect(item.classes).toEqual(['category-label', 'scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]);
-    expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-built$/);
+    expect(item.classes).toEqual(['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`]);
+    expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-(?:ASSISTED|BUILT)$/);
     expect(item.transform).toBe('uppercase');
     expect(item.renderedText).toBe(item.text.toUpperCase());
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
@@ -24,16 +24,22 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
     expect(item.width).toBeLessThanOrEqual(122);
-    expect(item.fill).not.toBe('rgba(0, 0, 0, 0)');
+    expect(item.height).toBe(20);
+    if (item.development === 'assisted' && !forcedColors) {
+      expect(item.fill).toBe('rgba(0, 0, 0, 0)');
+      expect(item.shadow).toContain(item.color);
+      expect(item.shadow).toContain('inset');
+    } else expect(item.fill).not.toBe('rgba(0, 0, 0, 0)');
     expect(item.color).not.toBe(item.fill);
     if (forcedColors) expect(item.outline).toBe('solid');
   }
   // AI-prefixed and conventional variants use the same stage color, while
   // development provenance has its own category; strength is not represented.
+  const palette = (item: typeof items[number]) => item.development === 'assisted' && !forcedColors ? item.color : item.fill;
   for (const id of new Set(items.map((item) => item.id))) {
-    expect(new Set(items.filter((item) => item.id === id).map((item) => item.fill)).size).toBe(1);
+    expect(new Set(items.filter((item) => item.id === id).map(palette)).size).toBe(1);
   }
-  if (!forcedColors) expect(new Set(items.map((item) => item.fill)).size).toBe(new Set(items.map((item) => item.id)).size);
+  if (!forcedColors) expect(new Set(items.map(palette)).size).toBe(new Set(items.map((item) => item.id)).size);
 }
 
 type ActivityRecord = {
@@ -158,7 +164,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     const rect = (node: Element) => { const r = node.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
     const title = el.querySelector(`.catalog-title`)!;
     return {
-      columns: [...el.querySelector('article')!.children].map(rect), row: rect(el),
+      columns: [...el.querySelectorAll('.catalog-rail, .catalog-overview')].map(rect), row: rect(el),
       rail: rect(el.querySelector('.catalog-rail')!), strip: rect(el.querySelector('.activity-strip')!),
       date: rect(el.querySelector('.activity-latest')!),
       title: rect(title), name: rect(el.querySelector('h2')!),
@@ -169,7 +175,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
       description: rect(el.querySelector(`.catalog-description`)!),
       scopeStyle: getComputedStyle(el.querySelector(`.catalog-scope`)!).display,
       scopeDirection: getComputedStyle(el.querySelector(`.catalog-scope`)!).flexDirection,
-      scopeItems: [...el.querySelectorAll('[data-scope-item]')].map(rect),
+      scopeItems: [...el.querySelectorAll('[data-scope-item]')].map((item) => ({ ...rect(item), development: item.hasAttribute('data-ai-development') })),
     };
   }));
   for (const row of geometry) {
@@ -221,7 +227,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     for (let index = 1; index < row.scopeItems.length; index++) {
       const previous = row.scopeItems[index - 1], current = row.scopeItems[index];
       expect(current.left).toBeCloseTo(previous.left, 1);
-      expect(current.top - previous.bottom).toBeCloseTo(3, 1);
+      expect(current.top - previous.bottom).toBeCloseTo(current.development ? 8 : 3, 1);
     }
     for (const item of row.scopeItems) {
       expect(item.left).toBeGreaterThanOrEqual(row.rail.left);

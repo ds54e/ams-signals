@@ -9,6 +9,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "An explicitly AI-assisted change implemented the ESI ChannelArbiter’s pipelined grant scheduler, including its grant queue and datapath integration. The scheduler remains a selectable ESI component."
+  sources: ["development-1", "development-2"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -30,6 +35,12 @@ sources:
     title: "Official project documentation"
     url: "https://circt.llvm.org/"
     purpose: "official"
+  - id: "development-1"
+    title: "Attributed scheduler implementation"
+    url: "https://github.com/llvm/circt/commit/66aad44d6347775c6342636cd4ade2663f16f2da"
+  - id: "development-2"
+    title: "Current scheduler integration"
+    url: "https://github.com/llvm/circt/blob/e7f97d48cfd1e85f3c6fa7aa1a603b4a4cdee908/lib/Dialect/ESI/runtime/python/esiaccel/components/channel_arbiter.py"
 ---
 
 
@@ -48,3 +59,7 @@ Only upstream files and tools were used for classification. No Normal-fork confo
 Hardware IR construction/lowering and synthesis-oriented transformations are central upstream capabilities. LLHD and upstream BMC/LEC tooling support verification; no unavailable Normal Computing fork functionality is attributed upstream. [Reviewed source](#source-readme).
 
 Upstream IR transformations and synthesis lowering are conventional compiler operations, with upstream verification tools. Neither isolated coding-agent contributions nor the unavailable Normal Computing fork justify an AI prefix or defining AI-built mark. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. Explicit Assisted-by attribution accompanies a new scheduler implementation, FIFO/arbiter integration and tests. It adds a meaningful optional arbitration architecture for high fan-in, within the much larger compiler infrastructure. [Attributed scheduler implementation](#source-development-1); [Current scheduler integration](#source-development-2).

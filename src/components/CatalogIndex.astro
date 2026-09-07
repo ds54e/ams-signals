@@ -1,5 +1,5 @@
 ---
-import type { scopeItems } from '../lib/catalog-scope';
+import type { DevelopmentEvidence, scopeItems } from '../lib/catalog-scope';
 import type { activityBand } from '../lib/catalog-activity-band';
 import { monthLabel } from '../lib/catalog-activity-band';
 import { formatDate } from '../lib/date-format';
@@ -16,8 +16,9 @@ interface Props {
     name: string;
     description: string;
     scope: ReturnType<typeof scopeItems>;
+    developmentEvidence?: DevelopmentEvidence;
     activity: ReturnType<typeof activityBand> & { kind: string };
-    sources: readonly { url: string; purpose?: keyof typeof linkLabels }[];
+    sources: readonly { id: string; title: string; url: string; purpose?: keyof typeof linkLabels }[];
   }[];
 }
 const { domain, title, stages, months, projects } = Astro.props;
@@ -55,7 +56,7 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
               </ul>
             </div>
             <ul class="catalog-scope" aria-label={`${project.name} Scope`}>
-              {project.scope.map((item) => <li class:list={['category-label', 'scope-label', item.id === 'aiBuilt' ? 'scope-ai-built' : `scope-${item.id}`]} data-scope-item={item.id} data-ai={item.ai}>
+              {project.scope.map((item) => <li class:list={['category-label', 'scope-label', item.aiDevelopment ? `scope-ai-${item.aiDevelopment}` : `scope-${item.id}`]} data-scope-item={item.id} data-ai={item.ai} data-ai-development={item.aiDevelopment} data-provenance-target={item.aiDevelopment ? `${project.id}--development` : undefined}>
                 <span data-scope-label>{item.label}</span>
               </li>)}
             </ul>
@@ -69,6 +70,16 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
             </div>
             <p class="catalog-description index-summary">{project.description}</p>
           </div>
+          {project.developmentEvidence && <div class="catalog-provenance" id={`${project.id}--development`} data-provenance-panel role="group" aria-labelledby={`${project.id}--name ${project.id}--development-heading`}>
+            <p class="catalog-provenance-heading" id={`${project.id}--development-heading`}>Development provenance</p>
+            <p class="catalog-provenance-summary">{project.developmentEvidence.summary}</p>
+            <ul class="catalog-provenance-sources index-links" aria-label={`${project.name} development sources`}>
+              {project.developmentEvidence.sources.map((id) => {
+                const source = project.sources.find((source) => source.id === id)!;
+                return <li><a href={source.url}>{source.title}</a></li>;
+              })}
+            </ul>
+          </div>}
         </article>
       </li>)}
     </ol>
@@ -76,5 +87,9 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
 </section>
 <script>
   import { enhanceCatalog } from '../scripts/catalog-filter';
-  document.querySelectorAll<HTMLElement>('[data-catalog]').forEach(enhanceCatalog);
+  import { enhanceCatalogProvenance } from '../scripts/catalog-provenance';
+  document.querySelectorAll<HTMLElement>('[data-catalog]').forEach((catalog) => {
+    enhanceCatalogProvenance(catalog);
+    enhanceCatalog(catalog);
+  });
 </script>

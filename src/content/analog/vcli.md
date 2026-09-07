@@ -10,6 +10,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited campaign implemented OCEAN simulation automation and integrated setup, run, measurement, sweep and corner commands into the Rust CLI. The current simulation commands still use that OCEAN layer."
+  sources: ["development-1", "development-2"]
+  reviewedAt: "2026-09-07"
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
@@ -34,6 +39,12 @@ sources:
   - id: "layout"
     title: "Reviewed layout geometry implementation"
     url: "https://github.com/deanyou/virtuoso-cli/blob/1376468d05d1c4adc5dd3cdfdcf434421fb249ec/src/client/layout_ops.rs"
+  - id: "development-1"
+    title: "CLI/simulation campaign"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/01876c67d7e485f3171e5d03f97def5fa1e5ec91"
+  - id: "development-2"
+    title: "Current implementation"
+    url: "https://github.com/deanyou/virtuoso-cli/blob/609e060dc79d62897068244ab7be431854976829/src/commands/sim.rs"
 ---
 ### Implementation and lineage
 
@@ -52,3 +63,7 @@ The exposed EDA infrastructure does not itself demonstrate autonomous analog des
 Exposed schematic editing and Maestro/Spectre/PSF operations justify central design and simulation scope. SKILL geometry and stream-out helpers support layout without establishing autonomous placement or signoff. [Reviewed source](#source-review).
 
 The Rust CLI exposes schematic, simulation/result and layout geometry operations. JSON output, multi-session control and agent callers do not themselves implement AI within those stages. [AI/stage evidence](#source-review).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited campaign adds actual Rust OCEAN code generation and setup/run/measurement/sweep/corner commands, with current CLI calls. This is a substantial simulation subsystem, without assigning the whole Rust rewrite to AI. [CLI/simulation campaign](#source-development-1); [Current implementation](#source-development-2).

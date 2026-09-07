@@ -188,12 +188,12 @@ for (const colorScheme of ['light', 'dark'] as const) {
           return node ? getComputedStyle(node).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number) : null;
         };
         return Object.fromEntries(Object.entries({ design: rgb('.scope-design'), blue: rgb(`.scope-${stage}`),
-          synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), aiBuilt: rgb('.scope-ai-built') }).filter(([, value]) => value));
+          synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), provenance: rgb('.scope-ai-built') }).filter(([, value]) => value));
       }, surface === 'analog' ? 'simulation' : 'verification') as Record<string, number[]>;
       palettes[surface] = palette;
       // Review the full system: teal, blue, yellow-olive, copper and crimson.
       // Broad hue families allow tuning without allowing the warm categories to merge.
-      const families = { design: [145, 180], blue: [195, 220], synthesis: [43, 65], layout: [10, 30], aiBuilt: [330, 355] };
+      const families = { design: [145, 180], blue: [195, 220], synthesis: [43, 65], layout: [10, 30], provenance: [330, 355] };
       for (const [stage, color] of Object.entries(palette)) {
         const h = hue(color), [min, max] = families[stage as keyof typeof families];
         expect(h, `${surface} ${stage} hue`).toBeGreaterThanOrEqual(min);
@@ -242,7 +242,13 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const s = getComputedStyle(el), rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
         }));
-        for (const badge of badges) expect(contrast(badge.color, badge.fill), `${surface} ${badge.label} badge contrast`).toBeGreaterThanOrEqual(4.5);
+        for (const badge of badges) {
+          // The outlined provenance badge is transparent; measure its rendered
+          // background over the page, including any partially transparent fill.
+          const alpha = badge.fill[3] ?? 1;
+          const background = badge.fill.slice(0, 3).map((channel, i) => channel * alpha + palette.bg[i] * (1 - alpha));
+          expect(contrast(badge.color, background), `${surface} ${badge.label} badge contrast`).toBeGreaterThanOrEqual(4.5);
+        }
         expect(styles.cells).toHaveLength(12);
         expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort());
         for (let i = 0; i < 12; i++) {

@@ -5,6 +5,11 @@ description: "MCP server exposing persistent OpenROAD and OpenROAD-flow-scripts 
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited implementation introduced separate query and execute tools with Tcl command-permission checks. That permission model remains in the current TypeScript server; the evidence concerns the original subsystem implementation."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -22,6 +27,15 @@ sources:
   - id: "activity"
     title: "MCP tool improvements: bounded physical-design actions and reports"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/commit/d8eec2aeff6b8f2273037254eb42413e03595e3d"
+  - id: "development-1"
+    title: "Security/refactor history"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/commit/e6b22895ddcfe3971b952ff12aef6d0e7ccdab8b"
+  - id: "development-2"
+    title: "Current command validators"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/ae4937cdc1183029c29c8597f7319517058a2929/typescript/src/config/command_whitelist.ts"
+  - id: "development-3"
+    title: "Current query/execute tools"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/ae4937cdc1183029c29c8597f7319517058a2929/typescript/src/tools/interactive.ts"
 ---
 
 
@@ -40,3 +54,7 @@ Tool exposure is not evidence of autonomous physical-design success. Meaningful 
 Persistent OpenROAD/ORFS sessions expose physical-design actions, reports and metrics. The reviewed interface is classified by those operations, not every dependency of an ORFS installation. [Reviewed source](#source-readme).
 
 The interface exposes persistent physical-design commands and reports. An MCP connection alone does not establish an implemented AI Layout decision loop. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited Python campaign implements permission checks, separate read/query and modifying/execute tools, server wiring and regression tests. The same tool boundary and validators persist in the current TypeScript port, verified in code; the port itself is not attributed to AI. [Security/refactor history](#source-development-1); [Current command validators](#source-development-2); [Current query/execute tools](#source-development-3).

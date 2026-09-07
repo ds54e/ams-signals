@@ -1,4 +1,4 @@
-import { stageScopeSchema } from '../catalog-scope.ts';
+import { aiDevelopmentSchema, developmentEvidenceSchema, stageScopeSchema, validateDevelopmentEvidence } from '../catalog-scope.ts';
 import { scopeStageIds } from './catalog.ts';
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
@@ -33,8 +33,9 @@ export const analogSchema = z.object({
     design: stageScopeSchema.optional(),
     simulation: stageScopeSchema.optional(),
     layout: stageScopeSchema.optional(),
-    aiBuilt: z.literal(true).optional(),
+    aiDevelopment: aiDevelopmentSchema.optional(),
   }).strict().refine((scope) => scopeStageIds.some((stage) => scope[stage]), 'At least one reviewed design-stage Scope is required'),
+  developmentEvidence: developmentEvidenceSchema.optional(),
   targets: text.optional(),
   access: text,
   notice: text.optional(),
@@ -47,6 +48,7 @@ export const analogSchema = z.object({
     purpose: z.enum(['official', 'paper', 'code', 'results']).optional(),
   }).strict()).min(1),
 }).strict().superRefine((project, context) => {
+  validateDevelopmentEvidence(project, context);
   const ids = new Set<string>();
   const purposes = new Set<string>();
   project.sources.forEach((source, index) => {

@@ -2,7 +2,7 @@
 
 Starting commit: `47b6bc9a4abab7a365fed2b7becf450cb717b4f8`.
 
-Reviewed every **former supporting assignment: 20 stages on 20 projects** (12 Analog, 8 Digital). **17 retained; 3 removed.** The table is a migration decision record, not a retained classification level or conversion table. Current content stores only stage presence with an explicit AI boolean and optional `aiBuilt: true`.
+Reviewed every **former supporting assignment: 20 stages on 20 projects** (12 Analog, 8 Digital). **17 retained; 3 removed.** The table is a migration decision record, not a retained classification level or conversion table. That migration stored stage presence with an explicit AI boolean and optional `aiBuilt: true`. Its functional-stage decisions remain valid; development provenance is now governed by the [2026-09-07 two-label review](AI_BUILT_REVIEW.md), using the assisted/built enum and source-validated evidence.
 
 Reopened 48 existing pinned README/implementation documents across these projects, plus LOADBench's canonical dataset record, and compared them with the captured description/classification notes. These are source reviews, not execution or independent reproduction of external EDA results. Existing primary-source arrays and activity evidence are unchanged.
 
@@ -33,7 +33,7 @@ Reopened 48 existing pinned README/implementation documents across these project
 
 ## AI development provenance
 
-This is the historical judgment from the Scope simplification pass. The later [full AI-built provenance audit](AI_BUILT_REVIEW.md) supersedes these label decisions under the stricter project-level definition.
+This is the historical judgment from the Scope simplification pass. The [2026-09-06 binary audit](AI_BUILT_REVIEW_2026-09-06.md) subsequently reassessed these labels. The [2026-09-07 two-label review](AI_BUILT_REVIEW.md) now governs development provenance; this section preserves the earlier decisions only.
 
 There were **zero former supporting AI-built assignments**. The seven already evidenced projects retain `aiBuilt: true`: Ngspice + OpenVAF Enhancements (Analog); xezim, vitamin, iverilog-uvm, uhdm2rtlil, WHAT and vivado_mcp (Digital). No new AI-built assertion is introduced. Retained stage AI booleans stay unchanged; conventional simulation/synthesis does not gain an AI prefix because its software was developed with AI.
 

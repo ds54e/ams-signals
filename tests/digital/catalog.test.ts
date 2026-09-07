@@ -1,3 +1,4 @@
+import { developmentEvidence, provenanceSchemaTests } from '../catalog-provenance.ts';
 import { scopeItems } from '../../src/lib/catalog-scope.ts';
 import assert from 'node:assert/strict';
 import { activityBand } from '../../src/lib/catalog-activity-band.ts';
@@ -14,7 +15,7 @@ import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, p
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
 
 
-const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiBuilt');
+const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiDevelopment');
 
 const directory = new URL('../../src/content/digital/', import.meta.url);
 const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
@@ -81,24 +82,14 @@ test('Digital Scope requires stage presence and explicit AI booleans, with no st
   }
 });
 
-test('Digital AI-built stays true-or-absent and independent of every runtime AI stage', () => {
-  for (const stage of scopeStageIds) for (const ai of [false, true]) for (const built of [false, true]) {
-    const scope = digitalSchema.parse({ ...data(), scope: {
-      [stage]: { ai }, ...(built ? { aiBuilt: true } : {}),
-    } }).scope;
-    assert.equal(scope[stage]!.ai, ai);
-    assert.equal(Object.hasOwn(scope, 'aiBuilt'), built);
-    assert.equal(scope.aiBuilt, built ? true : undefined);
-    assert.deepEqual(scopeItems(scope, scopeStageLabels), [
-      { id: stage, label: `${ai ? 'AI ' : ''}${scopeStageLabels[stage]}`, ai },
-      ...(built ? [{ id: 'aiBuilt', label: 'AI-built' }] : []),
-    ]);
-  }
-  for (const field of ['aiBuiltStrength', 'aiBuiltTier', 'aiBuiltLevel', 'aiBuiltConfidence']) {
-    const scope = { design: { ai: false }, aiBuilt: true };
-    assert.equal(digitalSchema.safeParse({ ...data(), scope: { ...scope, [field]: 'A' } }).success, false);
-    assert.equal(digitalSchema.safeParse({ ...data(), scope, [field]: 'A' }).success, false);
-  }
+provenanceSchemaTests('Digital', digitalSchema, data, scopeStageIds);
+
+test('Digital provenance re-review does not advance the activity snapshot', () => {
+  const updated = projects.map((project) => project.id !== github.id ? project : { ...project, data: {
+    ...project.data, scope: { ...project.data.scope, aiDevelopment: 'assisted' },
+    developmentEvidence: { ...developmentEvidence(), sources: [project.data.sources[0].id] },
+  } });
+  assert.deepEqual(validateActivity(updated, snapshot), snapshot);
 });
 
 test('Digital classification follows user-facing operations rather than internal compiler dependencies', () => {
@@ -374,19 +365,19 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
   };
   for (const [id, labels] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiBuilt').map((x) => x.label), labels, id);
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
   }
 });
 
-test('Digital Scope displays composed AI stages and AI-built without duplicating a stage', () => {
-  const scope = digitalSchema.parse({ ...data(), scope: {
-    layout: { ai: true }, aiBuilt: true,
+test('Digital Scope displays composed AI stages and one provenance label without duplicating a stage', () => {
+  const scope = digitalSchema.parse({ ...data(), developmentEvidence: { ...developmentEvidence(), sources: [data().sources[0].id] }, scope: {
+    layout: { ai: true }, aiDevelopment: 'built',
     verification: { ai: false }, synthesis: { ai: true },
   } }).scope;
   const items = scopeItems(scope, scopeStageLabels);
   assert.deepEqual(items.map((x) => [x.id, x.label]), [
     ['synthesis', 'AI Synthesis'], ['verification', 'Verification'],
-    ['layout', 'AI Layout'], ['aiBuilt', 'AI-built'],
+    ['layout', 'AI Layout'], ['aiDevelopment', 'AI-BUILT'],
   ]);
   assert.equal(new Set(items.map((x) => x.id)).size, items.length);
   assert.equal(items.at(-1)!.ai, undefined);

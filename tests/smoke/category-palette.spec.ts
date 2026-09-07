@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiBuilt: 'red' };
+const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'red' };
 const kindColors = { technical: 'blue', organizational: 'rust' };
 
 function contrast(first: string, second: string) {
@@ -26,8 +26,8 @@ async function readColors(page: Page) {
     probe.remove();
     const badges = [...document.querySelectorAll<HTMLElement>('.category-label')].map((el) => {
       const style = getComputedStyle(el);
-      return { scope: el.dataset.scopeItem, kind: el.dataset.signalType, label: el.textContent!.trim(),
-        fill: style.backgroundColor, ink: style.color, opacity: style.opacity };
+      return { scope: el.dataset.scopeItem, development: el.dataset.aiDevelopment, kind: el.dataset.signalType, label: el.textContent!.trim(),
+        fill: style.backgroundColor, ink: style.color, shadow: style.boxShadow, opacity: style.opacity };
     });
     const glyphs = [...document.querySelectorAll('.timeline-glyph, .legend-mark')].map((el) => {
       const style = getComputedStyle(el);
@@ -45,10 +45,17 @@ function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkCont
   for (const badge of badges) {
     const color = badge.scope ? scopeColors[badge.scope as keyof typeof scopeColors] : kindColors[badge.kind as keyof typeof kindColors];
     expect(color, badge.label).toBeDefined();
-    expect(badge.fill, badge.label).toBe(tokens[color]);
-    expect(badge.ink).toBe(tokens.ink);
+    if (badge.development === 'assisted') {
+      expect(badge.fill).toBe('rgba(0, 0, 0, 0)');
+      expect(badge.ink).toBe(tokens.red);
+      expect(badge.shadow).toContain(tokens.red);
+      expect(badge.shadow).toContain('inset');
+    } else {
+      expect(badge.fill, badge.label).toBe(tokens[color]);
+      expect(badge.ink).toBe(tokens.ink);
+    }
     expect(badge.opacity).toBe('1');
-    if (checkContrast) expect(contrast(badge.ink, badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
+    if (checkContrast) expect(contrast(badge.ink, badge.development === 'assisted' ? surfaces[0] : badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
   }
   for (const glyph of glyphs) {
     expect(glyph.fill).toBe(tokens[kindColors[glyph.kind as keyof typeof kindColors]]);
