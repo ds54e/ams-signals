@@ -133,7 +133,7 @@ Fourteen previously unmarked entries gain AI-ASSISTED. CircuitRubric loses AI-BU
 
 Runtime AI stays in each functional stage’s `{ ai: boolean }`. Either provenance enum can accompany either runtime boolean, and provenance cannot satisfy the required functional-stage presence. No public tiers, scores, percentages or human-only labels are added.
 
-The shared index renders exactly one final provenance badge after the stages, with a small extra gap: AI-ASSISTED outlined in muted red, AI-BUILT filled in the same color family. Activating the badge opens an inline “Development provenance” explanation and primary links. Search indexes the displayed badge text along with existing public name/description/stage text; it does not index hidden research or source URLs. Stage filtering stays independent. Without JavaScript, explanations and source links remain readable in static HTML.
+The shared index renders exactly one final provenance badge after the stages, with a small extra gap. AI-ASSISTED and AI-BUILT share the previous AI-ASSISTED appearance: muted-red text, a thin outline and a transparent background, with identical typography, geometry, spacing and interaction styling. Their visible wording distinguishes the classifications. Both also share the same readable system-color treatment in forced colors. Activating the badge opens an inline “Development provenance” explanation and primary links. Search indexes the displayed badge text along with existing public name/description/stage text; it does not index hidden research or source URLs. Stage filtering stays independent. Without JavaScript, explanations and source links remain readable in static HTML.
 
 ## Subsequent catalog expansion — 2026-09-07
 

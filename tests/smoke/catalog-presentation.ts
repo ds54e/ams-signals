@@ -25,7 +25,7 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
     expect(item.width).toBeLessThanOrEqual(122);
     expect(item.height).toBe(20);
-    if (item.development === 'assisted' && !forcedColors) {
+    if (item.development && !forcedColors) {
       expect(item.fill).toBe('rgba(0, 0, 0, 0)');
       expect(item.shadow).toContain(item.color);
       expect(item.shadow).toContain('inset');
@@ -35,7 +35,7 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   }
   // AI-prefixed and conventional variants use the same stage color, while
   // development provenance has its own category; strength is not represented.
-  const palette = (item: typeof items[number]) => item.development === 'assisted' && !forcedColors ? item.color : item.fill;
+  const palette = (item: typeof items[number]) => item.development && !forcedColors ? item.color : item.fill;
   for (const id of new Set(items.map((item) => item.id))) {
     expect(new Set(items.filter((item) => item.id === id).map(palette)).size).toBe(1);
   }
