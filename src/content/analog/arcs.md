@@ -7,6 +7,11 @@ scope:
     ai: true
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited implementation added the latent reward predictor and gradient-based refinement loop, alongside classifier-free guidance for circuit generation. The predictor and its training path remain in the project."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
 access: "Python/PyTorch and ngspice; generation and training depend on the selected released model and dataset configuration."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -34,6 +39,15 @@ sources:
     title: "Released multi-seed architecture evaluation"
     url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/results/arch_multiseed.json"
     purpose: "results"
+  - id: "development-1"
+    title: "Model/optimization campaign"
+    url: "https://github.com/tusharpathaknyu/ARCS/commit/60463a5883dbd419d2eeb5be55a22f4bb3428ee2"
+  - id: "development-2"
+    title: "Current implementation"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/latent_reward.py"
+  - id: "development-3"
+    title: "Current training integration"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/scripts/train_latent_reward.py"
 ---
 
 ### Scope
@@ -49,3 +63,7 @@ The repository contains a manuscript and recorded multi-seed comparisons. These 
 Learned topology/component-value generation and SPICE-based candidate evaluation are explicit parts of the released generation and ranking pipeline. [Reviewed source](#source-paper-arcs-paper-tex).
 
 The learned generator chooses topology and component values, giving AI Design. SPICE scoring remains numerical electrical evaluation rather than AI Simulation. [AI/stage evidence](#source-paper-arcs-paper-tex).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The attributed change implements the reward predictor, optimization loop and conditional-flow training/inference, beyond added circuit templates. This is a substantial model/optimization subsystem; broader framework creation is not established. [Model/optimization campaign](#source-development-1); [Current implementation](#source-development-2); [Current training integration](#source-development-3).

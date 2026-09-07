@@ -8,6 +8,11 @@ scope:
     ai: false
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The maintainer merged an explicitly autonomous Codex implementation campaign that added bridge preflight, dual-simulator execution and EVAS evaluation runners. These runners remain part of vaBench."
+  sources: ["development-1", "development-2"]
+  reviewedAt: "2026-09-07"
 access: "Public task bundles and Python/Docker tooling; the r53 runtime pins EVAS 0.8.7. Model access is supplied separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -31,6 +36,12 @@ sources:
   - id: "docs-data-site-summary-json"
     title: "Legacy 300-row public dashboard data"
     url: "https://github.com/Arcadia-1/behavioral-veriloga-eval/blob/7b5616dc52195ec275ec6d21c71d7763613702cd/docs/data/site_summary.json"
+  - id: "development-1"
+    title: "Codex implementation campaign"
+    url: "https://github.com/Arcadia-1/behavioral-veriloga-eval/commit/4e6c221177912b140075eb6bdfa24188a848f6b7"
+  - id: "development-2"
+    title: "Current implementation"
+    url: "https://github.com/Arcadia-1/behavioral-veriloga-eval/blob/7b5616dc52195ec275ec6d21c71d7763613702cd/runners/run_gold_dual_suite.py"
 ---
 
 ### Current tasks
@@ -48,3 +59,7 @@ The root README and legacy dashboard describe older releases; the dashboard's 30
 Behavioral Verilog-A generation/repair and simulator-based evaluation define the benchmark. EVAS availability is track-specific; evaluator simulation does not make every model track tool-enabled. [Reviewed source](#source-benchmark-vabench-release-v4-public-agent-runtime-readme-md).
 
 The released runtime supplies Bash/EVAS to an externally supplied agent, alongside deterministic task and scoring contracts. A container that can host a model is not itself an implemented AI stage; behavioral generation/repair tasks and simulation remain unprefixed. [AI/stage evidence](#source-benchmark-vabench-release-v4-public-agent-runtime-readme-md).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The explicitly autonomous Codex branch supplies substantive runner software: bridge preflight, paired execution and EVAS evaluation, with retained integration. Generated benchmark inputs are excluded from the qualifying contribution. [Codex implementation campaign](#source-development-1); [Current implementation](#source-development-2).

@@ -11,6 +11,11 @@ scope:
     ai: true
   layout:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation added interface-contract checking and repair, then integrated it into the per-block RTL flow before testbench generation. The current pipeline calls this conformance stage."
+  sources: ["development-1", "development-2", "implementation"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -32,6 +37,12 @@ sources:
     title: "Author-reported results"
     url: "https://github.com/facebookexperimental/coresmith/blob/7ef5ce053a2f4c45ae5ea15eb236928dc42a606a/README.md#ppabench-results"
     purpose: "results"
+  - id: "development-1"
+    title: "Conformance implementation merge"
+    url: "https://github.com/facebookexperimental/coresmith/commit/d51fbeda66b34b4a78bff38d775a910b882fb1a9"
+  - id: "development-2"
+    title: "Per-block conformance integration"
+    url: "https://github.com/facebookexperimental/coresmith/commit/3eb681cb3f113ccb68f8b5f24049969dc9defe42"
 ---
 
 
@@ -50,3 +61,7 @@ PPABench outcomes are author-reported and include waivers and a blocked design. 
 The public pipeline explicitly generates RTL, runs testbenches, synthesizes with Yosys and drives OpenROAD/Magic backend stages. These are user-facing workflow deliverables, not marks inferred from installed dependencies. [Reviewed source](#source-readme).
 
 Runtime LLMs generate RTL and testbenches, diagnose failures and drive backend script/fix loops. The pipeline has an LLM repair loop for synthesizability, and the documented backend agents adapt and execute synthesis, placement/routing and physical-check scripts. These specific operations justify AI on all four stages; this is not inferred from calling Yosys/OpenROAD alone, nor does it guarantee signoff. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited implementation adds conformance checking/repair and wires it before testbench generation, with persisted results and fail/park behavior. This is a substantial integration safeguard, distinct from the runtime agents it serves. [Conformance implementation merge](#source-development-1); [Per-block conformance integration](#source-development-2); [Current pipeline integration](#source-implementation).

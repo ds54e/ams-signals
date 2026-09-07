@@ -7,6 +7,11 @@ scope:
     ai: true
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development added the HSpice backend, including remote execution, measurement parsing, netlist rewriting and CLI integration. The backend extends the existing Maestro/Spectre workflow."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
 addedAt: "2026-09-05"
@@ -19,6 +24,15 @@ sources:
   - id: "review"
     title: "Reviewed README: backends, specification contract, and prerequisites"
     url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/README.md"
+  - id: "development-1"
+    title: "HSpice backend implementation"
+    url: "https://github.com/lixunqi12/virtuoso-agent/commit/b4b5aad21ff248cbadc86756a0dd9581e119d9cc"
+  - id: "development-2"
+    title: "Backend integration into main"
+    url: "https://github.com/lixunqi12/virtuoso-agent/commit/73bc3d49af5c5f6c4d9d52833ec6d9ebcdefa3f5"
+  - id: "development-3"
+    title: "Current backend selection"
+    url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/scripts/run_agent.py"
 ---
 ### Execution contract
 
@@ -33,3 +47,7 @@ The Virtuoso path builds on virtuoso-bridge-lite, adding specification evaluatio
 Parameter editing, electrical measurements and iterative specification closure form the central loop through Virtuoso/Maestro/Spectre or remote HSpice. Layout is not inferred from its bridge dependency. [Reviewed source](#source-review).
 
 The LLM proposes tunable circuit parameters and iterates toward specification targets, giving AI Design. The reviewed backends run numerical simulation and compute measurements/pass-fail conventionally; feedback to the sizing policy does not relabel the solver as AI. [AI/stage evidence](#source-review).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited T1–T8 implementation and main-branch merge add a complete alternate backend, including SSH worker, measure parser/resolver, scrubbing and netlist rewriting. Current CLI wiring retains it alongside the existing Spectre flow. [HSpice backend implementation](#source-development-1); [Backend integration into main](#source-development-2); [Current backend selection](#source-development-3).

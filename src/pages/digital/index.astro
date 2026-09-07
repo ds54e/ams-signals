@@ -15,7 +15,7 @@ const projects = sortProjects(entries, activity.projects).map(({ data, id }) => 
   const band = activityBand(record, activity.months, data.sources);
   return {
     id, name: data.name, description: data.description, sources: data.sources,
-    scope: scopeItems(data.scope, scopeStageLabels),
+    scope: scopeItems(data.scope, scopeStageLabels), developmentEvidence: data.developmentEvidence,
     activity: { ...band, kind: record.kind },
   };
 });

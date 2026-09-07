@@ -57,15 +57,15 @@ Catalog controls are a **300px Search**, **150px Scope select** followed immedia
 
 All filter toolbars read left to right: **controls → count/status → legend**, with natural wrapping and no auto margin pushing status to the far edge. `.index-count` is shared by projects, events and articles: 13px, muted, normal weight and tabular numerals. Articles shows the actual authored collection count above its list, without adding controls or a first-row rule.
 
-Events and Scope use the shared `.category-label` primitive in `index.css`: system sans **10px/600**, **1.4 line height**, **0.025em tracking**, **3px radius**, and **3px × 5px padding**. Both badge families render uppercase through that primitive, which also owns the foreground, fill and forced-colors treatment. Page-specific classes only set `--category-fill` to the appropriate shared token. CSS casing leaves authored labels and case-insensitive search unchanged. Neither surface overrides the shared typography or badge geometry. Timeline legends stay lighter and use category shapes.
+Events and Scope use the shared `.category-label` primitive in `index.css`: system sans **10px/600**, **1.4 line height**, **0.025em tracking**, **3px radius**, and **3px × 5px padding**. Both badge families render uppercase through that primitive, which also owns the foreground, fill and forced-colors treatment. Functional-stage classes only set `--category-fill` to the appropriate shared token. The provenance outline variant reuses `--category-red` for text and outline, with identical typography and geometry. CSS casing leaves authored labels and case-insensitive search unchanged. Neither surface overrides the shared typography or badge geometry. Timeline legends stay lighter and use category shapes.
 
 ## Shared categorical palette
 
 `foundation.css` defines one restrained set of five hue families for Catalog, Events and Timeline. `--technical` aliases `--category-blue`; `--organizational` aliases `--category-rust`. Events badges, Timeline glyphs and legends therefore use exactly the same blue as Simulation/Verification and the same rust as Layout. Catalog and Event styles contain no separate palette literals or dark-mode color overrides. This shares presentation only: Catalog Scope and Golden Event kinds remain independent information models.
 
-AI prefixes inherit their stage's color. All five fills move toward neutral while retaining green/teal, medium blue, mustard, copper and crimson identities. AI-built stays a distinct muted red and does not use the danger token. Opacity remains **1**. Blue and rust do not increase relative luminance over the previous Event colors in either theme.
+AI prefixes inherit their stage's color. All five fills move toward neutral while retaining green/teal, medium blue, mustard, copper and crimson identities. Both AI-development badges use the distinct muted red and do not use the danger token. AI-ASSISTED is outlined and unfilled; AI-BUILT retains the filled treatment. Opacity remains **1**. Blue and rust do not increase relative luminance over the previous Event colors in either theme.
 
-`--category-ink` supplies **#ffffff in light mode** and **#14231f in dark mode** to every category label. Dark fills are deliberately selected together to preserve hue identity at restrained chroma. The following WCAG contrast ratios use sRGB relative luminance; every label pair exceeds 4.5:1 for small text.
+`--category-ink` supplies **#ffffff in light mode** and **#14231f in dark mode** to every filled category label. Dark fills are deliberately selected together to preserve hue identity at restrained chroma. The following WCAG contrast ratios use sRGB relative luminance; every label pair exceeds 4.5:1 for small text.
 
 | Foundation token | Meaning, including AI-prefixed stages | Light fill | Text contrast | Dark fill | Text contrast |
 | --- | --- | --- | --- | --- | --- |
@@ -73,7 +73,9 @@ AI prefixes inherit their stage's color. All five fills move toward neutral whil
 | `--category-blue` | Simulation, Verification, Technical Events/Timeline | #4b6d89 | 5.46:1 | #8fa9be | 6.66:1 |
 | `--category-gold` | Synthesis | #787043 | 5.00:1 | #b4ac7e | 7.09:1 |
 | `--category-rust` | Layout, Organizational Events/Timeline | #886454 | 5.25:1 | #b69682 | 5.95:1 |
-| `--category-red` | AI-built development provenance | #8d5967 | 5.59:1 | #bb959f | 6.13:1 |
+| `--category-red` | AI-development provenance (filled AI-BUILT) | #8d5967 | 5.59:1 | #bb959f | 6.13:1 |
+
+The AI-ASSISTED outline and text use the same red against `--bg`, with contrast **5.07:1 light / 6.94:1 dark**. Both provenance variants retain the 20px badge geometry and fit inside the 122px rail. A **5px additional top margin** creates an **8px stage-to-provenance gap**, while functional-stage gaps remain 3px. Enhanced badges are native buttons with visible focus and a 3px hit-area extension on each edge. Their inline evidence panel spans the row below the project: a restrained red rule, 13px heading, 14px factual explanation and 13px source links. Without JavaScript the same evidence is visible; no inactive disclosure controls are exposed.
 
 Labels remain recognizable from text without color. The shared rule in `index.css` uses CanvasText/Canvas and a system-color outline in forced colors. Timeline preserves its Technical circle and Organizational rounded square, including forced colors. Blue/rust glyphs exceed **4.76:1** against the normal background and surface in light mode and **6.31:1** in dark mode; geometry and selection treatment are unchanged.
 

@@ -6,7 +6,6 @@ description: "Grades generated analog SPICE netlists by graph matching and relat
 scope:
   design:
     ai: false
-  aiBuilt: true
 targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit structures"
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."
 notice: "FULL means a structural match, not a verified circuit. Bias point, gain, stability, and absolute component values are outside the evaluation scope."
@@ -43,4 +42,4 @@ The task generates circuit netlists and grades topology and relative device sizi
 
 Generated topology/netlist structure and relative sizing are the graded Design task. The structural oracle is deterministic; evaluating LLM submissions does not make it an AI generator. [AI/stage evidence](#source-review).
 
-The project's construction disclosure states that its corpus and tooling were drafted with AI assistance and reviewed by a human analog designer. AI-built records that software-development provenance; the tooling disclosure supplies the basis independently of generated benchmark submissions or fixtures. It does not imply AI inference in structural grading. [Development disclosure](#source-development-disclosure).
+The project's construction disclosure states that its corpus and tooling were drafted with AI assistance and reviewed by a human analog designer. The September 7, 2026 review retains that factual disclosure but removes the former AI-BUILT badge: it does not identify a substantial AI-implemented component or establish a major implementation role across the software. Generated corpus and documentation cannot fill that gap, so neither provenance label is displayed. This does not imply exclusively human development or AI inference in structural grading. [Development disclosure](#source-development-disclosure).

@@ -9,7 +9,11 @@ scope:
     ai: false
   layout:
     ai: false
-  aiBuilt: true
+  aiDevelopment: built
+developmentEvidence:
+  summary: "The maintainer reports creating this MCP server through conversations with Claude, including persistent Vivado sessions and tool commands. The account describes implementation of the server itself."
+  sources: ["readme", "development-2"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -27,6 +31,9 @@ sources:
   - id: "activity"
     title: "Add get_host_status tool for memory-based server selection"
     url: "https://github.com/coreyhahn/vivado_mcp/commit/bfe6ce2a9f97f3732ae7602ee40447b7e64902f7"
+  - id: "development-2"
+    title: "Session implementation"
+    url: "https://github.com/coreyhahn/vivado_mcp/commit/c019e32ed8618f11635ee1dad1bf2cc38bbd71f8"
 ---
 
 
@@ -45,3 +52,7 @@ Available Vivado commands are infrastructure, not demonstrated autonomous FPGA d
 Persistent Vivado commands directly expose synthesis and implementation; XSim exposes behavioral and netlist simulation for Verification. Raw Tcl access alone does not establish RTL design generation. [Reviewed source](#source-readme).
 
 The server exposes conventional synthesis, XSim and implementation commands. The author states that the server was built through Claude conversations, justifying AI-built; the transport does not itself make these AI stages. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-BUILT**. The maintainer explicitly says the server was created through Claude conversations, with concrete process/session, command and report implementation. This is a creation account spanning the server’s defining code. [Creation account](#source-readme); [Session implementation](#source-development-2).

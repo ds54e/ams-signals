@@ -5,7 +5,11 @@ description: "Browser HDL debugger linking SystemVerilog hierarchy and source-le
 scope:
   verification:
     ai: false
-  aiBuilt: true
+  aiDevelopment: built
+developmentEvidence:
+  summary: "The maintainer reports using AI to implement the application’s main code, including its architecture, interface and functional logic. Building the HDL and waveform viewer was an explicit AI-programming experiment."
+  sources: ["readme"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -41,3 +45,7 @@ Browser debug functionality is implemented; AI authorship does not establish ind
 Source navigation and FST waveform interaction are the central debug product. The extraction backend enables inspection rather than RTL design generation. [Reviewed source](#source-readme).
 
 HDL/waveform inspection is conventional Verification. The author credits AI with the principal architecture and implementation, justifying AI-built provenance without a runtime AI stage. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-BUILT**. The maintainer explicitly attributes the main code, architecture, UI and functional logic to AI generation as the project’s creation method. The account covers the application as a whole. [Maintainer creation account](#source-readme).

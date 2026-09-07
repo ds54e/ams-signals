@@ -1,4 +1,4 @@
-import { stageScopeSchema } from '../catalog-scope.ts';
+import { aiDevelopmentSchema, developmentEvidenceSchema, stageScopeSchema, validateDevelopmentEvidence } from '../catalog-scope.ts';
 import { scopeStageIds } from './catalog.ts';
 import { hasRepositoryHistory, isRepositoryUrl, validateRepositorySources } from '../catalog-repository-activity.ts';
 import { publicSignalTypes } from '../catalog-activity-band.ts';
@@ -31,8 +31,9 @@ export const digitalSchema = z.object({
     synthesis: stageScopeSchema.optional(),
     verification: stageScopeSchema.optional(),
     layout: stageScopeSchema.optional(),
-    aiBuilt: z.literal(true).optional(),
+    aiDevelopment: aiDevelopmentSchema.optional(),
   }).strict().refine((scope) => scopeStageIds.some((stage) => scope[stage]), 'At least one reviewed design-stage Scope is required'),
+  developmentEvidence: developmentEvidenceSchema.optional(),
   access: text,
   addedAt: date,
   reviewedAt: date,
@@ -41,6 +42,7 @@ export const digitalSchema = z.object({
     purpose: z.enum(['official', 'paper', 'code', 'results']).optional(),
   }).strict()).min(1),
 }).strict().superRefine((project, context) => {
+  validateDevelopmentEvidence(project, context);
   if (project.addedAt > project.reviewedAt) context.addIssue({ code: 'custom', path: ['reviewedAt'], message: 'Review cannot precede addition' });
   for (const field of ['id', 'purpose'] as const) {
     const seen = new Set<string>();

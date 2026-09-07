@@ -66,10 +66,16 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(catalog.getByRole('status')).toHaveText(`${projects.length} projects`);
     await expect(catalog.locator('table, [role="columnheader"], .catalog-columns')).toHaveCount(0);
     await expect(catalog.locator('form + [data-catalog-empty] + ol')).toHaveCount(1);
-    await expect(catalog.locator('table, button, details, summary, [role="region"], [tabindex]')).toHaveCount(0);
+    await expect(catalog.locator('table, button:not([data-provenance-toggle]), details, summary, [role="region"], [tabindex]')).toHaveCount(0);
+    await expect(catalog.locator('[data-provenance-toggle]')).toHaveCount(projects.filter((p) => p.scope.aiDevelopment).length);
     const text = await catalog.textContent();
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
-    for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(text).not.toContain(forbidden);
+    const indexText = await catalog.evaluate((el) => {
+      const clone = el.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll('[data-provenance-panel]').forEach((panel) => panel.remove());
+      return clone.textContent;
+    });
+    for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(indexText).not.toContain(forbidden);
     await expect(catalog.locator('[data-tag-kind], [data-level], .scope-mark, .activity-summary')).toHaveCount(0);
     const rendered = await rows(page).evaluateAll((nodes, attribute) => nodes.map((el) => ({
       id: el.getAttribute(attribute), rowId: el.id,
@@ -86,7 +92,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
         .map((s: any) => ({ label: linkLabels[s.purpose as keyof typeof linkLabels], href: s.url }));
       return { id: p.id, rowId: '', name: p.name, nameLinks: 0, description: p.description, descriptions: 1,
         title: [p.name, ...links.map((link: { label: string }) => link.label)].join(' '), titleChildren: ['H2', 'UL'],
-        links, linkCount: links.length };
+        links, linkCount: links.length + (p.developmentEvidence?.sources.length ?? 0) };
     }));
     const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((el) => el.id));
     expect(new Set(ids).size).toBe(ids.length);
@@ -100,7 +106,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
     const publicText = (p: any) => [p.name, p.description,
       ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
-      p.scope.aiBuilt ? 'AI-built' : '',
+      p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment.toUpperCase()}` : '',
     ].join(' ');
     const aiProjects = ordered.filter((p) => /\bAI\b/i.test(publicText(p))).map((p) => p.id);
     expect(aiProjects.length).toBeGreaterThan(0); expect(aiProjects.length).toBeLessThan(projects.length);
@@ -189,7 +195,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
         const { ai } = p.scope[stage];
         return { stage, ai: String(ai), text: `${ai ? 'AI ' : ''}${label}` };
       });
-      if (p.scope.aiBuilt) expected.push({ stage: 'aiBuilt', ai: null, text: 'AI-built' });
+      if (p.scope.aiDevelopment) expected.push({ stage: 'aiDevelopment', ai: null, text: `AI-${p.scope.aiDevelopment.toUpperCase()}` });
       expect(cells).toEqual(expected);
       expect(new Set(cells.map((cell) => cell.stage)).size).toBe(cells.length);
       expect(cells.length).toBeGreaterThan(0);
@@ -201,7 +207,121 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await open(page); await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 
-  test(`${label} keyboard navigation reaches filters, then the useful external actions`, async ({ page }) => {
+  test(`${label} provenance badges disclose specific evidence with keyboard state and working source links`, async ({ page }, info) => {
+    await open(page);
+    const originalUrl = page.url();
+    for (const project of ordered.filter((p) => p.scope.aiDevelopment)) {
+      const item = row(page, project.id);
+      await expect(item.locator('[data-ai-development]')).toHaveCount(1);
+      await expect(item.locator('[data-provenance-panel]')).toBeHidden();
+      await expect(item.locator('[data-provenance-toggle]')).toHaveAttribute('aria-expanded', 'false');
+    }
+    for (const level of ['assisted', 'built']) {
+      const project = ordered.find((p) => p.scope.aiDevelopment === level)!;
+      expect(project).toBeDefined();
+      const item = row(page, project.id), button = item.locator('[data-provenance-toggle]');
+      const panel = item.locator('[data-provenance-panel]');
+      await expect(button).toHaveText(`AI-${level.toUpperCase()}`);
+      await expect(button).toHaveAccessibleName(`AI-${level.toUpperCase()}: development provenance for ${project.name}`);
+      await expect(button).toHaveAttribute('aria-controls', (await panel.getAttribute('id'))!);
+      await button.focus();
+      await expect(button).toBeFocused();
+      await expect(button).toHaveCSS('outline-style', 'solid');
+      await expect(button).toHaveCSS('outline-width', '3px');
+      await button.press('Enter');
+      await expect(button).toHaveAttribute('aria-expanded', 'true');
+      await expect(panel).toBeVisible();
+      await expect(panel.locator('.catalog-provenance-heading')).toHaveText('Development provenance');
+      await expect(panel.locator('.catalog-provenance-summary')).toHaveText(project.developmentEvidence.summary);
+      const sources = project.developmentEvidence.sources.map((id: string) => project.sources.find((s: any) => s.id === id));
+      expect(await panel.locator('a').evaluateAll((links) => links.map((a) => ({ text: a.textContent, url: a.getAttribute('href') }))))
+        .toEqual(sources.map((source: any) => ({ text: source.title, url: source.url })));
+      await expect(button).toBeFocused();
+      await expect(page).toHaveURL(originalUrl);
+      await noOverflow(page);
+      await item.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: info.outputPath(`${domain}-${level}-evidence-keyboard.png`) });
+      await button.press('Space');
+      await expect(button).toHaveAttribute('aria-expanded', 'false');
+      await expect(panel).toBeHidden();
+      await button.press('Enter');
+      const sourceLink = panel.locator('a').first(), href = sources[0].url;
+      await page.route(href, (route) => route.fulfill({ contentType: 'text/html', body: '<h1>Development evidence destination</h1>' }));
+      await sourceLink.focus(); await page.keyboard.press('Enter');
+      await expect(page).toHaveURL(href);
+      await page.goBack();
+      await expect(rows(page)).toHaveCount(projects.length);
+    }
+  });
+
+  test(`${label} both provenance labels are searchable and remain independent of functional filters`, async ({ page }) => {
+    await open(page);
+    const search = page.getByRole('searchbox', { name: 'Search projects' });
+    const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
+    const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
+    const publicText = (p: any) => [p.name, p.description,
+      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
+      p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment}` : '',
+    ].join(' ').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}]+/gu, ' ');
+    for (const level of ['assisted', 'built']) {
+      const expected = ordered.filter((p) => /\bai\b/.test(publicText(p)) && publicText(p).includes(level));
+      for (const query of [`AI-${level.toUpperCase()}`, `ai ${level}`]) {
+        await search.fill(query);
+        await expect.poll(visibleIds).toEqual(expected.map((p) => p.id));
+      }
+      const project = expected.find((p) => p.scope.aiDevelopment === level)!;
+      const button = row(page, project.id).locator('[data-provenance-toggle]');
+      await button.click();
+      await expect(button).toHaveAttribute('aria-expanded', 'true');
+      for (const stage of Object.keys(scopeStageLabels)) {
+        await filter.selectOption(stage);
+        await expect.poll(visibleIds).toEqual(expected.filter((p) => p.scope[stage]).map((p) => p.id));
+      }
+      await filter.selectOption('');
+      await expect(button).toHaveAttribute('aria-expanded', 'true');
+      await button.click(); await expect(button).toHaveAttribute('aria-expanded', 'false');
+      await expect.poll(visibleIds).toEqual(expected.map((p) => p.id));
+    }
+    await search.fill('Development provenance');
+    await expect(rows(page).filter({ visible: true })).toHaveCount(0);
+    await search.fill('');
+    await expect.poll(visibleIds).toEqual(ordered.map((p) => p.id));
+  });
+
+  test(`${label} provenance disclosures work by touch at narrow widths`, async ({ browser, baseURL }, info) => {
+    const context = await browser.newContext({ baseURL, hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    await open(page);
+    for (const width of [390, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      for (const level of ['assisted', 'built']) {
+        const project = ordered.find((p) => p.scope.aiDevelopment === level)!;
+        const item = row(page, project.id), button = item.locator('[data-provenance-toggle]');
+        const panel = item.locator('[data-provenance-panel]');
+        await button.tap();
+        await expect(button).toHaveAttribute('aria-expanded', 'true');
+        await expect(panel).toBeVisible();
+        const bounds = await item.evaluate((el) => {
+          const panel = el.querySelector<HTMLElement>('[data-provenance-panel]')!, button = el.querySelector('button')!;
+          const row = el.getBoundingClientRect(), box = panel.getBoundingClientRect(), target = button.getBoundingClientRect();
+          const extension = getComputedStyle(button, '::after');
+          return { left: box.left >= row.left, right: box.right <= row.right,
+            width: box.width, targetHeight: target.height - parseFloat(extension.top) - parseFloat(extension.bottom) };
+        });
+        expect(bounds.left && bounds.right).toBe(true);
+        expect(bounds.width).toBeGreaterThan(250);
+        expect(bounds.targetHeight).toBeGreaterThanOrEqual(24);
+        await noOverflow(page);
+        await item.evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
+        await page.screenshot({ path: info.outputPath(`${domain}-${level}-evidence-touch-${width}.png`) });
+        await button.tap(); await expect(button).toHaveAttribute('aria-expanded', 'false');
+        await expect(panel).toBeHidden();
+      }
+    }
+    await context.close();
+  });
+
+  test(`${label} keyboard navigation reaches filters, provenance and useful external actions`, async ({ page }) => {
     await open(page);
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     for (let i = 0; i < 8 && !await search.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
@@ -209,13 +329,18 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(await search.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
     await page.keyboard.press('Tab'); await expect(page.getByRole('combobox', { name: 'Scope', exact: true })).toBeFocused();
     await page.keyboard.press('Tab');
+    const actions = rows(page).locator('[data-provenance-toggle], .catalog-quicklinks a');
+    await expect(actions.first()).toBeFocused();
     const first = rows(page).first().locator(`.catalog-quicklinks a`).first();
+    // A provenance button precedes quick links when the first row has a label.
+    if (ordered[0].scope.aiDevelopment) await page.keyboard.press('Tab');
     await expect(first).toBeFocused();
-    const allLinks = rows(page).locator(`.catalog-quicklinks a`);
-    await page.keyboard.press('Tab'); await expect(allLinks.nth(1)).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(actions.nth(ordered[0].scope.aiDevelopment ? 2 : 1)).toBeFocused();
+    await page.keyboard.press('Shift+Tab'); await expect(first).toBeFocused();
     const href = (await first.getAttribute('href'))!;
     await page.route(href, (route) => route.fulfill({ contentType: 'text/html', body: '<h1>Primary source destination</h1>' }));
-    await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter');
     await expect(page).toHaveURL(href);
     await page.goBack(); await expect(rows(page)).toHaveCount(projects.length);
   });
@@ -230,6 +355,16 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).locator(`.catalog-description`)).toHaveText(ordered.map((p) => p.description));
     await expectScopeLabels(page.locator(`.catalog-scope`));
     await expectActivityBands(rows(page), `.catalog-activity`, activity);
+    await expect(rows(page).locator('[data-provenance-toggle]')).toHaveCount(0);
+    const labeled = ordered.filter((p) => p.scope.aiDevelopment);
+    await expect(rows(page).locator('[data-provenance-panel]')).toHaveCount(labeled.length);
+    for (const project of labeled) {
+      const panel = row(page, project.id).locator('[data-provenance-panel]');
+      await expect(panel).toBeVisible();
+      await expect(panel.locator('.catalog-provenance-summary')).toHaveText(project.developmentEvidence.summary);
+      expect(await panel.locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href'))))
+        .toEqual(project.developmentEvidence.sources.map((id: string) => project.sources.find((s: any) => s.id === id).url));
+    }
     const last = rows(page).last().locator(`.catalog-quicklinks a`).first();
     await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
     const href = (await last.getAttribute('href'))!;

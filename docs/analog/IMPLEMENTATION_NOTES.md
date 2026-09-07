@@ -1,8 +1,16 @@
 # Analog implementation and review notes
 
+## Two-label development provenance (2026-09-07)
+
+Starting commit: `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc`. The [complete new review](../AI_BUILT_REVIEW.md) was recorded before catalog classification changes and supersedes provenance rules and judgments in all historical sections below. This domain now has **4 AI-ASSISTED, 1 AI-BUILT and 30 unmarked projects**. Across all 75 entries: 14 assisted, 6 built and 55 unmarked, from 7 previous built labels. CircuitRubric is deliberately unlabeled under the stronger evidence-scope requirement.
+
+The shared model is optional `scope.aiDevelopment: assisted | built`, paired with `developmentEvidence` (factual summary, existing source IDs and independent review date). Legacy `aiBuilt` is rejected. Scope stages, runtime booleans, functional descriptions, activity snapshots and primary navigation remain unchanged. Shared outline/filled muted-red badges follow the stages with an 8px separation and open inline evidence through native buttons; static HTML includes the same explanation and links. Search uses only existing public project text plus the exact visible labels.
+
+Validation: `npm run check` passed (27 Analog / 28 Digital unit tests), and all 104 production-preview smoke tests passed. Desktop/mobile light, dark and forced-color inspection confirmed badge fit, disclosure wrapping, visible focus and working links without overflow. Starting-inventory comparisons preserve all functional metadata and original source URLs; activity/Golden/Article files and the factual export are unchanged. The shared review records the full verification and historical boundary.
+
 ## AI-built provenance audit (2026-09-06)
 
-Starting commit: `4345198dda42819bb099e3bb7c98e593254057c4`, after the Digital expansion. The [complete 75-project audit](../AI_BUILT_REVIEW.md) was written before catalog data changed and now governs AI-built provenance. Across both domains: **8 previous labels, 6 kept, 2 removed, 1 added, 7 final**, all Tier A. Analog now has two AI-built projects: CircuitRubric and Ngspice + OpenVAF Enhancements.
+Starting commit: `4345198dda42819bb099e3bb7c98e593254057c4`, after the Digital expansion. The [historical 75-project audit](../AI_BUILT_REVIEW_2026-09-06.md) was written before catalog data changed and governed that historical binary pass. Across both domains: **8 previous labels, 6 kept, 2 removed, 1 added, 7 final**, all Tier A. Analog now has two AI-built projects: CircuitRubric and Ngspice + OpenVAF Enhancements.
 
 The definition now requires substantial, directly evidenced development provenance of the project itself, independently of runtime AI. Earlier AI-built judgments below are historical and superseded by this audit. Functional descriptions, stage booleans, activity snapshots, visual design, Golden data and Articles are unchanged. Generic schema/rendering regressions replace hardcoded project-provenance lists.
 

@@ -9,6 +9,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited flow work implemented an optional post-global-route timing-repair task and connected it to SiliconCompiler’s routing flow. The campaign also aligned the OpenROAD adapter and repair sequence."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
 access: "Public source Python build framework and releases; selected EDA tools, licenses, device data and PDKs are separate requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-09-06"
@@ -57,6 +62,15 @@ sources:
   - id: "activity"
     title: "Resolve EDA tool prerequisites and container dependencies from per-tool data"
     url: "https://github.com/siliconcompiler/siliconcompiler/commit/d499d5bca16bd54d1390312a7c4de6c47ea646d2"
+  - id: "development-1"
+    title: "Post-route timing implementation"
+    url: "https://github.com/siliconcompiler/siliconcompiler/commit/9afa0294e772a7cde96aaf66a37c32aaef4a715c"
+  - id: "development-2"
+    title: "Flow integration follow-up"
+    url: "https://github.com/siliconcompiler/siliconcompiler/commit/ae54e90abe9b505b813d9fb879a8d4a4a0c968bf"
+  - id: "development-3"
+    title: "Current routing flow"
+    url: "https://github.com/siliconcompiler/siliconcompiler/blob/54d02425c2935dde1a9e7f3048d45dc1bc506059/siliconcompiler/flows/asicflow.py"
 ---
 
 ### Implementation context
@@ -78,3 +92,7 @@ The latest and meaningful first-parent commit is September 6 UTC: per-tool prere
 Synthesis records first-class synthesis flows and artifacts. Verification records simulation, property checking and equivalence operations exposed to users. Layout records configured ASIC/FPGA implementation and physical-check flows. These stages describe orchestration; SiliconCompiler does not implement the underlying synthesis or place-and-route algorithms. Design is omitted: the `Design` object and language frontends ingest and organize hardware sources rather than supplying a separate hardware-authoring capability.
 
 All runtime stage AI booleans are false. Accepting a machine-learning model as a hardware compilation input does not make the build system's decisions AI-driven. The reviewed sources do not establish meaningful AI-built development provenance.
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited campaign introduces an optional post-route repair task and flow node, Tcl repair sequencing and tested adapter behavior. This is a meaningful new timing-closure path inside the existing build system, retained in the current routing flow. [Post-route timing implementation](#source-development-1); [Flow integration follow-up](#source-development-2); [Current routing flow](#source-development-3).

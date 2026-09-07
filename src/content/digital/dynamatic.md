@@ -11,6 +11,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "An explicitly Claude-assisted implementation added automatic loop initiation-interval instrumentation, covering compiler analysis, monitor insertion and VHDL monitor generation. The instrumentation remains integrated in the compiler."
+  sources: ["development-1", "development-2"]
+  reviewedAt: "2026-09-07"
 access: "Public source academic compiler; optional simulation, model-checking, visualization and FPGA evaluation tools have separate installation requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-09-06"
@@ -62,6 +67,12 @@ sources:
   - id: "activity"
     title: "Partition arrays and their accesses with generated control logic and tests"
     url: "https://github.com/EPFL-LAP/dynamatic/commit/83bfa9897f9a1b37d695b2c29e2bef4d2df449e6"
+  - id: "development-1"
+    title: "Instrumentation"
+    url: "https://github.com/EPFL-LAP/dynamatic/commit/9894be27fc0c206b27e07b0b7ceb765fb6e5ce5e"
+  - id: "development-2"
+    title: "Current compiler instrumentation"
+    url: "https://github.com/EPFL-LAP/dynamatic/blob/83bfa9897f9a1b37d695b2c29e2bef4d2df449e6/lib/Conversion/HandshakeToHW/HandshakeToHW.cpp"
 ---
 
 ### Implementation context
@@ -85,3 +96,7 @@ Design covers kernel authoring and reusable MLIR/dataflow transformations. Synth
 Layout records a limited but implemented user-facing physical evaluation flow. The current `synthesize` CLI passes the selected kernel, output directory and target clock to a script that assembles HDL/IP resources, generates clock constraints, and runs Vivado synthesis, placement, physical optimization and routing, returning both post-synthesis and post-route timing/utilization reports. The device is fixed to Kintex-7 `xc7k160tfbg484-2` in out-of-context mode; this is not a general board/bitstream workflow. The assignment follows actual physical operations and delivered measurements, without requiring configurable devices or implying complete implementation coverage. [User command](#source-commands); [current CLI connection](#source-cli); [physical evaluation implementation](#source-evaluation).
 
 All runtime stage AI booleans are false. The reviewed compiler, optimization and verification sources do not establish meaningful AI-built development provenance.
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The explicitly assisted feature adds control-network loop analysis, compiler insertion of monitors, VHDL monitor generation and CLI/test integration. This is a coherent new measurement subsystem; the separately reviewed maintainer-written LSQ refactor is excluded. [Instrumentation](#source-development-1); [Current compiler instrumentation](#source-development-2).

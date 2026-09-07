@@ -6,7 +6,11 @@ description: "Claude-assisted development project extending ngspice SPICE simula
 scope:
   simulation:
     ai: false
-  aiBuilt: true
+  aiDevelopment: built
+developmentEvidence:
+  summary: "The owner describes this repository as a Claude Code effort to enhance ngspice and OpenVAF. Its defining work includes compiler lowering and OSDI simulator callbacks; the attribution concerns these enhancements."
+  sources: ["development-1", "development-2"]
+  reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,6 +32,12 @@ sources:
     title: "Official project documentation"
     url: "https://javanoviceprogrammer.github.io/Ngspice_OpenVAF_Enhancements/"
     purpose: "official"
+  - id: "development-1"
+    title: "Owner’s development account"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/54202d0f1d510934f34c05ea14333513859a6bc6/README.md"
+  - id: "development-2"
+    title: "Compiler and simulator implementation"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/c0f6e5c29e396d87a34780939d67f8110b562679"
 ---
 
 ### Scope
@@ -49,3 +59,7 @@ These enhancements belong to this combined development tree and are not automati
 The project extends SPICE execution and Verilog-A model compilation for simulation. Compiler internals do not establish circuit-design generation, and enhancement-branch functionality is not automatically upstream functionality. [Reviewed source](#source-readme).
 
 SPICE execution and Verilog-A compilation remain conventional Simulation. The author explicitly identifies Claude-assisted core development and the reviewed compiler fixes corroborate it, so AI-built is retained. These enhancement-tree changes are not automatically upstream functionality. [AI/stage evidence](#source-readme).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-BUILT**. The owner explicitly defines this project as a Claude Code enhancement effort; the documented campaign and inspected compiler lowering/OSDI callback changes substantiate its defining contribution. Attribution applies to the enhancements, not the upstream codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
