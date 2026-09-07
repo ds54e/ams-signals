@@ -183,12 +183,12 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(badge.transform).toBe('uppercase');
       }
       const palette = await page.locator('.catalog').evaluate((el, stage) => {
-        const rgb = (selector: string) => {
+        const rgb = (selector: string, property: 'backgroundColor' | 'color' = 'backgroundColor') => {
           const node = el.querySelector(selector);
-          return node ? getComputedStyle(node).backgroundColor.match(/[\d.]+/g)!.slice(0, 3).map(Number) : null;
+          return node ? getComputedStyle(node)[property].match(/[\d.]+/g)!.slice(0, 3).map(Number) : null;
         };
         return Object.fromEntries(Object.entries({ design: rgb('.scope-design'), blue: rgb(`.scope-${stage}`),
-          synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), provenance: rgb('.scope-ai-built') }).filter(([, value]) => value));
+          synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), provenance: rgb('[data-ai-development]', 'color') }).filter(([, value]) => value));
       }, surface === 'analog' ? 'simulation' : 'verification') as Record<string, number[]>;
       palettes[surface] = palette;
       // Review the full system: teal, blue, yellow-olive, copper and crimson.
@@ -243,7 +243,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
         }));
         for (const badge of badges) {
-          // The outlined provenance badge is transparent; measure its rendered
+          // Both provenance badges are transparent; measure their rendered
           // background over the page, including any partially transparent fill.
           const alpha = badge.fill[3] ?? 1;
           const background = badge.fill.slice(0, 3).map((channel, i) => channel * alpha + palette.bg[i] * (1 - alpha));

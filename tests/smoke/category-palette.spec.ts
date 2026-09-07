@@ -34,18 +34,18 @@ async function readColors(page: Page) {
       return { kind: el.closest('.event-kind-technical') ? 'technical' : 'organizational',
         fill: style.backgroundColor, shape: style.borderRadius };
     });
-    return { tokens, semantics, surfaces, badges, glyphs };
+    return { tokens, semantics, surfaces, badges, glyphs, pageBackground: getComputedStyle(document.documentElement).backgroundColor };
   });
 }
 
 function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkContrast: boolean) {
-  const { tokens, semantics, surfaces, badges, glyphs } = colors;
+  const { tokens, semantics, surfaces, badges, glyphs, pageBackground } = colors;
   expect(semantics).toEqual({ technical: tokens.blue, organizational: tokens.rust });
   expect(new Set(['green', 'blue', 'gold', 'rust', 'red'].map((key) => tokens[key])).size).toBe(5);
   for (const badge of badges) {
     const color = badge.scope ? scopeColors[badge.scope as keyof typeof scopeColors] : kindColors[badge.kind as keyof typeof kindColors];
     expect(color, badge.label).toBeDefined();
-    if (badge.development === 'assisted') {
+    if (badge.development) {
       expect(badge.fill).toBe('rgba(0, 0, 0, 0)');
       expect(badge.ink).toBe(tokens.red);
       expect(badge.shadow).toContain(tokens.red);
@@ -55,7 +55,8 @@ function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkCont
       expect(badge.ink).toBe(tokens.ink);
     }
     expect(badge.opacity).toBe('1');
-    if (checkContrast) expect(contrast(badge.ink, badge.development === 'assisted' ? surfaces[0] : badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
+    // Transparent provenance badges render over the actual page background.
+    if (checkContrast) expect(contrast(badge.ink, badge.development ? pageBackground : badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
   }
   for (const glyph of glyphs) {
     expect(glyph.fill).toBe(tokens[kindColors[glyph.kind as keyof typeof kindColors]]);
