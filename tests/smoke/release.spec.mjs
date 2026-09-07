@@ -155,8 +155,8 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('.desktop-timeline')).toHaveCount(0);
   await expect(page.locator('[data-detail]')).toHaveCount(1);
   await expect(page.locator('[data-group="both"] [data-matrix-row]:visible').first())
-    .toHaveAttribute('data-entity-id', 'apple');
-  await expect(page.locator('[data-detail-title]')).toContainText('cross-team AMS simulation methodology');
+    .toHaveAttribute('data-entity-id', 'siemens-eda');
+  await expect(page.locator('[data-detail-title]')).toContainText('mixed-signal boundary debugging');
   await expect(page.locator('.result-section')).toHaveCount(0);
   await expect(page.locator('.company-records')).toHaveCount(0);
   await expect(page.getByText('Visible events', { exact: true })).toHaveCount(0);
@@ -710,7 +710,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   expect(Object.fromEntries([
     'siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom',
   ].map((id) => [id, canonicalCompanyCounts.get(id)]))).toEqual({
-    'siemens-eda': 13,
+    'siemens-eda': 18,
     nxp: 13,
     renesas: 14,
     'analog-devices': 12,
@@ -1462,8 +1462,8 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     .sort((left, right) => left.name.localeCompare(right.name, 'en') || left.id.localeCompare(right.id, 'en'));
   const expectedIds = expectedCompanies.map(({ id }) => id);
   expect(expectedIds.slice(0, 10)).toEqual([
-    'apple',
     'siemens-eda',
+    'apple',
     'nxp',
     'texas-instruments',
     'cadence',
@@ -1471,7 +1471,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     'infineon',
     'samsung',
     'synopsys',
-    'intel',
+    'microchip',
   ]);
   const expectedPeople = viewerPeople.map((person) => {
     const linked = viewerEvents.filter((event) => event.people.includes(person.id)).sort((left, right) => (
@@ -1498,8 +1498,8 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     'guha-lakshmanan',
     'venkateswaran-padmanabhan',
     'vijay-kumar',
+    'mariam-maurice',
     'thilo-voertler',
-    'steven-holloway',
   ]);
 
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
@@ -1546,7 +1546,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(50);
+  expect(defaultVisibleCombinedKeys).toHaveLength(51);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
@@ -1592,7 +1592,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const matrix = page.locator('[data-activity-matrix-surface]');
   await expect(matrix).toHaveAttribute('data-domain-oldest-year', '2010');
   await expect(matrix).toHaveAttribute('data-domain-latest-year', '2026');
-  await expect(matrix).toHaveAttribute('data-track-width', '662');
+  await expect(matrix).toHaveAttribute('data-track-width', '682');
   await expect(matrix).toHaveAttribute('data-time-band-count', '7');
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
@@ -1612,16 +1612,16 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   })));
   expect(bands).toEqual([
     { key: 'year-2026', label: '2026', ariaLabel: '2026', startYear: 2026, endYear: 2026, widthPx: 144, maxEventsPerRow: 7, startPx: 0, endPx: 144, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 114, maxEventsPerRow: 4, startPx: 144, endPx: 258, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 104, maxEventsPerRow: 3, startPx: 258, endPx: 362, zone: 'recent', resolution: 'continuous' },
-    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 74, maxEventsPerRow: 3, startPx: 362, endPx: 436, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2020-2022', label: '2020–2022', ariaLabel: '2020–2022', startYear: 2020, endYear: 2022, widthPx: 76, maxEventsPerRow: 3, startPx: 436, endPx: 512, zone: 'earlier', resolution: 'bucket' },
-    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 512, endPx: 588, zone: 'earlier', resolution: 'bucket' },
-    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 74, maxEventsPerRow: 5, startPx: 588, endPx: 662, zone: 'earlier', resolution: 'bucket' },
+    { key: 'year-2025', label: '2025', ariaLabel: '2025', startYear: 2025, endYear: 2025, widthPx: 134, maxEventsPerRow: 6, startPx: 144, endPx: 278, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2024', label: '2024', ariaLabel: '2024', startYear: 2024, endYear: 2024, widthPx: 104, maxEventsPerRow: 3, startPx: 278, endPx: 382, zone: 'recent', resolution: 'continuous' },
+    { key: 'year-2023', label: '2023', ariaLabel: '2023', startYear: 2023, endYear: 2023, widthPx: 74, maxEventsPerRow: 3, startPx: 382, endPx: 456, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2020-2022', label: '2020–2022', ariaLabel: '2020–2022', startYear: 2020, endYear: 2022, widthPx: 76, maxEventsPerRow: 3, startPx: 456, endPx: 532, zone: 'earlier', resolution: 'bucket' },
+    { key: 'years-2015-2019', label: '2015–2019', ariaLabel: '2015–2019', startYear: 2015, endYear: 2019, widthPx: 76, maxEventsPerRow: 5, startPx: 532, endPx: 608, zone: 'earlier', resolution: 'bucket' },
+    { key: 'through-2014', label: '≤2014', ariaLabel: '2014 and earlier', startYear: undefined, endYear: 2014, widthPx: 74, maxEventsPerRow: 5, startPx: 608, endPx: 682, zone: 'earlier', resolution: 'bucket' },
   ]);
   expect(bands.filter(({ resolution }) => resolution === 'continuous')).toHaveLength(3);
   expect(bands.filter(({ resolution }) => resolution === 'bucket')).toHaveLength(4);
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(662);
+  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(682);
   await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(6);
   await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
   await expect(page.locator('.activity-zone-label')).toHaveCount(0);
@@ -1659,7 +1659,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / 662) * 100;
+    return (xPx / 682) * 100;
   };
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
@@ -1709,7 +1709,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
   const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
   expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / 662) * 100;
+  const normalizedWindow = (proximityPx / 682) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     visualRowCount: Number(node.getAttribute('data-visual-row-count')),
@@ -1766,8 +1766,8 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     'ams-osram': 1,
   });
   expect(rows.filter(({ visualRowCount }) => visualRowCount > 1).map(({ lane }) => lane)).toEqual([
-    'company:apple',
     'company:siemens-eda',
+    'company:apple',
     'company:texas-instruments',
     'company:cadence',
     'company:infineon',
@@ -1801,8 +1801,9 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   const januaryOctoberHorizontalSeparation = Math.abs(
     januaryNovemberBundle.xPx - octoberBundle.xPx,
   ) - ((januaryNovemberBundle.collisionWidthPx + octoberBundle.collisionWidthPx) / 2);
-  expect(januaryOctoberHorizontalSeparation).toBeLessThan(0);
-  expect(januaryOctoberHorizontalSeparation).toBeGreaterThan(-4);
+  // The wider 2025 band leaves a positive gap below the required two-pixel clearance.
+  expect(januaryOctoberHorizontalSeparation).toBeGreaterThan(0);
+  expect(januaryOctoberHorizontalSeparation).toBeLessThan(2);
   expect(januaryNovemberBundle.rowStart).toBe(0);
   expect(octoberBundle.rowStart).toBe(1);
   expect(octoberBundle.top - januaryNovemberBundle.top).toBe(20);
