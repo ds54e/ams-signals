@@ -1,8 +1,14 @@
 # Analog implementation and review notes
 
+## Seven-candidate expansion (2026-09-07)
+
+After the provenance migration landed at `0760b732b328c05e0dbcd8ec2fe84f4ecb23579a`, the [focused review](../CATALOG_EXPANSION_REVIEW_2026-09-07.md) adds KLayout-PEX, PyOPUS, scikit-rf and Qucs-S. The actual Analog collection grows from 35 to 39 entries: 4 AI-ASSISTED, 1 AI-BUILT and 34 unmarked. All four additions have conventional runtime stages and no qualifying development label. The preceding 75-project audit remains unchanged.
+
+PyOPUS resolves its earlier history-access gap through canonical Codeberg metadata and full Git history, using the existing generic repository representation. KPEX distinguishes extraction from layout-to-PEX25D generation and standalone exchange operations; scikit-rf separates fitting from S-only SPICE export; Qucs-S separates the stable and continuous-build channels. Both activity snapshots advance through the existing refresh mechanisms, with manually reviewed meaningful dates kept separate from mechanical captures. The focused review records sources, stage decisions, exact activity/release boundaries and final validation results.
+
 ## Two-label development provenance (2026-09-07)
 
-Starting commit: `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc`. The [complete new review](../AI_BUILT_REVIEW.md) was recorded before catalog classification changes and supersedes provenance rules and judgments in all historical sections below. This domain now has **4 AI-ASSISTED, 1 AI-BUILT and 30 unmarked projects**. Across all 75 entries: 14 assisted, 6 built and 55 unmarked, from 7 previous built labels. CircuitRubric is deliberately unlabeled under the stronger evidence-scope requirement.
+Starting commit: `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc`. The [complete new review](../AI_BUILT_REVIEW.md) was recorded before catalog classification changes and supersedes provenance rules and judgments in all historical sections below. At migration completion this domain had **4 AI-ASSISTED, 1 AI-BUILT and 30 unmarked projects**. Across the then-current 75 entries: 14 assisted, 6 built and 55 unmarked, from 7 previous built labels. CircuitRubric is deliberately unlabeled under the stronger evidence-scope requirement.
 
 The shared model is optional `scope.aiDevelopment: assisted | built`, paired with `developmentEvidence` (factual summary, existing source IDs and independent review date). Legacy `aiBuilt` is rejected. Scope stages, runtime booleans, functional descriptions, activity snapshots and primary navigation remain unchanged. Shared outline/filled muted-red badges follow the stages with an 8px separation and open inline evidence through native buttons; static HTML includes the same explanation and links. Search uses only existing public project text plus the exact visible labels.
 

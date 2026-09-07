@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-05",
-  "capturedAt": "2026-09-05T07:39:03.616Z",
+  "reviewedAt": "2026-09-07",
+  "capturedAt": "2026-09-07T00:51:31.187Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -533,7 +533,7 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "defaultBranch": "main",
-      "headSha": "1376468d05d1c4adc5dd3cdfdcf434421fb249ec",
+      "headSha": "609e060dc79d62897068244ab7be431854976829",
       "commits": [
         0,
         0,
@@ -546,9 +546,9 @@
         0,
         22,
         74,
-        134
+        140
       ],
-      "lastCommitAt": "2026-09-04",
+      "lastCommitAt": "2026-09-05",
       "lastMeaningfulCommitAt": "2026-09-04",
       "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort. Substantive implementation/task/result activity reviewed at 1376468d05d1c4adc5dd3cdfdcf434421fb249ec: fix(gui-debug): SSH mode screenshot download + remote dir creation. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -626,7 +626,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "05fa8a439e7b84a26f45320dceb8dea2391ae2a1",
+      "headSha": "ffa89ee6c0d634d8c8a0c7840dd078551138db65",
       "commits": [
         0,
         0,
@@ -639,9 +639,9 @@
         73,
         1007,
         354,
-        101
+        192
       ],
-      "lastCommitAt": "2026-09-05",
+      "lastCommitAt": "2026-09-07",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "2fbf9870a30a84a524dc55aeadafb3613c11e305"
     },
@@ -675,7 +675,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "87eeb79c2c68eef08dcf982dac3842917b28a798",
+      "headSha": "94564b9b07ef18b826880c40483d3ab6a7e1f5ee",
       "commits": [
         54,
         28,
@@ -688,9 +688,9 @@
         5,
         9,
         38,
-        10
+        13
       ],
-      "lastCommitAt": "2026-09-05",
+      "lastCommitAt": "2026-09-06",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "ecbcb21eb765b5069c9d72b976fcaab0db2a6a33",
       "notes": "The September 5 tip changes test-example cosmetics. September 4 ecbcb21 fixes parent-property lookup in hierarchical parameter resolution in src/actions.c and establishes meaningful activity."
@@ -801,6 +801,108 @@
       "lastPublicUpdateAt": "2026-08-11",
       "lastPublicUpdateSource": "release",
       "notes": "Canonical upstream source is hosted on SourceForge. The ngspice 47 release adds device-model, code-model noise and periodic-state changes; the band records this release signal without a GitHub mirror or fabricated repository history."
+    },
+    "klayout-pex": {
+      "kind": "github",
+      "repository": "iic-jku/klayout-pex",
+      "repositoryId": 897408519,
+      "defaultBranch": "main",
+      "headSha": "93d50dd2265b8d954cab1e8e60b2348848cee7d7",
+      "commits": [
+        9,
+        4,
+        5,
+        4,
+        5,
+        1,
+        7,
+        0,
+        3,
+        4,
+        18,
+        0
+      ],
+      "lastCommitAt": "2026-08-28",
+      "lastMeaningfulCommitAt": "2026-08-28",
+      "lastMeaningfulCommitSha": "0b6cf1ff25fcf7eb794c52999b2c850448144457",
+      "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
+    },
+    "pyopus": {
+      "kind": "repository",
+      "repository": "https://codeberg.org/arpadbuermen/PyOPUS",
+      "repositoryId": "codeberg:230380",
+      "defaultBranch": "main",
+      "headSha": "56e601eabd6331d4669782ceb01cea91c90b3efc",
+      "commits": [
+        1,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-03-13",
+      "lastMeaningfulCommitAt": "2026-03-13",
+      "lastMeaningfulCommitSha": "56e601eabd6331d4669782ceb01cea91c90b3efc",
+      "notes": "Canonical Codeberg identity and full first-parent history reviewed; latest fix repairs NumPy-scalar aggregate result reporting.",
+      "capturedAt": "2026-09-07T00:50:19.657Z",
+      "lastMeaningfulCommitSource": "activity"
+    },
+    "scikit-rf": {
+      "kind": "github",
+      "repository": "scikit-rf/scikit-rf",
+      "repositoryId": 3218028,
+      "defaultBranch": "master",
+      "headSha": "93b1c9dd14e72d45edac4538a0b495338e64d616",
+      "commits": [
+        9,
+        6,
+        3,
+        3,
+        8,
+        3,
+        2,
+        4,
+        4,
+        9,
+        12,
+        2
+      ],
+      "lastCommitAt": "2026-09-03",
+      "lastMeaningfulCommitAt": "2026-09-03",
+      "lastMeaningfulCommitSha": "93b1c9dd14e72d45edac4538a0b495338e64d616",
+      "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
+    },
+    "qucs-s": {
+      "kind": "github",
+      "repository": "ra3xdh/qucs_s",
+      "repositoryId": 96015964,
+      "defaultBranch": "current",
+      "headSha": "706ed127c56f3927e69fb9b3b038fa1e0e292ef6",
+      "commits": [
+        7,
+        13,
+        18,
+        9,
+        4,
+        9,
+        16,
+        7,
+        7,
+        6,
+        11,
+        2
+      ],
+      "lastCommitAt": "2026-09-04",
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "lastMeaningfulCommitSha": "706ed127c56f3927e69fb9b3b038fa1e0e292ef6",
+      "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
     }
   }
 }

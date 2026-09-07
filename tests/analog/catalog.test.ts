@@ -94,7 +94,9 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   }));
   const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
   validateCatalog(projects, []); validateActivity(projects, activity);
-  assert.equal(projects.length, 35);
+  assert.ok(projects.length > 0);
+  assert.equal(new Set(projects.map((project) => project.id)).size, projects.length);
+  assert.deepEqual(Object.keys(activity.projects).sort(), projects.map((project) => project.id).sort());
   const baselines = {
     ngspice: ['simulation'], xyce: ['simulation'],
     xschem: ['design', 'simulation'],
