@@ -1,0 +1,26 @@
+{
+  "id": "siemens-eda-2022-sv-rnm-resolved-net-modeling",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": ["siemens-eda"],
+  "people": ["mariam-maurice"],
+  "headline": "Siemens author demonstrates capacitance-aware resolved nets and SV-RNM model debugging",
+  "fact": "A DVCon U.S. 2022 paper by Siemens EDA's Mariam Maurice describes a SystemVerilog resolved-net model carrying voltage, previous voltage, current, capacitance, and resistance. It illustrates loading and filtering effects, real/logic boundary conversion, and interconnect debugging, with ADC, DAC, LDO, and image-sensor examples. The paper identifies UVM, assertions, and functional coverage as future verification work.",
+  "sources": [
+    {
+      "title": "DVCon archive record for Mariam Maurice's SV-RNM paper",
+      "url": "https://dvcon-proceedings.org/document/modeling-analog-devices-using-sv-rnm-2/",
+      "checkedAt": "2026-09-07",
+      "summary": "Official proceedings index identifies the author, U.S. conference, 2022 year, and paper publication type."
+    },
+    {
+      "title": "Modeling Analog Devices using SV-RNM",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/Modeling-Analog-Devices-using-SV-RNM-1.pdf",
+      "checkedAt": "2026-09-07",
+      "summary": "Paper identifies the Siemens affiliation and documents the capacitance-aware resolution function, boundary/interconnect inspection, device examples, and future verification work."
+    }
+  ]
+}

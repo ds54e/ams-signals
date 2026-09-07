@@ -1,0 +1,20 @@
+{
+  "id": "microchip-2025-11-ams-coverage-checkpoint-case-studies",
+  "when": {
+    "start": "2025-11-07",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["microchip", "siemens-eda"],
+  "people": [],
+  "headline": "Siemens reports Microchip AMS coverage and checkpoint-debug case studies",
+  "fact": "A Siemens forum recap reports two Microchip posters: mixed-signal code-coverage analysis of a temperature/voltage sensor exposed RTL bugs missed by standalone digital verification; a battery-backed SRAM case used Symphony Get Analog Value and checkpoint save/restore for analog visibility and debug. The date records publication of the vendor recap.",
+  "sources": [
+    {
+      "title": "Siemens recap of mixed-signal customer presentations",
+      "url": "https://blogs.sw.siemens.com/cicv/2025/11/07/mixed-signal-verification-symphony-customer-success-stories-across-the-siemens-eda-and-solido-custom-ic-forums/",
+      "checkedAt": "2026-09-07",
+      "summary": "November 7 vendor report distinguishes Microchip's sensor coverage study from its separate SRAM visibility and checkpoint study."
+    }
+  ]
+}

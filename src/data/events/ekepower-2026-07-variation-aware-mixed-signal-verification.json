@@ -1,0 +1,20 @@
+{
+  "id": "ekepower-2026-07-variation-aware-mixed-signal-verification",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["ekepower", "siemens-eda"],
+  "people": [],
+  "headline": "EKEPOWER and Siemens describe variation-aware verification and trimming for mixed-signal printing ICs",
+  "fact": "A DAC 2026 abstract by EKEPOWER's Irving Hsu and Siemens' Lih-Jen Hou describes a Solido flow combining transient, RF, and mixed-signal analysis for printing ICs with motor/printhead drivers, timing references, and RF sensors. The authors report up to 7.6x speed improvement over their conventional methods and an AI-assisted trimming flow that reduces top-level voltage variation; these are presentation-reported results.",
+  "sources": [
+    {
+      "title": "DAC 2026 abstract on EKEPOWER variation-aware analog/mixed-signal optimization",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST268&sess=sess296",
+      "checkedAt": "2026-09-07",
+      "summary": "Official abstract identifies both authors and affiliations, July 29 poster scheduling, analysis modes, and reported speed and trimming results."
+    }
+  ]
+}
