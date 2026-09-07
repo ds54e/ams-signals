@@ -3,7 +3,8 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
-  ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout']);
+  ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout',
+    'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s']);
 
 catalogSearchRegression(fixture, {
   ngspice: ['ngspice', 'analoggym', 'autosizer'],
@@ -13,7 +14,17 @@ catalogSearchRegression(fixture, {
   SKY130: ['analoggym', 'gmoverid-skill'],
   AI: ['analogsage', 'zerosim'],
   layout: ['klayout', 'magic'],
-  sizing: ['autosizer', 'astra', 'analogsage', 'gmoverid-skill'],
+  sizing: ['autosizer', 'astra', 'analogsage', 'gmoverid-skill', 'pyopus'],
+  'KLayout-PEX': ['klayout-pex'],
+  parasitic: ['klayout-pex'],
+  PEX: ['klayout-pex'],
+  PyOPUS: ['pyopus'],
+  corner: ['pyopus'],
+  'scikit-rf': ['scikit-rf'],
+  'S-parameter': ['scikit-rf'],
+  SPICE: ['ngspice', 'scikit-rf', 'qucs-s'],
+  'Qucs-S': ['qucs-s'],
+  Xyce: ['xyce', 'qucs-s'],
 });
 
 test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {

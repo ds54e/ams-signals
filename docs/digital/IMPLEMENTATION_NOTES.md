@@ -1,8 +1,14 @@
 # Digital implementation and review notes
 
+## Seven-candidate expansion (2026-09-07)
+
+After the provenance migration landed at `0760b732b328c05e0dbcd8ec2fe84f4ecb23579a`, the [focused review](../CATALOG_EXPANSION_REVIEW_2026-09-07.md) adds RgGen, PyUCIS and PeakRDL. The actual Digital collection grows from 40 to 43 entries: 11 AI-ASSISTED, 5 AI-BUILT and 27 unmarked. PyUCIS gains AI-ASSISTED for its directly attributed history/testplan/report implementation; all new runtime stages remain conventional. The preceding 75-project audit remains unchanged.
+
+RgGen's optional SystemRDL integration is later than the stable release and preserves only its documented mapping, including hardware precedence. PeakRDL's root activity excludes component histories. PyUCIS separately verifies Git advertisement, declared mirror relationship, documentation and package authority; its unresolved host repository ID leads to the supported March 7 PyPI release point, without borrowed mirror buckets. The focused review records primary sources, the retained implementation/provenance boundary, exact dates and final validation results. Shared Scope fields, badge presentation and filters are unchanged.
+
 ## Two-label development provenance (2026-09-07)
 
-Starting commit: `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc`. The [complete new review](../AI_BUILT_REVIEW.md) was recorded before catalog classification changes and supersedes provenance rules and judgments in all historical sections below. This domain now has **10 AI-ASSISTED, 5 AI-BUILT and 25 unmarked projects**. Across all 75 entries: 14 assisted, 6 built and 55 unmarked, from 7 previous built labels. CircuitRubric is deliberately unlabeled under the stronger evidence-scope requirement.
+Starting commit: `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc`. The [complete new review](../AI_BUILT_REVIEW.md) was recorded before catalog classification changes and supersedes provenance rules and judgments in all historical sections below. At migration completion this domain had **10 AI-ASSISTED, 5 AI-BUILT and 25 unmarked projects**. Across the then-current 75 entries: 14 assisted, 6 built and 55 unmarked, from 7 previous built labels. CircuitRubric is deliberately unlabeled under the stronger evidence-scope requirement.
 
 The shared model is optional `scope.aiDevelopment: assisted | built`, paired with `developmentEvidence` (factual summary, existing source IDs and independent review date). Legacy `aiBuilt` is rejected. Scope stages, runtime booleans, functional descriptions, activity snapshots and primary navigation remain unchanged. Shared outline/filled muted-red badges follow the stages with an 8px separation and open inline evidence through native buttons; static HTML includes the same explanation and links. Search uses only existing public project text plus the exact visible labels.
 

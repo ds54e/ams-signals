@@ -1,6 +1,6 @@
 # AI-development provenance review — 2026-09-07
 
-This review covers **all 75 current projects: 35 Analog and 40 Digital**, starting from `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc` on `main`. The starting data contained **7 AI-BUILT labels** (2 Analog, 5 Digital). No project is added or removed. The complete matrix below was authored and checked against the inventory **before applying any catalog classification changes**.
+The migration review covered **all 75 projects then present: 35 Analog and 40 Digital**, starting from `caf8f24a3626cdbe7cfdc8c5ac85742c6cb2d2cc` on `main`. The starting data contained **7 AI-BUILT labels** (2 Analog, 5 Digital). No project was added or removed by that migration. Its complete matrix below was authored and checked against the inventory **before applying any catalog classification changes**. The subsequent seven-candidate expansion is recorded separately below, including current collection-derived totals.
 
 The previous [2026-09-06 binary audit](AI_BUILT_REVIEW_2026-09-06.md) remains distinguishable as history. Its A/B/C/D research tiers are not mapped to public labels. This review supersedes its policy and all earlier provenance decisions in the domain notes and Scope review, while preserving useful evidence and unrelated requirements.
 
@@ -26,7 +26,7 @@ Each labeled row identifies what AI helped implement, why it is substantial and 
 
 **Review date: 2026-09-07 (Asia/Tokyo).** This is a provenance review date, not project activity. Existing activity snapshots, dates, chronological bands, functional Scope stages, runtime AI booleans, descriptions, Golden facts, Articles and export semantics are preserved.
 
-## Result
+## Migration result
 
 | Domain | Reviewed | Previous AI-BUILT | AI-ASSISTED | AI-BUILT | No label |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -135,7 +135,31 @@ Runtime AI stays in each functional stage’s `{ ai: boolean }`. Either provenan
 
 The shared index renders exactly one final provenance badge after the stages, with a small extra gap: AI-ASSISTED outlined in muted red, AI-BUILT filled in the same color family. Activating the badge opens an inline “Development provenance” explanation and primary links. Search indexes the displayed badge text along with existing public name/description/stage text; it does not index hidden research or source URLs. Stage filtering stays independent. Without JavaScript, explanations and source links remain readable in static HTML.
 
-## Implementation verification
+## Subsequent catalog expansion — 2026-09-07
+
+The [focused seven-candidate review](CATALOG_EXPANSION_REVIEW_2026-09-07.md) adds four Analog and three Digital entries after the migration landed at `0760b732b328c05e0dbcd8ec2fe84f4ecb23579a`. It reuses this policy without rerunning or changing the prior 75-project audit. All seven runtime stage booleans are false; development provenance remains independent.
+
+| Added project | Domain | Development decision | Affected implementation and rationale | Primary evidence / boundary |
+| --- | --- | --- | --- | --- |
+| KLayout-PEX | Analog | No label | README, development guide and reachable history do not establish substantial AI implementation of the extraction/exchange project. | [Reviewed README](https://github.com/iic-jku/klayout-pex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/README.md); conventional field solvers do not imply provenance. |
+| PyOPUS | Analog | No label | Official versioned documentation and canonical Codeberg history do not establish qualifying AI implementation. | [Official README](https://fides.fe.uni-lj.si/pyopus/download/0.12/README); numerical sizing/yield optimization is separate. |
+| RgGen | Digital | No label | Root and SystemRDL-plugin documentation/history do not establish qualifying AI implementation. | [Root guide](https://github.com/rggen/rggen/blob/a55d05aed0b1785bf44905ce3b194e8db723444d/README.md); generated RTL is an output, not software-construction evidence. |
+| PyUCIS | Digital | **AI-ASSISTED** | Copilot-attributed binary history storage/query, testplan analysis, reports and CLI/TUI integration are substantial implemented additions retained in the current project and released wheel. | [Maintainer enhancement account](https://bitsbytesgates.com/blog/better-coverage-analysis-with-ai/), [implementation diff](https://github.com/fvutils/pyucis/commit/d396b872a6caa4633234a82f42dd9bf91b54b314), [current integration on the mirror](https://github.com/fvutils/pyucis/blob/11c39fd03a983fa602eb8967b3640a0fcc532458/src/ucis/ncdb/ncdb_ucis.py). The older library's whole/defining-core origin is not attributed to AI; no AI-BUILT or authorship percentage. |
+| PeakRDL | Digital | No label | Root documentation, exporter architecture and reachable history do not establish qualifying AI implementation. | [Reviewed README](https://github.com/SystemRDL/PeakRDL/blob/dc4f779cc97d07519d475ff392a2b26f6a8373f2/README.md); no attribution is inherited from independently maintained plugins. |
+| scikit-rf | Analog | No label | Actual credited diffs concern small parser/array fixes, a plotting wrapper over existing error calculations, tests and diagnostics. They do not establish a substantial modeling subsystem or campaign. | [MDIF fix](https://github.com/scikit-rf/scikit-rf/commit/701ea5aa9899a0e9301d5c1a509bb3eafdf3da2c), [plotting addition](https://github.com/scikit-rf/scikit-rf/commit/13bb7b08721c3bc0476e1778ba5edf8e9a0b200b); direct credit does not enlarge incidental implementation scope. |
+| Qucs-S | Analog | No label | Reviewed project/contribution documentation and reachable history do not establish qualifying AI implementation. | [Reviewed README](https://github.com/ra3xdh/qucs_s/blob/706ed127c56f3927e69fb9b3b038fa1e0e292ef6/README.md); no attribution of upstream simulator engines. |
+
+Every added entry was reviewed on **2026-09-07**. A missing label is not a claim of exclusively human development. PyUCIS's GitHub code references are explicitly mirror observations; the focused review separates canonical Git access, documentation, package authority, release evidence and the unresolved host repository ID. Its significant additions were also checked in the checksum-verified PyPI wheel, independently of the hosting changes.
+
+| Current collection | Projects | AI-ASSISTED | AI-BUILT | No label |
+| --- | ---: | ---: | ---: | ---: |
+| Analog | 39 | 4 | 1 | 34 |
+| Digital | 43 | 11 | 5 | 27 |
+| **Total** | **82** | **15** | **6** | **61** |
+
+These totals were derived from the expanded collections. Public counts and badge rendering remain data-driven. No existing entry's classification, evidence or runtime stages change in this expansion.
+
+## Migration implementation verification
 
 `npm run check` passed, including 27 Analog and 28 Digital unit tests, the 285-page build and 2,976 internal-anchor checks. `npm run test:smoke` passed all 104 Chromium tests. Follow-up schema and keyboard/index regressions also passed after final test-fixture cleanup. Contrast assertions retain the 4.5:1 threshold and composite transparent badge backgrounds over the page color.
 
