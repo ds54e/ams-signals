@@ -1,0 +1,30 @@
+{
+  "id": "siemens-eda-2024-03-adc-dac-rnm-functional-verification",
+  "when": {
+    "start": "2024-03-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "siemens-eda"
+  ],
+  "people": [
+    "mariam-maurice"
+  ],
+  "headline": "Mariam Maurice presents UVM, assertions, and coverage for ADC/DAC real-number models",
+  "fact": "At DVCon U.S., Siemens EDA's Mariam Maurice presented methods for verifying ADC and DAC real-number models with randomized stimulus, functional coverage, assertions, and UVM. The paper includes constrained variation of reference and supply voltages and coverage of real-valued signal ranges. Its verification targets are modeled analog devices and their specified behavior.",
+  "sources": [
+    {
+      "title": "DVCon U.S. session 1049: Functional Verification of Analog Devices modeled using SV-RNM",
+      "url": "https://dvcon.org/technical-session/1049-functional-verification-of-analog-devices-modeled-using-svrnm",
+      "checkedAt": "2026-09-09",
+      "summary": "The official session record identifies Mariam Maurice, Siemens EDA, and the March 6, 2024 presentation."
+    },
+    {
+      "title": "Functional Verification of Analog Devices modeled using SV-RNM — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1049.pdf",
+      "checkedAt": "2026-09-09",
+      "summary": "The conference paper details ADC/DAC RNM verification with constrained random stimulus, voltage-range coverage, assertions, and UVM, including reference and supply variation examples."
+    }
+  ]
+}

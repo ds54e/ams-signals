@@ -1,0 +1,30 @@
+{
+  "id": "infineon-2024-svreal-fixed-point-fpga-debug",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "gabriel-rutsch"
+  ],
+  "headline": "Infineon authors extend svreal checks and FPGA debug for fixed-point mixed-signal models",
+  "fact": "A DVCon Europe paper by Vishal Chovatiya, Gabriel Rutsch, and Wolfgang Ecker describes svreal extensions that detect range violations and precision loss in simulation by comparing fixed-point calculations with a shadow SystemVerilog real representation. Its Integrated Fixedpoint Analyzer interprets fixed-point signal values during FPGA debug. A buck-converter model illustrates the flow between host simulation and FPGA emulation.",
+  "sources": [
+    {
+      "title": "Addressing Fixed-Point Format Issues in FPGA Prototyping with an Open-Source Framework",
+      "url": "https://dvcon-proceedings.org/document/addressing-fixed-point-format-issues-in-fpga-prototyping-with-an-open-source-framework/",
+      "checkedAt": "2026-09-09",
+      "summary": "The official DVCon archive identifies the authors and the 2024 Europe conference year."
+    },
+    {
+      "title": "svreal fixed-point checks and FPGA debug — DVCon Europe paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/167-Addressing-Fixed-Point-Format-Issues-in-FPGA-Prototyping-with-an-Open-Source-Framework.pdf",
+      "checkedAt": "2026-09-09",
+      "summary": "The paper describes simulation checks for range and precision, a shadow real representation, ILA/VIO-based fixed-point interpretation, and the buck-converter example. Ordinary SystemVerilog real is used in host simulation; the FPGA uses a synthesizable representation."
+    }
+  ]
+}

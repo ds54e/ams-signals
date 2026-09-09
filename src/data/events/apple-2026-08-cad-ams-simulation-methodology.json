@@ -1,7 +1,7 @@
 {
   "id": "apple-2026-08-cad-ams-simulation-methodology",
   "when": {
-    "start": "2026-08-27",
+    "start": "2026-08-28",
     "precision": "day"
   },
   "kind": "organizational",
@@ -9,14 +9,20 @@
     "apple"
   ],
   "people": [],
-  "headline": "Apple posts a senior CAD role to own cross-team AMS simulation methodology",
-  "fact": "Apple posted a Senior CAD Automation and Mixed-Signal Simulation Engineer role whose description assigns ownership of AMS simulation methodology across analog, RF, interconnect, PMIC, and memory teams, spanning circuit and RTL simulation, behavioral modeling, analog-digital co-simulation, logic equivalence, signoff, and automation. The posting also names wreal, real-number modeling, user-defined nets, and connect modules among the relevant methodology experience.",
+  "headline": "Apple posts CAD roles covering cross-team AMS simulation methodology and AI-assisted automation",
+  "fact": "Apple posted related CAD Automation and Mixed-Signal Simulation Engineer roles in Austin and Sunnyvale. The senior description assigns ownership of AMS simulation methodology across analog, RF, interconnect, PMIC, and memory teams, spanning circuit and RTL simulation, behavioral modeling, co-simulation, logic equivalence, sign-off, and automation. Preferred experience includes discipline resolution, binding/IE setup, connect modules, AMSD blocks, wreal, RNM, UDN, and SystemVerilog/Verilog-A/Verilog-AMS. Both roles mention applying LLMs or AI agents to CAD software, test generation, and debug among preferred qualifications, with leadership of that work requested in the senior role.",
   "sources": [
     {
       "title": "Senior CAD Automation and Mixed-Signal Simulation Engineer",
-      "url": "https://jobs.apple.com/fr-ch/details/200680373-3956/senior-cad-automation-and-mixed-signal-simulation-engineer?team=HRDWR",
-      "checkedAt": "2026-08-30",
-      "summary": "Official Apple role dated August 27, 2026, covering ownership of AMS simulation methodology, cross-team CAD automation, co-simulation and signoff flows, and wreal, RNM, UDN, and connect-module implementation."
+      "url": "https://jobs.apple.com/en-us/details/200680373-3956/senior-cad-automation-and-mixed-signal-simulation-engineer",
+      "checkedAt": "2026-09-09",
+      "summary": "The live official senior role 200680373-3956 displays August 28, 2026, with Austin and Sunnyvale work locations. It describes AMS methodology ownership and lists LLM/AI-agent CAD automation leadership among preferred qualifications."
+    },
+    {
+      "title": "CAD Automation and Mixed-Signal Simulation Engineer",
+      "url": "https://jobs.apple.com/en-us/details/200680364-3956/cad-automation-and-mixed-signal-simulation-engineer",
+      "checkedAt": "2026-09-09",
+      "summary": "The live official companion role 200680364-3956 also displays August 28, 2026. It covers the same teams and AMS methodology family and prefers familiarity with LLM/AI-agent use in CAD software, test generation, and debugging."
     }
   ]
 }

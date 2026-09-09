@@ -7,8 +7,8 @@
   "kind": "organizational",
   "companies": ["sitime"],
   "people": [],
-  "headline": "SiTime lists an SV-RNM verification role spanning UVM, assertions, coverage, and digital-top sign-off",
-  "fact": "SiTime posted a verification role whose responsibilities included developing SystemVerilog real-number models, a digital-top SystemVerilog verification plan, UVM scoreboards, monitors, and sequencers, SVA, functional coverage, simulation debug, and tape-out sign-off. The listing named wreal/V-AMS, UVM-AMS, and formal property verification as relevant experience.",
+  "headline": "SiTime lists SV-RNM verification roles spanning UVM, assertions, coverage, and digital-top sign-off",
+  "fact": "SiTime posted a verification role whose responsibilities included developing SystemVerilog real-number models, a digital-top SystemVerilog verification plan, UVM scoreboards, monitors, and sequencers, SVA, functional coverage, simulation debug, and tape-out sign-off. The listing named wreal/V-AMS, UVM-AMS, and formal property verification as relevant experience. A Munich listing checked in September 2026 repeats this responsibility and qualification pattern.",
   "sources": [
     {
       "title": "SiTime Sr. Engineer, Verifications — official application",
@@ -21,6 +21,12 @@
       "url": "https://jobs.spacecapital.com/companies/sitime/jobs/54672927-sr-engineer-verifications",
       "checkedAt": "2026-08-30",
       "summary": "Secondary recovery copy dated July 18, 2025, preserving the role's SV-RNM, UVM, SVA, coverage, digital-top, and sign-off responsibilities."
+    },
+    {
+      "title": "SiTime: Sr. Engineer, Verifications — Munich (1747)",
+      "url": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?ccId=19000101_000001&cid=555e77b2-029a-4357-8712-1dd910b41621&jobId=589338&lang=en_US",
+      "checkedAt": "2026-09-09",
+      "summary": "The official Munich listing repeats the SV-RNM, UVM, digital-top, SVA, coverage, sign-off, wreal/V-AMS, UVM-AMS, and formal-property scope. It exposes only a relative posting age; this source records its September 2026 visibility without assigning it the original 2025 role's date."
     }
   ]
 }

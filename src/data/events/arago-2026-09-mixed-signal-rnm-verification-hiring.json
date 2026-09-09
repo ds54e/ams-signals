@@ -1,0 +1,22 @@
+{
+  "id": "arago-2026-09-mixed-signal-rnm-verification-hiring",
+  "when": {
+    "start": "2026-09-02",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "arago"
+  ],
+  "people": [],
+  "headline": "Arago posts mixed-signal verification role for its optical/CMOS computing SoCs",
+  "fact": "Arago posted a senior mixed-signal verification role in Paris or Tel Aviv to own methodology and verification of digital-to-analog interfaces in its SoCs. The responsibilities include block, subsystem, and SoC environments, behavioral and real-number models, assertions, coverage, and sign-off. SystemVerilog and UVM or an equivalent methodology are requested; SystemVerilog RNM, wreal, and Verilog-AMS appear among preferred experience.",
+  "sources": [
+    {
+      "title": "Arago: Senior Mixed-Signal Verification Engineer",
+      "url": "https://jobs.ashbyhq.com/arago/0c2b7715-f475-4fce-b7d7-e71dadc23525",
+      "checkedAt": "2026-09-09",
+      "summary": "Arago's official Ashby listing describes its optical/CMOS computing context and the mixed-signal verification mandate, with named RNM technologies under nice-to-have experience. The public job-board API gives publication as September 2, 2026."
+    }
+  ]
+}

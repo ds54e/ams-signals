@@ -1,0 +1,22 @@
+{
+  "id": "synopsys-2026-09-reusable-ip-ams-verification-hiring",
+  "when": {
+    "start": "2026-09-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "Synopsys posts an AMS verification role describing reusable models and monitors across IP families",
+  "fact": "Synopsys posted a Hyderabad senior staff role to own AMS verification plans, environments, coverage, and sign-off for mixed-signal IP blocks and subsystems. Its description combines SystemVerilog/UVM with Verilog-A and Verilog-AMS models and mixed-signal simulators, and calls for behavioral models and monitors to be reused across IP families. Requested circuit knowledge includes bias circuits, regulators, PLLs, ADCs, and DACs.",
+  "sources": [
+    {
+      "title": "Synopsys: Sr Staff Mixed-Signal Verification Engineer (18564)",
+      "url": "https://careers.synopsys.com/job/hyderabad/sr-staff-mixed-signal-verification-engineer/44408/100174818352",
+      "checkedAt": "2026-09-09",
+      "summary": "The official posting is dated September 3, 2026, and describes AMS verification of Synopsys IP, cross-family model/monitor reuse, and automation. It does not explicitly name RNM."
+    }
+  ]
+}

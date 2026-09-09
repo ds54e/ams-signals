@@ -1,0 +1,24 @@
+{
+  "id": "siemens-eda-2023-07-pll-rnm-modeling-correlation",
+  "when": {
+    "start": "2023-07-26",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "siemens-eda"
+  ],
+  "people": [
+    "mariam-maurice"
+  ],
+  "headline": "Siemens and Ain Shams authors compare a SystemVerilog PLL model with transistor-level outputs",
+  "fact": "Mariam Maurice, Mohamed Dessouky, and Ashraf Salem published an IEEE Access paper on analog PLL modeling in an event-driven simulator. It uses piecewise-linear value/slope representations with SystemVerilog user-defined types and nets for higher-order loop filters, models fractional division and phase noise, and represents output loading with resolved nets. The paper compares modeled PLL outputs with transistor-level simulation.",
+  "sources": [
+    {
+      "title": "Increasing the Modeling Accuracy of an Analog PLL Device Executed With an Event-Driven Simulator — full text",
+      "url": "https://www.researchgate.net/publication/372674108_Increasing_the_Modelling_Accuracy_of_an_Analog_PLL_Device_executed_with_an_Event-Driven_Simulator",
+      "checkedAt": "2026-09-09",
+      "summary": "The public full text identifies Siemens and Ain Shams affiliations, DOI 10.1109/ACCESS.2023.3299227, the PLL modeling and comparison methods, and a July 26, 2023 publication date. The paper's dated first page takes precedence over the page's generic January 2023 label."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "infineon-2020-mixed-signal-fpga-prototyping",
+  "when": {
+    "start": "2020",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "gabriel-rutsch"
+  ],
+  "headline": "Infineon and Stanford authors report FPGA prototypes for mixed-signal magnetic sensors",
+  "fact": "A DVCon Europe paper led by Gabriel Rutsch reports two FPGA prototypes for automotive magnetic sensors, using msdsl to generate synthesizable analog functional models and anasymod for FPGA build and control. One prototype supports real-time hardware-in-the-loop and customer integration; the other accelerates regression testing. The paper describes their use across product definition, verification, and design-in.",
+  "sources": [
+    {
+      "title": "Boosting Mixed-Signal Design Productivity with FPGA-Based Methods throughout the Chip Design Process",
+      "url": "https://dvcon-proceedings.org/document/boosting-mixed-signal-design-productivity-with-fpga-based-methods-throughout-the-chip-design-process/",
+      "checkedAt": "2026-09-09",
+      "summary": "The official DVCon archive identifies the paper, its authors, and the 2020 Europe conference year."
+    },
+    {
+      "title": "Mixed-signal FPGA prototyping — DVCon Europe paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/boosting-mixed-signal-design-productivity-with-fpga-based-methods-throughout-the-chip-design-process.pdf",
+      "checkedAt": "2026-09-09",
+      "summary": "The Infineon and Stanford paper describes the magnetic-sensor prototypes, msdsl/anasymod flow, real-time integration and regression use cases, and synthesizable numerical models."
+    }
+  ]
+}

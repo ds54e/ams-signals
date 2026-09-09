@@ -9,14 +9,20 @@
     "qorvo"
   ],
   "people": [],
-  "headline": "Qorvo posts mixed-signal verification leadership role for power-management products",
-  "fact": "Qorvo posted a manager role to grow and direct a mixed-signal verification team for power-loss protection, PMIC, motor-control, and battery-management products. Its responsibilities include metric-driven plans, constrained-random tests and automated checkers in a UVM environment, RNM or Verilog-AMS models, methodology improvement, and verification automation; SV-UDN/EEnet and AI-workflow familiarity are preferred. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "headline": "Qorvo posts management and senior principal roles for power-management mixed-signal verification",
+  "fact": "Qorvo posted a manager role to grow and direct a mixed-signal verification team for power-loss protection, PMIC, motor-control, and battery-management products. Its responsibilities include metric-driven plans, constrained-random tests and automated checkers in a UVM environment, RNM or Verilog-AMS models, methodology improvement, and verification automation; SV-UDN/EEnet and AI-workflow familiarity are preferred. A same-day senior principal listing describes the corresponding top-level UVM and RNM/Verilog-AMS work. These postings describe hiring mandates.",
   "sources": [
     {
       "title": "Qorvo Careers: Sr. Mixed Signal Design Verification Manager (10286)",
       "url": "https://careers.qorvo.com/job/Richardson-Sr_-Mixed-Signal-Design-Verification-Manager-TX-75081/1404687300/",
-      "checkedAt": "2026-08-31",
+      "checkedAt": "2026-09-09",
       "summary": "The official Qorvo page exposes an August 27, 2026 posting date and describes the team-growth, product, UVM, RNM/Verilog-AMS, methodology, automation, and preferred SV-UDN/EEnet and AI-workflow scope."
+    },
+    {
+      "title": "Qorvo Careers: Sr Principal Mixed Signal Verification Engineer (10289)",
+      "url": "https://careers.qorvo.com/job/Richardson-Sr-Principal-Mixed-Signal-Verification-Engineer-TX-75081/1404684000/",
+      "checkedAt": "2026-09-09",
+      "summary": "The official Richardson posting carries the same August 27, 2026 date in its posting metadata. It describes top-level UVM verification and RNM/Verilog-AMS modeling for the same power-management product family, with preferred SV-UDN/EEnet, assertions, and coverage experience."
     }
   ]
 }
