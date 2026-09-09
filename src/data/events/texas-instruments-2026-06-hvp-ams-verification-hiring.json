@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2026-06-hvp-ams-verification-hiring",
+  "when": {
+    "start": "2026-06-22",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "Texas Instruments posts AMS verification role for a Bengaluru high-voltage power team",
+  "fact": "Texas Instruments posted an AMS verification engineer/lead role describing a high-voltage power team being built in Bengaluru for AC/DC controllers, isolated DC/DC converters, and GaN-integrated power stages. The role calls for SV-RNM and Verilog-AMS wreal/electrical models, system-level AMS tests, SystemVerilog/UVM testbenches, assertions and coverage, methodology development, and participation in post-silicon validation and debug.",
+  "sources": [
+    {
+      "title": "Texas Instruments: AMS Design Verification Lead — Mixed-Signal SoC / GaN",
+      "url": "https://in.linkedin.com/jobs/view/ams-design-verification-lead-%E2%80%93-mixed-signal-soc-gan-at-texas-instruments-4414157409",
+      "checkedAt": "2026-09-09",
+      "summary": "The company-attributed LinkedIn posting names a TI recruiter and describes the Bengaluru HVP hiring mandate. Its structured datePosted is June 22, 2026; this dates the public posting, rather than conflicting dates on secondary copies or completion of the described team build-out."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "infineon-2026-09-svreal-fpga-system-modeling-hiring",
+  "when": {
+    "start": "2026-09-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon posts a SystemVerilog/svreal modeling role for FPGA and firmware validation",
+  "fact": "Infineon posted a Bengaluru Staff Engineer Design role whose description calls for developing RNM with SystemVerilog and svreal, building FPGA prototypes for SoC and system validation, and supporting pre- and post-silicon firmware validation and hardware/software debug. The role also covers simulation and FPGA automation, continuous integration, and modeling and prototyping methodology.",
+  "sources": [
+    {
+      "title": "Infineon: Staff Engineer Design (HRC1782391)",
+      "url": "https://in.linkedin.com/jobs/view/staff-engineer-design-at-infineon-technologies-4462818766",
+      "checkedAt": "2026-09-09",
+      "summary": "Infineon's company-attributed LinkedIn posting identifies requisition HRC1782391 and the SystemVerilog/svreal, FPGA, firmware-validation, automation, and methodology responsibilities. Its structured posting metadata gives September 3, 2026."
+    }
+  ]
+}

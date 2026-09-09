@@ -1,0 +1,22 @@
+{
+  "id": "astera-labs-2026-08-serdes-rnm-ams-verification-hiring",
+  "when": {
+    "start": "2026-08-31",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "astera-labs"
+  ],
+  "people": [],
+  "headline": "Astera Labs posts SerDes/PHY verification role covering RNM, AMS co-simulation, and emulation planning",
+  "fact": "Astera Labs posted a principal SerDes/PHY verification role for PCIe Gen6/7, UCIe, UALink, and Ethernet interfaces. The description calls for UVM environments, RNM and behavioral-model collaboration with analog designers, CDR and training checks, and analog handoff validation. It also assigns methodology decisions across AMS co-simulation, gate-level simulation, and emulation, and prefers emulator familiarity and pre/post-silicon correlation experience.",
+  "sources": [
+    {
+      "title": "Astera Labs: Principal Design Verification Engineer — SerDes/PHY IP",
+      "url": "https://job-boards.greenhouse.io/asteralabs/jobs/4729354005",
+      "checkedAt": "2026-09-09",
+      "summary": "The official Greenhouse posting describes the SerDes verification scope; its public job-board API gives first publication as August 31, 2026. It lists RNM and emulation responsibilities but does not state that RNM models execute on the emulators."
+    }
+  ]
+}

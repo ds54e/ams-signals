@@ -1,0 +1,24 @@
+{
+  "id": "mafra-2026-09-formal-rnm-smt-model-checking",
+  "when": {
+    "start": "2026-09-02",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cadence"
+  ],
+  "people": [
+    "augusto-mafra"
+  ],
+  "headline": "FMCAD paper reports SMT-based formal verification of SystemVerilog RNM",
+  "fact": "TU Wien's repository made available an FMCAD 2026 paper by Augusto Mafra and Haniel Barbosa describing a formal-verification flow for SystemVerilog real-number models built by extending Yosys and Pono. The paper compares SMT model checking with real-arithmetic and IEEE floating-point interpretations on 31 mixed-signal benchmarks, documenting performance and semantic tradeoffs.",
+  "sources": [
+    {
+      "title": "Formal Verification of Mixed-Signal Systems Using Real Number Modeling with SMT-based Model Checking",
+      "url": "https://repositum.tuwien.at/handle/20.500.12708/230518?mode=full",
+      "checkedAt": "2026-09-09",
+      "summary": "The proceedings record identifies the authors, Yosys/Pono benchmark study, and Cadence Systems Verification Group and UFMG affiliations. It lists September 2026 publication and September 2 repository availability; the Event dates that availability, not a conference presentation. The reported flow is not identified as a Jasper product feature."
+    }
+  ]
+}

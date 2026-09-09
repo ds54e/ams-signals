@@ -1,0 +1,22 @@
+{
+  "id": "amd-2026-08-pmic-rnm-soc-verification-hiring",
+  "when": {
+    "start": "2026-08-18",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "amd"
+  ],
+  "people": [],
+  "headline": "AMD posts a PMIC verification role linking analog-macro RNM, full-SoC tests, and silicon correlation",
+  "fact": "AMD posted a Rochester ASIC Design Verification Engineer role to own verification strategy and coverage closure for mixed-signal power-management IP. Responsibilities include full-SoC SystemVerilog/UVM tests, firmware/RTL co-simulation, analog-macro RNM bring-up and correlation with analog behavior, and relating post-silicon behavior to pre-silicon tests. Preferred experience names wreal, nettype real, and Verilog-AMS.",
+  "sources": [
+    {
+      "title": "AMD Careers: ASIC Design Verification Engineer (90455)",
+      "url": "https://careers.amd.com/careers-home/jobs/90455",
+      "checkedAt": "2026-09-09",
+      "summary": "The official AMD posting identifies Rochester, the PMIC/full-SoC verification mandate, RNM model fidelity and analog correlation, firmware co-simulation, and silicon correlation. Its structured posting metadata dates publication to August 18, 2026."
+    }
+  ]
+}
