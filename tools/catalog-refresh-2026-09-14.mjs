@@ -7,12 +7,13 @@ const months = [
   '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09',
 ];
 
-async function update(path, additions) {
+async function update(path, additions, revise = () => {}) {
   const snapshot = JSON.parse(await readFile(path, 'utf8'));
   snapshot.reviewedAt = reviewedAt;
   snapshot.capturedAt = capturedAt;
   snapshot.months = months;
   Object.assign(snapshot.projects, additions);
+  revise(snapshot.projects);
   await writeFile(path, `${JSON.stringify(snapshot, null, 2)}\n`);
 }
 
@@ -50,6 +51,12 @@ await update('src/data/analog-activity.json', {
     lastMeaningfulCommitAt: '2026-08-28',
     lastMeaningfulCommitSha: '3e129ede58b4d21509dad682e56b9d573cefe8ab',
   },
+}, (projects) => {
+  Object.assign(projects['razavi-bench'], {
+    lastMeaningfulCommitAt: '2026-09-13',
+    lastMeaningfulCommitSha: 'e2016fc760ff2c149c6d1ee268052bbc11280ac9',
+    notes: 'Default-branch history was republished as a parentless root snapshot on 2026-09-13. The reviewed root contains the current benchmark, evaluator, website and simulator assets; earlier first-parent activity is no longer represented by the current branch history.',
+  });
 });
 
 await update('src/data/digital-activity.json', {
