@@ -55,6 +55,10 @@
 .activity-strip { display: grid; grid-template-columns: repeat(12, 5px); width: max-content; gap: 2px; margin-top: 4px; }
 .activity-strip li { height: 10px; border: 1px solid color-mix(in srgb, var(--muted) 75%, var(--bg)); background: transparent; }
 .activity-strip li.active { border-color: var(--accent-ink); background: var(--accent-ink); }
+/* Keep four complete catalog rows visible at the standard 1280×800 desktop viewport. */
+@media (min-width: 761px) {
+  .catalog-project { padding-block: 18px 20px; }
+}
 @media (max-width: 760px) {
   .catalog-row { grid-template-columns: minmax(0, 1fr); gap: 13px; }
   .catalog-overview { order: -1; }
