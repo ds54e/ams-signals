@@ -55,6 +55,15 @@
 .activity-strip { display: grid; grid-template-columns: repeat(12, 5px); width: max-content; gap: 2px; margin-top: 4px; }
 .activity-strip li { height: 10px; border: 1px solid color-mix(in srgb, var(--muted) 75%, var(--bg)); background: transparent; }
 .activity-strip li.active { border-color: var(--accent-ink); background: var(--accent-ink); }
+/* Keep the desktop catalog scannable without changing the shared index-row spacing contract. */
+@media (min-width: 761px) {
+  .catalog-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}
 @media (max-width: 760px) {
   .catalog-row { grid-template-columns: minmax(0, 1fr); gap: 13px; }
   .catalog-overview { order: -1; }
