@@ -40,8 +40,8 @@ jobs:
             await writeFile(path, after);
           }
           NODE
-      - run: npm run refresh:analog:activity
-      - run: npm run refresh:digital:activity
+      - run: npm run refresh:analog-activity
+      - run: npm run refresh:digital-activity
       - name: Remove one-shot helpers
         run: |
           git checkout -- tools/refresh-analog-activity.mjs tools/refresh-digital-activity.mjs
