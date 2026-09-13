@@ -1256,7 +1256,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const activePersonIds = [...peopleTotals].filter(([, total]) => total > 0).map(([id]) => id);
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
   expect(activeCompanyIds).toHaveLength(63);
-  expect(singletonCompanyIds).toHaveLength(35);
+  expect(singletonCompanyIds).toHaveLength(34);
   expect(activePersonIds).toHaveLength(30);
   expect(singletonPersonIds).toHaveLength(7);
 
@@ -1476,7 +1476,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     'renesas',
     'samsung',
     'synopsys',
-    'microchip',
+    'analog-devices',
   ]);
   const expectedPeople = viewerPeople.map((person) => {
     const linked = viewerEvents.filter((event) => event.people.includes(person.id)).sort((left, right) => (
@@ -1551,7 +1551,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
       `${node.getAttribute('data-entity-type')}:${node.getAttribute('data-entity-id')}`
     )));
   expect(defaultVisibleCombinedKeys).toEqual(expectedRecurringCombinedKeys);
-  expect(defaultVisibleCombinedKeys).toHaveLength(52);
+  expect(defaultVisibleCombinedKeys).toHaveLength(53);
 
   await page.locator('[data-search]').fill('RNM');
   const visibleAfterSearch = await page.locator('[data-group="both"] [data-matrix-row]:visible')
