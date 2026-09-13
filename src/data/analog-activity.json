@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-07",
-  "capturedAt": "2026-09-07T00:51:31.187Z",
+  "reviewedAt": "2026-09-14",
+  "capturedAt": "2026-09-14T00:00:00.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -205,7 +205,7 @@
       "kind": "github",
       "repository": "IceLab-X/ASTRA",
       "defaultBranch": "main",
-      "headSha": "dfcaf188bd1b013d392dff693af06a65fe53fa71",
+      "headSha": "63dd09abd42d77852394e71317004577007995a7",
       "commits": [
         11,
         0,
@@ -218,9 +218,9 @@
         0,
         0,
         0,
-        0
+        1
       ],
-      "lastCommitAt": "2025-10-28",
+      "lastCommitAt": "2026-09-09",
       "lastMeaningfulCommitAt": "2025-10-28",
       "notes": "Substantive implementation/task/result activity reviewed at dfcaf188bd1b013d392dff693af06a65fe53fa71: update. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -510,7 +510,7 @@
       "kind": "github",
       "repository": "Arcadia-1/razavi-bench",
       "defaultBranch": "main",
-      "headSha": "a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa",
+      "headSha": "e2016fc760ff2c149c6d1ee268052bbc11280ac9",
       "commits": [
         0,
         0,
@@ -520,20 +520,21 @@
         0,
         0,
         0,
-        51,
-        39,
-        45,
-        0
+        0,
+        0,
+        0,
+        1
       ],
-      "lastCommitAt": "2026-08-17",
-      "lastMeaningfulCommitAt": "2026-08-17",
-      "notes": "Substantive implementation/task/result activity reviewed at a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa: Merge pull request #22 from hydra20251/fix-custom-domain-api. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastCommitAt": "2026-09-13",
+      "lastMeaningfulCommitAt": "2026-09-13",
+      "lastMeaningfulCommitSha": "e2016fc760ff2c149c6d1ee268052bbc11280ac9",
+      "notes": "Default-branch history was republished as a parentless root snapshot on 2026-09-13. The reviewed root contains the current benchmark, evaluator, website and simulator assets; earlier first-parent activity is no longer represented by the current branch history."
     },
     "vcli": {
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "defaultBranch": "main",
-      "headSha": "609e060dc79d62897068244ab7be431854976829",
+      "headSha": "5327abaad05b64b733f16e1f4f30eeae61aeed20",
       "commits": [
         0,
         0,
@@ -546,9 +547,9 @@
         0,
         22,
         74,
-        140
+        242
       ],
-      "lastCommitAt": "2026-09-05",
+      "lastCommitAt": "2026-09-13",
       "lastMeaningfulCommitAt": "2026-09-04",
       "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort. Substantive implementation/task/result activity reviewed at 1376468d05d1c4adc5dd3cdfdcf434421fb249ec: fix(gui-debug): SSH mode screenshot download + remote dir creation. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -579,7 +580,7 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "defaultBranch": "main",
-      "headSha": "ae8e26791c137e638e0f451f12a483d7f275ba0e",
+      "headSha": "3ac44cac914db31cd74efef060c26d62ce0d2ebf",
       "commits": [
         0,
         0,
@@ -592,9 +593,9 @@
         12,
         36,
         23,
-        4
+        7
       ],
-      "lastCommitAt": "2026-09-04",
+      "lastCommitAt": "2026-09-13",
       "lastMeaningfulCommitAt": "2026-09-02",
       "notes": "Substantive implementation/task/result activity reviewed at a0486318f6e75297391aec9bc074c5d67dbcd214: fix(maestro): escape outputs and enforce run timeout (#149). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -626,7 +627,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "ffa89ee6c0d634d8c8a0c7840dd078551138db65",
+      "headSha": "53c9dce808d5ddcd073c0306cfd5c107262b6c58",
       "commits": [
         0,
         0,
@@ -639,9 +640,9 @@
         73,
         1007,
         354,
-        192
+        350
       ],
-      "lastCommitAt": "2026-09-07",
+      "lastCommitAt": "2026-09-13",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "2fbf9870a30a84a524dc55aeadafb3613c11e305"
     },
@@ -675,7 +676,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "94564b9b07ef18b826880c40483d3ab6a7e1f5ee",
+      "headSha": "7fa3e4fec6b04ed2fd667f4ecaf72095f89c3457",
       "commits": [
         54,
         28,
@@ -688,9 +689,9 @@
         5,
         9,
         38,
-        13
+        37
       ],
-      "lastCommitAt": "2026-09-06",
+      "lastCommitAt": "2026-09-12",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "ecbcb21eb765b5069c9d72b976fcaab0db2a6a33",
       "notes": "The September 5 tip changes test-example cosmetics. September 4 ecbcb21 fixes parent-property lookup in hierarchical parameter resolution in src/actions.c and establishes meaningful activity."
@@ -775,7 +776,7 @@
       "repository": "ALIGN-analoglayout/ALIGN-public",
       "repositoryId": 177476440,
       "defaultBranch": "master",
-      "headSha": "e392ae4789eb49193a4865244d8cc31dbe1744b7",
+      "headSha": "50fe01a207d8a0f8f76943d167734d77722738c5",
       "commits": [
         0,
         0,
@@ -788,9 +789,9 @@
         15,
         1,
         0,
-        0
+        1
       ],
-      "lastCommitAt": "2026-07-05",
+      "lastCommitAt": "2026-09-10",
       "lastMeaningfulCommitAt": "2026-07-05",
       "lastMeaningfulCommitSha": "e392ae4789eb49193a4865244d8cc31dbe1744b7",
       "notes": "July 5 merge e392ae4 adds parameterized OTA DUTs, wrappers and eight executable testbench decks; inspected tb_ac.sp and the public layout flow."
@@ -859,7 +860,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "93b1c9dd14e72d45edac4538a0b495338e64d616",
+      "headSha": "b2af72734d8f8b8f3693d44f9dfd91aac31a81a6",
       "commits": [
         9,
         6,
@@ -872,9 +873,9 @@
         4,
         9,
         12,
-        2
+        5
       ],
-      "lastCommitAt": "2026-09-03",
+      "lastCommitAt": "2026-09-12",
       "lastMeaningfulCommitAt": "2026-09-03",
       "lastMeaningfulCommitSha": "93b1c9dd14e72d45edac4538a0b495338e64d616",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
@@ -884,7 +885,7 @@
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
       "defaultBranch": "current",
-      "headSha": "706ed127c56f3927e69fb9b3b038fa1e0e292ef6",
+      "headSha": "99848aaddd60f940b218ff788fbd76594758dc4e",
       "commits": [
         7,
         13,
@@ -897,12 +898,84 @@
         7,
         6,
         11,
-        2
+        5
       ],
-      "lastCommitAt": "2026-09-04",
+      "lastCommitAt": "2026-09-13",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "706ed127c56f3927e69fb9b3b038fa1e0e292ef6",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
+    },
+    "cocotbext-ams": {
+      "kind": "github",
+      "repository": "VLSIDA/cocotbext-ams",
+      "repositoryId": 1184907467,
+      "defaultBranch": "master",
+      "headSha": "c64ad5c8a5b0a7550243520ab5d08651306edf0d",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-03-19",
+      "lastMeaningfulCommitAt": "2026-03-19",
+      "lastMeaningfulCommitSha": "c64ad5c8a5b0a7550243520ab5d08651306edf0d"
+    },
+    "ihp-sg13g2-ams-chip-template": {
+      "kind": "github",
+      "repository": "iic-jku/ihp-sg13g2-ams-chip-template",
+      "repositoryId": 1228233737,
+      "defaultBranch": "main",
+      "headSha": "6524ffdd01daf7065d1669f268091b40cc4e3c21",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        323,
+        9,
+        102,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-08-26",
+      "lastMeaningfulCommitAt": "2026-08-26",
+      "lastMeaningfulCommitSha": "6524ffdd01daf7065d1669f268091b40cc4e3c21"
+    },
+    "glayout": {
+      "kind": "github",
+      "repository": "ReaLLMASIC/gLayout",
+      "repositoryId": 846657008,
+      "defaultBranch": "main",
+      "headSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab",
+      "commits": [
+        4,
+        2,
+        0,
+        2,
+        1,
+        3,
+        1,
+        5,
+        0,
+        0,
+        13,
+        0
+      ],
+      "lastCommitAt": "2026-08-28",
+      "lastMeaningfulCommitAt": "2026-08-28",
+      "lastMeaningfulCommitSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab"
     }
   }
 }
