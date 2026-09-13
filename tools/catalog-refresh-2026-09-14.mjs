@@ -53,6 +53,9 @@ await update('src/data/analog-activity.json', {
   },
 }, (projects) => {
   Object.assign(projects['razavi-bench'], {
+    headSha: 'e2016fc760ff2c149c6d1ee268052bbc11280ac9',
+    commits: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    lastCommitAt: '2026-09-13',
     lastMeaningfulCommitAt: '2026-09-13',
     lastMeaningfulCommitSha: 'e2016fc760ff2c149c6d1ee268052bbc11280ac9',
     notes: 'Default-branch history was republished as a parentless root snapshot on 2026-09-13. The reviewed root contains the current benchmark, evaluator, website and simulator assets; earlier first-parent activity is no longer represented by the current branch history.',
