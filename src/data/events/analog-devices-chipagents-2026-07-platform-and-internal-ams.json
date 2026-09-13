@@ -1,0 +1,26 @@
+{
+  "id": "analog-devices-chipagents-2026-07-platform-and-internal-ams",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["analog-devices", "chipagents"],
+  "people": [],
+  "headline": "ADI distinguishes its ChipAgents platform partnership from internally developed analog optimization",
+  "fact": "At DAC 2026, ADI's Nimay Shah described a buy-plus-build approach: partner with ChipAgents for the platform while retaining domain intelligence internally. He identified an analog circuit optimizer using reinforcement learning and deep neural networks, and a coverage-closure solution, as ADI-built examples. He also described declining debug quality when moving from IP to subsystem and SoC scale. These statements are documented in the recording's English automatic captions; the cited excerpts do not identify use of ChipAgents' AMS Behavioral Modeling or AMS Layout product lines.",
+  "sources": [
+    {
+      "title": "DAC 2026: From Hype to Impact: Where Agentic AI Actually Delivers Value in Chip Design Today",
+      "url": "https://63dac.conference-program.com/presentation/?id=TT103&sess=sess188",
+      "checkedAt": "2026-09-13",
+      "summary": "The official program lists the July 29, 2026 TechTalk with Nimay Shah of Analog Devices and William Wang of ChipAgents. The event date is the session date, not the later recording upload."
+    },
+    {
+      "title": "DACtv: Analog Devices and ChipAgents recording (English automatic captions)",
+      "url": "https://www.youtube.com/watch?v=2FCm8BWmQbo&t=2198s",
+      "checkedAt": "2026-09-13",
+      "summary": "English automatic captions: 36:38-37:16 distinguishes the ChipAgents platform partnership from ADI's own analog optimizer and coverage-closure solution; 35:08-35:29 describes debug scaling limits. Full audio and slides were not independently checked."
+    }
+  ]
+}
