@@ -12,7 +12,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-09-14"
 sources:
   - id: "site"
     title: "Official project website"
@@ -24,13 +24,16 @@ sources:
     purpose: "code"
   - id: "review"
     title: "Reviewed README: artifacts, modes, and usage terms"
-    url: "https://github.com/Arcadia-1/razavi-bench/blob/a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa/README.md"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/e2016fc760ff2c149c6d1ee268052bbc11280ac9/README.md"
   - id: "modes"
     title: "Agentic evaluation: official inputs and simulator treatment"
-    url: "https://github.com/Arcadia-1/razavi-bench/blob/a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa/agentic/README.md"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/e2016fc760ff2c149c6d1ee268052bbc11280ac9/agentic/README.md"
   - id: "rubric"
     title: "Evaluation rubric for final answers"
-    url: "https://github.com/Arcadia-1/razavi-bench/blob/a2e90f14ff91729ff309eb4dc3f4378bcf4e10aa/evaluation_rubric.md"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/e2016fc760ff2c149c6d1ee268052bbc11280ac9/evaluation_rubric.md"
+  - id: "activity"
+    title: "Republished repository root snapshot"
+    url: "https://github.com/Arcadia-1/razavi-bench/commit/e2016fc760ff2c149c6d1ee268052bbc11280ac9"
 ---
 ### Inputs and modes
 
@@ -43,6 +46,10 @@ All modes use the final answer, reference solution, and shared rubric. Simulator
 ### Public artifacts
 
 Published judge scores and answers support inspection and re-grading. They do not replace expert review. Viewing and local evaluation rights should be distinguished from redistribution or training permission. [Release and usage terms](#source-review)
+
+### Repository history boundary
+
+On September 13, 2026 the default branch was republished as a parentless root commit containing the current benchmark, evaluator, website and simulator assets. The activity record therefore starts a new first-parent checkpoint at this snapshot rather than pretending the earlier branch history is still continuous. [Republished snapshot](#source-activity).
 
 ### Scope classification
 
