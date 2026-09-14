@@ -967,8 +967,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass(/\bresult-list\b/);
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('208 of 210 events');
-  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('208 of 210 events');
+  await expect(page.locator('[data-status]')).toHaveText('210 of 210 events');
+  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('210 of 210 events');
   await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
