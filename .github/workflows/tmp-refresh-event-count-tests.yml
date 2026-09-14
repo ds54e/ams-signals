@@ -1,0 +1,90 @@
+name: Temporary refresh event-count tests
+
+on:
+  push:
+    branches:
+      - event-refresh-broadcom-cirrus-google-2026-09-14
+
+permissions:
+  contents: write
+
+jobs:
+  update-tests:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: event-refresh-broadcom-cirrus-google-2026-09-14
+      - name: Update corpus-count expectations
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tests/smoke/release.spec.mjs')
+          text = path.read_text()
+
+          replacements = [
+              ("expect(payload.events).toHaveLength(206);", "expect(payload.events).toHaveLength(208);"),
+              ("expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(66);", "expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(68);"),
+              ("expect(representedIds).toHaveLength(182);", "expect(representedIds).toHaveLength(184);"),
+              ("expect(serializedKinds).toHaveLength(208);", "expect(serializedKinds).toHaveLength(210);"),
+              ("expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(66);", "expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(68);"),
+              ("Array(66).fill('Organizational')", "Array(68).fill('Organizational')"),
+              ("broadcom: 4,", "broadcom: 5,"),
+          ]
+          for old, new in replacements:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one occurrence of {old!r}, found {count}')
+              text = text.replace(old, new)
+
+          total_count = text.count('208 events')
+          if total_count < 1:
+              raise SystemExit('expected at least one 208 events literal')
+          text = text.replace('208 events', '210 events')
+
+          old = "182 of 210 events"
+          count = text.count(old)
+          if count < 1:
+              raise SystemExit(f'expected at least one {old!r} literal')
+          text = text.replace(old, '184 of 210 events')
+
+          old = "66 of 210 events"
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f'expected exactly one {old!r} literal, found {count}')
+          text = text.replace(old, '68 of 210 events')
+
+          old = """expect(globalWaveEvents
+            .filter(({ id }) => id !== 'xilinx-2015-octave-rnm-uvm-verification')
+            .flatMap(({ sources }) => sources)
+            .every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
+          expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources
+            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-02', '2026-09-02']);"""
+          new = """expect(globalWaveEvents
+            .filter(({ id }) => ![
+              'google-2026-high-speed-phy-rnm-verification-hiring',
+              'xilinx-2015-octave-rnm-uvm-verification',
+            ].includes(id))
+            .flatMap(({ sources }) => sources)
+            .every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
+          expect(payload.events.find(({ id }) => id === 'google-2026-high-speed-phy-rnm-verification-hiring').sources
+            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-14']);
+          expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources
+            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-02', '2026-09-02']);"""
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f'expected exactly one global-wave checkedAt block, found {count}')
+          text = text.replace(old, new)
+
+          path.write_text(text)
+          PY
+      - name: Commit updated test expectations
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/smoke/release.spec.mjs
+          git diff --cached --check
+          git commit -m "Update smoke expectations for expanded event corpus"
+          git push origin HEAD:event-refresh-broadcom-cirrus-google-2026-09-14
