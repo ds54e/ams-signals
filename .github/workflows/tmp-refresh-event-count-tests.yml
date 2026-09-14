@@ -56,27 +56,24 @@ jobs:
               raise SystemExit(f'expected exactly one {old!r} literal, found {count}')
           text = text.replace(old, '68 of 210 events')
 
-          old = """expect(globalWaveEvents
-            .filter(({ id }) => id !== 'xilinx-2015-octave-rnm-uvm-verification')
-            .flatMap(({ sources }) => sources)
-            .every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
-          expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources
-            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-02', '2026-09-02']);"""
-          new = """expect(globalWaveEvents
-            .filter(({ id }) => ![
+          old_filter = ".filter(({ id }) => id !== 'xilinx-2015-octave-rnm-uvm-verification')"
+          new_filter = """.filter(({ id }) => ![
               'google-2026-high-speed-phy-rnm-verification-hiring',
               'xilinx-2015-octave-rnm-uvm-verification',
-            ].includes(id))
-            .flatMap(({ sources }) => sources)
-            .every(({ checkedAt }) => checkedAt === '2026-08-30')).toBe(true);
-          expect(payload.events.find(({ id }) => id === 'google-2026-high-speed-phy-rnm-verification-hiring').sources
-            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-14']);
-          expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources
-            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-02', '2026-09-02']);"""
-          count = text.count(old)
+            ].includes(id))"""
+          count = text.count(old_filter)
           if count != 1:
-              raise SystemExit(f'expected exactly one global-wave checkedAt block, found {count}')
-          text = text.replace(old, new)
+              raise SystemExit(f'expected exactly one global-wave filter, found {count}')
+          text = text.replace(old_filter, new_filter)
+
+          xilinx_assert = "expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verification').sources"
+          google_assert = """expect(payload.events.find(({ id }) => id === 'google-2026-high-speed-phy-rnm-verification-hiring').sources
+            .map(({ checkedAt }) => checkedAt)).toEqual(['2026-09-14']);
+          """ + xilinx_assert
+          count = text.count(xilinx_assert)
+          if count != 1:
+              raise SystemExit(f'expected exactly one Xilinx checkedAt assertion, found {count}')
+          text = text.replace(xilinx_assert, google_assert)
 
           path.write_text(text)
           PY
