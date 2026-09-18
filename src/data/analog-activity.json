@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-09-18",
-  "capturedAt": "2026-09-18T00:00:00.000Z",
+  "capturedAt": "2026-09-18T00:21:48.039Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -44,7 +44,7 @@
       "kind": "github",
       "repository": "Arcadia-1/analog-design-bench",
       "defaultBranch": "main",
-      "headSha": "33d5ff178704dcb3f2e40e2ae45070451ea9b72f",
+      "headSha": "c23f124de1e461655d2e02ce6cfae2654ccea0d3",
       "commits": [
         0,
         0,
@@ -57,9 +57,9 @@
         0,
         0,
         2,
-        0
+        7
       ],
-      "lastCommitAt": "2026-08-12",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-08-07",
       "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at fb0ec30463d005d3e463caf4e48ab9a26008e869: Initial public release. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -534,7 +534,7 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "defaultBranch": "main",
-      "headSha": "5327abaad05b64b733f16e1f4f30eeae61aeed20",
+      "headSha": "97899931b9e4fcfb1c227a92c3f77c765e992a28",
       "commits": [
         0,
         0,
@@ -547,9 +547,9 @@
         0,
         22,
         74,
-        242
+        307
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-18",
       "lastMeaningfulCommitAt": "2026-09-04",
       "notes": "The reviewed history includes dependency-bot commits alongside other changes. Monthly presence includes both; it does not measure development effort. Substantive implementation/task/result activity reviewed at 1376468d05d1c4adc5dd3cdfdcf434421fb249ec: fix(gui-debug): SSH mode screenshot download + remote dir creation. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -580,7 +580,7 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "defaultBranch": "main",
-      "headSha": "3ac44cac914db31cd74efef060c26d62ce0d2ebf",
+      "headSha": "38aa8f22b2617e9b29e3b9f3a5770f27a938e1f0",
       "commits": [
         0,
         0,
@@ -593,9 +593,9 @@
         12,
         36,
         23,
-        7
+        9
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-09-02",
       "notes": "Substantive implementation/task/result activity reviewed at a0486318f6e75297391aec9bc074c5d67dbcd214: fix(maestro): escape outputs and enforce run timeout (#149). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
@@ -627,7 +627,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "53c9dce808d5ddcd073c0306cfd5c107262b6c58",
+      "headSha": "f59c4daf8ec0306b812a07939033e7ac205fc7d4",
       "commits": [
         0,
         0,
@@ -640,9 +640,9 @@
         73,
         1007,
         354,
-        350
+        419
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-18",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "2fbf9870a30a84a524dc55aeadafb3613c11e305"
     },
@@ -676,7 +676,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "7fa3e4fec6b04ed2fd667f4ecaf72095f89c3457",
+      "headSha": "25b6d4a23ed65e1990c0ae1017120c34234ffa87",
       "commits": [
         54,
         28,
@@ -689,9 +689,9 @@
         5,
         9,
         38,
-        37
+        56
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "ecbcb21eb765b5069c9d72b976fcaab0db2a6a33",
       "notes": "The September 5 tip changes test-example cosmetics. September 4 ecbcb21 fixes parent-property lookup in hierarchical parameter resolution in src/actions.c and establishes meaningful activity."
@@ -776,7 +776,7 @@
       "repository": "ALIGN-analoglayout/ALIGN-public",
       "repositoryId": 177476440,
       "defaultBranch": "master",
-      "headSha": "50fe01a207d8a0f8f76943d167734d77722738c5",
+      "headSha": "8d3cc2e9aa5511315203eb5cbfd00d2c88fdbd18",
       "commits": [
         0,
         0,
@@ -789,9 +789,9 @@
         15,
         1,
         0,
-        1
+        3
       ],
-      "lastCommitAt": "2026-09-10",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-07-05",
       "lastMeaningfulCommitSha": "e392ae4789eb49193a4865244d8cc31dbe1744b7",
       "notes": "July 5 merge e392ae4 adds parameterized OTA DUTs, wrappers and eight executable testbench decks; inspected tb_ac.sp and the public layout flow."
@@ -808,7 +808,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "93d50dd2265b8d954cab1e8e60b2348848cee7d7",
+      "headSha": "40f21bfe615d8488a2e69d76223fcae031d183ca",
       "commits": [
         9,
         4,
@@ -821,9 +821,9 @@
         3,
         4,
         18,
-        0
+        20
       ],
-      "lastCommitAt": "2026-08-28",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-08-28",
       "lastMeaningfulCommitSha": "0b6cf1ff25fcf7eb794c52999b2c850448144457",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
@@ -860,7 +860,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "b2af72734d8f8b8f3693d44f9dfd91aac31a81a6",
+      "headSha": "b9fa9bfe680b969cec7ca666aff6e79c65fe53a8",
       "commits": [
         9,
         6,
@@ -873,9 +873,9 @@
         4,
         9,
         12,
-        5
+        6
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-03",
       "lastMeaningfulCommitSha": "93b1c9dd14e72d45edac4538a0b495338e64d616",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
@@ -885,7 +885,7 @@
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
       "defaultBranch": "current",
-      "headSha": "99848aaddd60f940b218ff788fbd76594758dc4e",
+      "headSha": "e0c0e154edb4f8403d53c5c5601c2ee133c9e970",
       "commits": [
         7,
         13,
@@ -898,9 +898,9 @@
         7,
         6,
         11,
-        5
+        6
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-14",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "706ed127c56f3927e69fb9b3b038fa1e0e292ef6",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
@@ -992,7 +992,7 @@
         0,
         0,
         0,
-        1,
+        3,
         0,
         0,
         0
@@ -1017,8 +1017,8 @@
         0,
         0,
         0,
-        0,
-        1,
+        4,
+        3,
         0,
         0
       ],
