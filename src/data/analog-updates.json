@@ -1,20 +1,20 @@
 [
   {
-    "project": "netlistbench",
-    "date": "2026-09-05",
+    "project": "virastack-ai-super-agent",
+    "date": "2026-09-18",
     "kind": "added",
-    "summary": "Existing-netlist tasks with released deterministic graders."
+    "summary": "Cadence agentic custom-IC workflow spanning design, ADE debug and layout exploration."
   },
   {
-    "project": "vcli",
-    "date": "2026-09-05",
+    "project": "analogmaster",
+    "date": "2026-09-18",
     "kind": "added",
-    "summary": "Rust CLI for multiple Virtuoso sessions and EDA operations."
+    "summary": "Image-to-circuit analog framework with public sizing, placement and routing assets."
   },
   {
-    "project": "atlas",
-    "date": "2026-09-05",
+    "project": "analogagent",
+    "date": "2026-09-18",
     "kind": "added",
-    "summary": "Paper-described SAR ADC generation using expert-curated templates."
+    "summary": "Multi-agent analog design loop with simulator feedback and self-evolving memory."
   }
 ]

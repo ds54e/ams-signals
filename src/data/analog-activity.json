@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-14",
-  "capturedAt": "2026-09-14T00:00:00.000Z",
+  "reviewedAt": "2026-09-18",
+  "capturedAt": "2026-09-18T00:00:00.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -976,6 +976,63 @@
       "lastCommitAt": "2026-08-28",
       "lastMeaningfulCommitAt": "2026-08-28",
       "lastMeaningfulCommitSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab"
+    },
+    "analogagent": {
+      "kind": "github",
+      "repository": "TheWind-upBird/Analogagent",
+      "repositoryId": 1261182836,
+      "defaultBranch": "main",
+      "headSha": "b27ee9c0d11e0e74322e44e1ea45a7abbb1ff11a",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-06-08",
+      "lastMeaningfulCommitAt": "2026-06-06",
+      "lastMeaningfulCommitSha": "cce309bb38eabe829860f85844c66a92907759dd",
+      "notes": "The June 6 initial MVP release implements the multi-agent and self-evolving-memory workflow. The June 8 head only adjusts README wording, so the substantive release remains the meaningful-activity checkpoint."
+    },
+    "analogmaster": {
+      "kind": "github",
+      "repository": "sjjjoaps/AnalogMaster",
+      "repositoryId": 1267424772,
+      "defaultBranch": "main",
+      "headSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-04",
+      "lastMeaningfulCommitAt": "2026-07-04",
+      "lastMeaningfulCommitSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
+      "notes": "The July 4 dataset update is the latest reviewed substantive public repository update; the public README also states that code and data remain under progressive refinement."
+    },
+    "virastack-ai-super-agent": {
+      "kind": "no-public-repo",
+      "lastPublicUpdateType": "public-update",
+      "lastPublicUpdateAt": "2026-09-10",
+      "lastPublicUpdateSource": "layout-demo",
+      "notes": "Cadence published concrete ViraStack demonstrations for Virtuoso ADE debug, testbench creation, and layout exploration on September 10, 2026; this record uses the layout demonstration as the dated public-update point."
     }
   }
 }

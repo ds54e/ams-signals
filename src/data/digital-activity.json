@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-14",
-  "capturedAt": "2026-09-14T00:00:00.000Z",
+  "reviewedAt": "2026-09-18",
+  "capturedAt": "2026-09-18T00:00:00.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -1088,6 +1088,102 @@
       "lastCommitAt": "2026-08-30",
       "lastMeaningfulCommitAt": "2026-08-30",
       "lastMeaningfulCommitSha": "bfeb165ee8c4ba8dc47a6fe575730e002da5092b"
+    },
+    "naja-scope": {
+      "kind": "github",
+      "repository": "najaeda/naja-scope",
+      "repositoryId": 1267562469,
+      "defaultBranch": "main",
+      "headSha": "4ab87869a458f8e32fe378c32cb495a55a3f8f07",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-09-16",
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "lastMeaningfulCommitSha": "95afc206c7ffde4291efa8c6d280378cd6223077"
+    },
+    "kepler-formal": {
+      "kind": "github",
+      "repository": "keplertech/kepler-formal",
+      "repositoryId": 1014846239,
+      "defaultBranch": "main",
+      "headSha": "1c826a95fa9bffa59d9121a427010a6efbf7c7f9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-09-17",
+      "lastMeaningfulCommitAt": "2026-09-17",
+      "lastMeaningfulCommitSha": "1c826a95fa9bffa59d9121a427010a6efbf7c7f9"
+    },
+    "lace": {
+      "kind": "github",
+      "repository": "UMN-ZhaoLab/LACE",
+      "repositoryId": 1283268509,
+      "defaultBranch": "master",
+      "headSha": "29ea8ed56eb5fce838815a0892c05b8162ece500",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "lastCommitAt": "2026-08-27",
+      "lastMeaningfulCommitAt": "2026-08-27",
+      "lastMeaningfulCommitSha": "29ea8ed56eb5fce838815a0892c05b8162ece500"
+    },
+    "duck-rtl": {
+      "kind": "github",
+      "repository": "oniondas/duck-rtl",
+      "repositoryId": 1293440401,
+      "defaultBranch": "main",
+      "headSha": "fe9a66a80cdd7a64206d15929ffc3bd956b88dab",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-08",
+      "lastMeaningfulCommitAt": "2026-07-08",
+      "lastMeaningfulCommitSha": "60289f9b7745fa3c8c051f3d51a28a52e0e9336d"
     }
   }
 }
