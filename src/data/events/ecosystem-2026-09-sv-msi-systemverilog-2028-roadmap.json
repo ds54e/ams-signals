@@ -15,6 +15,12 @@
       "url": "https://www.dvcon-jpn.org/program/contents/",
       "checkedAt": "2026-09-18",
       "summary": "The official program describes SV-MSI standardization of connections among dissimilar net types, including logic and RNM/nettype, and states the expected relationship to SystemVerilog-2028, SystemVerilog-AMS, and UVM-MS."
+    },
+    {
+      "title": "DVCon Japan 2026 official home page",
+      "url": "https://www.dvcon-jpn.org/",
+      "checkedAt": "2026-09-18",
+      "summary": "The official DVCon Japan site states that DVCon Japan 2026 was held on September 10, 2026 at Pacifico Yokohama North."
     }
   ]
 }
