@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-14",
-  "capturedAt": "2026-09-14T00:00:00.000Z",
+  "reviewedAt": "2026-09-18",
+  "capturedAt": "2026-09-18T00:22:43.757Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -22,7 +22,7 @@
       "repository": "llvm/circt",
       "repositoryId": 245072514,
       "defaultBranch": "main",
-      "headSha": "eab8d18294469806fa48998f44da5c96eafe1d1b",
+      "headSha": "aad0c9d8d32e9418a09198d756d996ae45eb1937",
       "commits": [
         136,
         99,
@@ -35,9 +35,9 @@
         108,
         120,
         101,
-        16
+        27
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-03",
       "lastMeaningfulCommitSha": "f1a41b921d8d367d1b5990c9fa4410157ab3aada"
     },
@@ -46,7 +46,7 @@
       "repository": "cocotb/cocotb",
       "repositoryId": 10651005,
       "defaultBranch": "master",
-      "headSha": "af6eb54bcacbc4a107490cdfeb4798d28ef0cb4e",
+      "headSha": "aee9e62bec92bc8db007d3f3bdc8077191c0bc94",
       "commits": [
         70,
         47,
@@ -59,9 +59,9 @@
         43,
         50,
         34,
-        11
+        15
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-16",
       "lastMeaningfulCommitAt": "2026-09-01",
       "lastMeaningfulCommitSha": "ca64add11543021f36578fbc4731c94c9483c93f"
     },
@@ -142,7 +142,7 @@
       "repository": "YosysHQ/eqy",
       "repositoryId": 283186543,
       "defaultBranch": "main",
-      "headSha": "4a72eb94fc253062464afee4d0018359017bb846",
+      "headSha": "7a92d8441aa442dd1b5543458d6f1060a8f85dd1",
       "commits": [
         0,
         0,
@@ -155,9 +155,9 @@
         1,
         2,
         2,
-        2
+        3
       ],
-      "lastCommitAt": "2026-09-03",
+      "lastCommitAt": "2026-09-16",
       "lastMeaningfulCommitAt": "2026-09-03",
       "lastMeaningfulCommitSha": "4a72eb94fc253062464afee4d0018359017bb846"
     },
@@ -190,7 +190,7 @@
       "repository": "steveicarus/iverilog",
       "repositoryId": 16267,
       "defaultBranch": "master",
-      "headSha": "4ee3f3ef2cdc8898cd026493807544f5bae2ac80",
+      "headSha": "c9ed76463e601b4f5cc9c8376d15c9f503d7f089",
       "commits": [
         37,
         8,
@@ -203,7 +203,7 @@
         36,
         58,
         63,
-        51
+        57
       ],
       "lastCommitAt": "2026-09-13",
       "lastMeaningfulCommitAt": "2026-09-04",
@@ -214,7 +214,7 @@
       "repository": "dsellerbrock/iverilog-uvm",
       "repositoryId": 1208674106,
       "defaultBranch": "main",
-      "headSha": "631bba6e82515a216b0a281d7b39f564ef58847f",
+      "headSha": "a9ba597143ee0f089deb6b283c9b808ede453dc3",
       "commits": [
         37,
         8,
@@ -227,9 +227,9 @@
         0,
         74,
         97,
-        18
+        39
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "b6cb9eea532826068a82600b87c3a91040969547"
     },
@@ -286,7 +286,7 @@
       "repository": "The-OpenROAD-Project/OpenROAD",
       "repositoryId": 218110222,
       "defaultBranch": "master",
-      "headSha": "17a0820d423341cbcfa320511475e13d0e424315",
+      "headSha": "bd2fb25438dceac7f2c66a225022a683937138be",
       "commits": [
         191,
         98,
@@ -299,9 +299,9 @@
         145,
         159,
         145,
-        72
+        106
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "372189ed6554794bc47473259b5e6edfdecd6f1a"
     },
@@ -334,7 +334,7 @@
       "repository": "stanford-centaur/pono",
       "repositoryId": 206835806,
       "defaultBranch": "main",
-      "headSha": "4d199715aab1c706250f3f893458bdf1ecdd146b",
+      "headSha": "52b3e6fdc25ebb651b03cd89b99afce69361c9f3",
       "commits": [
         15,
         18,
@@ -347,9 +347,9 @@
         7,
         34,
         13,
-        19
+        27
       ],
-      "lastCommitAt": "2026-09-09",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "059f9b826847aa42a75b7e90aa0aeec78287645a"
     },
@@ -406,7 +406,7 @@
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
       "defaultBranch": "master",
-      "headSha": "0d63890389a03d4312bbce336a85778ea0163bfd",
+      "headSha": "e8734864ae9d98c435dd5077c12fd600b823c3f0",
       "commits": [
         24,
         52,
@@ -419,9 +419,9 @@
         42,
         43,
         24,
-        14
+        21
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "bb629fee263d8ed82b330098e4e29296bdb6bcf6"
     },
@@ -454,7 +454,7 @@
       "repository": "chipsalliance/Surelog",
       "repositoryId": 218417034,
       "defaultBranch": "master",
-      "headSha": "a9abe564da085ca8bbf4238848f69820dccc407b",
+      "headSha": "31b523bf9ecb57757554e1b48d61173f6b548a24",
       "commits": [
         0,
         0,
@@ -467,9 +467,9 @@
         5,
         41,
         22,
-        13
+        22
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "e063fac2eac571f79f643503a256278bd19ae788"
     },
@@ -504,7 +504,7 @@
       "repository": "povik/sv-elab",
       "repositoryId": 752277444,
       "defaultBranch": "master",
-      "headSha": "b6f721f4a5624428f368ad20078e724c11e2658d",
+      "headSha": "43a93f44b790ae5af57a25bfb5177c4dff0b22f9",
       "commits": [
         9,
         13,
@@ -517,9 +517,9 @@
         16,
         16,
         39,
-        3
+        5
       ],
-      "lastCommitAt": "2026-09-08",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-08-31",
       "lastMeaningfulCommitSha": "b6e440d6a2586b93c2a43da676c207c8c2a15778"
     },
@@ -552,7 +552,7 @@
       "repository": "XS-MLVP/UCAgent",
       "repositoryId": 991007916,
       "defaultBranch": "main",
-      "headSha": "a1b58251ba08194f9f500e888d4cca9b0d960adc",
+      "headSha": "cb65770f121730019bcf30f5d841601ef225df09",
       "commits": [
         96,
         73,
@@ -565,9 +565,9 @@
         61,
         16,
         117,
-        6
+        24
       ],
-      "lastCommitAt": "2026-09-12",
+      "lastCommitAt": "2026-09-16",
       "lastMeaningfulCommitAt": "2026-08-31",
       "lastMeaningfulCommitSha": "fd1d77f73e9d7d55d31eacedb75af445a6bb589b"
     },
@@ -576,7 +576,7 @@
       "repository": "alainmarcel/uhdm2rtlil",
       "repositoryId": 1004725581,
       "defaultBranch": "main",
-      "headSha": "7032e1200542291acb8fd31ff0bb8f5688a8f010",
+      "headSha": "89c5695aaa4ac3d54d011fb66ad7fb7a82481eb5",
       "commits": [
         0,
         0,
@@ -589,9 +589,9 @@
         166,
         121,
         95,
-        92
+        127
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "e591c178fc1479931d41be5abf2d046e81320c6b"
     },
@@ -600,7 +600,7 @@
       "repository": "chipsalliance/verible",
       "repositoryId": 220114000,
       "defaultBranch": "master",
-      "headSha": "ce5039624fb4df3d103e6b9891dac411d49d3a82",
+      "headSha": "f9d5cf4bd3b8d132f0a93e312a84454893bfb762",
       "commits": [
         0,
         0,
@@ -613,9 +613,9 @@
         13,
         1,
         30,
-        18
+        21
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-02",
       "lastMeaningfulCommitSha": "b975d9d903f7a60510393d438a086294ab086dea"
     },
@@ -624,7 +624,7 @@
       "repository": "nimishadeepak10/verify-rtl",
       "repositoryId": 1247751215,
       "defaultBranch": "main",
-      "headSha": "c455810d41412873ae549c0131dcf18c50755662",
+      "headSha": "5b6cae831c69a2e413e3b58c208341e493a950dc",
       "commits": [
         0,
         0,
@@ -637,9 +637,9 @@
         0,
         20,
         11,
-        1
+        3
       ],
-      "lastCommitAt": "2026-09-03",
+      "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-09-03",
       "lastMeaningfulCommitSha": "c455810d41412873ae549c0131dcf18c50755662"
     },
@@ -648,7 +648,7 @@
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
       "defaultBranch": "master",
-      "headSha": "0bad0faca667151e639445c31f61091e65847363",
+      "headSha": "3fd16ed4983fcc97a1c96e1b9696b996df0243ab",
       "commits": [
         145,
         133,
@@ -661,9 +661,9 @@
         181,
         123,
         178,
-        97
+        125
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "b1c06fdb09c45e018804ef603058abf866a910fc"
     },
@@ -672,7 +672,7 @@
       "repository": "tjddnr0912/vitamin-rtl-simulator",
       "repositoryId": 1283466457,
       "defaultBranch": "main",
-      "headSha": "c0d379bbf423db4a3163c52fad283acd2f73efd9",
+      "headSha": "51e98531ab8976ebe682e3456c5dd4110721ab5b",
       "commits": [
         0,
         0,
@@ -685,9 +685,9 @@
         2,
         344,
         344,
-        150
+        160
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-18",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "c311eb6c0763e8940ec7358576e4d87ef1df7199"
     },
@@ -768,7 +768,7 @@
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
       "defaultBranch": "main",
-      "headSha": "c588b1a3dede258b700f15bf63bb30cf8db313e3",
+      "headSha": "25104e8cb7bcc3668df658d851c0e0979a77beab",
       "commits": [
         0,
         0,
@@ -781,9 +781,9 @@
         109,
         351,
         509,
-        119
+        194
       ],
-      "lastCommitAt": "2026-09-11",
+      "lastCommitAt": "2026-09-18",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "137d57f65c65e9577f4cf936f7dc38c3587fc15f"
     },
@@ -792,7 +792,7 @@
       "repository": "YosysHQ/yosys",
       "repositoryId": 7454197,
       "defaultBranch": "main",
-      "headSha": "d0e71cfb7bcafe2b437f3edc1789b69e99ecd55a",
+      "headSha": "2e7d8006da8bfb0a49911df131b8e8eab367ece5",
       "commits": [
         51,
         62,
@@ -805,9 +805,9 @@
         50,
         46,
         47,
-        22
+        31
       ],
-      "lastCommitAt": "2026-09-11",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "435977e97008578a4532da60e70f75b5e88d076d"
     },
@@ -816,7 +816,7 @@
       "repository": "veryl-lang/veryl",
       "repositoryId": 575770340,
       "defaultBranch": "master",
-      "headSha": "86e4bdaa355e1170a65d60085604a7a8a2fc58f1",
+      "headSha": "c24a5fd33e6267b80bc44cda59113e43d32a2534",
       "commits": [
         69,
         41,
@@ -829,9 +829,9 @@
         220,
         160,
         155,
-        70
+        89
       ],
-      "lastCommitAt": "2026-09-11",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-04",
       "lastMeaningfulCommitSha": "a889bf2cbe003b1c8438d18f92f88deb4940351d"
     },
@@ -840,7 +840,7 @@
       "repository": "google/xls",
       "repositoryId": 262163993,
       "defaultBranch": "main",
-      "headSha": "49c163e427a54ad90dc70b7dd507212633630a21",
+      "headSha": "2db176e9d81b8729c3b61c53403bcf1c887134a3",
       "commits": [
         152,
         152,
@@ -853,9 +853,9 @@
         144,
         174,
         170,
-        68
+        90
       ],
-      "lastCommitAt": "2026-09-11",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "1b53da61b4ada47576818851dc6a4018d81d1dcb"
     },
@@ -890,7 +890,7 @@
       "repository": "microsoft/kanagawa",
       "repositoryId": 1054333720,
       "defaultBranch": "main",
-      "headSha": "3a58ecd51464181e237a462f8cd7b3a5d77a8c76",
+      "headSha": "1226122ee85c4b0202d6e627183a4c1c6740ade9",
       "commits": [
         50,
         15,
@@ -903,9 +903,9 @@
         0,
         0,
         5,
-        3
+        4
       ],
-      "lastCommitAt": "2026-09-10",
+      "lastCommitAt": "2026-09-16",
       "lastMeaningfulCommitAt": "2026-09-02",
       "lastMeaningfulCommitSha": "98a2d8cbe16b74bf15a46c46a19b319c1a0bf78e"
     },
@@ -914,7 +914,7 @@
       "repository": "siliconcompiler/siliconcompiler",
       "repositoryId": 320398696,
       "defaultBranch": "main",
-      "headSha": "43299e526feb4d5e4fab474e8934d9109dc7e43e",
+      "headSha": "087ceca330dd0ee76f0b5aa84e6132b9ee83f1f0",
       "commits": [
         146,
         110,
@@ -927,9 +927,9 @@
         56,
         126,
         132,
-        59
+        77
       ],
-      "lastCommitAt": "2026-09-13",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-09-06",
       "lastMeaningfulCommitSha": "d499d5bca16bd54d1390312a7c4de6c47ea646d2"
     },
@@ -938,7 +938,7 @@
       "repository": "amaranth-lang/amaranth",
       "repositoryId": 236501540,
       "defaultBranch": "main",
-      "headSha": "56f1cab5a19240d54e1bf587a27d831bade6de61",
+      "headSha": "4e71d66270955fdddbe2212a8290416a35bd6539",
       "commits": [
         7,
         0,
@@ -951,9 +951,9 @@
         0,
         2,
         3,
-        1
+        2
       ],
-      "lastCommitAt": "2026-09-04",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-08-23",
       "lastMeaningfulCommitSha": "e3c9215e195443aefde6c9591409d74802bdd10f"
     },
@@ -1046,7 +1046,7 @@
       "repository": "pyuvm/pyuvm",
       "repositoryId": 334507633,
       "defaultBranch": "master",
-      "headSha": "a87a7386c765c5d810645ac18683a340cec0f6cc",
+      "headSha": "d08c1d24be23541d7ffec55c4869cb538248ea9b",
       "commits": [
         55,
         30,
@@ -1059,9 +1059,9 @@
         29,
         27,
         20,
-        5
+        7
       ],
-      "lastCommitAt": "2026-09-07",
+      "lastCommitAt": "2026-09-16",
       "lastMeaningfulCommitAt": "2026-08-31",
       "lastMeaningfulCommitSha": "f8355f3590142c26309eedc141fd7856552feaf7"
     },
@@ -1070,7 +1070,7 @@
       "repository": "huawei-csl/rtlscout",
       "repositoryId": 1258007831,
       "defaultBranch": "main",
-      "headSha": "bfeb165ee8c4ba8dc47a6fe575730e002da5092b",
+      "headSha": "9f95d9576c78863a844adc8cc6594c6503426074",
       "commits": [
         0,
         0,
@@ -1083,11 +1083,107 @@
         27,
         4,
         1,
-        0
+        1
       ],
-      "lastCommitAt": "2026-08-30",
+      "lastCommitAt": "2026-09-17",
       "lastMeaningfulCommitAt": "2026-08-30",
       "lastMeaningfulCommitSha": "bfeb165ee8c4ba8dc47a6fe575730e002da5092b"
+    },
+    "naja-scope": {
+      "kind": "github",
+      "repository": "najaeda/naja-scope",
+      "repositoryId": 1267562469,
+      "defaultBranch": "main",
+      "headSha": "4ab87869a458f8e32fe378c32cb495a55a3f8f07",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        49,
+        13,
+        3,
+        6
+      ],
+      "lastCommitAt": "2026-09-16",
+      "lastMeaningfulCommitAt": "2026-09-04",
+      "lastMeaningfulCommitSha": "95afc206c7ffde4291efa8c6d280378cd6223077"
+    },
+    "kepler-formal": {
+      "kind": "github",
+      "repository": "keplertech/kepler-formal",
+      "repositoryId": 1014846239,
+      "defaultBranch": "main",
+      "headSha": "1c826a95fa9bffa59d9121a427010a6efbf7c7f9",
+      "commits": [
+        11,
+        37,
+        9,
+        17,
+        10,
+        17,
+        5,
+        5,
+        3,
+        27,
+        17,
+        21
+      ],
+      "lastCommitAt": "2026-09-17",
+      "lastMeaningfulCommitAt": "2026-09-17",
+      "lastMeaningfulCommitSha": "1c826a95fa9bffa59d9121a427010a6efbf7c7f9"
+    },
+    "lace": {
+      "kind": "github",
+      "repository": "UMN-ZhaoLab/LACE",
+      "repositoryId": 1283268509,
+      "defaultBranch": "master",
+      "headSha": "29ea8ed56eb5fce838815a0892c05b8162ece500",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        11,
+        8,
+        0
+      ],
+      "lastCommitAt": "2026-08-27",
+      "lastMeaningfulCommitAt": "2026-08-27",
+      "lastMeaningfulCommitSha": "29ea8ed56eb5fce838815a0892c05b8162ece500"
+    },
+    "duck-rtl": {
+      "kind": "github",
+      "repository": "oniondas/duck-rtl",
+      "repositoryId": 1293440401,
+      "defaultBranch": "main",
+      "headSha": "fe9a66a80cdd7a64206d15929ffc3bd956b88dab",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-08",
+      "lastMeaningfulCommitAt": "2026-07-08",
+      "lastMeaningfulCommitSha": "60289f9b7745fa3c8c051f3d51a28a52e0e9336d"
     }
   }
 }
