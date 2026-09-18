@@ -1,0 +1,28 @@
+{
+  "id": "marvell-2026-09-ai-assisted-tx-dac-cal-bitmatch",
+  "when": {
+    "start": "2026-09-08",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "marvell"
+  ],
+  "people": [],
+  "headline": "Marvell presents an AI-assisted RTL/spec-to-cycle-true-C bit-match flow for TX DAC calibration verification",
+  "fact": "The official DVCon Taiwan 2026 program lists a Marvell presentation by Tiger Chen titled 'From RTL+Design Spec to Cycle-True C: An AI-Assisted Bit-Match Verification Flow for TX DAC CAL'. The public program establishes an AI-assisted verification flow whose stated inputs are RTL and a design specification and whose stated reference artifact is a cycle-true C model for TX DAC calibration bit matching. Without retained paper or slides, this Event does not assert a particular generation method, accuracy result, or production-deployment scope.",
+  "sources": [
+    {
+      "title": "DVCon Taiwan 2026 program",
+      "url": "https://dvcontaiwan.org/program-2026/",
+      "checkedAt": "2026-09-18",
+      "summary": "The official September 8 program lists Tiger Chen of Marvell and the TX DAC CAL presentation title describing an AI-assisted RTL/design-spec to cycle-true-C bit-match verification flow."
+    },
+    {
+      "title": "DVCon Taiwan 2026 conference overview",
+      "url": "https://dvcontaiwan.org/conference-2026/",
+      "checkedAt": "2026-09-18",
+      "summary": "The official conference overview gives the DVCon Taiwan 2026 date as September 8, 2026."
+    }
+  ]
+}
