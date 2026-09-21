@@ -122,6 +122,19 @@ Schema or fact-lint failures must be fixed. Duplicate warnings require judgment:
 
 Domain-catalog validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
 
+### Test ownership
+
+Keep CI strict on durable behavior without turning normal content growth into a test-maintenance event.
+
+- Put schema, factual-policy, export, sorting, and pure geometry/packing contracts in Node tests.
+- Use Playwright only for behavior that requires a rendered browser: interaction, DOM semantics, responsive layout, paint/stacking, accessibility, and client-side filtering.
+- Browser tests must derive mutable totals, active-entity counts, current activity order, time-band widths, and lane geometry from the current corpus. Do not hardcode today’s Event/Company totals or the current list of multi-row entities.
+- Fixed IDs or exact values are appropriate only for deliberate fixtures, stable compatibility contracts, or named historical regression cases. Make that intent clear in the test.
+- A normal Golden Event or catalog refresh should not require smoke-test edits unless it changes a product contract.
+- Do not weaken a validator or browser invariant merely to make a content refresh pass. Move the assertion to the correct test layer or derive its expectation from validated input instead.
+
+The current layer boundaries and maintenance rationale are documented in [docs/CI_TEST_STRATEGY.md](docs/CI_TEST_STRATEGY.md).
+
 ## Technology choices
 
 Keep the implementation deliberately small:

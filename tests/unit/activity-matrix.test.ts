@@ -9,6 +9,7 @@ import {
   activityMatrixBundleWidthPx,
   buildActivityMatrixBundles,
   deriveActivityMatrixTimeBands,
+  orderEntitiesByRecentActivity,
   packActivityMatrixBundleRows,
   projectTimestampToActivityMatrix,
 } from '../../src/lib/activityMatrix.ts';
@@ -251,4 +252,51 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
       expect(horizontalSeparation).toBeGreaterThanOrEqual(ACTIVITY_MATRIX_BUNDLE_GAP);
     }
   }
+});
+
+
+test('recent-activity ordering is derived from the corpus rather than a fixed Company snapshot', () => {
+  const company = (id: string, name: string) => ({
+    id,
+    collection: 'companies',
+    data: { id, name },
+  });
+  const linkedEvent = (id: string, start: string, companyId: string) => ({
+    ...event(id, start, start.length === 4 ? 'year' : 'day'),
+    data: {
+      ...event(id, start, start.length === 4 ? 'year' : 'day').data,
+      companies: [companyId],
+    },
+  });
+
+  const companies = [
+    company('alpha', 'Alpha'),
+    company('beta', 'Beta'),
+    company('gamma', 'Gamma'),
+    company('unused', 'Unused'),
+  ];
+  const events = [
+    linkedEvent('gamma-new', '2026-03-01', 'gamma'),
+    linkedEvent('gamma-old', '2025', 'gamma'),
+    linkedEvent('alpha-new', '2026-01-01', 'alpha'),
+    linkedEvent('alpha-old', '2025', 'alpha'),
+    linkedEvent('beta-new', '2026-12-01', 'beta'),
+  ];
+
+  const ordered = orderEntitiesByRecentActivity(
+    companies as any,
+    events as any,
+    'company',
+  );
+
+  expect(ordered.map(({ entity }) => entity.data.id)).toEqual(['gamma', 'alpha', 'beta']);
+  expect(ordered.map(({ stats }) => ({
+    recent3: stats.recent3,
+    recent5: stats.recent5,
+    total: stats.total,
+  }))).toEqual([
+    { recent3: 2, recent5: 2, total: 2 },
+    { recent3: 2, recent5: 2, total: 2 },
+    { recent3: 1, recent5: 1, total: 1 },
+  ]);
 });

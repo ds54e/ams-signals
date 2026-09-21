@@ -43,13 +43,15 @@ npm ci
 npm run dev
 ```
 
-Run deterministic content, schema, duplicate, build, and built-link checks with:
+Run deterministic content, Golden/unit contract, catalog, build, and built-link checks with:
 
 ```bash
 npm run check
 ```
 
-Browser smoke tests are deliberately separate from the fast content check. They build the production site and exercise the preview under `/ams-signals/`:
+The pure contract layers can also be run directly with `npm run test:unit` and `npm run test:golden`. See [CI test strategy](docs/CI_TEST_STRATEGY.md) for test ownership and anti-brittleness rules.
+
+Browser smoke tests are deliberately separate from the fast deterministic checks. They build the production site and exercise the preview under `/ams-signals/`:
 
 ```bash
 npx playwright install chromium
