@@ -1,5 +1,5 @@
-import type { EventEntry } from './content';
-import { eventYear, sortEventsNewestFirst } from './content';
+import type { EventEntry } from './content.ts';
+import { eventYear, sortEventsNewestFirst } from './content.ts';
 
 export const TIMELINE_HISTORICAL_CUTOFF = 2020;
 // Shared by context Timeline placement, Matrix packing and their transparent buttons.

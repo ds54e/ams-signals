@@ -118,7 +118,7 @@ npm run check:internal-links
 
 Schema or fact-lint failures must be fixed. Duplicate warnings require judgment: merge or cluster when appropriate.
 
-`npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`.
+`npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`. Release browser contracts are split by responsibility across `tests/smoke/release-*.spec.mjs` with shared helpers in `tests/smoke/release-helpers.mjs`; `docs/CI_CONTRACT_REVIEW_2026-09-21.md` records which layer and file owns which assertion.
 
 Domain-catalog validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
 
