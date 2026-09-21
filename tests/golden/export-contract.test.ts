@@ -21,6 +21,7 @@ const [companyEntries, peopleEntries, eventEntries] = await Promise.all([
 ]);
 const expectedPeopleEntries = peopleEntries.filter(({ data }) => !EXPORT_EXCLUDED_PERSON_IDS.has(data.id));
 const expectedEventEntries = eventEntries.filter(({ data }) => !EXPORT_EXCLUDED_EVENT_IDS.has(data.id));
+const basePath = '/ams-signals/';
 
 test('canonical export payload contains the complete factual corpus', () => {
   const payload = buildExportPayload(companyEntries, peopleEntries, eventEntries);

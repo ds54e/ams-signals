@@ -50,22 +50,15 @@ test('ATLAS and ngspice map reviewed point signals to their month without fabric
       await expect(row.locator('.activity-strip .active')).toHaveAttribute('data-month', month);
       await expect(row.locator('.activity-strip > li').nth(monthIndex)).toHaveClass('active');
       await expect(row.locator('.activity-strip .active')).toHaveAttribute('data-signal', record.lastPublicUpdateType);
-      await expect(row.locator('.activity-strip .active')).toHaveAttribute('title', new RegExp(label + '
-test('Analog retains the moved enhancement project exactly once with its primary Code link', async ({ page }) => {
-  await page.goto('./analog/');
-  await expect(fixture.rows(page)).toHaveCount(fixture.projects.length);
-  const moved = fixture.row(page, 'ngspice-openvaf-enhancements');
-  await expect(moved).toHaveCount(1);
-  await expect(moved.getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', 'https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
-  await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
-  await expect(page.locator('[data-catalog-project="ngspice-openvaf-enhancements"]')).toHaveCount(0);
-});
-));
+      await expect(row.locator('.activity-strip .active')).toHaveAttribute('title', new RegExp(`${label}$`));
     }
     await expect(row.locator('[data-commits], .activity-repository')).toHaveCount(0);
     await expect(row.locator('.activity-strip li:not(.active)')).toHaveCount(fixture.activity.months.length - activeCount);
-    expect(await row.locator('.activity-strip li:not(.active)').first().getAttribute('title')).toContain('no reviewed public activity signal');
-    await expect(row.locator('.activity-latest time')).toHaveAttribute('title', new RegExp('^' + label + ':'));
+    if (fixture.activity.months.length - activeCount > 0) {
+      expect(await row.locator('.activity-strip li:not(.active)').first().getAttribute('title'))
+        .toContain('no reviewed public activity signal');
+    }
+    await expect(row.locator('.activity-latest time')).toHaveAttribute('title', new RegExp(`^${label}:`));
     await expect(row.locator('.activity-latest a')).toHaveCount(0);
     await expect(row.locator('.catalog-quicklinks a')).not.toHaveCount(0);
   }
@@ -76,7 +69,8 @@ test('Analog retains the moved enhancement project exactly once with its primary
   await expect(fixture.rows(page)).toHaveCount(fixture.projects.length);
   const moved = fixture.row(page, 'ngspice-openvaf-enhancements');
   await expect(moved).toHaveCount(1);
-  await expect(moved.getByRole('link', { name: 'Code', exact: true })).toHaveAttribute('href', 'https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
+  await expect(moved.getByRole('link', { name: 'Code', exact: true }))
+    .toHaveAttribute('href', 'https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Digital', exact: true }).click();
   await expect(page.locator('[data-catalog-project="ngspice-openvaf-enhancements"]')).toHaveCount(0);
 });
