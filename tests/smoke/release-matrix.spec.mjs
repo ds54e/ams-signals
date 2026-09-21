@@ -1056,4 +1056,3 @@ test('global Matrix is one accessible interleaved view with restrained entity co
     expect(colors.contrast, `${colorScheme} Person label contrast`).toBeGreaterThanOrEqual(4.5);
   }
 });
-

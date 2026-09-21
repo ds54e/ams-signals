@@ -362,4 +362,3 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await page.goto('./events/sitime-2023-keiichi-kajino-japan-verification-manager/');
   await expect(page.locator('.event-meta')).toContainText('Organizational');
 });
-

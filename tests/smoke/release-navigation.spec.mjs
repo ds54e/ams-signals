@@ -219,4 +219,3 @@ test('Company-first and People-first behavior remains intact', async ({ page }) 
   await page.locator('[data-search]').fill('Skyworks');
   expect(await contextGeometry()).toEqual(prabalGeometry);
 });
-
