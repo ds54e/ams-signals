@@ -70,15 +70,19 @@ test('Digital release points retain source provenance without fabricated reposit
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await page.goto('./digital/');
   const surfer = fixture.row(page, 'surfer').locator('.catalog-activity');
-  expect(fixture.activity.projects.surfer.kind).toBe('repository');
-  expect(fixture.activity.projects.surfer.repository).toBe('https://gitlab.com/surfer-project/surfer');
-  await expect(surfer.locator('ul > li')).toHaveCount(12);
-  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-month', '2025-10');
-  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-commits', '47');
-  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-month', '2026-09');
-  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-commits', '7');
-  await expect(surfer.locator('time')).toHaveAttribute('datetime', '2026-09-04');
-  expect(await surfer.locator('time').innerText()).toBe('SEP 4, 2026');
+  const record = fixture.activity.projects.surfer;
+  expect(record.kind).toBe('repository');
+  expect(record.repository).toBe('https://gitlab.com/surfer-project/surfer');
+  await expect(surfer.locator('ul > li')).toHaveCount(fixture.activity.months.length);
+  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-month', fixture.activity.months[0]);
+  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-commits', String(record.commits[0]));
+  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-month', fixture.activity.months.at(-1));
+  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-commits', String(record.commits.at(-1)));
+  await expect(surfer.locator('time')).toHaveAttribute('datetime', record.lastCommitAt);
+  const dateText = new Intl.DateTimeFormat('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  }).format(new Date(`${record.lastCommitAt}T00:00:00Z`)).toUpperCase();
+  expect(await surfer.locator('time').innerText()).toBe(dateText);
   await expect(surfer.locator('.activity-summary')).toHaveCount(0);
   expect(await surfer.innerText()).not.toContain('gitlab.com');
 });
