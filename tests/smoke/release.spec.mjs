@@ -398,9 +398,9 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
   });
   expect(payload.project.notes).toHaveLength(4);
   expect(payload).not.toHaveProperty('analysis');
-  expect(payload.companies).toHaveLength(64);
+  expect(payload.companies).toHaveLength(66);
   expect(payload.people).toHaveLength(30);
-  expect(payload.events).toHaveLength(210);
+  expect(payload.events).toHaveLength(215);
   expect(payload.people.map(({ id }) => id)).not.toContain('lunlun');
   expect(payload.events.map(({ id }) => id)).not.toContain('lunlun-2024-initial-real-time-representation');
   expect(payload.events.map(({ id }) => id)).not.toContain('lunlun-2025-3-0-dynamic-behavior');
@@ -415,7 +415,7 @@ test('canonical JSON export contains the complete factual corpus', async ({ page
     right.when.start.localeCompare(left.when.start) || left.id.localeCompare(right.id, 'en')
   )).map(({ id }) => id));
 
-  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(142);
+  expect(payload.events.filter(({ kind }) => kind === 'technical')).toHaveLength(147);
   expect(payload.events.filter(({ kind }) => kind === 'organizational')).toHaveLength(68);
   expect(payload.companies.map(({ id }) => id)).toEqual(expect.arrayContaining([
     'bosch-sensortec',
@@ -721,11 +721,11 @@ expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verifi
     'siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom',
   ].map((id) => [id, canonicalCompanyCounts.get(id)]))).toEqual({
     'siemens-eda': 21,
-    nxp: 13,
+    nxp: 14,
     renesas: 14,
     'analog-devices': 13,
     amd: 5,
-    broadcom: 5,
+    broadcom: 6,
   });
   const legacyCompanyIds = [
     'mentor-graphics',
@@ -967,8 +967,8 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(resultSection).toBeVisible();
   await expect(resultSection.locator(':scope > :first-child')).toHaveClass(/\bresult-list\b/);
   expect(await resultSection.evaluate((section) => section.previousElementSibling?.classList.contains('event-filter-utility'))).toBe(true);
-  await expect(page.locator('[data-status]')).toHaveText('212 of 212 events');
-  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('212 of 212 events');
+  await expect(page.locator('[data-status]')).toHaveText('217 of 217 events');
+  await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveText('217 of 217 events');
   await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
@@ -1172,7 +1172,7 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
   ))).toEqual(eventIds);
   await page.locator('[data-search]').fill('Lunlun');
   await expect(page.locator('[data-event-result]:visible')).toHaveCount(2);
-  await expect(page.locator('[data-status]')).toHaveText('2 of 212 events');
+  await expect(page.locator('[data-status]')).toHaveText('2 of 217 events');
   await page.locator('[data-search]').fill('model');
   await expect(page.locator(`[data-event-result][data-event-id="${events[0].id}"]`)).toBeVisible();
 
@@ -1260,8 +1260,8 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   const singletonCompanyIds = [...companyTotals].filter(([, total]) => total === 1).map(([id]) => id);
   const activePersonIds = [...peopleTotals].filter(([, total]) => total > 0).map(([id]) => id);
   const singletonPersonIds = [...peopleTotals].filter(([, total]) => total === 1).map(([id]) => id);
-  expect(activeCompanyIds).toHaveLength(63);
-  expect(singletonCompanyIds).toHaveLength(33);
+  expect(activeCompanyIds).toHaveLength(65);
+  expect(singletonCompanyIds).toHaveLength(35);
   expect(activePersonIds).toHaveLength(30);
   expect(singletonPersonIds).toHaveLength(7);
 
@@ -1315,7 +1315,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   await expect(combinedPersonRow).toBeVisible();
 
   await page.getByRole('button', { name: 'Select all', exact: true }).click();
-  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(63);
+  await expect(page.locator('[data-company-options] input:checked')).toHaveCount(65);
   await expect(combinedCompanyRow).toBeHidden();
   await expect(combinedPersonRow).toBeHidden();
 });
@@ -1356,7 +1356,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
     const checks = page.locator('[data-company-options] input');
     const checked = page.locator('[data-company-options] input:checked');
     const totalCompanies = await checks.count();
-    expect(totalCompanies).toBe(63);
+    expect(totalCompanies).toBe(65);
     await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
     const pickerLayout = await page.locator('.company-picker-panel').evaluate((panel) => {
@@ -1398,7 +1398,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
     await expect(checked).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('0 of 212 events');
+    await expect(page.locator('[data-status]')).toHaveText('0 of 217 events');
     expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
     if (surface === 'timeline') {
       await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
@@ -1409,7 +1409,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText('0 of 212 events');
+    await expect(page.locator('[data-status]')).not.toHaveText('0 of 217 events');
     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
     await page.getByRole('button', { name: 'Clear all', exact: true }).click();
@@ -1474,10 +1474,10 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
   expect(expectedIds.slice(0, 10)).toEqual([
     'siemens-eda',
     'apple',
+    'nxp',
     'infineon',
     'texas-instruments',
     'cadence',
-    'nxp',
     'renesas',
     'samsung',
     'synopsys',
@@ -1770,7 +1770,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   ].map((id) => [id, visualRowsByLane[`company:${id}`]]))).toEqual({
     apple: 2,
     'siemens-eda': 3,
-    nxp: 1,
+    nxp: 2,
     'analog-devices': 2,
     stmicroelectronics: 1,
     'ams-osram': 1,
@@ -1778,6 +1778,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
   expect(rows.filter(({ visualRowCount }) => visualRowCount > 1).map(({ lane }) => lane)).toEqual([
     'company:siemens-eda',
     'company:apple',
+    'company:nxp',
     'company:infineon',
     'company:texas-instruments',
     'company:cadence',
@@ -1949,8 +1950,8 @@ test('Timeline utility bar places count and legend beside the compact controls',
   const utility = page.locator('.event-filter-utility');
   const summary = utility.locator(':scope > .event-filter-summary');
   const representedIds = await visibleTimelineEventIds(page);
-  expect(representedIds).toHaveLength(186);
-  await expect(summary.locator(':scope > .index-count')).toHaveText('186 of 212 events');
+  expect(representedIds).toHaveLength(189);
+  await expect(summary.locator(':scope > .index-count')).toHaveText('189 of 217 events');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Technical');
   await expect(summary.locator(':scope > .kind-legend')).toContainText('Organizational');
   await expect(summary.locator(':scope > .activity-order-note')).toHaveCount(0);
@@ -2398,7 +2399,7 @@ test('legacy Entity-view URLs canonicalize to the combined global surfaces', asy
         await expect(page.locator('[data-group="both"] [data-matrix-row][data-entity-type="person"]:visible').first())
           .toBeVisible();
       } else {
-        await expect(page.locator('[data-status]')).toHaveText(/of 212 events/);
+        await expect(page.locator('[data-status]')).toHaveText(/of 217 events/);
       }
     }
 
@@ -2450,9 +2451,9 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   const serializedKinds = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => event.kind)
   ));
-  expect(serializedKinds).toHaveLength(212);
+  expect(serializedKinds).toHaveLength(217);
   expect(new Set(serializedKinds)).toEqual(new Set(['technical', 'organizational']));
-  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(144);
+  expect(serializedKinds.filter((kind) => kind === 'technical')).toHaveLength(149);
   expect(serializedKinds.filter((kind) => kind === 'organizational')).toHaveLength(68);
 
   const legend = page.locator('.kind-legend');
@@ -2471,7 +2472,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);
-    await expect(page.locator('[data-status]')).toHaveText('186 of 212 events');
+    await expect(page.locator('[data-status]')).toHaveText('189 of 217 events');
     await expect(page.locator('[data-matrix-mark].event-kind-technical:visible').first()).toBeVisible();
     await expect(page.locator('[data-matrix-mark].event-kind-organizational:visible').first()).toBeVisible();
   }
@@ -2480,11 +2481,11 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expectExplorerReady(page, 'events');
   await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
   await page.locator('[data-kind]').selectOption('technical');
-  await expect(page.locator('[data-status]')).toHaveText('144 of 212 events');
+  await expect(page.locator('[data-status]')).toHaveText('149 of 217 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
   await expect(page.locator('.signal-type[data-signal-type="organizational"]:visible')).toHaveCount(0);
   await page.locator('[data-kind]').selectOption('organizational');
-  await expect(page.locator('[data-status]')).toHaveText('68 of 212 events');
+  await expect(page.locator('[data-status]')).toHaveText('68 of 217 events');
   expect(new URL(page.url()).searchParams.get('kind')).toBe('organizational');
   await expect(page.locator('[data-event-result]:visible .signal-type')).toHaveText(
     Array(68).fill('Organizational'),
@@ -2704,7 +2705,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expect(page.locator('[data-search]')).toHaveValue('');
     if (isEvents) await expect(page.locator('[data-kind]')).toHaveValue('all');
     await expect(page.locator('[data-company-options] input:checked')).toHaveCount(await page.locator('[data-company-options] input').count());
-    await expect(page.locator('[data-company-summary]')).toHaveText('All 63');
+    await expect(page.locator('[data-company-summary]')).toHaveText('All 65');
   }
 });
 
