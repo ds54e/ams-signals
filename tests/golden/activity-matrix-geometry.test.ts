@@ -8,7 +8,9 @@ import {
   activityMatrixBundleRows,
   activityMatrixBundleWidthPx,
   buildActivityMatrixBundles,
+  buildActivityMatrixGeometry,
   deriveActivityMatrixTimeBands,
+  orderEntitiesByRecentActivity,
   packActivityMatrixBundleRows,
   projectTimestampToActivityMatrix,
 } from '../../src/lib/activityMatrix.ts';
@@ -251,4 +253,97 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
       expect(horizontalSeparation).toBeGreaterThanOrEqual(ACTIVITY_MATRIX_BUNDLE_GAP);
     }
   }
+});
+
+
+type ActivityEvent = Parameters<typeof orderEntitiesByRecentActivity>[1][number];
+type ActivityCompany = Parameters<typeof orderEntitiesByRecentActivity>[0][number];
+
+function company(id: string, name = id): ActivityCompany {
+  return {
+    id,
+    collection: 'companies',
+    data: { id, name },
+  } as unknown as ActivityCompany;
+}
+
+function activityEvent(
+  id: string,
+  start: string,
+  companies: string[] = [],
+  people: string[] = [],
+): ActivityEvent {
+  return {
+    id,
+    collection: 'events',
+    data: {
+      id,
+      kind: 'technical',
+      when: { start, precision: 'day' },
+      companies,
+      people,
+      headline: id,
+      fact: id,
+      sources: [{ title: id, url: 'https://example.test/', checkedAt: '2026-09-21', summary: id }],
+    },
+  } as unknown as ActivityEvent;
+}
+
+test('recent-activity ordering is derived from the corpus instead of a fixed company ranking', () => {
+  const companies = [
+    company('alpha', 'Alpha'),
+    company('beta', 'Beta'),
+    company('gamma', 'Gamma'),
+    company('unused', 'Unused'),
+  ];
+  const events = [
+    activityEvent('alpha-2026', '2026-09-01', ['alpha']),
+    activityEvent('alpha-2025', '2025-09-01', ['alpha']),
+    activityEvent('alpha-2024', '2024-09-01', ['alpha']),
+    activityEvent('beta-2026', '2026-08-01', ['beta']),
+    activityEvent('beta-2023', '2023-08-01', ['beta']),
+    activityEvent('gamma-2026', '2026-07-01', ['gamma']),
+  ];
+
+  const ordered = orderEntitiesByRecentActivity(companies, events, 'company');
+  expect(ordered.map(({ entity }) => entity.data.id)).toEqual(['alpha', 'beta', 'gamma']);
+  expect(ordered.map(({ stats }) => ({
+    recent3: stats.recent3,
+    recent5: stats.recent5,
+    total: stats.total,
+  }))).toEqual([
+    { recent3: 3, recent5: 3, total: 3 },
+    { recent3: 1, recent5: 2, total: 2 },
+    { recent3: 1, recent5: 1, total: 1 },
+  ]);
+});
+
+test('full Matrix geometry derives rows and track width from synthetic corpus density', () => {
+  const companies = [company('dense', 'Dense'), company('single', 'Single')];
+  const people = [];
+  const events = [
+    activityEvent('dense-a', '2026-12-31', ['dense']),
+    activityEvent('dense-b', '2026-12-20', ['dense']),
+    activityEvent('dense-c', '2026-12-10', ['dense']),
+    activityEvent('dense-d', '2026-12-01', ['dense']),
+    activityEvent('dense-old', '2023-01-01', ['dense']),
+    activityEvent('single-a', '2025-06-01', ['single']),
+  ];
+
+  const geometry = buildActivityMatrixGeometry(events, companies, people);
+  expect(geometry.domain).toEqual({ oldestYear: 2023, latestYear: 2026 });
+  expect(geometry.trackWidth).toBe(geometry.timeBands.at(-1)?.endPx);
+  expect(geometry.companyRows.map(({ entity }) => entity.data.id)).toEqual(['dense', 'single']);
+  expect(geometry.peopleRows).toEqual([]);
+  expect(geometry.combinedRows.map(({ entity }) => entity.data.id)).toEqual(['dense', 'single']);
+
+  const dense = geometry.companyRows[0];
+  expect(dense.events).toHaveLength(5);
+  expect(dense.bundles.length).toBeGreaterThan(1);
+  expect(dense.visualRowCount).toBeGreaterThanOrEqual(1);
+  expect(dense.height).toBeGreaterThanOrEqual(28);
+
+  const single = geometry.companyRows[1];
+  expect(single.events).toHaveLength(1);
+  expect(single.visualRowCount).toBe(1);
 });
