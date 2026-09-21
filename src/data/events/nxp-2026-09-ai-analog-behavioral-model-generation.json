@@ -1,0 +1,34 @@
+{
+  "id": "nxp-2026-09-ai-analog-behavioral-model-generation",
+  "when": {
+    "start": "2026-09-02",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP-affiliated authors present AI-driven automated analog behavioral-model generation",
+  "fact": "The official DVCon India 2026 Day 2 agenda lists “SpecPro Modeller: An AI-Driven Framework for Automated Analog Behavioural Model Generation” by Sainath Karlapalem, Atish Savale, and Vihan Shukla. Public profiles identify Karlapalem and Savale with NXP Semiconductors. The public material establishes the presentation and its stated AI-driven analog behavioral-model-generation scope, but does not expose enough detail to assert the generation algorithm, supported model languages, accuracy, or production deployment.",
+  "sources": [
+    {
+      "title": "DVCon India 2026 Day 2 agenda",
+      "url": "https://dvcon-india.org/wp-content/uploads/2026/08/Day2v13_DVCon_India_2026_Agenda-copy.pdf",
+      "checkedAt": "2026-09-21",
+      "summary": "The official September 2 agenda lists SpecPro Modeller and identifies Sainath Karlapalem, Atish Savale, and Vihan Shukla as its authors."
+    },
+    {
+      "title": "Sainath Karlapalem public profile",
+      "url": "https://in.linkedin.com/in/sainath-karlapalem-5540519",
+      "checkedAt": "2026-09-21",
+      "summary": "The public profile identifies Sainath Karlapalem with NXP Semiconductors."
+    },
+    {
+      "title": "Atish Savale public profile",
+      "url": "https://in.linkedin.com/in/atish-savale-7b86098a",
+      "checkedAt": "2026-09-21",
+      "summary": "The public profile identifies Atish Savale with NXP Semiconductors."
+    }
+  ]
+}
