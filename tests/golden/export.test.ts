@@ -401,7 +401,7 @@ expect(payload.events.find(({ id }) => id === 'xilinx-2015-octave-rnm-uvm-verifi
       headline: expect.any(String),
       fact: expect.any(String),
       sources: expect.any(Array),
-      recordUrl: `https://ds54e.github.io${basePath}events/${event.id}/`,
+      recordUrl: `https://ds54e.github.io/ams-signals/events/${event.id}/`,
     }));
     expect(event.sources.length).toBeGreaterThan(0);
     for (const source of event.sources) {
