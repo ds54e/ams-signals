@@ -1,0 +1,28 @@
+{
+  "id": "credo-2026-08-pll-mixed-signal-verification",
+  "when": {
+    "start": "2026-08-10",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "credo"
+  ],
+  "people": [],
+  "headline": "Credo presents mixed-signal PLL verification and CTLE BER analysis for a TSMC 2 nm design",
+  "fact": "SNUG Taiwan 2026 proceedings list a Credo presentation by Yenlin Lee and Sung En Wang titled “Time-effective Mixed-Signal PLL Verifications with RTVS Cosim and CTLE BER Analysis with Matlab for TSMC 2nm Design.” Synopsys names it a Best Presentation Award winner. The public record establishes the stated mixed-signal PLL/co-simulation and MATLAB CTLE BER-analysis scope for a TSMC 2 nm design; it does not expose the gated presentation’s measured runtime, correlation, or sign-off results.",
+  "sources": [
+    {
+      "title": "SNUG Taiwan 2026 proceedings",
+      "url": "https://www.synopsys.com/community/snug/snug-taiwan/location-proceedings-2026.html",
+      "checkedAt": "2026-09-21",
+      "summary": "Synopsys lists the Credo presentation by Yenlin Lee and Sung En Wang under Analog Mixed Signal Design and identifies it as a Best Presentation Award winner."
+    },
+    {
+      "title": "SNUG Taiwan 2026 Call for Content portal",
+      "url": "https://my.reviewr.com/s2/site/snug_taiwan2026",
+      "checkedAt": "2026-09-21",
+      "summary": "The official SNUG Taiwan portal states that the conference was held at the Sheraton Hsinchu Hotel on August 10, 2026."
+    }
+  ]
+}
