@@ -223,13 +223,18 @@ test('point updates require sources and cannot silently acquire repository bucke
   // The band is exactly the reviewed window, with the point-update month as its only active cell.
   assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
   assert.equal(band.cells.length, s.months.length);
-  assert.equal(band.activeMonths, 1);
-  assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [updateMonth]);
   const activeIndex = s.months.indexOf(updateMonth);
-  assert.ok(activeIndex >= 0, `${updateMonth} must fall inside the reviewed window`);
-  const updateMonthLabel = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' })
-    .format(new Date(`${updateMonth}-01T00:00:00Z`));
-  assert.equal(band.cells[activeIndex].detail, `${updateMonthLabel} · public update`);
+  const activeCount = activeIndex >= 0 ? 1 : 0;
+  assert.equal(band.activeMonths, activeCount);
+  assert.deepEqual(
+    band.cells.filter((cell) => cell.active).map((cell) => cell.month),
+    activeIndex >= 0 ? [updateMonth] : [],
+  );
+  if (activeIndex >= 0) {
+    const updateMonthLabel = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+      .format(new Date(`${updateMonth}-01T00:00:00Z`));
+    assert.equal(band.cells[activeIndex].detail, `${updateMonthLabel} · public update`);
+  }
   assert.ok(band.cells.every((cell) => !('commits' in cell)));
   // Repository provenance never leaks into a point-update band.
   assert.ok(band.provenance.startsWith('public update:'));
@@ -319,13 +324,44 @@ test('generic repository records enforce identity, complete monthly history and 
     assert.throws(() => validateActivity(changed, snapshot), /verified Code source|primary source/);
   }
   // Manual repositories cannot inherit re-labeled buckets when the refresh window moves.
-  const s = activity();
-  assert.equal(activitySchema.safeParse({
-    ...s,
+  // Isolate that rule with a fresh synthetic repository record so the negative cannot pass
+  // merely because some unrelated project became stale or its capture timestamp was not rolled.
+  const currentFixture = {
+    reviewedAt: snapshot.reviewedAt,
+    capturedAt: `${snapshot.reviewedAt}T00:00:00Z`,
+    method: snapshot.method,
+    months: activityMonths(snapshot.reviewedAt),
+    projects: {
+      surfer: {
+        ...reviewedRecord,
+        capturedAt: `${snapshot.reviewedAt}T00:00:00Z`,
+        lastCommitAt: snapshot.reviewedAt,
+        lastMeaningfulCommitAt: snapshot.reviewedAt,
+        commits: [...Array(snapshot.months.length - 1).fill(0), 1],
+      },
+    },
+  };
+  const baseline = activitySchema.safeParse(currentFixture);
+  assert.equal(baseline.success, true, baseline.success ? undefined : JSON.stringify(baseline.error.issues));
+  const rolled = activitySchema.safeParse({
+    ...currentFixture,
     reviewedAt: nextReviewedAt,
     capturedAt: `${nextReviewedAt}T00:00:00Z`,
     months: activityMonths(nextReviewedAt),
-  }).success, false);
+    projects: {
+      surfer: {
+        ...currentFixture.projects.surfer,
+        capturedAt: `${nextReviewedAt}T00:00:00Z`,
+      },
+    },
+  });
+  assert.equal(rolled.success, false);
+  if (rolled.success) throw new Error('Re-labeled repository buckets unexpectedly validated');
+  assert.ok(
+    rolled.error.issues.some((issue) => issue.path.join('.') === 'projects.surfer'
+      && issue.message === 'Commit buckets disagree with reviewed commit dates'),
+    JSON.stringify(rolled.error.issues),
+  );
 });
 
 test('ordering uses raw latest public activity, normalized alphabetical ties, then slug without mutating input', () => {
