@@ -13,13 +13,14 @@
     "lint:facts": "node tools/fact-lint.mjs",
     "check:duplicates": "node tools/duplicate-check.mjs",
     "check:internal-links": "node tools/internal-link-check.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run test:unit && npm run validate:analog && npm run test:analog && npm run validate:digital && npm run test:digital && npm run build && npm run check:internal-links",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run test:unit && npm run test:golden && npm run validate:analog && npm run test:analog && npm run validate:digital && npm run test:digital && npm run build && npm run check:internal-links",
     "test:smoke": "npm run build && playwright test",
     "refresh:analog-activity": "node tools/refresh-analog-activity.mjs",
     "validate:digital": "node tools/validate-digital.mjs",
     "test:digital": "node --test tests/digital/*.test.ts",
     "refresh:digital-activity": "node tools/refresh-digital-activity.mjs",
-    "test:unit": "node --test tests/unit/*.test.ts"
+    "test:unit": "node --test tests/unit/*.test.ts",
+    "test:golden": "node --test tests/golden/*.test.ts"
   },
   "dependencies": {
     "astro": "7.2.9"
