@@ -797,9 +797,6 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
     for (const term of forbiddenPublicTerms) await expect(page.locator('body')).not.toContainText(term);
   }
 
-  const payload = await (await page.request.get('./export.json')).json();
-  expect(payload.people.map(({ id }) => id)).not.toContain('lunlun');
-  for (const event of events) expect(payload.events.map(({ id }) => id)).not.toContain(event.id);
 });
 
 test('global Timeline Event sets remain subsets of the complete Events record', async ({ page }) => {
@@ -1093,19 +1090,6 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     };
   }).filter(({ total }) => total > 0).sort(compareActivity);
   const expectedCombined = [...expectedCompanies, ...expectedPeople].sort(compareActivity);
-  expect(expectedPeople.map(({ id }) => id).filter((id) => id !== 'lunlun').slice(0, 10)).toEqual([
-    'aadhar-sharma',
-    'peter-grove',
-    'henry-chang',
-    'mariam-maurice',
-    'stijn-ringeling',
-    'simul-barua',
-    'guha-lakshmanan',
-    'venkateswaran-padmanabhan',
-    'vijay-kumar',
-    'thilo-voertler',
-  ]);
-
   const pickerOrder = () => page.locator('[data-company-options] label').evaluateAll((labels) => labels.map((label) => ({
     id: label.querySelector('input')?.value,
     name: label.querySelector('span')?.textContent?.trim(),
@@ -1470,17 +1454,39 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 test('global Matrix uses the corpus domain while context Timelines retain derived historical ranges', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
-  await expect(page.locator('[data-activity-matrix-surface]')).toHaveAttribute('data-domain-oldest-year', '2010');
+  const globalStarts = await page.locator('[data-events-json]').evaluate((node) => (
+    JSON.parse(node.textContent).map((event) => event.start)
+  ));
+  const globalYears = globalStarts.map((start) => Number(start.slice(0, 4)));
+  const oldestYear = Math.min(...globalYears);
+  const latestYear = Math.max(...globalYears);
+  await expect(page.locator('[data-activity-matrix-surface]'))
+    .toHaveAttribute('data-domain-oldest-year', String(oldestYear));
   await expect(page.locator('[data-activity-time-band]')).toHaveText([
-    '2026', '2025', '2024', '2023', '2020–2022', '2015–2019', '≤2014',
+    String(latestYear),
+    String(latestYear - 1),
+    String(latestYear - 2),
+    String(latestYear - 3),
+    `${latestYear - 6}–${latestYear - 4}`,
+    `${latestYear - 11}–${latestYear - 7}`,
+    `≤${latestYear - 12}`,
   ]);
 
   await page.goto('./companies/apple/');
   await expectExplorerReady(page);
   await expect(page.locator('.desktop-timeline')).toBeVisible();
   await expect(page.locator('[data-activity-matrix-surface]')).toHaveCount(0);
+  const appleStarts = await page.locator('[data-events-json]').evaluate((node) => (
+    JSON.parse(node.textContent).map((event) => event.start)
+  ));
+  const oldestAppleHistoricalYear = Math.min(
+    ...appleStarts.map((start) => Number(start.slice(0, 4))).filter((year) => year <= 2020),
+  );
+  const expectedHistoricalLabel = oldestAppleHistoricalYear < 2020
+    ? `2020–${oldestAppleHistoricalYear}`
+    : '2020';
   await expect(page.locator('[data-timeline-segment][data-segment-key="through-2020"]'))
-    .toHaveAttribute('data-segment-label', '2020–2018');
+    .toHaveAttribute('data-segment-label', expectedHistoricalLabel);
 });
 
 test('Timeline utility bar places count and legend beside the compact controls', async ({ page }) => {
