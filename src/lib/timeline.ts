@@ -1,4 +1,4 @@
-import type { EventEntry } from './content';
+import type { EventEntry } from './content.ts';
 import { eventYear, sortEventsNewestFirst } from './content';
 
 export const TIMELINE_HISTORICAL_CUTOFF = 2020;
