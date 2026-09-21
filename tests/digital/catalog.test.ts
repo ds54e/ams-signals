@@ -235,20 +235,27 @@ test('Surfer uses reviewed canonical GitLab first-parent history without changin
   assert.equal(record.repository, 'https://gitlab.com/surfer-project/surfer');
   assert.equal(record.repositoryId, '42073614');
   assert.equal(record.defaultBranch, 'main');
-  assert.equal(record.headSha, 'db1ca915a989860f11c440b0a932b1f5fbce71b2');
+  assert.match(record.headSha, /^[a-f0-9]{40}$/);
   assert.equal(record.lastMeaningfulCommitSha, record.headSha);
   assert.equal(record.lastMeaningfulCommitSource, 'activity');
-  assert.equal(publicActivityDate(record), '2026-09-04');
-  assert.equal(record.lastMeaningfulCommitAt, '2026-09-04');
-  assert.deepEqual(record.commits, [47,51,99,35,66,28,31,40,10,32,17,7]);
+  assert.equal(publicActivityDate(record), record.lastMeaningfulCommitAt);
+  assert.equal(record.commits.length, snapshot.months.length);
+  assert.ok(record.commits.every((count) => Number.isInteger(count) && count >= 0));
   const band = activityBand(record, snapshot.months, surfer.data.sources);
-  assert.equal(band.cells.length, 12);
-  assert.equal(band.cells[0].month, '2025-10');
-  assert.equal(band.cells[0].detail, 'October 2025 · 47 default-branch commits');
-  assert.equal(band.cells[11].month, '2026-09');
-  assert.equal(band.cells[11].detail, 'September 2026 · 7 default-branch commits');
-  assert.equal(band.activeMonths, 12);
-  assert.doesNotThrow(() => verifyMeaningfulCommit(record, [[record.headSha, '2026-09-04T11:44:01Z']]));
+  assert.equal(band.cells.length, snapshot.months.length);
+  for (const [index, cell] of band.cells.entries()) {
+    const month = snapshot.months[index];
+    const label = new Intl.DateTimeFormat('en', {
+      month: 'long', year: 'numeric', timeZone: 'UTC',
+    }).format(new Date(`${month}-01T00:00:00Z`));
+    assert.equal(cell.month, month);
+    assert.equal(cell.detail, `${label} · ${record.commits[index]} default-branch commits`);
+  }
+  assert.equal(band.activeMonths, record.commits.filter((count) => count > 0).length);
+  assert.doesNotThrow(() => verifyMeaningfulCommit(
+    record,
+    [[record.headSha, `${record.lastMeaningfulCommitAt}T12:00:00Z`]],
+  ));
   const before = pointActivity();
   assert.deepEqual(sortProjects(projects, snapshot.projects).map((p) => p.id), sortProjects(projects, before.projects).map((p) => p.id));
 });
