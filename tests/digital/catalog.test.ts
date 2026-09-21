@@ -220,7 +220,7 @@ test('point updates require sources and cannot silently acquire repository bucke
   const update = s.projects[surfer.id] as { lastPublicUpdateAt: string; lastPublicUpdateType: string };
   const updateMonth = update.lastPublicUpdateAt.slice(0, 7);
   const band = activityBand(s.projects[surfer.id], s.months, surfer.data.sources);
-  // The band is exactly the reviewed window, with the point-update month as its only active cell.
+  // The band is exactly the reviewed window; the point-update month is its only active cell when present.
   assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
   assert.equal(band.cells.length, s.months.length);
   const activeIndex = s.months.indexOf(updateMonth);
@@ -263,21 +263,21 @@ test('Surfer uses reviewed canonical GitLab first-parent history without changin
   assert.equal(record.repositoryId, '42073614');
   assert.equal(record.defaultBranch, 'main');
   assert.match(record.headSha, /^[a-f0-9]{40}$/);
-  // The reviewed meaningful commit is the captured head, verified against first-parent history.
-  assert.equal(record.lastMeaningfulCommitSha, record.headSha);
+  // Meaningful provenance is durable even when a later cosmetic commit advances the captured head.
+  assert.match(record.lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
   assert.equal(record.lastMeaningfulCommitSource, 'activity');
+  assert.ok(record.lastMeaningfulCommitAt <= record.lastCommitAt);
   assert.doesNotThrow(() => verifyMeaningfulCommit(
     record,
-    [[record.headSha, `${record.lastMeaningfulCommitAt}T12:00:00Z`]],
+    [[record.lastMeaningfulCommitSha, `${record.lastMeaningfulCommitAt}T12:00:00Z`]],
   ));
-  // The public activity date is the reviewed latest commit, which lies inside the rolling window.
+  // The public activity date is the reviewed latest commit. A day-fresh record may legitimately
+  // sit just outside the twelve calendar-month strip during the cutoff month.
   assert.equal(publicActivityDate(record), record.lastCommitAt);
   assert.match(record.lastCommitAt, /^\d{4}-\d{2}-\d{2}$/);
-  assert.ok(snapshot.months.includes(record.lastCommitAt.slice(0, 7)));
-  // A complete window of nonnegative integer buckets, with at least one month carrying activity.
+  // A complete window of nonnegative integer buckets; zero active months is valid at that edge.
   assert.equal(record.commits.length, snapshot.months.length);
   assert.ok(record.commits.every((count) => Number.isInteger(count) && count >= 0));
-  assert.ok(record.commits.some((count) => count > 0));
   // The rendered band agrees one-for-one with the reviewed months and counts.
   const band = activityBand(record, snapshot.months, surfer.data.sources);
   assert.equal(band.cells.length, snapshot.months.length);
@@ -311,7 +311,7 @@ test('generic repository records enforce identity, complete monthly history and 
     { repositoryId: undefined }, { repositoryId: '' }, { defaultBranch: 'bad..branch' },
     { capturedAt: undefined }, { capturedAt: '2026-08-31T00:00:00Z' }, { capturedAt: `${dayAfterReview}T00:00:00Z` },
     { capturedAt: `${captureBeforeLastCommit}T00:00:00Z` }, { commits: undefined }, { commits: [1] },
-    { commits: Array(12).fill(-1) }, { commits: Array(12).fill(0.5) }, { commits: Array(12).fill(0) },
+    { commits: Array(12).fill(-1) }, { commits: Array(12).fill(0.5) },
     { headSha: 'main' }, { lastMeaningfulCommitSha: undefined }, { lastMeaningfulCommitAt: '2025-09-04' },
     { lastMeaningfulCommitAt: meaningfulAfterLastCommit }, { lastMeaningfulCommitSource: 'missing' },
     { lastMeaningfulCommitSha: 'a'.repeat(40) },
@@ -319,6 +319,23 @@ test('generic repository records enforce identity, complete monthly history and 
     const s = activity(); Object.assign(s.projects.surfer, change);
     assert.throws(() => validateActivity(projects, s), JSON.stringify(change));
   }
+  // Zero buckets are invalid when the reviewed latest/meaningful commit is explicitly
+  // placed in the current snapshot month. This keeps the negative independent of Surfer's age.
+  const zeroBuckets = activity();
+  Object.assign(zeroBuckets.projects.surfer, {
+    capturedAt: `${snapshot.reviewedAt}T23:59:59Z`,
+    lastCommitAt: snapshot.reviewedAt,
+    lastMeaningfulCommitAt: snapshot.reviewedAt,
+    commits: Array(snapshot.months.length).fill(0),
+  });
+  const zeroResult = activitySchema.safeParse(zeroBuckets);
+  assert.equal(zeroResult.success, false);
+  if (zeroResult.success) throw new Error('Current-month repository unexpectedly accepted zero buckets');
+  assert.ok(
+    zeroResult.error.issues.some((issue) => issue.path.join('.') === 'projects.surfer'
+      && issue.message === 'Commit buckets disagree with reviewed commit dates'),
+    JSON.stringify(zeroResult.error.issues),
+  );
   for (const source of ['code', 'activity']) {
     const changed = projects.map((p) => p.id === surfer.id ? { ...p, data: { ...p.data, sources: p.data.sources.map((s) => s.id === source ? { ...s, url: 'https://gitlab.com/unrelated/surfer' } : s) } } : p);
     assert.throws(() => validateActivity(changed, snapshot), /verified Code source|primary source/);
