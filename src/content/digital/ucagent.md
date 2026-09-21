@@ -26,6 +26,9 @@ sources:
     title: "Official project documentation"
     url: "https://ucagent.open-verify.cc/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/XS-MLVP/UCAgent/commit/3818c4f722b222910202b8b2bbede3c7ee4e9ef9"
 ---
 
 

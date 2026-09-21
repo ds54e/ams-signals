@@ -45,6 +45,9 @@ sources:
   - id: "development-3"
     title: "Current package storage"
     url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/43e9286c51add3cd5226bf4a1cd38918bdebd608/crates/elaborate/src/lib.rs"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/c026a81103d38f9f382e8e1bfb9d4033e026f9fd"
 ---
 
 

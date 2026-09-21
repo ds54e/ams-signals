@@ -43,6 +43,9 @@ sources:
   - id: "activity"
     title: "Emit named type aliases in CIRCT IR and ESI interfaces"
     url: "https://github.com/microsoft/kanagawa/commit/98a2d8cbe16b74bf15a46c46a19b319c1a0bf78e"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/microsoft/kanagawa/commit/a092594c061122572fc895ac8a98d61e356ca52b"
 ---
 
 ### Implementation context

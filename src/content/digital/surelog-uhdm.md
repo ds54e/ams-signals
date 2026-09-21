@@ -25,6 +25,9 @@ sources:
   - id: "uhdm"
     title: "UHDM model and APIs"
     url: "https://github.com/chipsalliance/UHDM"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/chipsalliance/Surelog/commit/f0e36bc04bcb42360b9eeb09f11fea8e05a67ca1"
 ---
 
 

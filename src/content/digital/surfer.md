@@ -15,10 +15,10 @@ sources:
     purpose: "code"
   - id: "readme"
     title: "Surfer README at the reviewed revision"
-    url: "https://gitlab.com/surfer-project/surfer/-/blob/db1ca915a989860f11c440b0a932b1f5fbce71b2/README.md"
+    url: "https://gitlab.com/surfer-project/surfer/-/blob/d8ece80b92047b1313154006b88ee74a3ad2886e/README.md"
   - id: "activity"
-    title: "Open log window on errors: implementation update"
-    url: "https://gitlab.com/surfer-project/surfer/-/commit/db1ca915a989860f11c440b0a932b1f5fbce71b2"
+    title: "Add gray-code value translator"
+    url: "https://gitlab.com/surfer-project/surfer/-/commit/587974858483257304050c7a63239b38e29431e9"
   - id: "website"
     title: "Official project documentation"
     url: "https://surfer-project.org/"
@@ -32,7 +32,7 @@ Tracked as a conventional waveform viewer; no distinctive AI build process or AI
 
 ### Release boundary
 
-Native and web builds have different feature availability. Activity uses reviewed first-parent monthly history from the canonical GitLab repository. [Public update](#source-activity).
+Native and web builds have different feature availability. The September 12 gray-code translator is the latest reviewed meaningful change; the September 13 publishing-container update remains the raw ordering tip. Activity uses reviewed first-parent monthly history from the canonical GitLab repository. [Public update](#source-activity).
 
 ### Scope classification
 

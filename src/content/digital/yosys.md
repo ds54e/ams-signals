@@ -28,6 +28,9 @@ sources:
     title: "Official project documentation"
     url: "https://yosyshq.readthedocs.io/projects/yosys/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/YosysHQ/yosys/commit/7b5eba489ce9b0858c68760bb697cf25a3039f83"
 ---
 
 

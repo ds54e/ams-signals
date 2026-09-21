@@ -38,6 +38,9 @@ sources:
   - id: "development-2"
     title: "Compiler and simulator implementation"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/c0f6e5c29e396d87a34780939d67f8110b562679"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/1b892ae6841a80fe88e006225cd8ebe850557d2e"
 ---
 
 ### Scope

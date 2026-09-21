@@ -42,6 +42,9 @@ sources:
   - id: "assistance-plot"
     title: "Bounded Claude-attributed plotting addition over existing error calculations"
     url: "https://github.com/scikit-rf/scikit-rf/commit/13bb7b08721c3bc0476e1778ba5edf8e9a0b200b"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/a7a379452e8710fd508027dc878011cadfcd260f"
 ---
 
 ### Implementation context

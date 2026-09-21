@@ -32,6 +32,9 @@ sources:
   - id: "migration"
     title: "Author Codeberg repository named in the migration notice"
     url: "https://codeberg.org/stef_xschem/xschem/"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/StefanSchippers/xschem/commit/64a16ff21117e492c7813e82e9adf1a707614b3d"
 ---
 
 ### Scope
