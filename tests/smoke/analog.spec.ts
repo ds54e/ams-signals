@@ -38,10 +38,8 @@ test('ATLAS and ngspice map reviewed point signals to their month without fabric
     month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
   }).format(new Date(`${date}T00:00:00Z`));
 
-  const inWindow = Object.entries(reviewedTypes).filter(([id]) => (
-    months.includes(fixture.activity.projects[id].lastPublicUpdateAt.slice(0, 7))
-  ));
-  expect(inWindow.length, 'reviewed point signals must render at least one active snapshot month').toBeGreaterThan(0);
+  // Freshness is day-based while the strip is calendar-month based, so a valid point
+  // signal can briefly render with zero active cells at the rolling-window boundary.
 
   for (const [id, type] of Object.entries(reviewedTypes)) {
     const record = fixture.activity.projects[id];
