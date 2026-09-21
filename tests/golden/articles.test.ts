@@ -3,7 +3,7 @@ import test from 'node:test';
 import {
   resolveRelatedEvents,
   sortArticlesNewestFirst,
-} from '../../src/lib/articles';
+} from '../../src/lib/articles.ts';
 
 type SyntheticArticle = {
   id: string;
