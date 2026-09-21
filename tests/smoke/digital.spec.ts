@@ -70,15 +70,33 @@ test('Digital release points retain source provenance without fabricated reposit
 test('reviewed GitHub and GitLab histories share compact binary activity bands', async ({ page }) => {
   await page.goto('./digital/');
   const surfer = fixture.row(page, 'surfer').locator('.catalog-activity');
-  expect(fixture.activity.projects.surfer.kind).toBe('repository');
-  expect(fixture.activity.projects.surfer.repository).toBe('https://gitlab.com/surfer-project/surfer');
-  await expect(surfer.locator('ul > li')).toHaveCount(12);
-  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-month', '2025-10');
-  await expect(surfer.locator('ul > li').first()).toHaveAttribute('data-commits', '47');
-  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-month', '2026-09');
-  await expect(surfer.locator('ul > li').last()).toHaveAttribute('data-commits', '7');
-  await expect(surfer.locator('time')).toHaveAttribute('datetime', '2026-09-04');
-  expect(await surfer.locator('time').innerText()).toBe('SEP 4, 2026');
+  const record = fixture.activity.projects.surfer;
+  const months: string[] = fixture.activity.months;
+  // Canonical repository identity is durable. Months, counts, active states and the reviewed
+  // date are read from the current activity snapshot so a routine refresh needs no test edit.
+  expect(record.kind).toBe('repository');
+  expect(record.repository).toBe('https://gitlab.com/surfer-project/surfer');
+  expect(record.commits).toHaveLength(months.length);
+
+  const cells = surfer.locator('ul > li');
+  await expect(cells).toHaveCount(months.length);
+  const renderedCells = await cells.evaluateAll((nodes) => nodes.map((node) => ({
+    month: node.getAttribute('data-month'),
+    commits: node.getAttribute('data-commits'),
+    active: node.classList.contains('active'),
+  })));
+  expect(renderedCells).toEqual(months.map((month, index) => ({
+    month,
+    commits: String(record.commits[index]),
+    active: record.commits[index] > 0,
+  })));
+
+  await expect(surfer.locator('time')).toHaveAttribute('datetime', record.lastCommitAt);
+  const dateText = new Intl.DateTimeFormat('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  }).format(new Date(`${record.lastCommitAt}T00:00:00Z`)).toUpperCase();
+  expect(await surfer.locator('time').innerText()).toBe(dateText);
   await expect(surfer.locator('.activity-summary')).toHaveCount(0);
+  // The compact activity display never exposes the raw repository URL.
   expect(await surfer.innerText()).not.toContain('gitlab.com');
 });

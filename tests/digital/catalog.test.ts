@@ -24,13 +24,25 @@ const projects = await Promise.all((await readdir(directory)).filter((file) => f
 }));
 const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8')));
 const dayAfterReview = new Date(Date.parse(`${snapshot.reviewedAt}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+// The reviewed snapshot rolled forward by one calendar month, keeping the review day where valid.
+const nextReviewedAt = (() => {
+  const [year, month, day] = snapshot.reviewedAt.split('-').map(Number);
+  const target = new Date(Date.UTC(year, month, 1));
+  const lastDay = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+  return `${target.getUTCFullYear()}-${String(target.getUTCMonth() + 1).padStart(2, '0')}-${String(Math.min(day, lastDay)).padStart(2, '0')}`;
+})();
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
 const surfer = projects.find((p) => p.id === 'surfer')!;
 const data = () => structuredClone(github.data);
 const activity = () => structuredClone(snapshot);
 // Point-update support remains tested even when all current Digital entries have monthly history.
+// The surrogate carries the reviewed record's own public date, so swapping a repository record for
+// a point record of equal recency cannot reorder projects after a routine activity refresh.
+const surferPublicDate = snapshot.projects.surfer.kind === 'repository'
+  ? snapshot.projects.surfer.lastCommitAt
+  : (snapshot.projects.surfer as any).lastPublicUpdateAt;
 const pointActivity = () => ({ ...activity(), projects: { ...snapshot.projects,
-  [surfer.id]: { kind: 'public-update' as const, lastPublicUpdateType: 'public-update' as const, lastPublicUpdateAt: '2026-09-04', lastPublicUpdateSource: 'activity' },
+  [surfer.id]: { kind: 'public-update' as const, lastPublicUpdateType: 'public-update' as const, lastPublicUpdateAt: surferPublicDate, lastPublicUpdateSource: 'activity' },
 } });
 
 test('authored Digital catalog inventory, provenance and snapshot validate together', () => {
@@ -205,14 +217,23 @@ test('point updates require sources and cannot silently acquire repository bucke
   const s = pointActivity();
   assert.doesNotThrow(() => validateActivity(projects, s));
   assert.equal(hasRepositoryHistory(s.projects[surfer.id]), false);
+  const update = s.projects[surfer.id] as { lastPublicUpdateAt: string; lastPublicUpdateType: string };
+  const updateMonth = update.lastPublicUpdateAt.slice(0, 7);
   const band = activityBand(s.projects[surfer.id], s.months, surfer.data.sources);
-  assert.equal(band.cells.length, 12);
+  // The band is exactly the reviewed window, with the point-update month as its only active cell.
+  assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+  assert.equal(band.cells.length, s.months.length);
   assert.equal(band.activeMonths, 1);
-  assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), ['2026-09']);
-  assert.equal(band.cells[0].month, '2025-10');
-  assert.equal(band.cells[11].month, '2026-09');
-  assert.equal(band.cells[11].detail, 'September 2026 · public update');
+  assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [updateMonth]);
+  const activeIndex = s.months.indexOf(updateMonth);
+  assert.ok(activeIndex >= 0, `${updateMonth} must fall inside the reviewed window`);
+  const updateMonthLabel = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(`${updateMonth}-01T00:00:00Z`));
+  assert.equal(band.cells[activeIndex].detail, `${updateMonthLabel} · public update`);
   assert.ok(band.cells.every((cell) => !('commits' in cell)));
+  // Repository provenance never leaks into a point-update band.
+  assert.ok(band.provenance.startsWith('public update:'));
+  assert.ok(!band.provenance.includes('default branch'));
   for (const lastPublicUpdateType of [undefined, 'github', 'unknown']) {
     const changed = pointActivity(); Object.assign(changed.projects[surfer.id], { lastPublicUpdateType });
     assert.equal(activitySchema.safeParse(changed).success, false);
@@ -231,38 +252,63 @@ test('Surfer uses reviewed canonical GitLab first-parent history without changin
   const record = snapshot.projects.surfer;
   assert.equal(record.kind, 'repository');
   if (record.kind !== 'repository') throw new Error('Missing reviewed Surfer history');
+  // Durable canonical repository identity.
   assert.equal(hasRepositoryHistory(record), true);
   assert.equal(record.repository, 'https://gitlab.com/surfer-project/surfer');
   assert.equal(record.repositoryId, '42073614');
   assert.equal(record.defaultBranch, 'main');
-  assert.equal(record.headSha, 'db1ca915a989860f11c440b0a932b1f5fbce71b2');
+  assert.match(record.headSha, /^[a-f0-9]{40}$/);
+  // The reviewed meaningful commit is the captured head, verified against first-parent history.
   assert.equal(record.lastMeaningfulCommitSha, record.headSha);
   assert.equal(record.lastMeaningfulCommitSource, 'activity');
-  assert.equal(publicActivityDate(record), '2026-09-04');
-  assert.equal(record.lastMeaningfulCommitAt, '2026-09-04');
-  assert.deepEqual(record.commits, [47,51,99,35,66,28,31,40,10,32,17,7]);
+  assert.doesNotThrow(() => verifyMeaningfulCommit(
+    record,
+    [[record.headSha, `${record.lastMeaningfulCommitAt}T12:00:00Z`]],
+  ));
+  // The public activity date is the reviewed latest commit, which lies inside the rolling window.
+  assert.equal(publicActivityDate(record), record.lastCommitAt);
+  assert.match(record.lastCommitAt, /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(snapshot.months.includes(record.lastCommitAt.slice(0, 7)));
+  // A complete window of nonnegative integer buckets, with at least one month carrying activity.
+  assert.equal(record.commits.length, snapshot.months.length);
+  assert.ok(record.commits.every((count) => Number.isInteger(count) && count >= 0));
+  assert.ok(record.commits.some((count) => count > 0));
+  // The rendered band agrees one-for-one with the reviewed months and counts.
   const band = activityBand(record, snapshot.months, surfer.data.sources);
-  assert.equal(band.cells.length, 12);
-  assert.equal(band.cells[0].month, '2025-10');
-  assert.equal(band.cells[0].detail, 'October 2025 · 47 default-branch commits');
-  assert.equal(band.cells[11].month, '2026-09');
-  assert.equal(band.cells[11].detail, 'September 2026 · 7 default-branch commits');
-  assert.equal(band.activeMonths, 12);
-  assert.doesNotThrow(() => verifyMeaningfulCommit(record, [[record.headSha, '2026-09-04T11:44:01Z']]));
+  assert.equal(band.cells.length, snapshot.months.length);
+  assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+  for (const [index, cell] of band.cells.entries()) {
+    const month = snapshot.months[index];
+    const label = new Intl.DateTimeFormat('en', {
+      month: 'long', year: 'numeric', timeZone: 'UTC',
+    }).format(new Date(`${month}-01T00:00:00Z`));
+    assert.equal(cell.commits, record.commits[index]);
+    assert.equal(cell.active, record.commits[index] > 0);
+    assert.equal(cell.detail, `${label} · ${record.commits[index]} default-branch commits`);
+  }
+  assert.equal(band.activeMonths, record.commits.filter((count) => count > 0).length);
+  assert.equal(band.date, record.lastCommitAt);
   const before = pointActivity();
   assert.deepEqual(sortProjects(projects, snapshot.projects).map((p) => p.id), sortProjects(projects, before.projects).map((p) => p.id));
 });
 
 test('generic repository records enforce identity, complete monthly history and reviewed provenance', () => {
+  const reviewedRecord = activity().projects.surfer;
+  if (reviewedRecord.kind !== 'repository') throw new Error('Missing reviewed Surfer history');
+  // Boundary dates are derived from the reviewed record rather than pinned, so a routine
+  // activity refresh keeps them meaningful instead of accidentally valid.
+  const shiftDays = (date: string, days: number) => new Date(Date.parse(`${date}T00:00:00Z`) + (days * 86_400_000)).toISOString().slice(0, 10);
+  const captureBeforeLastCommit = shiftDays(reviewedRecord.lastCommitAt, -1);
+  const meaningfulAfterLastCommit = shiftDays(reviewedRecord.lastCommitAt, 1);
   for (const change of [
     { repository: 'invalid' }, { repository: 'https://github.com/mirror/surfer' },
     { repository: 'https://gitlab.com/' }, { repository: 'https://gitlab.com/surfer-project/surfer?branch=main' },
     { repositoryId: undefined }, { repositoryId: '' }, { defaultBranch: 'bad..branch' },
     { capturedAt: undefined }, { capturedAt: '2026-08-31T00:00:00Z' }, { capturedAt: `${dayAfterReview}T00:00:00Z` },
-    { capturedAt: '2026-09-03T00:00:00Z' }, { commits: undefined }, { commits: [1] },
+    { capturedAt: `${captureBeforeLastCommit}T00:00:00Z` }, { commits: undefined }, { commits: [1] },
     { commits: Array(12).fill(-1) }, { commits: Array(12).fill(0.5) }, { commits: Array(12).fill(0) },
     { headSha: 'main' }, { lastMeaningfulCommitSha: undefined }, { lastMeaningfulCommitAt: '2025-09-04' },
-    { lastMeaningfulCommitAt: '2026-09-05' }, { lastMeaningfulCommitSource: 'missing' },
+    { lastMeaningfulCommitAt: meaningfulAfterLastCommit }, { lastMeaningfulCommitSource: 'missing' },
     { lastMeaningfulCommitSha: 'a'.repeat(40) },
   ]) {
     const s = activity(); Object.assign(s.projects.surfer, change);
@@ -274,7 +320,12 @@ test('generic repository records enforce identity, complete monthly history and 
   }
   // Manual repositories cannot inherit re-labeled buckets when the refresh window moves.
   const s = activity();
-  assert.equal(activitySchema.safeParse({ ...s, reviewedAt: '2026-10-05', capturedAt: '2026-10-05T00:00:00Z', months: activityMonths('2026-10-05') }).success, false);
+  assert.equal(activitySchema.safeParse({
+    ...s,
+    reviewedAt: nextReviewedAt,
+    capturedAt: `${nextReviewedAt}T00:00:00Z`,
+    months: activityMonths(nextReviewedAt),
+  }).success, false);
 });
 
 test('ordering uses raw latest public activity, normalized alphabetical ties, then slug without mutating input', () => {

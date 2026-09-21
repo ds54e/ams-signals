@@ -122,7 +122,7 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
   assert.ok(!(moved in digitalActivity.projects));
   assert.equal(activity.projects.ngspice.kind, 'no-public-repo');
-  assert.equal(activity.projects.ngspice.lastPublicUpdateAt, '2026-08-11');
+  assert.match(activity.projects.ngspice.lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
   assert.ok(!('commits' in activity.projects.ngspice));
   const code = projects.find((p) => p.id === 'ngspice')!.data.sources.find((s) => s.purpose === 'code')!;
   assert.equal(new URL(code.url).hostname, 'sourceforge.net');
@@ -338,22 +338,34 @@ test('repository bands keep months and counts paired oldest-first without mutati
 
 test('ATLAS paper and ngspice release occupy their reviewed month without invented commit data', async () => {
   const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8')));
-  for (const [id, date, type, label] of [
-    ['atlas', '2026-07-15', 'paper', 'paper publication'],
-    ['ngspice', '2026-08-11', 'release', 'release'],
-  ]) {
+  const labels: Record<string, string> = { paper: 'paper publication', release: 'release', 'public-update': 'public update' };
+  // Which project carries which reviewed point-signal type is durable identity. The date, month,
+  // window index and active count are read from the current snapshot, so a routine activity
+  // refresh does not require editing this test.
+  const reviewedTypes: Record<string, string> = { atlas: 'paper', ngspice: 'release' };
+  const inWindow = Object.entries(reviewedTypes).filter(([id]) => (
+    snapshot.months.includes((snapshot.projects[id] as any).lastPublicUpdateAt.slice(0, 7))
+  ));
+  assert.ok(inWindow.length > 0, 'reviewed point signals must occupy at least one snapshot month');
+  for (const [id, type] of Object.entries(reviewedTypes)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const data = analogSchema.parse(frontmatter);
     const record = snapshot.projects[id], before = structuredClone(record);
     const band = activityBand(record, snapshot.months, data.sources);
     assert.equal(record.kind, 'no-public-repo');
+    assert.equal((record as any).lastPublicUpdateType, type);
+    assert.match((record as any).lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
+    const date: string = (record as any).lastPublicUpdateAt;
+    const month = date.slice(0, 7);
+    const label = labels[type];
+    const monthIndex = snapshot.months.indexOf(month);
     assert.equal(band.date, date);
-    assert.equal(band.cells.length, 12);
-    assert.equal(band.cells[0].month, snapshot.months[0]);
-    assert.equal(band.cells[11].month, snapshot.reviewedAt.slice(0, 7));
-    assert.equal(band.cells.findIndex((cell) => cell.active), id === 'atlas' ? 9 : 10);
-    assert.equal(band.activeMonths, 1);
-    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [date.slice(0, 7)]);
+    assert.equal(band.cells.length, snapshot.months.length);
+    assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+    assert.equal(band.cells.at(-1)!.month, snapshot.reviewedAt.slice(0, 7));
+    assert.equal(band.cells.findIndex((cell) => cell.active), monthIndex);
+    assert.equal(band.activeMonths, monthIndex >= 0 ? 1 : 0);
+    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), monthIndex >= 0 ? [month] : []);
     for (const cell of band.cells) {
       assert.equal(cell.signal, type);
       assert.ok(!('commits' in cell));
