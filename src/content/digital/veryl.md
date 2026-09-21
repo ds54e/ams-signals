@@ -65,6 +65,9 @@ sources:
   - id: "activity"
     title: "Include files required by unreferenced definitions in the build filelist"
     url: "https://github.com/veryl-lang/veryl/commit/a889bf2cbe003b1c8438d18f92f88deb4940351d"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/veryl-lang/veryl/commit/ee754466ffad19b017a6d9d77afa69375e48890d"
 ---
 
 ### Implementation context

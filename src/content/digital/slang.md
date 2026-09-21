@@ -28,6 +28,9 @@ sources:
     title: "Official project documentation"
     url: "https://sv-lang.com"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/MikePopoloski/slang/commit/2a721f722409f3975fad39a5528ec0b8caedb40e"
 ---
 
 

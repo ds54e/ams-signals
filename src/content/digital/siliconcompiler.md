@@ -71,6 +71,9 @@ sources:
   - id: "development-3"
     title: "Current routing flow"
     url: "https://github.com/siliconcompiler/siliconcompiler/blob/54d02425c2935dde1a9e7f3048d45dc1bc506059/siliconcompiler/flows/asicflow.py"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/siliconcompiler/siliconcompiler/commit/b5cb89c7b528e6ee85001a8ecfca7e2f20db73b3"
 ---
 
 ### Implementation context

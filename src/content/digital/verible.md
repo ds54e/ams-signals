@@ -28,6 +28,9 @@ sources:
     title: "Official project documentation"
     url: "https://chipsalliance.github.io/verible/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/chipsalliance/verible/commit/c1d8f5e8be4105726ce09b01de14ff0716f303bf"
 ---
 
 

@@ -30,6 +30,9 @@ sources:
     title: "Author-reported results"
     url: "https://doi.org/10.5281/zenodo.18680797"
     purpose: "results"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/stanford-centaur/pono/commit/0648dc75a82260241cd9a4c002eeeb98e2198ee2"
 ---
 
 

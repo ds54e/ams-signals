@@ -33,6 +33,9 @@ sources:
   - id: "development-2"
     title: "Maintainer account"
     url: "https://www.linkedin.com/posts/bondan-rufen_from-skeptic-to-believer-building-xezim-activity-7475570954924978176-DaAy"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/aionhw/xezim/commit/f4851e58ca8cf54211370c1a0e61d39194202174"
 ---
 
 

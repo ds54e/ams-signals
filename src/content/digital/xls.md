@@ -51,6 +51,9 @@ sources:
   - id: "activity"
     title: "Implement __builtin_memcpy in the C++ frontend"
     url: "https://github.com/google/xls/commit/1b53da61b4ada47576818851dc6a4018d81d1dcb"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/google/xls/commit/a9b8ef6a1fed1af3c47afaad1636765b1025823e"
 ---
 
 ### Implementation context
