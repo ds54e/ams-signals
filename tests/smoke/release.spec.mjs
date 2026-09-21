@@ -1624,7 +1624,8 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     const row = shell.querySelector('[data-group="both"] [data-matrix-row]:not([hidden])');
     const rowTrack = row.querySelector('[data-matrix-track]').getBoundingClientRect();
     const label = row.querySelector('.matrix-entity-label').getBoundingClientRect();
-    const newestBand = shell.querySelector('[data-activity-time-band][data-time-band="year-2026"]').getBoundingClientRect();
+    const latestYear = shell.querySelector('[data-activity-matrix-surface]').getAttribute('data-domain-latest-year');
+    const newestBand = shell.querySelector(`[data-activity-time-band][data-time-band="year-${latestYear}"]`).getBoundingClientRect();
     const axisGuides = [...shell.querySelectorAll('.activity-axis-track .activity-guides span')]
       .map((guide) => guide.getBoundingClientRect().left);
     const rowGuides = [...row.querySelectorAll('.activity-guides span')]
