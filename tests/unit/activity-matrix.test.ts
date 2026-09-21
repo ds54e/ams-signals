@@ -1,4 +1,5 @@
-import { expect, test } from '@playwright/test';
+import { expect } from '@playwright/test';
+import test from 'node:test';
 import {
   ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS,
