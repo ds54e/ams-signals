@@ -11,7 +11,7 @@ import {
   deriveActivityMatrixTimeBands,
   packActivityMatrixBundleRows,
   projectTimestampToActivityMatrix,
-} from '../../src/lib/activityMatrix';
+} from '../../src/lib/activityMatrix.ts';
 
 type BundleEvent = Parameters<typeof buildActivityMatrixBundles>[0][number];
 
