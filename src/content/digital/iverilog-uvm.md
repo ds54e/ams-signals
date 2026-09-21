@@ -33,6 +33,9 @@ sources:
   - id: "development-2"
     title: "Spring implementation history"
     url: "https://github.com/dsellerbrock/iverilog-uvm/blob/5ef72e85ef22c1fc3f3e93725f47412c508f2b10/docs/history/2026-05_phase_history_readme.md"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/commit/482c3c89d815ad98ba549507184bf389b14b3ac9"
 ---
 
 

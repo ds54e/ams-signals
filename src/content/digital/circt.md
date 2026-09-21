@@ -41,6 +41,9 @@ sources:
   - id: "development-2"
     title: "Current scheduler integration"
     url: "https://github.com/llvm/circt/blob/e7f97d48cfd1e85f3c6fa7aa1a603b4a4cdee908/lib/Dialect/ESI/runtime/python/esiaccel/components/channel_arbiter.py"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/llvm/circt/commit/de58b29905561a497899c6dbb52b5a23599cf742"
 ---
 
 

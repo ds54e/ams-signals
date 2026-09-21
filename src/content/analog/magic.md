@@ -24,6 +24,9 @@ sources:
   - id: "activity"
     title: "Reviewed substantive default-branch update"
     url: "https://github.com/RTimothyEdwards/magic/commit/f63e7dad5ab60a443f5710c408cbf3c4b03bbb3c"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/RTimothyEdwards/magic/commit/ba4d9d46543dd0557b5dba13b83e99c7d70547ca"
 ---
 
 ### Scope

@@ -26,6 +26,9 @@ sources:
     title: "Official project documentation"
     url: "https://verilator.org"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/verilator/verilator/commit/f954f4fd1df3c9b30bf40a9834c81a15f6e7ea75"
 ---
 
 

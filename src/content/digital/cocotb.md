@@ -26,6 +26,9 @@ sources:
     title: "Official project documentation"
     url: "https://docs.cocotb.org/en/stable/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/cocotb/cocotb/commit/e2859e2d9a7df0aa041d1a56716518f81d4a4fa5"
 ---
 
 

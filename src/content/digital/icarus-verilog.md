@@ -26,6 +26,9 @@ sources:
     title: "Official project documentation"
     url: "https://steveicarus.github.io/iverilog/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/steveicarus/iverilog/commit/e0ba73ba379a000a1285ff10d94f72d828d253f7"
 ---
 
 

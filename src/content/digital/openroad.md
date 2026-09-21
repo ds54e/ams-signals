@@ -26,6 +26,9 @@ sources:
     title: "Official project documentation"
     url: "https://theopenroadproject.org/"
     purpose: "official"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/9e1c33ea9244067b3b901b6d5e8bb653c08886fc"
 ---
 
 

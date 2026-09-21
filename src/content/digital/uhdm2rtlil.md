@@ -33,6 +33,9 @@ sources:
   - id: "development-2"
     title: "Initial implementation"
     url: "https://github.com/alainmarcel/uhdm2rtlil/commit/0088173202e17de056690375880593dff157681a"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/0f78083c9742996b6e84a502b3ad060a6cb7eb35"
 ---
 
 
