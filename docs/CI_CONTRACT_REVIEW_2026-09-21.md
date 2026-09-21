@@ -292,6 +292,28 @@ This creates an overlap period and proves the new contracts before deleting brow
 
 Run mutation acceptance before proceeding.
 
+#### Durable regressions versus historical import receipts
+
+Phase 2 moves only *durable* regressions from the browser export test into `tests/golden/corpus-regressions.test.ts`. The distinction matters because Git history already stores every import receipt, and CI should protect current product semantics rather than replay each research batch forever.
+
+**Durable — keep as named fixtures, in Node:**
+
+- canonical successor behavior for acquired or predecessor organizations (for example Dialog → Renesas, Freescale → NXP, Maxim → Analog Devices, Xilinx → AMD, LSI → Broadcom);
+- retired legacy Company IDs staying absent from canonical records and Event references (`mentor-graphics`, `freescale-semiconductor`, `dialog-semiconductor`, `maxim-integrated`, `xilinx`, `lsi`);
+- canonical public Company display names that are deliberate naming rather than raw source titles;
+- selected historical Event → canonical Company/Person associations whose identity is intentional;
+- deliberate absence of a known rejected identity such as `sitime-2026-07-renesas-timing-acquisition`.
+
+**Import receipts — retire rather than migrate:**
+
+- the total number of records in a historical research "wave";
+- aggregate Technical/Organizational counts for a wave;
+- fixed `checkedAt` dates for an old research pass;
+- current per-Company Event totals such as the NXP or Broadcom counts;
+- large "these exact N entries existed after this import" inventories, unless one individual identity is itself a durable canonicalization regression.
+
+Those receipts live in the review commits that introduced them. If a receipt ever becomes product semantics, it should be re-added as a named fixture with a stated reason.
+
 ### Phase 3 — browser-suite cleanup
 
 - Split `release.spec.mjs` by responsibility.
