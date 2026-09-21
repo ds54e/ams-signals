@@ -1,4 +1,5 @@
-import { expect, test } from '@playwright/test';
+import assert from 'node:assert/strict';
+import test from 'node:test';
 import {
   ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS,
@@ -10,7 +11,7 @@ import {
   deriveActivityMatrixTimeBands,
   packActivityMatrixBundleRows,
   projectTimestampToActivityMatrix,
-} from '../../src/lib/activityMatrix';
+} from '../../src/lib/activityMatrix.ts';
 
 type BundleEvent = Parameters<typeof buildActivityMatrixBundles>[0][number];
 
@@ -41,7 +42,7 @@ const currentDensity = new Map([
 test('content-aware Activity Matrix bands derive deterministic widths from the latest corpus year', () => {
   const bands = deriveActivityMatrixTimeBands(2026, currentDensity);
 
-  expect(bands.map(({ key }) => key)).toEqual([
+  assert.deepEqual(bands.map(({ key }) => key), [
     'year-2026',
     'year-2025',
     'year-2024',
@@ -50,19 +51,19 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
     'years-2015-2019',
     'through-2014',
   ]);
-  expect(bands.map(({ label }) => label)).toEqual([
+  assert.deepEqual(bands.map(({ label }) => label), [
     '2026', '2025', '2024', '2023', '2020–2022', '2015–2019', '≤2014',
   ]);
-  expect(bands.map(({ widthPx }) => widthPx)).toEqual([144, 114, 104, 54, 76, 76, 74]);
-  expect(bands.map(({ maxEventsPerRow }) => maxEventsPerRow)).toEqual([7, 4, 3, 2, 3, 4, 5]);
-  expect(bands.map(({ resolution }) => resolution)).toEqual([
+  assert.deepEqual(bands.map(({ widthPx }) => widthPx), [144, 114, 104, 54, 76, 76, 74]);
+  assert.deepEqual(bands.map(({ maxEventsPerRow }) => maxEventsPerRow), [7, 4, 3, 2, 3, 4, 5]);
+  assert.deepEqual(bands.map(({ resolution }) => resolution), [
     'continuous', 'continuous', 'continuous',
     'bucket', 'bucket', 'bucket', 'bucket',
   ]);
-  expect(bands.at(-1)?.endPx).toBe(642);
+  assert.equal(bands.at(-1)?.endPx, 642);
 
   const futureBands = deriveActivityMatrixTimeBands(2027);
-  expect(futureBands.map(({ key }) => key)).toEqual([
+  assert.deepEqual(futureBands.map(({ key }) => key), [
     'year-2027',
     'year-2026',
     'year-2025',
@@ -71,7 +72,7 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
     'years-2016-2020',
     'through-2015',
   ]);
-  expect(futureBands.slice(4).map(({ label, ariaLabel }) => ({ label, ariaLabel }))).toEqual([
+  assert.deepEqual(futureBands.slice(4).map(({ label, ariaLabel }) => ({ label, ariaLabel })), [
     { label: '2021–2023', ariaLabel: '2021–2023' },
     { label: '2016–2020', ariaLabel: '2016–2020' },
     { label: '≤2015', ariaLabel: '2015 and earlier' },
@@ -80,8 +81,8 @@ test('content-aware Activity Matrix bands derive deterministic widths from the l
 
 test('band sizing clamps recent density and protects earlier labels and bundles', () => {
   const sparse = deriveActivityMatrixTimeBands(2026);
-  expect(sparse.slice(0, 3).map(({ widthPx }) => widthPx)).toEqual([100, 100, 100]);
-  expect(sparse.slice(3).map(({ widthPx }) => widthPx)).toEqual([52, 76, 76, 68]);
+  assert.deepEqual(sparse.slice(0, 3).map(({ widthPx }) => widthPx), [100, 100, 100]);
+  assert.deepEqual(sparse.slice(3).map(({ widthPx }) => widthPx), [52, 76, 76, 68]);
 
   const dense = deriveActivityMatrixTimeBands(2026, {
     'year-2026': 20,
@@ -89,8 +90,8 @@ test('band sizing clamps recent density and protects earlier labels and bundles'
     'year-2024': 1,
     'year-2023': 3,
   });
-  expect(dense.slice(0, 3).map(({ widthPx }) => widthPx)).toEqual([160, 154, 100]);
-  expect(dense[3].widthPx).toBe(74);
+  assert.deepEqual(dense.slice(0, 3).map(({ widthPx }) => widthPx), [160, 154, 100]);
+  assert.equal(dense[3].widthPx, 74);
 });
 
 test('recent time remains chronological across variable-width years while earlier periods share centers', () => {
@@ -98,10 +99,10 @@ test('recent time remains chronological across variable-width years while earlie
   const earlyJanuary = projectTimestampToActivityMatrix(Date.UTC(2026, 0, 1, 12), bands);
   const lateDecember = projectTimestampToActivityMatrix(Date.UTC(2025, 11, 31, 12), bands);
 
-  expect(earlyJanuary.band.key).toBe('year-2026');
-  expect(lateDecember.band.key).toBe('year-2025');
-  expect(earlyJanuary.xPx).toBeLessThan(lateDecember.xPx);
-  expect(lateDecember.xPx - earlyJanuary.xPx).toBeLessThan(1);
+  assert.equal(earlyJanuary.band.key, 'year-2026');
+  assert.equal(lateDecember.band.key, 'year-2025');
+  assert.ok(earlyJanuary.xPx < lateDecember.xPx);
+  assert.ok(lateDecember.xPx - earlyJanuary.xPx < 1);
 
   const year2019 = projectTimestampToActivityMatrix(Date.UTC(2019, 6, 1), bands);
   const year2016 = projectTimestampToActivityMatrix(Date.UTC(2016, 1, 1), bands);
@@ -111,19 +112,19 @@ test('recent time remains chronological across variable-width years while earlie
   const year2021 = projectTimestampToActivityMatrix(Date.UTC(2021, 6, 1), bands);
   const year2022 = projectTimestampToActivityMatrix(Date.UTC(2022, 6, 1), bands);
 
-  expect(year2019.band.key).toBe('years-2015-2019');
-  expect(year2016.band.key).toBe('years-2015-2019');
-  expect(year2019.x).toBe(year2016.x);
-  expect(year2024.band.key).toBe('year-2024');
-  expect(year2024.band.resolution).toBe('continuous');
-  expect(year2023.band.key).toBe('year-2023');
-  expect(year2023.band.resolution).toBe('bucket');
-  expect([year2020, year2021, year2022].map(({ band }) => band.key)).toEqual([
+  assert.equal(year2019.band.key, 'years-2015-2019');
+  assert.equal(year2016.band.key, 'years-2015-2019');
+  assert.equal(year2019.x, year2016.x);
+  assert.equal(year2024.band.key, 'year-2024');
+  assert.equal(year2024.band.resolution, 'continuous');
+  assert.equal(year2023.band.key, 'year-2023');
+  assert.equal(year2023.band.resolution, 'bucket');
+  assert.deepEqual([year2020, year2021, year2022].map(({ band }) => band.key), [
     'years-2020-2022', 'years-2020-2022', 'years-2020-2022',
   ]);
-  expect(year2020.x).toBe(year2021.x);
-  expect(year2021.x).toBe(year2022.x);
-  expect(year2023.x).not.toBe(year2022.x);
+  assert.equal(year2020.x, year2021.x);
+  assert.equal(year2021.x, year2022.x);
+  assert.notEqual(year2023.x, year2022.x);
 });
 
 test('bundle modes cross recent year boundaries but never cross period boundaries', () => {
@@ -133,16 +134,16 @@ test('bundle modes cross recent year boundaries but never cross period boundarie
     event('early-january', '2026-01-01'),
   ], bands);
 
-  expect(recentBoundaryBundle).toHaveLength(1);
-  expect(recentBoundaryBundle[0].mode).toBe('proximity');
-  expect(recentBoundaryBundle[0].timeBandKeys).toEqual(['year-2026', 'year-2025']);
-  expect(recentBoundaryBundle[0].eventIds).toEqual(['early-january', 'late-december']);
+  assert.equal(recentBoundaryBundle.length, 1);
+  assert.equal(recentBoundaryBundle[0].mode, 'proximity');
+  assert.deepEqual(recentBoundaryBundle[0].timeBandKeys, ['year-2026', 'year-2025']);
+  assert.deepEqual(recentBoundaryBundle[0].eventIds, ['early-january', 'late-december']);
 
   const resolutionBoundaryBundles = buildActivityMatrixBundles([
     event('recent-january', '2024-01-01'),
     event('earlier-2023', '2023', 'year'),
   ], bands);
-  expect(resolutionBoundaryBundles.map(({ mode }) => mode)).toEqual(['proximity', 'period']);
+  assert.deepEqual(resolutionBoundaryBundles.map(({ mode }) => mode), ['proximity', 'period']);
 
   const periodBundles = buildActivityMatrixBundles([
     event('earlier-2023', '2023', 'year'),
@@ -153,30 +154,30 @@ test('bundle modes cross recent year boundaries but never cross period boundarie
     event('historical-2019', '2019', 'year'),
     event('historical-2014', '2014', 'year'),
   ], bands);
-  expect(periodBundles.map(({ timeBandKeys }) => timeBandKeys)).toEqual([
+  assert.deepEqual(periodBundles.map(({ timeBandKeys }) => timeBandKeys), [
     ['year-2023'],
     ['years-2020-2022'],
     ['years-2015-2019'],
     ['through-2014'],
   ]);
-  expect(periodBundles[1].eventIds).toEqual([
+  assert.deepEqual(periodBundles[1].eventIds, [
     'historical-2022', 'historical-2021', 'historical-2020',
   ]);
 });
 
 test('bundles use the narrowest columns that preserve minimum rows and actual collision width', () => {
-  expect(ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS).toBe(3);
-  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns)).toEqual([1, 2, 3, 2, 3, 3]);
-  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleRows)).toEqual([1, 1, 1, 2, 2, 2]);
-  expect([1, 2, 3, 4, 5, 6].map(activityMatrixBundleWidthPx)).toEqual([18, 38, 58, 38, 58, 58]);
+  assert.equal(ACTIVITY_MATRIX_MAX_BUNDLE_COLUMNS, 3);
+  assert.deepEqual([1, 2, 3, 4, 5, 6].map(activityMatrixBundleColumns), [1, 2, 3, 2, 3, 3]);
+  assert.deepEqual([1, 2, 3, 4, 5, 6].map(activityMatrixBundleRows), [1, 1, 1, 2, 2, 2]);
+  assert.deepEqual([1, 2, 3, 4, 5, 6].map(activityMatrixBundleWidthPx), [18, 38, 58, 38, 58, 58]);
 
   for (const [memberCount, collisionWidthPx] of [[1, 18], [2, 38], [3, 58], [4, 38], [5, 58], [6, 58]]) {
     const [bundle] = buildActivityMatrixBundles(
       Array.from({ length: memberCount }, (_, index) => event(`period-${memberCount}-${index}`, '2023', 'year')),
       deriveActivityMatrixTimeBands(2026, currentDensity),
     );
-    expect(bundle.bundleWidthPx).toBe(collisionWidthPx);
-    expect(bundle.collisionWidthPx).toBe(collisionWidthPx);
+    assert.equal(bundle.bundleWidthPx, collisionWidthPx);
+    assert.equal(bundle.collisionWidthPx, collisionWidthPx);
   }
 
   const bands = deriveActivityMatrixTimeBands(2026, { 'year-2026': 20 });
@@ -184,10 +185,10 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
     event('single-new', '2026-12-31'),
     event('single-old', '2026-10-13'),
   ], bands);
-  expect(separatedSingles).toHaveLength(2);
-  expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeGreaterThan(32);
-  expect(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx)).toBeLessThan(36);
-  expect(separatedSingles.map(({ collisionWidthPx, rowStart }) => ({ collisionWidthPx, rowStart }))).toEqual([
+  assert.equal(separatedSingles.length, 2);
+  assert.ok(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx) > 32);
+  assert.ok(Math.abs(separatedSingles[1].xPx - separatedSingles[0].xPx) < 36);
+  assert.deepEqual(separatedSingles.map(({ collisionWidthPx, rowStart }) => ({ collisionWidthPx, rowStart })), [
     { collisionWidthPx: 18, rowStart: 0 },
     { collisionWidthPx: 18, rowStart: 0 },
   ]);
@@ -201,22 +202,22 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
     event('old-c', '2026-09-01'),
   ], bands);
 
-  expect(bundles).toHaveLength(2);
-  expect(bundles.map(({ columnCount, rowCount, bundleWidthPx, collisionWidthPx }) => ({
+  assert.equal(bundles.length, 2);
+  assert.deepEqual(bundles.map(({ columnCount, rowCount, bundleWidthPx, collisionWidthPx }) => ({
     columnCount, rowCount, bundleWidthPx, collisionWidthPx,
-  }))).toEqual(Array(2).fill({
+  })), Array(2).fill({
     columnCount: 3,
     rowCount: 1,
     bundleWidthPx: 58,
     collisionWidthPx: 58,
   }));
-  expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeGreaterThan(32);
-  expect(Math.abs(bundles[1].xPx - bundles[0].xPx)).toBeLessThan(52);
-  expect(bundles[0].rowStart).not.toBe(bundles[1].rowStart);
+  assert.ok(Math.abs(bundles[1].xPx - bundles[0].xPx) > 32);
+  assert.ok(Math.abs(bundles[1].xPx - bundles[0].xPx) < 52);
+  assert.notEqual(bundles[0].rowStart, bundles[1].rowStart);
 });
 
 test('row-aware packing reuses free visual rows without weakening rectangle separation', () => {
-  expect(ACTIVITY_MATRIX_VISUAL_ROW_PITCH).toBe(20);
+  assert.equal(ACTIVITY_MATRIX_VISUAL_ROW_PITCH, 20);
 
   const packableBundles = [
     { xPx: 0, collisionWidthPx: 34, rowCount: 2 },
@@ -232,7 +233,7 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
   ];
 
   for (let repetition = 0; repetition < 5; repetition += 1) {
-    expect(packActivityMatrixBundleRows(packableBundles)).toEqual(expectedPlacements);
+    assert.deepEqual(packActivityMatrixBundleRows(packableBundles), expectedPlacements);
   }
 
   const placed = packableBundles.map((bundle, index) => ({
@@ -247,7 +248,7 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
 
       const horizontalSeparation = Math.abs(placed[left].xPx - placed[right].xPx)
         - ((placed[left].collisionWidthPx + placed[right].collisionWidthPx) / 2);
-      expect(horizontalSeparation).toBeGreaterThanOrEqual(ACTIVITY_MATRIX_BUNDLE_GAP);
+      assert.ok(horizontalSeparation >= ACTIVITY_MATRIX_BUNDLE_GAP);
     }
   }
 });
