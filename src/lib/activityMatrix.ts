@@ -1,5 +1,5 @@
 import type { CompanyEntry, EventEntry, PersonEntry } from './content.ts';
-import { dateNumber, eventYear, sortEventsNewestFirst } from './content';
+import { dateNumber, eventYear, sortEventsNewestFirst } from './content.ts';
 import { TIMELINE_HIT_SIZE } from './timeline.ts';
 
 export const ACTIVITY_MATRIX_BUNDLE_PROXIMITY = 32;
