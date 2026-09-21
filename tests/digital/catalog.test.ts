@@ -24,6 +24,13 @@ const projects = await Promise.all((await readdir(directory)).filter((file) => f
 }));
 const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8')));
 const dayAfterReview = new Date(Date.parse(`${snapshot.reviewedAt}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+// The reviewed snapshot rolled forward by one calendar month, keeping the review day where valid.
+const nextReviewedAt = (() => {
+  const [year, month, day] = snapshot.reviewedAt.split('-').map(Number);
+  const target = new Date(Date.UTC(year, month, 1));
+  const lastDay = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+  return `${target.getUTCFullYear()}-${String(target.getUTCMonth() + 1).padStart(2, '0')}-${String(Math.min(day, lastDay)).padStart(2, '0')}`;
+})();
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
 const surfer = projects.find((p) => p.id === 'surfer')!;
 const data = () => structuredClone(github.data);
@@ -210,14 +217,23 @@ test('point updates require sources and cannot silently acquire repository bucke
   const s = pointActivity();
   assert.doesNotThrow(() => validateActivity(projects, s));
   assert.equal(hasRepositoryHistory(s.projects[surfer.id]), false);
+  const update = s.projects[surfer.id] as { lastPublicUpdateAt: string; lastPublicUpdateType: string };
+  const updateMonth = update.lastPublicUpdateAt.slice(0, 7);
   const band = activityBand(s.projects[surfer.id], s.months, surfer.data.sources);
-  assert.equal(band.cells.length, 12);
+  // The band is exactly the reviewed window, with the point-update month as its only active cell.
+  assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+  assert.equal(band.cells.length, s.months.length);
   assert.equal(band.activeMonths, 1);
-  assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), ['2026-09']);
-  assert.equal(band.cells[0].month, '2025-10');
-  assert.equal(band.cells[11].month, '2026-09');
-  assert.equal(band.cells[11].detail, 'September 2026 · public update');
+  assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), [updateMonth]);
+  const activeIndex = s.months.indexOf(updateMonth);
+  assert.ok(activeIndex >= 0, `${updateMonth} must fall inside the reviewed window`);
+  const updateMonthLabel = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(`${updateMonth}-01T00:00:00Z`));
+  assert.equal(band.cells[activeIndex].detail, `${updateMonthLabel} · public update`);
   assert.ok(band.cells.every((cell) => !('commits' in cell)));
+  // Repository provenance never leaks into a point-update band.
+  assert.ok(band.provenance.startsWith('public update:'));
+  assert.ok(!band.provenance.includes('default branch'));
   for (const lastPublicUpdateType of [undefined, 'github', 'unknown']) {
     const changed = pointActivity(); Object.assign(changed.projects[surfer.id], { lastPublicUpdateType });
     assert.equal(activitySchema.safeParse(changed).success, false);
@@ -304,7 +320,12 @@ test('generic repository records enforce identity, complete monthly history and 
   }
   // Manual repositories cannot inherit re-labeled buckets when the refresh window moves.
   const s = activity();
-  assert.equal(activitySchema.safeParse({ ...s, reviewedAt: '2026-10-05', capturedAt: '2026-10-05T00:00:00Z', months: activityMonths('2026-10-05') }).success, false);
+  assert.equal(activitySchema.safeParse({
+    ...s,
+    reviewedAt: nextReviewedAt,
+    capturedAt: `${nextReviewedAt}T00:00:00Z`,
+    months: activityMonths(nextReviewedAt),
+  }).success, false);
 });
 
 test('ordering uses raw latest public activity, normalized alphabetical ties, then slug without mutating input', () => {
