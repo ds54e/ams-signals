@@ -1783,6 +1783,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     'company:texas-instruments',
     'company:cadence',
     'company:analog-devices',
+    'company:broadcom',
     'company:skyworks',
   ]);
 
