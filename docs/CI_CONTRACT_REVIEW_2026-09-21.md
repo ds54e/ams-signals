@@ -28,7 +28,7 @@ The target is not a weaker CI. It is a better ownership boundary:
 
 ## Current structural findings
 
-- `tests/smoke/release.spec.mjs` is about 149 KB and contains 35 tests / 745 `expect(` calls.
+- `tests/smoke/release.spec.mjs` is about 149 KB and contains 35 tests / 745 `expect(` calls. *Superseded by Phase 3 — see “Phase 3 results” below; this monolith no longer exists.*
 - The same Playwright suite also contains pure-function tests such as `activity-matrix-geometry.spec.ts` and `articles.spec.ts`; these do not require a browser runner.
 - `src/lib/activityMatrix.ts` already exposes pure geometry, ordering, projection and packing functions suitable for Node tests.
 - Analog and Digital already use `node:test` for domain contracts, which is the model Golden/Timeline should follow.
@@ -336,3 +336,90 @@ A successful refactor must satisfy all of these:
 6. Pages still validates the exact deployed SHA.
 7. No Article, Analog or Digital behavior is weakened by the migration.
 8. The final test ownership is documented sufficiently that future agents know where a new assertion belongs.
+
+## Phase 3 results — browser-suite cleanup (completed)
+
+`tests/smoke/release.spec.mjs` (2626 lines, 35 named tests) is replaced by four specs split by
+responsibility plus one shared helper module. Every one of the 35 test bodies is byte-identical to
+the monolith apart from a single deliberate rename (`browserErrors.get(page)` →
+`getBrowserErrors(page)`), so no browser assertion changed semantics.
+
+| File | Responsibility | Tests | Lines |
+|---|---|---|---|
+| `tests/smoke/release-surfaces.spec.mjs` | Rendered surface structure, terminology, chrome layout, overlay/stacking, `/export.json` wiring | 13 | 824 |
+| `tests/smoke/release-discovery.spec.mjs` | Search lenses, Signal-type filter, Company picker, predecessor canonicalization, singleton suppression | 6 | 365 |
+| `tests/smoke/release-matrix.spec.mjs` | Global Activity Matrix bands, bundle membership, packing, projection, activity row order, sticky labels | 9 | 1059 |
+| `tests/smoke/release-navigation.spec.mjs` | Cross-surface URL/state, inspector selection, legacy URL canonicalization, context Company/Person Timelines | 7 | 222 |
+| `tests/smoke/release-helpers.mjs` | Shared readiness/corpus/label helpers and the browser-error guard | — | 263 |
+
+### Where a new browser assertion belongs
+
+Ask what the assertion is really about, then use the owning file:
+
+- Rendered structure, terminology, static content, chrome layout or overlay stacking of a page →
+  `release-surfaces.spec.mjs`.
+- Search, Signal-type filter, Company picker, or entity canonicalization/discoverability →
+  `release-discovery.spec.mjs`.
+- Time bands, bundle membership/packing, mark projection, activity row order or sticky labels →
+  `release-matrix.spec.mjs`.
+- URL/filter state transitions, inspector selection, or cross-surface consistency →
+  `release-navigation.spec.mjs`.
+- Deterministic data logic that needs no browser → `tests/golden/`, not Playwright.
+
+Each spec carries this ownership summary in its header comment.
+
+### Shared helper extraction
+
+`release-helpers.mjs` owns `basePath`, `getBrowserErrors`, `expectExplorerReady`,
+`visibleTimelineEventIds`, `visibleListedEventIds`, `viewerCorpus`, `countStatus`,
+`expectStickyLabelToOccludeActiveMark`, `ensureScrollableStickyCandidate`, `queryState` and
+`expectedActivityBundleColumns`.
+
+The browser-error guard is registered by calling `installBrowserErrorGuards(test)` once at module
+scope in each spec. It is a function taking the Playwright `test` object — the same idiom
+`tests/smoke/catalog-index.ts` already uses — because Playwright resolves top-level hooks against
+the suite of the file being loaded. A hook declared inside the helper module itself would attach to
+whichever spec happened to be loaded first.
+
+### Failure diagnostics
+
+Two changes, neither of which can turn a failing test into a passing one:
+
+- the shared browser-error assertion now names the test, so multi-file output reads
+  `selecting a Timeline mark updates the Evidence Inspector: browser console and page errors`;
+- `expectExplorerReady` messages carry the current URL and the expected surface, so an
+  uninitialised explorer failure identifies the route immediately.
+
+### Verification evidence
+
+| Check | Result |
+|---|---|
+| Test bodies preserved | 35/35 byte-identical after the accessor rename |
+| Test inventory | 97 titles identical to baseline (7 → 10 files) |
+| Each spec independently (`npm run build` then `playwright test <file>`) | surfaces 13 passed; discovery 6; matrix 9; navigation 7 |
+| Full suite, `--workers=1` | 97 passed — 261 s / 287 s / 265 s |
+| Full suite, `--workers=2` (experimental) | 97 passed — 141 s / 145 s / 159 s |
+| Pre-split monolith, `--workers=1` | 97 passed — 257 s |
+| `--repeat-each=2` on the four release specs | 70 passed |
+| `npm run check` | PASS |
+| `dist/` byte-identity | sha256 `48003cfe…` unchanged before and after |
+| Fault injection: `console.error` in one test per spec | exactly 4 failures, each attributed to the injected test by the guard message, no cross-file hook leakage |
+
+Splitting therefore does not change serial Chromium runtime (257 s → 261–287 s for the same 97
+tests); the monolith was never the cause of the serial cost, it was the cause of the change
+coupling.
+
+### Decision on `workers: 2`
+
+Not adopted. `workers: 2` is consistently about 1.8× faster locally and passed three times without
+a retry, but the priority order is deterministic CI and useful diagnostics, not speed:
+
+- the committed serial Chromium job is already ~4.3 min against a 10-minute job timeout;
+- the local measurement used this workstation, while CI runs on a shared 4-vCPU runner where many
+  assertions are geometry- or `requestAnimationFrame`-sensitive;
+- the split now makes the option cheap to revisit: the release tests occupy four files instead of
+  one, so file-level parallelism actually has something to distribute, and enabling it later is a
+  one-line `playwright.config.mjs` change.
+
+Re-evaluate after several content refreshes show the suite stable, as Phase 4 intended. Committed
+configuration stays at `workers: 1`.
