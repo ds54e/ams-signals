@@ -1,6 +1,7 @@
 ---
 import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
 import {
+  compareByNameThenId,
   dateNumber,
   eventKindLabel,
   formatWhen,
@@ -42,8 +43,7 @@ const activityMatrixGeometry = context === 'global'
 const countOrderedCompanyRecords = orderCompaniesByGoldenEventCount(companies, goldenEvents);
 const orderedCompanyRecords = context === 'global'
   ? [...countOrderedCompanyRecords].sort((left, right) => (
-      left.company.data.name.localeCompare(right.company.data.name, 'en')
-      || left.company.data.id.localeCompare(right.company.data.id, 'en')
+      compareByNameThenId(left.company.data, right.company.data)
     ))
   : countOrderedCompanyRecords;
 const companyIds = orderedCompanyRecords

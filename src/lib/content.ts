@@ -20,7 +20,14 @@ export function sortEvents(events: EventEntry[]): EventEntry[] {
     || a.data.id.localeCompare(b.data.id, 'en'));
 }
 
-export function sortEventsNewestFirst(events: EventEntry[]): EventEntry[] {
+export interface DatedEventLike {
+  data: {
+    id: string;
+    when: { start: string };
+  };
+}
+
+export function sortEventsNewestFirst<T extends DatedEventLike>(events: readonly T[]): T[] {
   return [...events].sort((a, b) =>
     dateNumber(b.data.when.start) - dateNumber(a.data.when.start)
     || a.data.id.localeCompare(b.data.id, 'en'));
@@ -28,6 +35,14 @@ export function sortEventsNewestFirst(events: EventEntry[]): EventEntry[] {
 
 export function eventKindLabel(kind: EventEntry['data']['kind']): string {
   return kind === 'technical' ? 'Technical' : 'Organizational';
+}
+
+export function compareByNameThenId<T extends { id: string; name: string }>(
+  left: T,
+  right: T,
+): number {
+  return left.name.localeCompare(right.name, 'en')
+    || left.id.localeCompare(right.id, 'en');
 }
 
 export function orderCompaniesByGoldenEventCount(
