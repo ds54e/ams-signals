@@ -8,7 +8,7 @@ const signalLabels: Record<PublicSignalType, string> = {
 
 type ActivityRecord =
   | { kind: 'github' | 'repository'; repository: string; defaultBranch: string; lastCommitAt: string; commits: readonly number[] }
-  | { kind: 'no-public-repo' | 'public-update'; lastPublicUpdateAt?: string; lastPublicUpdateSource?: string; lastPublicUpdateType: PublicSignalType };
+  | { kind: 'public-update'; lastPublicUpdateAt?: string; lastPublicUpdateSource?: string; lastPublicUpdateType: PublicSignalType };
 type ActivityCell = {
   month: string; active: boolean; detail: string; signal: 'repository' | PublicSignalType;
   commits?: number; source?: string;
