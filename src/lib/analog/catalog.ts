@@ -1,4 +1,5 @@
 import { publicActivityDate, type PublicActivity } from './activity.ts';
+import { sortByActivityThenName } from '../catalog-sort.ts';
 
 export const scopeStageIds = ['design', 'simulation', 'layout'] as const;
 export const scopeStageLabels: Record<typeof scopeStageIds[number], string> = {
@@ -8,9 +9,5 @@ export const scopeStageLabels: Record<typeof scopeStageIds[number], string> = {
 export function sortProjects<T extends { id: string; data: { name: string } }>(
   projects: readonly T[], activity: Readonly<Record<string, PublicActivity>>,
 ): T[] {
-  const key = (name: string) => name.normalize('NFKC').toLowerCase().trim();
-  const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
-  return [...projects].sort((a, b) =>
-    compare(publicActivityDate(activity[b.id]), publicActivityDate(activity[a.id]))
-    || compare(key(a.data.name), key(b.data.name)) || compare(a.id, b.id));
+  return sortByActivityThenName(projects, (project) => publicActivityDate(activity[project.id]));
 }
