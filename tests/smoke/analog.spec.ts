@@ -49,7 +49,7 @@ test('ATLAS and ngspice map reviewed point signals to their month without fabric
     const activeCount = monthIndex >= 0 ? 1 : 0;
     const label = signalLabels[record.lastPublicUpdateType];
 
-    expect(record.kind).toBe('no-public-repo');
+    expect(record.kind).toBe('public-update');
     expect(record.lastPublicUpdateType).toBe(type);
     expect(Object.keys(signalLabels)).toContain(record.lastPublicUpdateType);
 

@@ -44,10 +44,10 @@ test('public activity sorts newest first, using paper dates and deterministic na
   const activity: Record<string, PublicActivity> = {
     old: { kind: 'github', lastCommitAt: '2025-12-31' },
     a: { kind: 'github', lastCommitAt: '2026-08-20' },
-    b: { kind: 'no-public-repo', lastPublicUpdateAt: '2026-08-20' },
+    b: { kind: 'public-update', lastPublicUpdateAt: '2026-08-20' },
     beta: { kind: 'github', lastCommitAt: '2026-08-20' },
-    paper: { kind: 'no-public-repo', lastPublicUpdateAt: '2026-09-01' },
-    unknown: { kind: 'no-public-repo' },
+    paper: { kind: 'public-update', lastPublicUpdateAt: '2026-09-01' },
+    unknown: { kind: 'public-update', lastPublicUpdateAt: '2000-01-01' },
     newest: { kind: 'repository', lastCommitAt: '2026-09-04' },
   };
   const before = structuredClone(input);
@@ -121,7 +121,7 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   assert.ok(!digital.includes(`${moved}.md`));
   const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
   assert.ok(!(moved in digitalActivity.projects));
-  assert.equal(activity.projects.ngspice.kind, 'no-public-repo');
+  assert.equal(activity.projects.ngspice.kind, 'public-update');
   assert.match(activity.projects.ngspice.lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
   assert.ok(!('commits' in activity.projects.ngspice));
   const code = projects.find((p) => p.id === 'ngspice')!.data.sources.find((s) => s.purpose === 'code')!;
@@ -252,15 +252,33 @@ test('each activity record belongs to one authored project and its verified Code
 
 test('point records require reviewed provenance and never store fabricated repository counts', () => {
   const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
-  const record = { kind: 'no-public-repo', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  const record = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
   assert.equal(hasRepositoryHistory(record), false);
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
   assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
-  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { kind: 'no-public-repo', lastPublicUpdateType: 'public-update' } } }), /requires verified meaningful activity/);
-  for (const bad of [{ ...record, lastPublicUpdateType: undefined }, { ...record, lastPublicUpdateType: 'commits' }, { ...record, lastPublicUpdateSource: undefined }, { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' }]) {
-    assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false);
+  // All three reviewed public-signal types remain accepted.
+  for (const type of ['paper', 'release', 'public-update']) {
+    assert.ok(activitySchema.safeParse({ ...snapshot(), projects: { sample: { ...record, lastPublicUpdateType: type } } }).success, type);
+  }
+  for (const bad of [
+    { ...record, lastPublicUpdateType: undefined }, { ...record, lastPublicUpdateType: 'commits' },
+    { ...record, lastPublicUpdateAt: undefined }, { ...record, lastPublicUpdateSource: undefined },
+    { ...record, lastPublicUpdateSource: 'Not_A_Valid_Slug' }, { ...record, kind: 'no-public-repo' },
+    { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' },
+  ]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false, JSON.stringify(bad));
   }
   assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
+});
+
+test('no-public-repo is no longer a valid activity kind in the schema or the checked-in Analog snapshot', async () => {
+  const base = { lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: { kind: 'no-public-repo', ...base } } }).success, false);
+  assert.ok(activitySchema.safeParse({ ...snapshot(), projects: { sample: { kind: 'public-update', ...base } } }).success);
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
+  const kinds = new Set(Object.values(activity.projects).map((project: any) => project.kind));
+  assert.ok(!kinds.has('no-public-repo'));
+  assert.ok(kinds.has('public-update'));
 });
 
 test('reviewed monthly repository records work across hosts and retain strict identity and freshness checks', () => {
@@ -297,7 +315,7 @@ test('rolling freshness uses an inclusive date boundary, not the twelve calendar
   // A recent cosmetic/bot commit may affect ordering, but cannot rescue a stale project.
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-04' } } }), /requires verified meaningful activity/);
   const paper = { ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } };
-  const publicUpdate = { kind: 'no-public-repo', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
+  const publicUpdate = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
   assert.ok(validateActivity([paper], { ...snapshot(), projects: { sample: publicUpdate } }));
   assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
   // Advancing the snapshot requires curation even if no source files changed.
@@ -350,7 +368,7 @@ test('ATLAS paper and ngspice release occupy their reviewed month without invent
     const data = analogSchema.parse(frontmatter);
     const record = snapshot.projects[id], before = structuredClone(record);
     const band = activityBand(record, snapshot.months, data.sources);
-    assert.equal(record.kind, 'no-public-repo');
+    assert.equal(record.kind, 'public-update');
     assert.equal((record as any).lastPublicUpdateType, type);
     assert.match((record as any).lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
     const date: string = (record as any).lastPublicUpdateAt;

@@ -225,7 +225,7 @@
       "notes": "Substantive implementation/task/result activity reviewed at dfcaf188bd1b013d392dff693af06a65fe53fa71: update. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "atlas": {
-      "kind": "no-public-repo",
+      "kind": "public-update",
       "lastPublicUpdateType": "paper",
       "lastPublicUpdateAt": "2026-07-15",
       "lastPublicUpdateSource": "paper"
@@ -800,7 +800,7 @@
       "notes": "July 5 merge e392ae4 adds parameterized OTA DUTs, wrappers and eight executable testbench decks; inspected tb_ac.sp and the public layout flow."
     },
     "ngspice": {
-      "kind": "no-public-repo",
+      "kind": "public-update",
       "lastPublicUpdateType": "release",
       "lastPublicUpdateAt": "2026-08-11",
       "lastPublicUpdateSource": "release",
@@ -1031,7 +1031,7 @@
       "notes": "The July 4 dataset update is the latest reviewed substantive public repository update; the public README also states that code and data remain under progressive refinement."
     },
     "virastack-ai-super-agent": {
-      "kind": "no-public-repo",
+      "kind": "public-update",
       "lastPublicUpdateType": "public-update",
       "lastPublicUpdateAt": "2026-09-10",
       "lastPublicUpdateSource": "layout-demo",

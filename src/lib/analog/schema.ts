@@ -117,11 +117,14 @@ const repositoryActivity = githubActivity.extend({
   lastMeaningfulCommitSha: z.string().regex(/^[a-f0-9]{40}$/),
   lastMeaningfulCommitSource: catalogSlug,
 }).strict();
-const noRepositoryActivity = z.object({
-  kind: z.literal('no-public-repo'),
+// A reviewed point-in-time public signal (paper, release, or other dated public update)
+// used in place of reviewed monthly repository history. This never asserts the absence of a
+// public repository or code (see src/lib/analog/activity.ts).
+const publicUpdate = z.object({
+  kind: z.literal('public-update'),
+  lastPublicUpdateAt: date,
+  lastPublicUpdateSource: catalogSlug,
   lastPublicUpdateType: z.enum(publicSignalTypes),
-  lastPublicUpdateAt: date.optional(),
-  lastPublicUpdateSource: catalogSlug.optional(),
   notes: text.optional(),
 }).strict();
 export const activitySchema = z.object({
@@ -129,7 +132,7 @@ export const activitySchema = z.object({
   capturedAt: z.string().datetime(),
   method: z.literal('first-parent-committer-utc'),
   months: z.array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/)).length(12),
-  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, noRepositoryActivity])),
+  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate])),
 }).strict().superRefine((snapshot, context) => {
   if (snapshot.capturedAt.slice(0, 10) !== snapshot.reviewedAt) {
     context.addIssue({ code: 'custom', message: 'Snapshot and capture dates differ' });
@@ -153,8 +156,6 @@ export const activitySchema = z.object({
         || ([latestMonth, activity.lastMeaningfulCommitAt.slice(0, 7)].includes(month) && activity.commits[index] === 0))) {
         context.addIssue({ code: 'custom', path: ['projects', id], message: 'Commit buckets disagree with last commit date' });
       }
-    } else if (Boolean(activity.lastPublicUpdateAt) !== Boolean(activity.lastPublicUpdateSource)) {
-      context.addIssue({ code: 'custom', path: ['projects', id], message: 'A public update date requires its source ID' });
     }
   }
 });
@@ -186,7 +187,7 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
       if (data.sources.some((source) => source.purpose === 'code' && new URL(source.url).hostname === 'github.com')) {
         throw new Error(`${project.id}: verified GitHub Code source requires a repository activity record`);
       }
-      if (activity.lastPublicUpdateSource && !data.sources.some((source) => source.id === activity.lastPublicUpdateSource)) {
+      if (!data.sources.some((source) => source.id === activity.lastPublicUpdateSource)) {
         throw new Error(`${project.id}: unknown public update source`);
       }
     }
