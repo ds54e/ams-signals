@@ -20,6 +20,17 @@ import {
 
 installBrowserErrorGuards(test);
 
+// Structural pathname check used in place of `new RegExp(...basePath...)`. basePath is a
+// resolved BASE_URL and may legitimately contain regex metacharacters (e.g. '/a+b/'), so it
+// must never be interpolated into a RegExp; plain string/URL operations avoid that entirely.
+function expectSingleSegmentPath(pathname, prefix) {
+  expect(pathname.startsWith(prefix)).toBe(true);
+  expect(pathname.endsWith('/')).toBe(true);
+  const slug = pathname.slice(prefix.length, -1);
+  expect(slug).not.toBe('');
+  expect(slug).not.toContain('/');
+}
+
 test('Timeline is the temporal view with filters and one Evidence Inspector', async ({ page }) => {
   await page.goto('./');
   await expectExplorerReady(page);
@@ -124,7 +135,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     expect(articleEntries[index].summary, `Article summary for ${article.href}`).not.toBe('');
     const articleUrl = new URL(article.href);
     expect(articleUrl.origin).toBe(new URL(indexUrl).origin);
-    expect(articleUrl.pathname).toMatch(new RegExp(`^${basePath}articles/[^/]+/$`));
+    expectSingleSegmentPath(articleUrl.pathname, `${basePath}articles/`);
   }
   expect(new Set(articles.map(({ href }) => href)).size).toBe(articles.length);
   await expect(page.locator('.article-list > li > .article-list-body > p')).toHaveCount(articles.length);
@@ -255,7 +266,7 @@ test('Articles publishes every authored document and keeps editorial links separ
     for (const eventHref of normalizedEventHrefs) {
       const eventUrl = new URL(eventHref);
       expect(eventUrl.origin).toBe(new URL(article.href).origin);
-      expect(eventUrl.pathname).toMatch(new RegExp(`^${basePath}events/[^/]+/$`));
+      expectSingleSegmentPath(eventUrl.pathname, `${basePath}events/`);
       expect((await page.request.get(eventHref)).status()).toBe(200);
     }
 
@@ -309,7 +320,14 @@ test('canonical JSON export endpoint serves the factual corpus', async ({ page }
     sources: expect.any(Array),
   }));
   expect(sample.recordUrl).toBe(`${publicOrigin}${basePath}events/${sample.id}/`);
-  expect(sample.recordUrl).toMatch(new RegExp(`^https://[^/]+${basePath}events/[^/]+/$`));
+  // Independent shape check: verified via URL parsing plus plain string operations rather than
+  // the exact template above or a regex, and rather than a scheme hardcoded to https — the
+  // deployment resolver's documented, tested contract (src/lib/site-deployment.mjs) accepts
+  // both http and https public origins.
+  const recordUrl = new URL(sample.recordUrl);
+  expect(['http:', 'https:']).toContain(recordUrl.protocol);
+  expect(recordUrl.host.length).toBeGreaterThan(0);
+  expectSingleSegmentPath(recordUrl.pathname, `${basePath}events/`);
 });
 
 test('Events is the chronological textual view without a Timeline or inspector', async ({ page }) => {
