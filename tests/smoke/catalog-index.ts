@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
+import { basePath } from './release-helpers.mjs';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
@@ -52,7 +53,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
     await expect(nav.locator('[aria-current="page"]')).toHaveText(label);
     for (const [text, route] of [['Analog', 'analog'], ['Digital', 'digital']]) {
-      await expect(nav.getByRole('link', { name: text, exact: true })).toHaveAttribute('href', `/ams-signals/${route}/`);
+      await expect(nav.getByRole('link', { name: text, exact: true })).toHaveAttribute('href', `${basePath}${route}/`);
     }
     await expect(page).toHaveTitle(`${label} · AMS Signals`);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');

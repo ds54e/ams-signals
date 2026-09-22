@@ -1,10 +1,15 @@
 import { access, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { resolveSiteDeployment } from '../src/lib/site-deployment.mjs';
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, 'dist');
-const siteBase = '/ams-signals/';
-const origin = 'https://internal.invalid';
+// The deployment being audited. Defaults to the current production target
+// (https://ds54e.github.io + /ams-signals/); override with SITE / BASE_URL to
+// audit a different deployment, e.g. a root-based custom-domain build.
+const deployment = resolveSiteDeployment(process.env);
+const siteBase = deployment.baseUrl;
+const origin = deployment.origin;
 const errors = [];
 
 async function filesUnder(directory, extension) {
@@ -30,9 +35,22 @@ function decodeHref(value) {
     .replaceAll('&#x26;', '&');
 }
 
-function anchorHrefs(html) {
-  const pattern = /<a\b[^>]*?\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/gi;
+function attributeValues(html, pattern) {
   return [...html.matchAll(pattern)].map((match) => decodeHref(match[1] ?? match[2] ?? ''));
+}
+
+function anchorHrefs(html) {
+  return attributeValues(html, /<a\b[^>]*?\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/gi);
+}
+
+// Same-site asset references (stylesheets, scripts, images) are audited for
+// existence and base compliance alongside anchors.
+function assetRefs(html) {
+  return [
+    ...attributeValues(html, /<link\b[^>]*?\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/gi),
+    ...attributeValues(html, /<script\b[^>]*?\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/gi),
+    ...attributeValues(html, /<img\b[^>]*?\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/gi),
+  ];
 }
 
 function outputTarget(pathname) {
@@ -80,14 +98,24 @@ if (htmlFiles.length === 0) {
   process.exit(1);
 }
 
+// Resolve a reference against the audited origin. Only references that land on
+// the configured public origin are audited; every real external source URL
+// stays out of scope. Query and hash are ignored for target lookup.
+function resolveReference(ref, pagePath) {
+  if (!ref || ref.startsWith('#') || /^(?:mailto:|tel:|javascript:|data:)/i.test(ref)) return null;
+  const resolved = new URL(ref, `${origin}${pagePath}`);
+  if (resolved.origin !== origin) return null;
+  return resolved;
+}
+
 let internalLinkCount = 0;
+let internalAssetCount = 0;
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const pagePath = publicPathFor(file);
   for (const href of anchorHrefs(html)) {
-    if (!href || href.startsWith('#') || /^(?:mailto:|tel:|javascript:)/i.test(href)) continue;
-    const resolved = new URL(href, `${origin}${pagePath}`);
-    if (resolved.origin !== origin) continue;
+    const resolved = resolveReference(href, pagePath);
+    if (!resolved) continue;
     internalLinkCount += 1;
 
     if (!resolved.pathname.startsWith(siteBase)) {
@@ -102,6 +130,20 @@ for (const file of htmlFiles) {
 
     if (!(await exists(outputTarget(resolved.pathname)))) {
       errors.push(`${pagePath} points to a missing built target: ${href}`);
+    }
+  }
+  for (const ref of assetRefs(html)) {
+    const resolved = resolveReference(ref, pagePath);
+    if (!resolved) continue;
+    internalAssetCount += 1;
+
+    if (!resolved.pathname.startsWith(siteBase)) {
+      errors.push(`${pagePath} references an asset outside the configured base: ${ref}`);
+      continue;
+    }
+
+    if (!(await exists(outputTarget(resolved.pathname)))) {
+      errors.push(`${pagePath} references a missing built asset: ${ref}`);
     }
   }
 }
@@ -175,4 +217,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${internalLinkCount} internal anchor(s) across ${htmlFiles.length} built HTML page(s), including Timeline, Events, Articles, Event, Company, and People relationships.`);
+console.log(
+  `Validated ${internalLinkCount} internal anchor(s) and ${internalAssetCount} same-site asset reference(s) `
+  + `across ${htmlFiles.length} built HTML page(s) at ${origin}${siteBase}, `
+  + 'including Timeline, Events, Articles, Event, Company, and People relationships.',
+);

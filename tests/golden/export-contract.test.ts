@@ -4,15 +4,21 @@ import {
   EXPORT_EXCLUDED_EVENT_IDS,
   EXPORT_EXCLUDED_PERSON_IDS,
   EXPORT_PROJECT,
-  EXPORT_PUBLIC_ORIGIN,
   buildExportPayload,
+  exportEventRecordUrl,
   type ExportPayload,
   type GoldenEventData,
   type GoldenSourceData,
 } from '../../src/lib/export.ts';
 import { loadGoldenCorpus } from './corpus.ts';
 
+// The current production deployment target, as independent literals.
+const PUBLIC_ORIGIN = 'https://ds54e.github.io';
 const BASE_PATH = '/ams-signals/';
+// A representative migration target used to prove the export follows the
+// configured deployment: custom origin with a root base path.
+const MIGRATION_ORIGIN = 'https://migration-test.invalid';
+const MIGRATION_BASE_PATH = '/';
 
 // The published project contract: these four sentences are product copy, not derived data.
 const PROJECT_NOTES = [
@@ -40,7 +46,7 @@ const buildCurrentPayload = async (): Promise<{
 }> => {
   const corpus = await loadGoldenCorpus();
   return {
-    payload: buildExportPayload({ ...corpus, basePath: BASE_PATH }),
+    payload: buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath: BASE_PATH }),
     corpus,
   };
 };
@@ -185,6 +191,7 @@ test('source normalization defaults status and archiveUrl without inventing valu
     companies: [],
     people: [],
     events: [{ data: event }],
+    publicOrigin: PUBLIC_ORIGIN,
     basePath: BASE_PATH,
   });
 
@@ -212,12 +219,63 @@ test('every exported Event has the deterministic public recordUrl', async () => 
   const { payload } = await buildCurrentPayload();
 
   for (const event of payload.events) {
-    assert.equal(event.recordUrl, `${EXPORT_PUBLIC_ORIGIN}/ams-signals/events/${event.id}/`);
+    assert.equal(event.recordUrl, `https://ds54e.github.io/ams-signals/events/${event.id}/`);
   }
   assert.deepEqual(
     payload.events.map(({ recordUrl }) => recordUrl),
-    payload.events.map(({ id }) => `${EXPORT_PUBLIC_ORIGIN}/ams-signals/events/${id}/`),
+    payload.events.map(({ id }) => `https://ds54e.github.io/ams-signals/events/${id}/`),
   );
+});
+
+test('record URLs follow an alternate public origin and root base path', async () => {
+  const corpus = await loadGoldenCorpus();
+  const payload = buildExportPayload({
+    ...corpus,
+    publicOrigin: MIGRATION_ORIGIN,
+    basePath: MIGRATION_BASE_PATH,
+  });
+
+  for (const event of payload.events) {
+    assert.equal(event.recordUrl, `https://migration-test.invalid/events/${event.id}/`);
+  }
+  assert.deepEqual(
+    payload.events.map(({ recordUrl }) => recordUrl),
+    payload.events.map(({ id }) => `https://migration-test.invalid/events/${id}/`),
+  );
+});
+
+test('only recordUrl changes between the current deployment and a root-based migration target', async () => {
+  const corpus = await loadGoldenCorpus();
+  const current = buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath: BASE_PATH });
+  const migrated = buildExportPayload({
+    ...corpus,
+    publicOrigin: MIGRATION_ORIGIN,
+    basePath: MIGRATION_BASE_PATH,
+  });
+
+  assert.deepEqual(
+    migrated.events.map(({ recordUrl: _recordUrl, ...event }) => event),
+    current.events.map(({ recordUrl: _recordUrl, ...event }) => event),
+  );
+  assert.deepEqual(migrated.companies, current.companies);
+  assert.deepEqual(migrated.people, current.people);
+  assert.deepEqual(migrated.project, current.project);
+  assert.equal(migrated.schemaVersion, current.schemaVersion);
+});
+
+test('record URL construction keeps the trailing slash and rejects non-public origins', () => {
+  assert.equal(
+    exportEventRecordUrl('https://example.com', '/', 'some-event'),
+    'https://example.com/events/some-event/',
+  );
+  assert.equal(
+    exportEventRecordUrl('https://example.com/', '/ams-signals/', 'some-event'),
+    'https://example.com/ams-signals/events/some-event/',
+  );
+
+  for (const invalid of ['not-a-url', 'ftp://example.com', 'https://example.com/path', 'relative.example.com', '']) {
+    assert.throws(() => exportEventRecordUrl(invalid, '/', 'some-event'), /Invalid SITE/);
+  }
 });
 
 test('the payload carries no editorial analysis field and keeps the documented shape', async () => {
@@ -259,7 +317,7 @@ test('payload construction never mutates its source inputs', async () => {
       people: structuredClone(corpus.people.map(({ data }) => data)),
     };
 
-    buildExportPayload({ ...corpus, basePath });
+    buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath });
 
     assert.deepEqual(corpus.events.map(({ data }) => data), before.events);
     assert.deepEqual(corpus.companies.map(({ data }) => data), before.companies);
@@ -269,11 +327,12 @@ test('payload construction never mutates its source inputs', async () => {
 
 test('exclusion and sort decisions are stable under reversed input order', async () => {
   const corpus = await loadGoldenCorpus();
-  const forward = buildExportPayload({ ...corpus, basePath: BASE_PATH });
+  const forward = buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath: BASE_PATH });
   const reversed = buildExportPayload({
     events: [...corpus.events].reverse(),
     companies: [...corpus.companies].reverse(),
     people: [...corpus.people].reverse(),
+    publicOrigin: PUBLIC_ORIGIN,
     basePath: BASE_PATH,
   });
 
