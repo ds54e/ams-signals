@@ -13,6 +13,7 @@ import {
   expectExplorerReady,
   getBrowserErrors,
   installBrowserErrorGuards,
+  publicOrigin,
   viewerCorpus,
   visibleTimelineEventIds,
 } from './release-helpers.mjs';
@@ -307,8 +308,8 @@ test('canonical JSON export endpoint serves the factual corpus', async ({ page }
     kind: expect.stringMatching(/^(technical|organizational)$/),
     sources: expect.any(Array),
   }));
-  expect(sample.recordUrl).toBe(`https://ds54e.github.io${basePath}events/${sample.id}/`);
-  expect(sample.recordUrl).toMatch(/^https:\/\/ds54e\.github\.io\/ams-signals\/events\/[^/]+\/$/);
+  expect(sample.recordUrl).toBe(`${publicOrigin}${basePath}events/${sample.id}/`);
+  expect(sample.recordUrl).toMatch(new RegExp(`^https://[^/]+${basePath}events/[^/]+/$`));
 });
 
 test('Events is the chronological textual view without a Timeline or inspector', async ({ page }) => {
