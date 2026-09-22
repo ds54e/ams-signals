@@ -1,6 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
+import { resolveSiteDeployment } from './src/lib/site-deployment.mjs';
 
-const localBaseUrl = 'http://127.0.0.1:4321/ams-signals/';
+// The local preview serves the same base path as the configured deployment
+// (default /ams-signals/, override with BASE_URL for a root deployment).
+const deployment = resolveSiteDeployment(process.env);
+const localBaseUrl = `http://127.0.0.1:4321${deployment.baseUrl}`;
 const requestedBaseUrl = process.env.PLAYWRIGHT_BASE_URL;
 const baseURL = requestedBaseUrl
   ? `${requestedBaseUrl.replace(/\/+$/, '')}/`
@@ -26,7 +30,9 @@ export default defineConfig({
     : {
         command: 'node tools/preview-server.mjs',
         url: localBaseUrl,
-        reuseExistingServer: !process.env.CI,
+        // Never reuse a server that happens to occupy the port: it may serve an
+        // older build, which would silently validate stale output.
+        reuseExistingServer: false,
         timeout: 120_000,
       },
   projects: [

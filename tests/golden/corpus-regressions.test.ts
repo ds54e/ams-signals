@@ -4,6 +4,7 @@ import { buildExportPayload, type ExportPayload } from '../../src/lib/export.ts'
 import { loadGoldenCorpus } from './corpus.ts';
 
 const BASE_PATH = '/ams-signals/';
+const PUBLIC_ORIGIN = 'https://ds54e.github.io';
 
 /**
  * Durable canonicalization regressions only.
@@ -16,7 +17,7 @@ const BASE_PATH = '/ams-signals/';
 
 const buildPayload = async (): Promise<ExportPayload> => {
   const corpus = await loadGoldenCorpus();
-  return buildExportPayload({ ...corpus, basePath: BASE_PATH });
+  return buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath: BASE_PATH });
 };
 
 const eventById = (payload: ExportPayload, id: string) => {

@@ -1,7 +1,7 @@
 import { compareByNameThenId, sortEventsNewestFirst } from './content.ts';
+import { normalizePublicOrigin } from './site-deployment.mjs';
 
 export const EXPORT_SCHEMA_VERSION = 1;
-export const EXPORT_PUBLIC_ORIGIN = 'https://ds54e.github.io';
 
 export const EXPORT_PROJECT = {
   name: 'AMS Signals',
@@ -84,13 +84,16 @@ export interface ExportPayloadInput {
   companies: readonly ExportEntry<GoldenCompanyData>[];
   people: readonly ExportEntry<GoldenPersonData>[];
   events: readonly ExportEntry<GoldenEventData>[];
+  /** Public origin of the published site, e.g. 'https://ds54e.github.io'. Validated and normalized. */
+  publicOrigin: string;
   /** Site base path, e.g. sitePath('/'), used to build deterministic public Event record URLs. */
   basePath: string;
 }
 
-export function exportEventRecordUrl(basePath: string, eventId: string): string {
+export function exportEventRecordUrl(publicOrigin: string, basePath: string, eventId: string): string {
+  const origin = normalizePublicOrigin(publicOrigin);
   const prefix = basePath.endsWith('/') ? basePath : `${basePath}/`;
-  return new URL(`${prefix}events/${eventId}/`, EXPORT_PUBLIC_ORIGIN).href;
+  return new URL(`${prefix}events/${eventId}/`, origin).href;
 }
 
 /**
@@ -100,6 +103,7 @@ export function exportEventRecordUrl(basePath: string, eventId: string): string 
 export function buildExportPayload(input: ExportPayloadInput): ExportPayload {
   const excludedPersonIds = new Set(EXPORT_EXCLUDED_PERSON_IDS);
   const excludedEventIds = new Set(EXPORT_EXCLUDED_EVENT_IDS);
+  const publicOrigin = normalizePublicOrigin(input.publicOrigin);
 
   const companies = input.companies
     .map(({ data }) => ({ ...data }))
@@ -119,7 +123,7 @@ export function buildExportPayload(input: ExportPayloadInput): ExportPayload {
         status: source.status ?? 'available',
         archiveUrl: source.archiveUrl ?? null,
       })),
-      recordUrl: exportEventRecordUrl(input.basePath, data.id),
+      recordUrl: exportEventRecordUrl(publicOrigin, input.basePath, data.id),
     }));
 
   return {

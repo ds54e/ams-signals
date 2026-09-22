@@ -9,8 +9,15 @@
 // Node contracts in tests/golden/. These helpers exist only for what needs a browser.
 
 import { expect } from '@playwright/test';
+import { resolveSiteDeployment } from '../../src/lib/site-deployment.mjs';
 
-export const basePath = '/ams-signals/';
+// The base path of the deployment under test. Defaults to the current production
+// base /ams-signals/; override with BASE_URL to run the suite against a root
+// deployment. External targets (PLAYWRIGHT_BASE_URL) are expected to use the
+// same base.
+const deployment = resolveSiteDeployment(process.env);
+export const basePath = deployment.baseUrl;
+export const publicOrigin = deployment.origin;
 
 // Browser console and page errors are collected per page and asserted after every test.
 const browserErrors = new WeakMap();
