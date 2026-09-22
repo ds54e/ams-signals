@@ -2,8 +2,9 @@ import { hasRepositoryHistory } from '../catalog-repository-activity.ts';
 export { hasRepositoryHistory } from '../catalog-repository-activity.ts';
 export { monthLabel } from '../catalog-activity-band.ts';
 // Pure activity-window mechanics are domain-independent and shared verbatim; see that
-// module for the freshness/window contract. PublicActivity below (the discriminated union,
-// and lastPublicUpdateAt's optionality) is Analog-specific and intentionally not shared.
+// module for the freshness/window contract. PublicActivity below (the discriminated union)
+// is defined separately per domain; after AM1 it is byte-identical to Digital's, but
+// consolidating it into one shared type is a separate decision not made here.
 export { freshnessCutoff, activityMonths, countActivity } from '../catalog-activity-window.ts';
 
 // 'public-update' means this record's activity comes from a reviewed point-in-time public
