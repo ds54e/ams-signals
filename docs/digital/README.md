@@ -26,7 +26,7 @@ The [shared development-provenance review](../AI_BUILT_REVIEW.md) records every 
 
 The [Scope simplification review](../CATALOG_SCOPE_REVIEW.md) records every reassessed secondary assignment and the description review. Filled labels use stage colors, and AI-prefixed forms retain that same color. AI-ASSISTED and AI-BUILT share the same muted-red text, thin outline and transparent background, with identical typography, geometry, spacing and interaction styling. Their text distinguishes the classifications, including in the shared forced-colors treatment. A small extra gap separates the final provenance badge from workflow stages. Text carries meaning without color.
 
-Primary navigation is **Timeline | Events | Analog | Digital | Articles**. The existing `noindex, nofollow` policy stays. Routes, collections and directories use `analog` and `digital` consistently; no redirects or route aliases.
+Primary navigation is **Timeline | Events | Analog | Digital**; Articles remain reachable by direct URL but are no longer a navigation or indexing surface. Catalog pages are indexable (`index, follow`) and self-canonicalize. Routes, collections and directories use `analog` and `digital` consistently; no redirects or route aliases.
 
 The independently authored catalogs do not depend on Golden Timeline/Events, Companies, People or Articles, alter viewer state, or enter `/export.json`. Preserve authored Japanese Articles. Keep Astro static output, plain CSS, no database/framework/chart library/runtime fetching, and no generalized Golden technology taxonomy.
 

@@ -26,14 +26,14 @@ Publication is a sequence of explicit owner actions. Normal CI never deploys the
 ## Publish and verify
 
 5. Confirm the repository's GitHub plan/visibility supports Pages, then select **GitHub Actions** as the Pages source in **Settings → Pages**.
-6. In **Actions**, manually run **Deploy GitHub Pages (manual)** on `main`. It validates the locked dependency tree, builds for the deployment target selected by the optional repository Actions Variables `SITE` and `BASE_URL`, uploads the static artifact, and deploys it with GitHub's Pages actions. If those variables are unset, the current target remains `https://ds54e.github.io/ams-signals/`.
-7. Open the deployed URL (currently `https://ds54e.github.io/ams-signals/`) and run the critical production smoke suite:
+6. In **Actions**, manually run **Deploy GitHub Pages (manual)** on `main`. It validates the locked dependency tree, builds for the deployment target selected by the optional repository Actions Variables `SITE` and `BASE_URL`, uploads the static artifact, and deploys it with GitHub's Pages actions. Production currently sets `SITE=https://ams-signals.com` and `BASE_URL=/`; if those variables are ever unset, the build falls back to `https://ds54e.github.io/ams-signals/`.
+7. Open the deployed URL (currently `https://ams-signals.com/`) and run the critical production smoke suite:
 
    ```bash
-   PLAYWRIGHT_BASE_URL=https://ds54e.github.io/ams-signals/ npx playwright test
+   PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test
    ```
 
-8. Confirm the deployed home page still contains `<meta name="robots" content="noindex, nofollow">` and manually inspect the Timeline, Events view, Articles, `/analog/`, `/digital/`, `/export.json`, one Event-to-source path, and a narrow viewport. Confirm that the built catalog routes are only `/analog/` and `/digital/`, with no compatibility pages or redirects.
+8. Confirm the indexing boundary on the deployed site. `/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/` contain `<meta name="robots" content="index, follow">` and exactly one self-referential canonical link. `/articles/` and `/articles/<slug>/` remain live and reachable but contain `<meta name="robots" content="noindex, follow">`. Fetch `/sitemap.xml` and confirm it lists only the indexable routes — no Articles and no `export.json` — then fetch `/robots.txt` and confirm it allows crawling and advertises the sitemap. Finally inspect the Timeline, Events view, one Article by direct URL, `/analog/`, `/digital/`, `/export.json`, one Event-to-source path, and a narrow viewport. Confirm that the built catalog routes are only `/analog/` and `/digital/`, with no compatibility pages or redirects. The old `https://ds54e.github.io/ams-signals/...` forms survive only as compatibility redirects to `https://ams-signals.com/...`.
 9. Create the agreed v1.0 tag and GitHub Release only after the deployed site passes those checks.
 
 Repository description/topics and deletion of already-merged branches are presentation choices. A license or an explicit no-license decision is required owner review, but none of those choices should be hidden inside deployment automation.
@@ -41,7 +41,7 @@ Repository description/topics and deletion of already-merged branches are presen
 
 ## Custom-domain cutover
 
-Keep the custom-domain migration separate from search indexing. The site can first move domains while retaining `noindex, nofollow`, then enable indexing in a later reviewed change.
+Keep the custom-domain migration separate from search indexing. The cutover to `https://ams-signals.com/` is complete; indexing is maintained as a separate reviewed post-cutover change, and the steps below record the sequence used and remain the rollback path.
 
 1. Choose and register the domain. Do not change the repository's default deployment yet.
 2. Verify domain ownership in GitHub using the account-level Pages domain verification flow and keep the DNS TXT verification record in place.
@@ -50,7 +50,7 @@ Keep the custom-domain migration separate from search indexing. The site can fir
 5. In **Settings → Secrets and variables → Actions → Variables**, set:
    - `SITE=https://<custom-domain>`
    - `BASE_URL=/`
-6. Manually run **Deploy GitHub Pages (manual)**. Keep `noindex, nofollow` in this first custom-domain deployment.
+6. Manually run **Deploy GitHub Pages (manual)**. The first custom-domain deployment keeps `noindex, nofollow`; indexing is maintained as a separate reviewed change.
 7. Verify the new root deployment and old-URL redirects:
    - `/`
    - `/analog/`
@@ -59,4 +59,4 @@ Keep the custom-domain migration separate from search indexing. The site can fir
    - `/export.json`
    - the old `https://ds54e.github.io/ams-signals/...` forms of the same routes
 8. Verify HTTPS before enabling indexing. A failed custom-domain cutover should be rolled back by clearing the Pages custom domain, unsetting `SITE`/`BASE_URL`, restoring the previous DNS state, and manually redeploying the default target.
-9. Search indexing, canonical URLs, sitemap/robots changes, analytics, and Search Console are a separate post-cutover change. Do not combine them with the DNS move.
+9. Search indexing, canonical URLs, sitemap/robots changes, analytics, and Search Console stay a separate post-cutover change. Do not combine them with the DNS move. Once that separate indexing change is deployed, verify the indexing contract; analytics and Search Console remain out of scope.

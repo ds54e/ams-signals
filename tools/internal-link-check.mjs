@@ -165,10 +165,11 @@ const articlesIndexHtml = await readFile(path.join(outputRoot, 'articles', 'inde
 const homeInspectorUrls = inspectorEventUrls(homeHtml, 'Timeline');
 const activeCompanyIds = new Set(events.flatMap((event) => event.companies));
 
-requireHref(homeHtml, `${siteBase}articles/`, 'Timeline navigation');
-requireHref(eventsIndexHtml, `${siteBase}articles/`, 'Events navigation');
-requireHref(articlesIndexHtml, siteBase, 'Articles navigation');
-requireHref(articlesIndexHtml, `${siteBase}events/`, 'Articles navigation');
+// Articles are no longer part of the primary navigation, so the home and Events
+// index pages are not required to link to them. The Articles index itself must
+// still resolve its own brand and Events links.
+requireHref(articlesIndexHtml, siteBase, 'Articles index');
+requireHref(articlesIndexHtml, `${siteBase}events/`, 'Articles index');
 
 for (const event of events) {
   const eventPath = `${siteBase}events/${event.id}/`;
