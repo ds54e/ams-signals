@@ -71,7 +71,7 @@ The manual Pages workflow reads optional repository **Actions Variables** named 
 
 ## Publication policy
 
-Publication is intentionally owner-controlled. The checked-in GitHub Pages workflow runs only by manual dispatch; repository visibility, Pages configuration, deployment, and the v1.0 tag/release are separate actions.
+Publication is intentionally owner-controlled. The checked-in GitHub Pages workflow runs only by manual dispatch; repository visibility, Pages configuration, and deployment remain separate owner actions. Git tags and GitHub Releases are not part of the normal publication process: they are created only by explicit owner decision, when a stable external release point is actually needed.
 
 The generated site is indexable by default. `/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/` emit `<meta name="robots" content="index, follow">`, carry one self-referential canonical URL derived from the configured deployment target, and are advertised in `/sitemap.xml`. The researched Articles are deliberately excluded from indexing: `/articles/` and `/articles/<slug>/` stay live and reachable by direct URL — existing shared links keep working — but emit `noindex, follow` and never appear in the sitemap. `robots.txt` allows crawling and advertises the sitemap; it does not disallow `/articles/`, so crawlers can fetch those pages and read the directive for themselves. Indexing policy is not access control: it does not make a public repository, its files, commits, or pull requests undiscoverable.
 

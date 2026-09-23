@@ -6,21 +6,7 @@ Publication is a sequence of explicit owner actions. Normal CI never deploys the
 
 1. Merge the release-readiness PR only after its repository/history, source, and browser-test audits are accepted. Once merged, remove the now-completed `RELEASE_V1.md` and `RELEASE_V1_REVIEW_NOTES.md` briefs from `main`; their durable rules live in `AGENTS.md`, `README.md`, and this checklist.
 2. Decide the reuse policy. The owner may choose no license or different licenses for the site code and Golden factual compilation.
-3. Review the PR metadata/history audit. The following prior branches have trees identical to their merged squash commits and can be deleted for repository hygiene:
-
-   - `bootstrap-v1`
-   - `source-status-foundation`
-   - `research/apple-v1`
-   - `research/wave1-v1`
-   - `feat/visualization-v1`
-
-   If the owner chooses to clean them before publication, the exact remote cleanup is:
-
-   ```bash
-   git push origin --delete bootstrap-v1 source-status-foundation research/apple-v1 research/wave1-v1 feat/visualization-v1
-   ```
-
-   Delete the `feat/release-v1-readiness` PR branch after it is merged as well. Branch deletion reduces public clutter; it does not erase commits already reachable from `main`.
+3. Review the PR metadata/history audit. Merged PR head branches are deleted automatically by the repository setting `delete_branch_on_merge`, so no manual cleanup step is required. Completed work branches are not retained as historical archives; `main` history and the pull requests themselves are the normal historical record.
 4. Intentionally change repository visibility. Remember that `noindex` is not access control for repository files, commits, branches, or pull requests.
 
 ## Publish and verify
@@ -34,9 +20,9 @@ Publication is a sequence of explicit owner actions. Normal CI never deploys the
    ```
 
 8. Confirm the indexing boundary on the deployed site. `/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/` contain `<meta name="robots" content="index, follow">` and exactly one self-referential canonical link. `/articles/` and `/articles/<slug>/` remain live and reachable but contain `<meta name="robots" content="noindex, follow">`. Fetch `/sitemap.xml` and confirm it lists only the indexable routes — no Articles and no `export.json` — then fetch `/robots.txt` and confirm it allows crawling and advertises the sitemap. Finally inspect the Timeline, Events view, one Article by direct URL, `/analog/`, `/digital/`, `/export.json`, one Event-to-source path, and a narrow viewport. Confirm that the built catalog routes are only `/analog/` and `/digital/`, with no compatibility pages or redirects. The old `https://ds54e.github.io/ams-signals/...` forms survive only as compatibility redirects to `https://ams-signals.com/...`.
-9. Create the agreed v1.0 tag and GitHub Release only after the deployed site passes those checks.
+9. Successful deployment does not require a Git tag or GitHub Release, and the normal publication process creates neither. Create a tag or Release only on explicit owner decision, when a stable public release point is actually needed.
 
-Repository description/topics and deletion of already-merged branches are presentation choices. A license or an explicit no-license decision is required owner review, but none of those choices should be hidden inside deployment automation.
+Repository description/topics are presentation choices. A license or an explicit no-license decision is required owner review, but none of those choices should be hidden inside deployment automation.
 
 
 ## Custom-domain cutover
