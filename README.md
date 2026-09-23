@@ -83,6 +83,14 @@ Production uses **Cloudflare Web Analytics**, emitted as a single beacon script 
 
 The beacon is emitted **only** when the configured deployment origin is `ams-signals.com`. The code-level fallback (`https://ds54e.github.io/ams-signals/`) and the CI root-shape target (`https://migration-test.invalid/`) build uninstrumented, so test and preview output never contacts the analytics endpoint. `tools/check-analytics.mjs` enforces this per page and is part of `npm run check`. No Google Analytics (GA4), Google Tag Manager, cookies, or other analytics provider is installed.
 
+Analytics verification has three distinct levels, because a production-instrumented build behaves differently depending on where it is served:
+
+1. **Local fallback smoke** — `npm run test:smoke` runs against the uninstrumented fallback build and must pass with zero beacons.
+2. **Production-shaped deterministic contract** — `SITE=https://ams-signals.com BASE_URL=/ npm run check` must pass and prove every built HTML page is instrumented. This is the authoritative statement that production HTML carries exactly one beacon.
+3. **Deployed production browser suite** — run after a merge and deploy against the real `https://ams-signals.com/`. Only there does the beacon's collector accept the page origin; Cloudflare rejects a localhost preview origin, so a local production-shaped browser run is not a substitute for this step.
+
+Note the third level's known limitation: the two catalog tests that assert no external requests will observe the beacon's own traffic on a deployed instrumented site, which is why `tests/smoke/catalog-index.ts` recognises the exact Cloudflare analytics origins via `isAnalyticsRequest()` and still rejects every other cross-origin request.
+
 ## License
 
 No code or content reuse license has been selected. Public visibility alone does not grant permission to reuse the software, Golden compilation, or site content.
