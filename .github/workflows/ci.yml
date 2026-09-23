@@ -34,6 +34,12 @@ jobs:
       - name: Validate content, build, and audit links
         run: npm run check
 
+      - name: Validate root-domain deployment shape
+        env:
+          SITE: https://migration-test.invalid
+          BASE_URL: /
+        run: npm run build && npm run check:internal-links
+
   browser-smoke:
     name: Chromium smoke tests
     runs-on: ubuntu-latest

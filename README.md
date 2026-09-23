@@ -67,6 +67,8 @@ SITE=https://example.com BASE_URL=/ npm run test:smoke
 
 Unsetting both variables restores the default target. Explicitly set but invalid values fail with an explanation instead of falling back. The internal-link audit (`npm run check:internal-links`) audits whichever target the build was configured for; pass the same `SITE` / `BASE_URL` when auditing a non-default `dist/`.
 
+The manual Pages workflow reads optional repository **Actions Variables** named `SITE` and `BASE_URL`. If they are unset, deployment remains `https://ds54e.github.io/ams-signals/`. A future root-domain cutover can therefore set `SITE=https://<custom-domain>` and `BASE_URL=/` without changing the workflow itself. CI continuously rebuilds the root-domain shape against `https://migration-test.invalid/` so path regressions are caught before an actual DNS cutover.
+
 ## Publication policy
 
 Publication is intentionally owner-controlled. The checked-in GitHub Pages workflow runs only by manual dispatch; repository visibility, Pages configuration, deployment, and the v1.0 tag/release are separate actions. The generated site retains `noindex, nofollow`: this limits intentional search-engine indexing, but it is not access control and does not make a public repository undiscoverable.
