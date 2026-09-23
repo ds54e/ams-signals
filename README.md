@@ -81,15 +81,16 @@ See `RELEASING.md` for the short human publication sequence and post-deployment 
 
 Production uses **Cloudflare Web Analytics**, emitted as a single beacon script from `src/layouts/BaseLayout.astro` on every built HTML page. The site token is public — it is served inside page HTML and is not a Cloudflare API credential — and the emission rule lives in `src/lib/analytics.mjs`.
 
-The beacon is emitted **only** when the configured deployment origin is `ams-signals.com`. The code-level fallback (`https://ds54e.github.io/ams-signals/`) and the CI root-shape target (`https://migration-test.invalid/`) build uninstrumented, so test and preview output never contacts the analytics endpoint. `tools/check-analytics.mjs` enforces this per page and is part of `npm run check`. No Google Analytics (GA4), Google Tag Manager, cookies, or other analytics provider is installed.
+The beacon is emitted **only** when the configured deployment origin is `ams-signals.com`. The code-level fallback (`https://ds54e.github.io/ams-signals/`) and the CI root-shape target (`https://migration-test.invalid/`) build uninstrumented. `tools/check-analytics.mjs` enforces this per page and is part of `npm run check`. No Google Analytics (GA4), Google Tag Manager, cookies, or other analytics provider is installed.
 
-Analytics verification has three distinct levels, because a production-instrumented build behaves differently depending on where it is served:
+Verification has four levels, because an instrumented build behaves differently from an uninstrumented one:
 
-1. **Local fallback smoke** — `npm run test:smoke` runs against the uninstrumented fallback build and must pass with zero beacons.
-2. **Production-shaped deterministic contract** — `SITE=https://ams-signals.com BASE_URL=/ npm run check` must pass and prove every built HTML page is instrumented. This is the authoritative statement that production HTML carries exactly one beacon.
-3. **Deployed production browser suite** — run after a merge and deploy against the real `https://ams-signals.com/`. Only there does the beacon's collector accept the page origin; Cloudflare rejects a localhost preview origin, so a local production-shaped browser run is not a substitute for this step.
+1. **Fallback/local smoke** — `npm run test:smoke` runs against the uninstrumented fallback build; the normal suite must pass with zero beacons.
+2. **Production-shaped deterministic contract** — `SITE=https://ams-signals.com BASE_URL=/ npm run check` must pass and prove every production HTML page contains exactly one correct beacon (currently 327/327). This is the authoritative statement about production markup.
+3. **Deployed production browser suite** — `SITE=https://ams-signals.com BASE_URL=/ PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test` runs against the real deployed application. Playwright narrowly intercepts the exact Cloudflare analytics origins, so this suite validates the deployed application and the served beacon markup — **not** Cloudflare ingestion. The interception is deliberate: tests must not generate fake analytics traffic or depend on collector availability, and it leaves every other browser-error guard intact.
+4. **Live analytics ingestion confirmation** — after deployment, open `https://ams-signals.com/` normally in a real browser with no Playwright interception, and confirm Page views and Visits begin appearing in the Cloudflare Web Analytics dashboard. This is the actual end-to-end ingestion check.
 
-Note the third level's known limitation: the two catalog tests that assert no external requests will observe the beacon's own traffic on a deployed instrumented site, which is why `tests/smoke/catalog-index.ts` recognises the exact Cloudflare analytics origins via `isAnalyticsRequest()` and still rejects every other cross-origin request.
+Because interception answers only those exact origins, `tests/smoke/catalog-index.ts` still observes the analytics requests and recognises them through `isAnalyticsRequest()`, while continuing to reject every other cross-origin request and every unrelated browser error.
 
 ## License
 
