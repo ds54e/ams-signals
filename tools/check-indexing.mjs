@@ -94,9 +94,12 @@ async function auditIndexing({ projectRoot, outputRoot, origin, siteBase }) {
 
   // --- Built HTML: robots + canonical -------------------------------------
   const navReports = [];
-  // Canonical URLs of pages that declare themselves indexable. Compared against
-  // the sitemap below; Articles are excluded because they are noindex.
+  // Canonical URLs bucketed by the directive each page actually emits. The
+  // indexable set is compared against the sitemap below; the noindex set backs
+  // the reported statistics, which must describe the built site (it includes
+  // the /articles/ index) rather than the authored Article count alone.
   const indexableCanonicals = new Set();
+  const noindexCanonicals = new Set();
 
   for (const file of htmlFiles) {
     const html = await readFile(file, 'utf8');
@@ -124,6 +127,7 @@ async function auditIndexing({ projectRoot, outputRoot, origin, siteBase }) {
     );
 
     if (robotsValue === INDEXABLE) indexableCanonicals.add(expectedCanonical);
+    else if (robotsValue === EXCLUDED) noindexCanonicals.add(expectedCanonical);
 
     const nav = html.match(/<nav\b[^>]*\baria-label="Primary"[^>]*>([\s\S]*?)<\/nav>/i)?.[1];
     if (nav !== undefined) {
@@ -222,12 +226,21 @@ async function auditIndexing({ projectRoot, outputRoot, origin, siteBase }) {
     expect(!/^Disallow: *\/articles/m.test(robots), 'robots.txt disallows /articles/');
   }
 
+  // Every page carries exactly one directive, so the two buckets must account
+  // for the entire build; otherwise the reported statistics would be wrong.
+  expect(
+    indexableCanonicals.size + noindexCanonicals.size === htmlFiles.length,
+    `page directive counts do not add up: ${indexableCanonicals.size} "${INDEXABLE}" + `
+    + `${noindexCanonicals.size} "${EXCLUDED}" != ${htmlFiles.length} built HTML page(s)`,
+  );
+
   return {
     errors,
     stats: {
       pages: htmlFiles.length,
-      articles: articleSlugs.length,
       indexable: indexableCanonicals.size,
+      noindex: noindexCanonicals.size,
+      articleDetails: articleSlugs.length,
       sitemapUrls: sitemapLocations?.length ?? 0,
     },
   };
@@ -302,8 +315,10 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Validated indexing policy across ${audited.stats.pages} built HTML page(s) at ${origin}${siteBase}: `
-  + `${audited.stats.articles} Articles page(s) as "${EXCLUDED}", ${audited.stats.indexable} page(s) as "${INDEXABLE}", `
-  + `a matching ${audited.stats.sitemapUrls}-URL sitemap, and a permissive robots.txt. `
+  `Validated indexing policy at ${origin}${siteBase}: ${audited.stats.pages} built HTML page(s) — `
+  + `${audited.stats.indexable} indexable, ${audited.stats.noindex} noindex `
+  + `(${audited.stats.articleDetails} of the noindex pages are authored Article detail pages, `
+  + 'plus the Articles index) — with a matching '
+  + `${audited.stats.sitemapUrls}-URL sitemap and a permissive robots.txt. `
   + 'Detection self-check confirmed the sitemap cross-check rejects an unlisted indexable page.',
 );

@@ -58,16 +58,16 @@ npm run test:smoke
 
 ## Deployment target overrides
 
-The published target defaults to `https://ds54e.github.io` with the base path `/ams-signals`. Both are resolved from the environment (`SITE` and `BASE_URL`) with validation, so an alternate target — for example a root-based custom domain — can be exercised locally:
+The code-level fallback target is `https://ds54e.github.io` with the base path `/ams-signals`. Both are resolved from the environment (`SITE` and `BASE_URL`) with validation, so an alternate target — for example the root-based production domain — can be exercised locally:
 
 ```bash
 SITE=https://example.com BASE_URL=/ npm run check
 SITE=https://example.com BASE_URL=/ npm run test:smoke
 ```
 
-Unsetting both variables restores the default target. Explicitly set but invalid values fail with an explanation instead of falling back. The internal-link audit (`npm run check:internal-links`) audits whichever target the build was configured for; pass the same `SITE` / `BASE_URL` when auditing a non-default `dist/`.
+Unsetting both variables restores the fallback target. Explicitly set but invalid values fail with an explanation instead of falling back. The internal-link audit (`npm run check:internal-links`) audits whichever target the build was configured for; pass the same `SITE` / `BASE_URL` when auditing a non-default `dist/`.
 
-The manual Pages workflow reads optional repository **Actions Variables** named `SITE` and `BASE_URL`. If they are unset, deployment remains `https://ds54e.github.io/ams-signals/`. A future root-domain cutover can therefore set `SITE=https://<custom-domain>` and `BASE_URL=/` without changing the workflow itself. CI continuously rebuilds the root-domain shape against `https://migration-test.invalid/` so path regressions are caught before an actual DNS cutover.
+The manual Pages workflow reads optional repository **Actions Variables** named `SITE` and `BASE_URL`. Production currently overrides the fallback through those variables, selecting `SITE=https://ams-signals.com` and `BASE_URL=/`, so the deployed site is served from the domain root. If the variables are ever unset, the build falls back to `https://ds54e.github.io/ams-signals/` and no workflow change is needed to move between the two. Independently of the configured target, CI continuously rebuilds and audits the root-domain shape against `https://migration-test.invalid/` with `BASE_URL=/`, so path regressions are caught without depending on the production deployment.
 
 ## Publication policy
 
