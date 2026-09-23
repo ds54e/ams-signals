@@ -136,3 +136,14 @@ Keep the implementation deliberately small:
 - no permanent technology taxonomy for the Golden factual corpus
 
 Do not introduce React, a CMS, vector database, runtime AI summaries, or source-archive infrastructure without a concrete need that cannot be met by the existing design.
+
+## Git attribution and repository hygiene
+
+- Do not add `Co-authored-by` trailers for AI assistants, coding agents, bots, or automation.
+- Do not make AI assistants, coding agents, bots, or automation commit authors or co-authors. GitHub's server-side committer identity on an owner-initiated web merge is acceptable.
+- Repository commits use `ds54e <17592097+ds54e@users.noreply.github.com>` unless the owner explicitly directs otherwise.
+- A workflow explicitly authorized to create commits must configure that identity before committing.
+- Do not create Git tags or GitHub Releases unless the owner explicitly requests them.
+- Use temporary work branches; merged head branches are deleted automatically.
+- Do not keep completed branches as archives.
+- Do not force-push or rewrite `main` history without explicit owner authorization for a specific rewrite.
