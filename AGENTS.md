@@ -140,7 +140,7 @@ Do not introduce React, a CMS, vector database, runtime AI summaries, or source-
 ## Git attribution and repository hygiene
 
 - Do not add `Co-authored-by` trailers for AI assistants, coding agents, bots, or automation.
-- Do not make AI or automation identities commit authors or committers.
+- Do not make AI assistants, coding agents, bots, or automation commit authors or co-authors. GitHub's server-side committer identity on an owner-initiated web merge is acceptable.
 - Repository commits use `ds54e <17592097+ds54e@users.noreply.github.com>` unless the owner explicitly directs otherwise.
 - A workflow explicitly authorized to create commits must configure that identity before committing.
 - Do not create Git tags or GitHub Releases unless the owner explicitly requests them.
