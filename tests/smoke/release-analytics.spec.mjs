@@ -20,16 +20,9 @@ installBrowserErrorGuards(test);
 const deployment = resolveSiteDeployment(process.env);
 const expectedCount = analyticsEnabledFor(new URL(deployment.origin)) ? 1 : 0;
 
-// The external beacon is stubbed so the assertion is about emitted markup rather
-// than reaching Cloudflare: a blocked or offline network must not make this spec
-// flaky, and no real analytics event is required to pass.
-test.beforeEach(async ({ page }) => {
-  await page.route('**/static.cloudflareinsights.com/**', (route) => route.fulfill({
-    status: 200,
-    contentType: 'application/javascript',
-    body: '',
-  }));
-});
+// No local stub: installBrowserErrorGuards already answers the Cloudflare
+// analytics requests on an instrumented target, so the beacon script loads empty
+// and the assertion is about emitted markup rather than reaching Cloudflare.
 
 for (const route of ['', 'articles/pll-metamorphic-testing/']) {
   test(`analytics beacon is ${expectedCount === 1 ? 'emitted once' : 'absent'} on /${route}`, async ({ page }) => {

@@ -16,6 +16,33 @@ export const ANALYTICS_SITE_TOKEN = '897881606f41408d8198fac48687f5b2';
 /** Beacon script served from Cloudflare's static host. */
 export const ANALYTICS_BEACON_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
 
+/** Collector that the beacon reports page views to. */
+export const ANALYTICS_COLLECTOR_ORIGIN = 'https://cloudflareinsights.com';
+
+/**
+ * The only origins Cloudflare Web Analytics traffic can come from. Kept narrow
+ * and exact: consumers use it to recognise this deliberate integration, never to
+ * ignore third-party traffic in general.
+ */
+export const ANALYTICS_REQUEST_ORIGINS = Object.freeze([
+  new URL(ANALYTICS_BEACON_SRC).origin,
+  ANALYTICS_COLLECTOR_ORIGIN,
+]);
+
+/**
+ * Whether `url` belongs to Cloudflare Web Analytics. Accepts a URL or a string;
+ * anything unparseable is not analytics traffic.
+ */
+export function isAnalyticsRequest(url) {
+  let origin;
+  try {
+    origin = new URL(url).origin;
+  } catch {
+    return false;
+  }
+  return ANALYTICS_REQUEST_ORIGINS.includes(origin);
+}
+
 /**
  * Whether a deployment configured for `site` should emit the analytics beacon.
  * `site` is the configured Astro `site` URL holding the public origin, so only
