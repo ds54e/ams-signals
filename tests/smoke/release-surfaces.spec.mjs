@@ -38,7 +38,10 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   expect(new URL(page.url()).pathname).toBe(basePath);
   await expect(page).toHaveTitle('AMS Signals');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${publicOrigin}${basePath}`);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RNM|mixed-signal/i);
   await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Timeline');
   await expect(page.locator('main > .intro')).toHaveCount(0);
@@ -47,8 +50,8 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('href', `${basePath}articles/`);
-  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Analysis', exact: true })).toHaveCount(0);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
@@ -86,7 +89,8 @@ test('Articles publishes every authored document and keeps editorial links separ
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     await expect(page.locator('a[href*="/analysis/"]')).toHaveCount(0);
-    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
+    await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+    await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
   }
 
   const indexResponse = await page.request.get('./analysis/');
@@ -96,16 +100,19 @@ test('Articles publishes every authored document and keeps editorial links separ
 
   await page.goto('./?q=PLL&companies=apple');
   await expectExplorerReady(page);
-  const articlesLink = page.getByRole('link', { name: 'Articles', exact: true });
-  await expect(articlesLink).toHaveAttribute('href', `${basePath}articles/`);
-  await expect(articlesLink).not.toHaveAttribute('data-filter-view-link', '');
-  await articlesLink.click();
+
+  // Articles are no longer a navigation surface, but every URL stays live and
+  // must remain reachable by a direct request.
+  const articlesResponse = await page.goto('./articles/');
+  expect(articlesResponse?.status()).toBe(200);
   await page.waitForLoadState('load');
 
   expect(new URL(page.url()).pathname).toBe(`${basePath}articles/`);
   expect(new URL(page.url()).search).toBe('');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
   await expect(page).toHaveTitle('Articles · AMS Signals');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${publicOrigin}${basePath}articles/`);
   await expect(page.locator('h1#articles-heading')).toHaveText('Articles');
   await expect(page.locator('h1#articles-heading')).toHaveClass(/visually-hidden/);
   await expect(page.locator('.article-index .eyebrow, .article-index-header')).toHaveCount(0);
@@ -160,7 +167,8 @@ test('Articles publishes every authored document and keeps editorial links separ
   expect(indexLayout.rowDisplay).toBe('grid');
   expect(indexLayout.titleFontSize).toBeLessThanOrEqual(18);
   await expect(page.locator('main article')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
   expect((await page.request.get('./articles/__nonexistent-smoke-route__/')).status()).toBe(404);
@@ -172,7 +180,11 @@ test('Articles publishes every authored document and keeps editorial links separ
     await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
     await expect(page.getByRole('heading', { name: article.title, exact: true, level: 1 })).toBeVisible();
     await expect(page.locator('.article-page > .back-link, .article-header .eyebrow')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveAttribute('aria-current', 'page');
+    // An Article URL is live but explicitly excluded from indexing.
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+    await expect(page.locator('link[rel="canonical"]'))
+      .toHaveAttribute('href', `${publicOrigin}${new URL(article.href).pathname}`);
+    await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
     await expect(page.getByRole('link', { name: 'Timeline', exact: true })).not.toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('link', { name: 'Events', exact: true })).not.toHaveAttribute('aria-current', 'page');
 
@@ -836,8 +848,8 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Analog', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Digital', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
+  await expect(page.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
 });

@@ -6,18 +6,25 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
+  // Indexing policy for this page. Public pages are indexable by default; the
+  // Articles surfaces opt out explicitly with "noindex, follow" while staying
+  // reachable by direct URL. Exactly one robots directive is emitted per page.
+  robots?: string;
 }
 
 const {
   title = 'AMS Signals',
   description = 'Public signals in RNM and mixed-signal verification.',
   lang = 'en',
+  robots = 'index, follow',
 } = Astro.props;
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
-const inArticles = Astro.url.pathname.startsWith(sitePath('articles/'));
 const inAnalog = Astro.url.pathname.startsWith(sitePath('analog/'));
 const inDigital = Astro.url.pathname.startsWith(sitePath('digital/'));
 const inTimeline = Astro.url.pathname === sitePath('');
+// Self-referential canonical, derived from the configured deployment target
+// (Astro `site` + base) so no page hard-codes a production origin.
+const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? new URL(Astro.url.origin)).href;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -25,7 +32,8 @@ const inTimeline = Astro.url.pathname === sitePath('');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalHref} />
     <title>{title}</title>
   </head>
   <body>
@@ -36,7 +44,6 @@ const inTimeline = Astro.url.pathname === sitePath('');
         <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
         <a href={sitePath('analog/')} aria-current={inAnalog ? 'page' : undefined}>Analog</a>
         <a href={sitePath('digital/')} aria-current={inDigital ? 'page' : undefined}>Digital</a>
-        <a href={sitePath('articles/')} aria-current={inArticles ? 'page' : undefined}>Articles</a>
       </nav>
     </header>
     <main class="page-shell">
