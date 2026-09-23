@@ -75,9 +75,15 @@ for (const viewport of viewports) {
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
-      await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
-      await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+      await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+      // Articles are no longer a navigation surface, so no nav item is current there.
+      if (surface === 'articles') {
+        await expect(nav.locator('[aria-current="page"]')).toHaveCount(0);
+      } else {
+        await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
+      }
+      await expect(page.locator('meta[name="robots"]'))
+        .toHaveAttribute('content', surface === 'articles' ? 'noindex, follow' : 'index, follow');
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
       const report = await indexStyles(page);
       reports.push(report);

@@ -50,14 +50,14 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} starts with one sparse, activity-ordered project index`, async ({ page }) => {
     expect((await open(page))!.ok()).toBe(true);
     const nav = page.getByRole('navigation', { name: 'Primary' });
-    await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital', 'Articles']);
+    await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
     await expect(nav.locator('[aria-current="page"]')).toHaveText(label);
     for (const [text, route] of [['Analog', 'analog'], ['Digital', 'digital']]) {
       await expect(nav.getByRole('link', { name: text, exact: true })).toHaveAttribute('href', `${basePath}${route}/`);
     }
     await expect(page).toHaveTitle(`${label} · AMS Signals`);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
     const h1 = page.getByRole('heading', { level: 1 });
     await expect(h1).toHaveText(label); await expect(h1).toHaveClass('visually-hidden');
     expect((await h1.boundingBox())!.width).toBeLessThanOrEqual(1);
@@ -433,13 +433,18 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(new URL(page.url()).search).toBe('');
     expect(await page.evaluate(() => Object.entries(localStorage))).toEqual(before);
     expect(external).toEqual([]);
-    for (const name of ['Timeline', 'Events', 'Articles']) {
+    for (const name of ['Timeline', 'Events']) {
       await nav.getByRole('link', { name, exact: true }).click();
       await expect(nav.locator('[aria-current="page"]')).toHaveText(name);
       expect(new URL(page.url()).search).toBe('');
-      if (name !== 'Articles') await expect(page.locator('[data-search]')).toHaveValue('');
+      await expect(page.locator('[data-search]')).toHaveValue('');
       await page.goBack(); await expect(rows(page)).toHaveCount(projects.length);
     }
+    // Articles left the primary navigation; its URL is still directly reachable.
+    await expect(nav.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
+    const articlesResponse = await page.goto('./articles/');
+    expect(articlesResponse!.status()).toBe(200);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
   });
 
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
