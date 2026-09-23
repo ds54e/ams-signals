@@ -77,6 +77,12 @@ The generated site is indexable by default. `/`, `/events/`, `/events/<id>/`, `/
 
 See `RELEASING.md` for the short human publication sequence and post-deployment verification.
 
+## Analytics
+
+Production uses **Cloudflare Web Analytics**, emitted as a single beacon script from `src/layouts/BaseLayout.astro` on every built HTML page. The site token is public — it is served inside page HTML and is not a Cloudflare API credential — and the emission rule lives in `src/lib/analytics.mjs`.
+
+The beacon is emitted **only** when the configured deployment origin is `ams-signals.com`. The code-level fallback (`https://ds54e.github.io/ams-signals/`) and the CI root-shape target (`https://migration-test.invalid/`) build uninstrumented, so test and preview output never contacts the analytics endpoint. `tools/check-analytics.mjs` enforces this per page and is part of `npm run check`. No Google Analytics (GA4), Google Tag Manager, cookies, or other analytics provider is installed.
+
 ## License
 
 No code or content reuse license has been selected. Public visibility alone does not grant permission to reuse the software, Golden compilation, or site content.
