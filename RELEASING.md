@@ -41,7 +41,7 @@ Repository description/topics and deletion of already-merged branches are presen
 
 ## Custom-domain cutover
 
-Keep the custom-domain migration separate from search indexing. The site can first move domains while retaining `noindex, nofollow`, then enable indexing in a later reviewed change. The cutover to `https://ams-signals.com/` is now complete, and that separate indexing change has shipped; the steps below record the sequence used and remain the rollback path.
+Keep the custom-domain migration separate from search indexing. The cutover to `https://ams-signals.com/` is complete; indexing is maintained as a separate reviewed post-cutover change, and the steps below record the sequence used and remain the rollback path.
 
 1. Choose and register the domain. Do not change the repository's default deployment yet.
 2. Verify domain ownership in GitHub using the account-level Pages domain verification flow and keep the DNS TXT verification record in place.
@@ -50,7 +50,7 @@ Keep the custom-domain migration separate from search indexing. The site can fir
 5. In **Settings → Secrets and variables → Actions → Variables**, set:
    - `SITE=https://<custom-domain>`
    - `BASE_URL=/`
-6. Manually run **Deploy GitHub Pages (manual)**. The first custom-domain deployment deliberately kept `noindex, nofollow`; indexing was enabled afterwards in the separate reviewed change described above.
+6. Manually run **Deploy GitHub Pages (manual)**. The first custom-domain deployment keeps `noindex, nofollow`; indexing is maintained as a separate reviewed change.
 7. Verify the new root deployment and old-URL redirects:
    - `/`
    - `/analog/`
@@ -59,4 +59,4 @@ Keep the custom-domain migration separate from search indexing. The site can fir
    - `/export.json`
    - the old `https://ds54e.github.io/ams-signals/...` forms of the same routes
 8. Verify HTTPS before enabling indexing. A failed custom-domain cutover should be rolled back by clearing the Pages custom domain, unsetting `SITE`/`BASE_URL`, restoring the previous DNS state, and manually redeploying the default target.
-9. Search indexing, canonical URLs, sitemap/robots changes, analytics, and Search Console stay a separate post-cutover change. Do not combine them with the DNS move. The indexing half has since shipped on its own; analytics and Search Console remain out of scope.
+9. Search indexing, canonical URLs, sitemap/robots changes, analytics, and Search Console stay a separate post-cutover change. Do not combine them with the DNS move. Once that separate indexing change is deployed, verify the indexing contract; analytics and Search Console remain out of scope.
