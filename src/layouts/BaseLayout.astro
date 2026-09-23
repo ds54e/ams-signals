@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { sitePath } from '../lib/paths';
+import { ANALYTICS_BEACON_SRC, ANALYTICS_SITE_TOKEN, analyticsEnabledFor } from '../lib/analytics.mjs';
 
 interface Props {
   title?: string;
@@ -25,6 +26,10 @@ const inTimeline = Astro.url.pathname === sitePath('');
 // Self-referential canonical, derived from the configured deployment target
 // (Astro `site` + base) so no page hard-codes a production origin.
 const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? new URL(Astro.url.origin)).href;
+// Cloudflare Web Analytics is production-only: the beacon ships solely for the
+// configured public production origin, so the legacy fallback and the CI
+// root-shape build stay uninstrumented.
+const analyticsEnabled = analyticsEnabledFor(Astro.site);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -49,5 +54,14 @@ const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? new URL(Astro.ur
     <main class="page-shell">
       <slot />
     </main>
+    {/* Cloudflare Web Analytics is emitted for the production origin only. The
+        snippet is assembled from the shared public constants so the served
+        markup matches Cloudflare's documented form exactly; the site token is
+        public and is not an API credential. */}
+    {analyticsEnabled && (
+      <Fragment
+        set:html={`<!-- Cloudflare Web Analytics --><script type="module" src="${ANALYTICS_BEACON_SRC}" data-cf-beacon='{"token": "${ANALYTICS_SITE_TOKEN}"}'></script><!-- End Cloudflare Web Analytics -->`}
+      />
+    )}
   </body>
 </html>

@@ -3,6 +3,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
 import { basePath } from './release-helpers.mjs';
+import { isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
 export async function catalogFixture(domain: 'analog' | 'digital') {
@@ -418,7 +419,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     });
   }
 
-  test(`${label} introduces no storage or external requests and preserves viewer/navigation isolation`, async ({ page }) => {
+  test(`${label} introduces no storage or unexpected external requests and preserves viewer/navigation isolation`, async ({ page }) => {
     await page.goto('./events/?q=PLL&kind=organizational&companies=apple');
     const nav = page.getByRole('navigation', { name: 'Primary' });
     const link = nav.getByRole('link', { name: label, exact: true });
@@ -432,7 +433,15 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('design');
     expect(new URL(page.url()).search).toBe('');
     expect(await page.evaluate(() => Object.entries(localStorage))).toEqual(before);
-    expect(external).toEqual([]);
+    // The shared layout deliberately adds the Cloudflare Web Analytics beacon on
+    // the production target, so its own requests are expected during a
+    // navigation. Only those exact origins are tolerated; any other cross-origin
+    // request still fails, and Search/Scope filtering above must add none.
+    const unexpectedExternalRequests = external.filter((url) => !isAnalyticsRequest(url));
+    expect(
+      unexpectedExternalRequests,
+      `unexpected cross-origin requests: ${unexpectedExternalRequests.join(', ')}`,
+    ).toEqual([]);
     for (const name of ['Timeline', 'Events']) {
       await nav.getByRole('link', { name, exact: true }).click();
       await expect(nav.locator('[aria-current="page"]')).toHaveText(name);

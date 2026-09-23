@@ -10,6 +10,7 @@
 
 import { expect } from '@playwright/test';
 import { resolveSiteDeployment } from '../../src/lib/site-deployment.mjs';
+import { analyticsEnabledFor, isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
 // The base path of the deployment under test. Defaults to the current production
 // base /ams-signals/; override with BASE_URL to run the suite against a root
@@ -31,6 +32,20 @@ export function installBrowserErrorGuards(test) {
   test.beforeEach(async ({ page }) => {
     const errors = [];
     browserErrors.set(page, errors);
+    // On an instrumented target the layout legitimately loads the Cloudflare Web
+    // Analytics beacon, whose collector refuses a localhost preview origin. That
+    // rejection would surface as unrelated console errors and would also send
+    // real analytics events from tests, so the analytics requests are answered
+    // locally. Only those exact origins are intercepted, only when the configured
+    // target is instrumented, and nothing about this site's own error reporting
+    // changes.
+    if (analyticsEnabledFor(new URL(publicOrigin))) {
+      await page.route(isAnalyticsRequest, (route) => route.fulfill({
+        status: 200,
+        contentType: 'application/javascript',
+        body: '',
+      }));
+    }
     page.on('console', (message) => {
       if (message.type() === 'error') errors.push(`console: ${message.text()}`);
     });
