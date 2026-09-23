@@ -12,6 +12,12 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Optional repository Actions variables make the manual deployment target switchable
+# without rewriting the workflow. Leaving them unset preserves the current Pages URL.
+env:
+  SITE: ${{ vars.SITE || 'https://ds54e.github.io' }}
+  BASE_URL: ${{ vars.BASE_URL || '/ams-signals' }}
+
 jobs:
   build:
     name: Build Pages artifact
