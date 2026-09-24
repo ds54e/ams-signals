@@ -23,7 +23,7 @@
       "title": "How Siemens Symphony Pro enabled AnalogPort to verify complex chip interfaces",
       "url": "https://resources.sw.siemens.com/en-US/white-paper-how-siemens-symphony-pro-enabled-analogport-to-verify-complex-chip-designs/",
       "checkedAt": "2026-09-25",
-      "summary": "Siemens' vendor-authored white paper independently documents the presented methodology's UVM extension, SPICE treatment of critical analog blocks, digital simulation of the broader system, and the 32 Gbps 16-transmit/16-receive full-duplex interface."
+      "summary": "Siemens' vendor-authored white paper separately documents the presented methodology's UVM extension, SPICE treatment of critical analog blocks, digital simulation of the broader system, and the 32 Gbps 16-transmit/16-receive full-duplex interface."
     }
   ]
 }
