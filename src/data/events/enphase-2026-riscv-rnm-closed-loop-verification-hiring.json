@@ -1,0 +1,28 @@
+{
+  "id": "enphase-2026-riscv-rnm-closed-loop-verification-hiring",
+  "when": {
+    "start": "2026-09",
+    "precision": "month"
+  },
+  "kind": "organizational",
+  "companies": [
+    "enphase"
+  ],
+  "people": [],
+  "headline": "Enphase lists processor-verification roles integrating SV-RNM with analog power-stage closed-loop verification",
+  "fact": "Enphase listed Staff and Sr. Staff processor-verification roles for a custom RISC-V VLIW processor used in energy-conversion control. The descriptions combine RTL simulation, SystemVerilog Real Number Modeling, analog simulation platforms such as NL5, C/C++ power-conversion and plant models, and Python automation in system-level mixed-signal verification, with validation of closed-loop behavior, deterministic timing, fault handling, and interactions between digital control algorithms and analog power stages.",
+  "sources": [
+    {
+      "title": "Enphase Energy Careers: Sr. Staff Engineer – Processor Verification and Compiler Validation",
+      "url": "https://jobs.jobvite.com/enphase-energy/job/og0NAfwn",
+      "checkedAt": "2026-09-25",
+      "summary": "The live official Fremont role describes the custom RISC-V VLIW processor and the system-level mixed-signal environment spanning SV-RNM, NL5, C/C++ power-stage and plant models, Python automation, and closed-loop verification."
+    },
+    {
+      "title": "Enphase Energy engineering careers",
+      "url": "https://jobs.jobvite.com/enphase-energy/search?c=Engineering&p=0",
+      "checkedAt": "2026-09-25",
+      "summary": "The live official engineering-job listing shows both Staff and Sr. Staff Processor Verification and Compiler Validation roles in Fremont during September 2026."
+    }
+  ]
+}
