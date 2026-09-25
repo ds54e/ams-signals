@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2026-vcm-fpga-svreal-comparison",
+  "when": {
+    "start": "2026-09-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "Analog Devices authors compare FPGA fixed-point modeling with an earlier SVREAL-generated implementation",
+  "fact": "Analog Devices CSS authors published an industrial case study of a synthesizable fixed-point SystemVerilog model for a Voice Coil Motor driver, derived from analog equations and deployed on FPGA for real-time emulation. The paper compares the implementation with an earlier automated real-number RTL generation flow using the SVREAL library, reports reduced FPGA resource use for the manual fixed-point implementation, and validates model fidelity against the reference analog behavioral model.",
+  "sources": [
+    {
+      "title": "Synthesizable Fixed-Point Model of a Voice Coil Motor Driver for FPGA Emulation",
+      "url": "https://www.mdpi.com/2674-0729/5/3/26",
+      "checkedAt": "2026-09-25",
+      "summary": "The September 6, 2026 Chips paper by Analog Devices CSS authors presents the VCM FPGA-emulation case, compares manual fixed-point RTL with an earlier MSDSL/SVREAL implementation, and reports FPGA resource and model-fidelity results."
+    }
+  ]
+}
