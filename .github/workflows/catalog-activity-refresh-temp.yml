@@ -1,5 +1,5 @@
 name: Catalog activity refresh (temporary)
-# retry: 2
+# retry: 3
 
 on:
   push:
