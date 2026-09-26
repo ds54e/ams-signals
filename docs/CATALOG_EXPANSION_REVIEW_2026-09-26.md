@@ -41,7 +41,7 @@ Development provenance is not inferred from runtime AI, coding-agent compatibili
 
 The initial records pin canonical repository identities, reviewed meaningful commits and schema-valid placeholder month presence. A temporary branch-only GitHub Actions workflow then runs the existing Analog and Digital refresh scripts, which clone canonical repositories and recompute first-parent monthly history, current heads and latest commit dates for the September 26 snapshot. The temporary workflow is removed before the pull request is finalized.
 
-Fresh commits do not automatically advance meaningful activity. Existing meaningful dates remain unchanged unless their post-September-22 commits are separately reviewed as substantive implementation, correctness, tests, technical maintenance or result updates.
+Fresh commits do not automatically advance meaningful activity. The focused review advances meaningful checkpoints for 8 existing Analog entries and 24 existing Digital entries where the intervening history contains substantive implementation, correctness, tests, technical maintenance or result updates. Dependency-only, CI-only, pre-commit-only and documentation-only head movement remains mechanically visible without advancing meaningful activity.
 
 ## Validation and delivery
 
