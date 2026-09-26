@@ -36,6 +36,9 @@ sources:
   - id: "development-3"
     title: "Current backend IR"
     url: "https://github.com/povik/sv-elab/blob/b6e440d6a2586b93c2a43da676c207c8c2a15778/src/yosys_plugin/ir.h"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/povik/sv-elab/commit/96767863835f3c862cea9c63052b2ce9d0b55884"
 ---
 
 

@@ -28,7 +28,7 @@ sources:
     purpose: "official"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/9e1c33ea9244067b3b901b6d5e8bb653c08886fc"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/930bb1cb1965df30dcc91ed86f7f56dd5ab4f6d2"
 ---
 
 

@@ -34,6 +34,9 @@ sources:
   - id: "activity"
     title: "Republished repository root snapshot"
     url: "https://github.com/Arcadia-1/razavi-bench/commit/e2016fc760ff2c149c6d1ee268052bbc11280ac9"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/Arcadia-1/razavi-bench/commit/4df30b65a478e4708bce35802e15dcddebb90c0d"
 ---
 ### Inputs and modes
 

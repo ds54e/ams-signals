@@ -28,7 +28,7 @@ sources:
     purpose: "official"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/steveicarus/iverilog/commit/e0ba73ba379a000a1285ff10d94f72d828d253f7"
+    url: "https://github.com/steveicarus/iverilog/commit/f8eb16c6ef2c812b95af85b4912bb497107b2959"
 ---
 
 

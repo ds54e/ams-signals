@@ -73,6 +73,9 @@ sources:
   - id: "development-2"
     title: "Current compiler instrumentation"
     url: "https://github.com/EPFL-LAP/dynamatic/blob/83bfa9897f9a1b37d695b2c29e2bef4d2df449e6/lib/Conversion/HandshakeToHW/HandshakeToHW.cpp"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/EPFL-LAP/dynamatic/commit/bfcb8bc2ad5a5dddeaaf9a5d5dab5a93fbddd813"
 ---
 
 ### Implementation context

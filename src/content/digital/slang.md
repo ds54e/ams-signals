@@ -30,7 +30,7 @@ sources:
     purpose: "official"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/MikePopoloski/slang/commit/2a721f722409f3975fad39a5528ec0b8caedb40e"
+    url: "https://github.com/MikePopoloski/slang/commit/1c475726ff072666dcee5281368c526030f68d63"
 ---
 
 

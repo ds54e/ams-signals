@@ -28,6 +28,9 @@ sources:
   - id: "activity"
     title: "Correct Scala 3 return type for pad"
     url: "https://github.com/chipsalliance/chisel/commit/10e16af329e430a2704f6d82af7540f6cd790fe2"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/chipsalliance/chisel/commit/14b890ce31f80163aa933dfa2b4c1bc416aa3f53"
 ---
 
 ### Implementation context

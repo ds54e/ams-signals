@@ -53,7 +53,7 @@ sources:
     url: "https://github.com/google/xls/commit/1b53da61b4ada47576818851dc6a4018d81d1dcb"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/google/xls/commit/a9b8ef6a1fed1af3c47afaad1636765b1025823e"
+    url: "https://github.com/google/xls/commit/426200416cd77ae4c94019b01d5bbe181b371a87"
 ---
 
 ### Implementation context

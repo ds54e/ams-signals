@@ -36,6 +36,9 @@ sources:
   - id: "development-3"
     title: "Current RTL profiling"
     url: "https://github.com/nimishadeepak10/verify-rtl/blob/c455810d41412873ae549c0131dcf18c50755662/src/rtl_verify/rtl_profile.py"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/nimishadeepak10/verify-rtl/commit/2023fdefe5c9ef45d1fb114d47f0f90982b8cb58"
 ---
 
 

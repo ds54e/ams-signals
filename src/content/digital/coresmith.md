@@ -45,7 +45,7 @@ sources:
     url: "https://github.com/facebookexperimental/coresmith/commit/3eb681cb3f113ccb68f8b5f24049969dc9defe42"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/facebookexperimental/coresmith/commit/cb740a099c62fa13056ad52ff5daf73f12d29e1b"
+    url: "https://github.com/facebookexperimental/coresmith/commit/74965147fbf41f0cdb693d45f52aeb5fc982929e"
 ---
 
 
