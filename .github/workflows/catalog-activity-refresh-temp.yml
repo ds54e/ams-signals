@@ -1,0 +1,52 @@
+name: Catalog activity refresh (temporary)
+
+on:
+  push:
+    branches:
+      - work/catalog-refresh-2026-09-26
+    paths:
+      - .github/workflows/catalog-activity-refresh-temp.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Refresh Analog activity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run refresh:analog-activity
+
+      - name: Refresh Digital activity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run refresh:digital-activity
+
+      - name: Commit refreshed snapshots
+        run: |
+          git config user.name ds54e
+          git config user.email 17592097+ds54e@users.noreply.github.com
+          git add src/data/analog-activity.json src/data/digital-activity.json
+          if git diff --cached --quiet; then
+            echo 'No activity changes'
+            exit 0
+          fi
+          git commit -m 'Refresh catalog activity snapshot'
+          git push origin HEAD:work/catalog-refresh-2026-09-26

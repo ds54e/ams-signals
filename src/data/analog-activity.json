@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-09-22",
-  "capturedAt": "2026-09-22T00:00:00.000Z",
+  "reviewedAt": "2026-09-26",
+  "capturedAt": "2026-09-26T00:00:00.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -1061,6 +1061,81 @@
       "lastMeaningfulCommitAt": "2026-07-17",
       "lastMeaningfulCommitSha": "72a4e450390a1588b48376f768d0518ef7f8e652",
       "notes": "The single public release commit contains the topology-synthesis agent, self-checking code, prompt and subcircuit libraries, and evaluation datasets; its author identity matches the paper lead."
+    },
+    "agentic-sizing": {
+      "kind": "github",
+      "repository": "aprilaihub/agentic-analog-sizing",
+      "repositoryId": 1313088510,
+      "defaultBranch": "main",
+      "headSha": "d4b59e00bb54029e952b5a38d519ab34665dcc02",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-09-22",
+      "lastMeaningfulCommitAt": "2026-07-27",
+      "lastMeaningfulCommitSha": "83e0621ad58da5195634a2cbc0e3764de0c5150c",
+      "notes": "The September 22 head only updates licensing. The July 27 public research-artifact update is the latest reviewed substantive project change before the mechanical activity refresh."
+    },
+    "vibe-analog": {
+      "kind": "github",
+      "repository": "DeconBear/vibe-analog",
+      "repositoryId": 1224524252,
+      "defaultBranch": "main",
+      "headSha": "d97ca469ca9dab71a7394d7ede848d3d53e2b693",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-09-01",
+      "lastMeaningfulCommitAt": "2026-09-01",
+      "lastMeaningfulCommitSha": "7d46afe213a15dbe125ad5fedbd52942d55053bf",
+      "notes": "The September 1 ERC interaction fix is the latest reviewed substantive implementation change; the later same-day head prepares the v0.1.11 release."
+    },
+    "analog-agents": {
+      "kind": "github",
+      "repository": "Arcadia-1/analog-agents",
+      "repositoryId": 1201926784,
+      "defaultBranch": "main",
+      "headSha": "4d6bd218ceff60624d7ee62887787aa83daecdb4",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-02",
+      "lastMeaningfulCommitAt": "2026-05-02",
+      "lastMeaningfulCommitSha": "771d27d3b0b939b916f819ae375469cda892eb24",
+      "notes": "July activity is a distribution-link merge. The May 2 implementation change in the analog netlist-crawl path is the latest reviewed substantive project update."
     }
   }
 }
