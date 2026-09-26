@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-09-26",
-  "capturedAt": "2026-09-26T00:00:00.000Z",
+  "capturedAt": "2026-09-26T08:12:36.886Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-10",
@@ -226,9 +226,9 @@
     },
     "atlas": {
       "kind": "public-update",
-      "lastPublicUpdateType": "paper",
       "lastPublicUpdateAt": "2026-07-15",
-      "lastPublicUpdateSource": "paper"
+      "lastPublicUpdateSource": "paper",
+      "lastPublicUpdateType": "paper"
     },
     "autosizer": {
       "kind": "github",
@@ -510,7 +510,7 @@
       "kind": "github",
       "repository": "Arcadia-1/razavi-bench",
       "defaultBranch": "main",
-      "headSha": "60e8a6ef637a2ae30a579349acbb662e6fc3b7af",
+      "headSha": "12cdedace877342291ee8c726ed43b930d3cc883",
       "commits": [
         0,
         0,
@@ -523,9 +523,9 @@
         0,
         0,
         0,
-        2
+        35
       ],
-      "lastCommitAt": "2026-09-18",
+      "lastCommitAt": "2026-09-26",
       "lastMeaningfulCommitAt": "2026-09-13",
       "lastMeaningfulCommitSha": "e2016fc760ff2c149c6d1ee268052bbc11280ac9",
       "notes": "Default-branch history was republished as a parentless root snapshot on 2026-09-13. The reviewed root contains the current benchmark, evaluator, website and simulator assets; earlier first-parent activity is no longer represented by the current branch history."
@@ -534,7 +534,7 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "defaultBranch": "main",
-      "headSha": "5b629cd1585c1dbd5a10b96ba74f7978e00b6ab4",
+      "headSha": "83c9d3559f7c30941f4c06fce4ae108225fd4b63",
       "commits": [
         0,
         0,
@@ -547,12 +547,12 @@
         0,
         22,
         74,
-        388
+        390
       ],
-      "lastCommitAt": "2026-09-21",
+      "lastCommitAt": "2026-09-22",
       "lastMeaningfulCommitAt": "2026-09-20",
-      "notes": "The September review found substantive implementation, recovery and real-workload changes through the IC23 modal-guard merge. The later September 21 tip is a README redesign and remains only the raw ordering date.",
-      "lastMeaningfulCommitSha": "08adecef59354e192ba3fc1bb61262545670cf72"
+      "lastMeaningfulCommitSha": "08adecef59354e192ba3fc1bb61262545670cf72",
+      "notes": "The September review found substantive implementation, recovery and real-workload changes through the IC23 modal-guard merge. The later September 21 tip is a README redesign and remains only the raw ordering date."
     },
     "virtuoso-agent": {
       "kind": "github",
@@ -581,7 +581,7 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "defaultBranch": "main",
-      "headSha": "d4a64151652dbc7cef1a3f60c141a18bd3393116",
+      "headSha": "61b170df501e9aabe21f350eb99471ac2af7336e",
       "commits": [
         0,
         0,
@@ -594,12 +594,12 @@
         12,
         36,
         23,
-        14
+        19
       ],
-      "lastCommitAt": "2026-09-21",
+      "lastCommitAt": "2026-09-26",
       "lastMeaningfulCommitAt": "2026-09-21",
-      "notes": "Transactional schematic-manifest imports, structured diagnostics and tunnel/bootstrap hardening establish current substantive activity.",
-      "lastMeaningfulCommitSha": "d4a64151652dbc7cef1a3f60c141a18bd3393116"
+      "lastMeaningfulCommitSha": "d4a64151652dbc7cef1a3f60c141a18bd3393116",
+      "notes": "Transactional schematic-manifest imports, structured diagnostics and tunnel/bootstrap hardening establish current substantive activity."
     },
     "zerosim": {
       "kind": "github",
@@ -629,7 +629,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "d0485fcd536b92dbe740d97cdcc00b1048479d9f",
+      "headSha": "a02da21b84d2f742bfe34e61679fdaae7013ee82",
       "commits": [
         0,
         0,
@@ -642,9 +642,9 @@
         73,
         1007,
         354,
-        522
+        617
       ],
-      "lastCommitAt": "2026-09-21",
+      "lastCommitAt": "2026-09-26",
       "lastMeaningfulCommitAt": "2026-09-21",
       "lastMeaningfulCommitSha": "1b892ae6841a80fe88e006225cd8ebe850557d2e",
       "notes": "Enhancement 692 removes an OSDI setup path that repeatedly walked the full node list. Automated prebuilt-binary commits remain in the raw strip but do not establish freshness."
@@ -654,7 +654,7 @@
       "repository": "Xyce/Xyce",
       "repositoryId": 185829943,
       "defaultBranch": "master",
-      "headSha": "24e13434180c40f32f16101f4e236819c9809f62",
+      "headSha": "6243c628a36dbf6431424722d7f5265e22752c4a",
       "commits": [
         2,
         1,
@@ -667,9 +667,9 @@
         1,
         0,
         1,
-        0
+        1
       ],
-      "lastCommitAt": "2026-08-10",
+      "lastCommitAt": "2026-09-21",
       "lastMeaningfulCommitAt": "2026-08-10",
       "lastMeaningfulCommitSha": "24e13434180c40f32f16101f4e236819c9809f62",
       "notes": "Reviewed the August 10 master integration: CMake migration, static MKL linkage and regression-test selection changes are substantive technical maintenance, not just a new tip timestamp."
@@ -679,7 +679,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "86d132a0082c296edb5d4da64b696106ed19b663",
+      "headSha": "06a95af82f816661040817da0a6f557eaff9cfde",
       "commits": [
         54,
         28,
@@ -692,9 +692,9 @@
         5,
         9,
         38,
-        72
+        92
       ],
-      "lastCommitAt": "2026-09-21",
+      "lastCommitAt": "2026-09-26",
       "lastMeaningfulCommitAt": "2026-09-21",
       "lastMeaningfulCommitSha": "64a16ff21117e492c7813e82e9adf1a707614b3d",
       "notes": "The September 21 implementation begins schematic caching and fixes unresolved property substitution. The later policy-document commit remains only the raw ordering date."
@@ -729,7 +729,7 @@
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
       "defaultBranch": "master",
-      "headSha": "e71272c3b178105bd2a2f25af54673a7af7ed60d",
+      "headSha": "5fa733e1680212e4ceda532ca5fa6ea707c654de",
       "commits": [
         18,
         15,
@@ -742,9 +742,9 @@
         6,
         12,
         23,
-        0
+        1
       ],
-      "lastCommitAt": "2026-08-26",
+      "lastCommitAt": "2026-09-25",
       "lastMeaningfulCommitAt": "2026-08-26",
       "lastMeaningfulCommitSha": "e71272c3b178105bd2a2f25af54673a7af7ed60d",
       "notes": "August 26 reconnects PCell parameter edit events in edtEditorOptionsPages.cc; this is an implementation fix, unlike the preceding hotfix-version preparation."
@@ -801,9 +801,9 @@
     },
     "ngspice": {
       "kind": "public-update",
-      "lastPublicUpdateType": "release",
       "lastPublicUpdateAt": "2026-08-11",
       "lastPublicUpdateSource": "release",
+      "lastPublicUpdateType": "release",
       "notes": "Canonical upstream source is hosted on SourceForge. The ngspice 47 release adds device-model, code-model noise and periodic-state changes; the band records this release signal without a GitHub mirror or fabricated repository history."
     },
     "klayout-pex": {
@@ -811,7 +811,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "40f21bfe615d8488a2e69d76223fcae031d183ca",
+      "headSha": "31ead2fe81d84fdaa9702b1ce873d74dcff463d4",
       "commits": [
         9,
         4,
@@ -824,9 +824,9 @@
         3,
         4,
         18,
-        20
+        31
       ],
-      "lastCommitAt": "2026-09-17",
+      "lastCommitAt": "2026-09-25",
       "lastMeaningfulCommitAt": "2026-08-28",
       "lastMeaningfulCommitSha": "0b6cf1ff25fcf7eb794c52999b2c850448144457",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
@@ -1032,9 +1032,9 @@
     },
     "virastack-ai-super-agent": {
       "kind": "public-update",
-      "lastPublicUpdateType": "public-update",
       "lastPublicUpdateAt": "2026-09-10",
       "lastPublicUpdateSource": "layout-demo",
+      "lastPublicUpdateType": "public-update",
       "notes": "Cadence published concrete ViraStack demonstrations for Virtuoso ADE debug, testbench creation, and layout exploration on September 10, 2026; this record uses the layout demonstration as the dated public-update point."
     },
     "analogxpert": {
@@ -1078,8 +1078,8 @@
         0,
         0,
         0,
-        1,
-        0,
+        13,
+        2,
         1
       ],
       "lastCommitAt": "2026-09-22",
@@ -1101,11 +1101,11 @@
         0,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        1
+        22,
+        83,
+        242,
+        7,
+        5
       ],
       "lastCommitAt": "2026-09-01",
       "lastMeaningfulCommitAt": "2026-09-01",
@@ -1125,8 +1125,8 @@
         0,
         0,
         0,
-        1,
-        1,
+        59,
+        4,
         0,
         1,
         0,
