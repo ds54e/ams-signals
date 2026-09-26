@@ -1,149 +1,30 @@
-# AMS Signals — Agent Instructions
+# AMS Signals — Agent guidance
 
-## Start here
+## Repository boundaries
 
-Before making research or product-design decisions, read `PROJECT_CONTEXT.md`. It captures the durable product intent and the rationale behind the timeline-first, fact-first, tagless, bounded-growth design.
+- The durable asset is the source-grounded Golden RNM/AMS timeline; the website is its viewer. Keep factual records, editorial Articles and the standalone Analog/Digital catalogs separate. Catalog work must not change Golden semantics, viewer state, Articles or `/export.json`, or weaken Golden validation.
+- Preserve author-supplied Article prose unless the author explicitly requests its transformation.
+- Keep the implementation small: Astro static output, JSON factual data, Markdown editorial content, plain CSS and small vanilla JS/TS. Introducing React, a CMS, a database/backend, vector storage, runtime AI summaries or source-archive infrastructure requires a concrete need the existing design cannot meet.
 
-Temporary company-specific research briefs such as `RESEARCH_APPLE_V1.md` add task-specific context but do not override this file or `PROJECT_CONTEXT.md`.
+## Task routing
 
-For work on the standalone Analog catalog at `/analog/`, also read `docs/analog/README.md` and follow the documents it links. That catalog is intentionally independent from Timeline/Events data and has a separate, bounded project-catalog information model; do not apply Golden-event inclusion or taglessness rules to it by re-coupling it to Events.
+Read only the guidance relevant to the task; paths below are relative to the repository root.
 
-For the standalone Digital catalog at `/digital/`, read `docs/digital/README.md` and its linked contract. Domain chooses the page. Scope records meaningful design-stage presence with an explicit runtime AI boolean and optional AI-development provenance, without capability strength levels. Date, twelve activity ticks and colored Scope labels form a compact metadata rail beside project content. The title line contains only the project name and primary links; roles and project-wide runtime-AI enums are absent; AI classifications belong in structured Scope, with supporting development evidence alongside it. Neither catalog changes Golden facts, viewer state, Articles or `/export.json`.
+- For research or product-design decisions, consult the relevant sections of [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md). Temporary research briefs supplement, never override, durable product policy.
+- For Golden research or changes to Events, Companies, People, factual views or export, use [src/data/AGENTS.md](src/data/AGENTS.md).
+- For Analog research, content, activity, implementation or contract changes, use [src/lib/analog/AGENTS.md](src/lib/analog/AGENTS.md); for Digital, use [src/lib/digital/AGENTS.md](src/lib/digital/AGENTS.md). Shared catalog work uses both routes.
+- For Article research or editorial work, use [the factual/editorial policy](PROJECT_CONTEXT.md#separate-factual-and-editorial-layers).
+- For visual/layout changes, use [docs/VISUAL_SYSTEM.md](docs/VISUAL_SYSTEM.md). For publication or deployment, use [RELEASING.md](RELEASING.md) within the owner's authorization.
 
-Both catalogs use one optional `scope.aiDevelopment` enum under the [shared provenance policy](docs/AI_BUILT_REVIEW.md). **AI-ASSISTED** requires strong direct evidence of substantial implementation of a meaningful feature, subsystem or campaign. **AI-BUILT** requires strong direct evidence of a major implementation role across the project or its defining core. The distinction is contribution scope and significance, never confidence or quality; ambiguous evidence remains unlabeled. Neither label implies runtime AI. Each label requires a compact `developmentEvidence` explanation, existing source IDs and a separate provenance review date; legacy `aiBuilt` is rejected. Provenance badges disclose their explanation and primary sources inline. No public evidence tiers, scores, percentages or human-only labels are added.
+## Verification
 
-## Purpose
+- `npm run check` is the canonical deterministic check for code or published-content changes; [package.json](package.json) owns its component commands.
+- Viewer, navigation and release changes also use `npm run test:smoke` with Playwright Chromium installed. For test ownership or release-suite changes, consult [the CI contract review](docs/CI_CONTRACT_REVIEW_2026-09-21.md#where-a-new-browser-assertion-belongs).
+- Guidance-only changes need whitespace, Markdown/reference and instruction-consistency checks; full build/browser runs are unnecessary unless the change affects their inputs.
 
-AMS Signals is a factual public-intelligence timeline for RNM and mixed-signal verification activity across companies and people.
+## Git attribution and hygiene
 
-The durable asset is the Golden factual timeline in `src/data/events/*.json`. The website is a viewer. Do not turn this repository into an evidence archive, company-rating database, or taxonomy project.
-
-The standalone Analog and Digital catalogs have scoped product contracts in `docs/analog/` and `docs/digital/`. They do not change the semantics, inclusion rules, or export contract of the factual Timeline/Events corpus.
-
-## Core rule
-
-Research may be highly inferential. Golden content may not be.
-
-During research, aggressively form working hypotheses, follow people and organizations, compare companies, look for gaps, and search for evidence that could weaken your current ideas. Use inference to decide what to investigate next.
-
-When committing Golden events, preserve only directly supportable public facts.
-
-## Research loop
-
-1. Read the current Golden timeline before searching.
-2. Identify unanswered questions, stale areas, or possible changes.
-3. Form working hypotheses to guide research.
-4. Search public sources and follow promising leads.
-5. Actively look for contradictory or narrowing evidence.
-6. Cluster duplicate/reposted sources rather than accumulating them.
-7. Promote only timeline milestones that materially add new factual information.
-8. Update an existing event when a new source only strengthens the same milestone.
-9. Discard research material that does not improve the Golden timeline.
-10. Stop when the Golden timeline can be responsibly reassessed. Do not attempt to exhaust the web.
-
-The loop above governs Golden Timeline/Event research. Catalog research follows its current domain contract; `docs/analog/RESEARCH_SEED.md` supplies historical leads and must not create Golden records merely to support catalog entries.
-
-## Golden event rules
-
-Each Golden event should answer only:
-
-- When?
-- Who / which company?
-- What publicly observable thing happened?
-- Which public source supports it?
-
-Do not add technology tags, maturity scores, confidence scores, strategic direction, disclosure scores, or inferred organization-wide conclusions to factual events.
-
-`kind` is an intentionally coarse public-signal type, not a technology classification. Use only `technical` for principally technical or standards milestones and `organizational` for principally organizational, business, and workforce milestones. Keep `affiliationChange` as independent optional metadata when responsibly supported.
-
-### Preserve source modality
-
-A job posting supports facts about what the company posted or described in the role. It does not by itself prove deployed internal practice.
-
-Prefer:
-
-- `Apple posted a role whose description includes ...`
-- `An Apple-authored paper reports ...`
-- `An Apple patent describes ...`
-
-Avoid:
-
-- `Apple uses ...` when the only source is a job posting.
-- `Apple is leading ...`
-- `This suggests ...`
-- `The company likely ...`
-
-Inference may guide research or downstream interpretation. It does not belong in Golden factual content.
-
-## Bounded growth
-
-- One meaningful milestone can have multiple representative sources.
-- Keep 1-3 sources per event.
-- Do not create an event for every repost, location variant, or repeated hiring signal.
-- Merge repeated sources when they describe the same time-bound fact.
-- A new event should teach the reader something new about the timeline.
-- Do not persist large scratch collections, downloaded pages, exhaustive search logs, or speculative notes.
-
-## People
-
-Create people records only when a person's public technical activity or affiliation change materially helps explain the RNM/AMS timeline.
-
-Do not build employee directories. Do not treat a person who merely shares a job posting as a participant in that event.
-
-## Interpretation boundary
-
-AMS Signals separates a factual evidence layer from researched editorial Articles.
-
-- Research may use hypotheses and inference to decide what to investigate next.
-- Commit only directly supportable facts to Golden Events.
-- Articles may synthesize and interpret public evidence, including sources that are not Golden Events, without promoting that interpretation into Golden content.
-- Preserve evidence modality: reported practice, hiring or organizational mandates, patents, and ecosystem context do not support the same claims.
-- Never infer methodology transfer from employer changes, acquisitions, or standards participation alone.
-- Do not add maturity scores, rankings, strategic conclusions, or hidden technology taxonomies to Golden content.
-- Preserve author-supplied Article prose. Do not rewrite, normalize, summarize, translate, expand, shorten, or fact-correct it unless the author explicitly requests that transformation.
-
-Analog and Digital catalog entries are separately authored technical catalog content. Their project-specific Scope and descriptions are allowed only within the scopes defined in `docs/analog/` and `docs/digital/`; they do not become Golden facts and do not alter Golden taxonomy rules.
-
-## Data discipline
-
-Before committing:
-
-```bash
-npm run validate
-npm run lint:facts
-npm run check:duplicates
-npm run build
-npm run check:internal-links
-```
-
-Schema or fact-lint failures must be fixed. Duplicate warnings require judgment: merge or cluster when appropriate.
-
-`npm run check` runs the full deterministic sequence above and does not require a browser. For viewer, navigation, or release changes, install Playwright's Chromium browser and run the separate production-preview smoke suite with `npm run test:smoke`. Release browser contracts are split by responsibility across `tests/smoke/release-*.spec.mjs` with shared helpers in `tests/smoke/release-helpers.mjs`; `docs/CI_CONTRACT_REVIEW_2026-09-21.md` records which layer and file owns which assertion.
-
-Domain-catalog validation may be added in addition to these checks. Do not weaken Golden validation or fact-lint rules to accommodate the catalog.
-
-## Technology choices
-
-Keep the implementation deliberately small:
-
-- Astro static output
-- JSON for Golden structured data
-- Markdown for authored editorial Articles, kept separate from Golden data
-- one generated JSON export of the validated factual corpus
-- plain CSS
-- small vanilla TypeScript/JavaScript where interaction is needed
-- no database or backend
-- no permanent technology taxonomy for the Golden factual corpus
-
-Do not introduce React, a CMS, vector database, runtime AI summaries, or source-archive infrastructure without a concrete need that cannot be met by the existing design.
-
-## Git attribution and repository hygiene
-
-- Do not add `Co-authored-by` trailers for AI assistants, coding agents, bots, or automation.
-- Do not make AI assistants, coding agents, bots, or automation commit authors or co-authors. GitHub's server-side committer identity on an owner-initiated web merge is acceptable.
-- Repository commits use `ds54e <17592097+ds54e@users.noreply.github.com>` unless the owner explicitly directs otherwise.
-- A workflow explicitly authorized to create commits must configure that identity before committing.
-- Do not create Git tags or GitHub Releases unless the owner explicitly requests them.
-- Use temporary work branches; merged head branches are deleted automatically.
-- Do not keep completed branches as archives.
-- Do not force-push or rewrite `main` history without explicit owner authorization for a specific rewrite.
+- When authorized to commit, configure `ds54e <17592097+ds54e@users.noreply.github.com>` as the repository commit identity unless the owner directs otherwise.
+- Never use AI assistants, coding agents, bots or automation as commit authors/co-authors or in `Co-authored-by` trailers. GitHub's server-side committer identity on an owner-initiated web merge is acceptable.
+- Use temporary work branches; merged heads are deleted automatically. Do not retain completed branches as archives.
+- Create Git tags or GitHub Releases only on explicit owner request. Do not force-push or rewrite `main` history without explicit owner authorization for that specific rewrite.

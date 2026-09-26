@@ -170,7 +170,7 @@ Mechanical latest activity and curated eligibility deliberately differ. The stri
 1. Re-open the canonical source and inspect substantive default-branch changes. For accepted updates, change the manually curated meaningful date/SHA together with its content source URL; leave them unchanged for cosmetic/bot traffic.
 2. Run `npm run refresh:digital-activity` with `gh` and Git available. It verifies identity and first-parent history, preserves manual records, validates the whole snapshot and replaces it atomically. Any failure leaves production data intact.
 3. Review the JSON diff, especially default-branch changes and raw latest dates. Re-review Surfer and Spade directly on canonical GitLab, pin each default-branch tip and capture time, and bucket each full first-parent committer history in UTC. Preserve manually chosen meaningful commits unless new source review justifies a change. These records are never replaced with mirrors; recapture both monthly histories before advancing the snapshot window.
-4. Run `npm run check` and `npm run test:smoke`. Refresh is never part of those commands or a normal build.
+4. Follow [root verification guidance](../../AGENTS.md#verification). Refresh is never part of those commands or a normal build.
 
 ## Veryl and XLS expansion — 2026-09-06
 

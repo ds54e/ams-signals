@@ -1,6 +1,6 @@
 # Digital catalog
 
-Read `AGENTS.md`, `PROJECT_CONTEXT.md`, this file, [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) and [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md) before changing this surface.
+Agent entry point: [the Digital guidance](../../src/lib/digital/AGENTS.md). This document owns catalog policy; use the relevant [implementation contract](IMPLEMENTATION_SPEC.md) sections for data or behavior changes and [implementation notes](IMPLEMENTATION_NOTES.md) for activity maintenance or historical decisions.
 
 ## Reader goal and page direction
 
@@ -36,4 +36,4 @@ The catalog is a current landscape, not a historical archive. Remove projects wi
 
 Re-open cited primary material before changing claims or Scope. Read the authored implementation/release notes; distinguish electrical evaluation from structural grading, model tools from evaluator operations, released paths from experiments/plans and reported results from reproduced results. Keep complete research in Markdown/frontmatter; expose only the requested concise development evidence through its badge, without adding public methodology. Do not run costly external EDA/model experiments merely to classify scope. Use the watch list only for bounded future review.
 
-Follow the current delivery authorization. Run full checks and browser/visual review before a normal commit/push. When deployment is authorized, use the existing manual Pages workflow on `main`, wait for build and deploy success, then verify production; never replace its deployment mechanism.
+Verification and Git workflow follow [root guidance](../../AGENTS.md#verification); publication follows [RELEASING.md](../../RELEASING.md).
