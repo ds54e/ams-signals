@@ -12,11 +12,11 @@ Publication is a sequence of explicit owner actions. Normal CI never deploys the
 ## Publish and verify
 
 5. Confirm the repository's GitHub plan/visibility supports Pages, then select **GitHub Actions** as the Pages source in **Settings → Pages**.
-6. In **Actions**, manually run **Deploy GitHub Pages (manual)** on `main`. It validates the locked dependency tree, builds for the deployment target selected by the optional repository Actions Variables `SITE` and `BASE_URL`, uploads the static artifact, and deploys it with GitHub's Pages actions. Production currently sets `SITE=https://ams-signals.com` and `BASE_URL=/`; if those variables are ever unset, the build falls back to `https://ds54e.github.io/ams-signals/`.
+6. Wait for the merged `main` commit's **Deterministic checks** and **Chromium smoke tests** to pass. Then, in **Actions**, manually run **Deploy GitHub Pages (manual)** on that `main` commit. The workflow validates the locked dependency tree, builds for the deployment target selected by the optional repository Actions Variables `SITE` and `BASE_URL`, uploads the static artifact, and deploys it with GitHub's Pages actions. Production currently sets `SITE=https://ams-signals.com` and `BASE_URL=/`; if those variables are ever unset, the build falls back to `https://ds54e.github.io/ams-signals/`.
 7. Open the deployed URL (currently `https://ams-signals.com/`) and run the critical production smoke suite:
 
    ```bash
-   PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test
+   SITE=https://ams-signals.com BASE_URL=/ PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test
    ```
 
 8. Confirm the indexing boundary on the deployed site. `/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/` contain `<meta name="robots" content="index, follow">` and exactly one self-referential canonical link. `/articles/` and `/articles/<slug>/` remain live and reachable but contain `<meta name="robots" content="noindex, follow">`. Fetch `/sitemap.xml` and confirm it lists only the indexable routes — no Articles and no `export.json` — then fetch `/robots.txt` and confirm it allows crawling and advertises the sitemap. Finally inspect the Timeline, Events view, one Article by direct URL, `/analog/`, `/digital/`, `/export.json`, one Event-to-source path, and a narrow viewport. Confirm that the built catalog routes are only `/analog/` and `/digital/`, with no compatibility pages or redirects. The old `https://ds54e.github.io/ams-signals/...` forms survive only as compatibility redirects to `https://ams-signals.com/...`.
