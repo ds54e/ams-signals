@@ -526,8 +526,8 @@
         35
       ],
       "lastCommitAt": "2026-09-26",
-      "lastMeaningfulCommitAt": "2026-09-13",
-      "lastMeaningfulCommitSha": "e2016fc760ff2c149c6d1ee268052bbc11280ac9",
+      "lastMeaningfulCommitAt": "2026-09-25",
+      "lastMeaningfulCommitSha": "4df30b65a478e4708bce35802e15dcddebb90c0d",
       "notes": "Default-branch history was republished as a parentless root snapshot on 2026-09-13. The reviewed root contains the current benchmark, evaluator, website and simulator assets; earlier first-parent activity is no longer represented by the current branch history."
     },
     "vcli": {
@@ -550,8 +550,8 @@
         390
       ],
       "lastCommitAt": "2026-09-22",
-      "lastMeaningfulCommitAt": "2026-09-20",
-      "lastMeaningfulCommitSha": "08adecef59354e192ba3fc1bb61262545670cf72",
+      "lastMeaningfulCommitAt": "2026-09-22",
+      "lastMeaningfulCommitSha": "83c9d3559f7c30941f4c06fce4ae108225fd4b63",
       "notes": "The September review found substantive implementation, recovery and real-workload changes through the IC23 modal-guard merge. The later September 21 tip is a README redesign and remains only the raw ordering date."
     },
     "virtuoso-agent": {
@@ -597,8 +597,8 @@
         19
       ],
       "lastCommitAt": "2026-09-26",
-      "lastMeaningfulCommitAt": "2026-09-21",
-      "lastMeaningfulCommitSha": "d4a64151652dbc7cef1a3f60c141a18bd3393116",
+      "lastMeaningfulCommitAt": "2026-09-26",
+      "lastMeaningfulCommitSha": "72c10249e8debd4fb1deb309191b47027f75f263",
       "notes": "Transactional schematic-manifest imports, structured diagnostics and tunnel/bootstrap hardening establish current substantive activity."
     },
     "zerosim": {
@@ -645,8 +645,8 @@
         617
       ],
       "lastCommitAt": "2026-09-26",
-      "lastMeaningfulCommitAt": "2026-09-21",
-      "lastMeaningfulCommitSha": "1b892ae6841a80fe88e006225cd8ebe850557d2e",
+      "lastMeaningfulCommitAt": "2026-09-26",
+      "lastMeaningfulCommitSha": "6ceb890dd261791ad62465678388b983202a531f",
       "notes": "Enhancement 692 removes an OSDI setup path that repeatedly walked the full node list. Automated prebuilt-binary commits remain in the raw strip but do not establish freshness."
     },
     "xyce": {
@@ -670,8 +670,8 @@
         1
       ],
       "lastCommitAt": "2026-09-21",
-      "lastMeaningfulCommitAt": "2026-08-10",
-      "lastMeaningfulCommitSha": "24e13434180c40f32f16101f4e236819c9809f62",
+      "lastMeaningfulCommitAt": "2026-09-21",
+      "lastMeaningfulCommitSha": "6243c628a36dbf6431424722d7f5265e22752c4a",
       "notes": "Reviewed the August 10 master integration: CMake migration, static MKL linkage and regression-test selection changes are substantive technical maintenance, not just a new tip timestamp."
     },
     "xschem": {
@@ -695,8 +695,8 @@
         92
       ],
       "lastCommitAt": "2026-09-26",
-      "lastMeaningfulCommitAt": "2026-09-21",
-      "lastMeaningfulCommitSha": "64a16ff21117e492c7813e82e9adf1a707614b3d",
+      "lastMeaningfulCommitAt": "2026-09-26",
+      "lastMeaningfulCommitSha": "06a95af82f816661040817da0a6f557eaff9cfde",
       "notes": "The September 21 implementation begins schematic caching and fixes unresolved property substitution. The later policy-document commit remains only the raw ordering date."
     },
     "openvaf-reloaded": {
@@ -745,8 +745,8 @@
         1
       ],
       "lastCommitAt": "2026-09-25",
-      "lastMeaningfulCommitAt": "2026-08-26",
-      "lastMeaningfulCommitSha": "e71272c3b178105bd2a2f25af54673a7af7ed60d",
+      "lastMeaningfulCommitAt": "2026-09-25",
+      "lastMeaningfulCommitSha": "5fa733e1680212e4ceda532ca5fa6ea707c654de",
       "notes": "August 26 reconnects PCell parameter edit events in edtEditorOptionsPages.cc; this is an implementation fix, unlike the preceding hotfix-version preparation."
     },
     "magic": {
@@ -827,8 +827,8 @@
         31
       ],
       "lastCommitAt": "2026-09-25",
-      "lastMeaningfulCommitAt": "2026-08-28",
-      "lastMeaningfulCommitSha": "0b6cf1ff25fcf7eb794c52999b2c850448144457",
+      "lastMeaningfulCommitAt": "2026-09-25",
+      "lastMeaningfulCommitSha": "53690d68077c8b0d7ad53749e10d504c10bdd871",
       "notes": "Meaningful implementation is reviewed separately from the mechanical latest commit and release date."
     },
     "pyopus": {
