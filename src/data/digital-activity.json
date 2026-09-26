@@ -1279,8 +1279,7 @@
       ],
       "lastCommitAt": "2026-04-26",
       "lastMeaningfulCommitAt": "2026-04-26",
-      "lastMeaningfulCommitSha": "1fd9b16ba44ddf27b52a8f9156975cbae6387610",
-      "notes": "The April 26 tool-use SFT merge is the latest reviewed substantive implementation/training update; later commits on the same day are release and documentation maintenance."
+      "lastMeaningfulCommitSha": "1fd9b16ba44ddf27b52a8f9156975cbae6387610"
     },
     "veribugbench": {
       "kind": "github",
@@ -1304,8 +1303,7 @@
       ],
       "lastCommitAt": "2026-08-31",
       "lastMeaningfulCommitAt": "2026-08-31",
-      "lastMeaningfulCommitSha": "463d490e261dff247eb6ef82b07b6e924fee19e8",
-      "notes": "The single public release commit contains the benchmark framework and frozen v1.0 dataset."
+      "lastMeaningfulCommitSha": "463d490e261dff247eb6ef82b07b6e924fee19e8"
     },
     "icrtl-benchmark": {
       "kind": "github",
@@ -1329,8 +1327,7 @@
       ],
       "lastCommitAt": "2026-07-03",
       "lastMeaningfulCommitAt": "2026-07-03",
-      "lastMeaningfulCommitSha": "d87c7cfe58ae4af79a4aecf13720b0c6f73df7ae",
-      "notes": "The July 3 reset-signal correction is the latest reviewed functional-maintenance change in the benchmark corpus."
+      "lastMeaningfulCommitSha": "d87c7cfe58ae4af79a4aecf13720b0c6f73df7ae"
     },
     "vibe-ic": {
       "kind": "github",
@@ -1354,8 +1351,7 @@
       ],
       "lastCommitAt": "2026-09-26",
       "lastMeaningfulCommitAt": "2026-09-26",
-      "lastMeaningfulCommitSha": "40315b3aa14baf41177203a2388a3cd62c1767a2",
-      "notes": "The September 26 main merge integrates substantive compliance-gate and live-flow corrections; its first-parent merge commit is used as the reviewed meaningful checkpoint."
+      "lastMeaningfulCommitSha": "40315b3aa14baf41177203a2388a3cd62c1767a2"
     }
   }
 }
