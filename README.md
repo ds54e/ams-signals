@@ -24,7 +24,7 @@ Use `npm run validate:analog`, `npm run test:analog`, `npm run validate:digital`
 
 ## Maintaining the record
 
-Golden Events live in `src/data/events/*.json`. Research starts from the existing timeline, follows public evidence, challenges attractive hypotheses, clusters duplicate or repeated signals, and promotes only compact milestones that add factual information. `AGENTS.md` contains the durable research, source-modality, and factual-content rules.
+Golden Events live in `src/data/events/*.json`. Research starts from the existing timeline, follows public evidence, challenges attractive hypotheses, clusters duplicate or repeated signals, and promotes only compact milestones that add factual information. [Golden guidance](src/data/AGENTS.md) routes to the durable research and factual-content policies and adds source-modality rules.
 
 Source availability is intentionally lightweight. URLs can disappear, redirect, require login, or block automated clients after an Event is published. The repository records the last responsible check and availability state, but it is not an evidence archive or a real-time external-link monitor.
 
