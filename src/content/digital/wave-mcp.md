@@ -22,6 +22,9 @@ sources:
   - id: "activity"
     title: "fix(deploy): resolve install paths to absolute and verify launcher at install time"
     url: "https://github.com/Tencent/wave-mcp/commit/cbd367ada0da49ca9cd5ef34dd201f751cfb5ea5"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/Tencent/wave-mcp/commit/06a0b98be46da9b3f81119c3f97d8833be71b401"
 ---
 
 

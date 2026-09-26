@@ -27,7 +27,7 @@ sources:
     url: "https://github.com/chipsalliance/UHDM"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/chipsalliance/Surelog/commit/f0e36bc04bcb42360b9eeb09f11fea8e05a67ca1"
+    url: "https://github.com/chipsalliance/Surelog/commit/715f89d0677aab5295a25d10c4e34005cae53851"
 ---
 
 

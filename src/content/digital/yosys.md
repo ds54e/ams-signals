@@ -30,7 +30,7 @@ sources:
     purpose: "official"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/YosysHQ/yosys/commit/7b5eba489ce9b0858c68760bb697cf25a3039f83"
+    url: "https://github.com/YosysHQ/yosys/commit/30d62572e857b2caab7757a9f89ae686e37cbae4"
 ---
 
 

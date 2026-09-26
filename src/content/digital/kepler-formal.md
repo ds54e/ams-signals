@@ -21,7 +21,7 @@ sources:
     url: "https://github.com/keplertech/kepler-formal/commit/1c826a95fa9bffa59d9121a427010a6efbf7c7f9"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/keplertech/kepler-formal/commit/c7b8fe6db94d605acd6c4c2ae9b349dc272b1106"
+    url: "https://github.com/keplertech/kepler-formal/commit/c2e6a070bb32a4035d3e672776695403cd9781b0"
 ---
 
 ### Verification modes

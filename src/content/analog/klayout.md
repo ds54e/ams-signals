@@ -23,7 +23,7 @@ sources:
     url: "https://github.com/KLayout/klayout/blob/e71272c3b178105bd2a2f25af54673a7af7ed60d/README.md"
   - id: "activity"
     title: "Reviewed substantive default-branch update"
-    url: "https://github.com/KLayout/klayout/commit/e71272c3b178105bd2a2f25af54673a7af7ed60d"
+    url: "https://github.com/KLayout/klayout/commit/5fa733e1680212e4ceda532ca5fa6ea707c654de"
 ---
 
 ### Scope

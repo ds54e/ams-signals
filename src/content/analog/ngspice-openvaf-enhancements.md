@@ -40,7 +40,7 @@ sources:
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/c0f6e5c29e396d87a34780939d67f8110b562679"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/1b892ae6841a80fe88e006225cd8ebe850557d2e"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/6ceb890dd261791ad62465678388b983202a531f"
 ---
 
 ### Scope

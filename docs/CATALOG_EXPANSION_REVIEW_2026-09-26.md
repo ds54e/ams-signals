@@ -39,9 +39,11 @@ Development provenance is not inferred from runtime AI, coding-agent compatibili
 
 ## Activity refresh
 
-The initial records pin canonical repository identities, reviewed meaningful commits and schema-valid placeholder month presence. A temporary branch-only GitHub Actions workflow then runs the existing Analog and Digital refresh scripts, which clone canonical repositories and recompute first-parent monthly history, current heads and latest commit dates for the September 26 snapshot. The temporary workflow is removed before the pull request is finalized.
+The initial records pin canonical repository identities and reviewed meaningful commits. The existing Analog and Digital refresh scripts recomputed first-parent monthly history, current heads and latest commit dates for the September 26 snapshot. The temporary branch-only workflow used for the first capture was removed before the pull request.
 
 Fresh commits do not automatically advance meaningful activity. The focused review advances meaningful checkpoints for 8 existing Analog entries and 24 existing Digital entries where the intervening history contains substantive implementation, correctness, tests, technical maintenance or result updates. Dependency-only, CI-only, pre-commit-only and documentation-only head movement remains mechanically visible without advancing meaningful activity.
+
+Each advanced checkpoint has a matching primary commit source in its catalog entry. The final refresh verified canonical repository identity, meaningful SHA and UTC date against first-parent history, then validated the complete snapshots. During final recapture, a new `uhdm2rtlil` generate-scope memory correctness fix landed; its first-parent commit became that entry's reviewed checkpoint. A later Xschem commit moved an existing function without changing its behavior, so its earlier implementation checkpoint was retained.
 
 ## Validation and delivery
 

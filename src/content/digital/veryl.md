@@ -67,7 +67,7 @@ sources:
     url: "https://github.com/veryl-lang/veryl/commit/a889bf2cbe003b1c8438d18f92f88deb4940351d"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/veryl-lang/veryl/commit/ee754466ffad19b017a6d9d77afa69375e48890d"
+    url: "https://github.com/veryl-lang/veryl/commit/d1f7025898b90dc5a8200e0b619b4b8f7bda357a"
 ---
 
 ### Implementation context

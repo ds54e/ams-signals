@@ -36,6 +36,9 @@ sources:
   - id: "activity"
     title: "PEX25D API/CLI implementation merged August 28, 2026"
     url: "https://github.com/iic-jku/klayout-pex/commit/0b6cf1ff25fcf7eb794c52999b2c850448144457"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/iic-jku/klayout-pex/commit/53690d68077c8b0d7ad53749e10d504c10bdd871"
 ---
 
 ### Implementation context

@@ -28,7 +28,7 @@ sources:
     purpose: "official"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/XS-MLVP/UCAgent/commit/3818c4f722b222910202b8b2bbede3c7ee4e9ef9"
+    url: "https://github.com/XS-MLVP/UCAgent/commit/82e7b224e613bca5284719be819619869dbe5fa0"
 ---
 
 

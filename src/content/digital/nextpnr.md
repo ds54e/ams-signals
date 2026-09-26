@@ -22,6 +22,9 @@ sources:
   - id: "activity"
     title: "Tidy pin-constraint handling for singleton vectors"
     url: "https://github.com/YosysHQ/nextpnr/commit/3edea68ef37eddbe9fc4556de7d51ba08af201a0"
+  - id: "activity-refresh"
+    title: "Latest reviewed meaningful implementation update"
+    url: "https://github.com/YosysHQ/nextpnr/commit/c4fbb55a66010e6564848458453c3adc94b40d0c"
 ---
 
 ### Implementation context

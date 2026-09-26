@@ -27,7 +27,7 @@ sources:
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/ae8e26791c137e638e0f451f12a483d7f275ba0e/src/virtuoso_bridge/virtuoso/layout/editor.py"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/d4a64151652dbc7cef1a3f60c141a18bd3393116"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/72c10249e8debd4fb1deb309191b47027f75f263"
 ---
 ### Implemented interfaces
 

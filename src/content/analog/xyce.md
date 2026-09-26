@@ -23,7 +23,7 @@ sources:
     url: "https://github.com/Xyce/Xyce/blob/24e13434180c40f32f16101f4e236819c9809f62/README.md"
   - id: "activity"
     title: "Reviewed substantive default-branch update"
-    url: "https://github.com/Xyce/Xyce/commit/24e13434180c40f32f16101f4e236819c9809f62"
+    url: "https://github.com/Xyce/Xyce/commit/6243c628a36dbf6431424722d7f5265e22752c4a"
 ---
 
 ### Scope

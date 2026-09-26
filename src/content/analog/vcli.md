@@ -47,7 +47,7 @@ sources:
     url: "https://github.com/deanyou/virtuoso-cli/blob/609e060dc79d62897068244ab7be431854976829/src/commands/sim.rs"
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
-    url: "https://github.com/deanyou/virtuoso-cli/commit/08adecef59354e192ba3fc1bb61262545670cf72"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/83c9d3559f7c30941f4c06fce4ae108225fd4b63"
 ---
 ### Implementation and lineage
 
