@@ -236,3 +236,28 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     }
   }
 }
+
+// Text presence alone does not catch CSS line-clamping: the hidden lines remain in the DOM.
+export async function expectCompleteDescriptions(descriptions: Locator) {
+  const rendered = await descriptions.evaluateAll((nodes) => nodes.map((el) => {
+    const style = getComputedStyle(el);
+    const bounds = el.getBoundingClientRect();
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const lines = [...range.getClientRects()];
+    return {
+      project: el.closest('[data-catalog-project]')!.getAttribute('data-catalog-project'),
+      clamp: style.webkitLineClamp, height: el.clientHeight, fullHeight: el.scrollHeight,
+      width: el.clientWidth, fullWidth: el.scrollWidth,
+      textFits: lines.every((line) => line.top >= bounds.top - 1 && line.bottom <= bounds.bottom + 1
+        && line.left >= bounds.left - 1 && line.right <= bounds.right + 1),
+    };
+  }));
+  expect(rendered.length).toBeGreaterThan(0);
+  for (const description of rendered) {
+    expect(description.clamp, description.project!).toBe('none');
+    expect(description.fullHeight, description.project!).toBeLessThanOrEqual(description.height + 1);
+    expect(description.fullWidth, description.project!).toBeLessThanOrEqual(description.width + 1);
+    expect(description.textFits, description.project!).toBe(true);
+  }
+}

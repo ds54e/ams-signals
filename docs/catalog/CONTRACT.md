@@ -30,7 +30,7 @@ Only `/analog/` and `/digital/` are supported catalog routes; no compatibility p
 
 The English index pairs a metadata rail with a project body, without visible column headings. The rail order is latest public date, twelve binary activity cells, then vertically stacked Scope labels. No visible month total or repeated Scope/Activity labels. The body starts with a plain-text H2 name and authored Website / Paper / Code / Results links in that order, wrapping on one left-aligned title line. No title classification badge or replacement icon.
 
-Descriptions normally use two useful sentences, roughly 30–55 words: function first, then mechanism, output or a necessary boundary. Retain identifying technical terms naturally and keep an already adequate shorter description rather than padding it. Do not invent hidden search metadata.
+Descriptions normally use two useful sentences, roughly 30–55 words: function first, then mechanism, output or a necessary boundary. Retain identifying technical terms naturally and keep an already adequate shorter description rather than padding it. Do not invent hidden search metadata. Show the full description at every viewport width, with natural wrapping and content-sized rows; do not truncate it or require a disclosure to read it.
 
 Sort by latest public activity descending (`lastCommitAt` for repository records, otherwise `lastPublicUpdateAt`), then NFKC-normalized lowercase trimmed name and slug ascending. Do not mutate authored input. Meaningful dates govern eligibility, not order; counts never rank projects.
 

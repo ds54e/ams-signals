@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry } from './catalog-presentation';
+import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry, expectCompleteDescriptions } from './catalog-presentation';
 import { basePath } from './release-helpers.mjs';
 import { isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
@@ -355,6 +355,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
     await expect(rows(page)).toHaveCount(projects.length);
     await expect(rows(page).locator(`.catalog-description`)).toHaveText(ordered.map((p) => p.description));
+    await expectCompleteDescriptions(rows(page).locator(`.catalog-description`));
     await expectScopeLabels(page.locator(`.catalog-scope`));
     await expectActivityBands(rows(page), `.catalog-activity`, activity);
     await expect(rows(page).locator('[data-provenance-toggle]')).toHaveCount(0);
@@ -374,6 +375,17 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await last.click(); await expect(page).toHaveURL(href);
     await page.goBack(); await page.reload(); await expect(rows(page)).toHaveCount(projects.length);
     await context.close();
+  });
+
+  test(`${label} full descriptions remain readable across the desktop breakpoint`, async ({ page }) => {
+    await open(page);
+    for (const width of [1440, 1280, 1024, 761, 760, 390, 320]) {
+      await test.step(`${width}px`, async () => {
+        await page.setViewportSize({ width, height: 900 });
+        await expectCompleteDescriptions(rows(page).locator('.catalog-description'));
+        await noOverflow(page);
+      });
+    }
   });
 
   for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568]]) {
