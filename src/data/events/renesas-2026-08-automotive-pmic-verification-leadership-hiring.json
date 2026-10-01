@@ -1,0 +1,28 @@
+{
+  "id": "renesas-2026-08-automotive-pmic-verification-leadership-hiring",
+  "when": {
+    "start": "2026-08-19",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "renesas"
+  ],
+  "people": [],
+  "headline": "Renesas posts Senior Principal roles to lead automotive PMIC mixed-signal verification methodology",
+  "fact": "Renesas posted related Senior Principal verification roles in Chandler and Plano for its Automotive PMIC product line. The descriptions cover architecture of mixed-signal environments with RNM and AMS model integration, RTL-to-GLS correlation, PVT analysis, debugging of switched-mode regulators and LDOs, handoffs with ATE and Silicon Validation, mentoring and verification-methodology definition, and continuous improvement of verification infrastructure. The role descriptions also call for driving verification strategy across multiple product platforms and evaluating emerging verification technologies and AI-based solutions.",
+  "sources": [
+    {
+      "title": "Senior Principal Verification Engineer — Chandler",
+      "url": "https://jobs.renesas.com/job/senior-principal-verification-engineer-in-chandler-arizona-united-states-jid-6707",
+      "checkedAt": "2026-09-28",
+      "summary": "Official Renesas requisition 20032032_2026-08-19 for Automotive PMIC verification leadership, RNM/AMS environment architecture, GLS correlation, PVT, ATE/Silicon Validation handoffs, mentoring, and methodology improvement."
+    },
+    {
+      "title": "Senior Principal Design Verification Engineer — Plano",
+      "url": "https://jobs.renesas.com/job/senior-principal-design-verification-engineer-in-plano-texas-united-states-jid-6789",
+      "checkedAt": "2026-09-28",
+      "summary": "Official Renesas requisition 20032030_2026-08-19 repeats the Automotive PMIC RNM/AMS and cross-domain verification mandate and states that the role drives verification strategy across multiple product platforms."
+    }
+  ]
+}

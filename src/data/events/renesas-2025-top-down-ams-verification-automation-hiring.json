@@ -1,0 +1,22 @@
+{
+  "id": "renesas-2025-top-down-ams-verification-automation-hiring",
+  "when": {
+    "start": "2025-06-20",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "renesas"
+  ],
+  "people": [],
+  "headline": "Renesas role combines top-down AMS verification with CAD and flow automation for full-custom ASICs",
+  "fact": "Renesas posted a senior staff AMS verification role to support top-down design and full-custom ASIC verification. The position covers Verilog-AMS and SystemVerilog behavioral models, real-number modeling, self-checking mixed-signal simulation, verification planning and regressions, chip-level integration, and Python and Cadence SKILL automation for project and verification flows. This is evidence of a public hiring mandate, not proof that every listed method was deployed across Renesas.",
+  "sources": [
+    {
+      "title": "Renesas Careers: Sr Staff AMS Verification Engineer (JID 3223)",
+      "url": "https://jobs.renesas.com/job/sr-staff-ams-verification-engineer-in-paris-idf-france-jid-3223",
+      "checkedAt": "2026-08-31",
+      "summary": "The retained official expired requisition exposes June 20, 2025 in its requisition ID and describes top-down modeling, RNM, full-custom ASIC verification, self-checking regressions, and CAD and flow automation."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "cirrus-logic-2025-system-model-reuse-mixed-signal-verification",
+  "when": {
+    "start": "2025",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "cirrus-logic",
+    "mathworks"
+  ],
+  "people": [],
+  "headline": "Cirrus Logic and MathWorks authors report reusing system models in mixed-signal verification",
+  "fact": "A DVCon U.S. 2025 paper by Cirrus Logic and MathWorks authors describes generating SystemVerilog DPI-C components from system-level models for reuse in mixed-signal verification. A reported test ran in 30 seconds with DPI-C versus 51 seconds with a user-defined nettype and 54 seconds with Verilog-AMS. The paper also contrasts two projects whose closed-loop verification began 18 and 43 weeks after RTL availability; those project timings are not presented as a controlled comparison.",
+  "sources": [
+    {
+      "title": "Reuse of System-Level Circuit Models in Mixed-Signal Verification",
+      "url": "https://dvcon-proceedings.org/document/reuse-of-system-level-circuit-models-in-mixed-signal-verification/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Cirrus Logic and MathWorks model-reuse paper."
+    },
+    {
+      "title": "Reuse of System-Level Circuit Models in Mixed-Signal Verification — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1057.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details generated DPI-C reuse, the reported runtime comparison, and the distinct project timelines."
+    },
+    {
+      "title": "Reuse of System-Level Circuit Models in Mixed-Signal Verification",
+      "url": "https://www.mathworks.com/company/technical-articles/reuse-of-system-level-circuit-models-in-mixed-signal-verification.html",
+      "checkedAt": "2026-08-30",
+      "summary": "MathWorks' technical article presents the Cirrus Logic collaboration and summarizes the model-generation and reuse workflow."
+    }
+  ]
+}

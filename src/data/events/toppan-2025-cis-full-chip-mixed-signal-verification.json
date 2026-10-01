@@ -1,0 +1,20 @@
+{
+  "id": "toppan-2025-cis-full-chip-mixed-signal-verification",
+  "when": {
+    "start": "2025-11-07",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["toppan", "siemens-eda"],
+  "people": [],
+  "headline": "Siemens reports TOPPAN cut full-chip CMOS image-sensor mixed-signal verification time by more than 50%",
+  "fact": "A Siemens EDA customer-story recap reports that TOPPAN presented a full-chip mixed-signal verification workflow for a complex CMOS image sensor integrating a microcontroller with analog blocks including LDO, PLL, and temperature sensors. Siemens reports that Symphony reduced TOPPAN's mixed-signal verification time by more than 50% without compromising accuracy; this is a vendor-published customer report.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Verification: Symphony Customer Success Stories across the Siemens EDA and Solido Custom IC Forums",
+      "url": "https://blogs.sw.siemens.com/cicv/2025/11/07/mixed-signal-verification-symphony-customer-success-stories-across-the-siemens-eda-and-solido-custom-ic-forums/",
+      "checkedAt": "2026-08-30",
+      "summary": "Siemens EDA's vendor-published customer-story recap of TOPPAN's full-chip CMOS image-sensor verification workflow and reported verification-time reduction."
+    }
+  ]
+}

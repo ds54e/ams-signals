@@ -1,0 +1,23 @@
+{
+  "id": "thine-electronics-2025-ai-phase-interpolator-verification",
+  "when": {
+    "start": "2025-06-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "thine-electronics",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "THine and Siemens authors report AI-accelerated four-sigma phase-interpolator verification",
+  "fact": "A THine Electronics and Siemens DAC 2025 presentation reports AI-accelerated four-sigma verification for 8×8 phase interpolators across 64 process modes. The authors contrast thousands of guided simulations with at least ten million brute-force samples and report a 100× simulation-count reduction for the presented case. The metric is specific to this customer/vendor study.",
+  "sources": [
+    {
+      "title": "Advanced Verification Solutions for Communication ICs to Ensure High Quality Amid PVT Variations",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPRES235&sess=sess222",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies THine and Siemens authors and describes the 8×8 phase-interpolator, 64-process-mode, four-sigma case and its reported 100× simulation-count reduction."
+    }
+  ]
+}

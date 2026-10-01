@@ -1,0 +1,34 @@
+{
+  "id": "meta-2024-dv-uvm-ams-co-simulation",
+  "when": {
+    "start": "2024-03-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "meta"
+  ],
+  "people": [],
+  "headline": "Meta author presents a UVM-based AMS co-simulation methodology with dynamic model switching",
+  "fact": "At DVCon U.S. 2024, Meta Reality Labs' Sandeep Sharma presented a UVM-based AMS co-simulation methodology that dynamically switches between real-number and SPICE representations while reusing digital mixed-signal checks, assertions, and random stimulus. The paper reports a nightly flow in which one AMS/SPICE test verified seven ADC configurations over a week.",
+  "sources": [
+    {
+      "title": "DV/UVM Based AMS Co-Simulation and Verification Methodology for Mixed-Signal Designs — session",
+      "url": "https://dvcon.org/technical-session/1160-dv-uvm-based-ams-co-simulation-and-verification-methodology-for-mixed-signal-designs",
+      "checkedAt": "2026-08-30",
+      "summary": "The official DVCon session record dates the presentation to March 6, 2024 and identifies Sandeep Sharma of Meta."
+    },
+    {
+      "title": "DV/UVM Based AMS Co-Simulation and Verification Methodology for Mixed-Signal Designs",
+      "url": "https://dvcon-proceedings.org/document/dv-uvm-based-ams-co-simulation-and-verification-methodology-for-mixed-signal-designs/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's proceedings record identifies the Meta Reality Labs co-simulation paper."
+    },
+    {
+      "title": "DV/UVM Based AMS Co-Simulation and Verification Methodology — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1160.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper describes dynamic RNM/SPICE switching, reusable DMS verification assets, and the reported ADC regression cadence."
+    }
+  ]
+}

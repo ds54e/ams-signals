@@ -1,0 +1,28 @@
+{
+  "id": "stijn-ringeling-2026-ml-sigma-delta-evaluation",
+  "when": {
+    "start": "2026-06-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [
+    "stijn-ringeling"
+  ],
+  "headline": "Stijn Ringeling's thesis reports ML-assisted acceleration of sigma-delta-modulator linearity evaluation",
+  "fact": "Stijn Ringeling's Eindhoven University of Technology thesis reports model-based methods for nonlinear discrete- and continuous-time sigma-delta modulators with a 5,000× evaluation acceleration in the behavioral-model studies. It also reports a machine-learning behavioral model and transfer learning to transistor-level data across supply variations using 20 circuit simulations, a dataset 50× smaller than the behavioral-model dataset. No company deployment is claimed.",
+  "sources": [
+    {
+      "title": "Methods to Accelerate the Evaluation of Sigma-Delta Modulator Linearity",
+      "url": "https://research.tue.nl/en/publications/methods-to-accelerate-the-evaluation-of-sigma-delta-modulator-lin/",
+      "checkedAt": "2026-08-31",
+      "summary": "The university thesis record dates the work to June 24, 2026 and describes the nonlinear-model acceleration, ML behavioral model, and transfer-learning results."
+    },
+    {
+      "title": "Stijn H. W. Ringeling — Eindhoven University of Technology",
+      "url": "https://research.tue.nl/en/persons/stijn-hw-ringeling/",
+      "checkedAt": "2026-08-31",
+      "summary": "The university profile confirms Ringeling's identity and links the thesis and related sigma-delta-modulator research."
+    }
+  ]
+}

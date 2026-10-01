@@ -1,0 +1,22 @@
+{
+  "id": "bosch-sensortec-2026-agentic-ai-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026-07-24",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "bosch-sensortec"
+  ],
+  "people": [],
+  "headline": "Bosch Sensortec posts a PhD role applying agentic AI to ASIC and mixed-signal verification",
+  "fact": "Bosch Sensortec posted a Dresden PhD role to develop agentic-AI software for accelerating ASIC design, verification, and test. The posting explicitly includes mixed-signal verification and testing and names coverage-driven regression optimization, AMS testbench generation, and closed-loop test-case evaluation and optimization among its example use cases.",
+  "sources": [
+    {
+      "title": "PhD - Agentic AI for ASIC Development Acceleration",
+      "url": "https://jobs.bosch.de/job/PhD-Agentic-AI-for-ASIC-Development-Acceleration-Dresden?id=6b2db6df-8415-4cb0-9438-28710b9032f8",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Bosch posting REF292240Q, published July 24, 2026 by Bosch Sensortec GmbH in Dresden, covering agentic-AI work across ASIC design, verification, test, mixed-signal verification, regressions, AMS testbenches, and test-case optimization."
+    }
+  ]
+}

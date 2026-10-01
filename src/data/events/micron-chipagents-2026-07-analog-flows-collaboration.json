@@ -1,0 +1,26 @@
+{
+  "id": "micron-chipagents-2026-07-analog-flows-collaboration",
+  "when": {
+    "start": "2026-07-27",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["micron", "chipagents"],
+  "people": [],
+  "headline": "Micron describes ChipAgents collaboration and analog flows being brought up in its SSD ASIC organization",
+  "fact": "At DAC 2026, Micron's Alon Shtepel identified his ASIC organization as focused on data-center SSDs. He described collaboration with ChipAgents on dashboards, metrics, root-cause analysis, and security features, and referred to analog flows being brought up. In discussing agentic tools, he reported benefits for relatively simple IP and remaining context, speed, and accuracy problems at full-chip scale, as well as inconsistent results across engineers and model choices. These statements are documented in the recording's English automatic captions; the cited excerpts do not identify an analog block, model language, or completed production deployment of an AMS modeling product.",
+  "sources": [
+    {
+      "title": "DAC 2026: Autonomous Root Cause Analysis: Agentic AI for Debugging at Commercial Scale",
+      "url": "https://63dac.conference-program.com/presentation/?id=EF102&sess=sess229",
+      "checkedAt": "2026-09-13",
+      "summary": "The official program lists the July 27, 2026 session and presenters Alon Shtepel of Micron, Zackary Glazewski, and Mehir Arora of ChipAgents. The event date is the session date, not the later recording upload."
+    },
+    {
+      "title": "DACtv: Micron and ChipAgents recording (English automatic captions)",
+      "url": "https://www.youtube.com/watch?v=rbOkfDU0RNs&t=1111s",
+      "checkedAt": "2026-09-13",
+      "summary": "English automatic captions: 15:14-16:20 identifies the SSD ASIC organization; 18:31-20:18 describes collaboration and analog flows being brought up; 20:23-20:55, 21:48-22:19 and 28:45-28:56 describe scaling and predictability limitations. Full audio and slides were not independently checked."
+    }
+  ]
+}

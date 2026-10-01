@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventExplorer from '../../components/EventExplorer.astro';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map((person) => ({ params: { id: person.data.id }, props: { person } }));
+}
+
+const { person } = Astro.props;
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const personEvents = events.filter((event) => event.data.people.includes(person.data.id));
+---
+<BaseLayout
+  title={`${person.data.name} · AMS Signals`}
+  description={`Public technical and organizational Events linked to ${person.data.name}.`}
+>
+  <header class="entity-header">
+    <h1>{person.data.name}</h1>
+    <p class="entity-meta">{personEvents.length} indexed {personEvents.length === 1 ? 'event' : 'events'}</p>
+    <p class="entity-note">Public technical and organizational events indexed by this site.</p>
+  </header>
+  {personEvents.length > 0 ? (
+    <EventExplorer events={personEvents} goldenEvents={events} companies={companies} people={people} context="person" />
+  ) : (
+    <section class="entity-empty-state" aria-labelledby="person-empty-heading">
+      <h2 id="person-empty-heading">No events are currently indexed</h2>
+      <p>The current public-source record does not contain an indexed Event for this person.</p>
+    </section>
+  )}
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { eventKindLabel, formatWhen } from '../../lib/content';
+import { sitePath } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+
+  return events.map((event) => ({
+    params: { id: event.data.id },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+const [companies, people] = await Promise.all([
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const companyMap = new Map(companies.map((company) => [company.data.id, company.data.name]));
+const personMap = new Map(people.map((person) => [person.data.id, person.data.name]));
+---
+<BaseLayout
+  title={`${event.data.headline} · AMS Signals`}
+  description={`Factual public Event and supporting evidence for ${event.data.headline}.`}
+>
+  <article class="document-page record-page">
+    <header class="document-header record-header">
+      <p class="quiet-meta event-meta">{formatWhen(event)} · {eventKindLabel(event.data.kind)}</p>
+      <h1>{event.data.headline}</h1>
+      <div class="document-context record-context" aria-label="Linked entities">
+        {event.data.companies.map((id) => <a href={sitePath(`companies/${id}/`)}>{companyMap.get(id) ?? id}</a>)}
+        {event.data.people.map((id) => <a href={sitePath(`people/${id}/`)}>{personMap.get(id) ?? id}</a>)}
+      </div>
+    </header>
+    <p class="record-fact">{event.data.fact}</p>
+
+    <section class="terminal-section record-evidence" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Evidence</h2>
+      <div class="source-list">
+        {event.data.sources.map((source) => (
+          <article class="source-card">
+            <h3>
+              {source.status === 'unavailable'
+                ? <span class="unavailable-source-title">{source.title}</span>
+                : <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>}
+            </h3>
+            <p>{source.summary}</p>
+            <p class={`source-meta source-availability ${source.status ?? 'available'}`}>
+              {source.status === 'unavailable'
+                ? `Original URL unavailable · checked ${source.checkedAt}`
+                : `Available · checked ${source.checkedAt}`}
+            </p>
+            {source.archiveUrl && <a href={source.archiveUrl} target="_blank" rel="noreferrer">Archived source ↗</a>}
+          </article>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>

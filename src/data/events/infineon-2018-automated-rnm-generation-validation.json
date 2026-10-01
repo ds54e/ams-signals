@@ -1,0 +1,30 @@
+{
+  "id": "infineon-2018-automated-rnm-generation-validation",
+  "when": {
+    "start": "2018",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "sebastian-simon"
+  ],
+  "headline": "Infineon authors report automated generation and validation of real-number models and UVM-MS testbenches",
+  "fact": "A DVCon 2018 paper by Infineon authors describes a meta-model-driven flow that automatically generates real-number models and UVM-MS testbench components. In its mixed-signal ADC case, the generated RNM ran in 4.5 seconds versus 74.1 seconds for the referenced VHDL model, and the generated testbench exposed a deadlock in the analog implementation.",
+  "sources": [
+    {
+      "title": "Methodology for Automated Generation and Validation of Analog Behavioral Models for Mixed-Signal Verification",
+      "url": "https://dvcon-proceedings.org/document/methodology-for-automated-generation-and-validation-of-analog-behavioral-models-for-mixed-signal-verification/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Infineon work on automated RNM and UVM-MS generation and validation."
+    },
+    {
+      "title": "Methodology for Automated Generation and Validation of Analog Behavioral Models — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/methodology-for-automated-generation-and-validation-of-analog-behavioral-models-for-mixed-signal-verification.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the meta-model flow, reported MADC simulation timings, and analog-implementation deadlock found by the generated testbench."
+    }
+  ]
+}

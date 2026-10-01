@@ -1,0 +1,29 @@
+{
+  "id": "texas-instruments-2016-cpf-ams-power-verification",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments",
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Texas Instruments and Cadence authors report CPF-driven low-power mixed-signal verification",
+  "fact": "A DVCon 2016 paper by Texas Instruments and Cadence authors reports applying Common Power Format power intent to a complex industrial mixed-signal SoC. The flow generated power-smart interface elements, matched results from the authors' traditional inherited-interface-element method, and reduced the reported setup time from several weeks to less than two days.",
+  "sources": [
+    {
+      "title": "A Holistic Approach to Low-Power Mixed-Signal Design Verification Using Power Intent",
+      "url": "https://dvcon-proceedings.org/document/a-holistic-approach-to-low-power-mixed-signal-design-verification-using-power-intent/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Texas Instruments and Cadence industrial case study using power intent for mixed-signal verification."
+    },
+    {
+      "title": "A Holistic Approach to Low-Power Mixed-Signal Design Verification Using Power Intent — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/a-holistic-approach-to-low-power-mixed-signal-design-verification-using-power-intent.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper documents CPF-generated interface handling, its comparison with an inherited-interface flow, and the reported setup-time reduction."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cadence-2026-generative-ai-rnm-internship",
+  "when": {
+    "start": "2026-08-24",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Cadence internship posting proposes evaluating generative AI for real-number-model creation",
+  "fact": "Cadence posted a Milan internship role that proposes investigating generative AI on industry cases, validating AI flows, and using Model in Minutes in the Virtuoso environment to build real-number models. This is an exploratory internship mandate and product-evaluation signal, not proof of a deployed customer methodology or validated productivity result.",
+  "sources": [
+    {
+      "title": "Cadence University Careers: Intern on AMS Tool in Milan",
+      "url": "https://cadence.wd1.myworkdayjobs.com/univ_careers/job/milan/intern-on-ams-tool-in-milan_r55238-2",
+      "checkedAt": "2026-08-31",
+      "summary": "Official Cadence requisition R55238-2, posted August 24, 2026, describes the exploratory generative-AI evaluation and Model in Minutes real-number-model work."
+    }
+  ]
+}

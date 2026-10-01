@@ -1,0 +1,22 @@
+{
+  "id": "samsung-2022-embedded-nvm-esp-verification",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung Foundry authors report symbolic mixed-signal verification for embedded nonvolatile memories",
+  "fact": "Samsung Foundry authors report a mixed-signal IP verification method using netlist extraction, module conversion, custom testbenches, and Synopsys ESP symbolic simulation. The paper applies the method to eMRAM, eFLASH, and OTP memories to compare behavioral simulation models with schematic-derived implementations and describes the flow as extending symbolic verification to mixed-signal memory structures not natively covered by the tool.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Functional Verification Methodology for Embedded Non-Volatile Memory Using ESP Simulation",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/Mixed-signal-Functional-Verification-Methodology-for-embedded-Non-volatile-Memory-using-ESP-simulation-1.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The Samsung Foundry paper describes the netlist-extraction, module-conversion, custom-testbench, and ESP symbolic-simulation method and its eMRAM, eFLASH, and OTP cases."
+    }
+  ]
+}

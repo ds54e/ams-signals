@@ -1,0 +1,22 @@
+{
+  "id": "microchip-2026-llm-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "microchip"
+  ],
+  "people": [],
+  "headline": "Microchip job posting combines full-chip mixed-signal verification with LLM-assisted debug and test work",
+  "fact": "A Microchip Senior Engineer I – Verification posting describes full-chip SoC and mixed-signal verification, SystemVerilog/UVM, analog-IP interactions, coverage closure, and cross-domain debug. Its AI scope includes LLM-assisted generation of code and stimuli, root-cause analysis and scripting, plus AI-driven log analysis, waveform triage, failure clustering, and trials integrated with EDA flows. This is evidence of a public hiring mandate, not proof that the listed AI-assisted techniques were already deployed or improved measured outcomes.",
+  "sources": [
+    {
+      "title": "Microchip Careers: Senior Engineer I – Verification (R1497-26)",
+      "url": "https://microchiphr.wd5.myworkdayjobs.com/en-US/External/job/Senior-Engineer-I---Verification_R1497-26-9",
+      "checkedAt": "2026-09-02",
+      "summary": "The official Microchip requisition describes the full-chip AMS scope, RNM preference, and LLM-assisted stimulus, debug, waveform-triage, failure-clustering, experimentation, and EDA-integration mandate; it exposes only relative posting age, so this Event uses year precision."
+    }
+  ]
+}

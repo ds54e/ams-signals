@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-advanced-power-ams-verification-lead-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP job posting seeks an AMS verification leader for its Milan advanced-power team",
+  "fact": "An NXP Careers posting for a Senior AMS Verification leader in Milan describes ownership of verification strategies, plans, environments, regressions, coverage, behavioural models, checkers, assertions, and reusable components for the Advanced Power System team, including top-level mixed-signal verification and methodology improvement. The requested experience includes Verilog, SystemVerilog, UVM, SVA, Verilog-AMS, SystemC, WREAL/RNM, and mixed-signal EDA tools. This is evidence of a public hiring mandate, not proof that every listed method is already deployed.",
+  "sources": [
+    {
+      "title": "NXP Careers: Senior AMS Verification leader",
+      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Senior-AMS-Verification-leader_R-10065738",
+      "checkedAt": "2026-08-30",
+      "summary": "Official NXP Careers requisition R-10065738 identifies the Milan Advanced Power System role and describes its AMS verification leadership scope, deliverables, methodologies, languages, and tools."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "broadcom-2026-09-global-dms-verification-methodology-hiring",
+  "when": {
+    "start": "2026-09-08",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "broadcom"
+  ],
+  "people": [],
+  "headline": "Broadcom storage-ASIC postings call for cross-site DMS methodology and AI-assisted verification automation",
+  "fact": "A Broadcom Senior Digital / Mixed-Signal IC Design or Verification Engineer posting for Data Center Enterprise Storage, indexed as posted September 8, 2026 under requisition R026970, describes a methodology leader and technical bridge across US and Asia design centers. Its verification scope includes UVM-based block- and system-level testbenches, functional and code coverage closure, SVA and UVM/OVM methodology, event-driven analog-boundary modeling, and AI-assisted workflows for testbench generation and debug. A separate Broadcom careers posting, R025692, describes a closely related DMS verification methodology-leader role with the same cross-site and AI-assisted-automation themes; the postings do not establish that the two requisitions belong to the same team or define a company-wide standard.",
+  "sources": [
+    {
+      "title": "JobsRadar: Senior Digital / Mixed-Signal IC Design or Verification Engineer (R026970)",
+      "url": "https://jobs-radar.com/en/job/senior-digital-mixed-signal-ic-design-or-verification-engine-at-broadcom-82dadb",
+      "checkedAt": "2026-09-14",
+      "summary": "The indexed Broadcom requisition R026970 is dated September 8, 2026 and describes the Data Center Enterprise Storage role, US/Asia methodology leadership, UVM/SVA verification, analog-boundary modeling, coverage closure, and AI-assisted testbench-generation/debug automation."
+    },
+    {
+      "title": "SiliconBoard: Senior Digital / Mixed-Signal IC Design or Verification Engineer (R026970)",
+      "url": "https://siliconboard.co/jobs/senior-digital-mixed-signal-ic-design-or-verification-engine-at-broadcom-08f5ea15",
+      "checkedAt": "2026-09-14",
+      "summary": "A second current index reproduces requisition R026970 and the same mixed-signal verification, methodology, global-team, and AI-assisted automation responsibilities."
+    },
+    {
+      "title": "Broadcom Careers: Senior Digital Mixed-Signal (DMS) Verification Engineer (R025692)",
+      "url": "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/USA-Mendota-Heights-Northland/Senior-Digital-Mixed-Signal--DMS--Verification-Engineer_R025692",
+      "checkedAt": "2026-09-14",
+      "summary": "A separate official Broadcom careers record describes a DMS verification methodology leader spanning US and Asia teams, UVM/OVM, SVA, analog behavioral modeling, coverage closure, and AI-assisted verification automation. It is corroboration of the public hiring signal, not evidence that R025692 and R026970 are the same role."
+    }
+  ]
+}

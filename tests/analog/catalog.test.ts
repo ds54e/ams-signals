@@ -1,0 +1,475 @@
+import { developmentEvidence, provenanceSchemaTests } from '../catalog-provenance.ts';
+import { scopeItems } from '../../src/lib/catalog-scope.ts';
+import { test } from 'node:test';
+import { activityBand } from '../../src/lib/catalog-activity-band.ts';
+import { formatDate } from '../../src/lib/date-format.ts';
+import { formatWhen } from '../../src/lib/content.ts';
+import assert from 'node:assert/strict';
+import { readFile, readdir } from 'node:fs/promises';
+import { parseFrontmatter } from 'astro/markdown';
+import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/analog/catalog.ts';
+import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, type PublicActivity } from '../../src/lib/analog/activity.ts';
+import { analogSchema, activitySchema, validateCatalog, validateActivity } from '../../src/lib/analog/schema.ts';
+
+
+const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiDevelopment');
+
+const valid = () => ({
+  name: 'Sample', summary: 'Evaluates circuit structure.', access: 'Requires Python.',
+  description: 'Compares netlist connectivity and device ratios against reference circuits.',
+  scope: { design: { ai: false } },
+  addedAt: '2026-09-05', reviewedAt: '2026-09-05',
+  sources: [{ id: 'code', title: 'Official code', url: 'https://github.com/levantlabs/circuitrubric-bench', purpose: 'code' }],
+});
+const entry = () => ({ id: 'sample', data: valid(), body: '### Evaluation\n\nReviewed public material. [Source](#source-code)' });
+const snapshot = () => ({
+  reviewedAt: '2026-09-05', capturedAt: '2026-09-05T03:00:00Z', method: 'first-parent-committer-utc',
+  months: ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09'],
+  projects: { sample: {
+    kind: 'github', repository: 'levantlabs/circuitrubric-bench', defaultBranch: 'main', headSha: 'a'.repeat(40),
+    commits: [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0], lastCommitAt: '2026-06-23', lastMeaningfulCommitAt: '2026-06-23',
+  } },
+});
+
+test('public activity sorts newest first, using paper dates and deterministic name/slug ties', () => {
+  const input = [
+    { id: 'old', data: { name: 'Aardvark', reviewedAt: '2026-09-05' } },
+    { id: 'b', data: { name: 'Alpha', reviewedAt: '2026-09-01' } },
+    { id: 'unknown', data: { name: 'First alphabetically' } },
+    { id: 'paper', data: { name: 'Zeta' } },
+    { id: 'a', data: { name: 'ＡＬＰＨＡ' } },
+    { id: 'beta', data: { name: 'Beta' } },
+    { id: 'newest', data: { name: 'Zebra' } },
+  ];
+  const activity: Record<string, PublicActivity> = {
+    old: { kind: 'github', lastCommitAt: '2025-12-31' },
+    a: { kind: 'github', lastCommitAt: '2026-08-20' },
+    b: { kind: 'public-update', lastPublicUpdateAt: '2026-08-20' },
+    beta: { kind: 'github', lastCommitAt: '2026-08-20' },
+    paper: { kind: 'public-update', lastPublicUpdateAt: '2026-09-01' },
+    unknown: { kind: 'public-update', lastPublicUpdateAt: '2000-01-01' },
+    newest: { kind: 'repository', lastCommitAt: '2026-09-04' },
+  };
+  const before = structuredClone(input);
+  const expected = ['newest', 'paper', 'a', 'b', 'beta', 'old', 'unknown'];
+  assert.deepEqual(sortProjects(input, activity).map((p) => p.id), expected);
+  assert.deepEqual(input, before);
+  assert.deepEqual(sortProjects([...input].reverse(), activity).map((p) => p.id), expected);
+  input[0].data.reviewedAt = '2026-10-01';
+  assert.deepEqual(sortProjects(input, activity).map((p) => p.id), expected);
+  activity.old = { kind: 'github', lastCommitAt: '2026-09-05' };
+  assert.equal(sortProjects(input, activity)[0].id, 'old');
+});
+
+test('dashboard descriptions are required, concise, and free of placeholders', () => {
+  for (const description of [undefined, '', ' ', 'TODO', 'x'.repeat(601)]) {
+    assert.equal(analogSchema.safeParse({ ...valid(), description }).success, false);
+  }
+});
+
+test('catalog schema preserves calendar dates, source protocols and source identities', () => {
+  assert.ok(analogSchema.safeParse(valid()).success);
+  for (const data of [
+    { ...valid(), addedAt: '2026-02-30' }, { ...valid(), reviewedAt: '2025-02-29' },
+    { ...valid(), sources: [] },
+    ...['not a URL', 'javascript:alert(1)', 'ftp://github.com/a'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
+    { ...valid(), sources: [...valid().sources, { ...valid().sources[0], purpose: 'paper' }] },
+    { ...valid(), sources: [...valid().sources, { ...valid().sources[0], id: 'second' }] },
+  ]) assert.equal(analogSchema.safeParse(data).success, false, JSON.stringify(data));
+  assert.ok(analogSchema.safeParse({ ...valid(), addedAt: '2024-02-29' }).success);
+  assert.ok(analogSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04' }).success);
+});
+
+test('removed classification metadata is rejected instead of kept as hidden state', () => {
+  for (const fields of [{ roles: ['benchmark'] }, { aiBuilt: true }, { ai: 'ai-enabled' }]) {
+    assert.equal(analogSchema.safeParse({ ...valid(), ...fields }).success, false);
+  }
+});
+
+test('Analog domain membership, baseline scopes and moved provenance validate as one reviewed population', async () => {
+  const directory = new URL('../../src/content/analog/', import.meta.url);
+  const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
+    const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
+    return { id: file.slice(0, -3), data: analogSchema.parse(frontmatter), body: content };
+  }));
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
+  validateCatalog(projects, []); validateActivity(projects, activity);
+  assert.ok(projects.length > 0);
+  assert.equal(new Set(projects.map((project) => project.id)).size, projects.length);
+  assert.deepEqual(Object.keys(activity.projects).sort(), projects.map((project) => project.id).sort());
+  const baselines = {
+    ngspice: ['simulation'], xyce: ['simulation'],
+    xschem: ['design', 'simulation'],
+    'openvaf-reloaded': ['simulation'],
+    klayout: ['layout'], magic: ['layout'],
+    align: ['layout'],
+  };
+  for (const [id, expectedStages] of Object.entries(baselines)) {
+    const project = projects.find((p) => p.id === id)!;
+    assert.ok(project, id); assert.deepEqual(stages(project.data.scope), expectedStages);
+    if (id !== 'ngspice') {
+      assert.equal(typeof activity.projects[id].repositoryId, 'number');
+      assert.match(activity.projects[id].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
+    }
+  }
+  const moved = 'ngspice-openvaf-enhancements';
+  assert.deepEqual(stages(projects.find((p) => p.id === moved)!.data.scope), ['design', 'simulation']);
+  assert.equal(activity.projects[moved].repository, 'javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements');
+  assert.equal(typeof activity.projects[moved].repositoryId, 'number');
+  assert.match(activity.projects[moved].lastMeaningfulCommitSha, /^[a-f0-9]{40}$/);
+  const digital = await readdir(new URL('../../src/content/digital/', import.meta.url));
+  assert.ok(!digital.includes(`${moved}.md`));
+  const digitalActivity = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
+  assert.ok(!(moved in digitalActivity.projects));
+  assert.equal(activity.projects.ngspice.kind, 'public-update');
+  assert.match(activity.projects.ngspice.lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(!('commits' in activity.projects.ngspice));
+  const code = projects.find((p) => p.id === 'ngspice')!.data.sources.find((s) => s.purpose === 'code')!;
+  assert.equal(new URL(code.url).hostname, 'sourceforge.net');
+});
+
+test('optional pinned activity evidence preserves transferred identity and requires its source', () => {
+  const s = snapshot();
+  const record = { ...s.projects.sample, repositoryId: 123, lastMeaningfulCommitSha: 'b'.repeat(40) };
+  const value = { ...s, projects: { sample: record } };
+  assert.throws(() => validateActivity([entry()], value), /meaningful commit requires/);
+  const sample = entry();
+  const project = { ...sample, data: { ...sample.data, sources: [...sample.data.sources, {
+    id: 'activity', title: 'Substantive commit', url: `https://github.com/${record.repository}/commit/${record.lastMeaningfulCommitSha}`,
+  }] } };
+  assert.ok(validateActivity([project], value));
+  for (const change of [{ repositoryId: -1 }, { repositoryId: 0.5 }, { lastMeaningfulCommitSha: 'branch' }, { lastMeaningfulCommitAt: '2026-05-01' }]) {
+    assert.equal(activitySchema.safeParse({ ...s, projects: { sample: { ...record, ...change } } }).success, false);
+  }
+});
+
+test('Analog Scope reflects reviewed design, evaluation and layout operations', async () => {
+  const scopes = {
+    analogsage: ['design', 'simulation'],
+    autosizer: ['design', 'simulation'],
+    panda: ['design', 'simulation', 'layout'],
+    analogmaster: ['design', 'simulation', 'layout'], circuitrubric: ['design'],
+    'razavi-bench': ['design', 'simulation'],
+    'virtuoso-agent': ['design', 'simulation'],
+    'virtuoso-bridge-lite': ['design', 'simulation', 'layout'],
+    vcli: ['design', 'simulation', 'layout'],
+    zerosim: ['simulation'], evas: ['simulation'],
+  };
+  for (const [id, expectedStages] of Object.entries(scopes)) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    assert.deepEqual(stages(analogSchema.parse(frontmatter).scope), expectedStages, id);
+  }
+});
+
+test('catalog rejects placeholders and coupling to factual or editorial records', () => {
+  for (const data of [
+    { ...valid(), summary: 'TODO: add summary' }, { ...valid(), relatedEvents: ['event-a'] },
+    { ...valid(), companies: ['company-a'] }, { ...valid(), people: ['person-a'] }, { ...valid(), confidence: 0.9 },
+    ...['https://example.com/paper', 'https://demo.invalid/', 'https://github.com/TODO/project'].map((url) => ({ ...valid(), sources: [{ ...valid().sources[0], url }] })),
+  ]) assert.equal(analogSchema.safeParse(data).success, false);
+  for (const body of ['TODO', '<script>bad</script>', 'https://example.com']) assert.throws(() => validateCatalog([{ ...entry(), body }], []));
+  assert.throws(() => validateCatalog([{ ...entry(), body: '[Source](#source-missing)' }], []), /unknown source reference/);
+});
+
+test('stable slugs and bounded updates validate independently of re-review', () => {
+  assert.deepEqual(validateCatalog([entry()], []), []);
+  assert.throws(() => validateCatalog([entry(), entry()], []), /Duplicate catalog slug/);
+  assert.throws(() => validateCatalog([{ ...entry(), id: 'Sample_Name' }], []));
+  const update = { project: 'sample', date: '2026-09-05', kind: 'added', summary: 'Initial entry' };
+  assert.deepEqual(validateCatalog([entry()], [update]), [update]);
+  assert.throws(() => validateCatalog([entry()], [{ ...update, project: 'absent' }]), /Unknown catalog update project/);
+  assert.throws(() => validateCatalog([entry()], [{ ...update, date: '2026-13-01' }]));
+  assert.throws(() => validateCatalog([entry()], Array(4).fill(update)));
+  assert.throws(() => validateCatalog([], [update]));
+  assert.deepEqual(validateCatalog([], []), []);
+});
+
+test('Analog Scope requires stage presence and explicit AI booleans, with no strength model', () => {
+  assert.deepEqual(scopeStageIds, ['design', 'simulation', 'layout']);
+  assert.deepEqual(scopeStageIds.map((id) => scopeStageLabels[id]), ['Design', 'Simulation', 'Layout']);
+  const stage = { ai: false };
+  for (const scope of [undefined, {}, { design: undefined }, { aiBuilt: true },
+    { design: 'core' }, { design: null }, { design: {} },
+    ...['core', 'supporting', 'planned'].map((level) => ({ design: { ...stage, level } })),
+    ...['true', 'false', 1, null].map((ai) => ({ design: { ai } })),
+    { design: { ...stage, score: 1 } }, { 'verification': stage }, { 'ai-design': stage },
+    ...[false, 'core', 'supporting', 'ai-built', 'traditional', null].map((aiBuilt) => ({ design: stage, aiBuilt })),
+  ]) assert.equal(analogSchema.safeParse({ ...valid(), scope }).success, false, JSON.stringify(scope));
+  for (const removed of ['keywords', 'workflow', 'areas', 'primary', 'flow', 'roles', 'ai', 'aiBuilt']) {
+    assert.equal(analogSchema.safeParse({ ...valid(), [removed]: {} }).success, false);
+  }
+});
+
+provenanceSchemaTests('Analog', analogSchema, valid, scopeStageIds);
+
+test('Analog provenance re-review does not advance the activity snapshot', () => {
+  const project = { ...entry(), data: { ...valid(), scope: { design: { ai: false }, aiDevelopment: 'assisted' }, developmentEvidence: developmentEvidence() } };
+  assert.deepEqual(validateActivity([project], snapshot()), snapshot());
+});
+
+test('activity uses exactly twelve consecutive calendar months ending at the snapshot month', () => {
+  assert.deepEqual(activityMonths('2026-09-05'), snapshot().months);
+  assert.deepEqual(activityMonths('2024-02-29').slice(-3), ['2023-12', '2024-01', '2024-02']);
+  assert.ok(activitySchema.safeParse(snapshot()).success);
+  for (const months of [snapshot().months.slice(1), [...snapshot().months].reverse(), Array(12).fill('2026-09'), [...snapshot().months.slice(0, 11), '2026-13']]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), months }).success, false);
+  }
+});
+
+test('activity counting uses UTC committer dates and retains an old latest date', () => {
+  const result = countActivity(['2025-09-30T23:30:00-02:00', '2026-08-31T23:45:00-01:00', '2026-09-04T12:00:00Z'], '2026-09-05T03:00:00Z');
+  assert.deepEqual(result.commits, [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]);
+  assert.equal(result.lastCommitAt, '2026-09-04');
+  assert.deepEqual(countActivity(['2024-02-29T01:00:00Z'], '2026-09-05T03:00:00Z'), { commits: Array(12).fill(0), lastCommitAt: '2024-02-29' });
+  for (const dates of [[], ['invalid'], ['2026-09-05T04:00:00Z']]) assert.throws(() => countActivity(dates, '2026-09-05T03:00:00Z'));
+  assert.match(formatDate('2025-06-18'), /2025/);
+});
+
+test('activity validates identities, refs, timestamps, nonnegative integer counts, and last-date consistency', () => {
+  const good = snapshot().projects.sample;
+  for (const record of [
+    { ...good, commits: [] }, ...[-1, 1.5, NaN, Infinity].map((count) => ({ ...good, commits: [count, ...good.commits.slice(1)] })),
+    { ...good, repository: 'missing-owner' }, { ...good, repository: 'owner/..' }, { ...good, headSha: 'branch-name' },
+    ...['', '-main', 'foo..bar', 'foo/bar.lock', 'a b', 'main@{1}'].map((defaultBranch) => ({ ...good, defaultBranch })),
+    { ...good, lastCommitAt: '2026-02-30' }, { ...good, lastCommitAt: '2026-09-06' },
+    { ...good, lastMeaningfulCommitAt: undefined }, { ...good, lastMeaningfulCommitAt: '2026-02-30' },
+    { ...good, lastMeaningfulCommitAt: '2026-06-24' },
+    { ...good, lastCommitAt: '2026-05-01' }, { ...good, lastCommitAt: '2026-08-01' }, { ...good, score: 99 },
+  ]) assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: record } }).success, false, JSON.stringify(record));
+  for (const override of [{ reviewedAt: '2026-02-30' }, { capturedAt: 'invalid' }, { capturedAt: '2026-09-06T00:00:00Z' }, { method: 'all-refs' }]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), ...override }).success, false);
+  }
+});
+
+test('each activity record belongs to one authored project and its verified Code repository', () => {
+  assert.deepEqual(validateActivity([entry()], snapshot()), snapshot());
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: {} }), /Missing activity project/);
+  assert.throws(() => validateActivity([], snapshot()), /Unknown activity project/);
+  const unrelated = { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, repository: 'other/repo' } } };
+  assert.throws(() => validateActivity([entry()], unrelated), /verified Code source/);
+});
+
+test('point records require reviewed provenance and never store fabricated repository counts', () => {
+  const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
+  const record = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  assert.equal(hasRepositoryHistory(record), false);
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
+  assert.ok(validateActivity(projects, { ...snapshot(), projects: { sample: record } }));
+  // All three reviewed public-signal types remain accepted.
+  for (const type of ['paper', 'release', 'public-update']) {
+    assert.ok(activitySchema.safeParse({ ...snapshot(), projects: { sample: { ...record, lastPublicUpdateType: type } } }).success, type);
+  }
+  for (const bad of [
+    { ...record, lastPublicUpdateType: undefined }, { ...record, lastPublicUpdateType: 'commits' },
+    { ...record, lastPublicUpdateAt: undefined }, { ...record, lastPublicUpdateSource: undefined },
+    { ...record, lastPublicUpdateSource: 'Not_A_Valid_Slug' }, { ...record, kind: 'no-public-repo' },
+    { ...record, commits: Array(12).fill(0) }, { ...record, repository: 'owner/repo' },
+  ]) {
+    assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: bad } }).success, false, JSON.stringify(bad));
+  }
+  assert.throws(() => validateActivity(projects, { ...snapshot(), projects: { sample: { ...record, lastPublicUpdateSource: 'missing' } } }), /unknown public update source/);
+});
+
+test('no-public-repo is no longer a valid activity kind in the schema or the checked-in Analog snapshot', async () => {
+  const base = { lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
+  assert.equal(activitySchema.safeParse({ ...snapshot(), projects: { sample: { kind: 'no-public-repo', ...base } } }).success, false);
+  assert.ok(activitySchema.safeParse({ ...snapshot(), projects: { sample: { kind: 'public-update', ...base } } }).success);
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
+  const kinds = new Set(Object.values(activity.projects).map((project: any) => project.kind));
+  assert.ok(!kinds.has('no-public-repo'));
+  assert.ok(kinds.has('public-update'));
+});
+
+test('reviewed monthly repository records work across hosts and retain strict identity and freshness checks', () => {
+  // Synthetic fixtures exercise the same contract for different hosting platforms.
+  for (const repository of ['https://gitlab.com/group/subgroup/tool', 'https://codeberg.org/group/tool']) {
+    const record = { ...snapshot().projects.sample, kind: 'repository', repository, repositoryId: '123',
+      capturedAt: '2026-09-05T04:00:00Z', lastMeaningfulCommitSha: 'b'.repeat(40), lastMeaningfulCommitSource: 'activity',
+    };
+    const sample = { ...entry(), data: { ...valid(), sources: [
+      { id: 'code', title: 'Canonical repository', url: repository, purpose: 'code' },
+      { id: 'activity', title: 'Reviewed implementation commit', url: `${repository}/commit/${record.lastMeaningfulCommitSha}` },
+    ] } };
+    const value = { ...snapshot(), projects: { sample: record } };
+    assert.ok(validateActivity([sample], value));
+    assert.equal(hasRepositoryHistory(record), true);
+    for (const change of [
+      { repositoryId: undefined }, { repository: 'https://github.com/mirror/tool' }, { capturedAt: undefined },
+      { capturedAt: '2026-08-31T00:00:00Z' }, { lastMeaningfulCommitAt: '2025-09-04' },
+      { commits: [] }, { commits: Array(12).fill(0) }, { lastMeaningfulCommitSha: undefined },
+      { lastMeaningfulCommitSource: 'missing' }, { lastMeaningfulCommitSha: 'c'.repeat(40) },
+    ]) assert.throws(() => validateActivity([sample], { ...value, projects: { sample: { ...record, ...change } } }));
+    const wrongSource = { ...sample, data: { ...sample.data, sources: sample.data.sources.map((s) => s.purpose === 'code' ? { ...s, url: 'https://gitlab.com/unrelated/tool' } : s) } };
+    assert.throws(() => validateActivity([wrongSource], value), /verified Code source/);
+  }
+});
+
+test('rolling meaningful freshness remains inclusive independently of the displayed-window requirement', () => {
+  assert.equal(freshnessCutoff('2026-09-05'), '2025-09-05');
+  assert.equal(freshnessCutoff('2024-02-29'), '2023-02-28');
+  assert.equal(freshnessCutoff('2025-03-01'), '2024-03-01');
+  // A later ordinary commit supplies a visible signal; meaningful freshness is
+  // still governed by the reviewed substantive date, inclusively.
+  const record = { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-05' };
+  assert.ok(validateActivity([entry()], { ...snapshot(), projects: { sample: record } }));
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...record, lastMeaningfulCommitAt: '2025-09-04' } } }), /on or after 2025-09-05/);
+  // A recent cosmetic/bot commit may affect ordering, but cannot rescue a stale project.
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-04' } } }), /requires verified meaningful activity/);
+  const paper = { ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } };
+  const publicUpdate = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
+  assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: publicUpdate } }), /reviewed signal in the twelve displayed months/);
+  assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
+  // Advancing the snapshot requires curation even if no source files changed.
+  assert.throws(() => validateActivity([paper], { ...snapshot(), reviewedAt: '2026-09-06', capturedAt: '2026-09-06T03:00:00Z', projects: { sample: publicUpdate } }), /on or after 2025-09-06/);
+});
+
+test('Analog removes confirmed all-zero bands while missing or malformed captures stay errors', () => {
+  const outside = { ...snapshot().projects.sample, commits: Array(12).fill(0),
+    lastCommitAt: '2025-09-30', lastMeaningfulCommitAt: '2025-09-30' };
+  assert.ok(activitySchema.safeParse({ ...snapshot(), projects: { sample: outside } }).success);
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: outside } }), /explicitly curate confirmed zero-activity entries/);
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: {} }), /Missing activity project/);
+  assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...outside, commits: [] } } }));
+  // A quiet current month is not an all-zero window and must stay eligible.
+  assert.equal(snapshot().projects.sample.commits.at(-1), 0);
+  assert.ok(validateActivity([entry()], snapshot()));
+});
+
+test('shared calendar labels retain years, unpadded days and Event precision/ranges', () => {
+  assert.equal(formatDate('2026-09-05'), 'Sep 5, 2026');
+  assert.equal(formatDate('2026-08-04'), 'Aug 4, 2026');
+  assert.equal(formatDate('2025-12-31'), 'Dec 31, 2025');
+  assert.equal(formatDate('2024-02-29'), 'Feb 29, 2024');
+  for (const [when, expected] of [
+    [{ start: '2026-09-05', precision: 'day' }, 'Sep 5, 2026'],
+    [{ start: '2026-08', end: '2026-09', precision: 'month' }, 'Aug 2026 – Sep 2026'],
+    [{ start: '2025', precision: 'year' }, '2025'],
+    [{ start: '2025-12-31', end: '2026-01-02', precision: 'day' }, 'Dec 31, 2025 – Jan 2, 2026'],
+  ]) assert.equal(formatWhen({ data: { when } } as any), expected);
+});
+
+test('repository bands keep months and counts paired oldest-first without mutating snapshot data', () => {
+  const months = Object.freeze(snapshot().months);
+  const commits = Object.freeze([0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+  const record = Object.freeze({ kind: 'github' as const, repository: 'example/project', defaultBranch: 'main',
+    lastCommitAt: '2026-09-05', commits });
+  const band = activityBand(record, months, []);
+  assert.deepEqual(band.cells.map((cell) => cell.month), [
+    '2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03',
+    '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09',
+  ]);
+  assert.deepEqual(band.cells.map((cell) => cell.commits), [0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+  assert.equal(band.cells[0].detail, 'October 2025 · 0 default-branch commits');
+  assert.equal(band.cells[11].detail, 'September 2026 · 6 default-branch commits');
+  assert.equal(band.activeMonths, 6);
+  assert.deepEqual(activityBand(record, months, []), band);
+  assert.deepEqual(months, snapshot().months);
+  assert.deepEqual(commits, [0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
+});
+
+test('ATLAS paper and ngspice release occupy their reviewed month without invented commit data', async () => {
+  const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8')));
+  const labels: Record<string, string> = { paper: 'paper publication', release: 'release', 'public-update': 'public update' };
+  // Which project carries which reviewed point-signal type is durable identity. The date, month,
+  // window index and active count are read from the current snapshot, so a routine activity
+  // refresh does not require editing this test.
+  const reviewedTypes: Record<string, string> = { atlas: 'paper', ngspice: 'release' };
+  // The record's date determines its cell; Analog's active-list validator also
+  // requires the reviewed point signal to lie inside this displayed window.
+  for (const [id, type] of Object.entries(reviewedTypes)) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    const data = analogSchema.parse(frontmatter);
+    const record = snapshot.projects[id], before = structuredClone(record);
+    const band = activityBand(record, snapshot.months, data.sources);
+    assert.equal(record.kind, 'public-update');
+    assert.equal((record as any).lastPublicUpdateType, type);
+    assert.match((record as any).lastPublicUpdateAt, /^\d{4}-\d{2}-\d{2}$/);
+    const date: string = (record as any).lastPublicUpdateAt;
+    const month = date.slice(0, 7);
+    const label = labels[type];
+    const monthIndex = snapshot.months.indexOf(month);
+    assert.equal(band.date, date);
+    assert.equal(band.cells.length, snapshot.months.length);
+    assert.deepEqual(band.cells.map((cell) => cell.month), snapshot.months);
+    assert.equal(band.cells.at(-1)!.month, snapshot.reviewedAt.slice(0, 7));
+    assert.equal(band.cells.findIndex((cell) => cell.active), monthIndex);
+    assert.equal(band.activeMonths, monthIndex >= 0 ? 1 : 0);
+    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), monthIndex >= 0 ? [month] : []);
+    for (const cell of band.cells) {
+      assert.equal(cell.signal, type);
+      assert.ok(!('commits' in cell));
+      assert.ok(!cell.detail.includes('commits'));
+      assert.ok(cell.detail.endsWith(cell.active ? label : 'no reviewed public activity signal'));
+      assert.equal(cell.source, cell.active ? (record as any).lastPublicUpdateSource : undefined);
+    }
+    assert.ok(band.provenance.startsWith(label + ':'));
+    assert.deepEqual(record, before);
+    assert.ok(!('commits' in record));
+  }
+});
+
+test('generic point-signal rendering retains out-of-window evidence without clamping', () => {
+  const months = Object.freeze(snapshot().months);
+  const sources = [{ id: 'update', title: 'Reviewed public update' }];
+  for (const lastPublicUpdateAt of ['2025-09-05', '2025-10-01', '2026-09-05']) {
+    const record = { kind: 'public-update' as const, lastPublicUpdateType: 'public-update' as const,
+      lastPublicUpdateAt, lastPublicUpdateSource: 'update' };
+    const band = activityBand(record, months, sources);
+    const expected = months.includes(lastPublicUpdateAt.slice(0, 7)) ? [lastPublicUpdateAt.slice(0, 7)] : [];
+    assert.equal(band.cells.length, 12);
+    assert.equal(band.cells[0].month, '2025-10');
+    assert.equal(band.cells[11].month, '2026-09');
+    assert.deepEqual(band.cells.filter((cell) => cell.active).map((cell) => cell.month), expected);
+    assert.equal(band.activeMonths, expected.length);
+    assert.ok(band.cells.every((cell) => !('commits' in cell)));
+    assert.equal(band.date, lastPublicUpdateAt);
+  }
+});
+
+test('Scope rendering separates stage inference from development provenance and fixes display order', () => {
+  const scope = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: {
+    aiDevelopment: 'assisted', layout: { ai: false },
+    simulation: { ai: true }, design: { ai: true },
+  } }).scope;
+  const before = structuredClone(scope);
+  assert.deepEqual(scopeItems(scope, scopeStageLabels), [
+    { id: 'design', label: 'AI Design', ai: true },
+    { id: 'simulation', label: 'AI Simulation', ai: true },
+    { id: 'layout', label: 'Layout', ai: false },
+    { id: 'aiDevelopment', label: 'AI-ASSISTED', aiDevelopment: 'assisted' },
+  ]);
+  assert.deepEqual(scope, before);
+  const conventional = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: { simulation: { ai: false }, aiDevelopment: 'built' } }).scope;
+  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-BUILT']);
+});
+
+test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, generic tools and provenance', async () => {
+  const expected = {
+    zerosim: ['AI Simulation'], ngspice: ['Simulation'], klayout: ['Layout'],
+    analogsage: ['AI Design', 'Simulation'], autosizer: ['AI Design', 'Simulation'],
+    panda: ['AI Design', 'Simulation', 'AI Layout'],
+    atlas: ['AI Design', 'AI Simulation'], 'masala-chai': ['AI Design', 'AI Simulation'],
+    'evo-ldo-bench': ['AI Design', 'AI Simulation'],
+    'virtuoso-agent': ['AI Design', 'AI Simulation'],
+    'virtuoso-bridge-lite': ['AI Design', 'Simulation', 'Layout'], vcli: ['AI Design', 'Simulation', 'Layout'],
+    'gmoverid-skill': ['AI Design', 'AI Simulation'], circuitrubric: ['AI Design'],
+    'behavioral-veriloga-eval': ['AI Design', 'AI Simulation'], 'analogforge-agent': ['Design', 'Simulation'],
+    // Benchmark purpose qualifies the tested stage, not every supporting tool.
+    'analog-design-bench': ['AI Design', 'Simulation'], loadbench: ['AI Design', 'Simulation'],
+    netlistbench: ['AI Design'], 'razavi-bench': ['AI Design', 'Simulation'], evas: ['Simulation'],
+    // Model-authored physical decisions and electrical setup count even with conventional engines.
+    'ams-io-agent': ['AI Design', 'AI Layout'], 'vibe-analog': ['AI Design', 'AI Simulation'],
+    'agentic-sizing': ['AI Design', 'AI Simulation'], analogmaster: ['AI Design', 'Simulation', 'Layout'],
+    // Reward/candidate ranking alone remains Design, not AI Simulation.
+    arcs: ['AI Design', 'Simulation'], chipjev: ['AI Design', 'Simulation', 'AI Layout'],
+    // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
+    'ngspice-openvaf-enhancements': ['AI Design', 'Simulation'],
+    // AnalogAgent implements model-driven diagnosis of simulator logs and waveform images.
+    analogagent: ['AI Design', 'AI Simulation'],
+  };
+  for (const [id, labels] of Object.entries(expected)) {
+    const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
+    const scope = analogSchema.parse(frontmatter).scope;
+    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
+  }
+});

@@ -1,0 +1,26 @@
+{
+  "id": "apple-2026-07-wireless-dms-hiring",
+  "when": {
+    "start": "2026-07-16",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": ["apple"],
+  "people": [],
+  "headline": "Apple lists multiple Wireless Silicon Digital Mixed-Signal Modeling roles",
+  "fact": "Apple listed multiple Digital Mixed-Signal Modeling Engineer roles in its wireless silicon development team in the San Francisco Bay Area and Beaverton. The descriptions state that the roles model and verify analog, RF, mixed-signal blocks, and SoCs using SystemVerilog behavioral models and testbenches.",
+  "sources": [
+    {
+      "title": "Digital Mixed-Signal Modeling Engineer — San Francisco Bay Area",
+      "url": "https://jobs.apple.com/en-us/details/200672770-3401/digital-mixed-signal-modeling-engineer",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple role dated July 16, 2026, for wireless-silicon SystemVerilog modeling and verification in the San Francisco Bay Area."
+    },
+    {
+      "title": "Digital Mixed-Signal Modeling Engineer — Beaverton",
+      "url": "https://jobs.apple.com/en-us/details/200672770-0505/digital-mixed-signal-modeling-engineer",
+      "checkedAt": "2026-08-30",
+      "summary": "Official Apple location variant dated July 16, 2026, for the same wireless-silicon modeling and verification work in Beaverton."
+    }
+  ]
+}

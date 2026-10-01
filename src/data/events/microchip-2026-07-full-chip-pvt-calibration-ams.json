@@ -1,0 +1,23 @@
+{
+  "id": "microchip-2026-07-full-chip-pvt-calibration-ams",
+  "when": {
+    "start": "2026-07-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "microchip",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Microchip and Siemens report full-chip AMS verification for FPGA I/O PVT calibration",
+  "fact": "At DAC 2026, Microchip and Siemens authors described full-chip analog mixed-signal verification of FPGA I/O PVT calibration spanning distributed I/O banks. The presented calibration combines a SAR-based digital block with analog circuitry that manages reference currents and voltages. The authors report that Siemens Symphony Pro reduced simulation time by about 3x and memory usage by about 2-3x while supporting regression across multiple I/O standards and extreme PVT conditions; these are presentation-reported results for the described case.",
+  "sources": [
+    {
+      "title": "An Optimized Full-Chip Analog Mixed-Signal (AMS) Verification Approach for PVT Calibration in FPGA Systems",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST276&sess=sess295",
+      "checkedAt": "2026-09-25",
+      "summary": "The official DAC 2026 record identifies the Microchip and Siemens authors, July 28 presentation, SAR/digital-plus-analog PVT-calibration architecture, full-chip verification scope, and reported approximately-3x simulation-time and 2-3x memory improvements."
+    }
+  ]
+}

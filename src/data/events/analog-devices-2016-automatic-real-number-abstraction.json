@@ -1,0 +1,28 @@
+{
+  "id": "analog-devices-2016-automatic-real-number-abstraction",
+  "when": {
+    "start": "2016",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "Analog Devices authors report automatic real-number abstraction for mixed-signal SoC verification",
+  "fact": "A DVCon 2016 paper by Analog Devices authors reports automatically generating schematic-consistent, high-fidelity real-number abstractions for mixed-signal SoC verification. The authors describe deployment across several ADI SoC tapeouts, detection of subtle design bugs, and circuit-simulation speedups greater than 1,000x while preserving the analog-function accuracy needed for the reported verification cases.",
+  "sources": [
+    {
+      "title": "Mixed-Signal Systems-on-Chip Design Verification with Automatic Real-Number Abstraction",
+      "url": "https://dvcon-proceedings.org/document/mixed-signal-systems-on-chip-design-verification-with-automatic-real-number-abstraction/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Analog Devices paper on automatically generated real-number abstractions for SoC verification."
+    },
+    {
+      "title": "Mixed-Signal Systems-on-Chip Design Verification with Automatic Real-Number Abstraction — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/mixed-signal-systems-on-chip-design-verification-with-automatic-real-number-abstraction.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper reports the abstraction flow, use across ADI tapeouts, defect detection, and its stated simulation-speed and accuracy results."
+    }
+  ]
+}

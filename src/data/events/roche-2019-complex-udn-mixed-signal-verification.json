@@ -1,0 +1,28 @@
+{
+  "id": "roche-2019-complex-udn-mixed-signal-verification",
+  "when": {
+    "start": "2019",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "roche-sequencing-solutions"
+  ],
+  "people": [],
+  "headline": "Roche Sequencing authors report complex SystemVerilog UDNs for mixed-signal verification",
+  "fact": "A DVCon 2019 paper by Roche Sequencing Solutions authors presents a structured SystemVerilog user-defined nettype with runtime port resolution and waveform-viewer support. In a SAR ADC case, the authors report 1,183.3 seconds for the referenced SPICE simulation versus 4.7 seconds for the real-number model and say the flow exposed an incorrect MSB capacitor-switch polarity.",
+  "sources": [
+    {
+      "title": "Novel Mixed-Signal Verification Methodology Using Complex UDNs",
+      "url": "https://dvcon-proceedings.org/document/novel-mixed-signal-verification-methodology-using-complex-udns/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Roche Sequencing Solutions paper on complex SystemVerilog user-defined nettypes."
+    },
+    {
+      "title": "Novel Mixed-Signal Verification Methodology Using Complex UDNs — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/novel-mixed-signal-verification-methodology-using-complex-udns.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the structured UDN, runtime resolution, GUI support, SAR ADC timing comparison, and reported polarity defect."
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+---
+import type { DevelopmentEvidence, scopeItems } from '../lib/catalog-scope';
+import type { activityBand } from '../lib/catalog-activity-band';
+import { monthLabel } from '../lib/catalog-activity-band';
+import { formatDate } from '../lib/date-format';
+import '../styles/catalog.css';
+
+const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
+interface Props {
+  domain: 'analog' | 'digital';
+  title: string;
+  stages: Record<string, string>;
+  months: readonly string[];
+  projects: readonly {
+    id: string;
+    name: string;
+    description: string;
+    scope: ReturnType<typeof scopeItems>;
+    developmentEvidence?: DevelopmentEvidence;
+    activity: ReturnType<typeof activityBand> & { kind: string };
+    sources: readonly { id: string; title: string; url: string; purpose?: keyof typeof linkLabels }[];
+  }[];
+}
+const { domain, title, stages, months, projects } = Astro.props;
+const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldest to newest)`;
+---
+<section class="catalog" data-catalog={domain} aria-labelledby="catalog:heading">
+  <h1 id="catalog:heading" class="visually-hidden">{title}</h1>
+  <section aria-label="Project index">
+    <form class="catalog-toolbar filter-toolbar" role="search" aria-label={`${title} projects`} data-catalog-filters hidden>
+      <label class="catalog-search">
+        <span class="visually-hidden">Search projects</span>
+        <input class="filter-input" data-catalog-search type="search" placeholder="Search projects…" autocomplete="off" aria-controls="catalog:projects" />
+      </label>
+      <label class="catalog-scope-filter">
+        <span class="visually-hidden">Scope</span>
+        <select class="filter-input" data-catalog-scope aria-controls="catalog:projects">
+          <option value="">All scopes</option>
+          {Object.entries(stages).map(([id, label]) => <option value={id}>{label}</option>)}
+        </select>
+      </label>
+      <p class="index-count" data-catalog-count role="status" aria-live="polite" aria-atomic="true">{projects.length} projects</p>
+    </form>
+    <p class="catalog-empty index-meta" data-catalog-empty hidden>No projects match.</p>
+    <ol class="catalog-list index-list" id="catalog:projects" aria-label="Projects">
+      {projects.map((project) => <li class="catalog-project index-row" data-catalog-project={project.id}>
+        <article class="catalog-row" aria-labelledby={`${project.id}--name`}>
+          <div class="catalog-rail">
+            <div class="catalog-activity" data-activity-kind={project.activity.kind}>
+              <span class="visually-hidden">Public activity: </span>
+              <p class="activity-latest"><time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{formatDate(project.activity.date)}</time></p>
+              <ul class="activity-strip" aria-label={`${project.name}: ${windowLabel}; ${project.activity.activeMonths} months with reviewed public activity; ${project.activity.provenance}`}>
+                {project.activity.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
+                  <span class="visually-hidden">{cell.detail}</span>
+                </li>)}
+              </ul>
+            </div>
+            <ul class="catalog-scope" aria-label={`${project.name} Scope`}>
+              {project.scope.map((item) => <li class:list={['category-label', 'scope-label', item.aiDevelopment ? `scope-ai-${item.aiDevelopment}` : `scope-${item.id}`]} data-scope-item={item.id} data-ai={item.ai} data-ai-development={item.aiDevelopment} data-provenance-target={item.aiDevelopment ? `${project.id}--development` : undefined}>
+                <span data-scope-label>{item.label}</span>
+              </li>)}
+            </ul>
+          </div>
+          <div class="catalog-overview">
+            <div class="catalog-title">
+              <h2 class="index-title" id={`${project.id}--name`}>{project.name}</h2>
+              <ul class="catalog-quicklinks index-links" aria-label={`${project.name} primary links`}>
+                {project.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
+              </ul>
+            </div>
+            <p class="catalog-description index-summary">{project.description}</p>
+          </div>
+          {project.developmentEvidence && <div class="catalog-provenance" id={`${project.id}--development`} data-provenance-panel role="group" aria-labelledby={`${project.id}--name ${project.id}--development-heading`}>
+            <p class="catalog-provenance-heading" id={`${project.id}--development-heading`}>Development provenance</p>
+            <p class="catalog-provenance-summary">{project.developmentEvidence.summary}</p>
+            <ul class="catalog-provenance-sources index-links" aria-label={`${project.name} development sources`}>
+              {project.developmentEvidence.sources.map((id) => {
+                const source = project.sources.find((source) => source.id === id)!;
+                return <li><a href={source.url}>{source.title}</a></li>;
+              })}
+            </ul>
+          </div>}
+        </article>
+      </li>)}
+    </ol>
+  </section>
+</section>
+<script>
+  import { enhanceCatalog } from '../scripts/catalog-filter';
+  import { enhanceCatalogProvenance } from '../scripts/catalog-provenance';
+  document.querySelectorAll<HTMLElement>('[data-catalog]').forEach((catalog) => {
+    enhanceCatalogProvenance(catalog);
+    enhanceCatalog(catalog);
+  });
+</script>

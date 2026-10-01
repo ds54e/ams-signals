@@ -1,0 +1,20 @@
+[
+  {
+    "project": "chipjev",
+    "date": "2026-10-01",
+    "kind": "added",
+    "summary": "Model-guided topology, sizing and supported SKY130 layout flows with public simulation and physical-verification artifacts."
+  },
+  {
+    "project": "spicexplorer",
+    "date": "2026-10-01",
+    "kind": "added",
+    "summary": "Analog-DB circuit records, sizing and simulation infrastructure, and agent-driven schematic/layout co-design."
+  },
+  {
+    "project": "analog-design-bench",
+    "date": "2026-10-01",
+    "kind": "updated",
+    "summary": "Updated the public 50-task release and added the long-horizon benchmark paper, retaining reported-result boundaries."
+  }
+]

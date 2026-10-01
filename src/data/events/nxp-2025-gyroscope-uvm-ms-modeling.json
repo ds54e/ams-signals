@@ -1,0 +1,28 @@
+{
+  "id": "nxp-2025-gyroscope-uvm-ms-modeling",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP authors report UVM-MS modeling and verification of an automotive gyroscope",
+  "fact": "An NXP DVCon Europe 2025 paper reports a gyroscope verification flow using UVM-MS, custom user-defined nets for voltage, current, resistance, and capacitance, Python through DPI, and safety-mechanism checks. In one capacitor-model comparison, the paper reports 24 seconds for a custom enet implementation, 129 seconds for EEnet, and 256 seconds for Verilog-AMS. Those timings apply only to that example and simulator setup.",
+  "sources": [
+    {
+      "title": "UVM-MS Based Verification of an Automotive Gyroscope",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_104.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The full paper describes the custom UDNs, Python/DPI and UVM-MS flow, safety checks, time-step considerations, and the bounded capacitor-model timing comparison."
+    },
+    {
+      "title": "DVCon Europe 2025 proceedings program",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2025_Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings program dates the NXP presentation to October 15, 2025."
+    }
+  ]
+}

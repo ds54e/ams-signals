@@ -1,0 +1,28 @@
+{
+  "id": "samsung-2024-display-pmic-uvm-ams-spice-verification",
+  "when": {
+    "start": "2024",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung authors report reusing a UVM environment with SPICE for display-PMIC AMS verification",
+  "fact": "A DVCon Europe 2024 paper by Samsung authors describes reusing a configurable digital mixed-signal UVM environment for a selected set of analog/mixed-signal tests coupled to a SPICE simulator. In the display-PMIC case, the authors report finding critical schematic issues before tapeout and correlating verification results with silicon measurements.",
+  "sources": [
+    {
+      "title": "A Configurable Re-Usable UVM Environment Coupled with an Advanced SPICE Simulator for AMS Verification of a Display PMIC",
+      "url": "https://dvcon-proceedings.org/document/a-configurable-re-usable-uvm-environment-coupled-with-advanced-spice-simulator-for-analog-and-mixed-signal-verification-of-a-display-pmic/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Samsung display-PMIC UVM and SPICE verification paper."
+    },
+    {
+      "title": "A Configurable Re-Usable UVM Environment Coupled with an Advanced SPICE Simulator — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1013.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper describes UVM-environment reuse for AMS/SPICE tests, reported pre-tapeout schematic findings, and silicon correlation."
+    }
+  ]
+}

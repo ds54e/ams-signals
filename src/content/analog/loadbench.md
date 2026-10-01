@@ -1,0 +1,55 @@
+---
+name: "LOADBench"
+summary: "Open op-amp data and metrics for analog machine learning."
+description: "Dataset and benchmark for machine-learning analog design, covering 101 SKY130 op-amp topologies with ngspice benches and electrical performance data. Python metrics evaluate topology generation/selection, inverse sizing and multi-objective optimization, separating structural coverage from simulation-based performance comparisons."
+scope:
+  design:
+    ai: true
+  simulation:
+    ai: false
+access: "Public Zenodo data, Python metric scripts and SKY130/ngspice; the complete simulation archives are large."
+addedAt: "2026-09-05"
+reviewedAt: "2026-10-01"
+sources:
+  - id: "dataset"
+    title: "LOADBench Dataset: released archives and simulation instructions"
+    url: "https://zenodo.org/records/21759759"
+    purpose: "official"
+  - id: "paper"
+    title: "LOADBench: official author-institution paper record and abstract"
+    url: "https://www.it.pt/Publications/PaperConference/42000"
+    purpose: "paper"
+  - id: "code"
+    title: "Public project implementation"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts"
+    purpose: "code"
+  - id: "circuit-generation-coverage-py"
+    title: "Generated-topology coverage evaluation"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts/blob/03cc45620afbbbee19652d83d625f26f3368d951/circuit_generation_coverage.py"
+  - id: "inverse-sizing-py"
+    title: "Inverse-sizing performance metrics"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts/blob/03cc45620afbbbee19652d83d625f26f3368d951/inverse_sizing.py"
+  - id: "optimization-helper-py"
+    title: "Pareto hypervolume evaluation"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts/blob/03cc45620afbbbee19652d83d625f26f3368d951/optimization_helper.py"
+  - id: "ai-benchmark-purpose"
+    title: "Author-institution record defining the machine-learning benchmark"
+    url: "https://www.it.pt/Publications/PaperConference/42000"
+  - id: "ai-benchmark-readme"
+    title: "Model evaluation protocols and conventional ngspice measurements"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts/blob/03cc45620afbbbee19652d83d625f26f3368d951/README.md"
+---
+
+### Scope
+
+The author-institution paper record defines six tasks: inverse sizing, topology selection, subcircuit classification, structural generation, Pareto-membership prediction and multi-objective optimization. The Zenodo release contains 31 one-stage, 44 two-stage, 18 three-stage and 8 symmetrical op-amps, totaling 101. It explicitly links the selected GitHub metric implementation. The Paper link is the institutional abstract record, not an independently retrieved full manuscript. [Paper record](#source-paper) · [Dataset](#source-dataset)
+
+### Classification
+
+Generation and optimization denote benchmark task scope, not an included generative model. Simulation covers the released testbenches and performance-evaluation data: inverse-sizing metrics consume performance CSVs after simulation, and the data release supplies ngspice testbenches. Structural matching and electrical measurements are separate metrics. Classification tasks do not by themselves establish an explicit LLM reasoning trace. Dataset sizes and results are publisher-reported; the catalog inspected the small testbench archive, not the multi-gigabyte simulation archives. [Generation metric](#source-circuit-generation-coverage-py) · [Inverse sizing](#source-inverse-sizing-py) · [Optimization](#source-optimization-helper-py)
+
+### Scope classification
+
+The benchmark explicitly evaluates machine-learning topology generation/selection, inverse sizing and optimization, supporting AI Design for the evaluated operation. It need not bundle a trained designer to establish that benchmark role. [Benchmark purpose](#source-ai-benchmark-purpose) · [Evaluation protocols](#source-ai-benchmark-readme)
+
+The released ngspice benches, measurement extraction and performance data provide conventional Simulation. Predicting design parameters or Pareto membership does not establish a separate learned electrical-evaluation stage. [Evaluation protocols](#source-ai-benchmark-readme)

@@ -1,0 +1,26 @@
+{
+  "id": "nxp-infineon-2018-uvm-ms-standardization-ideas",
+  "when": {
+    "start": "2018-10-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["infineon", "nxp"],
+  "people": ["sebastian-simon"],
+  "headline": "NXP and Infineon present UVM mixed-signal practices and standardization needs",
+  "fact": "At DVCon Europe 2018, NXP and Infineon presented company practices for extending UVM into mixed-signal verification. NXP described analog/mixed-signal verification-component and UVC concepts and identified a need for flexible APIs between physical and signal layers, including a common interface for third-party VIP; Infineon presented its A-UVM analog extension with real-valued transactions, constrained-random stimulus, automated analog checks, waveform comparison, functional coverage, and an IGBT gate-driver application. The tutorial explicitly asked whether an Accellera UVM-AMS working group should be created, and Accellera later stated that DVCon Europe discussions resulted in creation of the proposed working group.",
+  "sources": [
+    {
+      "title": "UVM mixed signal extensions — Sharing Best Practice and Standardization Ideas",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/UVM-mixed-signal-extensionsSharing-Best-Practice-and-Standardization-Ideas.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "DVCon Europe 2018 tutorial by NXP and Infineon presenting UVM mixed-signal practices, missing API and standardization needs, A-UVM features and an IGBT gate-driver case, and discussion of a possible Accellera UVM-AMS working group."
+    },
+    {
+      "title": "Accellera Community Newsletter: September 2019",
+      "url": "https://www.accellera.org/news/newsletters/2019-september",
+      "checkedAt": "2026-09-02",
+      "summary": "Accellera states that multiple discussions at DVCon Europe the previous year resulted in creation of the UVM-AMS Proposed Working Group."
+    }
+  ]
+}

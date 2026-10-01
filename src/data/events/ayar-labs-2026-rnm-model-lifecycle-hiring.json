@@ -1,0 +1,35 @@
+{
+  "id": "ayar-labs-2026-rnm-model-lifecycle-hiring",
+  "when": {
+    "start": "2026-08",
+    "end": "2026-09",
+    "precision": "month"
+  },
+  "kind": "organizational",
+  "companies": [
+    "ayar-labs"
+  ],
+  "people": [],
+  "headline": "Ayar Labs lists roles spanning RNM construction, schematic correlation, sign-off, and full-chip integration",
+  "fact": "Ayar Labs listed related Bengaluru analog/mixed-signal modeling and verification roles. Their descriptions call for capturing significant first- and second-order circuit effects in SystemVerilog RNM, comparing models with schematics, signing off models, and integrating them into full-chip digital verification. The senior staff role adds model ownership through the product lifecycle. The postings name UVM and Verilog-AMS and include wreal/EEnet and optical simulation tools among preferred experience.",
+  "sources": [
+    {
+      "title": "Ayar Labs: Sr. Staff Engineer, Analog/Mixed Signal Modelling and Verification (696)",
+      "url": "https://recruitingbypaycor.com/career/JobIntroduction.action?clientId=8a7883c66a3387ef016a468ba9d104e6&id=8a7887a1a064211201a06813499e744c",
+      "checkedAt": "2026-09-09",
+      "summary": "The official Ayar Labs ATS description specifies schematic-derived RNM, model comparison, sign-off, full-chip integration, lifecycle ownership, and preferred wreal/EEnet and optical-tool experience. It exposes no absolute posting date."
+    },
+    {
+      "title": "Ayar Labs senior engineer listing — Insight Partners portfolio jobs",
+      "url": "https://jobs.insightpartners.com/companies/ayar-labs/jobs/91490870-sr-engineer-analog-mixed-signal-modelling-and-verification",
+      "checkedAt": "2026-09-09",
+      "summary": "The investor portfolio listing dates senior engineer role 693 to August 28, 2026, and preserves its RNM construction, schematic comparison, sign-off, and full-chip integration responsibilities."
+    },
+    {
+      "title": "Ayar Labs senior staff listing — Playground Global portfolio jobs",
+      "url": "https://careers.playground.global/companies/ayar-labs/jobs/92215361-sr-staff-engineer-analog-mixed-signal-modelling-and-verification",
+      "checkedAt": "2026-09-09",
+      "summary": "The investor portfolio listing dates senior staff role 696 to September 4, 2026. Together with the August senior engineer listing, it supports an August–September cluster; these are public listing dates, not independently established original ATS publication dates."
+    }
+  ]
+}

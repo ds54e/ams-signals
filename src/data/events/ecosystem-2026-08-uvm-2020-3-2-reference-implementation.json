@@ -1,0 +1,26 @@
+{
+  "id": "ecosystem-2026-08-uvm-2020-3-2-reference-implementation",
+  "when": {
+    "start": "2026-08",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "Accellera publishes UVM 2020-3.2 reference implementation",
+  "fact": "Accellera lists UVM 2020-3.2 as its August 2026 reference-implementation release for IEEE 1800.2-2020. The distributed README documents fixes to register-model name lookup, object-printer cycles, compatibility APIs, and core initialization callbacks. This is a UVM library update, not a new edition of IEEE 1800.2 or UVM-MS.",
+  "sources": [
+    {
+      "title": "Accellera UVM downloads",
+      "url": "https://www.accellera.org/downloads/standards/uvm",
+      "checkedAt": "2026-09-07",
+      "summary": "Official release table lists UVM 2020-3.2 with month-level date 2026-08 and links its library distribution."
+    },
+    {
+      "title": "UVM 1800.2-2020.3.2 distribution and README",
+      "url": "https://www.accellera.org/images/downloads/standards/uvm/1800.2-2020.3.2%20Release.gz",
+      "checkedAt": "2026-09-07",
+      "summary": "Downloaded distribution identifies kit version 2020.3.2; README errata include register lookup, cyclic printing, compatibility, and initialization fixes."
+    }
+  ]
+}

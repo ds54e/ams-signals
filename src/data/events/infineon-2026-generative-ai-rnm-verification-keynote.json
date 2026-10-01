@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2026-generative-ai-rnm-verification-keynote",
+  "when": {
+    "start": "2026-07-02",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon keynote describes generative-AI real-number-model creation within an AI-based verification methodology",
+  "fact": "A SMACD 2026 keynote by an Infineon principal engineer describes industrial experience connecting AI assistants, retrieval-augmented knowledge systems, and EDA tools through APIs, along with a current focus on an AI-based verification methodology. Its concrete example generates SystemVerilog real-number models from schematics, specifications, or other source models while emphasizing domain knowledge, guardrails, compliance, and human review. This Event records the scope described by the keynote, not a measured deployment result.",
+  "sources": [
+    {
+      "title": "AI Transformation in IC Development: An Industrial Perspective on Reshaping Verification Methodology in the Generative-AI Era",
+      "url": "https://smacd-conference.org/keynote.html",
+      "checkedAt": "2026-09-02",
+      "summary": "The official keynote page identifies Joachim Glas and Infineon and describes the AI-assistant, RAG, EDA-API, guardrail, human-in-the-loop, and SystemVerilog RNM example scope."
+    },
+    {
+      "title": "SMACD 2026 programme",
+      "url": "https://smacd-conference.org/programme_extended2.html",
+      "checkedAt": "2026-09-02",
+      "summary": "The official programme places the Joachim Glas keynote at 09:00 on Thursday, July 2, 2026."
+    }
+  ]
+}

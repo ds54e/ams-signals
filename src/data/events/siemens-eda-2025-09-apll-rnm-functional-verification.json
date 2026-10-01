@@ -1,0 +1,20 @@
+{
+  "id": "siemens-eda-2025-09-apll-rnm-functional-verification",
+  "when": {
+    "start": "2025-09-12",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["siemens-eda"],
+  "people": ["mariam-maurice"],
+  "headline": "Siemens and Ain Shams authors report UVM functional verification of an analog PLL RNM",
+  "fact": "Mariam Maurice, Rich Edelman, Mohamed Dessouky, and Ashraf Salem published an Integration paper applying constrained-random stimulus, functional coverage, assertions, and a UVM testbench to an analog PLL real-number model. The paper varies loop-filter parameters, charge-pump current, and VCO gain, and compares modeled outputs with a reference model. Its first-online date is September 12, 2025, although the journal volume is dated 2026; the reported DUT is an RNM model.",
+  "sources": [
+    {
+      "title": "A-PLL functional verification paper: author-uploaded full text",
+      "url": "https://www.researchgate.net/publication/395444153_Enhanced_functional_verification_models_that_ensure_the_full_functionality_of_an_A-PLL_device",
+      "checkedAt": "2026-09-07",
+      "summary": "Full text uploaded by Mariam Maurice identifies Siemens and Ain Shams affiliations, DOI 10.1016/j.vlsi.2025.102520, the first-online date, and the PLL-RNM verification methods and experiments."
+    }
+  ]
+}

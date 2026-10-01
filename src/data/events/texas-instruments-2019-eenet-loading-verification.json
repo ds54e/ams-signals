@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2019-eenet-loading-verification",
+  "when": {
+    "start": "2019",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "Texas Instruments authors report EEnet loading models for digital mixed-signal power verification",
+  "fact": "A DVCon 2019 paper by Texas Instruments authors describes using a SystemVerilog user-defined EEnet to model voltage, current, and resistance loading in power-regulation verification. The UVM-based flow randomized supplies, loads, and system states, supported reusable DMS and AMS environments, and extended verification to loading effects that simple voltage-only real-number interfaces could not represent.",
+  "sources": [
+    {
+      "title": "Enabling Digital Mixed-Signal Verification of Loading Effects in Power Regulation Using a SystemVerilog User-Defined Nettype",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/enabling-digital-mixed-signal-verification-of-loading-effects-in-power-regulation-using-systemveriloguser-defined-nettyp.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The Texas Instruments paper defines the EEnet loading model and describes randomized, reusable UVM-based DMS and AMS power-regulation verification."
+    }
+  ]
+}

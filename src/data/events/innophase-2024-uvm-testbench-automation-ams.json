@@ -1,0 +1,31 @@
+{
+  "id": "innophase-2024-uvm-testbench-automation-ams",
+  "when": {
+    "start": "2024-03-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "innophase",
+    "designers-guide-consulting"
+  ],
+  "people": [
+    "henry-chang"
+  ],
+  "headline": "InnoPhase and Designer's Guide authors report Python-generated UVM testbench infrastructure for AMS designs",
+  "fact": "A DVCon U.S. 2024 paper by InnoPhase and Designer's Guide Consulting authors reports a Python and Jinja flow that generates UVM testbench infrastructure from a DUT port list, including analog interfaces and agents plus register-abstraction integration. The paper presents deterministic template-based automation; it does not describe an AI-generated testbench flow.",
+  "sources": [
+    {
+      "title": "UVM Testbench Automation for AMS Designs",
+      "url": "https://dvcon-proceedings.org/document/uvm-testbench-automation-for-ams-designs/",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings record identifies J. B. David with InnoPhase, Henry Chang with Designer's Guide Consulting, and the March 6, 2024 presentation."
+    },
+    {
+      "title": "UVM Testbench Automation for AMS Designs — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1137.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The paper describes Python/Jinja generation from DUT ports, including analog interfaces, agents, and register-abstraction infrastructure."
+    }
+  ]
+}

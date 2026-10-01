@@ -1,0 +1,30 @@
+{
+  "id": "coseda-2022-systemc-ams-abv-library",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "coseda-technologies"
+  ],
+  "people": [
+    "thilo-voertler"
+  ],
+  "headline": "COSEDA and research authors present a cross-domain assertion library for SystemC AMS models",
+  "fact": "A 2022 DVCon Europe paper by COSEDA Technologies and research-institute authors presents a heterogeneous assertion-based-verification library for mixed-signal virtual prototypes in SystemC AMS. The work-in-progress prototype targets interactions across software, transaction-level, digital, and analog domains. This records the published library and examples, not evidence of deployment by a semiconductor customer.",
+  "sources": [
+    {
+      "title": "A Cross-Domain Heterogeneous ABV Library for Mixed-Signal Virtual Prototypes in SystemC AMS",
+      "url": "https://dvcon-proceedings.org/document/a-cross-domain-heterogeneous-abv-library-for-mixed-signal-virtual-prototypes-in-systemc-ams/",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings record identifies Thilo Vörtler with COSEDA Technologies and describes the cross-domain SystemC AMS assertion library."
+    },
+    {
+      "title": "A Cross-domain Heterogeneous ABV-Library for Mixed-signal Virtual Prototypes in SystemC/AMS — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/75414.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The paper gives the COSEDA and research affiliations, cross-domain library design and case study, and identifies the library as a work-in-progress prototype with a subset of SVA operators."
+    }
+  ]
+}

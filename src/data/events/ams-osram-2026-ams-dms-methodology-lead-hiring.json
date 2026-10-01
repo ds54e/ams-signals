@@ -1,0 +1,23 @@
+{
+  "id": "ams-osram-2026-ams-dms-methodology-lead-hiring",
+  "when": {
+    "start": "2026-03-20",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "ams-osram"
+  ],
+  "people": [],
+  "headline": "ams OSRAM seeks a leader for distributed AMS/DMS verification methodology and model libraries",
+  "fact": "ams OSRAM posted a Senior Principal Mixed-Signal Verification Engineer role to lead a distributed verification team and own an AMS/DMS methodology roadmap. The mandate covers reusable EEnet/UDN model libraries, DMS-to-Spectre correlation, SystemVerilog/UVM-MS environments, assertions, coverage, regression, sign-off criteria, and Python automation. This is evidence of a public hiring mandate, not proof that every listed method was already deployed across the organization.",
+  "sources": [
+    {
+      "title": "Senior Principal Mixed-Signal Verification Engineer (d/m/f)",
+      "url": "https://jobs.ams-osram.com/en/job/Senior-Principal-Mixed-Signal-Verification-Engineer-d_m_f-Premstaetten/22937",
+      "checkedAt": "2026-08-31",
+      "status": "unavailable",
+      "summary": "The official ams OSRAM posting identifies job 22937, its March 20, 2026 posting date, distributed-team leadership, and the AMS/DMS modeling, verification, correlation, coverage, regression, sign-off, and automation mandate; the original now reports that the position is no longer available."
+    }
+  ]
+}

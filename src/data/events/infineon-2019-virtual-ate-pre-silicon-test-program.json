@@ -1,0 +1,26 @@
+{
+  "id": "infineon-2019-virtual-ate-pre-silicon-test-program",
+  "when": {
+    "start": "2019-07-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon case study runs the same test program on virtual and physical ATE before first silicon",
+  "fact": "A JKU/Infineon paper presented a virtual ATE flow that executes production-style test programs against a SystemC/SystemC-AMS virtual DUT before first silicon. In an Infineon ASIC case study, the same test program was run on the virtual ATE and later on a Teradyne UltraFLEX system, exposing the same register-test error; the authors report that this enabled test-program checks months earlier than the conventional flow.",
+  "sources": [
+    {
+      "title": "Test Your Test Programs Pre-Silicon: A Virtual Test Methodology for Industrial Design Flows",
+      "url": "https://www.cda.cit.tum.de/files/eda/2019_isvlsi_virtual_test_for_industrial_design_flows.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Full paper describing a SystemC/SystemC-AMS virtual ATE methodology and an Infineon ASIC case using the same test program on virtual and Teradyne UltraFLEX targets."
+    },
+    {
+      "title": "Test Your Test Programs Pre-Silicon: A Virtual Test Methodology for Industrial Design Flows",
+      "url": "https://portal.fis.tum.de/en/publications/test-your-test-programs-pre-silicon-a-virtual-test-methodology-fo-2/",
+      "checkedAt": "2026-09-02",
+      "summary": "TUM publication record for the ISVLSI 2019 paper and conference dates."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "samsung-2023-oled-pmic-uvm-mixed-signal-verification",
+  "when": {
+    "start": "2023",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [
+    "vijay-kumar"
+  ],
+  "headline": "Samsung authors report UVM-based mixed-signal verification of an OLED display PMIC",
+  "fact": "A DVCon Europe 2023 paper by Samsung authors reports a UVM-based mixed-signal verification environment for an OLED display power-management IC. The authors describe 45 validated wreal models, 142 tests, assertions and automated checks, a fifteen-week turnaround, resolution of multiple port-direction issues, and pin-connectivity checks designed to guard against mismatches.",
+  "sources": [
+    {
+      "title": "UVM-Based Mixed-Signal Verification of a Display PMIC Designed for OLED Display Applications",
+      "url": "https://dvcon-proceedings.org/document/uvm-based-mixed-signal-verification-of-a-display-pmic-designed-for-oled-display-applications/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Samsung OLED display PMIC UVM mixed-signal verification paper."
+    },
+    {
+      "title": "UVM-Based Mixed-Signal Verification of an OLED Display PMIC — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1091-UVM-Based-Mixed-Signal-Verification-of-a-Display-PMIC-Designed-for-OLED-Display-Applications.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper details the model and test counts, validation, checks, assertions, turnaround, reported port-direction issues, and pin-connectivity checks."
+    }
+  ]
+}

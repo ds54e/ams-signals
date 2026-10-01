@@ -1,0 +1,23 @@
+{
+  "id": "stmicroelectronics-2025-full-chip-spice-verification",
+  "when": {
+    "start": "2025-06-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics",
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "ST and Synopsys authors report full-chip SPICE verification of a design exceeding 100 million transistors",
+  "fact": "An STMicroelectronics and Synopsys DAC 2025 presentation reports full-chip SPICE simulation of a design exceeding 100 million transistors with PrimeSim XA. The authors describe finding current-consumption and functional issues in the presented case. This preserves the customer/vendor presentation modality and does not generalize the result to all ST designs.",
+  "sources": [
+    {
+      "title": "Detection of Functional and Current Related Bugs in SoC through Full Chip SPICE Simulations (FCS)",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPOST220&sess=sess264",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies ST and Synopsys authors and describes the greater-than-100-million-transistor PrimeSim XA case and reported current and functional findings."
+    }
+  ]
+}

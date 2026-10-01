@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventExplorer from '../../components/EventExplorer.astro';
+import { sitePath } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const companies = await getCollection('companies');
+  return companies.map((company) => ({ params: { id: company.data.id }, props: { company } }));
+}
+
+const { company } = Astro.props;
+const [events, companies, people] = await Promise.all([
+  getCollection('events'),
+  getCollection('companies'),
+  getCollection('people'),
+]);
+const companyEvents = events.filter((event) => event.data.companies.includes(company.data.id));
+---
+<BaseLayout
+  title={`${company.data.name} · AMS Signals`}
+  description={`Publicly observable RNM and mixed-signal verification events linked to ${company.data.name}.`}
+>
+  <header class="entity-header">
+    <h1>{company.data.name}</h1>
+    <p class="entity-meta">
+      {company.data.lastReviewed && <>Last researched {company.data.lastReviewed}<span aria-hidden="true"> · </span></>}
+      {companyEvents.length} indexed {companyEvents.length === 1 ? 'event' : 'events'}
+    </p>
+    <p class="entity-note">Public events shown here describe observable source material, not total internal activity.</p>
+  </header>
+  {companyEvents.length > 0 ? (
+    <EventExplorer events={companyEvents} goldenEvents={events} companies={companies} people={people} context="company" />
+  ) : (
+    <section class="entity-empty-state" aria-labelledby="sparse-heading">
+      <h2 id="sparse-heading">No events are currently indexed</h2>
+      <p>This means the current public-source review did not produce an event for the Timeline. It does not imply that {company.data.name} has no internal RNM or AMS activity.</p>
+      <a href={sitePath('')}>Return to Timeline →</a>
+    </section>
+  )}
+</BaseLayout>

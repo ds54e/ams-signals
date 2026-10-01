@@ -1,0 +1,28 @@
+{
+  "id": "qualcomm-2026-serdes-modeling-silicon-correlation-hiring",
+  "when": {
+    "start": "2026-09",
+    "precision": "month"
+  },
+  "kind": "organizational",
+  "companies": [
+    "qualcomm"
+  ],
+  "people": [],
+  "headline": "Qualcomm lists Staff SerDes role spanning behavioral modeling, system verification, and silicon correlation",
+  "fact": "Qualcomm Canada ULC listed a Cross-Functional Engineer, Staff role for high-speed SerDes work. The description assigns oversight of analog and mixed-signal behavioral-model development and verification, higher-abstraction analog verification, system verification with digital-verification and firmware teams, calibration, power modeling, and correlation of pre-silicon models and predicted power with post-silicon measurements. It asks for 106 Gbps-and-higher SerDes experience and SystemVerilog behavioral modeling, and names clock generation and distribution, VCOs, phase interpolators, PLLs, ADCs, and DACs among relevant circuit experience.",
+  "sources": [
+    {
+      "title": "Qualcomm: Cross-Functional Engineer, Staff — Toronto",
+      "url": "https://ca.linkedin.com/jobs/view/cross-functional-engineer-staff-at-qualcomm-4468457788",
+      "checkedAt": "2026-09-28",
+      "summary": "The live company-attributed LinkedIn posting identifies Qualcomm Canada ULC and describes the SerDes modeling, mixed-signal/system verification, calibration, power-modeling, post-silicon correlation, SystemVerilog, and 106 Gbps-and-higher scope."
+    },
+    {
+      "title": "Cross-Functional Engineer, Staff — Qualcomm Canada",
+      "url": "https://movojobs.ca/qualcomm/jobs/cross-functional-engineer-staff-771575",
+      "checkedAt": "2026-09-28",
+      "summary": "A current recovery copy preserves the original Qualcomm description, lists Toronto and Ottawa, and dates its captured posting to September 19, 2026; the Event uses month precision because public copies expose inconsistent relative/index dates."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "neurophos-2026-photonic-ai-ams-model-verification-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "neurophos"
+  ],
+  "people": [],
+  "headline": "Neurophos verification-lead role includes AMS model development for a photonic AI SoC",
+  "fact": "Neurophos posted a Lead Verification Engineer role for its silicon-photonic AI platform. The position owns SoC verification strategy, UVM and constrained-random environments, SystemC model integration, regression automation, FPGA acceleration, gate-level sign-off, and development and verification of AMS and SystemVerilog models for in-house analog designs; AMS verification and RNM experience are also named as preferred skills. This is evidence of a hiring mandate, not proof of completed silicon or methodology deployment.",
+  "sources": [
+    {
+      "title": "Neurophos Careers: Lead Verification Engineer",
+      "url": "https://jobs.ashbyhq.com/neurophos/fec687b1-8609-40a1-b670-6e2be5a34aaf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Ashby posting describes the photonic-AI SoC verification lead role, including AMS/SystemVerilog model development, UVM, SystemC integration, automation, FPGA acceleration, and RNM experience; no stable absolute posting date is exposed, so the Event uses year precision."
+    }
+  ]
+}

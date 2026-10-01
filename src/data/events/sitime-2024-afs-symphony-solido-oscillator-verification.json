@@ -1,0 +1,35 @@
+{
+  "id": "sitime-2024-afs-symphony-solido-oscillator-verification",
+  "when": {
+    "start": "2024-04-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "sitime",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "SiTime customer session reports AFS, Symphony, and Solido use for MEMS oscillator SoC verification",
+  "fact": "At Siemens User2User North America 2024, a customer-presented SiTime session described using Analog FastSPICE, Symphony, and Solido Design Environment to integrate analog and digital components and accelerate verification of high-precision MEMS-based oscillator SoCs.",
+  "sources": [
+    {
+      "title": "U2U24 Custom IC Verification Track Sessions",
+      "url": "https://www.siemens.com/en-gb/products/ic/solido/cicv-u2u-2024/",
+      "checkedAt": "2026-09-25",
+      "summary": "Siemens identifies the 2024 Custom IC Verification track as customer-presented sessions and lists SiTime verification acceleration with AFS, Symphony, and Solido for high-precision MEMS-based oscillator SoCs."
+    },
+    {
+      "title": "Solido Simulation Suite resources",
+      "url": "https://www.siemens.com/en-us/products/ic/solido/simulationsuite/resources/",
+      "checkedAt": "2026-09-25",
+      "summary": "The current Siemens resource library identifies Vikram Vangapally of SiTime and repeats the Analog FastSPICE, Symphony, Solido Design Environment, analog/digital integration, and MEMS oscillator SoC verification scope."
+    },
+    {
+      "title": "User2User North America 2024",
+      "url": "https://event-new.sw.siemens.com/website/65649/home/",
+      "checkedAt": "2026-09-25",
+      "summary": "The official event page dates the User2User North America 2024 main conference in Santa Clara to April 4, 2024."
+    }
+  ]
+}

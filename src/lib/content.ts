@@ -1,0 +1,71 @@
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from './date-format.ts';
+
+export type EventEntry = CollectionEntry<'events'>;
+export type CompanyEntry = CollectionEntry<'companies'>;
+export type PersonEntry = CollectionEntry<'people'>;
+
+export function dateNumber(value: string): number {
+  const [year, month = '01', day = '01'] = value.split('-');
+  return Date.UTC(Number(year), Number(month) - 1, Number(day));
+}
+
+export function eventYear(event: EventEntry): number {
+  return Number(event.data.when.start.slice(0, 4));
+}
+
+export function sortEvents(events: EventEntry[]): EventEntry[] {
+  return [...events].sort((a, b) =>
+    dateNumber(a.data.when.start) - dateNumber(b.data.when.start)
+    || a.data.id.localeCompare(b.data.id, 'en'));
+}
+
+export interface DatedEventLike {
+  data: {
+    id: string;
+    when: { start: string };
+  };
+}
+
+export function sortEventsNewestFirst<T extends DatedEventLike>(events: readonly T[]): T[] {
+  return [...events].sort((a, b) =>
+    dateNumber(b.data.when.start) - dateNumber(a.data.when.start)
+    || a.data.id.localeCompare(b.data.id, 'en'));
+}
+
+export function eventKindLabel(kind: EventEntry['data']['kind']): string {
+  return kind === 'technical' ? 'Technical' : 'Organizational';
+}
+
+export function compareByNameThenId<T extends { id: string; name: string }>(
+  left: T,
+  right: T,
+): number {
+  return left.name.localeCompare(right.name, 'en')
+    || left.id.localeCompare(right.id, 'en');
+}
+
+export function orderCompaniesByGoldenEventCount(
+  companies: CompanyEntry[],
+  events: EventEntry[],
+): Array<{ company: CompanyEntry; eventCount: number }> {
+  const eventCounts = new Map<string, number>();
+
+  for (const event of events) {
+    for (const companyId of new Set(event.data.companies)) {
+      eventCounts.set(companyId, (eventCounts.get(companyId) ?? 0) + 1);
+    }
+  }
+
+  return companies
+    .map((company) => ({ company, eventCount: eventCounts.get(company.data.id) ?? 0 }))
+    .sort((left, right) =>
+      right.eventCount - left.eventCount
+      || left.company.data.name.localeCompare(right.company.data.name, 'en')
+      || left.company.data.id.localeCompare(right.company.data.id, 'en'));
+}
+
+export function formatWhen(event: EventEntry): string {
+  const { start, end, precision } = event.data.when;
+  return end ? `${formatDate(start, precision)} – ${formatDate(end, precision)}` : formatDate(start, precision);
+}

@@ -1,0 +1,26 @@
+{
+  "id": "infineon-2024-p1687-2-post-silicon-smart-power",
+  "when": {
+    "start": "2024-11",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": ["infineon"],
+  "people": [],
+  "headline": "Infineon applies IEEE P1687.2 chip-level PDL to post-silicon smart-power lab verification",
+  "fact": "An Infineon ITC 2024 poster described an industrial application of IEEE P1687.2 for post-silicon verification of a smart-power device. The work used IJTAG chip-level PDL to simplify test implementation in the laboratory and framed the approach as a way to improve reuse where lab flows had limited reuse of test cases and patterns from pre-silicon verification or test engineering.",
+  "sources": [
+    {
+      "title": "ITC 2024 Poster Session Instructions and Poster List",
+      "url": "https://www.itctestweek.org/wp-content/uploads/2024/09/General-Instructions-for-ITC-2024-Posters.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "Official ITC 2024 poster list identifying the Infineon poster on IEEE P1687.2 for post-silicon verification of a smart-power device."
+    },
+    {
+      "title": "Industrial application of IEEE P1687.2 for post-Si verification of a smart power device",
+      "url": "https://www.researchgate.net/publication/385754090_Industrial_application_of_IEEE_P16872_for_post-Si_verification_of_a_smart_power_device",
+      "checkedAt": "2026-09-02",
+      "summary": "Infineon poster describing chip-level PDL use in a post-silicon smart-power laboratory flow and the test-reuse motivation."
+    }
+  ]
+}

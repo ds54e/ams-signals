@@ -1,0 +1,31 @@
+{
+  "id": "texas-instruments-2023-ml-waveform-prediction",
+  "when": {
+    "start": "2023-04-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "venkateswaran-padmanabhan",
+    "guha-lakshmanan"
+  ],
+  "headline": "TI authors evaluate machine-learning techniques for analog waveform prediction",
+  "fact": "A Texas Instruments ISQED 2023 paper evaluates a machine-learning behavioral-model method for time-domain waveform prediction using feature extraction, waveform segmentation, and circuit partitioning. In an operational-amplifier proof of concept, the authors report an average output-prediction signal-to-noise ratio of 32 dB. The result is an evaluated proof of concept, not evidence of production deployment.",
+  "sources": [
+    {
+      "title": "ISQED 2023 program",
+      "url": "https://www.isqed.org/English/Archives/2023/ISQED2023-Program-Rev2.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official program identifies the TI authors and dates the waveform-prediction paper to April 6, 2023."
+    },
+    {
+      "title": "Analysis of Machine Learning Techniques for Time Domain Waveform Prediction in Analog and Mixed Signal IC Verification",
+      "url": "https://doi.org/10.1109/ISQED57927.2023.10129327",
+      "checkedAt": "2026-08-31",
+      "summary": "The IEEE record describes the ML behavioral-model method, operational-amplifier proof of concept, and reported 32 dB average output-prediction SNR."
+    }
+  ]
+}

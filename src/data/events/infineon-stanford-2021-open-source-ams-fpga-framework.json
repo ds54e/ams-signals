@@ -1,0 +1,36 @@
+{
+  "id": "infineon-stanford-2021-open-source-ams-fpga-framework",
+  "when": {
+    "start": "2021-08-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "gabriel-rutsch"
+  ],
+  "headline": "Stanford and Infineon authors publish an open-source framework for mixed-signal FPGA emulation",
+  "fact": "Steven Herbst, Gabriel Rutsch, Wolfgang Ecker, and Mark Horowitz published a framework combining msdsl model generation, svreal synthesizable fixed- and floating-point representations, and anasymod FPGA build and control automation. The paper demonstrates a DragonPHY receiver, a firmware-controlled flyback converter, and an NFC-powered chip. Stanford dates publication to August 4, 2021; the TCAD journal issue is dated July 2022.",
+  "sources": [
+    {
+      "title": "Stanford AHA: Improved Validation publications",
+      "url": "https://aha.stanford.edu/publications/improved-validation",
+      "checkedAt": "2026-09-09",
+      "summary": "Stanford's project bibliography dates this paper, DOI 10.1109/TCAD.2021.3102516, to August 4, 2021."
+    },
+    {
+      "title": "An Open-Source Framework for FPGA Emulation of Analog/Mixed-Signal Integrated Circuit Designs — IEEE CEDA",
+      "url": "https://ieee-ceda.org/media/open-source-framework-fpga-emulation-analogmixed-signal-integrated-circuit-designs",
+      "checkedAt": "2026-09-09",
+      "summary": "The publisher's society page describes msdsl, svreal, anasymod, the three applications, and the July 2022 TCAD issue. svreal supplies synthesizable numerical representations, not direct synthesis of ordinary SystemVerilog real variables."
+    },
+    {
+      "title": "Framework publication — Technical University of Munich research record",
+      "url": "https://portal.fis.tum.de/en/publications/an-open-source-framework-for-fpga-emulation-of-analogmixed-signal/",
+      "checkedAt": "2026-09-09",
+      "summary": "The institutional publication record identifies the authors, Stanford and Infineon affiliations, DOI, and July 2022 journal issue."
+    }
+  ]
+}

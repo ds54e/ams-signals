@@ -1,0 +1,23 @@
+{
+  "id": "impinj-2026-ai-high-sigma-rfid-verification",
+  "when": {
+    "start": "2026-07-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "impinj",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Impinj and Siemens authors report AI-assisted high-sigma RFID design verification",
+  "fact": "An Impinj and Siemens DAC 2026 presentation reports a RAIN RFID verification flow in which Solido PVTMC identifies worst-case process, voltage, and temperature corners at higher sigma levels and Solido SPICE performs the corresponding simulations. The authors say the collaboration reduced required simulations and accelerated verification while meeting the presented accuracy and reliability targets. This is a bounded customer/vendor case study, not a general claim about all Impinj verification.",
+  "sources": [
+    {
+      "title": "Enhancing the Robustness of Impinj RAIN RFID Design Through the Application of AI-Powered Process Flow",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST323&sess=sess295",
+      "checkedAt": "2026-09-02",
+      "summary": "The official DAC 2026 record identifies Impinj and Siemens authors, dates the presentation to July 28, and describes the AI-assisted worst-corner and SPICE high-sigma verification flow."
+    }
+  ]
+}

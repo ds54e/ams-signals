@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CatalogIndex from '../../components/CatalogIndex.astro';
+import { sortProjects, scopeStageLabels } from '../../lib/digital/catalog';
+import { validateActivity } from '../../lib/digital/schema';
+import { scopeItems } from '../../lib/catalog-scope';
+import { activityBand } from '../../lib/catalog-activity-band';
+import activityData from '../../data/digital-activity.json';
+
+const entries = await getCollection('digital');
+const activity = validateActivity(entries, activityData);
+const projects = sortProjects(entries, activity.projects).map(({ data, id }) => {
+  const record = activity.projects[id];
+  const band = activityBand(record, activity.months, data.sources);
+  return {
+    id, name: data.name, description: data.description, sources: data.sources,
+    scope: scopeItems(data.scope, scopeStageLabels), developmentEvidence: data.developmentEvidence,
+    activity: { ...band, kind: record.kind },
+  };
+});
+---
+<BaseLayout title="Digital · AMS Signals" description="RTL/digital tools and agents for simulation, compilation, verification, formal, debug and implementation flows." lang="en">
+  <CatalogIndex domain="digital" title="Digital" stages={scopeStageLabels} months={activity.months} projects={projects} />
+</BaseLayout>

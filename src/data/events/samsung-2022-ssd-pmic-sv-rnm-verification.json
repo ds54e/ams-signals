@@ -1,0 +1,30 @@
+{
+  "id": "samsung-2022-ssd-pmic-sv-rnm-verification",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [
+    "vijay-kumar"
+  ],
+  "headline": "Samsung authors report SystemVerilog RNM verification of an SSD power-management IC",
+  "fact": "A DVCon Europe 2022 paper by Samsung authors describes SystemVerilog real-number modeling for verification of a complex SSD power-management IC. The flow combined 25 models, randomized I2C programming, Python-based register checks, and 68 tests; the authors report a six-week implementation effort and simulation speedups of 100x to 1,000x over the referenced schematic simulations.",
+  "sources": [
+    {
+      "title": "Harnessing SV-RNM Based Modelling and Simulation Methodology for Verifying a Complex SSD PMIC",
+      "url": "https://dvcon-proceedings.org/document/harnessing-sv-rnm-based-modelling-and-simulation-methodology-for-verifying-a-complex-pmic-designed-for-ssd-applications-2/",
+      "checkedAt": "2026-08-30",
+      "summary": "DVCon's record identifies the Samsung SSD PMIC real-number-modeling case study."
+    },
+    {
+      "title": "Harnessing SV-RNM Based Modelling and Simulation Methodology for Verifying a Complex SSD PMIC — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/Harnessing-SV-RNM-Based-Modelling-and-Simulation-Methodology-for-Verifying-a-Complex-PMIC-designed-for-SSD-Applications.pdf",
+      "checkedAt": "2026-08-30",
+      "summary": "The paper documents the RNM models, randomized I2C and Python checks, test count, effort, and reported speed range."
+    }
+  ]
+}

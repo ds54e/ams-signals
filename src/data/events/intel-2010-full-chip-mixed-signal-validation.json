@@ -1,0 +1,28 @@
+{
+  "id": "intel-2010-full-chip-mixed-signal-validation",
+  "when": {
+    "start": "2010",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "intel"
+  ],
+  "people": [],
+  "headline": "Intel authors report a real-valued full-chip mixed-signal validation strategy",
+  "fact": "Intel authors report a full-chip mixed-signal validation strategy that represents top-level analog ports as real-valued signals, reuses a SystemVerilog real-port testbench from top-down development through bottom-up implementation, and selectively replaces analog blocks with behavioral models. The paper says the tool-independent method was applied to three successive Intel SoC projects with open- and closed-loop mixed-signal networks and includes behavioral-model equivalence checking.",
+  "sources": [
+    {
+      "title": "Strategy and Environment for SOC Mixed-Signal Validation: A Case Study",
+      "url": "https://dvcon-proceedings.org/document/strategy-and-environment-for-soc-mixed-signal-validation-a-case-study/",
+      "checkedAt": "2026-09-02",
+      "summary": "The DVCon archive dates the Intel-authored paper to 2010 and identifies it as a full-chip mixed-signal validation case study."
+    },
+    {
+      "title": "Strategy and Environment for SOC Mixed-Signal Validation: A Case Study — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/strategy-and-environment-for-soc-mixed-signal-validation-a-case-study.pdf",
+      "checkedAt": "2026-09-02",
+      "summary": "The paper describes the real-valued SystemVerilog port strategy, behavioral-model substitution and equivalence checking, and reported application to three successive Intel SoC projects."
+    }
+  ]
+}

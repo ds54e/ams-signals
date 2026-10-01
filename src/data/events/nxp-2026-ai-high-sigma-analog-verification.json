@@ -1,0 +1,23 @@
+{
+  "id": "nxp-2026-ai-high-sigma-analog-verification",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "NXP and Siemens authors report an adaptive AI/ML flow for high-sigma analog verification",
+  "fact": "An NXP and Siemens DAC 2026 presentation reports an adaptive AI/ML verification flow that moves from a bandgap reference to an LDO case and compares the modeled results with production-silicon measurements. For the presented cases, the authors report more than 64,000× acceleration relative to brute-force simulation. The result is a bounded customer/vendor case study, not a general claim about all NXP verification.",
+  "sources": [
+    {
+      "title": "Achieving \"zero Defect\" Quality in Automotive Ethernet Solutions with AI-Accelerated Trimming & Verification",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST355&sess=sess296",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2026 record identifies NXP and Siemens authors and describes the bandgap-to-LDO adaptive AI/ML method, production-silicon correlation, and reported greater-than-64,000× acceleration."
+    }
+  ]
+}

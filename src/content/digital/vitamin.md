@@ -1,0 +1,81 @@
+---
+name: "vitamin"
+aliases: []
+description: "Rust event-driven, four-state Verilog/SystemVerilog simulator with staged compile/elaborate/run commands and VCD/FST waveform output. A native executor and interpreter/VM cross-check paths support a documented language subset, with differential and conformance regressions; it does not claim unrestricted SystemVerilog, UVM or SDF support."
+scope:
+  verification:
+    ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation added SystemVerilog package-variable storage and import resolution, then extended package array parameters and initialization. Current elaboration code and regressions retain this package-support work."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
+access: "Public source implementation; tool and environment requirements are documented by the project."
+addedAt: "2026-09-05"
+reviewedAt: "2026-10-01"
+sources:
+  - id: "code"
+    title: "Canonical vitamin repository"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator"
+    purpose: "code"
+  - id: "readme"
+    title: "README at the reviewed revision"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/00c3d76d963f28e4ecc403bd5eba0807abcdbb40/README.md"
+  - id: "implementation"
+    title: "Reviewed implementation: crates/cli/src/pipeline.rs"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/00c3d76d963f28e4ecc403bd5eba0807abcdbb40/crates/cli/src/pipeline.rs"
+  - id: "activity"
+    title: "Multi-dimensional packed tf-port formals, a based literal as a parse-time constant, a member width folded at its §11.6 width — the parser rung behind ibex's whole design (§3 ⑤)"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/c311eb6c0763e8940ec7358576e4d87ef1df7199"
+  - id: "ai-development"
+    title: "Core parser work with repeated AI co-authorship"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/02f507d0dac686055c32c64be0e28ff7f0c68306"
+  - id: "development-history"
+    title: "Development history spanning the VM and later language implementation"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/830bea95dd89e2a7dbba13f0bda5054efdf83cb0/docs/DEVLOG.md"
+  - id: "development-sample"
+    title: "Current elaborator and runtime work with Claude co-authorship"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/1af12ffb035b8a3ac593ccbcdca340582a3dacba"
+  - id: "development-1"
+    title: "Package-storage implementation"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/f24f012b08542ec2f34c786cfb76c7a535d14c5a"
+  - id: "development-2"
+    title: "Package-initialization implementation"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/0079d9764893e8e8c6dc693a704de209d07c7f27"
+  - id: "development-3"
+    title: "Current package storage"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/blob/43e9286c51add3cd5226bf4a1cd38918bdebd608/crates/elaborate/src/lib.rs"
+  - id: "activity-refresh"
+    title: "Previously reviewed meaningful implementation update"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/b49c339c4c4ae73c7fba08bed728353b6d68bd01"
+  - id: "activity-review"
+    title: "Blocking multi-platform workload-corpus regressions"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/2df2cecc75e885b2186ceec7a6dc2cdbcb1fe46b"
+---
+
+
+### Implementation context
+
+Sustained Claude co-authorship appears on parser, constant-folding, elaboration and runtime commits. The development history also records the bytecode VM and subsequent language work. These credits and progress records do not establish whole-simulator implementation responsibility; the AI-ASSISTED decision instead rests on the specific package-support campaign described below. [Parser contribution](#source-ai-development); [development history](#source-development-history); [current elaborator/runtime contribution](#source-development-sample).
+
+### Release boundary
+
+Public conformance tests establish their tested subset; they do not establish unrestricted SystemVerilog support or universal speedups. [Public update](#source-activity).
+
+[Implementation inspected](#source-implementation).
+
+### Scope classification
+
+Four-state RTL execution and differential conformance testing serve simulation/verification. Internal parser, elaborator and native compiler stages receive no independent Design mark. [Reviewed source](#source-readme).
+
+Four-state execution and differential checks are conventional Verification. Development assistance does not introduce AI into the simulator's execution, and the package-support AI-ASSISTED classification does not alter that runtime behavior. [Development evidence](#source-development-history).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited package-support campaign implements shared package storage, import aliases and initialization across elaboration/runtime paths, with differential regressions; current storage fields/tests remain. This identifies a substantial language-support subsystem independently of ambiguous whole-project credits. [Package-storage implementation](#source-development-1); [Package-initialization implementation](#source-development-2); [Current package storage](#source-development-3).
+
+### Current-source review
+
+Reviewed 2026-10-01. The current README documents a compiled native executor alongside interpreter/VM comparison paths, staged IR artifacts and explicit unsupported language/ecosystem boundaries. These compiler stages only prepare simulation and do not add a user-facing synthesis or design-transformation stage. No runtime model decision path was found; AI-assisted development remains a separate historical classification. [Current behavior and limits](#source-readme); [CLI pipeline](#source-implementation).
+
+The newest reviewed meaningful first-parent change is blocking multi-platform workload-corpus regressions (2026-10-01 UTC). [Reviewed commit](#source-activity-review).

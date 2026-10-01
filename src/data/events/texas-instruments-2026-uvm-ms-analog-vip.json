@@ -1,0 +1,24 @@
+{
+  "id": "texas-instruments-2026-uvm-ms-analog-vip",
+  "when": {
+    "start": "2026-07-27",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [
+    "aadhar-sharma"
+  ],
+  "headline": "TI authors report using UVM-MS analog VIP for mixed-signal verification",
+  "fact": "A Texas Instruments DAC 2026 presentation reports a UVM-MS-based flow in which verification components drive and monitor analog signals without traditional connect modules. The authors describe reusable analog VIP and report improvements in simulation runtime and verification coverage for the presented use cases. The record supports this reported TI application, not universal adoption across the company.",
+  "sources": [
+    {
+      "title": "UVM-MS: A Novel Approach to Mixed-Signal IP Verification",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPRES340&sess=sess265",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2026 record identifies the TI authors and describes analog VIP, removal of connect-module dependence, and reported runtime and coverage improvements."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "apple-2026-london-ams-dv-team-hiring",
+  "when": {
+    "start": "2026-01-16",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple job posting describes building a new AMS design-verification team in London",
+  "fact": "An Apple careers posting for an experienced AMS design-verification engineer says the role will help build a new team in London. It lists SystemVerilog and UVM verification, performance and power analysis, early power estimation, and research and innovation; AI and machine-learning experience appears as a desired qualification. This is evidence of a public hiring mandate, not proof that AI/ML or every requested method was already deployed.",
+  "sources": [
+    {
+      "title": "Apple Careers: Experienced AMS Design Verification Engineer",
+      "url": "https://jobs.apple.com/en-ie/details/200642146-1731/experienced-ams-design-verification-engineer-m-f-d",
+      "checkedAt": "2026-08-31",
+      "summary": "Official Apple role 200642146, posted January 16, 2026, says the position will help build a new London AMS-DV team and lists the verification, power-analysis, research, and desired AI/ML scope."
+    }
+  ]
+}

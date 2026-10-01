@@ -1,0 +1,22 @@
+{
+  "id": "monolithic-power-systems-2026-mixed-signal-verification-framework-hiring",
+  "when": {
+    "start": "2026",
+    "precision": "year"
+  },
+  "kind": "organizational",
+  "companies": [
+    "monolithic-power-systems"
+  ],
+  "people": [],
+  "headline": "MPS lists a lead role to define its mixed-signal design and verification framework",
+  "fact": "Monolithic Power Systems lists a Mixed-Signal Design & Verification Engineer Lead role to define and lead framework and infrastructure development for complex digital and mixed-signal ICs. The position covers behavioral modeling, analog and mixed-signal IP integration and verification, mixed-mode simulation, analog-digital interface definition, and post-silicon validation across power, sensing, motor-control, display, and audio products. This is evidence of a current hiring mandate, not proof of completed deployment.",
+  "sources": [
+    {
+      "title": "MPS Careers: Mixed-Signal Design & Verification Engineer Lead",
+      "url": "https://www.monolithicpower.com/about-mps/careers/job-listings.html",
+      "checkedAt": "2026-08-31",
+      "summary": "The official MPS job board lists the Barcelona or Portugal lead role and its framework, behavioral-modeling, IP-verification, mixed-mode-simulation, and validation responsibilities."
+    }
+  ]
+}

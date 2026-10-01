@@ -1,0 +1,1045 @@
+---
+import type { EventEntry, CompanyEntry, PersonEntry } from '../lib/content';
+import {
+  compareByNameThenId,
+  dateNumber,
+  eventKindLabel,
+  formatWhen,
+  orderCompaniesByGoldenEventCount,
+  sortEvents,
+  sortEventsNewestFirst,
+} from '../lib/content';
+import {
+  ACTIVITY_MATRIX_BUNDLE_GAP,
+  ACTIVITY_MATRIX_BUNDLE_PROXIMITY,
+  buildActivityMatrixGeometry,
+} from '../lib/activityMatrix';
+import { sitePath } from '../lib/paths';
+import { buildTimelineGeometry, TIMELINE_HIT_SIZE } from '../lib/timeline';
+
+type ExplorerContext = 'global' | 'company' | 'person';
+type ExplorerSurface = 'timeline' | 'events';
+
+interface Props {
+  events: EventEntry[];
+  goldenEvents: EventEntry[];
+  companies: CompanyEntry[];
+  people: PersonEntry[];
+  context?: ExplorerContext;
+  surface?: ExplorerSurface;
+}
+
+const { events, goldenEvents, companies, people, context = 'global', surface = 'timeline' } = Astro.props;
+const ordered = sortEvents(events);
+const newestFirst = sortEventsNewestFirst(events);
+const companyMap = new Map(companies.map((entry) => [entry.data.id, entry.data.name]));
+const personMap = new Map(people.map((entry) => [entry.data.id, entry.data.name]));
+const byPersonName = (left: string, right: string) =>
+  (personMap.get(left) ?? left).localeCompare(personMap.get(right) ?? right, 'en');
+const activeCompanyIds = new Set(ordered.flatMap((event) => event.data.companies));
+const activityMatrixGeometry = context === 'global'
+  ? buildActivityMatrixGeometry(goldenEvents, companies, people)
+  : null;
+const countOrderedCompanyRecords = orderCompaniesByGoldenEventCount(companies, goldenEvents);
+const orderedCompanyRecords = context === 'global'
+  ? [...countOrderedCompanyRecords].sort((left, right) => (
+      compareByNameThenId(left.company.data, right.company.data)
+    ))
+  : countOrderedCompanyRecords;
+const companyIds = orderedCompanyRecords
+  .filter(({ company }) => activeCompanyIds.has(company.data.id))
+  .map(({ company }) => company.data.id);
+const personIds = context === 'global'
+  ? activityMatrixGeometry?.peopleRows.map(({ entity }) => entity.data.id) ?? []
+  : [...new Set(ordered.flatMap((event) => event.data.people))].sort(byPersonName);
+const companyEventCount = new Map(countOrderedCompanyRecords.map(({ company, eventCount }) => [
+  company.data.id,
+  eventCount,
+]));
+const showGlobalControls = context === 'global';
+const showTimeline = surface === 'timeline';
+const showActivityMatrix = showTimeline && context === 'global';
+const showSignalTypeControl = !showActivityMatrix;
+const timelineGeometry = showTimeline && !showActivityMatrix ? buildTimelineGeometry(events) : null;
+const timelineSegments = timelineGeometry?.segments ?? [];
+const timelineWidth = timelineGeometry?.width ?? 0;
+const timelineColumns = timelineGeometry?.columns ?? '';
+const timelinePositionByEventId = timelineGeometry?.positionByEventId ?? new Map();
+const activityTimeBands = activityMatrixGeometry?.timeBands ?? [];
+const activityBoundaries = activityMatrixGeometry?.boundaries ?? [];
+const activityCombinedRows = activityMatrixGeometry?.combinedRows ?? [];
+const activityTrackWidth = activityMatrixGeometry?.trackWidth ?? 0;
+const activityBundleWindow = activityTrackWidth > 0
+  ? (ACTIVITY_MATRIX_BUNDLE_PROXIMITY / activityTrackWidth) * 100
+  : 0;
+const activityPercent = (pixels: number) => activityTrackWidth > 0
+  ? (pixels / activityTrackWidth) * 100
+  : 0;
+const activityAxisDescription = activityTimeBands.map((band) => band.ariaLabel).join(', ');
+
+const kindLabels: Record<EventEntry['data']['kind'], string> = {
+  technical: 'Technical',
+  organizational: 'Organizational',
+};
+const kindOrder = ['technical', 'organizational'] as const;
+
+const normalizeSearch = (value: string) => value
+  .normalize('NFKC')
+  .toLocaleLowerCase('en')
+  .replace(/[\p{P}\p{S}]+/gu, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const searchFields = (event: EventEntry) => [
+  { label: 'headline', value: event.data.headline },
+  { label: 'fact', value: event.data.fact },
+  ...event.data.sources.flatMap((source) => [
+    { label: 'source title', value: source.title },
+    { label: 'source summary', value: source.summary },
+  ]),
+  ...event.data.companies.map((id) => ({ label: 'company', value: companyMap.get(id) ?? id })),
+  ...event.data.people.map((id) => ({ label: 'person', value: personMap.get(id) ?? id })),
+];
+
+const serialized = newestFirst.map((event) => {
+  const fields = searchFields(event);
+  return {
+    id: event.data.id,
+    kind: event.data.kind,
+    kindLabel: eventKindLabel(event.data.kind),
+    headline: event.data.headline,
+    fact: event.data.fact,
+    start: event.data.when.start,
+    startTimestamp: dateNumber(event.data.when.start),
+    when: formatWhen(event),
+    precision: event.data.when.precision,
+    companies: event.data.companies.map((id) => ({
+      id,
+      name: companyMap.get(id) ?? id,
+      url: sitePath(`companies/${id}/`),
+    })),
+    people: event.data.people.map((id) => ({
+      id,
+      name: personMap.get(id) ?? id,
+      url: sitePath(`people/${id}/`),
+    })),
+    sources: event.data.sources.map((source) => ({
+      title: source.title,
+      url: source.url,
+      checkedAt: source.checkedAt,
+      status: source.status ?? 'available',
+      summary: source.summary,
+      archiveUrl: source.archiveUrl ?? '',
+    })),
+    searchFields: fields,
+    search: normalizeSearch(fields.map((field) => field.value).join(' ')),
+    eventUrl: sitePath(`events/${event.data.id}/`),
+  };
+});
+
+const marksForLane = (laneEvents: EventEntry[]) => sortEventsNewestFirst(laneEvents).map((event) => ({
+  event,
+  ...(timelinePositionByEventId.get(event.data.id) ?? {
+    x: 0,
+    segmentKey: '',
+    band: 0,
+    microSlot: 0,
+  }),
+}));
+
+const renderContextLinks = (event: EventEntry) => [
+  ...event.data.companies.map((id) => ({
+    href: sitePath(`companies/${id}/`),
+    name: companyMap.get(id) ?? id,
+  })),
+  ...event.data.people.map((id) => ({
+    href: sitePath(`people/${id}/`),
+    name: personMap.get(id) ?? id,
+  })),
+];
+
+const matrixMarkLabel = (event: EventEntry) => (
+  `${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`
+);
+
+---
+<section
+  class="event-explorer"
+  style={`--timeline-hit-size:${TIMELINE_HIT_SIZE}px`}
+  data-event-explorer-root
+  data-timeline-root={showTimeline ? '' : undefined}
+  data-context={context}
+  data-surface={surface}
+  data-activity-matrix={showActivityMatrix ? '' : undefined}
+>
+  <div class="event-filter-utility filter-toolbar">
+    <div class="event-filters" role="group" aria-label="Event filters">
+      <label class="search-control">
+        <span class="visually-hidden">Search events</span>
+        <input class="filter-input" data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
+      </label>
+
+      {showSignalTypeControl && (
+        <label class="select-control">
+          <span class="visually-hidden">Signal type</span>
+          <select class="filter-input" data-kind>
+            <option value="all">All types</option>
+            <option value="technical">Technical</option>
+            <option value="organizational">Organizational</option>
+          </select>
+        </label>
+      )}
+
+      {showGlobalControls && (
+        <details class="company-picker" data-company-picker>
+          <summary>
+            <span>Companies</span>
+            <strong data-company-summary>All {companyIds.length}</strong>
+          </summary>
+          <div class="company-picker-panel">
+            <div class="company-picker-header">
+              <strong>Companies</strong>
+              <div class="company-picker-actions" role="group" aria-label="Company filter selection actions">
+                <button type="button" class="text-button" data-select-all-companies>Select all</button>
+                <span aria-hidden="true">|</span>
+                <button type="button" class="text-button" data-clear-all-companies>Clear all</button>
+              </div>
+            </div>
+            <label class="company-picker-search">
+              <span class="visually-hidden">Filter companies</span>
+              <input class="filter-input" data-company-search type="search" placeholder="Filter companies…" autocomplete="off" />
+            </label>
+            <div data-company-options role="group" aria-label="Companies included by this filter">
+              {companyIds.map((companyId) => (
+                <label data-company-option data-company-name={companyMap.get(companyId) ?? companyId}>
+                  <input type="checkbox" value={companyId} checked />
+                  <span>{companyMap.get(companyId) ?? companyId}</span>
+                  <small>{companyEventCount.get(companyId)}</small>
+                </label>
+              ))}
+              <p class="company-picker-empty" data-company-options-empty hidden>No companies match.</p>
+            </div>
+          </div>
+        </details>
+      )}
+    </div>
+
+    <div class="event-filter-summary">
+      <p class="index-count" data-status aria-live="polite"></p>
+      {showTimeline && <div class="kind-legend" aria-label="Signal type legend">
+        {kindOrder.map((kind) => (
+          <span><i class={`legend-mark event-kind-${kind}`} aria-hidden="true"></i>{kindLabels[kind]}</span>
+        ))}
+      </div>}
+    </div>
+  </div>
+
+  {showTimeline && <div class="timeline-workspace">
+    <div class="timeline-visual">
+      {showActivityMatrix ? (
+        <div
+          class="activity-matrix-shell"
+          style={`--matrix-track-min-width:${activityTrackWidth}px;--bundle-gap:${ACTIVITY_MATRIX_BUNDLE_GAP}px`}
+          data-bundle-proximity-px={ACTIVITY_MATRIX_BUNDLE_PROXIMITY}
+          data-matrix-track-width={activityTrackWidth}
+        >
+          <div class="activity-matrix-axis-viewport">
+            <div class="activity-matrix-axis">
+              <div class="matrix-axis-spacer" aria-hidden="true"></div>
+              <div
+                class="activity-axis-track"
+                data-activity-axis
+                role="img"
+                aria-label={`Activity Matrix time bands: ${activityAxisDescription}. Newest is left.`}
+              >
+                <div class="activity-guides">
+                  {activityBoundaries.map((boundary) => (
+                    <span
+                      style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
+                    ></span>
+                  ))}
+                </div>
+                <div class="activity-axis-bands" aria-hidden="true">
+                  {activityTimeBands.map((band) => (
+                    <span
+                      class="activity-band-label"
+                      style={`--band-start:${activityPercent(band.startPx)}%;--band-width:${activityPercent(band.widthPx)}%`}
+                      title={band.ariaLabel}
+                      data-activity-time-band
+                      data-time-band={band.key}
+                      data-time-zone={band.zone}
+                      data-time-resolution={band.resolution}
+                      data-band-label={band.label}
+                      data-band-aria-label={band.ariaLabel}
+                      data-band-start-year={band.startYear}
+                      data-band-end-year={band.endYear}
+                      data-band-width-px={band.widthPx}
+                      data-band-max-events-per-row={band.maxEventsPerRow}
+                      data-band-start-px={band.startPx}
+                      data-band-end-px={band.endPx}
+                    >{band.label}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="activity-matrix-scroll"
+            data-timeline-scroll
+            role="region"
+            aria-label="Activity Matrix"
+            tabindex="0"
+          >
+            <div
+              class="activity-matrix"
+              data-activity-matrix-surface
+              data-domain-oldest-year={activityMatrixGeometry?.domain.oldestYear}
+              data-domain-latest-year={activityMatrixGeometry?.domain.latestYear}
+              data-track-width={activityTrackWidth}
+              data-time-band-count={activityTimeBands.length}
+            >
+              <div class="activity-matrix-group" data-group="both">
+                  {activityCombinedRows.length === 0 ? (
+                    <p class="empty-note">No events match these filters.</p>
+                  ) : activityCombinedRows.map((row, rowIndex) => (
+                    <div
+                      class="activity-matrix-row"
+                      style={`--matrix-row-height:${row.height}px`}
+                      data-lane
+                      data-matrix-row
+                      data-row-order={rowIndex}
+                      data-lane-type={row.entityType}
+                      data-entity-type={row.entityType}
+                      data-entity-id={row.entity.data.id}
+                      data-singleton={String(row.stats.total === 1)}
+                      data-recent3={row.stats.recent3}
+                      data-recent5={row.stats.recent5}
+                      data-latest-start={row.stats.latestStart}
+                      data-total-events={row.stats.total}
+                      data-visual-row-count={row.visualRowCount}
+                      data-collision-slots={row.visualRowCount}
+                    >
+                      <a
+                        class:list={['matrix-entity-label', `matrix-entity-${row.entityType}`]}
+                        href={sitePath(`${row.entityType === 'company' ? 'companies' : 'people'}/${row.entity.data.id}/`)}
+                        title={row.entity.data.name}
+                        data-entity-type={row.entityType}
+                        aria-label={`${row.entityType === 'company' ? 'Company' : 'Person'}: ${row.entity.data.name}`}
+                      >{row.entity.data.name}</a>
+                      <div class="activity-row-track" data-matrix-track>
+                        <div class="activity-guides" aria-hidden="true">
+                          {activityBoundaries.map((boundary) => (
+                            <span
+                              style={`--boundary-x:${activityPercent(boundary.xPx)}%`}
+                            ></span>
+                          ))}
+                        </div>
+                        {row.bundles.map((bundle, bundleIndex) => (
+                          <div
+                            class="activity-bundle"
+                            style={`--bundle-x:${bundle.x}%;--bundle-top:${bundle.top}px;--bundle-height:${bundle.height}px;--bundle-width:${bundle.bundleWidthPx}px`}
+                            data-matrix-bundle
+                            data-bundle-index={bundleIndex}
+                            data-bundle-key={bundle.key}
+                            data-bundle-event-ids={JSON.stringify(bundle.eventIds)}
+                            data-visible-event-ids={JSON.stringify(bundle.eventIds)}
+                            data-bundle-member-count={bundle.eventIds.length}
+                            data-visible-member-count={bundle.eventIds.length}
+                            data-bundle-x={bundle.x}
+                            data-bundle-x-px={bundle.xPx}
+                            data-bundle-window={bundle.mode === 'proximity' ? activityBundleWindow : undefined}
+                            data-bundle-window-px={bundle.mode === 'proximity' ? ACTIVITY_MATRIX_BUNDLE_PROXIMITY : undefined}
+                            data-min-original-event-x={bundle.minOriginalX}
+                            data-max-original-event-x={bundle.maxOriginalX}
+                            data-max-original-displacement={bundle.maxOriginalDisplacement}
+                            data-max-original-displacement-px={bundle.maxOriginalDisplacementPx}
+                            data-bundle-columns={bundle.columnCount}
+                            data-bundle-rows={bundle.rowCount}
+                            data-bundle-width-px={bundle.bundleWidthPx}
+                            data-collision-width-px={bundle.collisionWidthPx}
+                            data-visual-row-start={bundle.rowStart}
+                            data-visual-row-end={bundle.rowEnd}
+                            data-collision-slot={bundle.rowStart}
+                            data-bundle-top={bundle.top}
+                            data-time-zone={bundle.timeZone}
+                            data-time-band={bundle.timeBandKeys.join('|')}
+                            data-time-band-keys={JSON.stringify(bundle.timeBandKeys)}
+                            data-time-resolution={bundle.timeResolution}
+                            data-bundle-mode={bundle.mode}
+                          >
+                            {bundle.members.map((member, memberIndex) => (
+                              <button
+                                type="button"
+                                class={`timeline-mark activity-mark event-kind-${member.kind}`}
+                                data-event-mark
+                                data-matrix-mark
+                                data-bundle-member
+                                data-event-id={member.eventId}
+                                data-event-date={member.event.data.when.start}
+                                data-event-x={bundle.x}
+                                data-original-event-x={member.originalX}
+                                data-original-placement-timestamp={member.placementTimestamp}
+                                data-time-zone={member.timeZone}
+                                data-time-band={member.timeBandKey}
+                                data-time-resolution={member.timeResolution}
+                                data-bundle-mode={bundle.mode}
+                                data-bundle-index={bundleIndex}
+                                data-visible-index={memberIndex}
+                                aria-pressed="false"
+                                aria-label={matrixMarkLabel(member.event)}
+                              >
+                                <span class="timeline-glyph" aria-hidden="true"></span>
+                                <span class="visually-hidden">{matrixMarkLabel(member.event)}</span>
+                              </button>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          class="timeline-scroll"
+          data-timeline-scroll
+          role="region"
+          aria-label="Timeline"
+          tabindex="0"
+        >
+          <div
+            class="desktop-timeline"
+            data-timeline-width={timelineWidth}
+            style={`--timeline-width:${timelineWidth}px;--timeline-columns:${timelineColumns}`}
+          >
+            <div class="timeline-axis">
+              <div class="lane-label axis-label" aria-hidden="true"></div>
+              <div class="axis-track" data-timeline-axis>
+                {timelineSegments.map((segment) => (
+                  <span
+                    class="timeline-segment"
+                    data-timeline-segment
+                    data-segment-key={segment.key}
+                    data-segment-label={segment.label}
+                    data-segment-width={segment.width}
+                    data-event-count={segment.events.length}
+                  ><b>{segment.label}</b></span>
+                ))}
+              </div>
+            </div>
+
+            <div class="lane-group" data-group="companies" hidden={context === 'person'}>
+              {companyIds.map((companyId) => {
+                const marks = marksForLane(ordered.filter((event) => event.data.companies.includes(companyId)));
+                return (
+                  <div class="timeline-lane" data-lane data-lane-type="company" data-entity-id={companyId}>
+                    <a class="lane-label" href={sitePath(`companies/${companyId}/`)}>{companyMap.get(companyId) ?? companyId}</a>
+                    <div class="lane-track">
+                      <div class="timeline-segment-grid" aria-hidden="true">
+                        {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
+                      </div>
+                      {marks.map(({ event, x, segmentKey, band, microSlot }) => (
+                        <button
+                          type="button"
+                          class={`timeline-mark event-mark event-kind-${event.data.kind}`}
+                          style={`--x:${x}px`}
+                          data-event-mark
+                          data-event-id={event.data.id}
+                          data-event-date={event.data.when.start}
+                          data-event-x={x}
+                          data-segment-key={segmentKey}
+                          data-band={band}
+                          data-micro-slot={microSlot}
+                          aria-pressed="false"
+                          aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                        ><span class="timeline-glyph" aria-hidden="true"></span><span class="visually-hidden">Inspect event</span></button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div class="lane-group" data-group="people" hidden={context !== 'person'}>
+              {personIds.length === 0 ? (
+                <p class="empty-note">No people events match these filters.</p>
+              ) : personIds.map((personId) => {
+                const marks = marksForLane(ordered.filter((event) => event.data.people.includes(personId)));
+                return (
+                  <div class="timeline-lane" data-lane data-lane-type="person" data-entity-id={personId}>
+                    <a class="lane-label" href={sitePath(`people/${personId}/`)}>{personMap.get(personId) ?? personId}</a>
+                    <div class="lane-track">
+                      <div class="timeline-segment-grid" aria-hidden="true">
+                        {timelineSegments.map((segment) => <span data-segment-key={segment.key}></span>)}
+                      </div>
+                      {marks.map(({ event, x, segmentKey, band, microSlot }) => (
+                        <button
+                          type="button"
+                          class={`timeline-mark event-mark event-kind-${event.data.kind}`}
+                          style={`--x:${x}px`}
+                          data-event-mark
+                          data-event-id={event.data.id}
+                          data-event-date={event.data.when.start}
+                          data-event-x={x}
+                          data-segment-key={segmentKey}
+                          data-band={band}
+                          data-micro-slot={microSlot}
+                          aria-pressed="false"
+                          aria-label={`${formatWhen(event)} · ${kindLabels[event.data.kind]} · ${event.data.headline}`}
+                        ><span class="timeline-glyph" aria-hidden="true"></span><span class="visually-hidden">Inspect event</span></button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <noscript><p class="empty-note">JavaScript is required for Timeline filtering. Every Event remains available in the <a href={sitePath('events/')}>chronological Events view</a>.</p></noscript>
+    </div>
+
+    <aside class="event-detail" data-detail aria-label="Event evidence inspector" aria-live="polite" tabindex="-1">
+      <div class="detail-placeholder" data-detail-placeholder>
+        <p class="eyebrow">EVIDENCE INSPECTOR</p>
+        <h2>Select an event</h2>
+        <p>Choose a Timeline mark to inspect the event and its evidence.</p>
+      </div>
+      <div data-detail-content hidden>
+        <p class="event-meta" data-detail-meta></p>
+        <h2 data-detail-title></h2>
+        <div class="detail-context" data-detail-context></div>
+        <p class="detail-shared-note" data-detail-shared hidden></p>
+        <p class="detail-fact" data-detail-fact></p>
+        <div class="detail-match" data-detail-match hidden>
+          <h3>Why this matched</h3>
+          <ul data-detail-match-list></ul>
+        </div>
+        <div class="detail-sources">
+          <h3 data-detail-sources-heading>Evidence</h3>
+          <div data-detail-sources></div>
+        </div>
+        <a class="event-permalink" data-detail-event>Open event →</a>
+      </div>
+    </aside>
+  </div>}
+
+  {surface === 'events' && <section class="result-section" aria-label="Events">
+    <div class="result-list index-list" data-result-list>
+      {newestFirst.map((event) => {
+        const contexts = renderContextLinks(event);
+        return (
+          <article class="result-event index-row index-dated-row" data-event-result data-event-id={event.data.id}>
+            <div class="result-date">
+              <time class="index-date" datetime={event.data.when.start}>{formatWhen(event)}</time>
+              <span class={`category-label signal-type signal-type-${event.data.kind}`} data-signal-type={event.data.kind}>{kindLabels[event.data.kind]}</span>
+            </div>
+            <div class="result-body">
+              <h3 class="index-title"><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
+              {contexts.length > 0 && (
+                <p class="result-context index-links">
+                  {contexts.map((entry, index) => (
+                    <><a href={entry.href}>{entry.name}</a>{index < contexts.length - 1 ? <span aria-hidden="true"> · </span> : null}</>
+                  ))}
+                </p>
+              )}
+              <p class="result-fact index-summary">{event.data.fact}</p>
+              <p class="result-match" data-result-match hidden></p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+    <div class="filtered-empty" data-filtered-empty hidden>
+      <h3>No events match these filters</h3>
+      <p>Clear the search, select more companies, or choose All types.</p>
+    </div>
+  </section>}
+
+  <script type="application/json" data-events-json set:html={JSON.stringify(serialized)}></script>
+</section>
+
+<script>
+  const root = document.querySelector('[data-event-explorer-root]');
+
+  if (root && !root.hasAttribute('data-initialized')) {
+    root.setAttribute('data-initialized', 'true');
+
+    const jsonNode = root.querySelector('[data-events-json]');
+    const events = JSON.parse(jsonNode?.textContent || '[]');
+    const byId = new Map(events.map((event) => [event.id, event]));
+    const context = root.getAttribute('data-context') || 'global';
+    const isTimeline = root.getAttribute('data-surface') === 'timeline';
+    const isActivityMatrix = root.hasAttribute('data-activity-matrix');
+    const search = root.querySelector('[data-search]');
+    const kind = root.querySelector('[data-kind]');
+    const status = root.querySelector('[data-status]');
+    const companyChecks = [...root.querySelectorAll('[data-company-options] input[type="checkbox"]')];
+    const companyOptions = [...root.querySelectorAll('[data-company-option]')];
+    const companySearch = root.querySelector('[data-company-search]');
+    const companyOptionsEmpty = root.querySelector('[data-company-options-empty]');
+    const companySummary = root.querySelector('[data-company-summary]');
+    const companyPicker = root.querySelector('[data-company-picker]');
+    const resultEmpty = root.querySelector('[data-filtered-empty]');
+    const detail = root.querySelector('[data-detail]');
+    const timelineScroll = root.querySelector('[data-timeline-scroll]');
+    const activityAxis = root.querySelector('[data-activity-axis]');
+    let activeId = null;
+    let activeMark = null;
+    let visibleIds = new Set();
+    let representedTimelineIds = new Set();
+    const legacyKindAliases = new Map([
+      ['publication', 'technical'],
+      ['conference', 'technical'],
+      ['hiring', 'organizational'],
+      ['affiliation_change', 'organizational'],
+      ['organization', 'organizational'],
+      ['business', 'organizational'],
+    ]);
+
+    const normalize = (value) => String(value || '')
+      .normalize('NFKC')
+      .toLocaleLowerCase('en')
+      .replace(/[\p{P}\p{S}]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const termsFor = (value) => normalize(value).split(' ').filter(Boolean);
+    const tokensFor = (value) => new Set(termsFor(value));
+    const hasTerm = (tokens, term) => term.length <= 2
+      ? tokens.has(term)
+      : [...tokens].some((token) => token.startsWith(term));
+    const unique = (values) => [...new Set(values)];
+    const precisionLabel = (precision) => `${precision.charAt(0).toUpperCase()}${precision.slice(1)} precision`;
+    const visibleEventIdsForMark = (mark) => (
+      mark.hidden ? [] : [mark.getAttribute('data-event-id')].filter(Boolean)
+    );
+    const sortEventIds = (ids) => [...ids].sort((left, right) => {
+      const leftEvent = byId.get(left);
+      const rightEvent = byId.get(right);
+      return (rightEvent?.startTimestamp ?? 0) - (leftEvent?.startTimestamp ?? 0)
+        || left.localeCompare(right, 'en');
+    });
+    const markIsRendered = (mark) => Boolean(mark)
+      && !mark.hidden
+      && !mark.closest('[data-matrix-bundle]')?.hidden
+      && !mark.closest('[data-lane]')?.hidden
+      && !mark.closest('[data-group]')?.hidden;
+    const syncActivityAxis = () => {
+      if (activityAxis && timelineScroll) {
+        activityAxis.style.setProperty('--matrix-scroll-left', `${timelineScroll.scrollLeft}px`);
+      }
+    };
+
+    const matchingFields = (event, terms) => {
+      if (!terms.length) return [];
+      return event.searchFields.filter((field) => {
+        const tokens = tokensFor(field.value);
+        return terms.some((term) => hasTerm(tokens, term));
+      });
+    };
+
+    const snippet = (value, term) => {
+      const clean = String(value).replace(/\s+/g, ' ').trim();
+      const normalizedValue = normalize(clean);
+      const normalizedTerm = normalize(term);
+      const normalizedTokens = normalizedValue.split(' ');
+      const tokenIndex = normalizedTokens.findIndex((token) => normalizedTerm.length <= 2
+        ? token === normalizedTerm
+        : token.startsWith(normalizedTerm));
+      const normalizedIndex = tokenIndex < 0
+        ? -1
+        : normalizedTokens.slice(0, tokenIndex).join(' ').length + (tokenIndex > 0 ? 1 : 0);
+      if (normalizedIndex < 0 || clean.length <= 170) return clean;
+      const ratio = normalizedIndex / Math.max(normalizedValue.length, 1);
+      const center = Math.round(clean.length * ratio);
+      const start = Math.max(center - 62, 0);
+      const end = Math.min(start + 154, clean.length);
+      return `${start > 0 ? '…' : ''}${clean.slice(start, end).trim()}${end < clean.length ? '…' : ''}`;
+    };
+
+    const addLinkedNames = (container, entries) => {
+      container.replaceChildren();
+      entries.forEach((entry, index) => {
+        const link = document.createElement('a');
+        link.href = entry.url;
+        link.textContent = entry.name;
+        container.append(link);
+        if (index < entries.length - 1) container.append(document.createTextNode(' · '));
+      });
+    };
+
+    const renderSources = (container, sources) => {
+      container.replaceChildren();
+      sources.forEach((source) => {
+        const card = document.createElement('article');
+        card.className = 'detail-source';
+
+        const heading = document.createElement('h4');
+        if (source.status === 'available') {
+          const link = document.createElement('a');
+          link.href = source.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = `${source.title} ↗`;
+          heading.append(link);
+        } else {
+          heading.textContent = source.title;
+        }
+        card.append(heading);
+
+        const sourceStatus = document.createElement('p');
+        sourceStatus.className = `source-availability ${source.status}`;
+        sourceStatus.textContent = source.status === 'available'
+          ? `Available · checked ${source.checkedAt}`
+          : `Original URL unavailable · checked ${source.checkedAt}`;
+        card.append(sourceStatus);
+
+        const summary = document.createElement('p');
+        summary.textContent = source.summary;
+        card.append(summary);
+
+        if (source.archiveUrl) {
+          const archive = document.createElement('a');
+          archive.className = 'archive-link';
+          archive.href = source.archiveUrl;
+          archive.target = '_blank';
+          archive.rel = 'noreferrer';
+          archive.textContent = 'Open archived source ↗';
+          card.append(archive);
+        }
+        container.append(card);
+      });
+    };
+
+    const renderMatch = (event, terms) => {
+      const match = detail.querySelector('[data-detail-match]');
+      const list = detail.querySelector('[data-detail-match-list]');
+      list.replaceChildren();
+      if (!terms.length) {
+        match.hidden = true;
+        return;
+      }
+
+      const fields = matchingFields(event, terms);
+      const shown = [];
+      fields.forEach((field) => {
+        const labelKey = `${field.label}:${field.value}`;
+        if (shown.includes(labelKey) || shown.length >= 4) return;
+        shown.push(labelKey);
+        const fieldTokens = tokensFor(field.value);
+        const matchingTerm = terms.find((term) => hasTerm(fieldTokens, term)) || terms[0];
+        const item = document.createElement('li');
+        const label = document.createElement('strong');
+        label.textContent = `${field.label}: `;
+        item.append(label, document.createTextNode(snippet(field.value, matchingTerm)));
+        list.append(item);
+      });
+      match.hidden = shown.length === 0;
+    };
+
+    const renderDetail = (event, terms) => {
+      if (!event || !detail) return;
+      detail.querySelector('[data-detail-placeholder]').hidden = true;
+      detail.querySelector('[data-detail-content]').hidden = false;
+      detail.querySelector('[data-detail-meta]').textContent = `${event.when} · ${event.kindLabel} · ${precisionLabel(event.precision)}`;
+      detail.querySelector('[data-detail-title]').textContent = event.headline;
+      detail.querySelector('[data-detail-fact]').textContent = event.fact;
+      addLinkedNames(detail.querySelector('[data-detail-context]'), [...event.companies, ...event.people]);
+
+      const shared = detail.querySelector('[data-detail-shared]');
+      shared.hidden = event.companies.length <= 1;
+      if (!shared.hidden) {
+        shared.textContent = `One factual Event linked to ${event.companies.length} companies. Every visible mark opens this same Event.`;
+      }
+
+      renderMatch(event, terms);
+      detail.querySelector('[data-detail-sources-heading]').textContent = `Evidence · ${event.sources.length} ${event.sources.length === 1 ? 'source' : 'sources'}`;
+      renderSources(detail.querySelector('[data-detail-sources]'), event.sources);
+      const eventLink = detail.querySelector('[data-detail-event]');
+      eventLink.href = event.eventUrl;
+    };
+
+    const updateActiveMarks = () => {
+      root.querySelectorAll('[data-event-mark]').forEach((mark) => {
+        const active = markIsRendered(mark) && visibleEventIdsForMark(mark).includes(activeId);
+        mark.classList.toggle('is-active', active);
+        mark.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    const setActive = (id, sourceMark = activeMark) => {
+      const eligibleIds = isActivityMatrix ? representedTimelineIds : visibleIds;
+      if (!id || !eligibleIds.has(id)) return;
+      activeId = id;
+      if (sourceMark && markIsRendered(sourceMark) && visibleEventIdsForMark(sourceMark).includes(id)) {
+        activeMark = sourceMark;
+      } else {
+        activeMark = [...root.querySelectorAll('[data-event-mark]')]
+          .find((mark) => markIsRendered(mark) && visibleEventIdsForMark(mark).includes(id)) ?? null;
+      }
+      renderDetail(byId.get(id), termsFor(search.value));
+      updateActiveMarks();
+    };
+
+    const selectedCompanyIds = () => new Set(companyChecks.filter((check) => check.checked).map((check) => check.value));
+
+    const updateCompanySummary = (selected) => {
+      if (!companySummary) return;
+      if (selected.size === companyChecks.length) {
+        companySummary.textContent = `All ${companyChecks.length}`;
+      } else if (selected.size === 0) {
+        companySummary.textContent = 'None';
+      } else {
+        companySummary.textContent = `${selected.size} selected`;
+      }
+    };
+
+    const filterCompanyOptions = () => {
+      const query = normalize(companySearch?.value);
+      let visibleCount = 0;
+      companyOptions.forEach((option) => {
+        const matches = !query || normalize(option.getAttribute('data-company-name')).includes(query);
+        option.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+      if (companyOptionsEmpty) companyOptionsEmpty.hidden = visibleCount !== 0;
+    };
+
+    const updateSurfaceLinks = (params) => {
+      document.querySelectorAll('[data-filter-view-link]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const url = new URL(href, window.location.href);
+        const targetParams = new URLSearchParams(params);
+        targetParams.delete('view');
+        if (link.getAttribute('data-filter-surface') === 'timeline') targetParams.delete('kind');
+        url.search = targetParams.toString();
+        link.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
+      });
+    };
+
+    const updateUrl = (selected, kindValue) => {
+      const params = new URLSearchParams(window.location.search);
+      search.value.trim() ? params.set('q', search.value.trim()) : params.delete('q');
+      kind && kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
+      params.delete('view');
+
+      if (context === 'global') {
+        if (selected.size === companyChecks.length) {
+          params.delete('companies');
+        } else if (selected.size === 0) {
+          params.set('companies', 'none');
+        } else {
+          params.set('companies', [...selected].sort().join(','));
+        }
+      } else params.delete('companies');
+
+      const next = params.toString();
+      history.replaceState(null, '', `${location.pathname}${next ? `?${next}` : ''}`);
+      updateSurfaceLinks(params);
+    };
+
+    const updateMatrixBundles = () => {
+      root.querySelectorAll('[data-matrix-bundle]').forEach((bundle) => {
+        const visibleMembers = [...bundle.querySelectorAll('[data-bundle-member]')]
+          .filter((member) => !member.hidden);
+        bundle.hidden = visibleMembers.length === 0;
+        bundle.setAttribute('data-visible-event-ids', JSON.stringify(
+          visibleMembers.map((member) => member.getAttribute('data-event-id')),
+        ));
+        bundle.setAttribute('data-visible-member-count', String(visibleMembers.length));
+
+        visibleMembers.forEach((member, index) => {
+          member.setAttribute('data-visible-index', String(index));
+        });
+      });
+    };
+
+    const firstVisibleMatrixSelection = () => {
+      const visibleGroup = [...root.querySelectorAll('[data-group]')].find((group) => !group.hidden);
+      if (!visibleGroup) return null;
+      const rows = [...visibleGroup.querySelectorAll('[data-lane]')].filter((lane) => !lane.hidden);
+      for (const lane of rows) {
+        const marks = [...lane.querySelectorAll('[data-matrix-mark]')].filter(markIsRendered);
+        const candidateIds = sortEventIds(marks.flatMap(visibleEventIdsForMark));
+        if (candidateIds.length === 0) continue;
+        const id = candidateIds[0];
+        return {
+          id,
+          mark: marks.find((mark) => visibleEventIdsForMark(mark).includes(id)) ?? null,
+        };
+      }
+      return null;
+    };
+
+    const apply = () => {
+      const terms = termsFor(search.value);
+      const kindValue = kind?.value || 'all';
+      const selected = selectedCompanyIds();
+      const allCompaniesSelected = selected.size === companyChecks.length;
+      const visibleEvents = events.filter((event) => {
+        const eventTokens = tokensFor(event.search);
+        const matchesText = terms.every((term) => hasTerm(eventTokens, term));
+        const matchesKind = kindValue === 'all' || event.kind === kindValue;
+        const matchesCompany = context !== 'global'
+          || (event.companies.length === 0
+            ? allCompaniesSelected
+            : event.companies.some((company) => selected.has(company.id)));
+        return matchesText && matchesKind && matchesCompany;
+      });
+      visibleIds = new Set(visibleEvents.map((event) => event.id));
+
+      root.querySelectorAll('[data-event-mark]').forEach((mark) => {
+        const lane = mark.closest('[data-lane]');
+        const selectedLane = context !== 'global'
+          || lane?.getAttribute('data-lane-type') !== 'company'
+          || selected.has(lane.getAttribute('data-entity-id'));
+        mark.hidden = !visibleIds.has(mark.getAttribute('data-event-id')) || !selectedLane;
+      });
+      if (isActivityMatrix) updateMatrixBundles();
+      root.querySelectorAll('[data-event-result]').forEach((result) => {
+        const id = result.getAttribute('data-event-id');
+        result.hidden = !visibleIds.has(id);
+        const matchNote = result.querySelector('[data-result-match]');
+        if (terms.length && visibleIds.has(id)) {
+          const fields = matchingFields(byId.get(id), terms);
+          const labels = unique(fields.map((field) => field.label));
+          const firstField = fields[0];
+          const firstFieldTokens = tokensFor(firstField?.value);
+          const matchingTerm = terms.find((term) => hasTerm(firstFieldTokens, term)) || terms[0];
+          matchNote.textContent = `Matched in ${labels.join(', ')}: ${snippet(firstField?.value || '', matchingTerm)}`;
+          matchNote.hidden = false;
+        } else {
+          matchNote.hidden = true;
+        }
+      });
+
+      const explicitDiscovery = terms.length > 0 || selected.size !== companyChecks.length;
+      root.querySelectorAll('[data-lane]').forEach((lane) => {
+        const hasVisibleMark = [...lane.querySelectorAll('[data-event-mark]')].some((mark) => !mark.hidden);
+        const suppressSingleton = isActivityMatrix
+          && lane.getAttribute('data-singleton') === 'true'
+          && !explicitDiscovery;
+        lane.hidden = !hasVisibleMark || suppressSingleton;
+      });
+
+      representedTimelineIds = isActivityMatrix
+        ? new Set([...root.querySelectorAll('[data-matrix-mark]')]
+            .filter(markIsRendered)
+            .map((mark) => mark.getAttribute('data-event-id'))
+            .filter(Boolean))
+        : new Set(visibleIds);
+
+      const statusIds = isActivityMatrix ? representedTimelineIds : visibleIds;
+      status.textContent = `${statusIds.size} of ${events.length} ${events.length === 1 ? 'event' : 'events'}`;
+      if (resultEmpty) resultEmpty.hidden = visibleIds.size !== 0;
+      updateCompanySummary(selected);
+      updateUrl(selected, kindValue);
+
+      if (isTimeline) {
+        const detailTerms = termsFor(search.value);
+        if (isActivityMatrix) {
+          if (!activeId || !representedTimelineIds.has(activeId)) {
+            const selection = firstVisibleMatrixSelection();
+            activeId = selection?.id ?? null;
+            activeMark = selection?.mark ?? null;
+          } else if (!activeMark || !markIsRendered(activeMark) || !visibleEventIdsForMark(activeMark).includes(activeId)) {
+            activeMark = [...root.querySelectorAll('[data-matrix-mark]')]
+              .find((mark) => markIsRendered(mark) && visibleEventIdsForMark(mark).includes(activeId)) ?? null;
+          }
+        } else if (!activeId || !visibleIds.has(activeId)) {
+          activeId = visibleEvents[0]?.id || null;
+          activeMark = activeId
+            ? root.querySelector(`[data-event-mark][data-event-id="${CSS.escape(activeId)}"]:not([hidden])`)
+            : null;
+        }
+        if (activeId) {
+          renderDetail(byId.get(activeId), detailTerms);
+        }
+        else {
+          detail.querySelector('[data-detail-placeholder]').hidden = false;
+          detail.querySelector('[data-detail-content]').hidden = true;
+        }
+        updateActiveMarks();
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('q')) search.value = params.get('q');
+    const requestedKind = params.get('kind');
+    const canonicalKind = legacyKindAliases.get(requestedKind) || requestedKind;
+    if (kind && [...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
+
+    if (context === 'global' && params.has('companies')) {
+      const raw = params.get('companies');
+      const requested = raw === 'none' ? new Set() : new Set(raw.split(',').filter(Boolean));
+      const validRequested = new Set([...requested].filter((id) => companyChecks.some((check) => check.value === id)));
+      if (raw === 'none' || validRequested.size > 0) {
+        companyChecks.forEach((check) => { check.checked = validRequested.has(check.value); });
+      }
+    }
+
+    root.querySelectorAll('[data-event-mark]').forEach((button) => {
+      button.addEventListener('click', () => {
+        setActive(button.getAttribute('data-event-id'), button);
+      });
+    });
+    search.addEventListener('input', apply);
+    kind?.addEventListener('change', apply);
+    companySearch?.addEventListener('input', filterCompanyOptions);
+    companyChecks.forEach((check) => check.addEventListener('change', apply));
+    root.querySelector('[data-select-all-companies]')?.addEventListener('click', () => {
+      companyChecks.forEach((check) => { check.checked = true; });
+      apply();
+    });
+    root.querySelector('[data-clear-all-companies]')?.addEventListener('click', () => {
+      companyChecks.forEach((check) => { check.checked = false; });
+      apply();
+    });
+    timelineScroll?.addEventListener('scroll', syncActivityAxis, { passive: true });
+    companyPicker?.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        companyPicker.open = false;
+        companyPicker.querySelector('summary').focus();
+      }
+    });
+
+    filterCompanyOptions();
+    apply();
+    if (isTimeline && timelineScroll) {
+      requestAnimationFrame(() => {
+        timelineScroll.scrollLeft = 0;
+        const activeMark = [...root.querySelectorAll('[data-event-mark]:not([hidden])')]
+          .find((mark) => markIsRendered(mark) && visibleEventIdsForMark(mark).includes(activeId));
+        if (activeMark) {
+          const markBounds = activeMark.getBoundingClientRect();
+          const scrollBounds = timelineScroll.getBoundingClientRect();
+          const timeline = timelineScroll.querySelector('.desktop-timeline, .activity-matrix');
+          const laneLabelWidth = timeline
+            ? Number.parseFloat(getComputedStyle(timeline).getPropertyValue(
+                isActivityMatrix ? '--matrix-label-width' : '--lane-label-width',
+              )) || 0
+            : 0;
+          const availableTrackWidth = Math.max(timelineScroll.clientWidth - laneLabelWidth, 0);
+          const obscuredLeft = scrollBounds.left + laneLabelWidth;
+          const outsideInitialViewport = markBounds.left < obscuredLeft || markBounds.right > scrollBounds.right;
+          if (outsideInitialViewport && timelineScroll.scrollWidth > timelineScroll.clientWidth) {
+            const eventX = isActivityMatrix
+              ? (Number(activeMark.getAttribute('data-event-x')) / 100)
+                * (activeMark.closest('[data-matrix-track]')?.clientWidth ?? 0)
+              : Number(activeMark.getAttribute('data-event-x'));
+            const maximum = Math.max(timelineScroll.scrollWidth - timelineScroll.clientWidth, 0);
+            timelineScroll.scrollLeft = Math.min(Math.max(eventX - (availableTrackWidth / 2), 0), maximum);
+            timelineScroll.setAttribute('data-initial-reveal', activeId);
+          }
+        }
+        syncActivityAxis();
+        timelineScroll.setAttribute('data-initial-scroll', 'complete');
+      });
+    }
+  }
+</script>

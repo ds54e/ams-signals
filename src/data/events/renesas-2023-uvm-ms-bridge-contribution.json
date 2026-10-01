@@ -1,0 +1,26 @@
+{
+  "id": "renesas-2023-uvm-ms-bridge-contribution",
+  "when": {
+    "start": "2023-06-22",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["renesas"],
+  "people": ["peter-grove", "steven-holloway"],
+  "headline": "Renesas engineers present an MS Bridge submission to the Accellera UVM-AMS Working Group",
+  "fact": "At Verification Futures UK 2023, Renesas engineers Peter Grove and Steven Holloway presented a submission to the Accellera UVM-AMS Working Group showing how an MS Bridge module could apply UVM to both AMS and DMS verification. The presentation covered simulator initialization and synchronization, stimulus and monitoring differences, a known limitation and possible solutions, and application to a mixed-signal block. The speakers said the presentation and example code had been shared with the EDA community to feed into a working-group white paper and cautioned that the implementation was not final before an official UVM-AMS release.",
+  "sources": [
+    {
+      "title": "Renesas’s Submission to the UVM-(A)MS working group",
+      "url": "https://www.tessolve.com/?p=24204",
+      "checkedAt": "2026-09-02",
+      "summary": "Tessolve's presentation page identifies Peter Grove and Steven Holloway of Renesas and describes the MS Bridge proposal, mixed-signal-block application, known limitation, example-code sharing, and pre-standard status."
+    },
+    {
+      "title": "Verification Futures Conference",
+      "url": "https://www.tessolve.com/verification-futures/",
+      "checkedAt": "2026-09-02",
+      "summary": "Tessolve's conference index dates Verification Futures 2023 Europe (UK) to June 22, 2023."
+    }
+  ]
+}

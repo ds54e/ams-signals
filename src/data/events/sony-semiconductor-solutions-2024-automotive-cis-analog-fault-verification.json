@@ -1,0 +1,28 @@
+{
+  "id": "sony-semiconductor-solutions-2024-automotive-cis-analog-fault-verification",
+  "when": {
+    "start": "2024-09-20",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": ["sony-semiconductor-solutions"],
+  "people": [],
+  "headline": "Sony reports analog fault-injection verification for automotive mixed-signal image sensors",
+  "fact": "A Sony Semiconductor Solutions SNUG Japan presentation describes applying PrimeSim Custom Fault to analog circuits in automotive image sensors, which the session abstract identifies as mixed-signal ICs. It reports deriving fault-detection rates from the fault-injection verification and feeding the results back into the design to improve the detection rate.",
+  "sources": [
+    {
+      "title": "SNUG Japan 2024 Session Timetable",
+      "url": "https://www.event-entry.net/snugjapan2024/timetable.php",
+      "checkedAt": "2026-08-30",
+      "status": "unavailable",
+      "summary": "Official session abstract describing Sony's PrimeSim Custom Fault verification of automotive mixed-signal image-sensor analog circuits, fault-detection-rate derivation, and design feedback.",
+      "archiveUrl": "https://web.archive.org/web/20240820082850id_/https://www.event-entry.net/snugjapan2024/timetable.php"
+    },
+    {
+      "title": "SNUG Japan 2024",
+      "url": "https://www.zuken.co.jp/news/snug2024/",
+      "checkedAt": "2026-08-30",
+      "summary": "Zuken's event notice identifies September 20, 2024 as the SNUG Japan 2024 conference date."
+    }
+  ]
+}

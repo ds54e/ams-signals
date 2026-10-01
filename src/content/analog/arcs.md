@@ -1,0 +1,69 @@
+---
+name: "ARCS"
+summary: "Joint circuit-topology and component-value generation."
+description: "Generates and sizes circuits within predefined topology families from target specifications using an autoregressive model. Decoded candidates become ngspice netlists for electrical evaluation and reward-based training, with examples spanning converters, amplifiers and filters."
+scope:
+  design:
+    ai: true
+  simulation:
+    ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited implementation added the latent reward predictor and gradient-based refinement loop, alongside classifier-free guidance for circuit generation. The predictor and its training path remain in the project."
+  sources: ["development-1", "development-2", "development-3"]
+  reviewedAt: "2026-09-07"
+access: "Python/PyTorch and ngspice; generation and training depend on the selected released model and dataset configuration."
+addedAt: "2026-09-05"
+reviewedAt: "2026-09-05"
+sources:
+  - id: "code"
+    title: "Public project implementation"
+    url: "https://github.com/tusharpathaknyu/ARCS"
+    purpose: "code"
+  - id: "paper-arcs-paper-tex"
+    title: "Author manuscript in LaTeX"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/paper/arcs_paper.tex"
+  - id: "src-arcs-model-py"
+    title: "Autoregressive model implementation"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/model.py"
+  - id: "src-arcs-simulate-py"
+    title: "Decoded circuit evaluation and rewards"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/simulate.py"
+  - id: "src-arcs-spice-py"
+    title: "ngspice runner"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/spice.py"
+  - id: "src-arcs-templates-py"
+    title: "Circuit families and netlist templates"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/templates.py"
+  - id: "results-arch-multiseed-json"
+    title: "Released multi-seed architecture evaluation"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/results/arch_multiseed.json"
+    purpose: "results"
+  - id: "development-1"
+    title: "Model/optimization campaign"
+    url: "https://github.com/tusharpathaknyu/ARCS/commit/60463a5883dbd419d2eeb5be55a22f4bb3428ee2"
+  - id: "development-2"
+    title: "Current implementation"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/src/arcs/latent_reward.py"
+  - id: "development-3"
+    title: "Current training integration"
+    url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/scripts/train_latent_reward.py"
+---
+
+### Scope
+
+The current implementation is under `src/arcs`, alongside an older `circuitgenie` tree. It includes autoregressive topology/value models, SPICE conversion, simulation rewards and candidate search. Generation can encode connectivity, while electrical evaluation maps decoded circuits to supported circuit-family templates. This is not unrestricted transistor-level IC synthesis. [Model](#source-src-arcs-model-py) · [Templates](#source-src-arcs-templates-py) · [Evaluation](#source-src-arcs-simulate-py)
+
+### Results
+
+The repository contains a manuscript and recorded multi-seed comparisons. These are author-produced experiments; the catalog did not retrain models or reproduce the numbers. Generation, simulation and component optimization are reviewed operations. No LLM reasoning or physical-layout mark is inferred from the generator. [Manuscript](#source-paper-arcs-paper-tex) · [Results](#source-results-arch-multiseed-json) · [Simulator](#source-src-arcs-spice-py)
+
+### Scope classification
+
+Learned topology/component-value generation and SPICE-based candidate evaluation are explicit parts of the released generation and ranking pipeline. [Reviewed source](#source-paper-arcs-paper-tex).
+
+The learned generator chooses topology and component values, giving AI Design. SPICE scoring remains numerical electrical evaluation rather than AI Simulation. [AI/stage evidence](#source-paper-arcs-paper-tex).
+
+### Development provenance review
+
+Reviewed 2026-09-07: **AI-ASSISTED**. The attributed change implements the reward predictor, optimization loop and conditional-flow training/inference, beyond added circuit templates. This is a substantial model/optimization subsystem; broader framework creation is not established. [Model/optimization campaign](#source-development-1); [Current implementation](#source-development-2); [Current training integration](#source-development-3).

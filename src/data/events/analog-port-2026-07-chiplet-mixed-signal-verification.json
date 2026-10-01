@@ -1,0 +1,29 @@
+{
+  "id": "analog-port-2026-07-chiplet-mixed-signal-verification",
+  "when": {
+    "start": "2026-07-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "analog-port",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Analog Port and Siemens report a UVM-based chiplet mixed-signal verification flow",
+  "fact": "At DAC 2026, Analog Port and Siemens EDA authors described a top-down mixed-signal verification methodology for a 32 Gbps, 16-transmit/16-receive full-duplex die-to-die interface. The flow extends a UVM-based digital verification environment into the mixed-signal domain, using SPICE simulation for critical analog blocks and high-performance digital simulation for the broader system. The authors report up to 26x memory savings and more than 3x performance gain for the presented RX and TX simulations; these are case-specific presentation results.",
+  "sources": [
+    {
+      "title": "Bridging Analog Fidelity and Digital Performance in Chiplet Interface Mixed-Signal IP Verification",
+      "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST278&sess=sess296",
+      "checkedAt": "2026-09-25",
+      "summary": "The official DAC 2026 record identifies the Analog Port and Siemens authors, July 29 presentation, UVM-based top-down methodology, selective SPICE/digital partitioning, 32 Gbps 16-TX/16-RX interface, and reported up-to-26x memory and greater-than-3x performance results."
+    },
+    {
+      "title": "How Siemens Symphony Pro enabled AnalogPort to verify complex chip interfaces",
+      "url": "https://resources.sw.siemens.com/en-US/white-paper-how-siemens-symphony-pro-enabled-analogport-to-verify-complex-chip-designs/",
+      "checkedAt": "2026-09-25",
+      "summary": "Siemens' vendor-authored white paper separately documents the presented methodology's UVM extension, SPICE treatment of critical analog blocks, digital simulation of the broader system, and the 32 Gbps 16-transmit/16-receive full-duplex interface."
+    }
+  ]
+}

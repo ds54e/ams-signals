@@ -1,0 +1,41 @@
+---
+name: "KLayout"
+aliases: []
+summary: "Views, edits and verifies IC layouts with programmable geometry and PCells."
+description: "Layout editor and verification platform for custom integrated circuits, with GDS/OASIS support. Python/Ruby scripts and parameterized cells automate geometry construction, while programmable DRC/LVS checks use technology-specific rules to examine layout and connectivity."
+scope:
+  layout:
+    ai: false
+access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
+addedAt: "2026-09-05"
+reviewedAt: "2026-10-01"
+sources:
+  - id: "site"
+    title: "Official project documentation"
+    url: "https://www.klayout.de/intro.html"
+    purpose: "official"
+  - id: "code"
+    title: "Canonical public source repository"
+    url: "https://github.com/KLayout/klayout"
+    purpose: "code"
+  - id: "readme"
+    title: "README at the reviewed default-branch revision"
+    url: "https://github.com/KLayout/klayout/blob/e71272c3b178105bd2a2f25af54673a7af7ed60d/README.md"
+  - id: "activity"
+    title: "PEX triangulation correctness fix and regression test, September 25, 2026"
+    url: "https://github.com/KLayout/klayout/commit/5fa733e1680212e4ceda532ca5fa6ea707c654de"
+---
+
+### Scope
+
+Reads and edits layout geometry and hierarchy, generates parameterized cells and executes scripting-based checks. These are Layout operations; scripting and external library/technology interfaces enable those layout operations. [Official feature overview](#source-site) and [implementation](#source-readme).
+
+### Release boundary
+
+A programmable DRC/LVS platform does not itself establish signoff for any process. The September 25 merge fixes a PEX triangulation failure by scaling an edge-selection tolerance with geometric distance and adds a regression case. It is distinct from the August 26 PCell editor update. [Reviewed implementation update](#source-activity).
+
+### Scope classification
+
+Layout editing, PCells and physical checks are central. Scripting and file interfaces enable those same layout operations rather than a separate circuit-design stage. [Reviewed source](#source-readme).
+
+Layout editing, PCells and verification scripts are conventional layout operations. Scripting automation alone is not runtime AI. [AI/stage evidence](#source-readme).

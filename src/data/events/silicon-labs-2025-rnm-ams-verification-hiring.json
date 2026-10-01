@@ -1,0 +1,22 @@
+{
+  "id": "silicon-labs-2025-rnm-ams-verification-hiring",
+  "when": {
+    "start": "2025-04-09",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "silicon-labs"
+  ],
+  "people": [],
+  "headline": "Silicon Labs posts AMS verification role for RNM-based IP and SoC sign-off",
+  "fact": "Silicon Labs posted a Staff or Senior Staff AMS Verification role whose description covers functional, performance, and power sign-off for next-generation IP and SoCs using RNM models. The role includes Verilog-D, Verilog-A or Verilog-AMS behavioral modeling, block- and chip-level verification, self-checking regressions, model validation, silicon correlation, and SystemVerilog/UVM experience. This is evidence of a public hiring mandate, not proof that every listed method was already deployed.",
+  "sources": [
+    {
+      "title": "Silicon Labs Careers: Staff/Senior Staff Engineer — AMS Verification (19905)",
+      "url": "https://silabs.wd1.myworkdayjobs.com/en-US/SiliconLabsCareers/job/Hyderabad/Lead-Engineer---IC-Design_19905",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Silicon Labs Workday record exposes an April 9, 2025 start date and describes its RNM, behavioral-modeling, IP/SoC sign-off, regression, model-validation, and silicon-correlation scope."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "tcs-2026-09-analog-cim-genai-pss-verification",
+  "when": {
+    "start": "2026-09-02",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "tcs"
+  ],
+  "people": [],
+  "headline": "TCS presents GenAI-driven Portable Stimulus verification for analog compute-in-memory",
+  "fact": "TCS and the official DVCon India 2026 agenda list an Amarnath D technical paper on a verification and reliability framework for analog compute-in-memory using GenAI-driven Portable Stimulus, presented on September 2. The public sources establish the stated framework and presentation; they do not disclose enough technical detail to assert a particular generated-test architecture, coverage gain, reliability result, or production-deployment scope.",
+  "sources": [
+    {
+      "title": "TCS at DVCon India 2026",
+      "url": "https://www.tcs.com/who-we-are/events/meet-tcs-at-dvcon-india-2026",
+      "checkedAt": "2026-09-21",
+      "summary": "TCS lists Amarnath D, Principal Architect in R&D, presenting the analog compute-in-memory verification and reliability paper using GenAI-driven Portable Stimulus on September 2."
+    },
+    {
+      "title": "DVCon India 2026 Day 2 agenda",
+      "url": "https://dvcon-india.org/wp-content/uploads/2026/08/Day2v13_DVCon_India_2026_Agenda-copy.pdf",
+      "checkedAt": "2026-09-21",
+      "summary": "The official Wednesday, September 2 agenda lists Amarnath D presenting the Analog Compute-in-Memory GenAI-driven Portable Stimulus paper in Paper Session 5B."
+    }
+  ]
+}

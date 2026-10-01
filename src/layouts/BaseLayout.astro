@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+import { sitePath } from '../lib/paths';
+import { ANALYTICS_BEACON_SRC, ANALYTICS_SITE_TOKEN, analyticsEnabledFor } from '../lib/analytics.mjs';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  // Indexing policy for this page. Public pages are indexable by default; the
+  // Articles surfaces opt out explicitly with "noindex, follow" while staying
+  // reachable by direct URL. Exactly one robots directive is emitted per page.
+  robots?: string;
+}
+
+const {
+  title = 'AMS Signals',
+  description = 'Public signals in RNM and mixed-signal verification.',
+  lang = 'en',
+  robots = 'index, follow',
+} = Astro.props;
+const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
+const inAnalog = Astro.url.pathname.startsWith(sitePath('analog/'));
+const inDigital = Astro.url.pathname.startsWith(sitePath('digital/'));
+const inTimeline = Astro.url.pathname === sitePath('');
+// Self-referential canonical, derived from the configured deployment target
+// (Astro `site` + base) so no page hard-codes a production origin.
+const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? new URL(Astro.url.origin)).href;
+// Cloudflare Web Analytics is production-only: the beacon ships solely for the
+// configured public production origin, so the legacy fallback and the CI
+// root-shape build stay uninstrumented.
+const analyticsEnabled = analyticsEnabledFor(Astro.site);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalHref} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={sitePath('')}>AMS Signals</a>
+      <nav aria-label="Primary">
+        <a href={sitePath('')} data-filter-view-link data-filter-surface="timeline" aria-current={inTimeline ? 'page' : undefined}>Timeline</a>
+        <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
+        <a href={sitePath('analog/')} aria-current={inAnalog ? 'page' : undefined}>Analog</a>
+        <a href={sitePath('digital/')} aria-current={inDigital ? 'page' : undefined}>Digital</a>
+      </nav>
+    </header>
+    <main class="page-shell">
+      <slot />
+    </main>
+    {/* Cloudflare Web Analytics is emitted for the production origin only. The
+        snippet is assembled from the shared public constants so the served
+        markup matches Cloudflare's documented form exactly; the site token is
+        public and is not an API credential. */}
+    {analyticsEnabled && (
+      <Fragment
+        set:html={`<!-- Cloudflare Web Analytics --><script type="module" src="${ANALYTICS_BEACON_SRC}" data-cf-beacon='{"token": "${ANALYTICS_SITE_TOKEN}"}'></script><!-- End Cloudflare Web Analytics -->`}
+      />
+    )}
+  </body>
+</html>

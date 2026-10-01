@@ -1,0 +1,23 @@
+{
+  "id": "ubitium-2026-06-rnm-veloce-pll-emulation",
+  "when": {
+    "start": "2026-06-09",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ubitium",
+    "siemens-eda"
+  ],
+  "people": [],
+  "headline": "Siemens publishes a Ubitium PLL case connecting RNM to Veloce Strato emulation",
+  "fact": "Siemens published a Ubitium case-study abstract describing real-number models of analog blocks integrated into Veloce Strato hardware emulation. Its PLL example operates in a RISC-V system environment, and the abstract reports acceleration while retaining correlation with traditional simulation.",
+  "sources": [
+    {
+      "title": "Ubitium: Mixed-signal design and verification using RNM and Veloce",
+      "url": "https://resources.sw.siemens.com/en-US/video-ubitium-mixed-signal-design-and-verification-using-rnm-and-veloce/",
+      "checkedAt": "2026-09-09",
+      "summary": "The public abstract describes the RNM, PLL, RISC-V, Veloce Strato, and simulation-correlation scope. Siemens' public resource index dates publication to June 9, 2026. The recording requires registration; this Event uses only the public abstract."
+    }
+  ]
+}

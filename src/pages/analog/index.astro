@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CatalogIndex from '../../components/CatalogIndex.astro';
+import { sortProjects, scopeStageLabels } from '../../lib/analog/catalog';
+import { validateActivity } from '../../lib/analog/schema';
+import { scopeItems } from '../../lib/catalog-scope';
+import { activityBand } from '../../lib/catalog-activity-band';
+import activityData from '../../data/analog-activity.json';
+
+const entries = await getCollection('analog');
+const activity = validateActivity(entries, activityData);
+const projects = sortProjects(entries, activity.projects).map(({ data, id }) => {
+  const record = activity.projects[id];
+  const band = activityBand(record, activity.months, data.sources);
+  return {
+    id, name: data.name, description: data.description, sources: data.sources,
+    scope: scopeItems(data.scope, scopeStageLabels), developmentEvidence: data.developmentEvidence,
+    activity: { ...band, kind: record.kind },
+  };
+});
+---
+<BaseLayout title="Analog · AMS Signals" description="Analog/RF/AMS tools, agents, benchmarks, datasets and design infrastructure." lang="en">
+  <CatalogIndex domain="analog" title="Analog" stages={scopeStageLabels} months={activity.months} projects={projects} />
+</BaseLayout>

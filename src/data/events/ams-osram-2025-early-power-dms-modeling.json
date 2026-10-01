@@ -1,0 +1,28 @@
+{
+  "id": "ams-osram-2025-early-power-dms-modeling",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ams-osram"
+  ],
+  "people": [],
+  "headline": "ams OSRAM authors report a DMS flow for early full-chip power estimation",
+  "fact": "An ams OSRAM DVCon Europe 2025 paper reports using digital mixed-signal simulation for early full-chip power estimation. Analog-model states map to quiescent-current values inside a central UVM testbench spanning multiple rails and IP blocks. The authors present the method as an early-estimation aid alongside detailed verification, not as a replacement for analog sign-off.",
+  "sources": [
+    {
+      "title": "Early Power Estimation of Mixed-Signal ICs Using Digital Mixed-Signal Simulation",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_110.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The full DVCon Europe 2025 paper describes the analog-state-to-quiescent-current model, central UVM testbench, multi-rail application, and its bounded early-estimation role."
+    },
+    {
+      "title": "DVCon Europe 2025 proceedings program",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2025_Proceedings.pdf",
+      "checkedAt": "2026-08-31",
+      "summary": "The official proceedings program dates the ams OSRAM presentation to October 15, 2025."
+    }
+  ]
+}

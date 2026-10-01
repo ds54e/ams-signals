@@ -1,0 +1,26 @@
+{
+  "id": "ecosystem-2026-09-sv-msi-systemverilog-2028-roadmap",
+  "when": {
+    "start": "2026-09-10",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "SV-MSI update links mixed-net interoperability to SystemVerilog-2028, SV-AMS, and UVM-MS",
+  "fact": "The DVCon Japan 2026 SystemVerilog Mixed-Signal Interface Types BoF describes Accellera work to standardize connections among dissimilar SystemVerilog net types, including seamless logic-to-nettype/RNM connections that tools have historically handled with ad hoc mechanisms. The program says this foundation is expected to be incorporated into IEEE 1800/SystemVerilog-2028 and that the resulting semantics are also intended for use by the Accellera SystemVerilog-AMS and UVM-MS efforts. This records the publicly stated standards direction, not a completed IEEE revision or released SV-MSI standard.",
+  "sources": [
+    {
+      "title": "DVCon Japan 2026: SystemVerilog Mixed-Signal Interface Types BoF",
+      "url": "https://www.dvcon-jpn.org/program/contents/",
+      "checkedAt": "2026-09-18",
+      "summary": "The official program describes SV-MSI standardization of connections among dissimilar net types, including logic and RNM/nettype, and states the expected relationship to SystemVerilog-2028, SystemVerilog-AMS, and UVM-MS."
+    },
+    {
+      "title": "DVCon Japan 2026 official home page",
+      "url": "https://www.dvcon-jpn.org/",
+      "checkedAt": "2026-09-18",
+      "summary": "The official DVCon Japan site states that DVCon Japan 2026 was held on September 10, 2026 at Pacifico Yokohama North."
+    }
+  ]
+}

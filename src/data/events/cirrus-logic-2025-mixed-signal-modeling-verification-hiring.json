@@ -1,0 +1,22 @@
+{
+  "id": "cirrus-logic-2025-mixed-signal-modeling-verification-hiring",
+  "when": {
+    "start": "2025-12-23",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "cirrus-logic"
+  ],
+  "people": [],
+  "headline": "Cirrus Logic role covers mixed-signal verification strategy, reusable testbenches, and RNM models",
+  "fact": "Cirrus Logic posted a Mixed Signal Modelling and Verification Engineer role to lead verification activities and help evolve company methodology for complex mixed-signal ICs. The position covers verification strategy, reusable testbenches, real-number modeling, SystemVerilog user-defined types and Verilog-AMS, hands-on modeling and simulation, and desired experience in UVM, assertions, functional and code coverage, and CPF or UPF power-aware verification. This is evidence of a hiring mandate, not proof that every listed practice is deployed in every project.",
+  "sources": [
+    {
+      "title": "Cirrus Logic Careers API: Mixed Signal Modelling and Verification Engineer",
+      "url": "https://api.eu.lever.co/v0/postings/cirrus/28ee0c19-03d5-454f-90e5-7aad2d91a638",
+      "checkedAt": "2026-08-31",
+      "summary": "The official Lever API record exposes a December 23, 2025 creation timestamp and details the verification-strategy, reusable-testbench, RNM/UDT/VAMS, coverage, assertion, and power-aware scope."
+    }
+  ]
+}

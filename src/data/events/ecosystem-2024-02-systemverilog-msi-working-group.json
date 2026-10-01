@@ -1,0 +1,26 @@
+{
+  "id": "ecosystem-2024-02-systemverilog-msi-working-group",
+  "when": {
+    "start": "2024-02-07",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": ["peter-grove"],
+  "headline": "Accellera forms the SystemVerilog Mixed-Signal Interface Types Working Group",
+  "fact": "Accellera formed the SystemVerilog Mixed-Signal Interface Types Working Group to define SystemVerilog-compatible interconnect, conversion and resolution among dissimilar net types, including bidirectional connections between logic or user-defined nets and analog, electrical or real signals. Accellera said work in the UVM-MS and SystemVerilog-AMS groups had exposed a fundamental need for this capability within IEEE 1800 and that earlier approaches outside IEEE 1800, such as Verilog-AMS connect modules, had not met the complexity and usability requirements of typical SoCs. Peter Grove was named co-chair of the new working group.",
+  "sources": [
+    {
+      "title": "Accellera Forms SystemVerilog Mixed-Signal Interface Types Working Group",
+      "url": "https://www.accellera.org/news/press-releases/389-accellera-forms-systemverilog-mixed-signal-interface-types-working-group",
+      "checkedAt": "2026-09-02",
+      "summary": "Accellera's February 7, 2024 formation announcement defines the bidirectional mixed-net scope, links the need to UVM-MS and SystemVerilog-AMS work, describes limitations of prior connect-module approaches, and names Peter Grove as co-chair."
+    },
+    {
+      "title": "SystemVerilog Mixed-Signal Interface Types Working Group",
+      "url": "https://www.accellera.org/activities/systemverilog-mixed-signal-interface-types",
+      "checkedAt": "2026-09-02",
+      "summary": "The current Accellera working-group page preserves the charter and scope for uni- and bidirectional connections among logic, UDN, analog, electrical and real signals."
+    }
+  ]
+}

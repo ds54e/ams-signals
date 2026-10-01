@@ -1,0 +1,30 @@
+{
+  "id": "stmicroelectronics-2025-ai-high-sigma-analog-verification",
+  "when": {
+    "start": "2025-06-23",
+    "end": "2025-06-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics",
+    "cadence"
+  ],
+  "people": [],
+  "headline": "ST and Cadence authors report two AI-assisted high-sigma analog-verification cases",
+  "fact": "Two adjacent DAC 2025 presentations by STMicroelectronics and Cadence authors report bounded AI-assisted high-sigma cases. A delta-sigma-converter study reports 9× fewer samples, 90 dB SFDR, and a 4× DAC-area reduction in its presented flow; a bandgap-reference study reports 36× turnaround improvement by reducing one million samples to about 2,600 at 4.2 sigma. The metrics remain tied to their respective cases and do not establish a company-wide methodology.",
+  "sources": [
+    {
+      "title": "Statistical analysis using AI-ML enabled SPICE solution to get tail samples for high linearity delta sigma converters",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPRES180&sess=sess222",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies ST and Cadence authors and reports the delta-sigma case's sample-count, SFDR, and DAC-area results."
+    },
+    {
+      "title": "AI-ML meets SPICE to achieve 6-sigma Accuracy: A Revolution in Statistical Analysis",
+      "url": "https://62dac.conference-program.com/presentation/?id=ENGPOST184&sess=sess264",
+      "checkedAt": "2026-08-31",
+      "summary": "The official DAC 2025 record identifies ST and Cadence authors and reports the bandgap case's 36× turnaround and one-million-to-about-2,600 sample reduction at 4.2 sigma."
+    }
+  ]
+}
