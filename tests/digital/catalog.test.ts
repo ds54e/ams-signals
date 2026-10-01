@@ -63,7 +63,16 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
 test('Digital preserves domain membership and rejects obsolete role/AI fields', async () => {
   const analogIds = new Set((await readdir(new URL('../../src/content/analog/', import.meta.url)))
     .filter((file) => file.endsWith('.md')).map((file) => file.slice(0, -3)));
-  assert.ok(projects.every((p) => !analogIds.has(p.id)));
+  // The independently reviewed analog and digital tracks share one project identity.
+  // Keep this exception exact: no other cross-catalog duplicates are admitted.
+  assert.deepEqual(projects.filter((p) => analogIds.has(p.id)).map((p) => p.id).sort(), ['vibe-ic']);
+  const analogVibe = parseFrontmatter(await readFile(new URL('../../src/content/analog/vibe-ic.md', import.meta.url), 'utf8')).frontmatter;
+  const digitalVibe = projects.find((p) => p.id === 'vibe-ic')!;
+  assert.deepEqual(stages(analogVibe.scope), ['design', 'simulation', 'layout']);
+  assert.deepEqual(stages(digitalVibe.data.scope), ['design', 'synthesis', 'verification', 'layout']);
+  assert.notEqual(analogVibe.description, digitalVibe.data.description);
+  assert.equal(analogVibe.sources.find((source: { purpose?: string }) => source.purpose === 'code').url,
+    digitalVibe.data.sources.find((source) => source.purpose === 'code')!.url);
   for (const p of projects) {
     for (const field of ['roles', 'ai', 'aiBuilt']) assert.ok(!(field in p.data));
   }

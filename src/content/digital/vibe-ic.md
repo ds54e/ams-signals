@@ -49,7 +49,7 @@ Open-source tool outputs and explicit compliance gates determine whether artifac
 
 The agent authors and repairs RTL, testbenches and properties and makes stage-specific synthesis/timing/physical remediation decisions, establishing AI participation across Design, Verification, Synthesis and Layout. Yosys, SymbiYosys, OpenROAD, KLayout and related tools still provide the executable verdicts. [Agent guide](#source-agent-guide)
 
-The repository also contains Analog A1-A9 and mixed-signal tracks. This Digital entry does not assign those operations to the Analog catalog; their native-execution and cross-catalog duplication boundary remains a separate review decision. [Reviewed source](#source-readme)
+The repository also contains Analog A1-A9 and mixed-signal tracks. The separately reviewed Analog entry covers its sizing, testbench, simulation and physical-implementation operations. Vibe-IC is an explicit cross-catalog exception: each entry describes only its domain-specific workflow, and shared repository activity is not a second independent project signal. [Reviewed source](#source-readme)
 
 ### Current-source review
 

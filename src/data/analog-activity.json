@@ -1158,6 +1158,81 @@
       "lastMeaningfulCommitAt": "2026-09-01",
       "lastMeaningfulCommitSha": "06cd92dc1d56715cc064b2a39affa309311ccd5f",
       "notes": "The September 1 EM-verification implementation adds GDS net extraction, openEMS orchestration and SPICE-model export with tests. The later same-day head is documentation; the Analog-DB paper covers the database component, not all platform capabilities."
+    },
+    "analog-canvas": {
+      "kind": "github",
+      "repository": "cascode-ai/analog-canvas",
+      "repositoryId": 1325418450,
+      "defaultBranch": "main",
+      "headSha": "a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        668,
+        642,
+        4
+      ],
+      "lastCommitAt": "2026-10-01",
+      "lastMeaningfulCommitAt": "2026-10-01",
+      "lastMeaningfulCommitSha": "82c8f6a11452d5673b35a5686762d7476e798065",
+      "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit; cosmetic and release commits remain in the raw counts."
+    },
+    "vibe-ic": {
+      "kind": "github",
+      "repository": "vibeic/vibe-ic",
+      "repositoryId": 1268128556,
+      "defaultBranch": "main",
+      "headSha": "972a77b8d8fe70231d2938a4a23a1ce6fefc3c55",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        306,
+        1088,
+        1687,
+        1271,
+        0
+      ],
+      "lastCommitAt": "2026-09-30",
+      "lastMeaningfulCommitAt": "2026-09-29",
+      "lastMeaningfulCommitSha": "2251fa186b8d35e2576b48ecd5468a0924f01a71",
+      "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit, not automatically the newest commit. Repository-wide counts include non-analog work, documentation and automated maintenance. September 29 first-parent integration implements A5/A6 layout-netlist identity and atomic stale-layout refusal, with A7 resimulation provenance; side-branch commits are not counted separately."
+    },
+    "agentic-ai-analog-ic-auto-designer": {
+      "kind": "github",
+      "repository": "SunCherry/agentic-AI_analog_IC_auto-designer",
+      "repositoryId": 1338610160,
+      "defaultBranch": "main",
+      "headSha": "bfc0fd5e006c05d13472080fe9a3254eba3321e7",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15,
+        6,
+        0
+      ],
+      "lastCommitAt": "2026-09-08",
+      "lastMeaningfulCommitAt": "2026-09-08",
+      "lastMeaningfulCommitSha": "54c8d699b0f2f87e5a2013dde50596c506ec3aaf",
+      "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit; cosmetic and release commits remain in the raw counts."
     }
   }
 }
