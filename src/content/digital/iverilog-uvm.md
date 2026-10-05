@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical iverilog-uvm repository"
@@ -47,6 +47,9 @@ sources:
   - id: "build-targets"
     title: "Default build includes the vlog95 target"
     url: "https://github.com/dsellerbrock/iverilog-uvm/blob/9e065f35974dac54854bfd98ed2759852ff707e7/Makefile.in"
+  - id: "activity-current"
+    title: "Dynamic-array randomization and scoped class-call handling"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/commit/b4a296a1033b33755d0401cc8d971a0f15752b59"
 ---
 
 ### Implementation and scope
@@ -60,3 +63,7 @@ The fork is experimental, has not been endorsed by upstream Icarus and is explic
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-BUILT**. The maintainer explicitly calls this fork largely AI-written and attributes much of its SystemVerilog/UVM implementation to Claude under human direction and review. This characterizes the fork's defining extension effort, without transferring authorship to upstream Icarus or claiming runtime AI. [Current maintainer account](#source-development-1); [historical extension account](#source-development-2).
+
+### Current activity review
+
+Reviewed 2026-10-05. The elaborator adds two-dimensional dynamic-array randomization handling and preserves scoped class-method resolution, with technical regression evidence. Existing UVM compatibility remains workload-specific rather than complete language compliance. [Reviewed change](#source-activity-current).

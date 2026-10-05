@@ -13,7 +13,7 @@ scope:
     ai: true
 access: "Apache-2.0 public plugin and bundled MCP-EDA tooling. The open path uses pinned open-source EDA tools; FPGA, commercial-EDA, PDK and lab-hardware paths require the corresponding user-provided environments."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "official"
     title: "Vibe-IC project site"
@@ -35,6 +35,9 @@ sources:
   - id: "activity-review"
     title: "Native signoff-evidence preservation and validation"
     url: "https://github.com/vibeic/vibe-ic/commit/972a77b8d8fe70231d2938a4a23a1ce6fefc3c55"
+  - id: "activity-current"
+    title: "Explicit area-receipt and manifest wiring in the default flow"
+    url: "https://github.com/vibeic/vibe-ic/commit/cdf938cca012bb30df329beb5e5e52fb1ed58e61"
 ---
 
 ### Staged flow
@@ -55,4 +58,6 @@ The repository also contains Analog A1-A9 and mixed-signal tracks. The separatel
 
 Reviewed 2026-10-01. Reopened the current staged-flow guide and release implementation. Agent skills still make RTL, stimulus/property, synthesis-diagnostic and physical-remediation decisions, supporting AI on all four stages. Current native-signoff evidence preservation is an artifact-integrity improvement, not independent verification that every supported technology or commercial path achieves signoff. [Stage contract](#source-agent-guide); [README](#source-readme).
 
-The newest reviewed meaningful first-parent change is native signoff-evidence preservation and validation (2026-09-30 UTC). [Reviewed commit](#source-activity-review).
+### Current activity review
+
+Reviewed 2026-10-05. The default flow threads an explicitly supplied, identity-bound producer area receipt and its current-run manifest through the area gate. The implementation rejects incomplete receipt/manifest pairs; evidence handling does not independently certify PPA or signoff. [Reviewed change](#source-activity-current).

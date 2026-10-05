@@ -12,7 +12,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "site"
     title: "Official project website"
@@ -40,6 +40,9 @@ sources:
   - id: "activity-results"
     title: "Latest reviewed meaningful results publication"
     url: "https://github.com/Arcadia-1/razavi-bench/commit/f95d465350304e3c148bddf6c7ad0feb587814f5"
+  - id: "activity-current"
+    title: "Standalone model-driven direct-QA benchmark runner"
+    url: "https://github.com/Arcadia-1/razavi-bench/commit/913bc27adc6227ddabaa15b0b0d582ab280a0552"
 ---
 ### Inputs and modes
 
@@ -64,3 +67,7 @@ On September 13, 2026 the default branch was republished as a parentless root co
 Circuit reasoning is the central benchmark task. The optional agentic ngspice treatment supplies simulation evidence through a documented execution mode; grading remains answer-based. [Reviewed source](#source-review).
 
 The direct and workspace modes run models to answer circuit-reasoning questions, giving AI Design. The optional ngspice treatment supplies numerical evidence; the reviewed benchmark still grades the answer rather than an AI simulator. [AI/stage evidence](#source-review).
+
+### Current activity review
+
+Reviewed 2026-10-05. A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator. [Reviewed change](#source-activity-current).

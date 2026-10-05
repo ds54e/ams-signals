@@ -9,7 +9,7 @@ scope:
     ai: true
 access: Public AGPL-3.0 source. Local development requires Node.js and pnpm; hosted simulation depends on the available service profile. The Windows preview is an offline editor, without agent or simulation services.
 addedAt: '2026-10-01'
-reviewedAt: '2026-10-01'
+reviewedAt: "2026-10-05"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -30,6 +30,9 @@ sources:
 - id: activity
   title: Reviewed substantive implementation commit
   url: https://github.com/cascode-ai/analog-canvas/commit/82c8f6a11452d5673b35a5686762d7476e798065
+- id: "activity-current"
+  title: "Agent planning tests use real Edit Engine snapshots"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/f85cd32dbcc9b307f98cdf4e27099992d120a01f"
 ---
 
 ### Workflow and scope
@@ -45,3 +48,7 @@ The reviewed October 1 correctness changes cover device-parameter ERC, ngspice n
 ### Development provenance
 
 Runtime agent integration does not establish software-development provenance. The reviewed correctness commit contains assistant attribution, but this bounded repair set alone does not establish the defining-core or substantial-subsystem contribution required for a development badge. No provenance badge is assigned from it. [Reviewed change](#source-activity)
+
+### Current activity review
+
+Reviewed 2026-10-05. Agent-planning tests now obtain their snapshot from the real Edit Engine rather than a handwritten substitute. This is an executable integration-test improvement; it does not expand the existing runtime stage or development-provenance classification. [Reviewed change](#source-activity-current).

@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical CIRCT repository"
@@ -44,8 +44,13 @@ sources:
   - id: "activity-refresh"
     title: "Add the PyCDE If construct with callable elaboration branches"
     url: "https://github.com/llvm/circt/commit/3abd111be1ea9677bbeeb0717592e04940608da9"
+  - id: "activity-current"
+    title: "Correct Verilog declaration prefixes for aliases and composite types"
+    url: "https://github.com/llvm/circt/commit/e368ee4dc1c9d7131c5513ed11f77baefd0c568b"
+  - id: "activity-tip"
+    title: "Simulation-dialect tagged variant type"
+    url: "https://github.com/llvm/circt/commit/6af3f452dc1c1c573f5f67e4c63055b37eda11c0"
 ---
-
 
 ### Implementation context
 
@@ -64,3 +69,9 @@ The reviewed IR transformations, synthesis lowering and verification operations 
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-ASSISTED**. Explicit Assisted-by attribution accompanies a new scheduler implementation, FIFO/arbiter integration and tests. It adds a meaningful optional arbitration architecture for high fan-in, within the much larger compiler infrastructure. [Attributed scheduler implementation](#source-development-1); [Current scheduler integration](#source-development-2).
+
+### Current activity review
+
+Reviewed 2026-10-05. ExportVerilog no longer prefixes aliased, enum or union types with an invalid logic keyword, with emitted-Verilog regressions. This is compiler-output correctness, independent of the retained historical development badge. [Reviewed change](#source-activity-current).
+
+The later Sim dialect change implements a tagged variant type, including parsing, printing, alternative-name validation and type-walker regressions. This is reusable simulation IR infrastructure; it does not establish runtime AI. [Current implementation checkpoint](#source-activity-tip).

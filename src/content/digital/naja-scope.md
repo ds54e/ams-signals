@@ -7,27 +7,27 @@ scope:
     ai: true
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical naja-scope repository"
-    url: "https://github.com/najaeda/naja-scope"
+    url: "https://github.com/keplertech/naja-scope"
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed revision"
-    url: "https://github.com/najaeda/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/README.md"
+    url: "https://github.com/keplertech/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/README.md"
   - id: "activity"
     title: "Integrate optional browser schematic with synchronized design access"
-    url: "https://github.com/najaeda/naja-scope/commit/f9cbf1a0cf74ebffb2ef2860f75f3cb447c7380f"
+    url: "https://github.com/keplertech/naja-scope/commit/f9cbf1a0cf74ebffb2ef2860f75f3cb447c7380f"
   - id: "benchmark"
     title: "CVA6 post-elaboration agent comparison methodology"
-    url: "https://github.com/najaeda/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/README.md"
+    url: "https://github.com/keplertech/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/README.md"
   - id: "benchmark-runner"
     title: "Implemented paired agent-comparison runner"
-    url: "https://github.com/najaeda/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/run_comparison.py"
+    url: "https://github.com/keplertech/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/run_comparison.py"
   - id: "benchmark-tasks"
     title: "Pinned CVA6 question bank and answer checks"
-    url: "https://github.com/najaeda/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/cva6-cv32.json"
+    url: "https://github.com/keplertech/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/cva6-cv32.json"
 ---
 
 ### Structural-query boundary
@@ -43,3 +43,7 @@ The headline single-model result is historical and preliminary, not output from 
 ### Scope and access limits
 
 Inspection, tracing and the benchmark serve Verification. Viewing/annotating an existing design is not DUT generation or synthesis. The optional Python escape hatch permits arbitrary unsandboxed server-side code, is disabled by default and does not independently establish a design-editing feature. HTTP access has no built-in authentication and requires trusted deployment. [Project limits](#source-readme).
+
+### Canonical repository review
+
+Reviewed 2026-10-05. The repository moved from najaeda to keplertech with the same verified GitHub repository identity. Code and pinned sources use the canonical owner; documentation migration does not replace the prior meaningful implementation checkpoint or change stage/provenance classification. [Canonical implementation](#source-code); [retained implementation checkpoint](#source-activity).

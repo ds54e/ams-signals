@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical sv-elab repository"
@@ -39,6 +39,9 @@ sources:
   - id: "activity-refresh"
     title: "Integrate slang 12 and the new Yosys diagnostic client"
     url: "https://github.com/povik/sv-elab/commit/2d9026ac153e1bd5ba3f03d8b5246aa46edab155"
+  - id: "activity-current"
+    title: "Yosys backend release-build compatibility"
+    url: "https://github.com/povik/sv-elab/commit/1582cc2d5bd199949669a1440a4c8947d713f842"
 ---
 
 ### Implementation and scope
@@ -52,3 +55,7 @@ The September 29 integration updates slang and introduces a Yosys diagnostic cli
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-ASSISTED**. Explicit assistance accompanies a coordinated portable IR abstraction and frontend/emission refactor. The actual diffs create a backend-independent signal/type surface and route port/instance emission through builders; the current Yosys backend retains that separation. This is a meaningful architectural contribution, not evidence of AI creation of the complete elaborator. Current contribution-policy restrictions do not erase the attributed implementation history. [Portable IR layer](#source-development-1); [emission refactor](#source-development-2); [retained IR](#source-development-3).
+
+### Current activity review
+
+Reviewed 2026-10-05. The Yosys backend suppresses an unused-width warning after release builds remove assertions. This is an actual source-build compatibility correction, not a new transformation stage. [Reviewed change](#source-activity-current).

@@ -3,13 +3,13 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
-  ['atlas', 'ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout',
+  ['ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout',
     'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s']);
 
 catalogSearchRegression(fixture, {
   ngspice: ['ngspice', 'analog-design-bench', 'autosizer'],
   Virtuoso: ['virtuoso-agent', 'virtuoso-bridge-lite', 'vcli'],
-  Spectre: ['panda', 'atlas', 'vcli', 'virtuoso-agent'],
+  Spectre: ['panda', 'vcli', 'virtuoso-agent'],
   'Verilog-A': ['evas', 'openvaf-reloaded'],
   SKY130: ['analog-design-bench', 'gmoverid-skill'],
   AI: ['analogsage', 'zerosim'],
@@ -27,12 +27,12 @@ catalogSearchRegression(fixture, {
   Xyce: ['xyce', 'qucs-s'],
 });
 
-test('ATLAS and ngspice map reviewed point signals to their month without fabricated repository history', async ({ page }) => {
+test('ngspice maps its reviewed release to its month without fabricated repository history', async ({ page }) => {
   await page.goto('./analog/');
   const signalLabels: Record<string, string> = { paper: 'paper publication', release: 'release', 'public-update': 'public update' };
   // Which reviewed project carries which point-signal type is durable identity. The date, month,
   // window index and counts are read from the current activity snapshot, not pinned here.
-  const reviewedTypes: Record<string, string> = { atlas: 'paper', ngspice: 'release' };
+  const reviewedTypes: Record<string, string> = { ngspice: 'release' };
   const months: string[] = fixture.activity.months;
   const renderedDate = (date: string) => new Intl.DateTimeFormat('en-US', {
     month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',

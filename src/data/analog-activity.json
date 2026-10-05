@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-01",
-  "capturedAt": "2026-10-01T06:22:33.628Z",
+  "reviewedAt": "2026-10-05",
+  "capturedAt": "2026-10-05T11:55:09.775Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -184,7 +184,7 @@
       ],
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
@@ -209,12 +209,6 @@
       "lastCommitAt": "2026-09-09",
       "lastMeaningfulCommitAt": "2025-10-28",
       "notes": "Substantive implementation/task/result activity reviewed at dfcaf188bd1b013d392dff693af06a65fe53fa71: update. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
-    "atlas": {
-      "kind": "public-update",
-      "lastPublicUpdateAt": "2026-07-15",
-      "lastPublicUpdateSource": "paper",
-      "lastPublicUpdateType": "paper"
     },
     "autosizer": {
       "kind": "github",
@@ -485,7 +479,7 @@
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
       "defaultBranch": "main",
-      "headSha": "415d2356d10107e62d8e2276dabacc08fea86fb4",
+      "headSha": "6a5695ad9bb59ffb1a1d2f3a05e1c84d7381949e",
       "commits": [
         0,
         0,
@@ -498,12 +492,12 @@
         0,
         0,
         73,
-        0
+        3
       ],
-      "lastCommitAt": "2026-09-29",
-      "lastMeaningfulCommitAt": "2026-09-28",
-      "lastMeaningfulCommitSha": "f95d465350304e3c148bddf6c7ad0feb587814f5",
-      "notes": "Default-branch history was republished as a parentless root snapshot on September 13. September 28 publishes new per-question benchmark results; later presentation, pricing and cache changes remain raw history only."
+      "lastCommitAt": "2026-10-03",
+      "lastMeaningfulCommitAt": "2026-10-01",
+      "lastMeaningfulCommitSha": "913bc27adc6227ddabaa15b0b0d582ab280a0552",
+      "notes": "A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator."
     },
     "vcli": {
       "kind": "github",
@@ -559,7 +553,7 @@
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
       "defaultBranch": "main",
-      "headSha": "cf6344cff410bcbd32fd6fe595a53d1fdbeeb7c3",
+      "headSha": "aab1180fc1399a00d18867d56594fa1fdb457a6c",
       "commits": [
         0,
         0,
@@ -572,12 +566,12 @@
         36,
         23,
         28,
-        0
+        5
       ],
-      "lastCommitAt": "2026-09-30",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "cf6344cff410bcbd32fd6fe595a53d1fdbeeb7c3",
-      "notes": "September 30 adds structured Maestro Monte Carlo execution and export, followed by process-scoped shared-CIW dialog inspection and guarded completion. These are implemented orchestration and reliability changes."
+      "lastCommitAt": "2026-10-05",
+      "lastMeaningfulCommitAt": "2026-10-05",
+      "lastMeaningfulCommitSha": "aab1180fc1399a00d18867d56594fa1fdb457a6c",
+      "notes": "The later packaging fix includes default schematic CDF filter resources in wheels and source archives, with distribution-content tests. It repairs the installable artifact rather than changing the bridge stage classification."
     },
     "zerosim": {
       "kind": "github",
@@ -608,7 +602,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "c7fdb97284fe7718d5cde8a54eafb37def0f9c14",
+      "headSha": "9b1cb793e828675ad6e0f0d0a70b43e4cc2a9894",
       "commits": [
         0,
         0,
@@ -621,12 +615,12 @@
         1007,
         354,
         727,
-        0
+        61
       ],
-      "lastCommitAt": "2026-09-30",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "1f70cb3788cabdd8ba2d694b2318c92b6e9727a9",
-      "notes": "September 30 adds bounded trust-region optimization and preserves optimized deck parameters on large-deck reset paths. The tree also implements Gaussian-process Bayesian sizing. Automated binary publication remains raw activity only."
+      "lastCommitAt": "2026-10-04",
+      "lastMeaningfulCommitAt": "2026-10-04",
+      "lastMeaningfulCommitSha": "14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd",
+      "notes": "The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF."
     },
     "xyce": {
       "kind": "github",
@@ -658,7 +652,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "903861594d60954c7dbacf9fa80ec92dfa8787ad",
+      "headSha": "c15c6c05b175de17e81e6c4dd6175e07815add28",
       "commits": [
         28,
         4,
@@ -671,12 +665,12 @@
         9,
         38,
         106,
-        0
+        17
       ],
-      "lastCommitAt": "2026-09-29",
-      "lastMeaningfulCommitAt": "2026-09-29",
-      "lastMeaningfulCommitSha": "903861594d60954c7dbacf9fa80ec92dfa8787ad",
-      "notes": "September 29 corrects schematic-copy hierarchy transforms and lifecycle handling, following renamed-tab fork cleanup. The author identifies GitHub and Codeberg as exact mirrors; only GitHub first-parent history is counted."
+      "lastCommitAt": "2026-10-04",
+      "lastMeaningfulCommitAt": "2026-10-04",
+      "lastMeaningfulCommitSha": "c15c6c05b175de17e81e6c4dd6175e07815add28",
+      "notes": "GUI availability guards and forked-schematic cleanup preserve modified drawings instead of silently overwriting them. This is schematic-editing correctness within the existing scope."
     },
     "openvaf-reloaded": {
       "kind": "github",
@@ -708,7 +702,7 @@
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
       "defaultBranch": "master",
-      "headSha": "5fa733e1680212e4ceda532ca5fa6ea707c654de",
+      "headSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
       "commits": [
         15,
         11,
@@ -721,12 +715,12 @@
         12,
         23,
         1,
-        0
+        16
       ],
-      "lastCommitAt": "2026-09-25",
-      "lastMeaningfulCommitAt": "2026-09-25",
-      "lastMeaningfulCommitSha": "5fa733e1680212e4ceda532ca5fa6ea707c654de",
-      "notes": "September 25 fixes PEX triangulation edge selection with a distance-scaled tolerance and regression test, distinct from the earlier PCell editor correction."
+      "lastCommitAt": "2026-10-04",
+      "lastMeaningfulCommitAt": "2026-10-04",
+      "lastMeaningfulCommitSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
+      "notes": "Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout."
     },
     "magic": {
       "kind": "github",
@@ -790,7 +784,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "3ecaae339d13d453759926e3a575d98be1d2501f",
+      "headSha": "a575c97c332fed89aa42cc376315e404f75876da",
       "commits": [
         4,
         5,
@@ -803,12 +797,12 @@
         4,
         18,
         42,
-        0
+        22
       ],
-      "lastCommitAt": "2026-09-30",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "2633399296cb80b935598d6dbc93abdcad658a74",
-      "notes": "The September 30 RC-netlist merge reconnects extracted device terminals, preserves labelled ports and checks generated connectivity. The later v0.5.3 version bump supplies the raw latest date."
+      "lastCommitAt": "2026-10-02",
+      "lastMeaningfulCommitAt": "2026-10-02",
+      "lastMeaningfulCommitSha": "dbfebf4a47582801df912f6288f240b3ac65d623",
+      "notes": "The internal extraction path adds substrate/well net mapping, shields device junction contributions to avoid double counting, and skips selected substrate fringes, with technology rules and regression coverage. These are concrete Layout extraction changes, not independent process-wide accuracy qualification."
     },
     "pyopus": {
       "kind": "repository",
@@ -834,7 +828,7 @@
       "lastMeaningfulCommitAt": "2026-09-16",
       "lastMeaningfulCommitSha": "3ee2f571a037915b337cadb8be6eb988c9b901e9",
       "notes": "Canonical Codeberg identity and full first-parent history reviewed; the latest fix corrects an undefined NumPy reference in the equal-index XatIrange path.",
-      "capturedAt": "2026-10-01T06:20:53.399Z",
+      "capturedAt": "2026-10-05T11:48:18.368Z",
       "lastMeaningfulCommitSource": "activity"
     },
     "scikit-rf": {
@@ -842,7 +836,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "a7a379452e8710fd508027dc878011cadfcd260f",
+      "headSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
       "commits": [
         6,
         3,
@@ -855,12 +849,12 @@
         9,
         12,
         7,
-        0
+        2
       ],
-      "lastCommitAt": "2026-09-19",
-      "lastMeaningfulCommitAt": "2026-09-19",
-      "lastMeaningfulCommitSha": "a7a379452e8710fd508027dc878011cadfcd260f",
-      "notes": "The reviewed first-parent merge integrates the TUG multiline calibration correction that consistently returns propagation constants from calibrated lines."
+      "lastCommitAt": "2026-10-05",
+      "lastMeaningfulCommitAt": "2026-10-05",
+      "lastMeaningfulCommitSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
+      "notes": "The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred."
     },
     "qucs-s": {
       "kind": "github",
@@ -1109,31 +1103,6 @@
       "lastMeaningfulCommitSha": "771d27d3b0b939b916f819ae375469cda892eb24",
       "notes": "July activity is a distribution-link merge. The May 2 implementation change in the analog netlist-crawl path is the latest reviewed substantive project update."
     },
-    "chipjev": {
-      "kind": "github",
-      "repository": "lab-emi/ChipJev",
-      "repositoryId": 1386929264,
-      "defaultBranch": "main",
-      "headSha": "a7d65f171632b5f682d4aeb8b653fa7e96415cba",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        28,
-        0
-      ],
-      "lastCommitAt": "2026-09-30",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "a7d65f171632b5f682d4aeb8b653fa7e96415cba",
-      "notes": "The September 30 first-parent merge adds schematic/extracted-netlist simulation runners, signal comparisons and tests. The public release announcement is September 25; earlier internal experiment dates are not treated as public releases."
-    },
     "spicexplorer": {
       "kind": "github",
       "repository": "MacAnalog/spicexplorer-release",
@@ -1164,7 +1133,7 @@
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
       "defaultBranch": "main",
-      "headSha": "a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9",
+      "headSha": "f85cd32dbcc9b307f98cdf4e27099992d120a01f",
       "commits": [
         0,
         0,
@@ -1177,19 +1146,19 @@
         0,
         668,
         642,
-        4
+        43
       ],
-      "lastCommitAt": "2026-10-01",
-      "lastMeaningfulCommitAt": "2026-10-01",
-      "lastMeaningfulCommitSha": "82c8f6a11452d5673b35a5686762d7476e798065",
-      "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit; cosmetic and release commits remain in the raw counts."
+      "lastCommitAt": "2026-10-05",
+      "lastMeaningfulCommitAt": "2026-10-05",
+      "lastMeaningfulCommitSha": "f85cd32dbcc9b307f98cdf4e27099992d120a01f",
+      "notes": "Agent-planning tests now obtain their snapshot from the real Edit Engine rather than a handwritten substitute. This is an executable integration-test improvement; it does not expand the existing runtime stage or development-provenance classification."
     },
     "vibe-ic": {
       "kind": "github",
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
       "defaultBranch": "main",
-      "headSha": "972a77b8d8fe70231d2938a4a23a1ce6fefc3c55",
+      "headSha": "cdf938cca012bb30df329beb5e5e52fb1ed58e61",
       "commits": [
         0,
         0,
@@ -1202,12 +1171,12 @@
         1088,
         1687,
         1271,
-        0
+        75
       ],
-      "lastCommitAt": "2026-09-30",
-      "lastMeaningfulCommitAt": "2026-09-29",
-      "lastMeaningfulCommitSha": "2251fa186b8d35e2576b48ecd5468a0924f01a71",
-      "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit, not automatically the newest commit. Repository-wide counts include non-analog work, documentation and automated maintenance. September 29 first-parent integration implements A5/A6 layout-netlist identity and atomic stale-layout refusal, with A7 resimulation provenance; side-branch commits are not counted separately."
+      "lastCommitAt": "2026-10-05",
+      "lastMeaningfulCommitAt": "2026-10-03",
+      "lastMeaningfulCommitSha": "fc17c778d9beaf720baf854ec29dbcb83ac61c88",
+      "notes": "The analog extraction wrapper resolves technology-LEF variants and preserves the generated wrapper path separately from measurement results. Regression coverage addresses hard-macro ports and stale wrapper bindings; it does not independently establish physical signoff."
     },
     "agentic-ai-analog-ic-auto-designer": {
       "kind": "github",
@@ -1233,6 +1202,32 @@
       "lastMeaningfulCommitAt": "2026-09-08",
       "lastMeaningfulCommitSha": "54c8d699b0f2f87e5a2013dde50596c506ec3aaf",
       "notes": "New baseline captured 2026-10-01T12:07:57Z from the complete canonical main first-parent committer history in UTC. Existing project captures retain their previous timestamps; this addition does not refresh them. Meaningful activity is the reviewed implementation commit; cosmetic and release commits remain in the raw counts."
+    },
+    "vacask": {
+      "kind": "repository",
+      "repository": "https://codeberg.org/arpadbuermen/VACASK",
+      "repositoryId": "codeberg:207664",
+      "defaultBranch": "main",
+      "headSha": "7eeb9d2ec0234139b96a53ab194f772c0b902dc9",
+      "commits": [
+        39,
+        3,
+        19,
+        2,
+        90,
+        11,
+        69,
+        19,
+        201,
+        105,
+        130,
+        13
+      ],
+      "lastCommitAt": "2026-10-05",
+      "lastMeaningfulCommitAt": "2026-10-02",
+      "lastMeaningfulCommitSha": "29d99ad2df4d8262e64ba883849c2974b3f01cce",
+      "capturedAt": "2026-10-05T11:48:18.368Z",
+      "lastMeaningfulCommitSource": "activity"
     }
   }
 }

@@ -13,7 +13,7 @@ scope:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Public repository"
@@ -26,7 +26,7 @@ sources:
     title: "Reviewed layout geometry implementation"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/cf6344cff410bcbd32fd6fe595a53d1fdbeeb7c3/src/virtuoso_bridge/virtuoso/layout/editor.py"
   - id: "activity-refresh"
-    title: "Latest reviewed meaningful implementation update"
+    title: "Previously reviewed meaningful implementation update"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/cf6344cff410bcbd32fd6fe595a53d1fdbeeb7c3"
   - id: "monte-carlo"
     title: "Maestro Monte Carlo configuration, execution and result export"
@@ -34,6 +34,12 @@ sources:
   - id: "runtime-netlist"
     title: "Bundled model-driven netlist interpretation and cleanup skill"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/cf6344cff410bcbd32fd6fe595a53d1fdbeeb7c3/skills/netlist/SKILL.md"
+  - id: "activity-current"
+    title: "Optional shell environments and profile auditing"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/d758783b0ebe73259e2a1c5ee31739dcd8fc2821"
+  - id: "activity-tip"
+    title: "Package default CDF filters and check built distributions"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/aab1180fc1399a00d18867d56594fa1fdb457a6c"
 ---
 ### Implemented interfaces
 
@@ -50,3 +56,9 @@ Standalone Spectre execution and PSF parsing are also provided. Spectre and the 
 The bundled netlist skill explicitly makes model semantic reasoning the primary cleanup engine: it identifies circuit boundaries, separates DUT/testbench/run decks and selects meaningful node names, with scripts checking the result. These model-driven circuit-understanding and editing operations support AI Design. [Released netlist skill](#source-runtime-netlist) · [Skill installation](#source-review)
 
 Generic CLI/Python/MCP access alone would not qualify. Maestro/Spectre execution, PSF parsing and layout primitives remain conventional Simulation and Layout. The tag describes the bundled model-hosted workflow, not inference inside every bridge call. [Interfaces](#source-review)
+
+### Current activity review
+
+Reviewed 2026-10-05. The bridge adds optional csh/sh environment sourcing, named environment profiles, profile audit and remote environment checks. These setup paths support the existing Cadence operations; they do not add AI to deterministic simulation or layout calls. [Reviewed change](#source-activity-current).
+
+The later packaging fix includes default schematic CDF filter resources in wheels and source archives, with distribution-content tests. It repairs the installable artifact rather than changing the bridge stage classification. [Current implementation checkpoint](#source-activity-tip).

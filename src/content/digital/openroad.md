@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"
@@ -32,8 +32,10 @@ sources:
   - id: "api"
     title: "OpenROAD Tcl/Python design-data interfaces"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/eb752b2f9025769a5b8e2991ba0471d026cfa2ab/src/README.md"
+  - id: "activity-current"
+    title: "Generated macro-placement-file regression"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/13fb7ea1a03ff75562c1fa06004f12c54911f0ac"
 ---
-
 
 ### Implementation context
 
@@ -48,3 +50,7 @@ Reviewed October 1, 2026 at `eb752b2f9025769a5b8e2991ba0471d026cfa2ab`. The Octo
 Floorplanning, placement, clock trees, routing and backend timing/extraction define this physical implementation entry. Separate RTL-to-GDS flow orchestration is not attributed to the engine merely from its surrounding toolchain. [Reviewed source](#source-readme).
 
 Placement, clock trees, routing and backend timing are conventional Layout algorithms. No AI behavior of downstream agents is attributed to the engine. [AI/stage evidence](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. An executable macro-placement regression checks the generated placement file and its exclusion of standard-cell locations. This is substantive physical-flow test coverage rather than a new placement algorithm or AI capability. [Reviewed change](#source-activity-current).

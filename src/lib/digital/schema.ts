@@ -43,6 +43,9 @@ export const digitalSchema = z.object({
   }).strict()).min(1),
 }).strict().superRefine((project, context) => {
   validateDevelopmentEvidence(project, context);
+  if (!project.sources.some((source) => source.purpose === 'code')) {
+    context.addIssue({ code: 'custom', path: ['sources'], message: 'A reviewed public Code source is required; paper-only projects are not eligible' });
+  }
   if (project.addedAt > project.reviewedAt) context.addIssue({ code: 'custom', path: ['reviewedAt'], message: 'Review cannot precede addition' });
   for (const field of ['id', 'purpose'] as const) {
     const seen = new Set<string>();

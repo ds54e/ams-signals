@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -24,6 +24,9 @@ sources:
   - id: "activity"
     title: "PEX triangulation correctness fix and regression test, September 25, 2026"
     url: "https://github.com/KLayout/klayout/commit/5fa733e1680212e4ceda532ca5fa6ea707c654de"
+  - id: "activity-current"
+    title: "Acute-angle polygon-sizing tolerance correction"
+    url: "https://github.com/KLayout/klayout/commit/0460c3e253393063c76c163b18d87f1ad7c47fb5"
 ---
 
 ### Scope
@@ -39,3 +42,7 @@ A programmable DRC/LVS platform does not itself establish signoff for any proces
 Layout editing, PCells and physical checks are central. Scripting and file interfaces enable those same layout operations rather than a separate circuit-design stage. [Reviewed source](#source-readme).
 
 Layout editing, PCells and verification scripts are conventional layout operations. Scripting automation alone is not runtime AI. [AI/stage evidence](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout. [Reviewed change](#source-activity-current).

@@ -18,7 +18,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source academic compiler; optional simulation, model-checking, visualization and FPGA evaluation tools have separate installation requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "official"
     title: "Official Dynamatic documentation"
@@ -76,6 +76,9 @@ sources:
   - id: "activity-refresh"
     title: "Test array partitioning with runtime-selected indices"
     url: "https://github.com/EPFL-LAP/dynamatic/commit/2fac2911faf35b84156e08782a9fcfe8fc6174d8"
+  - id: "activity-current"
+    title: "Cross-type-system HLS fuzzer transfer functions"
+    url: "https://github.com/EPFL-LAP/dynamatic/commit/f0323e259969b73e010e2d0c7315e85b6cc4db79"
 ---
 
 ### Implementation context
@@ -103,3 +106,7 @@ All runtime stage AI booleans are false. The reviewed compiler, optimization and
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-ASSISTED**. The explicitly assisted feature adds control-network loop analysis, compiler insertion of monitors, VHDL monitor generation and CLI/test integration. This is a coherent new measurement subsystem; the separately reviewed maintainer-written LSQ refactor is excluded. [Instrumentation](#source-development-1); [Current compiler instrumentation](#source-development-2).
+
+### Current activity review
+
+Reviewed 2026-10-05. The HLS fuzzer adds transfer-function support across composed type systems and corresponding unit coverage. These deterministic compiler-test mechanics do not introduce an AI stage. [Reviewed change](#source-activity-current).

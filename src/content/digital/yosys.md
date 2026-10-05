@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical Yosys repository"
@@ -34,8 +34,10 @@ sources:
   - id: "formal"
     title: "Yosys equivalence-miter construction implementation"
     url: "https://github.com/YosysHQ/yosys/blob/53f1cdd34cbcd4784209827dc6c6183705eca126/passes/equiv/equiv_make.cc"
+  - id: "activity-current"
+    title: "Portable Python-wheel toolchain and pkg-config handling"
+    url: "https://github.com/YosysHQ/yosys/commit/0e8336b4e2659efb40c2b8751c7619f69c358137"
 ---
-
 
 ### Implementation context
 
@@ -50,3 +52,7 @@ Reviewed October 1, 2026 at `53f1cdd34cbcd4784209827dc6c6183705eca126`. The Sept
 RTL optimization and technology mapping are synthesis operations. Formal transformations and solver-facing primitives support verification; full proof flows are usually orchestrated by separate drivers. [Reviewed source](#source-readme).
 
 RTL optimization/mapping and formal primitives execute conventionally. Their use inside an agent loop does not make upstream Yosys AI Synthesis. [AI/stage evidence](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. Python-wheel builds resolve missing or incompatible Bison/Flex toolchains and pkg-config handling across supported platforms, with a local build harness. This is substantive installation/build support rather than a new synthesis algorithm. [Reviewed change](#source-activity-current).

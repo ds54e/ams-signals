@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical Icarus Verilog repository"
@@ -37,6 +37,9 @@ sources:
   - id: "translation-code"
     title: "Implemented Verilog-1995 source generator"
     url: "https://github.com/steveicarus/iverilog/blob/2e81fcccb36edd2c4dd357034061fc9f2df36548/tgt-vlog95/vlog95.c"
+  - id: "activity-current"
+    title: "Own nonblocking-assignment event-control expressions"
+    url: "https://github.com/steveicarus/iverilog/commit/467d830d2435d28d63ecdfc011c5bf150f15f206"
 ---
 
 ### Implementation and scope
@@ -50,3 +53,7 @@ SystemVerilog support remains a growing subset, and this upstream project is dis
 ### Reviewed activity
 
 The September 28 UTC change makes indexed signal expressions own their word-index expressions and duplicates them correctly, repairing lifetime/ownership handling across elaboration. [Reviewed change](#source-activity-refresh); [current expression representation](#source-implementation).
+
+### Current activity review
+
+Reviewed 2026-10-05. Nonblocking assignments now own their event-control and count expressions through managed pointers. The inspected implementation repairs elaboration lifetime handling; it does not claim new language conformance. [Reviewed change](#source-activity-current).

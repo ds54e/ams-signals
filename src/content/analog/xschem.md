@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -38,6 +38,9 @@ sources:
   - id: "fork-cleanup"
     title: "Remove fork-table entries after schematic tabs are renamed"
     url: "https://github.com/StefanSchippers/xschem/commit/125da79c9f480638daafb2797e55b1d3e4125ce4"
+  - id: "activity-current"
+    title: "Preserve modified schematics during fork cleanup"
+    url: "https://github.com/StefanSchippers/xschem/commit/c15c6c05b175de17e81e6c4dd6175e07815add28"
 ---
 
 ### Scope
@@ -55,3 +58,7 @@ The September 29 changes correct fork-table cleanup when schematic names change 
 Schematic capture and hierarchical netlisting are central. Simulator launch and result back-annotation support circuit analysis through external ngspice/Xyce tools. [Reviewed source](#source-readme).
 
 Schematic/netlist editing is conventional Design; simulator launch and back-annotation serve Simulation. Neither scripting nor external solver integration establishes AI inference. [AI/stage evidence](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. GUI availability guards and forked-schematic cleanup preserve modified drawings instead of silently overwriting them. This is schematic-editing correctness within the existing scope. [Reviewed change](#source-activity-current).

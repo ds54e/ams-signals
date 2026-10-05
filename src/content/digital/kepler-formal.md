@@ -1,13 +1,13 @@
 ---
 name: "Kepler-Formal"
 aliases: ["kepler-formal"]
-description: "Open-source equivalence checker supporting gate-level combinational LEC, gate-level and RTL sequential equivalence, SystemVerilog file-list flows, RTL-to-gate SEC and Naja interchange inputs. It can export SEC problems to BTOR2 and distinguishes proved, partially proved, inconclusive and counterexample outcomes."
+description: "Equivalence checker for gate-level combinational LEC and gate/RTL sequential equivalence, with SystemVerilog file lists, RTL-to-gate comparisons, Naja interchange and Python design inputs. Experimental VHDL SEC and BTOR2 export extend the checking paths; proved, partial, inconclusive and counterexample outcomes remain distinct."
 scope:
   verification:
     ai: false
 access: "Apache-2.0 public source; Nix binary distribution and CMake/Bazel source-build paths are documented."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical Kepler-Formal repository"
@@ -15,7 +15,7 @@ sources:
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed revision"
-    url: "https://github.com/keplertech/kepler-formal/blob/7b260cc1a0ef0f663d727addecaf3305f33931d2/README.md"
+    url: "https://github.com/keplertech/kepler-formal/blob/acb85ea8eb7b733ee8269d103df7b37f8c28fe4f/README.md"
   - id: "activity"
     title: "Earlier reviewed technical maintenance update"
     url: "https://github.com/keplertech/kepler-formal/commit/1c826a95fa9bffa59d9121a427010a6efbf7c7f9"
@@ -28,6 +28,9 @@ sources:
   - id: "activity-review"
     title: "Naja integration, build compatibility and miter regression updates"
     url: "https://github.com/keplertech/kepler-formal/commit/7b260cc1a0ef0f663d727addecaf3305f33931d2"
+  - id: "activity-current"
+    title: "Naja Python design-input loading"
+    url: "https://github.com/keplertech/kepler-formal/commit/acb85ea8eb7b733ee8269d103df7b37f8c28fe4f"
 ---
 
 ### Verification modes
@@ -46,4 +49,6 @@ Equivalence and sequential-equivalence checking are direct Verification tasks. P
 
 Reviewed 2026-10-01. Current documentation retains separate LEC, gate/RTL SEC and RTL-to-gate modes. Optional certified internal-relation learning is a formal relation-discovery/checking mechanism, not evidence of a learned model or hosted AI decision path. Keep conventional Verification and the distinction between proof, partial/inconclusive results and BTOR2 export. [README](#source-readme); [SEC methods](#source-sec-methods).
 
-The newest reviewed meaningful first-parent change is naja integration, build compatibility and miter regression updates (2026-09-29 UTC). [Reviewed commit](#source-activity-review).
+### Current activity review
+
+Reviewed 2026-10-05. The CLI now accepts Python design scripts through Naja, while current documentation also exposes experimental VHDL SEC. Python loading is unavailable in the in-process file API. Proof, partial/inconclusive and counterexample outcomes remain distinct, and BTOR2 export alone is not proof. [Reviewed change](#source-activity-current).

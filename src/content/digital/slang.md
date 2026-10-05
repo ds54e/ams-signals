@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical slang repository"
@@ -31,6 +31,9 @@ sources:
   - id: "activity-refresh"
     title: "Allow string replication with a zero multiplier"
     url: "https://github.com/MikePopoloski/slang/commit/2f93a7a12fed6f4903cd342f44f2da4216b5ce79"
+  - id: "activity-current"
+    title: "Checked Python symbol-to-Scope conversions"
+    url: "https://github.com/MikePopoloski/slang/commit/6965da187d9c3b5aa2fa2ee23f19c228f90ef74a"
 ---
 
 ### Implementation and scope
@@ -40,3 +43,7 @@ Round-trippable syntax, reusable elaborated design models and C++/Python APIs su
 ### Reviewed activity and provenance
 
 The September 30 change corrects zero-multiplier string replication and string-concatenation folding, with runtime-evaluation and diagnostic tests. This is compiler correctness work. The reviewed project overview and implementation do not establish a model-driven stage or substantial AI-development attribution. [Reviewed change](#source-activity-refresh); [current expression implementation](#source-implementation).
+
+### Current activity review
+
+Reviewed 2026-10-05. Python bindings add checked conversion from scope-bearing symbols to Scope views, retaining object lifetime. This is a concrete reusable design-API improvement, not simulation or synthesis execution. [Reviewed change](#source-activity-current).

@@ -154,6 +154,17 @@ test('sources use valid public URLs, unique IDs and at most one quick-link purpo
   assert.equal(digitalSchema.safeParse(p).success, false);
 });
 
+test('Digital requires a public Code link independently of papers, websites and results', () => {
+  for (const purpose of ['paper', 'official', 'results', undefined]) {
+    const project = data();
+    project.sources = [{ ...project.sources[0], purpose }];
+    assert.equal(digitalSchema.safeParse(project).success, false, String(purpose));
+  }
+  const project = data();
+  project.sources = [{ ...project.sources[0], purpose: 'code', url: 'https://codeberg.org/spade-lang/spade' }];
+  assert.ok(digitalSchema.safeParse(project).success);
+});
+
 test('dates are calendar-valid and durable notes retain local provenance without raw URLs or HTML', () => {
   for (const reviewedAt of ['2026-02-29', '2026-13-01', '2026-00-01', 'yesterday', '2026-09-04']) {
     assert.equal(digitalSchema.safeParse({ ...data(), reviewedAt }).success, false);
@@ -520,7 +531,10 @@ test('Digital explicitly curates all-zero windows without treating missing histo
   const active = { ...record, commits: [1, ...Array(11).fill(0)], lastCommitAt: '2025-11-01' };
   assert.doesNotThrow(() => validateActivity([project], { ...value, projects: { [github.id]: active } }));
   // Point evidence outside the strip stays accurately rendered but cannot remain in the active list.
-  project.data.sources = [{ id: 'paper', title: 'Reviewed paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }];
+  project.data.sources = [
+    { id: 'code', title: 'Public source implementation', url: 'https://codeberg.org/spade-lang/spade', purpose: 'code' },
+    { id: 'paper', title: 'Reviewed paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' },
+  ];
   const point = { kind: 'public-update', lastPublicUpdateAt: '2025-10-01', lastPublicUpdateType: 'paper', lastPublicUpdateSource: 'paper' };
   assert.throws(() => validateActivity([project], { ...value, projects: { [github.id]: point } }), /reviewed signal in the twelve displayed months/);
   assert.equal(activityBand(point as any, value.months, project.data.sources).activeMonths, 0);

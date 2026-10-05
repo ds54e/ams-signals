@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical uhdm2rtlil repository"
@@ -36,8 +36,10 @@ sources:
   - id: "activity-refresh"
     title: "Correct generated co-simulation configuration wrappers"
     url: "https://github.com/alainmarcel/uhdm2rtlil/commit/254630189f33a046fe416779b02118d6a6b164d7"
+  - id: "activity-current"
+    title: "Mixed-array field writes preserve process-owned element temporaries"
+    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/42b1c3b0324c1e676ccb657aecfc7b35ecf9dda8"
 ---
-
 
 ### Implementation context
 
@@ -56,3 +58,7 @@ UHDM-to-RTLIL compilation and translation-validation campaigns execute conventio
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-BUILT**. The initial vibe-coding implementation and maintainer’s iterative Claude handler-development account concern the actual C++ translation core. The approach spans the defining frontend, not merely generated input RTL. [Current maintainer development account](#source-development-1); [Initial implementation](#source-development-2).
+
+### Current activity review
+
+Reviewed 2026-10-05. Dynamic field writes into mixed-representation unpacked arrays now update process-owned element temporaries rather than a flat alias that could create a combinational loop. This repairs lowering correctness; reported CVA6 outcomes were not reproduced here. [Reviewed change](#source-activity-current).

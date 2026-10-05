@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -37,6 +37,9 @@ sources:
   - id: "json-example"
     title: "Implemented consumer of elaborated JSON design models"
     url: "https://github.com/verilator/verilator/blob/71c6638ccf32c252353a53a073a3ed35ba2bd169/examples/json_py/vl_hier_graph"
+  - id: "activity-current"
+    title: "Clocking-block cycle-delay correction"
+    url: "https://github.com/verilator/verilator/commit/19254541ee5f745a45c59eb540d635bdf49b3919"
 ---
 
 ### Implementation and scope
@@ -50,3 +53,7 @@ The JSON format is evolving, and performance/language compatibility depend on th
 ### Development provenance
 
 The reviewed source establishes conventional compiler/simulator operations. Incidental coding-agent contributions do not establish a substantial attributed implementation campaign, defining-core AI construction or runtime model-driven stage. [Project implementation](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. Synchronous clocking-block drives now retain their own clocking block when evaluating cycle delays, with supported and unsupported regression cases. This is simulator correctness within conventional Verification. [Reviewed change](#source-activity-current).

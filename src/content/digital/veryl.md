@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "official"
     title: "Official Veryl website"
@@ -51,8 +51,8 @@ sources:
     title: "Veryl 0.20.0: lightweight native synthesis"
     url: "https://veryl-lang.org/blog/announcing-veryl-0-20-0/"
   - id: "release"
-    title: "Veryl 0.21.0 release announcement"
-    url: "https://veryl-lang.org/blog/announcing-veryl-0-21-0/"
+    title: "Veryl 0.22.0 stable release, October 2, 2026"
+    url: "https://github.com/veryl-lang/veryl/releases/tag/v0.22.0"
   - id: "claude-development"
     title: "dalance: Using Claude Code in Veryl, March 13, 2026"
     url: "https://zenn.dev/dalance/articles/2a6b1b0ce92442"
@@ -68,6 +68,9 @@ sources:
   - id: "activity-refresh"
     title: "Emit typedefs for type-bound generic parameters and constants"
     url: "https://github.com/veryl-lang/veryl/commit/d76466c5ee7cafeac7d6f679cc0c40c2c22a32a6"
+  - id: "activity-current"
+    title: "Anonymous loop-variable and string-case regression fixes"
+    url: "https://github.com/veryl-lang/veryl/commit/ff2e7aeaf76f9af52ff1bde9693a6fdde4f8681b"
 ---
 
 ### Implementation context
@@ -82,7 +85,7 @@ Veryl is a SystemVerilog-based HDL whose Rust toolchain emits readable SystemVer
 
 Reviewed October 1, 2026 at `d76466c5ee7cafeac7d6f679cc0c40c2c22a32a6`. The October 1 first-parent merge emits typedefs for type-bound generic parameters and constants, with emitter and expected-output tests. The current native simulator and synthesis commands remain integrated; no physical implementation stage is inferred from PPA estimates. [Current project source](#source-readme); [meaningful activity](#source-activity-refresh).
 
-The latest stable release remains **0.21.0**, published September 2. Native testbenches and lightweight synthesis shipped earlier in 0.19.1 and 0.20.0; current-branch fixes are not all part of 0.21.0. [Stable release](#source-release); [native testing](#source-native-release); [synthesis release](#source-synthesis-release).
+Stable **0.22.0** was published October 2, including native-simulator, analyzer and emitted-SystemVerilog corrections. Native testbenches and lightweight synthesis shipped earlier in 0.19.1 and 0.20.0; later main-branch changes are not automatically part of the numbered release. [Stable release](#source-release); [native testing](#source-native-release); [synthesis release](#source-synthesis-release).
 
 ### Scope classification
 
@@ -95,3 +98,7 @@ The engine landing remains in current history, the Wallace benchmark remains pre
 ### Development provenance review
 
 Reviewed 2026-10-01: **AI-ASSISTED**. The maintainer explicitly describes Claude Code implementing module instantiation and much of the remaining syntax after the simulator structure already existed. Current native-test dispatch and simulator crate confirm integration; this is significant simulator assistance, not creation of the HDL/compiler. [Maintainer account](#source-claude-development); [Current native-test integration](#source-test-cli).
+
+### Current activity review
+
+Reviewed 2026-10-05. The analyzer repairs anonymous loop-variable handling and string-case operand discovery regressions. These compiler corrections do not alter the separately reviewed native-simulator development provenance. [Reviewed change](#source-activity-current).

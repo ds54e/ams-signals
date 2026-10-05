@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public source implementation and rolling binary releases; the project documents experimental interfaces and build requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "official"
     title: "Official XLS documentation"
@@ -54,6 +54,9 @@ sources:
   - id: "activity-refresh"
     title: "Implement module-scoped configured values in DSLX library builds"
     url: "https://github.com/google/xls/commit/7b88d7d4e7b9afb85617d960336062cfe4462d96"
+  - id: "activity-current"
+    title: "Preserve external type references when cloning DSLX modules"
+    url: "https://github.com/google/xls/commit/17f5c7a22148462b26c294eb61106689d2f5e548"
 ---
 
 ### Implementation context
@@ -73,3 +76,7 @@ XLS describes itself as experimental infrastructure and warns that DSLX interfac
 ### Scope classification
 
 Design covers hardware authoring and reusable IR transformations. Synthesis covers HLS optimization, pipeline scheduling and RTL generation. Verification is supported by the explicit property and equivalence tools above, rather than inferred from internal tests or the existence of an interpreter. Layout is omitted: the reviewed physical-design examples delegate placement and routing to OpenROAD. The reviewed workflows use conventional compilers and solvers, so all stage AI booleans are false; the reviewed evidence does not establish qualifying AI-assisted or AI-built implementation.
+
+### Current activity review
+
+Reviewed 2026-10-05. CloneModule preserves references to type definitions owned by other modules instead of cloning them into the current module, with a frontend regression. This is DSLX compiler correctness. [Reviewed change](#source-activity-current).

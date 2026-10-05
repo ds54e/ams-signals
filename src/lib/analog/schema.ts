@@ -49,6 +49,9 @@ export const analogSchema = z.object({
   }).strict()).min(1),
 }).strict().superRefine((project, context) => {
   validateDevelopmentEvidence(project, context);
+  if (!project.sources.some((source) => source.purpose === 'code')) {
+    context.addIssue({ code: 'custom', path: ['sources'], message: 'A reviewed public Code source is required; paper-only projects are not eligible' });
+  }
   const ids = new Set<string>();
   const purposes = new Set<string>();
   project.sources.forEach((source, index) => {

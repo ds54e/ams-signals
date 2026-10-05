@@ -80,6 +80,16 @@ test('catalog schema preserves calendar dates, source protocols and source ident
   assert.ok(analogSchema.safeParse({ ...valid(), reviewedAt: '2026-09-04' }).success);
 });
 
+test('Analog requires a public Code link independently of papers, websites and results', () => {
+  for (const purpose of ['paper', 'official', 'results', undefined]) {
+    const project = { ...valid(), sources: [{ ...valid().sources[0], purpose }] };
+    assert.equal(analogSchema.safeParse(project).success, false, String(purpose));
+  }
+  for (const url of ['https://codeberg.org/arpadbuermen/VACASK', 'https://www.accellera.org/images/downloads/standards/uvm/1800.2-2020.3.2%20Release.gz']) {
+    assert.ok(analogSchema.safeParse({ ...valid(), sources: [{ ...valid().sources[0], url }] }).success);
+  }
+});
+
 test('removed classification metadata is rejected instead of kept as hidden state', () => {
   for (const fields of [{ roles: ['benchmark'] }, { aiBuilt: true }, { ai: 'ai-enabled' }]) {
     assert.equal(analogSchema.safeParse({ ...valid(), ...fields }).success, false);
@@ -250,7 +260,10 @@ test('each activity record belongs to one authored project and its verified Code
 });
 
 test('point records require reviewed provenance and never store fabricated repository counts', () => {
-  const projects = [{ ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } }];
+  const projects = [{ ...entry(), data: { ...valid(), sources: [
+    { id: 'code', title: 'Public source implementation', url: 'https://codeberg.org/arpadbuermen/VACASK', purpose: 'code' },
+    { id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' },
+  ] } }];
   const record = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2026-07-15', lastPublicUpdateSource: 'paper' };
   assert.equal(hasRepositoryHistory(record), false);
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: record } }), /requires a repository activity record/);
@@ -315,7 +328,10 @@ test('rolling meaningful freshness remains inclusive independently of the displa
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...record, lastMeaningfulCommitAt: '2025-09-04' } } }), /on or after 2025-09-05/);
   // A recent cosmetic/bot commit may affect ordering, but cannot rescue a stale project.
   assert.throws(() => validateActivity([entry()], { ...snapshot(), projects: { sample: { ...snapshot().projects.sample, lastMeaningfulCommitAt: '2025-09-04' } } }), /requires verified meaningful activity/);
-  const paper = { ...entry(), data: { ...valid(), sources: [{ id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' }] } };
+  const paper = { ...entry(), data: { ...valid(), sources: [
+    { id: 'code', title: 'Public source implementation', url: 'https://codeberg.org/arpadbuermen/VACASK', purpose: 'code' },
+    { id: 'paper', title: 'Paper', url: 'https://arxiv.org/abs/2607.14165v1', purpose: 'paper' },
+  ] } };
   const publicUpdate = { kind: 'public-update', lastPublicUpdateType: 'paper', lastPublicUpdateAt: '2025-09-05', lastPublicUpdateSource: 'paper' };
   assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: publicUpdate } }), /reviewed signal in the twelve displayed months/);
   assert.throws(() => validateActivity([paper], { ...snapshot(), projects: { sample: { ...publicUpdate, lastPublicUpdateAt: '2025-09-04' } } }), /requires verified meaningful activity/);
@@ -367,13 +383,13 @@ test('repository bands keep months and counts paired oldest-first without mutati
   assert.deepEqual(commits, [0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6]);
 });
 
-test('ATLAS paper and ngspice release occupy their reviewed month without invented commit data', async () => {
+test('ngspice release occupies its reviewed month without invented commit data', async () => {
   const snapshot = activitySchema.parse(JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8')));
   const labels: Record<string, string> = { paper: 'paper publication', release: 'release', 'public-update': 'public update' };
   // Which project carries which reviewed point-signal type is durable identity. The date, month,
   // window index and active count are read from the current snapshot, so a routine activity
   // refresh does not require editing this test.
-  const reviewedTypes: Record<string, string> = { atlas: 'paper', ngspice: 'release' };
+  const reviewedTypes: Record<string, string> = { ngspice: 'release' };
   // The record's date determines its cell; Analog's active-list validator also
   // requires the reviewed point signal to lie inside this displayed window.
   for (const [id, type] of Object.entries(reviewedTypes)) {
@@ -448,7 +464,7 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     zerosim: ['AI Simulation'], ngspice: ['Simulation'], klayout: ['Layout'],
     analogsage: ['AI Design', 'Simulation'], autosizer: ['AI Design', 'Simulation'],
     panda: ['AI Design', 'Simulation', 'AI Layout'],
-    atlas: ['AI Design', 'AI Simulation'], 'masala-chai': ['AI Design', 'AI Simulation'],
+    'masala-chai': ['AI Design', 'AI Simulation'],
     'evo-ldo-bench': ['AI Design', 'AI Simulation'],
     'virtuoso-agent': ['AI Design', 'AI Simulation'],
     'virtuoso-bridge-lite': ['AI Design', 'Simulation', 'Layout'], vcli: ['AI Design', 'Simulation', 'Layout'],
@@ -461,7 +477,7 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     'ams-io-agent': ['AI Design', 'AI Layout'], 'vibe-analog': ['AI Design', 'AI Simulation'],
     'agentic-sizing': ['AI Design', 'AI Simulation'], analogmaster: ['AI Design', 'Simulation', 'Layout'],
     // Reward/candidate ranking alone remains Design, not AI Simulation.
-    arcs: ['AI Design', 'Simulation'], chipjev: ['AI Design', 'Simulation', 'AI Layout'],
+    arcs: ['AI Design', 'Simulation'],
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
     'ngspice-openvaf-enhancements': ['AI Design', 'Simulation'],
     // AnalogAgent implements model-driven diagnosis of simulator logs and waveform images.

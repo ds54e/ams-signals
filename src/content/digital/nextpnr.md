@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; each architecture requires its documented device database and build dependencies."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical nextpnr repository"
@@ -25,6 +25,9 @@ sources:
   - id: "activity-refresh"
     title: "Correct GateMate PLL reference-clock parameter validation"
     url: "https://github.com/YosysHQ/nextpnr/commit/eb4f15c35f4bfcc953604513100c503f7df0a01d"
+  - id: "activity-current"
+    title: "Respect unavailable wires during sink-path reservation"
+    url: "https://github.com/YosysHQ/nextpnr/commit/6f71bc280b17805ee7687cad6dfdcdcb504d01d1"
 ---
 
 ### Implementation context
@@ -38,3 +41,7 @@ Reviewed October 1, 2026 at `eb4f15c35f4bfcc953604513100c503f7df0a01d`. The Sept
 ### Scope classification
 
 Packing, placement, routing, constraints and post-route timing are Layout under the Digital catalog contract. Synthesis remains attributed to upstream tools such as Yosys. The reviewed algorithms are conventional, so the stage AI flag is false.
+
+### Current activity review
+
+Reviewed 2026-10-05. The router stops sink-path reservation at wires marked RESERVED_UNAVAILABLE. This is physical-routing correctness within conventional Layout, not a logic-synthesis feature. [Reviewed change](#source-activity-current).

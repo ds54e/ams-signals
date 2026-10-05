@@ -11,7 +11,7 @@ scope:
     ai: true
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
-reviewedAt: '2026-10-01'
+reviewedAt: "2026-10-05"
 sources:
 - id: code
   title: Canonical Vibe-IC repository
@@ -41,6 +41,9 @@ sources:
 - id: guard-ring
   title: Implemented guard-ring and bulk-tap correctness
   url: https://github.com/vibeic/vibe-ic/commit/951fdf0e2d58ad520b87d346fa01ff0fe7e9e138
+- id: "activity-current"
+  title: "Analog macro-pin and extraction-wrapper correctness"
+  url: "https://github.com/vibeic/vibe-ic/commit/fc17c778d9beaf720baf854ec29dbcb83ac61c88"
 ---
 
 ### Analog scope
@@ -58,3 +61,7 @@ The September 29 first-parent integration adds layout-netlist identity checks, a
 ### Development provenance
 
 Claude Code runtime skills and an AI-native product description do not establish who implemented the software. No development badge is inferred from the model-facing interface or overall repository activity. [Project description](#source-readme)
+
+### Current activity review
+
+Reviewed 2026-10-05. The analog extraction wrapper resolves technology-LEF variants and preserves the generated wrapper path separately from measurement results. Regression coverage addresses hard-macro ports and stale wrapper bindings; it does not independently establish physical signoff. [Reviewed change](#source-activity-current).

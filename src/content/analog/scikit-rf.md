@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public Python package and documentation; network data, measurement hardware and external circuit simulators are separate inputs or tools."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "documentation"
     title: "Official scikit-rf documentation"
@@ -48,6 +48,9 @@ sources:
   - id: "one-port-passivity"
     title: "One-port passivity assessment and regression tests, September 17, 2026"
     url: "https://github.com/scikit-rf/scikit-rf/commit/b9fa9bfe680b969cec7ca666aff6e79c65fe53a8"
+  - id: "activity-current"
+    title: "Cobalt VNA SCPI instrument interface"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/7b66a4ae43df31c299e2f9bb047d05228b44a2c8"
 ---
 
 ### Implementation context
@@ -67,3 +70,7 @@ Later master changes add one-port passivity assessment with regression tests and
 Simulation covers network/electrical evaluation and RF model preparation. These numerical fitting and analysis operations do not establish runtime AI or an additional custom-IC Design stage.
 
 The bounded provenance review inspected credited parser/array fixes, plotting, tests and diagnostic edits. The plotting addition wraps existing error calculations; the parser correction repairs continuation lines. These do not establish substantial AI implementation of a modeling subsystem or campaign, so no development label is assigned. This does not assert an absence of assistant use. [Parser change](#source-assistance-fix); [plotting change](#source-assistance-plot).
+
+### Current activity review
+
+Reviewed 2026-10-05. The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred. [Reviewed change](#source-activity-current).

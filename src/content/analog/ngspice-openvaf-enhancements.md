@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical Ngspice + OpenVAF Enhancements repository"
@@ -49,6 +49,9 @@ sources:
   - id: "bayesian-search"
     title: "Bayesian optimizer mechanism, checks and limitations"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/1f70cb3788cabdd8ba2d694b2318c92b6e9727a9/enhancements_doc/Enhancement-765.md"
+  - id: "activity-current"
+    title: "Verilog-A diagnostics and numeric-cast corrections"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd"
 ---
 
 ### Scope
@@ -76,3 +79,7 @@ The September 30 update adds a bounded trust-region optimizer and preserves the 
 ### Development provenance review
 
 Reviewed 2026-09-07: **AI-BUILT**. The owner explicitly defines this project as a Claude Code enhancement effort; the documented campaign and inspected compiler lowering/OSDI callback changes substantiate its defining contribution. Attribution applies to the enhancements, not the upstream codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
+
+### Current activity review
+
+Reviewed 2026-10-05. The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF. [Reviewed change](#source-activity-current).

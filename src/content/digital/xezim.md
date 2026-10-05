@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -43,22 +43,24 @@ sources:
     title: "Maintainer account"
     url: "https://www.linkedin.com/posts/bondan-rufen_from-skeptic-to-believer-building-xezim-activity-7475570954924978176-DaAy"
   - id: "activity-refresh"
-    title: "Latest reviewed meaningful implementation update in the current activity snapshot"
+    title: "Previously reviewed meaningful implementation update"
     url: "https://github.com/aionhw/xezim/commit/6558a1e64e251cbd8d0c4e936860af268cf7e04f"
   - id: "readme-current"
-    title: "README at the October 1 implementation revision"
-    url: "https://github.com/aionhw/xezim/blob/2fdc4c36f282088c04dbe66fae211f55ee9a44e4/README.md"
+    title: "README at the October 5 implementation revision"
+    url: "https://github.com/aionhw/xezim/blob/4751de222f962bf0a723a68b4084c9e7e53ee58c/README.md"
   - id: "upf-current"
     title: "Implemented UPF subset and limitations"
-    url: "https://github.com/aionhw/xezim/blob/2fdc4c36f282088c04dbe66fae211f55ee9a44e4/docs/upf-guide.md"
+    url: "https://github.com/aionhw/xezim/blob/4751de222f962bf0a723a68b4084c9e7e53ee58c/docs/upf-guide.md"
   - id: "notes-current"
     title: "Post-0.11 correctness and performance notes"
-    url: "https://github.com/aionhw/xezim/blob/2fdc4c36f282088c04dbe66fae211f55ee9a44e4/NOTES.md"
+    url: "https://github.com/aionhw/xezim/blob/4751de222f962bf0a723a68b4084c9e7e53ee58c/NOTES.md"
   - id: "activity-october"
     title: "Correct two-state stores from JIT code"
     url: "https://github.com/aionhw/xezim/commit/2fdc4c36f282088c04dbe66fae211f55ee9a44e4"
+  - id: "activity-current"
+    title: "Pre-randomization callback and mailbox value fixes"
+    url: "https://github.com/aionhw/xezim/commit/a314f086513a8e0d82e0dfbcb460d3557535f097"
 ---
-
 
 ### Implementation context
 
@@ -72,7 +74,7 @@ The 0.11.0 tree includes a Verilog-AMS `wreal` compliance test covering fraction
 
 ### Release boundary
 
-Release 0.11.0 and the subsequent October 1 main-branch implementation were reviewed. Later correctness/performance changes remain marked unreleased in the project notes and are not presented as a new numbered release. UVM and language conformance reports describe tested cases and workloads, not complete IEEE compliance. The xezim-core dependency is not a second activity repository. [0.11.0 release](#source-release-0-11-0); [Current notes](#source-notes-current); [Meaningful implementation update](#source-activity-october).
+Release 0.11.0 and the subsequent October 5 main-branch implementation were reviewed. Later correctness/performance changes remain marked unreleased in the project notes and are not presented as a new numbered release. UVM and language conformance reports describe tested cases and workloads, not complete IEEE compliance. The xezim-core dependency is not a second activity repository. [0.11.0 release](#source-release-0-11-0); [Current notes](#source-notes-current); [Current implementation update](#source-activity-current).
 
 [Implementation inspected](#source-implementation).
 
@@ -91,3 +93,7 @@ Reviewed 2026-09-07: **AI-BUILT**. The repository frames AI-assisted core-EDA co
 The current UPF path models supply states/voltage, switches, powered-down domain corruption, output isolation and retained values. It is explicitly a subset: level shifters are transparent, power-state-table legality and retention save/restore timing are not modeled, and several parsed commands have no runtime effect. These are Verification semantics, not physical power-grid design or a continuous electrical solver. [UPF guide](#source-upf-current).
 
 The reviewed main branch also documents cocotb integration, FST output, cache/native/JIT execution and post-release fixes for DPI failures, class/struct access, virtual interfaces, memory sensitivity and two-state JIT stores. Performance comparisons remain maintainer-reported, workload-specific results; the catalog does not claim blanket speed superiority. [Current README](#source-readme-current); [Post-release notes](#source-notes-current); [JIT correctness commit](#source-activity-october).
+
+### Current activity review
+
+Reviewed 2026-10-05. The current default-branch first-parent history no longer contains the previous activity checkpoint. The replacement reviewed change fixes pre-randomization callbacks and mailbox handling for unpacked struct values, with regressions. The snapshot uses this reachable commit and its actual committer date; prior release evidence remains historical. [Reviewed change](#source-activity-current).

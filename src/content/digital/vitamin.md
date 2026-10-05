@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "code"
     title: "Canonical vitamin repository"
@@ -51,8 +51,10 @@ sources:
   - id: "activity-review"
     title: "Blocking multi-platform workload-corpus regressions"
     url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/2df2cecc75e885b2186ceec7a6dc2cdbcb1fe46b"
+  - id: "activity-current"
+    title: "Time-zero scheduling for continuous assignments with effectful calls"
+    url: "https://github.com/tjddnr0912/vitamin-rtl-simulator/commit/9f8a970bdaa0f965f3cab7dd3ff4badee04ad4bc"
 ---
-
 
 ### Implementation context
 
@@ -78,4 +80,6 @@ Reviewed 2026-09-07: **AI-ASSISTED**. The credited package-support campaign impl
 
 Reviewed 2026-10-01. The current README documents a compiled native executor alongside interpreter/VM comparison paths, staged IR artifacts and explicit unsupported language/ecosystem boundaries. These compiler stages only prepare simulation and do not add a user-facing synthesis or design-transformation stage. No runtime model decision path was found; AI-assisted development remains a separate historical classification. [Current behavior and limits](#source-readme); [CLI pipeline](#source-implementation).
 
-The newest reviewed meaningful first-parent change is blocking multi-platform workload-corpus regressions (2026-10-01 UTC). [Reviewed commit](#source-activity-review).
+### Current activity review
+
+Reviewed 2026-10-05. Continuous assignments reaching effectful calls are held until the first time-zero process batch writes their inputs, then released in dependency order. The implementation and tests address simulator scheduling semantics, without claiming complete SystemVerilog coverage. [Reviewed change](#source-activity-current).

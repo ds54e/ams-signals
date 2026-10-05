@@ -1,9 +1,9 @@
 [
   {
-    "project": "chipjev",
-    "date": "2026-10-01",
+    "project": "vacask",
+    "date": "2026-10-05",
     "kind": "added",
-    "summary": "Model-guided topology, sizing and supported SKY130 layout flows with public simulation and physical-verification artifacts."
+    "summary": "Public Codeberg simulator with compiled Verilog-A models, scripted analyses and directly captured canonical activity."
   },
   {
     "project": "spicexplorer",

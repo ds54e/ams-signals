@@ -13,7 +13,7 @@ scope:
     ai: false
 access: "Public source compiler and Swim build tool; simulation and FPGA implementation require the selected external tools."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-05"
 sources:
   - id: "official"
     title: "Official Spade language website"
@@ -59,6 +59,9 @@ sources:
   - id: "activity"
     title: "Correct integer-range diagnostics and regression snapshots"
     url: "https://codeberg.org/spade-lang/spade/commit/9b427c8728c3c2992978f349c8dd4dd6ec9deda0"
+  - id: "activity-current"
+    title: "Correct dereference lowering and memory initialization output"
+    url: "https://codeberg.org/spade-lang/spade/commit/f5a4a5d5992381a3b8effe7c7131fa5342dd4dac"
 ---
 
 ### Implementation context
@@ -80,3 +83,7 @@ The reviewed changelog still lists **0.20.0**, August 20, as its latest release 
 Design covers typed RTL authoring and compilation. Verification covers the integrated testbench and simulation workflow. Synthesis covers the configured Yosys flow and netlist/statistics outputs. Layout covers supported FPGA implementation with constraints, routed artifacts, timing analysis and packing. The last two stages reflect meaningful integration in Swim, without attributing Yosys or nextpnr algorithms to the language compiler.
 
 All stage AI booleans are false. The reviewed sources do not establish qualifying AI-assisted or AI-built implementation; the compiler's reviewed contribution policy explicitly excludes LLM-generated submissions. [Evidence boundary](#source-readme).
+
+### Current activity review
+
+Reviewed 2026-10-05. Dereference lowering now preserves a black-box alias and avoids panics, with compiler regressions. The preceding change also removes an invalid trailing comma in emitted memory initialization. These are concrete compiler/Synthesis corrections. [Reviewed change](#source-activity-current).
