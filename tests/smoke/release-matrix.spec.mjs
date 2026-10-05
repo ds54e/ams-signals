@@ -398,7 +398,7 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       ? year <= band.endYear
       : year >= band.startYear && year <= band.endYear
   ));
-  const expectedX = (event) => {
+  const expectedXPx = (event) => {
     const timestamp = visualTimestamp(event);
     const year = new Date(timestamp).getUTCFullYear();
     const band = bandForYear(year);
@@ -408,8 +408,9 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       const end = Date.UTC(year + 1, 0, 1);
       xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
     }
-    return (xPx / trackWidth) * 100;
+    return xPx;
   };
+  const expectedX = (event) => (expectedXPx(event) / trackWidth) * 100;
   const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
     id: node.getAttribute('data-event-id'),
     originalX: Number(node.getAttribute('data-original-event-x')),
@@ -534,11 +535,13 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
 
     const allMembers = row.bundles.flatMap(({ members }) => members);
     const recentMembers = allMembers.filter(({ zone }) => zone === 'recent')
-      .slice().sort((left, right) => left.x - right.x || left.id.localeCompare(right.id, 'en'));
+      .map((member) => ({ ...member, xPx: expectedXPx(eventById.get(member.id)) }))
+      .sort((left, right) => left.xPx - right.xPx || left.id.localeCompare(right.id, 'en'));
     const expectedRecentGroups = [];
     for (const member of recentMembers) {
       const current = expectedRecentGroups.at(-1);
-      if (!current || member.x - current[0].x > normalizedWindow) expectedRecentGroups.push([member]);
+      // Compare in pixels so an inclusive 32px boundary survives percentage rounding.
+      if (!current || member.xPx - current[0].xPx > proximityPx) expectedRecentGroups.push([member]);
       else current.push(member);
     }
     const expectedGroups = [
