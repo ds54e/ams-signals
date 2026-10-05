@@ -1,0 +1,22 @@
+{
+  "id": "synopsys-2026-09-customer-ams-simulation-flow-hiring",
+  "when": {
+    "start": "2026-09-13",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "Synopsys simulation product-engineering role includes customer AMS flows and accuracy/performance trade-offs",
+  "fact": "Synopsys posted a Bengaluru product-engineering role for customer simulation and verification engagements. The position covers regression throughput, compilation and elaboration bottlenecks, debug, assertions, coverage and reference flows for block through full-chip verification. When needed, its AMS responsibilities include analog/digital co-simulation, behavioral models, Verilog-AMS integration and convergence trade-offs. AMS experience, including balancing accuracy and performance, is a preferred qualification. This is a customer-support mandate rather than evidence of a particular customer deployment.",
+  "sources": [
+    {
+      "title": "Synopsys: Simulation and mixed-signal verification product engineer (18747)",
+      "url": "https://careers.synopsys.com/job/bengaluru/sr-staff-product-engineer-simulation-and-mixed-signal-verification/44408/100607370544",
+      "checkedAt": "2026-10-05",
+      "summary": "Official posting dated September 13, 2026. It assigns AMS support where needed within broader customer simulation work and describes co-simulation, behavioral modeling, Verilog-AMS and reference-flow development."
+    }
+  ]
+}

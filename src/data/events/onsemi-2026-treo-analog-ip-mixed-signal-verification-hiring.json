@@ -10,13 +10,19 @@
   ],
   "people": [],
   "headline": "onsemi Treo role calls for reusable digital-on-top verification of analog power and clock IP",
-  "fact": "onsemi posted a Mixed-Signal Verification Engineer role for analog IP integrated into digital-on-top SoCs on its 65 nm Treo BCD platform. The position owns SystemVerilog and UVM testbenches, real-number and Verilog-A/AMS behavioral models for PLLs, LDOs, DC-DC converters, and oscillators, executable plans, assertions, coverage and checkers, regression debug, and model-validation strategies. This is evidence of a public hiring mandate, not proof of completed verification outcomes.",
+  "fact": "onsemi posted a Mixed-Signal Verification Engineer role for analog IP integrated into digital-on-top SoCs on its 65 nm Treo BCD platform. The position owns SystemVerilog and UVM testbenches, real-number and Verilog-A/AMS behavioral models for PLLs, LDOs, DC-DC converters, and oscillators, executable plans, assertions, coverage and checkers, regression debug, and model-validation strategies. This is evidence of a public hiring mandate, not proof of completed verification outcomes. A Spring 2027 internship listing dated September 29 describes possible assignments in Treo digital-on-top verification, assertions, coverage, behavioral models and exploration of AI-assisted design.",
   "sources": [
     {
       "title": "onsemi Careers: Mixed-Signal Verification Engineer – Analog IP (2505537)",
       "url": "https://hctz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2505537",
       "checkedAt": "2026-08-31",
       "summary": "The official onsemi Oracle recruiting record exposes a May 19, 2026 posting timestamp and describes Treo digital-on-top AMS verification, reusable UVM environments, RNM/VAMS models, assertions, coverage, and model validation."
+    },
+    {
+      "title": "onsemi: Spring 2027 IC design internship — ASU recruitment listing",
+      "url": "https://career.eoss.asu.edu/jobs/onsemi-spring-2027-ic-design-engineer-intern/",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer-supplied university listing dated September 29, 2026 describes Treo and possible student assignments in digital-on-top analog-IP verification, SystemVerilog assertions/coverage, Verilog-A/AMS models and AI-assisted design exploration. These are possible assignments, not duties promised to every intern."
     }
   ]
 }

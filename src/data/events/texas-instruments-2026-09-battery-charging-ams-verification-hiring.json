@@ -1,0 +1,28 @@
+{
+  "id": "texas-instruments-2026-09-battery-charging-ams-verification-hiring",
+  "when": {
+    "start": "2026-09-25",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "Texas Instruments battery-charging role calls for RNM models, analog checkers and mixed-signal regressions",
+  "fact": "A Texas Instruments Battery Charging Products job posting describes AMS verification of battery-management ICs. Its responsibilities include Verilog-A/AMS and wreal RNM behavioral models for top-level simulation, testbenches combining schematics, models and RTL, analog checks during simulation and after processing, RTL and gate-level regressions, and functional coverage through tape-out. UVM, scripting and interest in AI-based verification automation are preferred qualifications. A preserved copy identifies Santa Clara requisition 25018210 and a September 25, 2026 posting timestamp.",
+  "sources": [
+    {
+      "title": "Texas Instruments: AMS design verification, Battery Charging Products (25018210)",
+      "url": "https://careers.ti.com/en/sites/CX/job/25018210",
+      "checkedAt": "2026-10-05",
+      "summary": "Official application URL for requisition 25018210. The linked recovery copy preserves the employer description and September 25, 2026 posting timestamp."
+    },
+    {
+      "title": "Texas Instruments Battery Charging Products posting — SimplyHired recovery copy",
+      "url": "https://www.simplyhired.com/job/y3O7BMEKUu527dEgVYJoPWSQOshHcCdBg7_pqwwrp316ixLp2vuLmA",
+      "checkedAt": "2026-10-05",
+      "summary": "Secondary copy preserves the employer description, job ID 25018210 and September 25, 2026 timestamp. It names RNM/wreal, analog checks, schematic/model/RTL testbenches, coverage and regressions; AI automation is a preferred interest, not a demonstrated deployment."
+    }
+  ]
+}

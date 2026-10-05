@@ -1,0 +1,22 @@
+{
+  "id": "ams-osram-2026-09-lsp-rnm-top-level-verification-hiring",
+  "when": {
+    "start": "2026-09-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "ams-osram"
+  ],
+  "people": [],
+  "headline": "ams OSRAM LSP role combines RNM model validation, UVM integration and AMS top-level checks",
+  "fact": "ams OSRAM posted a Bucharest ASIC Analog Mixed-Signal Verification Engineer role in its Light Sensors & Photonics business unit. The position defines verification strategies and plans, develops and validates analog and real-number behavioral models, integrates analog models into UVM mixed-signal testbenches, and executes top-level AMS verification with automatic checks. The qualifications name SystemVerilog RNM, Verilog-AMS, analog checkers, reusable verification components and scripting.",
+  "sources": [
+    {
+      "title": "ams OSRAM: ASIC Analog Mixed-Signal Verification Engineer (24163)",
+      "url": "https://jobs.ams-osram.com/en/job/ASIC-Design-Verification-Engineer-d_m_f-Bucharest/24163",
+      "checkedAt": "2026-10-05",
+      "summary": "Official posting identifies Bucharest, LSP, job 24163 and September 3, 2026 publication. It explicitly assigns behavioral model validation, UVM integration and top-level AMS checks."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-10-ai-model-migration-testbench-internship",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP lists an AI-agent internship for migrating behavioral models and generating validation testbenches",
+  "fact": "On October 5, NXP listed a Toulouse internship to study and prototype migration of behavioral models from older technologies to newer nodes using specialized AI agents. The work analyzes model structure, parameters, interfaces and dependencies, separates general transformations from project-specific adaptations, and generates stimuli and testbenches to check migrated models and expose regressions. Proposed evaluation measures include generation rate, code quality, scenario coverage, time savings and robustness. The posting describes experimental development and evaluation, not completed deployment.",
+  "sources": [
+    {
+      "title": "NXP: AI-assisted model migration and testbench internship — employer LinkedIn posting",
+      "url": "https://fr.linkedin.com/jobs/view/stage-ing%C3%A9nieur-g%C3%A9n%C3%A9ration-semi-automatique-de-mod%C3%A8les-stimuli-et-testbenches-par-agents-ia-f-h-at-nxp-semiconductors-4470943844",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer posting checked October 5, 2026; first publication is not established. The project combines legacy-model migration, stimulus/testbench generation, regression checks and measurable evaluation. It is distinct from the specification-to-VIP internship."
+    }
+  ]
+}

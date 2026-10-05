@@ -10,13 +10,19 @@
   ],
   "people": [],
   "headline": "NXP job posting seeks an AMS verification leader for its Milan advanced-power team",
-  "fact": "An NXP Careers posting for a Senior AMS Verification leader in Milan describes ownership of verification strategies, plans, environments, regressions, coverage, behavioural models, checkers, assertions, and reusable components for the Advanced Power System team, including top-level mixed-signal verification and methodology improvement. The requested experience includes Verilog, SystemVerilog, UVM, SVA, Verilog-AMS, SystemC, WREAL/RNM, and mixed-signal EDA tools. This is evidence of a public hiring mandate, not proof that every listed method is already deployed.",
+  "fact": "An NXP Careers posting for a Senior AMS Verification leader in Milan describes ownership of verification strategies, plans, environments, regressions, coverage, behavioural models, checkers, assertions, and reusable components for the Advanced Power System team, including top-level mixed-signal verification and methodology improvement. The requested experience includes Verilog, SystemVerilog, UVM, SVA, Verilog-AMS, SystemC, WREAL/RNM, and mixed-signal EDA tools. This is evidence of a public hiring mandate, not proof that every listed method is already deployed. A related Chandler PMIC leadership listing checked on October 5 adds explicit power-sequencing and fault-management checks using reusable AMS/UVM/RNM environments.",
   "sources": [
     {
       "title": "NXP Careers: Senior AMS Verification leader",
       "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Senior-AMS-Verification-leader_R-10065738",
       "checkedAt": "2026-08-30",
       "summary": "Official NXP Careers requisition R-10065738 identifies the Milan Advanced Power System role and describes its AMS verification leadership scope, deliverables, methodologies, languages, and tools."
+    },
+    {
+      "title": "NXP Careers: Principal AMS verification engineer, Chandler (R-10065974)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Senior-Analog-Mixed-Signal-Verification-Engineer_R-10065974-1",
+      "checkedAt": "2026-10-05",
+      "summary": "Related official PMIC leadership listing checked October 5, 2026; first publication is not established. It assigns reusable Verilog-AMS/SystemVerilog/UVM/RNM models and components, power sequencing, fault handling, coverage and sign-off. Grouped with the existing advanced-power mandate."
     }
   ]
 }

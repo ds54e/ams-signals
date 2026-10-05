@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2026-10-ams-model-validation-internships",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon lists AMS internships covering behavioral models, corner validation and regression automation",
+  "fact": "On October 5, Infineon listed related AMS verification internships in Andover and Shanghai. The Andover role assigns Verilog-AMS/SystemVerilog behavioral models, testbenches, regressions and device/system checks under nominal and corner conditions. The Shanghai role covers AMS IP and SoC environments, SPICE/Verilog-AMS/Spectre simulations, RTL/model integration debug, Python-based regression reporting, and validation of model assumptions and corner behavior. These related student hiring signals are grouped in one Event.",
+  "sources": [
+    {
+      "title": "Infineon: Andover AMS design-verification internship — employer LinkedIn posting",
+      "url": "https://www.linkedin.com/jobs/view/internship-analog-mixed-signal-design-verification-engineer-at-infineon-technologies-4465695379",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer posting checked October 5, 2026; first publication is not established. It describes behavioral models, verification plans, testbenches, regressions and nominal/corner validation."
+    },
+    {
+      "title": "Infineon: Shanghai mixed-signal verification internship — employer LinkedIn posting",
+      "url": "https://cn.linkedin.com/jobs/view/mixed-signal-verification-intern-at-infineon-technologies-4469893332",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer posting checked October 5, 2026; first publication is not established. It includes AMS IP/SoC simulations, Python automation and model-quality checks for assumptions and corners."
+    }
+  ]
+}

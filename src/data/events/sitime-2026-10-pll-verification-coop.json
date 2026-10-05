@@ -1,0 +1,22 @@
+{
+  "id": "sitime-2026-10-pll-verification-coop",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "sitime"
+  ],
+  "people": [],
+  "headline": "SiTime lists a January 2027 Co-op for mixed-signal PLL verification",
+  "fact": "On October 5, SiTime listed an Ottawa ASIC Digital Verification Co-op for sixteen weeks beginning in January 2027. The student role contributes to mixed-signal PLL IC development by learning the verification environment and testbench and writing test cases for ongoing projects. Verilog, SystemVerilog, UVM, Python and Tcl knowledge are welcomed. The posting does not explicitly assign RNM model development to the Co-op.",
+  "sources": [
+    {
+      "title": "SiTime: ASIC digital-verification Co-op — employer LinkedIn posting",
+      "url": "https://ca.linkedin.com/jobs/view/co-op-asic-digital-verification-engineer-at-sitime-4473987683",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer posting checked October 5, 2026; first publication is not established. It explicitly identifies mixed-signal PLL ICs and a sixteen-week Co-op starting January 2027, with testbench/test-case work and welcomed SystemVerilog/UVM skills."
+    }
+  ]
+}

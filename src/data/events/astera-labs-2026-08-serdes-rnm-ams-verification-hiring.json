@@ -10,13 +10,19 @@
   ],
   "people": [],
   "headline": "Astera Labs posts SerDes/PHY verification role covering RNM, AMS co-simulation, and emulation planning",
-  "fact": "Astera Labs posted a principal SerDes/PHY verification role for PCIe Gen6/7, UCIe, UALink, and Ethernet interfaces. The description calls for UVM environments, RNM and behavioral-model collaboration with analog designers, CDR and training checks, and analog handoff validation. It also assigns methodology decisions across AMS co-simulation, gate-level simulation, and emulation, and prefers emulator familiarity and pre/post-silicon correlation experience.",
+  "fact": "Astera Labs posted a principal SerDes/PHY verification role for PCIe Gen6/7, UCIe, UALink, and Ethernet interfaces. The description calls for UVM environments, RNM and behavioral-model collaboration with analog designers, CDR and training checks, and analog handoff validation. It also assigns methodology decisions across AMS co-simulation, gate-level simulation, and emulation, and prefers emulator familiarity and pre/post-silicon correlation experience. A related tech-lead listing checked on October 5 repeats this SerDes/PHY verification scope.",
   "sources": [
     {
       "title": "Astera Labs: Principal Design Verification Engineer — SerDes/PHY IP",
       "url": "https://job-boards.greenhouse.io/asteralabs/jobs/4729354005",
       "checkedAt": "2026-09-09",
       "summary": "The official Greenhouse posting describes the SerDes verification scope; its public job-board API gives first publication as August 31, 2026. It lists RNM and emulation responsibilities but does not state that RNM models execute on the emulators."
+    },
+    {
+      "title": "Astera Labs: Design verification tech lead, SerDes/PHY IP",
+      "url": "https://job-boards.greenhouse.io/asteralabs/jobs/4733710005",
+      "checkedAt": "2026-10-05",
+      "summary": "Related official Greenhouse listing checked October 5, 2026 repeats RNM/model collaboration, AMS simulation, interface verification and emulation-planning duties. Retained as another source for the existing mandate; its first publication is not established."
     }
   ]
 }

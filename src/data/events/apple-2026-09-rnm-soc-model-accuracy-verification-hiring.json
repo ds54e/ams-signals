@@ -1,0 +1,28 @@
+{
+  "id": "apple-2026-09-rnm-soc-model-accuracy-verification-hiring",
+  "when": {
+    "start": "2026-09-14",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple posts an RNM SoC modeling role that ties model accuracy to verification objectives",
+  "fact": "Apple posted a Digital/Mixed Signal Modeling/Verification Engineer role for analog and RF blocks within a large SoC. The description assigns SystemVerilog RNM models with built-in checks, selecting the necessary modeling accuracy for each verification objective, assertions that define analog/digital specification checks and digital verification pass criteria, AMS environment setup with analog designers, and debugging digital-on-top chip testbenches. The scope includes power regulators, bandgaps, data converters, RF blocks and PLLs.",
+  "sources": [
+    {
+      "title": "Apple: Digital/Mixed Signal Modeling/Verification Engineer (200683595-3956)",
+      "url": "https://jobs.apple.com/hu-hu/details/200683595-3956/digital-mixed-signal-modeling-verification-engineer",
+      "checkedAt": "2026-10-05",
+      "summary": "Official Apple listing dated September 14, 2026. Responsibilities connect RNM accuracy to verification objectives and include built-in model checks, assertions, AMS setup and chip-level debug."
+    },
+    {
+      "title": "Apple: September mixed-signal verification recruitment listings",
+      "url": "https://jobs.apple.com/ja-jp/search?location=united-states-USA&team=%25D9%2587%25D9%2586%25D8%25AF%25D8%25B3%25D8%25A9-%25D8%25A7%25D9%2584%25D8%25B3%25D9%258A%25D9%2584%25D9%258A%25D9%2583%25D9%2588%25D9%2586-HRDWR-SILT",
+      "checkedAt": "2026-10-05",
+      "summary": "Apple search results also list related Sunnyvale and Austin roles, 200686375, dated September 29, 2026. These related listings are grouped with the September RNM modeling mandate rather than counted as separate regional Events."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "allegro-microsystems-2026-09-power-ic-mixed-signal-verification-hiring",
+  "when": {
+    "start": "2026-09-21",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "allegro-microsystems"
+  ],
+  "people": [],
+  "headline": "Allegro lists power-IC verification roles covering startup checks, RNM models and reusable UVM methodology",
+  "fact": "An employer-supplied Allegro MicroSystems recruiting job posting dated September 21 describes top-level AMS testbenches, Verilog-AMS/RNM/wreal models, and checks of power transitions, brownouts, POR, POK and UVLO over voltage and temperature corners. A related Richardson team-lead posting checked on October 5 assigns Power IC verification strategy, reusable SystemVerilog/UVM infrastructure, behavioral-model development, requirements-to-test traceability, safety checks and exploration of AI automation. Both are public hiring mandates.",
+  "sources": [
+    {
+      "title": "Allegro MicroSystems: Mixed Signal Design Verification Engineer — ASU recruitment listing",
+      "url": "https://career.eoss.asu.edu/jobs/allegro-microsystems-llc-mixed-signal-design-verification-engineer/",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer-supplied description on the university career board; recruitment began September 21, 2026. This is the board listing date, not a claim about the earliest employer publication. It details AMS/RNM models and startup, brownout and reset checks."
+    },
+    {
+      "title": "Allegro Careers: Principal mixed-signal verification team lead (R6656)",
+      "url": "https://allegromicro.wd5.myworkdayjobs.com/en-US/AllegroCareers/job/Principal-Mixed-Signal-Design-Verification--Team-Lead_R6656",
+      "checkedAt": "2026-10-05",
+      "summary": "Official Richardson Power IC leadership listing checked October 5, 2026; its first publication date is not established. It covers reusable UVM, behavioral models, requirements traceability, safety assertions and exploration of AI automation."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "texas-instruments-2026-09-mixed-signal-coverage-dv-internship",
+  "when": {
+    "start": "2026-09-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "Texas Instruments internship listing includes analog functional coverage, random stimuli and chip-level timing checks",
+  "fact": "A University of Pittsburgh recruiting job posting dated September 3 advertises a Texas Instruments Design Verification Engineering internship. The employer description includes SystemVerilog coverage for voltages, currents and real values alongside digital coverage, constrained-random analog stimulus and automatic result checking. It also assigns RTL and gate-level simulations with SDF for timing between analog and digital circuits, regression scripting, verification planning and improvements to verification methods.",
+  "sources": [
+    {
+      "title": "Texas Instruments: Design verification internship, MS/PhD (25017546)",
+      "url": "https://careers.ti.com/en/sites/CX/job/25017546",
+      "checkedAt": "2026-10-05",
+      "summary": "Official TI application for the graduate design-verification internship; the employer description is also available in the university recruiting listing."
+    },
+    {
+      "title": "Texas Instruments DV internship — University of Pittsburgh recruitment listing",
+      "url": "https://careercentral.pitt.edu/jobs/texas-instruments-inc-design-verification-engineering-intern-ms-phd/",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer-supplied description on the university board, where recruitment began September 3, 2026. The Event uses this board date, not an inferred first employer publication. It explicitly covers analog functional coverage, constrained-random analog stimulus and RTL/gate+SDF checks."
+    }
+  ]
+}

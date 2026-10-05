@@ -1,0 +1,22 @@
+{
+  "id": "encore-semi-2026-10-quad-adc-ai-debug-verification-hiring",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "encore-semi"
+  ],
+  "people": [],
+  "headline": "Encore Semi lists a Quad ADC digital-verification role with AI-assisted log analysis and debug",
+  "fact": "On October 5, Encore Semi listed a verification role for the digital subsystem of Quad ADC products, including DSP blocks and digital paths operating between 250 MHz and 1 GHz. The posting assigns regression-environment development and testbench execution using Cadence Xcelium, and requests experience using AI tools to analyze data and logs and accelerate debugging. It concerns digital verification within a mixed-signal product; the description does not claim RNM model generation or AMS co-simulation.",
+  "sources": [
+    {
+      "title": "Encore Semi: High-speed mixed-signal verification role — employer LinkedIn posting",
+      "url": "https://www.linkedin.com/jobs/view/sr-design-verification-engineer-%E2%80%93-high-speed-mixed-signal-ai-assisted-workflow-at-encore-semi-inc-4462360428",
+      "checkedAt": "2026-10-05",
+      "summary": "Employer posting checked October 5, 2026; first publication is not established, so the Event records this observation date. Duties concern Quad ADC digital regressions and DSP paths; AI-assisted data/log analysis is a requested skill."
+    }
+  ]
+}

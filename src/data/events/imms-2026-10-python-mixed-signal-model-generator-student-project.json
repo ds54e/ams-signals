@@ -1,0 +1,22 @@
+{
+  "id": "imms-2026-10-python-mixed-signal-model-generator-student-project",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "imms"
+  ],
+  "people": [],
+  "headline": "IMMS lists a student project to extend a Python framework for automatic mixed-signal model generation",
+  "fact": "On October 5, IMMS listed an Erfurt student project to extend an existing Python framework for generating behavioral circuit models. The project adds signal-name classification, analog/digital structure detection and recognition of circuit classes, then develops suitable model generators and integrates and validates them. Verilog-AMS is named as an example modeling language. The listing accepts mandatory internships and student research or thesis work, with an application deadline of December 31, 2026. It does not describe the framework as AI-based.",
+  "sources": [
+    {
+      "title": "IMMS: Student project extending a Python mixed-signal model generator (IMMS_STUD_ME_0726)",
+      "url": "https://jobs.imms.de/jobposting/87ea97ce0a4b30cf0e7f5ee639bed88a762387580",
+      "checkedAt": "2026-10-05",
+      "summary": "Official student posting checked October 5, 2026; first publication is not established. It describes an existing Python framework and proposed classification, circuit recognition, model generation and validation extensions, with a December 31 deadline."
+    }
+  ]
+}

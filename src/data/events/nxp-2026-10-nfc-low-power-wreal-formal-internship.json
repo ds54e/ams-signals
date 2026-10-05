@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-10-nfc-low-power-wreal-formal-internship",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP lists a 2027 NFC power-management internship combining wreal, SVA, formal proof and AI exploration",
+  "fact": "On October 5, NXP listed a six-month internship starting in the first quarter of 2027 within its Sophia Antipolis Secure Transactions and Identification verification team. The project concerns NFC SoC power management, including power gating, reset, clocking and wreal analog representations. It assigns SystemVerilog test scenarios, SVA, coverage analysis and Jasper formal property verification, alongside investigation of AI/ML approaches for analog and mixed-signal verification. The AI work is exploratory.",
+  "sources": [
+    {
+      "title": "NXP Careers: Low-power verification internship (R-10064619)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Stage-Ingnieur---Techniques-de-vrification-basse-consommation-utilisant-l-UVM--les-preuves-formelles-et-les-capacits-de-l-IA--H-F-_R-10064619",
+      "checkedAt": "2026-10-05",
+      "summary": "Official posting checked October 5, 2026; first publication is not established. It specifies a six-month internship beginning in Q1 2027, NFC power-management verification with wreal, SystemVerilog/SVA, Jasper formal proof and AI/ML exploration."
+    }
+  ]
+}

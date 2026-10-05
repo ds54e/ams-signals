@@ -1,0 +1,22 @@
+{
+  "id": "bosch-2026-10-dms-model-equivalence-verification-hiring",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "bosch"
+  ],
+  "people": [],
+  "headline": "Bosch lists a DMS verification role covering model/schematic equivalence and model accuracy checks",
+  "fact": "On October 5, Bosch Service Solutions listed a Valencia DMS Verification Engineer role for mixed-signal SoCs. The position defines the split between DMS and digital verification and model/schematic equivalence, validates behavioral-model accuracy and performance against circuit simulations and measurements, and debugs RTL, gate and schematic behavior. It also assigns verification planning, regressions, functional/code coverage and UVM infrastructure improvements. The posting is a hiring mandate and does not establish measured verification outcomes.",
+  "sources": [
+    {
+      "title": "Bosch Group: DMS Verification Engineer — official SmartRecruiters posting",
+      "url": "https://jobs.smartrecruiters.com/BoschGroup/744000146778857",
+      "checkedAt": "2026-10-05",
+      "summary": "Official Bosch Service Solutions posting checked October 5, 2026; first publication is not established. It describes DMS/DV partitioning, model/schematic equivalence and model accuracy/performance checks against simulations and measurements."
+    }
+  ]
+}
