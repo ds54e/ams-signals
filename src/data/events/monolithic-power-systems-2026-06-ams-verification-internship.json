@@ -1,0 +1,23 @@
+{
+  "id": "monolithic-power-systems-2026-06-ams-verification-internship",
+  "when": {
+    "start": "2026-06-11",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "monolithic-power-systems"
+  ],
+  "people": [],
+  "headline": "MPS student listing assigns chip-top AMS verification and RNM, wreal and schematic models",
+  "fact": "An Arizona State University recruiting listing dated June 11 advertised an MPS Analog Mixed Signal Verification Intern role in San Jose for a 20–24 week Summer/Fall 2026 placement. The employer description assigns chip-top verification planning and AMS simulation for full-custom precision analog signal-chain ASICs, behavioral models ranging from RNM and logical models to Verilog-AMS electrical/wreal and schematic models, register and trim-mode debug with analog schematics and post-layout RTL, and regression and infrastructure support. June 11 is the university listing's recruitment date; the listed application deadline was June 19.",
+  "sources": [
+    {
+      "title": "Arizona State University Career Services: MPS Analog Mixed Signal Verification Intern",
+      "url": "https://career.eoss.asu.edu/jobs/monolithic-power-systems-inc-analog-mixed-signal-verification-intern/",
+      "checkedAt": "2026-10-06",
+      "status": "unavailable",
+      "summary": "University recruiting record begins June 11, 2026 and expires June 19. Its indexed employer description explicitly assigns chip-top AMS, RNM/wreal/schematic models and regression work. The direct page is no longer available when checked."
+    }
+  ]
+}

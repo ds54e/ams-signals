@@ -1,15 +1,21 @@
 {
   "id": "skyworks-2026-08-agentic-ams-platform-hiring",
   "when": {
-    "start": "2026-08-24",
+    "start": "2026-08-20",
     "precision": "day"
   },
   "kind": "organizational",
   "companies": ["skyworks"],
   "people": [],
-  "headline": "Skyworks lists a role for an agentic analog and mixed-signal design and verification platform",
-  "fact": "Skyworks posted a design-automation role whose description says a central engineering team is building an AI-enabled analog and mixed-signal design and verification platform. The role covers agentic connections to EDA simulation, DRC, LVS, electromigration, and compute schedulers, a self-evolving flow, and support for real-number-modeling workflows.",
+  "headline": "Skyworks posts AMS automation roles for an agentic platform and a student AI workflow project",
+  "fact": "Skyworks posted an AI Automation & Software Developer co-op on August 20 for January–June 2027 in Cedar Rapids. It assigns evaluation of AI tools and software workflows for circuit design and verification; behavioral modeling, Verilog-AMS/SystemVerilog and analog/RF design are desired background. Separately, an August 24 design-automation role says a central engineering team is building an AI-enabled analog and mixed-signal design and verification platform, with agentic connections to EDA simulation, DRC, LVS, electromigration and compute schedulers, and support for real-number-modeling workflows. The descriptions do not establish that the co-op works on the same platform or that either project is deployed.",
   "sources": [
+    {
+      "title": "Skyworks Careers: AI Automation & Software Developer Co-op (Winter/Spring 2027), requisition 78222",
+      "url": "https://careers.skyworksinc.com/job/IC-Analog-Mixed-Signal-Verification-Co-op-%28WinterSpring-2027%29/78222-en_US/",
+      "checkedAt": "2026-10-06",
+      "summary": "Official posting start date is August 20, 2026; the work term is January–June 2027. The current title and duties concern AI/software workflow development, with HDL and behavioral modeling as desired background; the URL retains an older title."
+    },
     {
       "title": "Sr. Design Automation Engineer",
       "url": "https://careers.skyworksinc.com/job/Sr_-Design-Automation-Engineer/77976-en_US/",

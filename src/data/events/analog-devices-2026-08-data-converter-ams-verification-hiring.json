@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2026-08-data-converter-ams-verification-hiring",
+  "when": {
+    "start": "2026-08-04",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "ADI posts a data-converter SoC verification role for RNM, Verilog-AMS and SystemC models",
+  "fact": "Analog Devices posted a Mixed Signal Design Verification Engineer role in Wilmington for its Advanced Data-converter Group. The mandate develops analog circuit and system models for functional and connectivity verification of wireless mixed-signal SoCs and implements testbenches for product usage scenarios. It requests SystemVerilog including RNM, Verilog-AMS or SystemC modeling, scripting and circuit-verification experience, with UVM familiarity preferred. The qualifications specify an MSEE or a BSEE with at least two years of industry experience. Official JobPosting metadata identifies August 4 as datePosted for R263851.",
+  "sources": [
+    {
+      "title": "Analog Devices Careers: Mixed Signal Design Verification Engineer (R263851)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-MA-Wilmington/Mixed-Signal-Design-Verification-Engineer_R263851",
+      "checkedAt": "2026-10-06",
+      "summary": "Official employer page and public job data confirm the data-converter SoC modeling mandate. JobPosting datePosted and job-data startDate both identify August 4, 2026."
+    }
+  ]
+}

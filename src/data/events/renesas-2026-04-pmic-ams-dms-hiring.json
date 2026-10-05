@@ -7,8 +7,8 @@
   "kind": "organizational",
   "companies": ["renesas"],
   "people": [],
-  "headline": "Renesas lists PMIC verification roles spanning AMS, DMS, RNM, UVM, correlation, and sign-off",
-  "fact": "Renesas listed related PMIC verification roles for battery chargers, switching regulators, and analog power IP. The descriptions cover chip-level AMS and full-chip DMS, SystemVerilog RNM and Verilog-AMS models integrated with RTL and UVM, model correlation to specifications and schematics, coverage closure and sign-off, and support for correlation to silicon bench measurements.",
+  "headline": "Renesas lists AMS/DMS verification roles spanning power ICs, reusable models, UVM and correlation",
+  "fact": "Renesas listed PMIC verification roles for battery chargers, switching regulators and analog power IP. The descriptions cover chip-level AMS and full-chip DMS, SystemVerilog RNM and Verilog-AMS models integrated with RTL and UVM, model correlation to specifications and schematics, coverage closure, sign-off and silicon bench correlation. A later Kodaira staff listing assigns reusable UVM environments, assertions, checkers and coverage, and requests RNM/Verilog-AMS modeling experience for bias networks, regulators, bandgaps, amplifiers, comparators, converters and other mixed-signal blocks. Its requisition carries August 27, while its page's JobPosting datePosted is September 17; it does not establish an August public-posting date.",
   "sources": [
     {
       "title": "Senior Staff Mixed Signal Verification Engineer",
@@ -21,6 +21,12 @@
       "url": "https://jobs.renesas.com/job/staff-ams-verification-engineer-in-bengaluru-ka-india-jid-4702",
       "checkedAt": "2026-08-30",
       "summary": "Official Renesas requisition dated April 28, 2026, for reusable UVM/RNM PMIC verification from blocks through full-chip and silicon correlation."
+    },
+    {
+      "title": "Renesas Careers: Verification Staff Engineer - Analog Mixed-Signal, Kodaira (20031926)",
+      "url": "https://jobs.renesas.com/job/verification-staff-engineer-analog-mixed-signal-in-kodaira-japan-jid-6925",
+      "checkedAt": "2026-10-06",
+      "summary": "Official listing assigns UVM environments, checkers and coverage and requests RNM/Verilog-AMS block-modeling experience. Requisition 20031926_2026-08-27 and JobPosting datePosted 2026-09-17 are distinct date markers; this source extends the existing hiring milestone."
     }
   ]
 }

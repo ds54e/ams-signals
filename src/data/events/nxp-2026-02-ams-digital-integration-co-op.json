@@ -1,0 +1,22 @@
+{
+  "id": "nxp-2026-02-ams-digital-integration-co-op",
+  "when": {
+    "start": "2026-02-07",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP co-op listing assigns AMS and digital integration, wreal views, simulation and silicon bring-up",
+  "fact": "A Discover Technata recruiting listing dated February 7 advertised an NXP Analog Mixed-Signal Design Co-Op for early-career engineers. The role supports analog/digital integration, schematic and netlist views, connectivity checks, Verilog-AMS and wreal view generation, simple RTL wrappers and digital-on-top build checks. It also assigns block- and top-level Spectre/Xcelium/AMS Designer simulations, testbench and model packaging work, and automated lab measurements including power-up sequences. The listing is no longer accepting applications; its date is the recruiting board's posting date.",
+  "sources": [
+    {
+      "title": "Discover Technata: NXP Analog Mixed-Signal Design Co-Op",
+      "url": "https://jobs.discovertechnata.com/companies/nxp-semiconductors-2/jobs/67107664-analog-mixed-signal-design-co-op",
+      "checkedAt": "2026-10-06",
+      "summary": "Preserved recruiting-board listing dated February 7, 2026, with the employer description of AMS/digital integration, Verilog-AMS/wreal views, simulation and lab work. Applications are closed; the employer's original publication date is not established."
+    }
+  ]
+}

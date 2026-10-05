@@ -1,0 +1,29 @@
+{
+  "id": "cirrus-logic-2026-05-ams-modeling-verification-co-op",
+  "when": {
+    "start": "2026-05-02",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "cirrus-logic"
+  ],
+  "people": [],
+  "headline": "Cirrus Logic advertises a Fall co-op for SV-RNM, user-defined types and audio ASIC verification",
+  "fact": "Cirrus Logic's company account advertised a Fall 2026 Mixed Signal Modeling & Verification Engineer co-op in Austin on May 2. The preserved job description assigns top-down SystemVerilog model development and validation, AMS/UVM verification planning for audio-processing ASICs, behavioral models using SV-RNM, SystemVerilog user-defined types and Verilog-AMS, schematic abstraction, and regression and flow support. The advertised student placement lasts 12–14 weeks. The Event date is the employer's public announcement, not the Fall work term or an inferred first posting date.",
+  "sources": [
+    {
+      "title": "Cirrus Logic: Fall 2026 Mixed Signal Modeling & Verification co-op announcement",
+      "url": "https://www.linkedin.com/posts/cirrus-logic_hiring-activity-7456302537520971776-cUHQ",
+      "checkedAt": "2026-10-06",
+      "summary": "The employer's public announcement identifies the role and Austin location. Its JSON-LD datePublished is May 2, 2026 at 11:24 UTC."
+    },
+    {
+      "title": "Dice: Cirrus Logic Fall 2026 Co-Op - Mixed Signal Modeling & Verification Engineer",
+      "url": "https://www.dice.com/job-detail/c88ff87a-5f0c-4e27-a386-73996aaa8979",
+      "checkedAt": "2026-10-06",
+      "status": "unavailable",
+      "summary": "Indexed employer-description copy supplies the audio ASIC, AMS/UVM, SV-RNM/SV-UDT/Verilog-AMS, schematic-abstraction and regression duties. The direct page returns HTTP 410 when checked; this is a historical recruiting record."
+    }
+  ]
+}

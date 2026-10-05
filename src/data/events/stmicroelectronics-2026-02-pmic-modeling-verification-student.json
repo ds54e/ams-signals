@@ -1,0 +1,22 @@
+{
+  "id": "stmicroelectronics-2026-02-pmic-modeling-verification-student",
+  "when": {
+    "start": "2026-02-16",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "stmicroelectronics"
+  ],
+  "people": [],
+  "headline": "STMicroelectronics posts a student role for PMIC top-level verification and analog behavioral models",
+  "fact": "STMicroelectronics posted a Master Thesis / Working Student Mixed-Signal Modelling and Design Verification role in Munich. The Power Management IC Design Verification Team assigns IC top-level verification, verification-flow development and analog behavioral models, with IEEE/Accellera standards and EDA reference flows. The qualifications include Verilog/SystemVerilog, Python, analog circuits and Cadence flows, with Virtuoso SKILL as a plus. The official JobPosting metadata identifies February 16 as datePosted for job 10540; the role does not identify a particular RNM implementation or a completed automation result.",
+  "sources": [
+    {
+      "title": "STMicroelectronics Careers: Master Thesis / Working Student Mixed-Signal Modelling and Design Verification (10540)",
+      "url": "https://stmicroelectronics.eightfold.ai/careers/job/563637171592738-master-thesis-working-student-mixed-signal-modelling-and-design-verification-muenchen-germany",
+      "checkedAt": "2026-10-06",
+      "summary": "Official job 10540 supplies the PMIC-team mandate and skills. Its public JobPosting JSON-LD has datePosted 2026-02-16T15:03:19, a stronger date anchor than later recruiting-board copies."
+    }
+  ]
+}

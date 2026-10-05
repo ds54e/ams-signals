@@ -1,0 +1,22 @@
+{
+  "id": "renesas-2026-08-pmic-validation-automation-thesis",
+  "when": {
+    "start": "2026-08-10",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "renesas"
+  ],
+  "people": [],
+  "headline": "Renesas lists a PMIC thesis internship for Python validation frameworks and measurement correlation",
+  "fact": "Renesas advertised a six-month MSc thesis internship in its new Catania design center, within the Performance Computing Power team. The role researches silicon-validation automation for PMICs, develops laboratory setups and Python validation frameworks and measurement scripts, checks analog/digital/mixed-signal and power IC specifications, and performs data acquisition, statistical analysis and result correlation. This is post-silicon and measurement automation; the posting does not specify RNM or UVM model development. The official page's JobPosting datePosted is August 10, distinct from the July 31 date embedded in requisition 20031633.",
+  "sources": [
+    {
+      "title": "Renesas Careers: Intern Validation Engineer (20031633)",
+      "url": "https://jobs.renesas.com/job/intern-validation-engineer-in-catania-italy-jid-6585",
+      "checkedAt": "2026-10-06",
+      "summary": "Official Catania MSc-thesis listing assigns PMIC silicon-validation automation, Python scripts, lab setups and correlation. Embedded JobPosting metadata dates the page August 10, 2026; requisition 20031633_2026-07-31 is a separate date marker."
+    }
+  ]
+}

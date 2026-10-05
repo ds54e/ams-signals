@@ -10,7 +10,7 @@
   ],
   "people": [],
   "headline": "MediaTek lists 2027 internships for RF wreal models and analog/RF design automation",
-  "fact": "On October 5, MediaTek listed Singapore internships for 2027 covering mixed-signal verification and design automation. The verification role assigns analog/RF macro models for system co-simulation, Verilog/wreal models of RF calibration engines and analog leaf cells, and RF-digital testbench templates. The automation role covers Python, EDA tools, data analysis and exploration of AI for simulation, layout, verification and design workflows. The listings establish advertised student work, not a newly deployed modeling or AI platform.",
+  "fact": "On October 5, MediaTek listed Singapore internships for 2027 covering mixed-signal verification and design automation. The verification role assigns analog/RF macro models for system co-simulation, Verilog/wreal models of RF calibration engines and analog leaf cells, and RF-digital testbench templates. A preserved 2026-internship listing describes the same RF modeling and testbench duties, so the 2027 listing is grouped with that recruiting history rather than treated as a new modeling method. The automation role covers Python, EDA tools, data analysis and exploration of AI for simulation, layout, verification and design workflows. The listings establish advertised student work, not a newly deployed modeling or AI platform.",
   "sources": [
     {
       "title": "MediaTek Careers: 2027 mixed-signal verification internship (MSL120230327006)",
@@ -23,6 +23,12 @@
       "url": "https://yourcareers.mediatek.com/en/jobs/MSL120260904001?categorys=9009&locations=0000009291",
       "checkedAt": "2026-10-05",
       "summary": "Official indexed listing checked October 5, 2026; first publication is not established. It describes analog/RF/mixed-signal design automation, Python/EDA/data tools and exploratory AI applications."
+    },
+    {
+      "title": "MediaTek LinkedIn job listing: [2026 Internship] Mixed Signal Verification Intern",
+      "url": "https://sg.linkedin.com/jobs/view/2026-internship-mixed-signal-verification-intern-at-mediatek-4301977687",
+      "checkedAt": "2026-10-06",
+      "summary": "Preserved closed 2026 internship listing repeats RF macro/co-simulation, calibration and leaf-cell Verilog/wreal model, and RF-digital testbench duties. Its exact first posting date is unconfirmed; no earlier day is inferred from the work-term label or relative age."
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "id": "renesas-2026-02-ddr5-verification-internship",
+  "when": {
+    "start": "2026-02-09",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "renesas"
+  ],
+  "people": [],
+  "headline": "Renesas DDR5 internship assigns analog/digital verification and UVM-based simulation infrastructure",
+  "fact": "A Renesas requisition dated February 9 advertised a Summer 2026 Design Verification Intern role in Morrisville for DDR5 IC development. The student works with analog and digital designers on simulation verification and silicon debugging, develops infrastructure using Verilog, SystemVerilog, UVM, Python and Perl, and maintains verification environments and self-testing testbenches. The advertised work period was May 26 through August 14; this Event uses the date embedded in official requisition 20025372 rather than the internship start date. The official page now marks the vacancy expired.",
+  "sources": [
+    {
+      "title": "Renesas Careers: Design Verification Intern (20025372)",
+      "url": "https://jobs.renesas.com/job/design-verification-intern-in-morrisville-north-carolina-united-states-jid-4053",
+      "checkedAt": "2026-10-06",
+      "summary": "Official expired Summer 2026 DDR5 internship page. Requisition 20025372_2026-02-09 supplies the Event's date; the page does not establish the original public posting timestamp. Duties include analog/digital verification, UVM infrastructure and testbenches."
+    }
+  ]
+}
