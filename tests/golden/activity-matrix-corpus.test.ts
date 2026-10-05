@@ -24,6 +24,28 @@ const buildCurrentGeometry = async (): Promise<{ geometry: Geometry; corpus: Awa
 
 const laneKey = (row: Geometry['companyRows'][number]): string => `${row.entityType}:${row.entity.data.id}`;
 
+// Independently project source dates; do not infer expectations from rendered marks.
+function expectedPlacement(event: Geometry['companyRows'][number]['events'][number], geometry: Geometry) {
+  const { start, precision } = event.data.when;
+  const [year, month = 1, day = 1] = start.split('-').map(Number);
+  const periodStart = precision === 'year' ? Date.UTC(year, 0, 1) : Date.UTC(year, month - 1, 1);
+  const periodEnd = precision === 'year' ? Date.UTC(year + 1, 0, 1) : Date.UTC(year, month, 1);
+  const placementTimestamp = precision === 'day'
+    ? Date.UTC(year, month - 1, day, 12)
+    : periodStart + ((periodEnd - periodStart) / 2);
+  const band = geometry.timeBands.find(({ startYear, endYear }) => (
+    startYear === undefined ? year <= endYear : year >= startYear && year <= endYear
+  ));
+  assert.ok(band, `${event.data.id} must belong to a time band`);
+  const yearStart = Date.UTC(year, 0, 1);
+  const yearEnd = Date.UTC(year + 1, 0, 1);
+  const xPx = band.startPx + (band.resolution === 'continuous'
+    ? (1 - ((placementTimestamp - yearStart) / (yearEnd - yearStart))) * band.widthPx
+    : band.widthPx / 2);
+  return { x: (xPx / geometry.trackWidth) * 100, xPx, placementTimestamp,
+    band: band.key, zone: band.zone, resolution: band.resolution };
+}
+
 /** Order-independent projection of the geometry used to compare two builds. */
 const projection = (geometry: Geometry) => ({
   domain: geometry.domain,
@@ -90,7 +112,7 @@ test('every representable Event appears in at least one lane and zero-entity Eve
 
 test('each Event keeps one precise projection across every lane where it appears', async () => {
   const { geometry } = await buildCurrentGeometry();
-  const seen = new Map<string, { x: number; xPx: number; placementTimestamp: number; band: string }>();
+  const seen = new Map<string, ReturnType<typeof expectedPlacement>>();
 
   for (const row of [...geometry.companyRows, ...geometry.peopleRows]) {
     for (const bundle of row.bundles) {
@@ -100,7 +122,10 @@ test('each Event keeps one precise projection across every lane where it appears
           xPx: member.originalXPx,
           placementTimestamp: member.placementTimestamp,
           band: member.timeBandKey,
+          zone: member.timeZone,
+          resolution: member.timeResolution,
         };
+        assert.deepEqual(current, expectedPlacement(member.event, geometry), `${member.eventId} source-date projection`);
         const previous = seen.get(member.eventId);
         if (previous === undefined) {
           seen.set(member.eventId, current);
@@ -129,7 +154,7 @@ test('every row reports at least one visual row and a valid packed height', asyn
 });
 
 test('every bundle member belongs to the Company or Person entity that owns the row', async () => {
-  const { geometry } = await buildCurrentGeometry();
+  const { geometry, corpus } = await buildCurrentGeometry();
 
   for (const row of [...geometry.companyRows, ...geometry.peopleRows]) {
     for (const bundle of row.bundles) {
@@ -148,14 +173,15 @@ test('every bundle member belongs to the Company or Person entity that owns the 
       );
     }
     // The row carries exactly the events linked to its own entity.
+    const linkedEventIds = corpus.events.filter(({ data }) => (
+      (row.entityType === 'company' ? data.companies : data.people).includes(row.entity.data.id)
+    )).map(({ data }) => data.id).sort();
     assert.deepEqual(
-      [...new Set(row.events.map(({ data }) => data.id))].sort(),
-      [...new Set(row.bundles.flatMap((bundle) => bundle.eventIds))].sort(),
+      row.events.map(({ data }) => data.id).sort(), linkedEventIds,
+      `${laneKey(row)} must include every linked source Event exactly once`,
     );
-    const linked = new Set(row.events.map(({ data }) => (
-      row.entityType === 'company' ? data.companies.includes(row.entity.data.id) : data.people.includes(row.entity.data.id)
-    )));
-    assert.deepEqual([...linked], [true]);
+    assert.deepEqual(row.bundles.flatMap((bundle) => bundle.eventIds).sort(), linkedEventIds,
+      `${laneKey(row)} bundles must include every linked source Event exactly once`);
   }
 });
 
@@ -169,6 +195,34 @@ test('recent bundles use proximity semantics and earlier bundles use period sema
     // Bundles are laid out newest-first inside a lane.
     const recentBundles = row.bundles.filter(({ mode }) => mode === 'proximity');
     const periodBundlesInRow = row.bundles.filter(({ mode }) => mode === 'period');
+
+    assert.equal(new Set(periodBundlesInRow.map(({ timeBandKeys }) => timeBandKeys[0])).size,
+      periodBundlesInRow.length, `${laneKey(row)} must have exactly one bundle per earlier period`);
+
+    for (const bundle of row.bundles) {
+      const ordered = [...bundle.members].sort((left, right) => (
+        right.placementTimestamp - left.placementTimestamp || left.eventId.localeCompare(right.eventId, 'en')
+      ));
+      assert.deepEqual(bundle.eventIds, ordered.map(({ eventId }) => eventId), `${bundle.key} member order`);
+      assert.equal(bundle.xPx, bundle.members.reduce((sum, member) => sum + member.originalXPx, 0) / bundle.members.length);
+      // Packing uses the fewest columns that still achieve the minimum row count.
+      assert.ok(bundle.columnCount >= 1 && bundle.columnCount <= 3);
+      assert.equal(bundle.rowCount, Math.ceil(bundle.members.length / 3));
+      assert.equal(Math.ceil(bundle.members.length / bundle.columnCount), bundle.rowCount);
+      if (bundle.columnCount > 1) assert.ok(Math.ceil(bundle.members.length / (bundle.columnCount - 1)) > bundle.rowCount);
+      assert.equal(bundle.bundleWidthPx, (bundle.columnCount * 18) + ((bundle.columnCount - 1) * 2));
+      assert.equal(bundle.collisionWidthPx, bundle.bundleWidthPx);
+    }
+
+    // Together with bounded spans and complete lane membership, this rejects split
+    // proximity groups without duplicating the production grouping algorithm.
+    for (let index = 1; index < recentBundles.length; index += 1) {
+      const previousAnchor = Math.min(...recentBundles[index - 1].members.map(({ originalXPx }) => originalXPx));
+      for (const member of recentBundles[index].members) {
+        assert.ok(member.originalXPx - previousAnchor > ACTIVITY_MATRIX_BUNDLE_PROXIMITY,
+          `${laneKey(row)} splits a member still inside the previous 32px window`);
+      }
+    }
 
     for (const bundle of recentBundles) {
       proximityBundles += 1;

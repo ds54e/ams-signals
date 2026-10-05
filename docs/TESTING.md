@@ -16,6 +16,8 @@ Golden validation owns record shape, references, dates and source requirements. 
 
 Node tests in `tests/golden/` own pure export projection, exclusions, ordering, timeline transforms and Matrix geometry. `tests/articles/`, `tests/analog/` and `tests/digital/` own their independent data contracts. Build and output audits own generated links, origin/base paths, indexing and analytics markup. Browser tests own interaction, DOM wiring, layout, stacking, accessibility and responsive behavior.
 
+For the Activity Matrix, `activity-matrix.test.ts` owns fixed boundary fixtures, including the inclusive 32px proximity window and anchor-based grouping. `activity-matrix-corpus.test.ts` checks source-date projection, complete grouping and packing across the current corpus. The browser suite compares the served geometry metadata with the source model, then checks actual rectangles, filtering and direct Event interaction; it does not reimplement projection or bundle membership in percentage coordinates.
+
 A valid content addition should not require editing unrelated test literals for totals, active entities, activity order, period density or packing. Derive expectations independently from source inputs where possible; comparing rendered output only with itself proves little. Keep explicit identities only when they are intentional fixtures: export exclusions, canonical successors, rejected identities or historical associations. Retire old import-wave totals/check dates rather than converting them into permanent product requirements. Do not weaken exact semantics into vague lower bounds.
 
 ## Where a new browser assertion belongs

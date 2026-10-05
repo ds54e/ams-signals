@@ -276,10 +276,3 @@ export async function findScrollableStickyLabelRow(page, { labelSelector, markSe
 export function queryState(url) {
   return Object.fromEntries([...new URL(url).searchParams.entries()].sort(([left], [right]) => left.localeCompare(right)));
 }
-
-export function expectedActivityBundleColumns(memberCount) {
-  const maxColumns = Math.min(memberCount, 3);
-  const minimumRows = Math.ceil(memberCount / maxColumns);
-  return Array.from({ length: maxColumns }, (_, index) => index + 1)
-    .find((columns) => Math.ceil(memberCount / columns) === minimumRows);
-}

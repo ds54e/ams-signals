@@ -7,10 +7,11 @@
 // release-discovery.spec.mjs, and cross-surface navigation in release-navigation.spec.mjs.
 
 import { expect, test } from '@playwright/test';
+import { buildActivityMatrixGeometry } from '../../src/lib/activityMatrix.ts';
+import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
   basePath,
   ensureScrollableStickyCandidate,
-  expectedActivityBundleColumns,
   expectExplorerReady,
   expectStickyLabelToOccludeActiveMark,
   installBrowserErrorGuards,
@@ -305,25 +306,26 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
   expect(visiblePeople).toEqual(expectedPeople.map(({ id }) => id).filter((id) => visiblePeople.includes(id)));
 });
 
-test('global Activity Matrix uses progressive time bands and deterministic bundle modes', async ({ page }) => {
+test('global Activity Matrix renders the validated geometry without visual bundle overlaps', async ({ page }) => {
+  const corpus = await loadGoldenCorpus();
+  const geometry = buildActivityMatrixGeometry(corpus.events, corpus.companies, corpus.people);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
   await expectExplorerReady(page);
 
+  // Node contracts own projection, boundary grouping and packing. This checks the
+  // integration boundary: source geometry reaches the served DOM and CSS intact.
   const matrix = page.locator('[data-activity-matrix-surface]');
-  const corpus = await viewerCorpus(page);
-  const latestYear = corpus.latestYear;
-  await expect(matrix).toHaveAttribute('data-domain-oldest-year', String(corpus.oldestYear));
-  await expect(matrix).toHaveAttribute('data-domain-latest-year', String(latestYear));
-  await expect(matrix).toHaveAttribute('data-time-band-count', '7');
+  await expect(matrix).toHaveAttribute('data-domain-oldest-year', String(geometry.domain.oldestYear));
+  await expect(matrix).toHaveAttribute('data-domain-latest-year', String(geometry.domain.latestYear));
+  await expect(matrix).toHaveAttribute('data-track-width', String(geometry.trackWidth));
+  await expect(matrix).toHaveAttribute('data-time-band-count', String(geometry.timeBands.length));
   await expect(page.locator('[data-timeline-segment]')).toHaveCount(0);
   const bands = await page.locator('[data-activity-time-band]').evaluateAll((nodes) => nodes.map((node) => ({
     key: node.getAttribute('data-time-band'),
     label: node.getAttribute('data-band-label'),
     ariaLabel: node.getAttribute('data-band-aria-label'),
-    startYear: node.hasAttribute('data-band-start-year')
-      ? Number(node.getAttribute('data-band-start-year'))
-      : undefined,
+    startYear: node.hasAttribute('data-band-start-year') ? Number(node.getAttribute('data-band-start-year')) : undefined,
     endYear: Number(node.getAttribute('data-band-end-year')),
     widthPx: Number(node.getAttribute('data-band-width-px')),
     maxEventsPerRow: Number(node.getAttribute('data-band-max-events-per-row')),
@@ -332,156 +334,18 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
     zone: node.getAttribute('data-time-zone'),
     resolution: node.getAttribute('data-time-resolution'),
   })));
-  const trackWidth = Number(await matrix.getAttribute('data-track-width'));
-  expect(trackWidth).toBeGreaterThan(0);
+  expect(bands).toEqual(geometry.timeBands.map((band) => ({ ...band, startYear: band.startYear })));
+  await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(geometry.boundaries.length);
+  await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary, .activity-zone-label')).toHaveCount(0);
+  await expect(page.locator('.activity-axis-track')).toHaveAttribute('aria-label',
+    `Activity Matrix time bands: ${geometry.timeBands.map(({ ariaLabel }) => ariaLabel).join(', ')}. Newest is left.`);
 
-  // Progressive band structure is derived from the current latest corpus year, so a valid
-  // Event in a new year must not require editing this test. Exact band sizing and packing
-  // are owned by tests/golden/activity-matrix.test.ts and activity-matrix-corpus.test.ts.
-  expect(bands).toHaveLength(7);
-  expect(bands.map(({ zone }) => zone)).toEqual([
-    'recent', 'recent', 'recent', 'earlier', 'earlier', 'earlier', 'earlier',
-  ]);
-  expect(bands.map(({ resolution }) => resolution)).toEqual([
-    'continuous', 'continuous', 'continuous', 'bucket', 'bucket', 'bucket', 'bucket',
-  ]);
-  expect(bands.map(({ label }) => label)).toEqual([
-    String(latestYear), String(latestYear - 1), String(latestYear - 2), String(latestYear - 3),
-    `${latestYear - 6}–${latestYear - 4}`,
-    `${latestYear - 11}–${latestYear - 7}`,
-    `≤${latestYear - 12}`,
-  ]);
-  expect(bands.map(({ key }) => key)).toEqual([
-    `year-${latestYear}`, `year-${latestYear - 1}`, `year-${latestYear - 2}`, `year-${latestYear - 3}`,
-    `years-${latestYear - 6}-${latestYear - 4}`,
-    `years-${latestYear - 11}-${latestYear - 7}`,
-    `through-${latestYear - 12}`,
-  ]);
-  expect(bands.map(({ startYear }) => startYear)).toEqual([
-    latestYear, latestYear - 1, latestYear - 2, latestYear - 3, latestYear - 6, latestYear - 11, undefined,
-  ]);
-  expect(bands.map(({ endYear }) => endYear)).toEqual([
-    latestYear, latestYear - 1, latestYear - 2, latestYear - 3, latestYear - 4, latestYear - 7, latestYear - 12,
-  ]);
-  expect(bands.map(({ startPx }) => startPx)).toEqual([0, ...bands.slice(0, -1).map(({ endPx }) => endPx)]);
-  for (const band of bands) {
-    expect(band.widthPx, `${band.key} band width must be positive`).toBeGreaterThan(0);
-    expect(band.endPx - band.startPx, `${band.key} band extent`).toBe(band.widthPx);
-    expect(band.maxEventsPerRow, `${band.key} band density`).toBeGreaterThanOrEqual(0);
-    expect(band.endPx, `${band.key} band end`).toBeLessThanOrEqual(trackWidth);
-  }
-  expect(bands.reduce((sum, { widthPx }) => sum + widthPx, 0)).toBe(trackWidth);
-  await expect(page.locator('.activity-axis-track .activity-guides span')).toHaveCount(bands.length - 1);
-  await expect(page.locator('.activity-axis-track .activity-guides .is-zone-boundary')).toHaveCount(0);
-  await expect(page.locator('.activity-zone-label')).toHaveCount(0);
-  await expect(page.locator('.activity-axis-track')).toHaveAttribute(
-    'aria-label',
-    `Activity Matrix time bands: ${bands.map(({ ariaLabel }) => ariaLabel).join(', ')}. Newest is left.`,
-  );
-
-  const serialized = await page.locator('[data-events-json]').evaluate((node) => JSON.parse(node.textContent));
-  const eventById = new Map(serialized.map((event) => [event.id, event]));
-  const visualTimestamp = (event) => {
-    const [year, month = 1, day = 1] = event.start.split('-').map(Number);
-    if (event.precision === 'day') return Date.UTC(year, month - 1, day, 12);
-    if (event.precision === 'month') {
-      const start = Date.UTC(year, month - 1, 1);
-      const end = Date.UTC(year, month, 1);
-      return start + ((end - start) / 2);
-    }
-    const start = Date.UTC(year, 0, 1);
-    const end = Date.UTC(year + 1, 0, 1);
-    return start + ((end - start) / 2);
-  };
-  const bandForYear = (year) => bands.find((band) => (
-    band.startYear === undefined
-      ? year <= band.endYear
-      : year >= band.startYear && year <= band.endYear
-  ));
-  const expectedXPx = (event) => {
-    const timestamp = visualTimestamp(event);
-    const year = new Date(timestamp).getUTCFullYear();
-    const band = bandForYear(year);
-    let xPx = band.startPx + (band.widthPx / 2);
-    if (band.resolution === 'continuous') {
-      const start = Date.UTC(year, 0, 1);
-      const end = Date.UTC(year + 1, 0, 1);
-      xPx = band.startPx + ((1 - ((timestamp - start) / (end - start))) * band.widthPx);
-    }
-    return xPx;
-  };
-  const expectedX = (event) => (expectedXPx(event) / trackWidth) * 100;
-  const marks = await page.locator('[data-matrix-mark]').evaluateAll((nodes) => nodes.map((node) => ({
-    id: node.getAttribute('data-event-id'),
-    originalX: Number(node.getAttribute('data-original-event-x')),
-    bundleX: Number(node.getAttribute('data-event-x')),
-    bundleIndex: Number(node.getAttribute('data-bundle-index')),
-    placementTimestamp: Number(node.getAttribute('data-original-placement-timestamp')),
-    timeBand: node.getAttribute('data-time-band'),
-    timeZone: node.getAttribute('data-time-zone'),
-    timeResolution: node.getAttribute('data-time-resolution'),
-    bundleMode: node.getAttribute('data-bundle-mode'),
-    lane: `${node.closest('[data-lane]').getAttribute('data-lane-type')}:${node.closest('[data-lane]').getAttribute('data-entity-id')}`,
-  })));
-  const matrixRepresentableIds = serialized
-    .filter((event) => event.companies.length > 0 || event.people.length > 0)
-    .map(({ id }) => id);
-  expect(new Set(marks.map(({ id }) => id))).toEqual(new Set(matrixRepresentableIds));
-  expect(matrixRepresentableIds).not.toContain('ecosystem-2026-08-pss-3-1-public-review');
-  for (const mark of marks) {
-    const event = eventById.get(mark.id);
-    const expectedBand = bandForYear(Number(event.start.slice(0, 4)));
-    expect(mark.originalX, `${mark.id} uses its progressive projection`).toBeCloseTo(expectedX(event), 10);
-    expect(mark.placementTimestamp, `${mark.id} retains exact placement timestamp`).toBe(visualTimestamp(event));
-    expect(mark.timeBand).toBe(expectedBand.key);
-    expect(mark.timeZone).toBe(expectedBand.zone);
-    expect(mark.timeResolution).toBe(expectedBand.resolution);
-    expect(mark.bundleMode).toBe(expectedBand.zone === 'recent' ? 'proximity' : 'period');
-  }
-
-  const xByEvent = new Map();
-  marks.forEach(({ id, originalX }) => {
-    const positions = xByEvent.get(id) ?? [];
-    positions.push(originalX);
-    xByEvent.set(id, positions);
-  });
-  for (const [id, positions] of xByEvent) {
-    expect(new Set(positions).size, `${id} retains one precise x across rows`).toBe(1);
-  }
-  // Placement semantics are derived from each band's current mode: continuous recent years
-  // give distinct in-year positions, bucket periods share one centre, and the newest band
-  // always sits left of the oldest.
-  const marksForBand = (key) => marks.filter(({ timeBand }) => timeBand === key);
-  const continuousKey = bands
-    .filter(({ resolution }) => resolution === 'continuous')
-    .map(({ key }) => key)
-    .find((key) => new Set(marksForBand(key).map(({ placementTimestamp }) => placementTimestamp)).size > 1);
-  expect(continuousKey, 'the corpus must place two distinct Events in one recent year').toBeTruthy();
-  const continuousMarks = marksForBand(continuousKey);
-  expect(new Set(continuousMarks.map(({ originalX }) => originalX)).size)
-    .toBe(new Set(continuousMarks.map(({ placementTimestamp }) => placementTimestamp)).size);
-  expect(new Set(continuousMarks.map(({ originalX }) => originalX)).size).toBeGreaterThan(1);
-
-  const bucketKey = bands
-    .filter(({ resolution }) => resolution === 'bucket')
-    .map(({ key }) => key)
-    .find((key) => marksForBand(key).length > 1);
-  expect(bucketKey, 'the corpus must place two Events in one earlier period').toBeTruthy();
-  expect(new Set(marksForBand(bucketKey).map(({ originalX }) => originalX)).size).toBe(1);
-
-  const newestMark = marksForBand(bands[0].key)[0];
-  const oldestMark = marksForBand(bands.at(-1).key)[0];
-  expect(newestMark, 'the newest band must render an Event').toBeTruthy();
-  expect(oldestMark, 'the oldest band must render an Event').toBeTruthy();
-  expect(newestMark.originalX).toBeLessThan(oldestMark.originalX);
-
-  const proximityPx = Number(await page.locator('.activity-matrix-shell').getAttribute('data-bundle-proximity-px'));
-  expect(proximityPx).toBe(32);
-  const normalizedWindow = (proximityPx / trackWidth) * 100;
   const rows = await page.locator('[data-matrix-row]').evaluateAll((nodes) => nodes.map((node) => ({
     lane: `${node.getAttribute('data-lane-type')}:${node.getAttribute('data-entity-id')}`,
     visualRowCount: Number(node.getAttribute('data-visual-row-count')),
-    height: node.getBoundingClientRect().height,
+    height: Number.parseFloat(node.style.getPropertyValue('--matrix-row-height')),
+    borderBottom: getComputedStyle(node).borderBottomWidth,
+    baselineContent: getComputedStyle(node.querySelector('[data-matrix-track]'), '::before').content,
     bundles: [...node.querySelectorAll('[data-matrix-bundle]')].map((bundle) => ({
       ids: JSON.parse(bundle.getAttribute('data-bundle-event-ids')),
       x: Number(bundle.getAttribute('data-bundle-x')),
@@ -500,12 +364,8 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
       zone: bundle.getAttribute('data-time-zone'),
       resolution: bundle.getAttribute('data-time-resolution'),
       bandKeys: JSON.parse(bundle.getAttribute('data-time-band-keys')),
-      window: bundle.hasAttribute('data-bundle-window')
-        ? Number(bundle.getAttribute('data-bundle-window'))
-        : null,
-      windowPx: bundle.hasAttribute('data-bundle-window-px')
-        ? Number(bundle.getAttribute('data-bundle-window-px'))
-        : null,
+      window: bundle.hasAttribute('data-bundle-window') ? Number(bundle.getAttribute('data-bundle-window')) : null,
+      windowPx: bundle.hasAttribute('data-bundle-window-px') ? Number(bundle.getAttribute('data-bundle-window-px')) : null,
       members: [...bundle.querySelectorAll('[data-bundle-member]')].map((member) => ({
         id: member.getAttribute('data-event-id'),
         x: Number(member.getAttribute('data-original-event-x')),
@@ -514,104 +374,28 @@ test('global Activity Matrix uses progressive time bands and deterministic bundl
         zone: member.getAttribute('data-time-zone'),
       })),
     })),
-    borderBottom: getComputedStyle(node).borderBottomWidth,
-    baselineContent: getComputedStyle(node.querySelector('[data-matrix-track]'), '::before').content,
   })));
-  expect(rows.every(({ visualRowCount }) => visualRowCount >= 1)).toBe(true);
-  expect(rows.some(({ height }) => height === 28)).toBe(true);
-  expect(rows.some(({ height }) => height > 28)).toBe(true);
-  expect(Math.max(...rows.flatMap(({ bundles }) => bundles.map(({ ids }) => ids.length)))).toBeGreaterThanOrEqual(4);
-  // Per-lane visual-row counts, multi-row lane sets and named bundle composition are
-  // corpus-density snapshots owned by the Node geometry contracts, not by this test.
-  expect(rows.some(({ visualRowCount }) => visualRowCount > 1)).toBe(true);
-  expect(rows.flatMap(({ bundles }) => bundles).some(({ mode }) => mode === 'proximity'))
-    .toBe(true);
-  expect(rows.flatMap(({ bundles }) => bundles).some(({ mode }) => mode === 'period'))
-    .toBe(true);
-
-  for (const row of rows) {
-    expect(row.borderBottom, `${row.lane} has no row rule`).toBe('0px');
-    expect(row.baselineContent, `${row.lane} has no permanent baseline`).toBe('none');
-
-    const allMembers = row.bundles.flatMap(({ members }) => members);
-    const recentMembers = allMembers.filter(({ zone }) => zone === 'recent')
-      .map((member) => ({ ...member, xPx: expectedXPx(eventById.get(member.id)) }))
-      .sort((left, right) => left.xPx - right.xPx || left.id.localeCompare(right.id, 'en'));
-    const expectedRecentGroups = [];
-    for (const member of recentMembers) {
-      const current = expectedRecentGroups.at(-1);
-      // Compare in pixels so an inclusive 32px boundary survives percentage rounding.
-      if (!current || member.xPx - current[0].xPx > proximityPx) expectedRecentGroups.push([member]);
-      else current.push(member);
-    }
-    const expectedGroups = [
-      ...expectedRecentGroups.map((members) => ({ mode: 'proximity', members })),
-      ...bands.filter(({ zone }) => zone === 'earlier').flatMap((band) => {
-        const members = allMembers.filter((member) => member.band === band.key);
-        return members.length ? [{ mode: 'period', members }] : [];
-      }),
-    ].map(({ mode, members }) => {
-      const ordered = members.slice().sort((left, right) => (
-        right.timestamp - left.timestamp || left.id.localeCompare(right.id, 'en')
-      ));
-      return {
-        mode,
-        ids: ordered.map(({ id }) => id),
-        x: ordered.reduce((sum, member) => sum + member.x, 0) / ordered.length,
-      };
-    }).sort((left, right) => left.x - right.x || left.ids.join('|').localeCompare(right.ids.join('|'), 'en'));
-    expect(row.bundles.map(({ mode, ids }) => ({ mode, ids })), `${row.lane} deterministic membership`)
-      .toEqual(expectedGroups.map(({ mode, ids }) => ({ mode, ids })));
-
-    for (const bundle of row.bundles) {
-      expect(bundle.columns).toBe(expectedActivityBundleColumns(bundle.ids.length));
-      expect(bundle.rowCount).toBe(Math.ceil(bundle.ids.length / bundle.columns));
-      expect(bundle.bundleWidthPx).toBe((bundle.columns * 18) + ((bundle.columns - 1) * 2));
-      expect(bundle.collisionWidthPx).toBe(bundle.bundleWidthPx);
-      expect(bundle.x, `${row.lane} bundle mean`).toBeCloseTo(
-        bundle.members.reduce((sum, member) => sum + member.x, 0) / bundle.members.length,
-        10,
-      );
-      expect(bundle.members.map(({ id }) => id)).toEqual(bundle.ids);
-      expect(bundle.members).toEqual(bundle.members.slice().sort((left, right) => (
-        right.timestamp - left.timestamp || left.id.localeCompare(right.id, 'en')
-      )));
-      if (bundle.mode === 'proximity') {
-        expect(bundle.zone).toBe('recent');
-        expect(bundle.resolution).toBe('continuous');
-        expect(bundle.window).toBeCloseTo(normalizedWindow, 10);
-        expect(bundle.windowPx).toBe(32);
-        expect(bundle.maxX - bundle.minX, `${row.lane} bounded recent span`)
-          .toBeLessThanOrEqual(normalizedWindow + 1e-10);
-        expect(bundle.maxDisplacement, `${row.lane} bounded recent displacement`)
-          .toBeLessThanOrEqual(normalizedWindow + 1e-10);
-      } else {
-        expect(bundle.zone).toBe('earlier');
-        expect(bundle.resolution).toBe('bucket');
-        expect(bundle.bandKeys).toHaveLength(1);
-        expect(bundle.window).toBeNull();
-        expect(bundle.windowPx).toBeNull();
-        expect(new Set(bundle.members.map(({ band }) => band)).size).toBe(1);
-        expect(new Set(bundle.members.map(({ x }) => x)).size).toBe(1);
-        expect(bundle.maxDisplacement).toBe(0);
-      }
-    }
-
-    for (let left = 0; left < row.bundles.length; left += 1) {
-      for (let right = left + 1; right < row.bundles.length; right += 1) {
-        const leftBundle = row.bundles[left];
-        const rightBundle = row.bundles[right];
-        const verticalOverlap = leftBundle.rowStart < rightBundle.rowEnd
-          && rightBundle.rowStart < leftBundle.rowEnd;
-        if (!verticalOverlap) continue;
-
-        const horizontalSeparation = Math.abs(leftBundle.xPx - rightBundle.xPx)
-          - ((leftBundle.collisionWidthPx + rightBundle.collisionWidthPx) / 2);
-        expect(horizontalSeparation, `${row.lane} bundle rectangles remain separated`)
-          .toBeGreaterThanOrEqual(2 - 1e-10);
-      }
-    }
-  }
+  expect(rows).toEqual(geometry.combinedRows.map((row) => ({
+    lane: `${row.entityType}:${row.entity.data.id}`,
+    visualRowCount: row.visualRowCount,
+    height: row.height,
+    borderBottom: '0px',
+    baselineContent: 'none',
+    bundles: row.bundles.map((bundle) => ({
+      ids: bundle.eventIds, x: bundle.x, xPx: bundle.xPx,
+      minX: bundle.minOriginalX, maxX: bundle.maxOriginalX, maxDisplacement: bundle.maxOriginalDisplacement,
+      columns: bundle.columnCount, rowCount: bundle.rowCount,
+      bundleWidthPx: bundle.bundleWidthPx, collisionWidthPx: bundle.collisionWidthPx,
+      rowStart: bundle.rowStart, rowEnd: bundle.rowEnd, top: bundle.top,
+      mode: bundle.mode, zone: bundle.timeZone, resolution: bundle.timeResolution, bandKeys: bundle.timeBandKeys,
+      window: bundle.mode === 'proximity' ? (32 / geometry.trackWidth) * 100 : null,
+      windowPx: bundle.mode === 'proximity' ? 32 : null,
+      members: bundle.members.map((member) => ({
+        id: member.eventId, x: member.originalX, timestamp: member.placementTimestamp,
+        band: member.timeBandKey, zone: member.timeZone,
+      })),
+    })),
+  })));
 
   const visualOverlaps = await page.locator('[data-group="both"] [data-matrix-row]:visible').evaluateAll((nodes) => (
     nodes.flatMap((row) => {

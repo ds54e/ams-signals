@@ -29,7 +29,7 @@ function event(id: string, start: string, precision: 'day' | 'month' | 'year' = 
   } as unknown as BundleEvent;
 }
 
-const currentDensity = new Map([
+const fixtureDensity = new Map([
   ['year-2026', 7],
   ['year-2025', 4],
   ['year-2024', 3],
@@ -40,7 +40,7 @@ const currentDensity = new Map([
 ]);
 
 test('content-aware Activity Matrix bands derive deterministic widths from the latest corpus year', () => {
-  const bands = deriveActivityMatrixTimeBands(2026, currentDensity);
+  const bands = deriveActivityMatrixTimeBands(2026, fixtureDensity);
 
   assert.deepEqual(bands.map(({ key }) => key), [
     'year-2026',
@@ -95,7 +95,7 @@ test('band sizing clamps recent density and protects earlier labels and bundles'
 });
 
 test('recent time remains chronological across variable-width years while earlier periods share centers', () => {
-  const bands = deriveActivityMatrixTimeBands(2026, currentDensity);
+  const bands = deriveActivityMatrixTimeBands(2026, fixtureDensity);
   const earlyJanuary = projectTimestampToActivityMatrix(Date.UTC(2026, 0, 1, 12), bands);
   const lateDecember = projectTimestampToActivityMatrix(Date.UTC(2025, 11, 31, 12), bands);
 
@@ -128,7 +128,7 @@ test('recent time remains chronological across variable-width years while earlie
 });
 
 test('bundle modes cross recent year boundaries but never cross period boundaries', () => {
-  const bands = deriveActivityMatrixTimeBands(2026, currentDensity);
+  const bands = deriveActivityMatrixTimeBands(2026, fixtureDensity);
   const recentBoundaryBundle = buildActivityMatrixBundles([
     event('late-december', '2025-12-31'),
     event('early-january', '2026-01-01'),
@@ -174,7 +174,7 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   for (const [memberCount, collisionWidthPx] of [[1, 18], [2, 38], [3, 58], [4, 38], [5, 58], [6, 58]]) {
     const [bundle] = buildActivityMatrixBundles(
       Array.from({ length: memberCount }, (_, index) => event(`period-${memberCount}-${index}`, '2023', 'year')),
-      deriveActivityMatrixTimeBands(2026, currentDensity),
+      deriveActivityMatrixTimeBands(2026, fixtureDensity),
     );
     assert.equal(bundle.bundleWidthPx, collisionWidthPx);
     assert.equal(bundle.collisionWidthPx, collisionWidthPx);
@@ -214,6 +214,42 @@ test('bundles use the narrowest columns that preserve minimum rows and actual co
   assert.ok(Math.abs(bundles[1].xPx - bundles[0].xPx) > 32);
   assert.ok(Math.abs(bundles[1].xPx - bundles[0].xPx) < 52);
   assert.notEqual(bundles[0].rowStart, bundles[1].rowStart);
+});
+
+test('recent proximity includes the exact 32px boundary and excludes the next day', () => {
+  const bands = deriveActivityMatrixTimeBands(2026, { 'year-2026': 20 });
+  const newer = event('newer', '2026-03-15');
+  const boundary = event('boundary', '2026-01-01');
+  const outside = event('outside', '2025-12-31');
+  const positions = [newer, boundary, outside].map(({ data }) => (
+    projectTimestampToActivityMatrix(Date.parse(`${data.when.start}T12:00:00Z`), bands).xPx
+  ));
+  assert.equal(positions[1] - positions[0], 32);
+  assert.ok(positions[2] - positions[0] > 32);
+  assert.deepEqual(buildActivityMatrixBundles([outside, boundary, newer], bands)
+    .map(({ eventIds }) => eventIds), [['newer', 'boundary'], ['outside']]);
+});
+
+test('recent bundles use their first Event as the anchor without percentage-rounding or neighbor chaining', () => {
+  const densities: Array<Record<string, number>> = [
+    { 'year-2026': 20 },
+    // A 708px track reproduces the percentage-rounding failure independently of live content.
+    { 'year-2026': 20, 'year-2025': 6, 'year-2024': 4, 'year-2023': 3, 'through-2014': 5 },
+  ];
+  // These dates exercise the 73-day/32px boundary exposed by the student corpus update.
+  const events = [
+    event('anchor', '2026-08-20'),
+    event('middle', '2026-07-06'),
+    event('boundary', '2026-06-08'),
+    event('outside', '2026-06-07'),
+  ];
+  const expected = [['anchor', 'middle', 'boundary'], ['outside']];
+  for (const density of densities) {
+    const bands = deriveActivityMatrixTimeBands(2026, density);
+    for (const input of [events, [...events].reverse()]) {
+      assert.deepEqual(buildActivityMatrixBundles(input, bands).map(({ eventIds }) => eventIds), expected);
+    }
+  }
 });
 
 test('row-aware packing reuses free visual rows without weakening rectangle separation', () => {
