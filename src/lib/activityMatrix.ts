@@ -415,10 +415,9 @@ function activityMatrixBundlesConflictHorizontally(
   const leftEnd = left.xPx + (left.collisionWidthPx / 2);
   const rightStart = right.xPx - (right.collisionWidthPx / 2);
   const rightEnd = right.xPx + (right.collisionWidthPx / 2);
-  return !(
-    leftEnd + ACTIVITY_MATRIX_BUNDLE_GAP <= rightStart
-    || rightEnd + ACTIVITY_MATRIX_BUNDLE_GAP <= leftStart
-  );
+  // Width already encloses the full hit targets and internal cell gaps.
+  // A separate bundle needs another row only when those rectangles overlap.
+  return leftStart < rightEnd && rightStart < leftEnd;
 }
 
 function activityMatrixRowRangesOverlap(

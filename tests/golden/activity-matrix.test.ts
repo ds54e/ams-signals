@@ -258,8 +258,8 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
   const packableBundles = [
     { xPx: 0, collisionWidthPx: 34, rowCount: 2 },
     { xPx: 100, collisionWidthPx: 34, rowCount: 1 },
-    { xPx: 125, collisionWidthPx: 16, rowCount: 1 },
-    { xPx: 125, collisionWidthPx: 16, rowCount: 1 },
+    { xPx: 124, collisionWidthPx: 16, rowCount: 1 },
+    { xPx: 124, collisionWidthPx: 16, rowCount: 1 },
   ];
   const expectedPlacements = [
     { rowStart: 0, rowEnd: 2 },
@@ -287,4 +287,27 @@ test('row-aware packing reuses free visual rows without weakening rectangle sepa
       assert.ok(horizontalSeparation >= ACTIVITY_MATRIX_BUNDLE_GAP);
     }
   }
+});
+
+test('separate bundles reuse rows across a positive sub-gap clearance or touching edges', () => {
+  // Full 18px targets fit: adding the internal cell gap outside the bundle
+  // would unnecessarily move the two-row bundle down and create a third row.
+  assert.deepEqual(packActivityMatrixBundleRows([
+    { xPx: 0, collisionWidthPx: 58, rowCount: 1 },
+    { xPx: 49.5, collisionWidthPx: 38, rowCount: 2 },
+  ]), [{ rowStart: 0, rowEnd: 1 }, { rowStart: 0, rowEnd: 2 }]);
+
+  for (const distance of [18, 18.01, 19.99]) {
+    assert.deepEqual(packActivityMatrixBundleRows([
+      { xPx: 0, collisionWidthPx: 18, rowCount: 1 },
+      { xPx: distance, collisionWidthPx: 18, rowCount: 1 },
+    ]), [{ rowStart: 0, rowEnd: 1 }, { rowStart: 0, rowEnd: 1 }]);
+  }
+});
+
+test('even a fractional overlap of full hit targets requires separate rows', () => {
+  assert.deepEqual(packActivityMatrixBundleRows([
+    { xPx: 0, collisionWidthPx: 18, rowCount: 1 },
+    { xPx: 17.99, collisionWidthPx: 18, rowCount: 1 },
+  ]), [{ rowStart: 0, rowEnd: 1 }, { rowStart: 1, rowEnd: 2 }]);
 });
