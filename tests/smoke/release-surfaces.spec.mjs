@@ -7,6 +7,7 @@
 // release-navigation.spec.mjs.
 
 import { expect, test } from '@playwright/test';
+import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
   basePath,
   countStatus,
@@ -143,16 +144,12 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(page.locator('.event-filter-utility > .event-filter-summary > *')).toHaveCount(1);
   await expect(page.locator('.event-filter-utility .event-filter-summary .kind-legend')).toHaveCount(0);
   await expect(page.getByText('Newest first', { exact: true })).toHaveCount(0);
-  await expect(page.locator(
-    '[data-event-result][data-event-id="stijn-ringeling-2026-ml-sigma-delta-evaluation"]',
-  )).toBeVisible();
-  await expect(page.locator(
-    '[data-event-result][data-event-id="ecosystem-2026-08-pss-3-1-public-review"]',
-  )).toBeVisible();
 
   const ids = await page.locator('[data-event-result]').evaluateAll((events) => events.map((event) => event.getAttribute('data-event-id')));
   expect(ids.length).toBeGreaterThan(0);
   expect(new Set(ids).size).toBe(ids.length);
+  const { events: sourceEvents } = await loadGoldenCorpus();
+  expect([...ids].sort()).toEqual(sourceEvents.map(({ id }) => id).sort());
   await expect(page.locator('[data-event-result]').first().locator('time')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.signal-type')).toBeVisible();
   await expect(page.locator('[data-event-result]').first().locator('.result-fact')).toBeVisible();

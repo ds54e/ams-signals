@@ -6,6 +6,7 @@
 // release-discovery.spec.mjs, and Activity Matrix geometry in release-matrix.spec.mjs.
 
 import { expect, test } from '@playwright/test';
+import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
   basePath,
   expectExplorerReady,
@@ -156,11 +157,19 @@ test('Company and Person Timeline labels occlude active Event marks', async ({ p
   });
   expect(axisTopmost, 'Timeline axis label remains topmost').toBe(true);
 
+  const { events, people } = await loadGoldenCorpus();
+  const candidates = people.map(({ id }) => {
+    const years = events.filter(({ data }) => data.people.includes(id))
+      .map(({ data }) => Number(data.when.start.slice(0, 4)));
+    return { id, count: years.length, span: Math.max(...years) - Math.min(...years) };
+  }).filter(({ count }) => count >= 2).sort((a, b) => b.count - a.count || b.span - a.span || a.id.localeCompare(b.id));
+  expect(candidates.length, 'a multi-year Person trajectory supplies scroll occlusion').toBeGreaterThan(0);
+  const personId = candidates[0].id;
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('./people/aadhar-sharma/');
+  await page.goto(`./people/${personId}/`);
   await expectExplorerReady(page);
   await expectStickyLabelToOccludeActiveMark(page, {
-    rowSelector: '[data-group="people"] [data-lane][data-entity-id="aadhar-sharma"]',
+    rowSelector: `[data-group="people"] [data-lane][data-entity-id="${personId}"]`,
     labelSelector: '.lane-label',
     markSelector: '.event-mark',
   });

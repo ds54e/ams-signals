@@ -6,6 +6,7 @@ Read the guide and sections needed for the task. Each document owns one current 
 | --- | --- |
 | Product purpose and research boundaries | [Product Context](../PROJECT_CONTEXT.md) |
 | Agent working rules and task routing | [Root guidance](../AGENTS.md) |
+| Golden editing and record validation | [Golden guidance](../src/data/AGENTS.md) / [content schema](../src/content.config.ts) |
 | Timeline, Events, Company/Person behavior | [Timeline contract](TIMELINE.md) |
 | Shared catalog curation, data, activity and interaction | [Catalog contract](catalog/CONTRACT.md) |
 | Domain-specific stages and schema differences | [Analog](analog/README.md) / [Digital](digital/README.md) |

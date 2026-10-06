@@ -1,0 +1,29 @@
+{
+  "id": "infineon-2026-06-systemc-ams-virtual-testing-thesis",
+  "when": {
+    "start": "2026-06-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Doctoral thesis reports SystemC-AMS virtual testing for gate-driver test hardware",
+  "fact": "Davide Turossi reported defending his doctoral thesis at the University of Milano-Bicocca on June 4, 2026 and explicitly thanked Infineon for hosting and supporting the research. The university abstract describes a SystemC-AMS/COSIDE framework modeling automatic test equipment, devices under test and probe-card circuitry. Its gate-driver cases address over-current protection and output peak-current measurement, comparing virtual test solutions with measurements on manufactured hardware. This records the thesis and acknowledged research support, not company-wide adoption.",
+  "sources": [
+    {
+      "title": "University record: SystemC-AMS virtual testing dissertation",
+      "url": "https://boa.unimib.it/handle/10281/610004",
+      "checkedAt": "2026-10-06",
+      "summary": "The official indexed record identifies the 2026 dissertation, June 4 defense and SystemC-AMS/COSIDE gate-driver case studies. Direct retrieval was access-limited; the public abstract was checked, but the thesis PDF was not reviewed.",
+      "status": "unavailable"
+    },
+    {
+      "title": "Davide Turossi: doctoral defense and research acknowledgments",
+      "url": "https://it.linkedin.com/in/davide-turossi-514a09205",
+      "checkedAt": "2026-10-06",
+      "summary": "The author explicitly reports the June 4, 2026 defense and Infineon hospitality/support during the PhD. Current employment is not used to infer the research affiliation."
+    }
+  ]
+}

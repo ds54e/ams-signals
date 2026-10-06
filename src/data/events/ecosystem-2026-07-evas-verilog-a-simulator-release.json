@@ -1,0 +1,32 @@
+{
+  "id": "ecosystem-2026-07-evas-verilog-a-simulator-release",
+  "when": {
+    "start": "2026-07-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "EVAS v0.8.7 publishes an event-driven simulator for Verilog-A behavioral circuit models",
+  "fact": "The evas-sim v0.8.7 release publishes an open-code, event-driven simulator for voltage-based Verilog-A behavioral models. Its documented scope includes ADC/DAC examples, comparators, clocks, control and calibration logic. It supports a behavioral subset rather than a complete Verilog-AMS implementation, and does not provide a KCL/KVL or MNA circuit solver. July 28 dates this version release, not necessarily the initial publication of the project; no corporate affiliation is inferred.",
+  "sources": [
+    {
+      "title": "evas-sim 0.8.7 on PyPI",
+      "url": "https://pypi.org/project/evas-sim/0.8.7/",
+      "checkedAt": "2026-10-06",
+      "summary": "The version-specific package record gives July 28, 2026 upload dates and documents voltage-based behavioral modeling, examples and unsupported circuit-solver functionality."
+    },
+    {
+      "title": "EVAS public implementation",
+      "url": "https://github.com/Arcadia-1/EVAS",
+      "checkedAt": "2026-10-06",
+      "summary": "The public README describes supported Verilog-A behavioral constructs and simulation limits."
+    },
+    {
+      "title": "EVAS changelog",
+      "url": "https://github.com/Arcadia-1/EVAS/blob/main/CHANGELOG.md",
+      "checkedAt": "2026-10-06",
+      "summary": "The changelog records the 0.8.x changes; individual patches are not separate Events."
+    }
+  ]
+}

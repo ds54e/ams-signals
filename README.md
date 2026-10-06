@@ -1,6 +1,6 @@
 # AMS Signals
 
-AMS Signals is a technical research site for public RNM and mixed-signal verification activity, with independent Analog and Digital project catalogs.
+AMS Signals is a technical research site for public AMS circuit modeling and mixed-signal verification activity, with independent Analog and Digital project catalogs. [Product Context](PROJECT_CONTEXT.md#bounded-source-grounded-research) defines the eligible modeling languages, circuit scope and evidence boundaries.
 
 [Visit the site](https://ams-signals.com/) or use the deterministic [factual export](https://ams-signals.com/export.json).
 

@@ -19,7 +19,7 @@
 | Verification and test ownership | [docs/TESTING.md](docs/TESTING.md) |
 | Publication | [RELEASING.md](RELEASING.md) |
 
-Read the sections needed for the task. Scoped guides also cover associated sibling content/page/test/documentation paths; do not assume Codex loads every descendant `AGENTS.md` automatically. Repository skills under `.agents/skills/` apply only to their stated workflows.
+Read the sections needed for the task, including the relevant scoped guide explicitly. Codex discovers project instructions along the root-to-current-directory ancestor path; this does not load every descendant guide. Scoped guides also cover associated sibling content/page/test/documentation paths. Repository skills under `.agents/skills/` apply only to their stated workflows.
 
 ## Verification and Git
 

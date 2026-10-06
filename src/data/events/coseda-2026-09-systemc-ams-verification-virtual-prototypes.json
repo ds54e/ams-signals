@@ -1,0 +1,30 @@
+{
+  "id": "coseda-2026-09-systemc-ams-verification-virtual-prototypes",
+  "when": {
+    "start": "2026-09-10",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "coseda-technologies"
+  ],
+  "people": [
+    "thilo-voertler"
+  ],
+  "headline": "COSEDA tutorial presents SystemC-AMS virtual prototypes as verification reference models",
+  "fact": "The DVCon Japan program lists a tutorial by COSEDA presenters Thilo Vörtler and Karsten Einwich on SystemC and SystemC-AMS virtual prototypes. Its published scope covers executable specifications for heterogeneous systems, analog/digital/software test development and reference models for implementation verification. The tutorial also previews future SystemC-AMS standardization; a preview is not a formally issued standard.",
+  "sources": [
+    {
+      "title": "COSEDA at DVCon Japan 2026",
+      "url": "https://coseda-tech.com/news-reader/coseda-dvcon-japan-2026",
+      "checkedAt": "2026-10-06",
+      "summary": "COSEDA identifies its presenters, September 10 tutorial and executable-specification, test-development and reference-model scope."
+    },
+    {
+      "title": "DVCon Japan 2026 official program",
+      "url": "https://www.dvcon-jpn.org/program/contents/",
+      "checkedAt": "2026-10-06",
+      "summary": "The program lists the SystemC/SystemC-AMS tutorial and COSEDA affiliations. This establishes the listed presentation and its advertised content."
+    }
+  ]
+}

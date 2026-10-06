@@ -12,13 +12,19 @@
     "augusto-mafra"
   ],
   "headline": "FMCAD paper reports SMT-based formal verification of SystemVerilog RNM",
-  "fact": "TU Wien's repository made available an FMCAD 2026 paper by Augusto Mafra and Haniel Barbosa describing a formal-verification flow for SystemVerilog real-number models built by extending Yosys and Pono. The paper compares SMT model checking with real-arithmetic and IEEE floating-point interpretations on 31 mixed-signal benchmarks, documenting performance and semantic tradeoffs.",
+  "fact": "TU Wien's repository made available Augusto Mafra and Haniel Barbosa's FMCAD paper on formal verification of SystemVerilog RNM by extending Yosys and Pono. The study uses 31 benchmarks: 17 public GPL-3.0 benchmarks and 14 built from proprietary Cadence models/testbenches. It compares real-arithmetic and IEEE floating-point SMT interpretations, whose semantics can produce different verification results. The v2.0.5 public implementation provides benchmarks, results and fixed revisions of Yosys, Pono and smt-switch. This is a research flow, not a claimed Jasper product feature; September 2 dates the paper's repository availability.",
   "sources": [
     {
       "title": "Formal Verification of Mixed-Signal Systems Using Real Number Modeling with SMT-based Model Checking",
       "url": "https://repositum.tuwien.at/handle/20.500.12708/230518?mode=full",
-      "checkedAt": "2026-09-09",
-      "summary": "The proceedings record identifies the authors, Yosys/Pono benchmark study, and Cadence Systems Verification Group and UFMG affiliations. It lists September 2026 publication and September 2 repository availability; the Event dates that availability, not a conference presentation. The reported flow is not identified as a Jasper product feature."
+      "checkedAt": "2026-10-06",
+      "summary": "The record gives September 2 repository availability. The full paper distinguishes 17 GPL-3.0 public and 14 proprietary Cadence benchmarks, mathematical-real versus IEEE floating-point semantics, and research-tool forks rather than a Jasper feature."
+    },
+    {
+      "title": "Public RNM formal-verification implementation v2.0.5",
+      "url": "https://github.com/augustomafra/sv_rnm_formal_verification/tree/v2.0.5",
+      "checkedAt": "2026-10-06",
+      "summary": "Public benchmarks, GPL-3.0 license, logs and results; README pins Yosys a726634e9e9883709f94c5e479ce8558af3da704, Pono 3e1453cfa5d18616b05424c8af00d74aa41b4292 and smt-switch 5815833ed9b553ef594a8236b1b0ca323fc6c1f5."
     }
   ]
 }
