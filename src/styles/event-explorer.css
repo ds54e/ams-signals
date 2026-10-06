@@ -312,8 +312,13 @@
 .timeline-mark.event-kind-organizational .timeline-glyph,
 .legend-mark.event-kind-organizational { background: var(--timeline-organizational-fill); border-radius: 0; }
 .timeline-mark:hover { z-index: 5; }
-.timeline-mark:hover .timeline-glyph,
-.timeline-mark.is-active .timeline-glyph { transform: scale(1.15); }
+.timeline-mark:hover .timeline-glyph { transform: scale(1.15); }
+.timeline-mark.is-active .timeline-glyph {
+  transform: none;
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--timeline-selection-outline);
+}
 .timeline-mark.is-active { z-index: 5; }
 .event-mark {
   position: absolute;
@@ -600,6 +605,12 @@
   .timeline-mark.event-kind-organizational .timeline-glyph,
   .legend-mark.event-kind-technical,
   .legend-mark.event-kind-organizational { background: CanvasText; }
+  /* Use system ink instead of theme shadows in forced colors. */
+  .timeline-mark.is-active .timeline-glyph {
+    box-shadow: none;
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
 }
 
 @media (max-width: 520px) { .matrix-entity-label { font-size: 12px; } }

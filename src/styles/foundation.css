@@ -26,6 +26,7 @@
   --activity-active: #6089ad;
   --technical: var(--category-blue);
   --organizational: var(--category-rust);
+  --timeline-selection-outline: #242b30;
   --entity-company: #242b30;
   --entity-person: #4b6d89;
   --danger-muted: #8b4b43;
@@ -76,6 +77,7 @@
     --provenance-border: #8d7a99;
     --activity-empty: #303933;
     --activity-active: #8fa9be;
+    --timeline-selection-outline: #edf2ed;
     --entity-company: var(--text);
     --entity-person: var(--category-blue);
     --danger-muted: #d29489;
