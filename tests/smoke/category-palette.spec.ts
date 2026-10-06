@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'red' };
 const kindColors = { technical: 'blue', organizational: 'rust' };
+const timelineColors = { technical: 'rgb(75, 109, 137)', organizational: 'rgb(136, 100, 84)' };
 
 function contrast(first: string, second: string) {
   const luminance = (color: string) => color.match(/[\d.]+/g)!.slice(0, 3).map(Number)
@@ -59,14 +60,14 @@ function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkCont
     if (checkContrast) expect(contrast(badge.ink, badge.development ? pageBackground : badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
   }
   for (const glyph of glyphs) {
-    expect(glyph.fill).toBe(tokens[kindColors[glyph.kind as keyof typeof kindColors]]);
-    expect(glyph.shape).toBe(glyph.kind === 'technical' ? '50%' : '2px');
+    expect(glyph.fill).toBe(timelineColors[glyph.kind as keyof typeof timelineColors]);
+    expect(glyph.shape).toBe(glyph.kind === 'technical' ? '50%' : '0px');
     if (checkContrast) for (const surface of surfaces) expect(contrast(glyph.fill, surface), 'Timeline glyph contrast').toBeGreaterThanOrEqual(3);
   }
 }
 
 for (const colorScheme of ['light', 'dark'] as const) {
-  test(`one categorical palette reaches Catalog, Events and every Timeline view in ${colorScheme} mode`, async ({ page }) => {
+  test(`category labels and the fixed Timeline palette agree across views in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
     let foundation: Record<string, string> | undefined;
     for (const route of ['analog/', 'digital/', 'events/', '', 'companies/apple/', 'people/toshi-kawashima/']) {
@@ -80,7 +81,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       if (catalog || route === 'events/') expect(actual.badges.length).toBeGreaterThan(0);
       else expect(actual.glyphs.length).toBeGreaterThan(0);
 
-      // A single token edit must propagate; identical hard-coded fills would fail this check.
+      // Label tokens propagate while the plot retains its fixed blue/rust fills.
       const replacements = { green: 'rgb(61, 83, 70)', blue: 'rgb(56, 74, 96)', gold: 'rgb(100, 93, 56)',
         rust: 'rgb(112, 79, 61)', red: 'rgb(110, 66, 79)', ink: 'rgb(239, 241, 236)' };
       await page.evaluate((values) => {

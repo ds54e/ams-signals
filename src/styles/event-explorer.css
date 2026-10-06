@@ -1,4 +1,9 @@
-.event-explorer { --timeline-glyph-size: 8px; --timeline-active-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); min-width: 0; }
+.event-explorer {
+  --timeline-glyph-size: 8px;
+  --timeline-technical-fill: #4b6d89;
+  --timeline-organizational-fill: #886454;
+  min-width: 0;
+}
 .event-explorer[data-surface="events"] {
   width: min(100%, var(--layout-listing));
   margin-inline: auto;
@@ -169,7 +174,7 @@
   font-size: var(--type-micro);
 }
 .kind-legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend-mark { width: 10px; height: 10px; display: inline-block; border-radius: 50%; }
+.legend-mark { width: var(--timeline-glyph-size); height: var(--timeline-glyph-size); display: inline-block; border-radius: 50%; }
 
 .timeline-workspace {
   position: relative;
@@ -294,19 +299,19 @@
 .timeline-glyph {
   width: var(--timeline-glyph-size);
   height: var(--timeline-glyph-size);
-  border: 1px solid color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 0;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 24%, transparent);
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  box-shadow: none;
+  transition: transform 120ms ease;
 }
 .timeline-mark.event-kind-technical .timeline-glyph,
-.legend-mark.event-kind-technical { background: var(--technical); }
+.legend-mark.event-kind-technical { background: var(--timeline-technical-fill); }
 .timeline-mark.event-kind-organizational .timeline-glyph,
-.legend-mark.event-kind-organizational { background: var(--organizational); border-radius: 2px; }
+.legend-mark.event-kind-organizational { background: var(--timeline-organizational-fill); border-radius: 0; }
 .timeline-mark:hover { z-index: 5; }
-.timeline-mark:hover .timeline-glyph { transform: scale(1.15); }
+.timeline-mark:hover .timeline-glyph,
+.timeline-mark.is-active .timeline-glyph { transform: scale(1.15); }
 .timeline-mark.is-active { z-index: 5; }
-.timeline-mark.is-active .timeline-glyph { box-shadow: var(--timeline-active-ring); }
 .event-mark {
   position: absolute;
   left: var(--x);
@@ -569,8 +574,9 @@
 }
 
 @media (forced-colors: active) {
-  .timeline-glyph { forced-color-adjust: none; border-color: CanvasText; box-shadow: none; }
+  .timeline-glyph, .legend-mark { forced-color-adjust: none; }
   .timeline-mark.event-kind-technical .timeline-glyph,
-  .timeline-mark.event-kind-organizational .timeline-glyph { background: CanvasText; }
-  .timeline-mark.is-active .timeline-glyph { box-shadow: 0 0 0 2px Canvas, 0 0 0 4px Highlight; }
+  .timeline-mark.event-kind-organizational .timeline-glyph,
+  .legend-mark.event-kind-technical,
+  .legend-mark.event-kind-organizational { background: CanvasText; }
 }

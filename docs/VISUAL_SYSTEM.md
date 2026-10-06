@@ -63,7 +63,7 @@ Catalog Search is about 300px and Scope select 150px; the 13px normal-weight res
 
 `.category-label` owns uppercase system-sans 10px/600, 1.4 line height, 0.025em tracking, 3px radius and 3px by 5px padding. Catalog and Event labels share geometry and typography. Functional classes only map `--category-fill`; AI-prefixed stages inherit their stage color. Timeline legends remain lighter and retain category shapes.
 
-`foundation.css` owns the five category families; `--technical` aliases blue and `--organizational` aliases rust. No independent palette literals or theme overrides belong in catalog/Event styles. This is visual consistency, not a merger of Golden kinds and catalog Scope.
+`foundation.css` owns the five category families; `--technical` aliases blue and `--organizational` aliases rust for labels. Catalog/Event labels use these theme-aware tokens. Timeline glyphs and legends use the fixed blue/rust fills described below. This is visual consistency, not a merger of Golden kinds and catalog Scope.
 
 | Token | Meaning | Light | Dark |
 | --- | --- | --- | --- |
@@ -83,9 +83,9 @@ Text and shapes carry meaning without color. Shared forced-color labels use Canv
 
 ## Timeline glyphs and targets
 
-All global/Company/Person marks share `.timeline-mark > .timeline-glyph`. Visible glyphs are 8 by 8px: Technical circle, Organizational square with 2px radius. An 18 by 18px transparent button is the hit area. `TIMELINE_HIT_SIZE` owns that dimension for context placement, Matrix packing and the CSS variable, so overlapping targets are not hidden behind smaller packing rectangles.
+All global/Company/Person marks share `.timeline-mark > .timeline-glyph`. Visible glyphs and legends are 8 by 8px: Technical is a solid #4b6d89 circle, Organizational a solid #886454 square without rounded corners. `event-explorer.css` owns their shared fill tokens, fixed across light/dark themes. Glyphs have no border, outer outline or shadow. An 18 by 18px transparent button is the hit area. `TIMELINE_HIT_SIZE` owns that dimension for context placement, Matrix packing and the CSS variable, so overlapping targets are not hidden behind smaller packing rectangles.
 
-Selection uses a 2px surface gap and 4px outer accent ring; hover scales only the glyph to 1.15. Keyboard focus remains visible on the larger target. Sticky labels occlude scrolling marks without clearing selection. Forced colors retain shapes and a system selection ring. Geometry/filter semantics belong to the [Timeline contract](TIMELINE.md).
+Selection and hover scale only the glyph to 1.15 without adding a ring. Keyboard focus remains visible on the larger target. Sticky labels occlude scrolling marks without clearing selection. Forced colors retain the shapes, matching system fills for glyphs/legends and the same selection scaling. Geometry/filter semantics belong to the [Timeline contract](TIMELINE.md).
 
 ## Review changes, not old screenshots
 

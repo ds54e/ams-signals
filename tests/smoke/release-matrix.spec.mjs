@@ -770,7 +770,7 @@ test('global Matrix is one accessible interleaved view with restrained entity co
       labelOverflow: labelStyle.overflow,
       labelTextOverflow: labelStyle.textOverflow,
       hitWidth: mark.getBoundingClientRect().width,
-      glyphWidth: glyph.getBoundingClientRect().width,
+      glyphWidth: parseFloat(getComputedStyle(glyph).width),
     };
   });
   expect(visualGrammar.rowHeight).toBeGreaterThanOrEqual(28);
