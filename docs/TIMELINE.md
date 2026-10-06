@@ -20,6 +20,8 @@ Global Matrix time runs newest-left through a full-corpus projection anchored to
 
 Recent Events can bundle by fixed temporal proximity; all earlier Events for one entity in a period form one period bundle. Each member retains its Technical/Organizational shape, exact placement timestamp and direct interaction. Widths, bundles, collision slots and row order are not recomputed from filtered results. Individual factual dates remain available through the Inspector and Events.
 
+Vertical packing reuses the first available rows, reserving each bundle's complete hit-target rectangle. The cell gap spaces members inside a bundle; it is not an extra collision margin between separate bundles. Touching or separated rectangles can share rows, while any horizontal overlap requires disjoint row ranges.
+
 Projection, chronological packing, bundle membership and visual collision handling are presentation mechanics. They create no new Golden entity or export field and never rewrite an Event's timing. Context Company/Person Timelines remain a separate geometry contract.
 
 ## Filters and state

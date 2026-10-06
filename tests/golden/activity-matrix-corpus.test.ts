@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   ACTIVITY_MATRIX_BASE_ROW_HEIGHT,
-  ACTIVITY_MATRIX_BUNDLE_GAP,
   ACTIVITY_MATRIX_BUNDLE_PROXIMITY,
   buildActivityMatrixGeometry,
   orderEntitiesByRecentActivity,
@@ -277,8 +276,8 @@ test('packed bundle rectangles never overlap illegally inside a lane', async () 
         const separation = Math.abs(first.xPx - second.xPx)
           - ((first.collisionWidthPx + second.collisionWidthPx) / 2);
         assert.ok(
-          separation >= ACTIVITY_MATRIX_BUNDLE_GAP,
-          `${laneKey(row)} packs ${first.key} and ${second.key} too close in overlapping rows`,
+          separation >= 0,
+          `${laneKey(row)} overlaps full hit-target rectangles for ${first.key} and ${second.key}`,
         );
       }
     }
