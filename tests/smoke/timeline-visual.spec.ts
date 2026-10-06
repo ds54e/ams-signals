@@ -50,6 +50,22 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       expect(await toolbar.evaluate((el) => {
         const s = getComputedStyle(el); return [s.borderTopWidth, s.borderBottomWidth, s.boxShadow];
       })).toEqual(['0px', '0px', 'none']);
+      const labels = page.locator('.matrix-entity-label, .timeline-lane > .lane-label');
+      const labelColors = await labels.evaluateAll((nodes) => nodes.map((el) => ({
+        type: el.closest<HTMLElement>('[data-lane-type]')!.dataset.laneType,
+        color: getComputedStyle(el).color,
+      })));
+      expect(labelColors.length).toBeGreaterThan(0);
+      for (const label of labelColors) {
+        expect(['company', 'person']).toContain(label.type);
+        expect(label.color).toBe(label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(75, 109, 137)');
+      }
+      const firstLabel = page.locator('.matrix-entity-label:visible, .timeline-lane > .lane-label:visible').first();
+      const labelColor = await firstLabel.evaluate((el) => getComputedStyle(el).color);
+      await firstLabel.hover();
+      await expect(firstLabel).toHaveCSS('color', labelColor);
+      await expect(firstLabel).toHaveCSS('text-decoration-line', 'underline');
+      await page.mouse.move(0, 0);
       const marks = page.locator('[data-event-mark]:visible');
       const measured = await marks.evaluateAll((nodes) => nodes.map((el) => {
         const glyph = el.querySelector<HTMLElement>('.timeline-glyph')!;

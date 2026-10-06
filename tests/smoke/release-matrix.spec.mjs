@@ -838,7 +838,8 @@ test('global Matrix is one accessible interleaved view with restrained entity co
       };
     });
     expect(colors.person, `${colorScheme} Person versus Company`).not.toBe(colors.company);
-    expect(colors.person, `${colorScheme} Person versus Technical`).not.toBe(colors.technical);
+    expect(colors.company).toBe(colorScheme === 'light' ? 'rgb(36, 43, 48)' : 'rgb(237, 242, 237)');
+    expect(colors.person).toBe(colorScheme === 'light' ? 'rgb(75, 109, 137)' : 'rgb(143, 169, 190)');
     expect(colors.person, `${colorScheme} Person versus Organizational`).not.toBe(colors.organizational);
     expect(colors.contrast, `${colorScheme} Person label contrast`).toBeGreaterThanOrEqual(4.5);
   }

@@ -2,7 +2,15 @@
   --timeline-glyph-size: 8px;
   --timeline-technical-fill: #4b6d89;
   --timeline-organizational-fill: #886454;
+  --entity-company: #242b30;
+  --entity-person: #4b6d89;
   min-width: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .event-explorer {
+    --entity-company: var(--text);
+    --entity-person: var(--category-blue);
+  }
 }
 .event-explorer[data-surface="events"] {
   width: min(100%, var(--layout-listing));
@@ -241,7 +249,7 @@
   text-decoration: none;
 }
 .timeline-lane:hover .lane-label { background: color-mix(in srgb, var(--surface-tint) 42%, var(--surface)); }
-.lane-label:hover { color: var(--accent-ink); text-decoration: underline; }
+.lane-label:hover { text-decoration: underline; }
 .axis-label {
   z-index: 7;
   color: var(--muted);
@@ -446,12 +454,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.timeline-lane[data-lane-type="company"] > .lane-label,
 .matrix-entity-company { color: var(--entity-company); }
+.timeline-lane[data-lane-type="person"] > .lane-label,
 .matrix-entity-person { color: var(--entity-person); }
 .activity-matrix-row:hover .matrix-entity-label {
   background: color-mix(in srgb, var(--surface-tint) 42%, var(--surface));
 }
-.matrix-entity-label:hover { color: var(--accent-ink); text-decoration: underline; }
+.matrix-entity-label:hover { text-decoration: underline; }
 .activity-bundle {
   position: absolute;
   left: var(--bundle-x);
