@@ -1,0 +1,22 @@
+{
+  "id": "cadence-2026-05-verilog-a-circuit-modeling-tutorials",
+  "when": {
+    "start": "2026-05-06",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Cadence blog introduces Verilog-A tutorials for analog circuit blocks",
+  "fact": "A Cadence official blog introduces Verilog-A teaching material for circuit and functional blocks, including ADCs, DACs, operational transconductance amplifiers, phase detectors and signal sources. It discusses Laplace- and Z-transform modeling for transfer functions. The Event dates the blog introduction, not the initial publication of every linked video, and is limited to circuit-block modeling rather than the device examples also mentioned in the article.",
+  "sources": [
+    {
+      "title": "Analog circuit modeling using Verilog-A in Virtuoso",
+      "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/analog_2d00_circuit_2d00_modeling_2d00_verilog_2d00_a_2d00_virtuoso",
+      "checkedAt": "2026-10-06",
+      "summary": "Official article dated May 6, 2026 introduces circuit-block tutorials and transfer-function models. Some linked teaching videos require customer access; their full contents and first publication dates were not verified."
+    }
+  ]
+}

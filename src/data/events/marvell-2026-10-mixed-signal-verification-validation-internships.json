@@ -1,7 +1,7 @@
 {
   "id": "marvell-2026-10-mixed-signal-verification-validation-internships",
   "when": {
-    "start": "2026-10-05",
+    "start": "2026-09-30",
     "precision": "day"
   },
   "kind": "organizational",
@@ -9,26 +9,14 @@
     "marvell"
   ],
   "people": [],
-  "headline": "Marvell lists student roles spanning broadband AMS verification and automated silicon validation",
-  "fact": "On October 5, Marvell listed related student roles spanning simulation and laboratory validation. The Singapore AMS internship covers broadband-amplifier verification plans, testbenches, simulation analysis and feedback/AGC fundamentals. A Summer 2027 Santa Clara role covers analog validation of amplifiers and optical-interface circuits with automated electrical measurements and Python. An Ottawa 2027 Co-op covers transmitter/receiver measurements, analog/digital feature tests and Python automation for high-speed mixed-signal DSP chips, with an eight-to-twelve-month term.",
+  "headline": "Marvell posts a Singapore AMS verification internship for amplifier verification",
+  "fact": "Marvell posted Singapore AMS Verification Intern – Master’s Degree (2604802) on September 30, 2026. The role assigns verification planning, testbench development and simulation checks for broadband amplifier circuits. Its profile requests control/feedback and automatic-gain-control knowledge; Verilog and Verilog-A are desirable programming experience, rather than explicit commitments to RNM/UVM or model generation. This Event records AMS verification recruitment, not deployed practice; unrelated lab-only validation internships are not included.",
   "sources": [
     {
-      "title": "Marvell: Singapore AMS verification internship — employer LinkedIn posting",
-      "url": "https://sg.linkedin.com/jobs/view/ams-verification-intern-master-s-degree-at-marvell-technology-4471773614",
-      "checkedAt": "2026-10-05",
-      "summary": "Employer posting checked October 5, 2026; first publication is not established. It describes broadband-amplifier mixed-signal verification. RNM/UVM use is not explicitly claimed."
-    },
-    {
-      "title": "Marvell: Summer 2027 AMS validation internship — ASU recruitment listing",
-      "url": "https://career.eoss.asu.edu/jobs/marvell-technology-ams-validation-intern-bs-summer-2027/",
-      "checkedAt": "2026-10-05",
-      "summary": "Employer-supplied university listing dated September 30, 2026, describing amplifier/optical-interface laboratory validation and Python measurement automation. The board date is not asserted as the earliest employer publication."
-    },
-    {
-      "title": "Marvell: Ottawa 2027 IC validation Co-op — employer LinkedIn posting",
-      "url": "https://ca.linkedin.com/jobs/view/ic-validation-engineer-intern-bs-ms-2027-co-op-at-marvell-technology-4472929970",
-      "checkedAt": "2026-10-05",
-      "summary": "Employer posting checked October 5, 2026; first publication is not established. The eight-to-twelve-month Co-op tests transmitter/receiver performance and analog/digital functions of mixed-signal DSP chips with Python automation."
+      "title": "Marvell Careers: Singapore AMS Verification Intern (2604802)",
+      "url": "https://marvell.wd1.myworkdayjobs.com/MarvellCareers/job/Singapore/AMS-Verification-Intern---Master-s-Degree_2604802",
+      "checkedAt": "2026-10-06",
+      "summary": "Official Workday startDate is September 30, 2026. The description concerns amplifier AMS verification and lists Verilog/Verilog-A as desired experience; it does not establish an implemented RNM/UVM flow."
     }
   ]
 }

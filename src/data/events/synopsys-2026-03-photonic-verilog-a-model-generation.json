@@ -1,0 +1,28 @@
+{
+  "id": "synopsys-2026-03-photonic-verilog-a-model-generation",
+  "when": {
+    "start": "2026-03-11",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "Synopsys introduces a 2026 R1 photonic Verilog-A model-generation flow",
+  "fact": "Synopsys announced the Ansys 2026 R1 release with a photonic circuit-design flow connecting OptoCompiler and Lumerical. The release notes describe CML Compiler generating photonic Verilog-A models for PrimeSim HSPICE/SPICE from component data including scattering parameters produced by FDTD, MODE and Multiphysics, enabling electro-optical circuit simulation in OptoCompiler. This records the announced circuit-model flow, rather than a device compact model or a later patch release.",
+  "sources": [
+    {
+      "title": "Synopsys outlines its engineering vision and Ansys 2026 R1 release",
+      "url": "https://news.synopsys.com/2026-03-11-Synopsys-Outlines-Vision-for-Engineering-the-Future",
+      "checkedAt": "2026-10-06",
+      "summary": "The March 11 announcement describes OptoCompiler/Lumerical integration and automated photonic Verilog-A model generation."
+    },
+    {
+      "title": "2026 R1 release notes",
+      "url": "https://optics.ansys.com/hc/en-us/articles/49743302311059-2026-R1-Release-Notes",
+      "checkedAt": "2026-10-06",
+      "summary": "CML Compiler generates photonic Verilog-A models for PrimeSim HSPICE/SPICE and OptoCompiler electro-optical simulation. Version labels do not independently establish publication dates."
+    }
+  ]
+}

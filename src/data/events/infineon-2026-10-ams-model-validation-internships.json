@@ -9,8 +9,8 @@
     "infineon"
   ],
   "people": [],
-  "headline": "Infineon lists AMS internships covering behavioral models, corner validation and regression automation",
-  "fact": "On October 5, Infineon listed related AMS verification internships in Andover and Shanghai. The Andover role assigns Verilog-AMS/SystemVerilog behavioral models, testbenches, regressions and device/system checks under nominal and corner conditions. The Shanghai role covers AMS IP and SoC environments, SPICE/Verilog-AMS/Spectre simulations, RTL/model integration debug, Python-based regression reporting, and validation of model assumptions and corner behavior. These related student hiring signals are grouped in one Event.",
+  "headline": "Infineon lists internships and graduate roles for AMS model verification",
+  "fact": "Infineon AMS verification internships were observed on October 5, 2026, with first posting dates unconfirmed. Andover assigns Verilog-AMS/SystemVerilog behavioral models, testbenches, corner checks and regressions; Shanghai covers AMS IP/SoC environments and RTL/model integration. A related permanent Graduate – Analog Mixed-Signal Design Verification Engineer role (HRC1763746), observed October 6, specifies Verilog-AMS/SystemVerilog model generation and maintenance, testbenches, nominal/corner simulation, fault injection and regressions. It targets 2026/2027 graduates for January or summer 2027 starts; those start dates are not publication dates. These grouped advertisements establish hiring requirements, not deployed practices.",
   "sources": [
     {
       "title": "Infineon: Andover AMS design-verification internship — employer LinkedIn posting",
@@ -23,6 +23,12 @@
       "url": "https://cn.linkedin.com/jobs/view/mixed-signal-verification-intern-at-infineon-technologies-4469893332",
       "checkedAt": "2026-10-05",
       "summary": "Employer posting checked October 5, 2026; first publication is not established. It includes AMS IP/SoC simulations, Python automation and model-quality checks for assumptions and corners."
+    },
+    {
+      "title": "Infineon Careers: Graduate – Analog Mixed-Signal Design Verification Engineer (HRC1763746)",
+      "url": "https://jobs.infineon.com/careers/apply?pid=563808971876168&soHRC1572297rt_by=relevance",
+      "checkedAt": "2026-10-06",
+      "summary": "The official indexed job description identifies HRC1763746, permanent graduate employment, Verilog-AMS/SystemVerilog models, corners, fault injection and regressions. Observed October 6, 2026; first publication is unconfirmed. Starts in January/summer 2027."
     }
   ]
 }

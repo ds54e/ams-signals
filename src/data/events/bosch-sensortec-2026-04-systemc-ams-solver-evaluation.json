@@ -1,0 +1,28 @@
+{
+  "id": "bosch-sensortec-2026-04-systemc-ams-solver-evaluation",
+  "when": {
+    "start": "2026-04-23",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "bosch-sensortec"
+  ],
+  "people": [],
+  "headline": "Bosch Sensortec presents SystemC-AMS solver evaluation with MEMS and C2V models",
+  "fact": "At SystemC Evolution Fika, Alexandra Küster of Bosch Sensortec presented an evaluation of solver efficiency in heterogeneous SystemC-AMS virtual prototypes. The slides compare PRECALC and SEGMENT approaches, adaptive time steps, feedback and discrete-event handling using MEMS and capacitance-to-voltage (C2V) models under repeated-shock conditions. This Event records the 2026 presentation, rather than the first publication of the underlying solver research.",
+  "sources": [
+    {
+      "title": "SystemC Evolution Fika: April 23, 2026",
+      "url": "https://systemc.org/events/scef202604/",
+      "checkedAt": "2026-10-06",
+      "summary": "The official program identifies the April 23 presentation, Alexandra Küster and Bosch Sensortec."
+    },
+    {
+      "title": "Toward Fast Heterogeneous Virtual Prototypes: Increasing the Solver Efficiency in SystemC AMS",
+      "url": "https://workspace.accellera.org/document/dl/14309",
+      "checkedAt": "2026-10-06",
+      "summary": "Presentation slides describe PRECALC/SEGMENT, adaptive time steps, feedback/discrete events and MEMS/C2V evaluation scenarios. The underlying cited paper is from 2025."
+    }
+  ]
+}

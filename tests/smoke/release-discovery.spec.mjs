@@ -6,6 +6,7 @@
 // release-navigation.spec.mjs.
 
 import { expect, test } from '@playwright/test';
+import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
   countStatus,
   expectExplorerReady,
@@ -46,47 +47,58 @@ test('historical predecessor searches resolve through canonical Company groups',
 });
 
 test('People-only Events remain in the unfiltered corpus and obey narrowed Company filters', async ({ page }) => {
-  const thesisEventId = 'stijn-ringeling-2026-ml-sigma-delta-evaluation';
-  const nxpEventId = 'nxp-2025-sigma-delta-model-evaluation-acceleration';
+  const { events, people, companies } = await loadGoldenCorpus();
+  const records = events.map(({ data }) => data);
+  // Choose a source-backed Person with both independent and Company-linked activity.
+  // An editorially held thesis must not become a permanent discovery fixture.
+  const independent = records.find((event) => event.companies.length === 0
+    && event.people.some((id) => records.some((other) =>
+      other.people.includes(id) && other.companies.length > 0)));
+  expect(independent, 'source corpus supplies a People-only Event with Company-linked activity').toBeTruthy();
+  const personId = independent.people.find((id) => records.some((event) =>
+    event.people.includes(id) && event.companies.length > 0));
+  const associated = records.find((event) => event.people.includes(personId) && event.companies.length > 0);
+  const companyId = associated.companies[0];
+  const companyName = companies.find(({ id }) => id === companyId).data.name;
+  expect(people.some(({ id }) => id === personId)).toBe(true);
 
   const payload = await (await page.request.get('./export.json')).json();
-  expect(payload.events.find(({ id }) => id === thesisEventId)).toEqual(
-    expect.objectContaining({ companies: [], people: ['stijn-ringeling'] }),
+  expect(payload.events.find(({ id }) => id === independent.id)).toEqual(
+    expect.objectContaining({ companies: [], people: independent.people }),
   );
 
   await page.goto('./');
   await expectExplorerReady(page);
-  const stijnRow = page.locator(
-    '[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="stijn-ringeling"]',
+  const personRow = page.locator(
+    `[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="${personId}"]`,
   );
-  const thesisMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${thesisEventId}"]`);
-  const nxpMark = stijnRow.locator(`[data-matrix-mark][data-event-id="${nxpEventId}"]`);
-  await expect(stijnRow).toBeVisible();
-  await expect(thesisMark).toBeVisible();
+  const independentMark = personRow.locator(`[data-matrix-mark][data-event-id="${independent.id}"]`);
+  const associatedMark = personRow.locator(`[data-matrix-mark][data-event-id="${associated.id}"]`);
+  await expect(personRow).toBeVisible();
+  await expect(independentMark).toBeVisible();
 
   await page.goto('./events/');
   await expectExplorerReady(page, 'events');
-  const thesisResult = page.locator(`[data-event-result][data-event-id="${thesisEventId}"]`);
-  const nxpResult = page.locator(`[data-event-result][data-event-id="${nxpEventId}"]`);
-  await expect(thesisResult).toBeVisible();
-  await expect(nxpResult).toBeVisible();
-
+  const independentResult = page.locator(`[data-event-result][data-event-id="${independent.id}"]`);
+  const associatedResult = page.locator(`[data-event-result][data-event-id="${associated.id}"]`);
+  await expect(independentResult).toBeVisible();
+  await expect(associatedResult).toBeVisible();
   await expect(page.locator('[data-company-picker]')).toHaveCount(0);
-  await page.locator('[data-search]').fill('NXP');
-  await expect(nxpResult).toBeVisible();
+  await page.locator('[data-search]').fill(companyName);
+  await expect(associatedResult).toBeVisible();
   await page.locator('[data-search]').fill('');
-  await expect(thesisResult).toBeVisible();
-  await page.locator('[data-search]').fill('transfer learning transistor-level');
-  await expect(thesisResult).toBeVisible();
+  await expect(independentResult).toBeVisible();
+  await page.locator('[data-search]').fill(independent.headline);
+  await expect(independentResult).toBeVisible();
 
-  await page.goto('./?companies=nxp');
+  await page.goto(`./?companies=${companyId}`);
   await expectExplorerReady(page);
-  await expect(stijnRow).toBeVisible();
-  await expect(thesisMark).toBeHidden();
-  await expect(nxpMark).toBeVisible();
+  await expect(personRow).toBeVisible();
+  await expect(independentMark).toBeHidden();
+  await expect(associatedMark).toBeVisible();
   await page.locator('[data-company-picker] summary').click();
   await page.getByRole('button', { name: 'Select all', exact: true }).click();
-  await expect(thesisMark).toBeVisible();
+  await expect(independentMark).toBeVisible();
 });
 
 test('explicit Search and Company Focus discovery preserve complete matching Event access', async ({ page }) => {

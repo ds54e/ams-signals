@@ -1,7 +1,7 @@
 {
   "id": "nxp-2026-10-ai-vip-assertion-generation-internship",
   "when": {
-    "start": "2026-10-05",
+    "start": "2026-09-23",
     "precision": "day"
   },
   "kind": "organizational",
@@ -10,13 +10,13 @@
   ],
   "people": [],
   "headline": "NXP lists an internship to generate mixed-signal VIP and assertions from specifications using AI agents",
-  "fact": "On October 5, NXP listed a Toulouse internship to prototype and evaluate AI-assisted verification-component generation for digitally controlled mixed-signal IP, particularly DC/DC converters. The project analyzes specifications for interfaces, control sequences and faults, generates reusable SystemVerilog/UVM components and coverage, and proposes assertions for protocols, timing, forbidden states and fault responses. Generated components are to be integrated and tested on representative examples, with robustness and limitations evaluated.",
+  "fact": "On September 23, NXP listed a Toulouse internship to prototype and evaluate AI-assisted verification-component generation for digitally controlled mixed-signal IP, particularly DC/DC converters. The project analyzes specifications for interfaces, control sequences and faults, generates reusable SystemVerilog/UVM components and coverage, and proposes assertions for protocols, timing, forbidden states and fault responses. Generated components are to be integrated and tested on representative examples, with robustness and limitations evaluated.",
   "sources": [
     {
-      "title": "NXP Careers: AI-assisted VIP and assertion generation internship (R-10066990)",
-      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Stage-Ingnieur---Gnration-de-VIP-et-d-assertions-pour-IP-mixtes-par-agents-IA--F-H-_R-10066990",
-      "checkedAt": "2026-10-05",
-      "summary": "Official Toulouse research internship checked October 5, 2026; first publication is not established. The advertised project generates and evaluates verification components for digitally controlled mixed-signal IP; it does not establish a production-ready AI flow."
+      "title": "NXP Careers: Stage Ingénieur : Génération de VIP et d’assertions pour IP mixtes par agents IA (F/H) (R-10066990)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/careers/job/Toulouse/Stage-Ingnieur---Gnration-de-VIP-et-d-assertions-pour-IP-mixtes-par-agents-IA--F-H-_R-10066990",
+      "checkedAt": "2026-10-06",
+      "summary": "Official Workday jobPostingInfo.startDate is 2026-09-23. The source describes an advertised research internship, not a deployed methodology."
     }
   ]
 }

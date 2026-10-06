@@ -77,7 +77,6 @@ const CANONICAL_ASSOCIATIONS: Array<[string, { companies: string[]; people: stri
   ['bosch-sensortec-2015-uvm-wreal-full-chip-mixed-signal-verification', { companies: ['bosch-sensortec', 'cadence'], people: ['felix-assmann'] }],
   ['bosch-sensortec-2026-agentic-ai-mixed-signal-verification-hiring', { companies: ['bosch-sensortec'], people: [] }],
   ['apple-2026-pmu-ams-design-verification-team-hiring', { companies: ['apple'], people: ['selcuk-talay'] }],
-  ['stijn-ringeling-2026-ml-sigma-delta-evaluation', { companies: [], people: ['stijn-ringeling'] }],
   ['hewlett-packard-2015-digital-centric-serdes-ams-verification', { companies: ['hewlett-packard'], people: [] }],
 ];
 
