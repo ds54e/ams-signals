@@ -1,55 +1,58 @@
 # AMS Signals
 
-AMS Signals is a technical research site for publicly observable RNM and mixed-signal verification activity, with independent Analog/Digital project catalogs and separately authored Articles.
+AMS Signals is a technical research site for public RNM and mixed-signal verification activity, with independent Analog and Digital project catalogs.
 
 [Visit the site](https://ams-signals.com/) or use the deterministic [factual export](https://ams-signals.com/export.json).
 
 ## Reading the site
 
-**Timeline** helps compare dated Company and People trajectories. **Events** is the complete chronological factual record with stable permalinks and representative public sources. Public disclosure is evidence of what was disclosed, not a company-wide maturity score; missing evidence does not establish missing internal capability.
+**Timeline** compares dated Company and People trajectories. **Events** provides the complete chronological factual record, stable permalinks and representative public sources. Public disclosure establishes what was disclosed, not company-wide maturity or private capability.
 
 **Analog** and **Digital** are English project indexes with primary links, design-stage Scope, reviewed public activity and optional AI-development provenance. They are independent from the Golden corpus and factual export. Runtime AI involvement and AI-assisted software construction are separate concepts.
 
-**Articles** may interpret public research beyond Golden Events. Their bodies are author-controlled, and interpretations do not become Golden facts. They remain reachable by direct URL, but are outside primary navigation and search indexing. Main navigation is Timeline | Events | Analog | Digital.
+Primary navigation is Timeline | Events | Analog | Digital. Event, Company and Person detail pages provide evidence and context.
 
-## Local development
+## Development and verification
 
-The checked-in CI uses Node.js 24. Install the locked dependencies and start Astro:
+Use Node.js 24 and the locked dependencies:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-The deterministic gate is `npm run check`. For local browser verification, install Chromium once and run the smoke command:
+`npm run check` validates content, runs contract tests, builds the site and audits its links, indexing and analytics markup. Viewer/navigation changes also use the local browser suite:
 
 ```bash
 npx playwright install chromium
 npm run test:smoke
 ```
 
-[Testing](docs/TESTING.md) explains impact-based check selection and test ownership. [package.json](package.json) is the source of truth for component commands; manual repository-history refreshes are separate from build/check/browser work.
+[Testing](docs/TESTING.md) owns check selection. [package.json](package.json) owns executable commands. Activity refreshes are manual networked operations, separate from builds and tests.
 
-## Find the current source of truth
+## Repository structure
 
-- [Product Context](PROJECT_CONTEXT.md): enduring purpose and factual/editorial boundaries.
-- [Agent guidance](AGENTS.md): scoped routes, verification and authorized work boundaries.
-- [Documentation map](docs/README.md): viewer, catalog, visual and testing contracts.
-- [Release checklist](RELEASING.md): owner-controlled publication and production verification.
+- `src/data/events/`, `companies/`, `people/`: Golden factual records.
+- `src/content/analog/`, `digital/`: catalog metadata and current source-backed implementation/classification notes.
+- `src/data/*-activity.json`: reviewed catalog activity captures.
+- `src/lib/`: factual transforms, catalog contracts and shared presentation helpers.
+- `src/components/`, `pages/`, `scripts/`, `styles/`: Astro views and browser behavior.
+- `tools/`: validation, build-output audits and manual refresh commands.
+- `tests/`: deterministic contracts and Chromium interaction/visual tests.
 
-Golden data lives under `src/data/events/`, `companies/` and `people/`. Articles and catalog projects are Markdown under their respective `src/content/` collections. Catalog frontmatter and Markdown notes retain current metadata, primary evidence and reasoning; activity JSON under `src/data/` holds volatile captures. Framework code is a replaceable viewer of this knowledge.
+[Product Context](PROJECT_CONTEXT.md) explains intent and research boundaries. [Agent guidance](AGENTS.md) routes task-specific instructions. [Documentation map](docs/README.md) identifies each current contract.
 
 ## Deployment and analytics
 
-`SITE` and `BASE_URL` select the build origin and base path through `src/lib/site-deployment.mjs`. The code fallback is `https://ds54e.github.io` plus `/ams-signals`; the documented production target is `https://ams-signals.com` plus `/`, selected by repository Actions Variables. Invalid explicit values fail rather than silently falling back. Use the same target for a build and its audits, for example:
+Production is `https://ams-signals.com/`, published through manual GitHub Pages Actions with `SITE=https://ams-signals.com` and `BASE_URL=/`. [RELEASING.md](RELEASING.md) owns the exact-SHA CI gate, target verification, deployment and live smoke checks.
+
+`src/lib/site-deployment.mjs` resolves the build origin/base for Astro and audits. Its unset-variable fallback is `https://ds54e.github.io/ams-signals/`; invalid explicit values fail. Keep the same settings for a build and its audits:
 
 ```bash
-SITE=https://example.com BASE_URL=/ npm run check
+SITE=https://ams-signals.com BASE_URL=/ npm run check
 ```
 
-Publishing is manual, not a consequence of normal CI or merging a documentation change. The release checklist owns target checks, indexing, redirects and external production smoke tests.
-
-Cloudflare Web Analytics is emitted only for the configured production origin. The site token served in HTML is not a Cloudflare API credential. No GA4, Google Tag Manager or additional analytics provider is installed. Production-shaped markup checks, intercepted browser smoke and live provider ingestion are distinct checks; see the release checklist. The repository analytics skill handles fresh traffic/search questions without changing tracking configuration.
+Cloudflare Web Analytics is emitted only for the production origin. The served site token is public, not an API credential. Markup verification, intercepted browser smoke and provider-side ingestion are separate checks. The repository analytics skill handles fresh readership/search metrics; account settings remain owner-controlled.
 
 ## Reuse policy
 

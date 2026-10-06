@@ -5,8 +5,9 @@
 // deployment target. This audit derives that expectation from the configured
 // deployment (SITE / BASE_URL) instead of a hard-coded page count, makes no
 // network requests, and needs no Cloudflare API credential.
-import { readdir, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { filesUnder, publicPathFor } from './lib/built-site.mjs';
 import { resolveSiteDeployment } from '../src/lib/site-deployment.mjs';
 import {
   ANALYTICS_BEACON_SRC,
@@ -20,24 +21,8 @@ const deployment = resolveSiteDeployment(process.env);
 const expectedEnabled = analyticsEnabledFor(new URL(deployment.origin));
 const errors = [];
 
-async function filesUnder(directory, extension) {
-  const entries = await readdir(directory, { withFileTypes: true });
-  const nested = await Promise.all(entries.map(async (entry) => {
-    const absolute = path.join(directory, entry.name);
-    if (entry.isDirectory()) return filesUnder(absolute, extension);
-    return entry.isFile() && entry.name.endsWith(extension) ? [absolute] : [];
-  }));
-  return nested.flat();
-}
-
 function occurrences(haystack, needle) {
   return haystack.split(needle).length - 1;
-}
-
-function publicPathFor(file) {
-  const relative = path.relative(outputRoot, file).split(path.sep).join('/');
-  const route = relative === 'index.html' ? '' : relative.replace(/\/index\.html$/, '/');
-  return `${deployment.baseUrl}${route}`;
 }
 
 // The canonical Cloudflare snippet, matched as a whole so a malformed or
@@ -61,7 +46,7 @@ let instrumented = 0;
 
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
-  const pagePath = publicPathFor(file);
+  const pagePath = publicPathFor(outputRoot, deployment.baseUrl, file);
 
   const srcCount = occurrences(html, ANALYTICS_BEACON_SRC);
   const attributeCount = occurrences(html, 'data-cf-beacon');

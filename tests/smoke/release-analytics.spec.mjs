@@ -24,7 +24,7 @@ const expectedCount = analyticsEnabledFor(new URL(deployment.origin)) ? 1 : 0;
 // analytics requests on an instrumented target, so the beacon script loads empty
 // and the assertion is about emitted markup rather than reaching Cloudflare.
 
-for (const route of ['', 'articles/pll-metamorphic-testing/']) {
+for (const route of ['', 'events/analog-devices-2026-08-data-converter-ams-verification-hiring/']) {
   test(`analytics beacon is ${expectedCount === 1 ? 'emitted once' : 'absent'} on /${route}`, async ({ page }) => {
     const response = await page.goto(`./${route}`);
     expect(response?.status()).toBe(200);

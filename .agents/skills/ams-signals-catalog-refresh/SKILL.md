@@ -5,7 +5,7 @@ description: Refresh Analog/Digital catalog activity snapshots. Use for activity
 
 # Catalog activity refresh
 
-Input: the requested Analog, Digital or both catalogs. Read only the selected domain guide and the shared [activity contract](../../../docs/catalog/CONTRACT.md#reviewed-public-activity). Use existing project records and their source notes, not historical expansion reports. Commands below run from the repository root.
+Input: the requested Analog, Digital or both catalogs. Read only the selected domain guide and the shared [activity contract](../../../docs/catalog/CONTRACT.md#reviewed-public-activity). Use current project records and their source notes. Commands below run from the repository root.
 
 ## Review and capture
 
@@ -26,4 +26,4 @@ A failed capture, changed identity, expired eligibility or inconsistent window i
 
 ## Finish
 
-Review the complete JSON and source diff, run the applicable [verification](../../../docs/TESTING.md), and leave the requested reviewable change. Report snapshot/capture dates, refreshed domains, substantive source changes, retained manual records, checks and any unresolved access/eligibility issue. Preserve Golden data, Article bodies, unrelated catalog metadata and `/export.json`. A refresh does not authorize merge, deployment, external model/EDA experiments or account configuration changes.
+Review the complete JSON and source diff, run the applicable [verification](../../../docs/TESTING.md), and leave the requested reviewable change. Report snapshot/capture dates, refreshed domains, substantive source changes, retained manual records, checks and any unresolved access/eligibility issue. Preserve Golden data, unrelated catalog metadata and `/export.json`. A refresh does not authorize merge, deployment, external model/EDA experiments or account configuration changes.

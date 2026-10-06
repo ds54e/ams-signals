@@ -20,12 +20,12 @@ Runtime models, MCP/agent interfaces, AI research topics, generated test inputs/
 
 Assess forks, ports and enhancements as the named catalog project. Do not transfer attribution to upstream dependencies, to a different component or to an unattributed rewrite. A significant subsystem can justify AI-ASSISTED without attributing the entire HDL/compiler to AI.
 
-Use primary project/maintainer evidence and revision-pinned implementation links where practical. Search and disclosure gaps are limits of the investigation, not a census of private tool use. Preserve relevant uncertainty in project notes and reopen sources before changing a judgment. Never promote old audit tiers mechanically into public labels.
+Use primary project/maintainer evidence and revision-pinned implementation links where practical. Search and disclosure gaps are limits of the investigation, not a census of private tool use. Preserve relevant uncertainty in project notes and reopen sources before changing a judgment.
 
 ## Data contract
 
-`scope.aiDevelopment` is one optional enum, `assisted` or `built`; omission means no public badge. Legacy `aiBuilt`, parallel booleans and additional classification fields are rejected. Provenance cannot satisfy the requirement for at least one functional Scope stage. Each stage's independent `{ ai: boolean }` follows its domain's AI criteria; software-development attribution alone cannot set it.
+`scope.aiDevelopment` is one optional enum, `assisted` or `built`; omission means no public badge. Unknown fields, parallel booleans and additional classification fields are rejected. Provenance cannot satisfy the requirement for at least one functional Scope stage. Each stage's independent `{ ai: boolean }` follows its domain's AI criteria; software-development attribution alone cannot set it.
 
 A label requires `developmentEvidence: { summary, sources, reviewedAt }`: one or two factual English sentences (maximum 420 characters), one to three distinct existing source IDs, and its own valid calendar review date no earlier than catalog addition. Missing paired evidence/classification, unresolved or duplicate IDs and unknown fields fail validation. The domain schemas enforce these constraints. A provenance-only change must not advance activity dates or buckets.
 
-Exactly one final provenance badge follows the functional stages. Both labels have the same outlined muted-red appearance and accessible disclosure behavior; text distinguishes them. The [catalog contract](catalog/CONTRACT.md#presentation-and-disclosure) and [visual system](VISUAL_SYSTEM.md) own rendering. No public tiers, scores, percentages or human-only labels are introduced.
+Exactly one final provenance badge follows the functional stages. Both labels have the same outlined muted-purple appearance and accessible disclosure behavior; text distinguishes them. The [catalog contract](catalog/CONTRACT.md#presentation-and-disclosure) and [visual system](VISUAL_SYSTEM.md) own rendering. No public tiers, scores, percentages or human-only labels are introduced.

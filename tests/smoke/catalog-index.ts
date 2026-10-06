@@ -461,11 +461,6 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expect(page.locator('[data-search]')).toHaveValue('');
       await page.goBack(); await expect(rows(page)).toHaveCount(projects.length);
     }
-    // Articles left the primary navigation; its URL is still directly reachable.
-    await expect(nav.getByRole('link', { name: 'Articles', exact: true })).toHaveCount(0);
-    const articlesResponse = await page.goto('./articles/');
-    expect(articlesResponse!.status()).toBe(200);
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
   });
 
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {

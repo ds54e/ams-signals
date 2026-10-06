@@ -1,13 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
-import { readdir } from 'node:fs/promises';
-
-const articleCount = (await readdir(new URL('../../src/content/articles/', import.meta.url))).filter((file) => file.endsWith('.md')).length;
-
 const viewports = [
   { width: 1440, height: 900 }, { width: 1280, height: 800 },
   { width: 1024, height: 768 }, { width: 390, height: 844 }, { width: 320, height: 568 },
 ];
-const indexes = ['analog', 'digital', 'articles', 'events'];
+const indexes = ['analog', 'digital', 'events'];
 
 async function open(page: Page, surface: string) {
   expect((await page.goto(`./${surface ? `${surface}/` : ''}`))!.ok()).toBe(true);
@@ -77,15 +73,9 @@ for (const viewport of viewports) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
       await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
-      // Articles are no longer a navigation surface, so no nav item is current there.
-      if (surface === 'articles') {
-        await expect(nav.locator('[aria-current="page"]')).toHaveCount(0);
-      } else {
-        await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
-      }
-      await expect(page.locator('meta[name="robots"]'))
-        .toHaveAttribute('content', surface === 'articles' ? 'noindex, follow' : 'index, follow');
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+      await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
       const report = await indexStyles(page);
       reports.push(report);
       expect(report.title.size).toBe(17); expect(report.title.weight).toBe('650');
@@ -99,28 +89,19 @@ for (const viewport of viewports) {
       expect(report.title.font).toContain('Segoe UI'); expect(report.title.font).not.toContain('Inter');
       expect(report.padding).toEqual([20, 22]); expect(report.border[0]).toBe('0px');
       expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
-      if (surface === 'articles') {
-        expect(parseFloat(report.title.tracking) || 0).toBe(0);
-        await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
-        expect(await page.locator('.index-title').first().innerText()).toMatch(/[\p{Script=Hiragana}\p{Script=Han}]/u);
-        await expect(page.locator('.article-index > .index-count')).toHaveText(`${articleCount} articles`);
-        await expect(page.locator('.article-index > .index-count + .article-list')).toHaveCount(1);
-        await expect(page.locator('.article-list > li')).toHaveCount(articleCount);
-      } else {
-        await expectToolbarReadingOrder(page);
-        const h1 = page.locator('h1');
-        await expect(h1).toHaveClass('visually-hidden');
-        expect((await h1.boundingBox())!.height).toBeLessThanOrEqual(1);
-        controlAlignment.push(await page.evaluate(() => {
-          const rect = (node: Element) => { const r = node.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
-          return { input: rect(document.querySelector('input[type="search"]')!), rule: rect(document.querySelector('.index-list')!).slice(0, 3) };
-        }));
-      }
+      await expectToolbarReadingOrder(page);
+      const h1 = page.locator('h1');
+      await expect(h1).toHaveClass('visually-hidden');
+      expect((await h1.boundingBox())!.height).toBeLessThanOrEqual(1);
+      controlAlignment.push(await page.evaluate(() => {
+        const rect = (node: Element) => { const r = node.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
+        return { input: rect(document.querySelector('input[type="search"]')!), rule: rect(document.querySelector('.index-list')!).slice(0, 3) };
+      }));
       counts.push(await page.locator('.index-count').evaluate((el) => {
         const s = getComputedStyle(el);
         return { size: s.fontSize, weight: s.fontWeight, color: s.color, line: s.lineHeight, numeric: s.fontVariantNumeric };
       }));
-      const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : surface === 'articles' ? '.listing-page' : '[data-event-explorer-root]');
+      const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : '[data-event-explorer-root]');
       const max = 1040;
       const box = (await content.boundingBox())!;
       edges.push({ x: box.x, width: box.width });
@@ -131,7 +112,7 @@ for (const viewport of viewports) {
       expect(new Set(navLines).size).toBe(1);
     }
     for (const alignment of controlAlignment.slice(1)) expect(alignment).toEqual(controlAlignment[0]);
-    // All four listing surfaces share outer edges as well as typography.
+    // All listing surfaces share outer edges as well as typography.
     expect(new Set(reports.map((r) => r.summary.color)).size).toBe(1);
     expect(new Set(reports.map((r) => r.title.color)).size).toBe(1);
     // Catalog and Events dates share font, size, weight, spacing, line height and muted color.
@@ -296,29 +277,4 @@ test('Events toolbar is flat and retains search and Signal type controls', async
   await expect(page.locator('[data-company-picker]')).toHaveCount(0);
   await page.locator('[data-search]').focus();
   expect(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
-});
-
-test('Japanese reading measure and prose stay comfortable on desktop and mobile', async ({ page }) => {
-  const articles = ['apple-rnm-modeling-verification-operations', 'uvm-ms-2011-to-2025', 'ams-nettypes-interoperability'];
-  for (const viewport of [viewports[0], viewports[3], viewports[4]]) {
-    await page.setViewportSize(viewport);
-    const mobile = viewport.width <= 760;
-    const size = mobile ? 16 : 17;
-    for (const article of articles) {
-      await open(page, `articles/${article}`);
-      await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
-      const styles = await page.locator('.article-body').evaluate((el) => {
-        const s = getComputedStyle(el);
-        const p = getComputedStyle(el.querySelector(':scope > p')!);
-        return { size: parseFloat(s.fontSize), line: parseFloat(s.lineHeight), width: el.getBoundingClientRect().width,
-          paragraphMargins: [parseFloat(p.marginTop), parseFloat(p.marginBottom)],
-          breaking: s.lineBreak, tracking: getComputedStyle(document.querySelector('h1')!).letterSpacing };
-      });
-      expect(styles.size).toBe(size); expect(styles.line).toBeCloseTo(size * (mobile ? 1.72 : 1.85), 1);
-      for (const margin of styles.paragraphMargins) expect(margin).toBeCloseTo(size * (mobile ? 1.02 : 1.15), 1);
-      expect(styles.width).toBeLessThanOrEqual(800); expect(styles.breaking).toBe('strict');
-      expect(parseFloat(styles.tracking) || 0).toBe(0);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
-    }
-  }
 });

@@ -1,12 +1,12 @@
 # Timeline and Events contract
 
-This document owns the current viewer behavior. [Product Context](../PROJECT_CONTEXT.md) owns the research and factual/editorial rationale; [the visual system](VISUAL_SYSTEM.md) owns typography, palette and hit-target dimensions. These views consume the Golden corpus, not the independent catalogs.
+This document owns the current viewer behavior. [Product Context](../PROJECT_CONTEXT.md) owns the research and factual boundaries; [the visual system](VISUAL_SYSTEM.md) owns typography, palette and hit-target dimensions. These views consume the Golden corpus, not the independent catalogs.
 
 ## Surfaces
 
 Timeline is the global progressive-time Activity Matrix: a pattern-discovery overview of recurring public activity and trajectories. It interleaves Companies and People in one temporal field. They remain distinct factual entity types; shared placement neither merges them nor implies causation.
 
-Events is the complete chronological textual record, with stable Event permalinks and representative evidence. The Evidence Inspector supports direct examination from Timeline. Company and Person detail pages retain their segmented, chronologically packed context Timelines rather than inheriting global Matrix geometry. Article interpretation remains outside factual views and export.
+Events is the complete chronological textual record, with stable Event permalinks and representative evidence. The Evidence Inspector supports direct examination from Timeline. Company and Person detail pages retain their segmented, chronologically packed context Timelines rather than inheriting global Matrix geometry.
 
 ## Stable row order and discovery
 
@@ -26,7 +26,7 @@ Projection, chronological packing, bundle membership and visual collision handli
 
 Timeline always shows the combined Company + Person Matrix and both Technical and Organizational kinds. It exposes Search and Company filter only; mark shape communicates kind. Do not restore an entity-type selector or a hidden kind filter to the global overview.
 
-Events exposes Search and Signal type for complete factual reading. Search includes Company names and canonical predecessor names; there is no Company picker on this surface. Unsupported `companies` parameters, including `companies=none`, are removed on Events and from links targeting Events. They must never silently narrow its records. Shared navigation state must not carry controls that the destination does not support. Preserve existing legacy-URL canonicalization, company predecessor search behavior, one-record handling of shared Events and inspector selection. Catalog Search/Scope remains entirely independent.
+Events exposes Search and Signal type for complete factual reading. Search includes Company names and canonical predecessor names; there is no Company picker on this surface. Unsupported `companies` parameters, including `companies=none`, are removed on Events and from links targeting Events. They must never silently narrow its records. Shared navigation state must not carry controls that the destination does not support. Normalize supported URL aliases and preserve company predecessor search, one-record handling of shared Events and inspector selection. Catalog Search/Scope remains entirely independent.
 
 ## Terminology
 
@@ -42,4 +42,4 @@ Individual and bundled marks remain directly selectable with keyboard focus, mea
 
 ## Implementation and verification
 
-`src/components/EventExplorer.astro` owns the viewer surface; `src/lib/activityMatrix.ts` owns global Matrix geometry; `src/styles/event-explorer.css` owns explorer layout. Use [test ownership](TESTING.md#where-a-new-browser-assertion-belongs) for the affected behavior. Deterministic projection/order/bundle logic belongs in Node contracts; browser tests verify serialization wiring, interaction, layout, accessibility and state transitions. Derive mutable corpus expectations instead of freezing research-batch counts.
+`src/components/EventExplorer.astro` owns the viewer surface; `src/lib/activityMatrix.ts` owns global Matrix geometry; `src/styles/event-explorer.css` owns explorer layout. Use [test ownership](TESTING.md#where-a-new-browser-assertion-belongs) for the affected behavior. Deterministic projection/order/bundle logic belongs in Node contracts; browser tests verify serialization wiring, interaction, layout, accessibility and state transitions. Derive mutable corpus expectations from source inputs.

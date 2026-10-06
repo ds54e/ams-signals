@@ -3,7 +3,6 @@
 @import './index.css';
 @import './filters.css';
 @import './event-explorer.css';
-@import './articles.css';
 
 .record-context {
   display: flex;

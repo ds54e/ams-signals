@@ -2,11 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { sitePath } from '../lib/paths';
 
-// Public indexable HTML routes only. Articles are deliberately absent: they stay
-// reachable by direct URL but are excluded from indexing via `noindex, follow`,
-// so they must not be advertised here.
-//
-// URLs are derived from the configured deployment target (`site` + base), never
+// Indexable HTML URLs are derived from the configured deployment target (`site` + base), never
 // from a hard-coded production origin. Ordering is fixed and IDs are sorted by
 // plain code-unit comparison so the output is byte-stable across environments.
 const compareIds = (left: string, right: string) => (left < right ? -1 : left > right ? 1 : 0);

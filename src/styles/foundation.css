@@ -125,10 +125,6 @@ button, summary, select, input { -webkit-tap-highlight-color: transparent; }
   width: min(100%, var(--layout-reading));
   margin-inline: auto;
 }
-.listing-page {
-  width: min(100%, var(--layout-listing));
-  margin-inline: auto;
-}
 .document-header { width: 100%; }
 .document-header h1 {
   max-width: none;
@@ -163,9 +159,6 @@ h1 {
   margin: 10px 0 16px;
 }
 
-/* Japanese headings use native spacing, including long-form article titles. */
-h1:lang(ja), h2:lang(ja), h3:lang(ja) { letter-spacing: 0; line-break: strict; }
-h1:lang(ja) { line-height: 1.4; text-wrap: pretty; }
 @media (max-width: 820px) {
   .site-header, .page-shell { width: calc(100% - 36px); }
   .site-header { padding: 16px 0; }

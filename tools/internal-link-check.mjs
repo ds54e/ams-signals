@@ -1,32 +1,15 @@
-import { access, readdir, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { exists, filesUnder, publicPathFor, readRecords } from './lib/built-site.mjs';
 import { resolveSiteDeployment } from '../src/lib/site-deployment.mjs';
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, 'dist');
-// The deployment being audited. Defaults to the current production target
-// (https://ds54e.github.io + /ams-signals/); override with SITE / BASE_URL to
-// audit a different deployment, e.g. a root-based custom-domain build.
+// Resolve the build origin and base path from the same configuration as Astro.
 const deployment = resolveSiteDeployment(process.env);
 const siteBase = deployment.baseUrl;
 const origin = deployment.origin;
 const errors = [];
-
-async function filesUnder(directory, extension) {
-  const entries = await readdir(directory, { withFileTypes: true });
-  const nested = await Promise.all(entries.map(async (entry) => {
-    const absolute = path.join(directory, entry.name);
-    if (entry.isDirectory()) return filesUnder(absolute, extension);
-    return entry.isFile() && entry.name.endsWith(extension) ? [absolute] : [];
-  }));
-  return nested.flat();
-}
-
-function publicPathFor(file) {
-  const relative = path.relative(outputRoot, file).split(path.sep).join('/');
-  const route = relative === 'index.html' ? '' : relative.replace(/\/index\.html$/, '/');
-  return `${siteBase}${route}`;
-}
 
 function decodeHref(value) {
   return value
@@ -58,15 +41,6 @@ function outputTarget(pathname) {
   if (!relative) return path.join(outputRoot, 'index.html');
   if (pathname.endsWith('/')) return path.join(outputRoot, relative, 'index.html');
   return path.join(outputRoot, relative);
-}
-
-async function exists(file) {
-  try {
-    await access(file);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 function requireHref(html, href, label) {
@@ -112,7 +86,7 @@ let internalLinkCount = 0;
 let internalAssetCount = 0;
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
-  const pagePath = publicPathFor(file);
+  const pagePath = publicPathFor(outputRoot, siteBase, file);
   for (const href of anchorHrefs(html)) {
     const resolved = resolveReference(href, pagePath);
     if (!resolved) continue;
@@ -151,25 +125,13 @@ for (const file of htmlFiles) {
 const eventDir = path.join(projectRoot, 'src/data/events');
 const companyDir = path.join(projectRoot, 'src/data/companies');
 const peopleDir = path.join(projectRoot, 'src/data/people');
-const [eventFiles, companyFiles, peopleFiles] = await Promise.all([
-  filesUnder(eventDir, '.json'),
-  filesUnder(companyDir, '.json'),
-  filesUnder(peopleDir, '.json'),
+const [events, companies, people] = await Promise.all([
+  readRecords(eventDir), readRecords(companyDir), readRecords(peopleDir),
 ]);
-const events = await Promise.all(eventFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
-const companies = await Promise.all(companyFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
-const people = await Promise.all(peopleFiles.map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const homeHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
 const eventsIndexHtml = await readFile(path.join(outputRoot, 'events', 'index.html'), 'utf8');
-const articlesIndexHtml = await readFile(path.join(outputRoot, 'articles', 'index.html'), 'utf8');
 const homeInspectorUrls = inspectorEventUrls(homeHtml, 'Timeline');
 const activeCompanyIds = new Set(events.flatMap((event) => event.companies));
-
-// Articles are no longer part of the primary navigation, so the home and Events
-// index pages are not required to link to them. The Articles index itself must
-// still resolve its own brand and Events links.
-requireHref(articlesIndexHtml, siteBase, 'Articles index');
-requireHref(articlesIndexHtml, `${siteBase}events/`, 'Articles index');
 
 for (const event of events) {
   const eventPath = `${siteBase}events/${event.id}/`;
@@ -221,5 +183,5 @@ if (errors.length > 0) {
 console.log(
   `Validated ${internalLinkCount} internal anchor(s) and ${internalAssetCount} same-site asset reference(s) `
   + `across ${htmlFiles.length} built HTML page(s) at ${origin}${siteBase}, `
-  + 'including Timeline, Events, Articles, Event, Company, and People relationships.',
+  + 'including Timeline, Events, Event, Company, and People relationships.',
 );

@@ -1,6 +1,6 @@
 # Verification and test ownership
 
-This document owns verification rationale and test placement, not frozen test counts, timings, worker values or a CI migration plan. [package.json](../package.json), [Playwright configuration](../playwright.config.mjs) and [CI](../.github/workflows/ci.yml) own the current executable configuration. [RELEASING.md](../RELEASING.md) owns production approval and deployment gates.
+This document owns verification rationale and test placement, not duplicated executable configuration. [package.json](../package.json), [Playwright configuration](../playwright.config.mjs) and [CI](../.github/workflows/ci.yml) own the current executable configuration. [RELEASING.md](../RELEASING.md) owns production approval and deployment gates.
 
 ## Choose verification by impact
 
@@ -14,11 +14,11 @@ Documentation/guidance-only changes require whitespace, Markdown parsing, local 
 
 Golden validation owns record shape, references, dates and source requirements. Fact lint helps protect source modality; the duplicate checker supplies warnings requiring editorial judgment. Neither tool proves a public claim or decides whether two records are one milestone.
 
-Node tests in `tests/golden/` own pure export projection, exclusions, ordering, timeline transforms and Matrix geometry. `tests/articles/`, `tests/analog/` and `tests/digital/` own their independent data contracts. Build and output audits own generated links, origin/base paths, indexing and analytics markup. Browser tests own interaction, DOM wiring, layout, stacking, accessibility and responsive behavior.
+Node tests in `tests/golden/` own pure export projection, exclusions, ordering, timeline transforms and Matrix geometry. `tests/analog/` and `tests/digital/` own independent catalog contracts. `tests/build/` owns build-audit behavior with disposable static-site fixtures. Build and output audits own generated links, origin/base paths, indexing and analytics markup. `tools/lib/built-site.mjs` shares output/corpus reading; `tools/lib/indexing.mjs` checks every HTML page against both source-derived route order and the built canonical set. Unsupported routes must not build; live smoke checks their 404 responses. Browser tests own interaction, DOM wiring, layout, stacking, accessibility and responsive behavior.
 
 For the Activity Matrix, `activity-matrix.test.ts` owns fixed boundary fixtures, including the inclusive 32px proximity window and anchor-based grouping. `activity-matrix-corpus.test.ts` checks source-date projection, complete grouping and packing across the current corpus. The browser suite compares the served geometry metadata with the source model, then checks actual rectangles, filtering and direct Event interaction; it does not reimplement projection or bundle membership in percentage coordinates.
 
-A valid content addition should not require editing unrelated test literals for totals, active entities, activity order, period density or packing. Derive expectations independently from source inputs where possible; comparing rendered output only with itself proves little. Keep explicit identities only when they are intentional fixtures: export exclusions, canonical successors, rejected identities or historical associations. Retire old import-wave totals/check dates rather than converting them into permanent product requirements. Do not weaken exact semantics into vague lower bounds.
+A valid content addition should not require editing unrelated test literals for totals, active entities, activity order, period density or packing. Derive expectations independently from source inputs where possible; comparing rendered output only with itself proves little. Keep explicit identities only when they are intentional fixtures: export exclusions, canonical successors, rejected identities or historical associations. Do not weaken exact semantics into vague lower bounds.
 
 ## Where a new browser assertion belongs
 

@@ -1,7 +1,4 @@
-// Browser contract for the search-indexing surfaces added after the custom-domain
-// cutover: robots.txt and sitemap.xml are served, advertise the configured public
-// origin and base path, and keep Articles out of both the crawl directives and the
-// sitemap while their URLs stay live.
+// Served routes, indexing endpoints and configured public origin/base path.
 //
 // The exhaustive per-page robots/canonical contract is owned deterministically by
 // tools/check-indexing.mjs; this file only covers what needs a real HTTP response.
@@ -19,11 +16,10 @@ test('robots.txt permits crawling and advertises the sitemap', async ({ page }) 
   expect(robots).toContain('User-agent: *');
   expect(robots).toContain('Allow: /');
   expect(robots).toContain(`Sitemap: ${publicOrigin}${basePath}sitemap.xml`);
-  // Crawlers must be able to fetch Article pages and read their noindex directive.
-  expect(robots).not.toContain('Disallow: /articles');
+  expect(robots).not.toMatch(/^Disallow:\s*\S/m);
 });
 
-test('sitemap.xml advertises indexable routes and excludes Articles and export', async ({ page }) => {
+test('sitemap.xml advertises public HTML routes and excludes export', async ({ page }) => {
   const response = await page.request.get('./sitemap.xml');
   expect(response.status()).toBe(200);
 
@@ -34,6 +30,23 @@ test('sitemap.xml advertises indexable routes and excludes Articles and export',
   }
   expect(sitemap).not.toContain('/articles/');
   expect(sitemap).not.toContain('export.json');
+});
+
+test('unsupported editorial routes return 404', async ({ page }) => {
+  const routes = [
+    'articles/',
+    ...[
+      'apple-rnm-modeling-verification-operations', 'uvm-ms-2011-to-2025',
+      'ams-nettypes-interoperability', 'rnm-model-validation', 'pll-metamorphic-testing',
+      'ams-verification-team-organization', 'why-analog-verification-engineers-emerged',
+      'pre-post-silicon-pss',
+    ].map((slug) => `articles/${slug}/`),
+    'analysis/', 'analysis/from-behavioral-models-to-managed-verification-assets/',
+  ];
+  for (const route of routes) {
+    const response = await page.request.get(`./${route}`);
+    expect(response.status(), route).toBe(404);
+  }
 });
 
 test('indexable surfaces self-canonicalize at the configured origin', async ({ page }) => {

@@ -1,6 +1,6 @@
 # Visual system
 
-AMS Signals is a text-first technical research index and editorial site. Equivalent information shares typography, spacing, separators and contextual links; reading, listing and explorer surfaces retain distinct functional widths. Use a warm off-white background, blue links, pastel category fills and a light/dark semantic palette. The light palette and flat presentation follow Analog Trace Bench. Flat rows and restrained categories communicate information, not quality or ranking.
+AMS Signals is a text-first technical research index. Equivalent information shares typography, spacing, separators and contextual links; reading, listing and explorer surfaces retain distinct functional widths. Use a warm off-white background, blue links, pastel category fills and a light/dark semantic palette. Flat rows and restrained categories communicate information, not quality or ranking.
 
 ## Ownership
 
@@ -10,11 +10,10 @@ AMS Signals is a text-first technical research index and editorial site. Equival
 | `index.css` | Shared index titles, summaries, dates, metadata/counts, links, category labels and rows |
 | `filters.css` | Native controls and rule-free utility toolbars |
 | `event-explorer.css` | Company picker, Timeline glyphs, geometry/inspector and Events row structure |
-| `articles.css` | Long-form prose, citations and related content |
 | `global.css` | Ordered global imports plus factual/entity document context; loaded by BaseLayout |
 | `catalog.css` | One catalog presentation loaded by CatalogIndex; no second domain stylesheet |
 
-CSS owns implemented values. Keep this contract aligned when values deliberately change, without cloning literals into unrelated components. Shared catalog markup uses `CatalogIndex.astro`; differing Article/Event semantics need shared primitives, not forced component unification. No remote webfonts, frontend framework or runtime data fetching is introduced for styling.
+CSS owns implemented values. Keep this contract aligned when values deliberately change, without cloning literals into unrelated components. Shared catalog markup uses `CatalogIndex.astro`; catalogs and factual Event pages use shared primitives while retaining their own semantics. No remote webfonts, frontend framework or runtime data fetching is introduced for styling.
 
 ## Typography and rhythm
 
@@ -26,14 +25,10 @@ CSS owns implemented values. Keep this contract aligned when values deliberately
 | Context links and metadata | 13px / 400 | 1.45 |
 | Event / Scope category labels | 11px / 500 | 1.4 |
 | Dates | 12px / 400 | 1.45 |
-| Article prose above 760px | 17px / 400 | 1.85 |
-| Article prose at or below 760px | 16px / 400 | 1.72 |
 
 Rows use 20px top / 22px bottom padding and subtle one-pixel separators. The first visible row has no top rule, including after filtering. Title-to-summary gap is 8px. Context links sit directly beside plain-text catalog names, with baseline-aligned wrapping and 16px gaps. Scope is a vertical stack of fit-content labels with 4px gaps.
 
-Fonts start with Segoe UI, Helvetica Neue and Arial, followed by local Japanese fallbacks, not an unloaded Inter declaration. Japanese titles use zero tracking and strict line breaking; Latin index titles use zero tracking. `text-wrap: pretty` is progressive enhancement. Article prose is not an index summary.
-
-Article paragraph margins are 1.15em on desktop and 1.02em (16.32px) at or below 760px. Mobile h2 is 1.32rem and h3 is 1.16rem; lists and blockquotes inherit the body rhythm. Preserve header/index typography and existing heading margins. Code and tables scroll locally; images remain responsive.
+Fonts start with Segoe UI, Helvetica Neue and Arial, followed by local Japanese fallbacks. Index titles use zero tracking. `text-wrap: pretty` is progressive enhancement.
 
 Dates share `formatDate` in `src/lib/date-format.ts` and `.index-date`: title-case abbreviated English month, unpadded day, the date's actual year, zero tracking, system-sans tabular numerals and muted color. Preserve Event month/year precision and ranges rather than manufacturing an exact day.
 
@@ -41,11 +36,11 @@ Dates share `formatDate` in `src/lib/date-format.ts` and `.index-date`: title-ca
 
 | Token | Maximum | Surface |
 | --- | --- | --- |
-| `--layout-reading` | 800px | Articles and factual reading pages |
-| `--layout-listing` | 1040px | Articles, Events, Analog and Digital indexes |
+| `--layout-reading` | 800px | Factual reading pages |
+| `--layout-listing` | 1040px | Events, Analog and Digital indexes |
 | `--layout-explorer` | 1200px | Shell and Timeline explorer |
 
-At full listing width, dated rows use 138px date + 24px gap + 878px copy; catalogs use 150px metadata rail + 24px gap + 866px body. Their outer edges align. No visible Project/Scope/Activity header row. At or below 760px, catalog content comes first with its compact rail immediately below; dates stack on Article/Event indexes. These indexes must not require horizontal page scrolling. Timeline retains local visualization scrolling.
+At full listing width, dated rows use 138px date + 24px gap + 878px copy; catalogs use 150px metadata rail + 24px gap + 866px body. Their outer edges align. No visible Project/Scope/Activity header row. At or below 760px, catalog content comes first with its compact rail immediately below; dates stack on Event indexes. These indexes must not require horizontal page scrolling. Timeline retains local visualization scrolling.
 
 Navigation is Timeline | Events | Analog | Digital, normally 15px; at or below 520px it uses 13px, with 5px gaps below 360px. Catalog descriptions keep their 15px size rather than shrinking to fit.
 
@@ -57,7 +52,7 @@ The rail order is date, activity band, Scope. Twelve cells run oldest-left to ne
 
 Controls use whitespace rather than toolbar border rules, cards or shadows. Native controls are 40px high with 13px text. Toolbars leave 22px before the ruled list or visualization. The Timeline Company picker has a thin border and no shadow; it remains above overlapping content on desktop and in-flow on narrow screens. Events has Search and Signal type only.
 
-Catalog Search is about 290px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and both catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular. Articles shows its derived collection count without adding controls.
+Catalog Search is about 290px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and both catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular.
 
 ## Category labels and palette
 
@@ -95,8 +90,8 @@ All global/Company/Person marks share `.timeline-mark > .timeline-glyph`. Visibl
 
 Selection and hover scale only the glyph to 1.15 without adding a ring. Keyboard focus remains visible on the larger target. Sticky labels occlude scrolling marks without clearing selection. Forced colors retain the shapes, matching system fills for glyphs/legends and the same selection scaling. Geometry/filter semantics belong to the [Timeline contract](TIMELINE.md).
 
-## Review changes, not old screenshots
+## Visual verification
 
-For relevant visual changes inspect the affected surfaces at 1440x900, 1280x800, 1024x768, 390x844 and 320x568, with light/dark themes, keyboard, forced colors, no-JavaScript where applicable, Japanese Article prose and open popovers. Review representative long/multi-link/multi-stage rows. Keep screenshots as task/PR evidence, not a cumulative repository archive.
+For relevant visual changes inspect the affected surfaces at 1440x900, 1280x800, 1024x768, 390x844 and 320x568, with light/dark themes, keyboard, forced colors, no-JavaScript where applicable and open popovers. Review representative long/multi-link/multi-stage rows. Keep screenshots as task/PR evidence, not a cumulative repository archive.
 
-`category-palette.spec.ts` protects shared token propagation, semantic mapping, contrast and forced colors; `visual-system.spec.ts` protects hierarchy, measures, Japanese typography and toolbars; `timeline-visual.spec.ts` protects glyph/hit/selection behavior. Catalog and release suites protect their interactions and data wiring. [Testing](TESTING.md) owns check selection. Do not preserve historical screenshot totals, project counts or refinement narratives as current requirements.
+`category-palette.spec.ts` protects shared token propagation, semantic mapping, contrast and forced colors; `visual-system.spec.ts` protects hierarchy, measures and toolbars; `timeline-visual.spec.ts` protects glyph/hit/selection behavior. Catalog and release suites protect their interactions and data wiring. [Testing](TESTING.md) owns check selection.
