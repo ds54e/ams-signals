@@ -22,8 +22,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
           radius: parseFloat(s.borderRadius), height: r.height, label: el.textContent, contrast: (light + 0.05) / (dark + 0.05) };
       }, kind);
       expect(result.label!.toLowerCase()).toBe(kind);
-      expect(result.background).toBe(result.semantic); expect(result.background).not.toBe(result.color);
-      expect(result.transform).toBe('uppercase'); expect(result.radius).toBeLessThanOrEqual(3);
+      expect(result.color).toBe(result.semantic); expect(result.background).not.toBe(result.color);
+      expect(result.transform).toBe('none'); expect(result.radius).toBe(0);
       expect(result.height).toBeGreaterThanOrEqual(18); expect(result.height).toBeLessThanOrEqual(24);
       expect(result.contrast).toBeGreaterThanOrEqual(4.5);
       badges.push(result);

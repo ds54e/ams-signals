@@ -26,7 +26,7 @@ Use stable project filenames/IDs. Frontmatter owns public metadata, current Scop
 
 ## Presentation and disclosure
 
-Only `/analog/` and `/digital/` are supported catalog routes; no compatibility pages, redirects, project detail pages or self-permalink aliases. Use the domain's hidden H1 and browser title, correct base-path links, indexable self-canonical metadata and Timeline | Events | Analog | Digital navigation. No visible title/introduction/review-date/methodology block, overview cards, legend, tabs or rankings.
+Only `/analog/` and `/digital/` are supported catalog routes; no compatibility pages, redirects, project detail pages or self-permalink aliases. Use the domain's hidden H1 and browser title, correct base-path links, indexable self-canonical metadata and Timeline | Events | Analog | Digital navigation. No visible section title, introduction, review-date or methodology block, overview cards, legend, tabs or rankings.
 
 The English index pairs a metadata rail with a project body, without visible column headings. The rail order is latest public date, twelve binary activity cells, then vertically stacked Scope labels. No visible month total or repeated Scope/Activity labels. The body starts with a plain-text H2 name and authored Website / Paper / Code / Results links in that order, wrapping on one left-aligned title line. No title classification badge or replacement icon.
 
@@ -34,7 +34,7 @@ Descriptions normally use two useful sentences, roughly 30–55 words: function 
 
 Sort by latest public activity descending (`lastCommitAt` for repository records, otherwise `lastPublicUpdateAt`), then NFKC-normalized lowercase trimmed name and slug ascending. Do not mutate authored input. Meaningful dates govern eligibility, not order; counts never rank projects.
 
-Render one final provenance badge after functional stages. AI-ASSISTED and AI-BUILT share outlined muted-red styling and geometry; visible text distinguishes them. Without JavaScript, all rows, metadata, links and provenance explanations remain readable and the filter toolbar stays hidden. Enhancement uses native disclosure buttons with project-specific accessible names, `aria-controls`, `aria-expanded`, keyboard focus and expanded touch targets. Enter/Space/touch opens or closes an inline row-spanning “Development provenance” panel with factual explanation and primary links. No modal, storage or navigation side effect.
+Render one final provenance badge after functional stages. AI-ASSISTED and AI-BUILT share transparent fill, muted-purple text and a thin light-purple border with shared geometry; visible text distinguishes them. Without JavaScript, all rows, metadata, links and provenance explanations remain readable and the filter toolbar stays hidden. Enhancement uses native disclosure buttons with project-specific accessible names, `aria-controls`, `aria-expanded`, keyboard focus and expanded touch targets. Enter/Space/touch opens or closes an inline row-spanning “Development provenance” panel with factual explanation and primary links. No modal, storage or navigation side effect.
 
 ## Search and Scope filtering
 

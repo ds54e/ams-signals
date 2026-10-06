@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'red' };
+const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'purple' };
 const kindColors = { technical: 'blue', organizational: 'rust' };
 const timelineColors = { technical: 'rgb(75, 109, 137)', organizational: 'rgb(136, 100, 84)' };
 
@@ -21,14 +21,15 @@ async function readColors(page: Page) {
       probe.style.backgroundColor = `var(--${name})`;
       return getComputedStyle(probe).backgroundColor;
     };
-    const tokens = Object.fromEntries(['green', 'blue', 'gold', 'rust', 'red', 'ink'].map((name) => [name, resolve(`category-${name}`)]));
+    const tokens = Object.fromEntries(['green', 'blue', 'gold', 'rust', 'purple', 'green-soft', 'blue-soft', 'gold-soft', 'rust-soft'].map((name) => [name, resolve(`category-${name}`)]));
+    tokens['provenance-border'] = resolve('provenance-border');
     const semantics = { technical: resolve('technical'), organizational: resolve('organizational') };
     const surfaces = [resolve('bg'), resolve('surface')];
     probe.remove();
     const badges = [...document.querySelectorAll<HTMLElement>('.category-label')].map((el) => {
       const style = getComputedStyle(el);
       return { scope: el.dataset.scopeItem, development: el.dataset.aiDevelopment, kind: el.dataset.signalType, label: el.textContent!.trim(),
-        fill: style.backgroundColor, ink: style.color, shadow: style.boxShadow, opacity: style.opacity };
+        fill: style.backgroundColor, ink: style.color, shadow: style.boxShadow, opacity: style.opacity, border: style.borderColor, borderWidth: style.borderWidth };
     });
     const glyphs = [...document.querySelectorAll('.timeline-glyph, .legend-mark')].map((el) => {
       const style = getComputedStyle(el);
@@ -42,18 +43,19 @@ async function readColors(page: Page) {
 function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkContrast: boolean) {
   const { tokens, semantics, surfaces, badges, glyphs, pageBackground } = colors;
   expect(semantics).toEqual({ technical: tokens.blue, organizational: tokens.rust });
-  expect(new Set(['green', 'blue', 'gold', 'rust', 'red'].map((key) => tokens[key])).size).toBe(5);
+  expect(new Set(['green', 'blue', 'gold', 'rust', 'purple'].map((key) => tokens[key])).size).toBe(5);
   for (const badge of badges) {
     const color = badge.scope ? scopeColors[badge.scope as keyof typeof scopeColors] : kindColors[badge.kind as keyof typeof kindColors];
     expect(color, badge.label).toBeDefined();
     if (badge.development) {
       expect(badge.fill).toBe('rgba(0, 0, 0, 0)');
-      expect(badge.ink).toBe(tokens.red);
-      expect(badge.shadow).toContain(tokens.red);
-      expect(badge.shadow).toContain('inset');
+      expect(badge.ink).toBe(tokens.purple);
+      expect(badge.shadow).toBe('none');
+      expect(badge.border).toBe(tokens['provenance-border']);
+      expect(badge.borderWidth).toBe('1px');
     } else {
-      expect(badge.fill, badge.label).toBe(tokens[color]);
-      expect(badge.ink).toBe(tokens.ink);
+      expect(badge.fill, badge.label).toBe(tokens[`${color}-soft`]);
+      expect(badge.ink).toBe(tokens[color]);
     }
     expect(badge.opacity).toBe('1');
     // Transparent provenance badges render over the actual page background.
@@ -83,9 +85,10 @@ for (const colorScheme of ['light', 'dark'] as const) {
 
       // Label tokens propagate while the plot retains its fixed blue/rust fills.
       const replacements = { green: 'rgb(61, 83, 70)', blue: 'rgb(56, 74, 96)', gold: 'rgb(100, 93, 56)',
-        rust: 'rgb(112, 79, 61)', red: 'rgb(110, 66, 79)', ink: 'rgb(239, 241, 236)' };
+        rust: 'rgb(112, 79, 61)', purple: 'rgb(110, 66, 129)', 'green-soft': 'rgb(228, 239, 232)', 'blue-soft': 'rgb(228, 235, 243)',
+        'gold-soft': 'rgb(240, 237, 219)', 'rust-soft': 'rgb(240, 230, 224)', 'provenance-border': 'rgb(170, 145, 185)' };
       await page.evaluate((values) => {
-        for (const [name, value] of Object.entries(values)) document.documentElement.style.setProperty(`--category-${name}`, value);
+        for (const [name, value] of Object.entries(values)) document.documentElement.style.setProperty(name === 'provenance-border' ? '--provenance-border' : `--category-${name}`, value);
       }, replacements);
       const updated = await readColors(page);
       expect(updated.tokens).toEqual(replacements);

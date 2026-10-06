@@ -94,7 +94,7 @@ test('reviewed GitHub and GitLab histories share compact binary activity bands',
   await expect(surfer.locator('time')).toHaveAttribute('datetime', record.lastCommitAt);
   const dateText = new Intl.DateTimeFormat('en-US', {
     month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-  }).format(new Date(`${record.lastCommitAt}T00:00:00Z`)).toUpperCase();
+  }).format(new Date(`${record.lastCommitAt}T00:00:00Z`));
   expect(await surfer.locator('time').innerText()).toBe(dateText);
   await expect(surfer.locator('.activity-summary')).toHaveCount(0);
   // The compact activity display never exposes the raw repository URL.

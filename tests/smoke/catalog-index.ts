@@ -403,7 +403,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       });
       expect(geometry.borders).toEqual(['0px', '0px']); expect(geometry.shadow).toBe('none');
       if (width >= 1024) {
-        expect(geometry.search.width).toBe(300); expect(geometry.scope.width).toBe(150);
+        expect(geometry.search.width).toBe(290); expect(geometry.scope.width).toBe(160);
         expect(geometry.count.left - geometry.scope.right).toBeCloseTo(12, 1);
       } else {
         expect(geometry.search.bottom).toBeLessThan(geometry.scope.top);
@@ -471,6 +471,6 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active' }); await open(page);
     await expectScopeLabels(page.locator(`.catalog-scope`), true);
-    await expectActivityBands(rows(page), `.catalog-activity`, activity);
+    await expectActivityBands(rows(page), `.catalog-activity`, activity, true);
   });
 }

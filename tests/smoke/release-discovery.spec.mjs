@@ -71,16 +71,11 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   await expect(thesisResult).toBeVisible();
   await expect(nxpResult).toBeVisible();
 
-  await page.locator('[data-company-picker] summary').click();
-  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
-  await page.locator('[data-company-options] input[value="nxp"]').check();
-  await expect.poll(() => new URL(page.url()).searchParams.get('companies')).toBe('nxp');
-  await expect(thesisResult).toBeHidden();
+  await expect(page.locator('[data-company-picker]')).toHaveCount(0);
+  await page.locator('[data-search]').fill('NXP');
   await expect(nxpResult).toBeVisible();
-
-  await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  await page.locator('[data-search]').fill('');
   await expect(thesisResult).toBeVisible();
-  expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
   await page.locator('[data-search]').fill('transfer learning transistor-level');
   await expect(thesisResult).toBeVisible();
 
@@ -98,8 +93,7 @@ test('explicit Search and Company Focus discovery preserve complete matching Eve
   const lenses = [
     '?q=Google',
     '?q=Gautham%20Sathyan',
-    '?companies=google',
-    '?companies=cirrus-logic',
+    '?q=Cirrus%20Logic',
   ];
 
   for (const lens of lenses) {
@@ -206,84 +200,74 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
 });
 
 test('Company picker is readable, searchable, and independently clearable', async ({ page }) => {
-  for (const path of ['./', './events/']) {
-    const surface = path.includes('events') ? 'events' : 'timeline';
-    await page.goto(path);
-    await expectExplorerReady(page, surface);
+  await page.goto('./');
+  await expectExplorerReady(page);
 
-    await page.locator('[data-search]').fill('RNM');
-    if (surface === 'events') await page.locator('[data-kind]').selectOption('technical');
-    await page.locator('[data-company-picker] summary').click();
+  await page.locator('[data-search]').fill('RNM');
+  await page.locator('[data-company-picker] summary').click();
 
-    const checks = page.locator('[data-company-options] input');
-    const checked = page.locator('[data-company-options] input:checked');
-    const totalCompanies = await checks.count();
-    // The Company option population is itself the contract; it must not be pinned.
-    expect(totalCompanies, 'the picker must offer Company options').toBeGreaterThan(0);
-    await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
-    const pickerLayout = await page.locator('.company-picker-panel').evaluate((panel) => {
-      const options = panel.querySelector('[data-company-options]');
-      return {
-        width: panel.getBoundingClientRect().width,
-        height: panel.getBoundingClientRect().height,
-        optionColumns: getComputedStyle(options).gridTemplateColumns,
-        optionsClientHeight: options.clientHeight,
-        optionsScrollHeight: options.scrollHeight,
-      };
-    });
-    expect(pickerLayout.width).toBeGreaterThanOrEqual(340);
-    expect(pickerLayout.width).toBeLessThanOrEqual(380);
-    expect(pickerLayout.height).toBeGreaterThanOrEqual(400);
-    expect(pickerLayout.height).toBeLessThanOrEqual(440);
-    expect(pickerLayout.optionColumns).toMatch(/^\d+(?:\.\d+)?px$/);
-    expect(pickerLayout.optionsScrollHeight).toBeGreaterThan(pickerLayout.optionsClientHeight);
-    await expect(page.locator('[data-reset]')).toHaveCount(0);
+  const checks = page.locator('[data-company-options] input');
+  const checked = page.locator('[data-company-options] input:checked');
+  const totalCompanies = await checks.count();
+  // The Company option population is itself the contract; it must not be pinned.
+  expect(totalCompanies, 'the picker must offer Company options').toBeGreaterThan(0);
+  await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
+  const pickerLayout = await page.locator('.company-picker-panel').evaluate((panel) => {
+    const options = panel.querySelector('[data-company-options]');
+    return {
+      width: panel.getBoundingClientRect().width,
+      height: panel.getBoundingClientRect().height,
+      optionColumns: getComputedStyle(options).gridTemplateColumns,
+      optionsClientHeight: options.clientHeight,
+      optionsScrollHeight: options.scrollHeight,
+    };
+  });
+  expect(pickerLayout.width).toBeGreaterThanOrEqual(340);
+  expect(pickerLayout.width).toBeLessThanOrEqual(380);
+  expect(pickerLayout.height).toBeGreaterThanOrEqual(400);
+  expect(pickerLayout.height).toBeLessThanOrEqual(440);
+  expect(pickerLayout.optionColumns).toMatch(/^\d+(?:\.\d+)?px$/);
+  expect(pickerLayout.optionsScrollHeight).toBeGreaterThan(pickerLayout.optionsClientHeight);
+  await expect(page.locator('[data-reset]')).toHaveCount(0);
 
-    const optionNames = await page.locator('[data-company-option] > span').allTextContents();
-    expect(optionNames).toEqual([...optionNames].sort((left, right) => left.localeCompare(right, 'en')));
-    const eventFilterUrl = page.url();
-    const checkedBeforePickerSearch = await checked.count();
-    await page.locator('[data-company-search]').fill('sony');
-    await expect(page.locator('[data-company-option]:visible')).toHaveCount(1);
-    await expect(page.locator('[data-company-option]:visible > span')).toHaveText(['Sony Semiconductor']);
-    expect(page.url()).toBe(eventFilterUrl);
-    await expect(checked).toHaveCount(checkedBeforePickerSearch);
-    await page.locator('[data-company-search]').fill('apple');
-    await page.locator('[data-company-options] input[value="apple"]').uncheck();
-    await page.locator('[data-company-search]').fill('sony');
-    await page.locator('[data-company-search]').fill('apple');
-    await expect(page.locator('[data-company-options] input[value="apple"]')).not.toBeChecked();
-    await page.locator('[data-company-search]').fill('does-not-exist');
-    await expect(page.locator('[data-company-options-empty]')).toBeVisible();
-    await page.locator('[data-company-search]').fill('');
-    await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  const optionNames = await page.locator('[data-company-option] > span').allTextContents();
+  expect(optionNames).toEqual([...optionNames].sort((left, right) => left.localeCompare(right, 'en')));
+  const eventFilterUrl = page.url();
+  const checkedBeforePickerSearch = await checked.count();
+  await page.locator('[data-company-search]').fill('sony');
+  await expect(page.locator('[data-company-option]:visible')).toHaveCount(1);
+  await expect(page.locator('[data-company-option]:visible > span')).toHaveText(['Sony Semiconductor']);
+  expect(page.url()).toBe(eventFilterUrl);
+  await expect(checked).toHaveCount(checkedBeforePickerSearch);
+  await page.locator('[data-company-search]').fill('apple');
+  await page.locator('[data-company-options] input[value="apple"]').uncheck();
+  await page.locator('[data-company-search]').fill('sony');
+  await page.locator('[data-company-search]').fill('apple');
+  await expect(page.locator('[data-company-options] input[value="apple"]')).not.toBeChecked();
+  await page.locator('[data-company-search]').fill('does-not-exist');
+  await expect(page.locator('[data-company-options-empty]')).toBeVisible();
+  await page.locator('[data-company-search]').fill('');
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
 
-    await page.getByRole('button', { name: 'Clear all', exact: true }).click();
-    await expect(checked).toHaveCount(0);
-    const corpus = await viewerCorpus(page);
-    await expect(page.locator('[data-status]')).toHaveText(countStatus(0, corpus.total));
-    expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
-    if (surface === 'timeline') {
-      await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
-    } else {
-      await expect(page.locator('[data-event-result]:visible')).toHaveCount(0);
-      await expect(page.locator('[data-filtered-empty]')).toBeVisible();
-    }
+  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+  await expect(checked).toHaveCount(0);
+  const corpus = await viewerCorpus(page);
+  await expect(page.locator('[data-status]')).toHaveText(countStatus(0, corpus.total));
+  expect(new URL(page.url()).searchParams.get('companies')).toBe('none');
+  await expect(page.locator('[data-event-mark]:visible')).toHaveCount(0);
 
-    await page.getByRole('button', { name: 'Select all', exact: true }).click();
-    await expect(checked).toHaveCount(totalCompanies);
-    await expect(page.locator('[data-status]')).not.toHaveText(countStatus(0, corpus.total));
-    expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  await expect(checked).toHaveCount(totalCompanies);
+  await expect(page.locator('[data-status]')).not.toHaveText(countStatus(0, corpus.total));
+  expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
 
-    await page.getByRole('button', { name: 'Clear all', exact: true }).click();
-    await page.getByRole('button', { name: 'Select all', exact: true }).click();
-    await expect(checked).toHaveCount(totalCompanies);
-    await page.locator('[data-search]').fill('');
-    if (surface === 'events') await page.locator('[data-kind]').selectOption('all');
-    else await expect(page.locator('[data-kind]')).toHaveCount(0);
-    expect(new URL(page.url()).search).toBe('');
-  }
+  await page.getByRole('button', { name: 'Clear all', exact: true }).click();
+  await page.getByRole('button', { name: 'Select all', exact: true }).click();
+  await expect(checked).toHaveCount(totalCompanies);
+  await page.locator('[data-search]').fill('');
+  await expect(page.locator('[data-kind]')).toHaveCount(0);
+  expect(new URL(page.url()).search).toBe('');
 });
 
 test('Timeline always shows both Signal types while Events retains kind filtering', async ({ page }) => {
@@ -362,3 +346,27 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await page.goto('./events/sitime-2023-keiichi-kajino-japan-verification-manager/');
   await expect(page.locator('.event-meta')).toContainText('Organizational');
 });
+
+test('Events clears unsupported Company state while company-name search and kind filtering remain complete', async ({ page }) => {
+   for (const companies of ['none', 'apple', 'apple,renesas']) {
+     await page.goto('./events/?companies=' + companies);
+     await expectExplorerReady(page, 'events');
+     const corpus = await viewerCorpus(page);
+     await expect(page.locator('[data-event-result]:visible')).toHaveCount(corpus.total);
+     await expect(page.locator('[data-company-picker]')).toHaveCount(0);
+     expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+   }
+   await page.locator('[data-search]').fill('NXP');
+   const corpus = await viewerCorpus(page);
+   expect((await visibleListedEventIds(page)).length).toBeGreaterThan(0);
+   await page.locator('[data-kind]').selectOption('technical');
+   const visible = await visibleListedEventIds(page);
+   expect(visible.length).toBeGreaterThan(0);
+   expect(visible.every((id) => corpus.events.find((event) => event.id === id).kind === 'technical')).toBe(true);
+   await page.locator('[data-search]').fill('no-such-company-xyz');
+   await expect(page.locator('[data-filtered-empty]')).toBeVisible();
+   await expect(page.locator('[data-event-result]:visible')).toHaveCount(0);
+   await page.locator('[data-search]').fill('');
+   await page.locator('[data-kind]').selectOption('all');
+   await expect(page.locator('[data-event-result]:visible')).toHaveCount(corpus.total);
+ });

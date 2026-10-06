@@ -72,6 +72,7 @@ for (const viewport of viewports) {
     const reports = [];
     const edges = [];
     const counts = [];
+    const controlAlignment = [];
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -87,16 +88,16 @@ for (const viewport of viewports) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
       const report = await indexStyles(page);
       reports.push(report);
-      expect(report.title.size).toBe(17); expect(report.title.weight).toBe('700');
-      expect(report.title.line).toBeCloseTo(17 * 1.35, 1);
+      expect(report.title.size).toBe(17); expect(report.title.weight).toBe('650');
+      expect(report.title.line).toBeCloseTo(17 * 1.45, 1);
       expect(report.summary.size).toBe(15); expect(report.summary.weight).toBe('400');
       expect(report.summary.line).toBeCloseTo(15 * 1.65, 1);
-      expect(report.summary.margin).toBe(9);
+      expect(report.summary.margin).toBe(8);
       expect(report.date.size).toBe(12); expect(report.date.weight).toBe('400');
-      expect(report.date.font).toContain('monospace');
-      expect(report.date.transform).toBe('uppercase');
-      expect(report.title.font).toContain('system-ui'); expect(report.title.font).not.toContain('Inter');
-      expect(report.padding).toEqual([22, 24]); expect(report.border[0]).toBe('0px');
+      expect(report.date.font).toContain('Segoe UI');
+      expect(report.date.transform).toBe('none');
+      expect(report.title.font).toContain('Segoe UI'); expect(report.title.font).not.toContain('Inter');
+      expect(report.padding).toEqual([20, 22]); expect(report.border[0]).toBe('0px');
       expect(report.radius).toBe('0px'); expect(report.background).toBe('rgba(0, 0, 0, 0)');
       if (surface === 'articles') {
         expect(parseFloat(report.title.tracking) || 0).toBe(0);
@@ -105,13 +106,22 @@ for (const viewport of viewports) {
         await expect(page.locator('.article-index > .index-count')).toHaveText(`${articleCount} articles`);
         await expect(page.locator('.article-index > .index-count + .article-list')).toHaveCount(1);
         await expect(page.locator('.article-list > li')).toHaveCount(articleCount);
-      } else await expectToolbarReadingOrder(page);
+      } else {
+        await expectToolbarReadingOrder(page);
+        const h1 = page.locator('h1');
+        await expect(h1).toHaveClass('visually-hidden');
+        expect((await h1.boundingBox())!.height).toBeLessThanOrEqual(1);
+        controlAlignment.push(await page.evaluate(() => {
+          const rect = (node: Element) => { const r = node.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; };
+          return { input: rect(document.querySelector('input[type="search"]')!), rule: rect(document.querySelector('.index-list')!).slice(0, 3) };
+        }));
+      }
       counts.push(await page.locator('.index-count').evaluate((el) => {
         const s = getComputedStyle(el);
         return { size: s.fontSize, weight: s.fontWeight, color: s.color, line: s.lineHeight, numeric: s.fontVariantNumeric };
       }));
       const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : surface === 'articles' ? '.listing-page' : '[data-event-explorer-root]');
-      const max = 920;
+      const max = 1040;
       const box = (await content.boundingBox())!;
       edges.push({ x: box.x, width: box.width });
       expect(box.width).toBeLessThanOrEqual(max);
@@ -120,7 +130,8 @@ for (const viewport of viewports) {
       const navLines = await nav.getByRole('link').evaluateAll((links) => links.map((link) => Math.round(link.getBoundingClientRect().top)));
       expect(new Set(navLines).size).toBe(1);
     }
-    // All four listing surfaces now share outer edges as well as typography.
+    for (const alignment of controlAlignment.slice(1)) expect(alignment).toEqual(controlAlignment[0]);
+    // All four listing surfaces share outer edges as well as typography.
     expect(new Set(reports.map((r) => r.summary.color)).size).toBe(1);
     expect(new Set(reports.map((r) => r.title.color)).size).toBe(1);
     // Catalog and Events dates share font, size, weight, spacing, line height and muted color.
@@ -129,16 +140,16 @@ for (const viewport of viewports) {
     expect(reports[0].separator[0]).toBe('1px');
     expect(new Set(edges.map((r) => JSON.stringify(r))).size).toBe(1);
     expect(new Set(counts.map((r) => JSON.stringify(r))).size).toBe(1);
-    expect(counts[0]).toMatchObject({ size: '13px', weight: '400', numeric: 'tabular-nums' });
+    expect(counts[0]).toMatchObject({ size: '12px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(786);
-      expect(reports[2].copyWidth).toBe(790);
+      expect(reports[0].copyWidth).toBe(866);
+      expect(reports[2].copyWidth).toBe(878);
     }
 
     await open(page, '');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
-    expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('1360px');
+    expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('none');
     await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
     await expectToolbarReadingOrder(page);
   });
@@ -161,7 +172,7 @@ function hue(rgb: number[]) {
 }
 
 for (const colorScheme of ['light', 'dark'] as const) {
-  test(`Catalog and Events share uppercase badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
+  test(`Catalog and Events share compact badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
     const badgeStyles = async (selector: string) => page.locator(selector).evaluateAll((nodes) => nodes.map((el) => {
       const s = getComputedStyle(el);
@@ -174,22 +185,22 @@ for (const colorScheme of ['light', 'dark'] as const) {
     await open(page, 'events');
     const events = await badgeStyles('[data-event-result] .category-label');
     expect(events.length).toBeGreaterThan(0);
-    expect(events[0].typography).toMatchObject({ size: '10px', weight: '600', line: '14px', tracking: '0.25px', padding: '3px 5px', radius: '3px' });
+    expect(events[0].typography).toMatchObject({ size: '11px', weight: '500', line: '15.4px', tracking: 'normal', padding: '3px 7px', radius: '0px' });
     for (const badge of events) {
       expect(badge.typography).toEqual(events[0].typography);
-      expect(badge.transform).toBe('uppercase');
+      expect(badge.transform).toBe('none');
     }
     const palettes: Record<string, Record<string, number[]>> = {};
     for (const surface of ['analog', 'digital']) {
       await open(page, surface);
-      const scope = await badgeStyles('.catalog-scope .category-label');
+      const scope = await badgeStyles('.catalog-scope .category-label:not([data-ai-development])');
       expect(scope.length).toBeGreaterThan(0);
       for (const badge of scope) {
         expect(badge.typography).toEqual(events[0].typography);
-        expect(badge.transform).toBe('uppercase');
+        expect(badge.transform).toBe('none');
       }
       const palette = await page.locator('.catalog').evaluate((el, stage) => {
-        const rgb = (selector: string, property: 'backgroundColor' | 'color' = 'backgroundColor') => {
+        const rgb = (selector: string, property: 'backgroundColor' | 'color' = 'color') => {
           const node = el.querySelector(selector);
           return node ? getComputedStyle(node)[property].match(/[\d.]+/g)!.slice(0, 3).map(Number) : null;
         };
@@ -197,9 +208,9 @@ for (const colorScheme of ['light', 'dark'] as const) {
           synthesis: rgb('.scope-synthesis'), layout: rgb('.scope-layout'), provenance: rgb('[data-ai-development]', 'color') }).filter(([, value]) => value));
       }, surface === 'analog' ? 'simulation' : 'verification') as Record<string, number[]>;
       palettes[surface] = palette;
-      // Review the full system: teal, blue, yellow-olive, copper and crimson.
+      // Review the full system: green, blue, yellow-olive, copper and purple.
       // Broad hue families allow tuning without allowing the warm categories to merge.
-      const families = { design: [145, 180], blue: [195, 220], synthesis: [43, 65], layout: [10, 30], provenance: [330, 355] };
+      const families = { design: [145, 180], blue: [195, 220], synthesis: [43, 65], layout: [10, 30], provenance: [275, 295] };
       for (const [stage, color] of Object.entries(palette)) {
         const h = hue(color), [min, max] = families[stage as keyof typeof families];
         expect(h, `${surface} ${stage} hue`).toBeGreaterThanOrEqual(min);
@@ -222,14 +233,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
       const palette = await page.evaluate(() => {
         const ctx = document.createElement('canvas').getContext('2d')!;
         const rgb = (color: string) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = color; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data]; };
-        const color = (selector: string, property: 'color' | 'borderColor' = 'color') => {
+        const color = (selector: string, property: 'color' | 'borderColor' | 'backgroundColor' = 'color') => {
           const node = document.querySelector(selector);
           return node ? rgb(getComputedStyle(node)[property]) : null;
         };
         return { bg: rgb(getComputedStyle(document.documentElement).backgroundColor),
           title: color('.index-title'), summary: color('.index-summary'), date: color('.index-date'),
           links: color('.index-links a'),
-          active: color('.activity-strip li.active', 'borderColor'), inactive: color('.activity-strip li:not(.active)', 'borderColor') };
+          active: color('.activity-strip li.active', 'backgroundColor') };
       });
       for (const [key, value] of Object.entries(palette)) {
         if (!value || key === 'bg') continue;
@@ -243,7 +254,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           });
           return { links: size('.catalog-quicklinks'), scope: size('.scope-label'), cells };
         });
-        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('10px');
+        expect(styles.links).toBe('13px'); expect(styles.scope).toBe('11px');
         const badges = await page.locator('.scope-label').evaluateAll((nodes) => nodes.map((el) => {
           const s = getComputedStyle(el), rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
@@ -258,35 +269,32 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(styles.cells).toHaveLength(12);
         expect(styles.cells.map((c) => c.month)).toEqual(styles.cells.map((c) => c.month).sort());
         for (let i = 0; i < 12; i++) {
-          expect(styles.cells[i].width).toBe(5); expect(styles.cells[i].height).toBe(10);
-          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(7);
+          expect(styles.cells[i].width).toBe(6); expect(styles.cells[i].height).toBe(8);
+          if (i) expect(styles.cells[i].x - styles.cells[i - 1].x).toBe(8);
         }
       }
     }
   });
 }
 
-test('Events toolbar is flat while its controls and company popover remain usable', async ({ page }) => {
+test('Events toolbar is flat and retains search and Signal type controls', async ({ page }) => {
   await open(page, 'events');
   const utility = page.locator('.event-filter-utility');
   const style = await utility.evaluate((el) => {
     const s = getComputedStyle(el); return { background: s.backgroundColor, shadow: s.boxShadow, radius: s.borderRadius, top: s.borderTopWidth, side: s.borderLeftWidth };
   });
   expect(style).toEqual({ background: 'rgba(0, 0, 0, 0)', shadow: 'none', radius: '0px', top: '0px', side: '0px' });
-  for (const selector of ['[data-search]', '[data-kind]', '.company-picker summary']) {
+  for (const selector of ['[data-search]', '[data-kind]']) {
     const control = utility.locator(selector);
     expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(40);
-    expect(await control.evaluate((el) => getComputedStyle(el).fontSize)).toBe('14px');
+    expect(await control.evaluate((el) => getComputedStyle(el).fontSize)).toBe('13px');
   }
   await page.locator('[data-search]').fill('PLL');
   await page.locator('[data-kind]').selectOption('technical');
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page).toHaveURL(/q=PLL/);
-  const summary = page.locator('.company-picker summary');
-  await summary.focus(); await page.keyboard.press('Enter');
-  await expect(page.locator('.company-picker-panel')).toBeVisible();
-  expect(await page.locator('.company-picker-panel').evaluate((el) => getComputedStyle(el).boxShadow)).not.toBe('none');
-  await page.keyboard.press('Tab');
+  await expect(page.locator('[data-company-picker]')).toHaveCount(0);
+  await page.locator('[data-search]').focus();
   expect(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
 });
 

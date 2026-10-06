@@ -65,7 +65,6 @@ test('Timeline and Events navigation preserves shared state without carrying hid
   await page.goto('./events/?q=PLL&kind=organizational&companies=apple&view=people');
   await expectExplorerReady(page, 'events');
   expect(queryState(page.url())).toEqual({
-    companies: 'apple',
     kind: 'organizational',
     q: 'PLL',
   });
@@ -74,13 +73,13 @@ test('Timeline and Events navigation preserves shared state without carrying hid
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await expectExplorerReady(page);
   expect(new URL(page.url()).pathname).toBe(basePath);
-  expect(queryState(page.url())).toEqual({ companies: 'apple', q: 'PLL' });
+  expect(queryState(page.url())).toEqual({ q: 'PLL' });
   await expect(page.locator('[data-kind], [data-view]')).toHaveCount(0);
 
   await page.getByRole('link', { name: 'Events', exact: true }).click();
   await expectExplorerReady(page, 'events');
   expect(new URL(page.url()).pathname).toBe(`${basePath}events/`);
-  expect(queryState(page.url())).toEqual({ companies: 'apple', q: 'PLL' });
+  expect(queryState(page.url())).toEqual({ q: 'PLL' });
   await expect(page.locator('[data-kind]')).toHaveValue('all');
 });
 

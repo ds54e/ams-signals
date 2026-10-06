@@ -162,7 +162,7 @@ test('Articles publishes every authored document and keeps editorial links separ
       titleFontSize: firstTitle ? Number.parseFloat(getComputedStyle(firstTitle).fontSize) : 0,
     };
   });
-  expect(indexLayout.width).toBeLessThanOrEqual(920);
+  expect(indexLayout.width).toBeLessThanOrEqual(1040);
   expect(Math.abs(indexLayout.left - indexLayout.right)).toBeLessThanOrEqual(1);
   expect(indexLayout.rowDisplay).toBe('grid');
   expect(indexLayout.titleFontSize).toBeLessThanOrEqual(18);
@@ -395,7 +395,7 @@ test('Events is the chronological textual view without a Timeline or inspector',
       right: document.documentElement.clientWidth - rect.right,
     };
   });
-  expect(eventsLayout.width).toBeLessThanOrEqual(920);
+  expect(eventsLayout.width).toBeLessThanOrEqual(1040);
   expect(Math.abs(eventsLayout.left - eventsLayout.right)).toBeLessThanOrEqual(1);
 
   await page.locator('[data-search]').fill('PLL');
@@ -697,9 +697,9 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await page.goto(`${path}?companies=apple,renesas&kind=technical&q=PLL&view=people`);
     await expectExplorerReady(page, isEvents ? 'events' : 'timeline');
     await expect(page.getByText(removedCopy, { exact: true })).toHaveCount(0);
-    await expect(page.locator('.search-control > span')).toHaveText('Search events');
+    await expect(page.locator('.search-control > span')).toHaveText(isEvents ? 'Search events or companies' : 'Search events');
     await expect(page.locator('.search-control > span')).toHaveClass(/visually-hidden/);
-    await expect(page.getByRole('searchbox', { name: 'Search events', exact: true })).toBeVisible();
+    await expect(page.getByRole('searchbox', { name: isEvents ? 'Search events or companies' : 'Search events', exact: true })).toBeVisible();
     await expect(page.locator('[data-view]')).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('Entity type', { exact: true })).toHaveCount(0);
     if (isEvents) {
@@ -708,7 +708,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
       await expect(page.getByRole('combobox', { name: 'Signal type', exact: true })).toBeVisible();
       await expect(page.locator('[data-kind] option')).toHaveText(['All types', 'Technical', 'Organizational']);
       expect(new URL(page.url()).searchParams.get('kind')).toBe('technical');
-      await expect(page.locator('.event-filters > *')).toHaveCount(3);
+      await expect(page.locator('.event-filters > *')).toHaveCount(2);
     } else {
       await expect(page.locator('[data-kind]')).toHaveCount(0);
       expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
@@ -717,9 +717,14 @@ test('Timeline and Events expose their final surface-specific controls and termi
     }
     await expect(page.locator('.event-filter-utility > .event-filter-summary')).toHaveCount(1);
     await expect(page.locator('.event-explorer > .event-filter-summary')).toHaveCount(0);
-    expect(await page.locator('.event-filters').evaluate((filters) => getComputedStyle(filters).display)).toBe('flex');
-    await expect(page.locator('[data-company-picker] summary > span')).toHaveText('Companies');
-    await expect(page.locator('[data-company-summary]')).toHaveText('2 selected');
+    expect(await page.locator('.event-filters').evaluate((filters) => getComputedStyle(filters).display)).toBe(isEvents ? 'contents' : 'flex');
+    if (isEvents) {
+      await expect(page.locator('[data-company-picker]')).toHaveCount(0);
+      expect(new URL(page.url()).searchParams.has('companies')).toBe(false);
+    } else {
+      await expect(page.locator('[data-company-picker] summary > span')).toHaveText('Companies');
+      await expect(page.locator('[data-company-summary]')).toHaveText('2 selected');
+    }
     await expect(page.locator('[data-reset]')).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('Search the factual record', { exact: true })).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('View', { exact: true })).toHaveCount(0);
@@ -727,18 +732,17 @@ test('Timeline and Events expose their final surface-specific controls and termi
     await expect(page.locator('.event-filters').getByText('Company focus', { exact: true })).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText(/active companies/i)).toHaveCount(0);
 
-    await page.locator('[data-company-picker] summary').click();
-    await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
-    await page.locator('[data-company-picker] summary').click();
-
     const searchBox = await page.locator('[data-search]').boundingBox();
-    const companyBox = await page.locator('[data-company-picker] summary').boundingBox();
     expect(searchBox).not.toBeNull();
-    expect(companyBox).not.toBeNull();
-    expect(searchBox.width).toBeGreaterThanOrEqual(220);
-    expect(searchBox.width).toBeLessThanOrEqual(340);
-    expect(Math.abs((searchBox.y + searchBox.height) - (companyBox.y + companyBox.height))).toBeLessThanOrEqual(1);
+    expect(searchBox.width).toBe(290);
+    if (!isEvents) {
+      await page.locator('[data-company-picker] summary').click();
+      await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Clear all', exact: true })).toBeVisible();
+      await page.locator('[data-company-picker] summary').click();
+      const companyBox = await page.locator('[data-company-picker] summary').boundingBox();
+      expect(Math.abs(searchBox.y - companyBox.y)).toBeLessThanOrEqual(1);
+    }
     if (isEvents) {
       const kindBox = await page.locator('[data-kind]').boundingBox();
       expect(kindBox).not.toBeNull();
@@ -748,14 +752,18 @@ test('Timeline and Events expose their final surface-specific controls and termi
 
     await page.locator('[data-search]').fill('');
     if (isEvents) await page.locator('[data-kind]').selectOption('all');
-    await page.locator('[data-company-picker] summary').click();
-    await page.getByRole('button', { name: 'Select all', exact: true }).click();
+    if (!isEvents) {
+      await page.locator('[data-company-picker] summary').click();
+      await page.getByRole('button', { name: 'Select all', exact: true }).click();
+    }
     expect(new URL(page.url()).search).toBe('');
     await expect(page.locator('[data-search]')).toHaveValue('');
     if (isEvents) await expect(page.locator('[data-kind]')).toHaveValue('all');
-    const companyOptionCount = await page.locator('[data-company-options] input').count();
-    await expect(page.locator('[data-company-options] input:checked')).toHaveCount(companyOptionCount);
-    await expect(page.locator('[data-company-summary]')).toHaveText(`All ${companyOptionCount}`);
+    if (!isEvents) {
+      const companyOptionCount = await page.locator('[data-company-options] input').count();
+      await expect(page.locator('[data-company-options] input:checked')).toHaveCount(companyOptionCount);
+      await expect(page.locator('[data-company-summary]')).toHaveText(`All ${companyOptionCount}`);
+    }
   }
 });
 
@@ -840,10 +848,10 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
 
   await page.goto('./events/?companies=apple,renesas&q=PLL');
   await expectExplorerReady(page, 'events');
-  await expect(page.locator('.event-filters > *')).toHaveCount(3);
+  await expect(page.locator('.event-filters > *')).toHaveCount(2);
   await expect(page.locator('[data-kind]')).toBeVisible();
   await expect(page.locator('[data-view]')).toHaveCount(0);
-  await expect(page.locator('[data-company-picker]')).toHaveCount(1);
+  await expect(page.locator('[data-company-picker]')).toHaveCount(0);
   await expect(page.locator('[data-reset]')).toHaveCount(0);
   await expect(page.locator('[data-event-result]:visible').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toBeVisible();

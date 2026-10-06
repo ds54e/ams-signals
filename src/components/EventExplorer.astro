@@ -175,8 +175,8 @@ const matrixMarkLabel = (event: EventEntry) => (
   <div class="event-filter-utility filter-toolbar">
     <div class="event-filters" role="group" aria-label="Event filters">
       <label class="search-control">
-        <span class="visually-hidden">Search events</span>
-        <input class="filter-input" data-search type="search" placeholder="PLL, RNM, model validation…" autocomplete="off" />
+        <span class="visually-hidden">{surface === 'events' ? 'Search events or companies' : 'Search events'}</span>
+        <input class="filter-input" data-search type="search" placeholder={surface === 'events' ? 'Company, PLL, RNM…' : 'PLL, RNM, model validation…'} autocomplete="off" />
       </label>
 
       {showSignalTypeControl && (
@@ -190,7 +190,7 @@ const matrixMarkLabel = (event: EventEntry) => (
         </label>
       )}
 
-      {showGlobalControls && (
+      {showGlobalControls && showTimeline && (
         <details class="company-picker" data-company-picker>
           <summary>
             <span>Companies</span>
@@ -245,7 +245,7 @@ const matrixMarkLabel = (event: EventEntry) => (
         >
           <div class="activity-matrix-axis-viewport">
             <div class="activity-matrix-axis">
-              <div class="matrix-axis-spacer" aria-hidden="true"></div>
+              <div class="matrix-axis-spacer" aria-hidden="true">Company / Person</div>
               <div
                 class="activity-axis-track"
                 data-activity-axis
@@ -555,7 +555,7 @@ const matrixMarkLabel = (event: EventEntry) => (
     </div>
     <div class="filtered-empty" data-filtered-empty hidden>
       <h3>No events match these filters</h3>
-      <p>Clear the search, select more companies, or choose All types.</p>
+      <p>{surface === 'events' ? 'Clear the search or choose All types.' : 'Clear the search, select more companies, or choose All types.'}</p>
     </div>
   </section>}
 
@@ -583,6 +583,7 @@ const matrixMarkLabel = (event: EventEntry) => (
     const companyOptionsEmpty = root.querySelector('[data-company-options-empty]');
     const companySummary = root.querySelector('[data-company-summary]');
     const companyPicker = root.querySelector('[data-company-picker]');
+    const supportsCompanyFilter = context === 'global' && !!companyPicker;
     const resultEmpty = root.querySelector('[data-filtered-empty]');
     const detail = root.querySelector('[data-detail]');
     const timelineScroll = root.querySelector('[data-timeline-scroll]');
@@ -817,6 +818,7 @@ const matrixMarkLabel = (event: EventEntry) => (
         const targetParams = new URLSearchParams(params);
         targetParams.delete('view');
         if (link.getAttribute('data-filter-surface') === 'timeline') targetParams.delete('kind');
+        else targetParams.delete('companies');
         url.search = targetParams.toString();
         link.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
       });
@@ -828,7 +830,7 @@ const matrixMarkLabel = (event: EventEntry) => (
       kind && kindValue !== 'all' ? params.set('kind', kindValue) : params.delete('kind');
       params.delete('view');
 
-      if (context === 'global') {
+      if (supportsCompanyFilter) {
         if (selected.size === companyChecks.length) {
           params.delete('companies');
         } else if (selected.size === 0) {
@@ -885,7 +887,7 @@ const matrixMarkLabel = (event: EventEntry) => (
         const eventTokens = tokensFor(event.search);
         const matchesText = terms.every((term) => hasTerm(eventTokens, term));
         const matchesKind = kindValue === 'all' || event.kind === kindValue;
-        const matchesCompany = context !== 'global'
+        const matchesCompany = !supportsCompanyFilter
           || (event.companies.length === 0
             ? allCompaniesSelected
             : event.companies.some((company) => selected.has(company.id)));
@@ -895,7 +897,7 @@ const matrixMarkLabel = (event: EventEntry) => (
 
       root.querySelectorAll('[data-event-mark]').forEach((mark) => {
         const lane = mark.closest('[data-lane]');
-        const selectedLane = context !== 'global'
+        const selectedLane = !supportsCompanyFilter
           || lane?.getAttribute('data-lane-type') !== 'company'
           || selected.has(lane.getAttribute('data-entity-id'));
         mark.hidden = !visibleIds.has(mark.getAttribute('data-event-id')) || !selectedLane;
@@ -974,7 +976,7 @@ const matrixMarkLabel = (event: EventEntry) => (
     const canonicalKind = legacyKindAliases.get(requestedKind) || requestedKind;
     if (kind && [...kind.options].some((option) => option.value === canonicalKind)) kind.value = canonicalKind;
 
-    if (context === 'global' && params.has('companies')) {
+    if (supportsCompanyFilter && params.has('companies')) {
       const raw = params.get('companies');
       const requested = raw === 'none' ? new Set() : new Set(raw.split(',').filter(Boolean));
       const validRequested = new Set([...requested].filter((id) => companyChecks.some((check) => check.value === id)));

@@ -255,12 +255,12 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
   for (const path of ['./', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
-    expect(await pickerOrder()).toEqual(expectedPicker);
+    expect(await pickerOrder()).toEqual(path.includes('events') ? [] : expectedPicker);
     await expect(page.locator('.company-records')).toHaveCount(0);
 
     await page.locator('[data-search]').fill('RNM');
     await expect.poll(() => new URL(page.url()).searchParams.get('q')).toBe('RNM');
-    expect(await pickerOrder()).toEqual(expectedPicker);
+    expect(await pickerOrder()).toEqual(path.includes('events') ? [] : expectedPicker);
   }
 
   await page.goto('./');
@@ -379,7 +379,7 @@ test('global Activity Matrix renders the validated geometry without visual bundl
     lane: `${row.entityType}:${row.entity.data.id}`,
     visualRowCount: row.visualRowCount,
     height: row.height,
-    borderBottom: '0px',
+    borderBottom: '1px',
     baselineContent: 'none',
     bundles: row.bundles.map((bundle) => ({
       ids: bundle.eventIds, x: bundle.x, xPx: bundle.xPx,
@@ -575,8 +575,8 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     expectAligned(initial, `${viewport.width}px initial`);
     expect(initial.newestBandLeft, `${viewport.width}px 2026 band clears label column`)
       .toBeGreaterThanOrEqual(initial.labelRight - 1);
-    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBeGreaterThanOrEqual(30);
-    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBeLessThanOrEqual(34);
+    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBe(35);
+
 
     if (viewport.width === 390) {
       const overlappingControls = await page.locator('[data-group="both"] [data-matrix-bundle]:visible')
@@ -774,7 +774,7 @@ test('global Matrix is one accessible interleaved view with restrained entity co
     };
   });
   expect(visualGrammar.rowHeight).toBeGreaterThanOrEqual(28);
-  expect(visualGrammar.rowBorder).toBe('0px');
+  expect(visualGrammar.rowBorder).toBe('1px');
   expect(visualGrammar.baselineContent).toBe('none');
   expect(visualGrammar.guideBorder).toBe('1px');
   expect(visualGrammar.guideStyle).toBe('solid');

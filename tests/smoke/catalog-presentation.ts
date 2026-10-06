@@ -9,26 +9,27 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
       classes: [...el.classList], color: style.color, fill: style.backgroundColor,
       radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize), weight: Number(style.fontWeight),
       paddingX: parseFloat(style.paddingLeft), paddingY: parseFloat(style.paddingTop),
-      width: box.width, height: box.height, outline: style.outlineStyle, shadow: style.boxShadow,
+      width: box.width, height: box.height, outline: style.outlineStyle, shadow: style.boxShadow, border: style.borderColor, borderWidth: style.borderWidth,
     };
   }));
   expect(items.length).toBeGreaterThan(0);
   for (const item of items) {
     expect(item.classes).toEqual(['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`]);
     expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-(?:ASSISTED|BUILT)$/);
-    expect(item.transform).toBe('uppercase');
-    expect(item.renderedText).toBe(item.text.toUpperCase());
+    expect(item.transform).toBe('none');
+    expect(item.renderedText).toBe(item.text);
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
-    expect(item.radius).toBeGreaterThanOrEqual(2); expect(item.radius).toBeLessThanOrEqual(3);
-    expect(item.font).toBe(10); expect(item.weight).toBe(600);
+    expect(item.radius).toBe(0);
+    expect(item.font).toBe(11); expect(item.weight).toBe(500);
     expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
-    expect(item.width).toBeLessThanOrEqual(122);
-    expect(item.height).toBe(20);
+    expect(item.width).toBeLessThanOrEqual(150);
+    expect(item.height).toBeCloseTo(21.4, 1);
     if (item.development && !forcedColors) {
       expect(item.fill).toBe('rgba(0, 0, 0, 0)');
-      expect(item.shadow).toContain(item.color);
-      expect(item.shadow).toContain('inset');
+      expect(item.shadow).toBe('none');
+      expect(item.borderWidth).toBe('1px');
+      expect(item.border).not.toBe(item.fill);
     } else expect(item.fill).not.toBe('rgba(0, 0, 0, 0)');
     expect(item.color).not.toBe(item.fill);
     if (forcedColors) expect(item.outline).toBe('solid');
@@ -50,7 +51,7 @@ type ActivityRecord = {
 
 export async function expectActivityBands(rows: Locator, activitySelector: string, snapshot: {
   months: string[]; reviewedAt: string; projects: Record<string, ActivityRecord>;
-}) {
+}, forcedColors = false) {
   const rendered = await rows.evaluateAll((nodes, selector) => nodes.map((el) => {
     const activity = el.querySelector<HTMLElement>(selector)!;
     const time = activity.querySelector('time')!;
@@ -89,9 +90,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.dateText).toBe(new Intl.DateTimeFormat('en-US', {
       month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
     }).format(new Date(`${date}T00:00:00Z`)));
-    expect(item.dateRendered).toBe(item.dateText.toUpperCase());
-    expect(item.dateRendered).toMatch(/^[A-Z]{3} [1-9]\d?, \d{4}$/);
-    expect(item.dateTransform).toBe('uppercase');
+    expect(item.dateRendered).toBe(item.dateText);
+    expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
+    expect(item.dateTransform).toBe('none');
     expect(item.weight).toBe(400);
     expect(item.dateLine).toBe(item.dateRendered);
     expect(item.text).toBe(item.dateText);
@@ -120,9 +121,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(82);
-    expect(item.activityWidth).toBeLessThanOrEqual(122);
-    expect(item.stripWidth).toBeCloseTo(82, 1);
+    expect(item.activityWidth).toBeGreaterThanOrEqual(94);
+    expect(item.activityWidth).toBeLessThanOrEqual(150);
+    expect(item.stripWidth).toBeCloseTo(94, 1);
     expect(item.stripWidth).toBeLessThanOrEqual(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
     for (let index = 0; index < 12; index++) {
@@ -141,11 +142,11 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
       expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
       expect(bucket.height).toBe(item.months[0].height);
-      expect(bucket.width).toBe(5); expect(bucket.height).toBe(10);
+      expect(bucket.width).toBe(6); expect(bucket.height).toBe(8);
       // Narrow vertical ticks retain a compact recent-activity pattern.
       expect(bucket.height / bucket.width).toBeGreaterThan(1);
-      expect(bucket.borderWidth).toBeGreaterThan(0); expect(bucket.opacity).toBe('1');
-      expect(bucket.fill).toBe(active ? bucket.border : 'rgba(0, 0, 0, 0)');
+      expect(bucket.borderWidth).toBe(forcedColors ? 1 : 0); expect(bucket.opacity).toBe('1');
+      expect(bucket.fill).not.toBe('rgba(0, 0, 0, 0)');
       if (index) {
         const previous = item.months[index - 1];
         const gap = bucket.left - previous.left - previous.width;
@@ -153,6 +154,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       }
     }
   }
+  const inactive = rendered.flatMap((row) => row.months).filter((month) => !month.active);
+  const activeFills = new Set(rendered.flatMap((row) => row.months).filter((month) => month.active).map((month) => month.fill));
+  for (const month of inactive) expect(activeFills.has(month.fill)).toBe(false);
   // Every active month has the same visual weight, irrespective of raw commit volume.
   const active = rendered.flatMap((row) => row.months).filter((month) => month.active);
   expect(active.length).toBeGreaterThan(0);
@@ -180,21 +184,21 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
   }));
   for (const row of geometry) {
     expect(row.columns).toHaveLength(2);
-    expect(row.row.width).toBeLessThanOrEqual(920);
+    expect(row.row.width).toBeLessThanOrEqual(1040);
     if (width >= 1024) {
-      expect(row.columns[0].width).toBe(122);
+      expect(row.columns[0].width).toBe(150);
       expect(row.columns[1].width).toBeGreaterThan(754);
-      expect(row.columns[1].left - row.columns[0].right).toBe(12);
+      expect(row.columns[1].left - row.columns[0].right).toBe(24);
       if (width >= 1280) {
-        expect(row.row.width).toBe(920);
-        expect(row.columns[1].width).toBe(786);
+        expect(row.row.width).toBe(1040);
+        expect(row.columns[1].width).toBe(866);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);
       expect(row.columns[1].bottom).toBeLessThan(row.columns[0].top);
     }
     expect(row.date.bottom).toBeLessThan(row.strip.top);
-    expect(row.strip.top - row.date.bottom).toBeCloseTo(4, 1);
+    expect(row.strip.top - row.date.bottom).toBeCloseTo(6, 1);
     expect(row.scopeItems[0].top - row.strip.bottom).toBeCloseTo(10, 1);
     for (const badge of row.scopeItems) {
       expect(badge.left).toBe(row.rail.left);
@@ -207,8 +211,8 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     for (let index = 1; index < row.titleChildren.length; index++) {
       const previous = row.titleChildren[index - 1], current = row.titleChildren[index];
       if (current.top < previous.bottom - 1) {
-        expect(current.left - previous.right).toBeGreaterThanOrEqual(11);
-        expect(current.left - previous.right).toBeLessThanOrEqual(13);
+        expect(current.left - previous.right).toBeGreaterThanOrEqual(15);
+        expect(current.left - previous.right).toBeLessThanOrEqual(17);
       } else expect(current.left).toBeCloseTo(row.title.left, 1);
     }
     expect(row.name.bottom).toBeLessThan(row.description.top);
@@ -227,7 +231,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     for (let index = 1; index < row.scopeItems.length; index++) {
       const previous = row.scopeItems[index - 1], current = row.scopeItems[index];
       expect(current.left).toBeCloseTo(previous.left, 1);
-      expect(current.top - previous.bottom).toBeCloseTo(current.development ? 8 : 3, 1);
+      expect(current.top - previous.bottom).toBeCloseTo(current.development ? 8 : 4, 1);
     }
     for (const item of row.scopeItems) {
       expect(item.left).toBeGreaterThanOrEqual(row.rail.left);

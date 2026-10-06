@@ -1,21 +1,21 @@
 /* Shared editorial index hierarchy. Containers retain their functional widths. */
-.index-list { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--border); }
+.index-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border-strong); border-bottom: 1px solid var(--border-strong); }
 .index-row { padding-block: var(--index-row-before) var(--index-row-after); border-top: 1px solid var(--border); }
 .index-row:nth-child(1 of :not([hidden])) { border-top: 0; }
-.index-dated-row { display: grid; grid-template-columns: 108px minmax(0, 1fr); column-gap: var(--index-column-gap); }
-.index-title { margin: 0; font-size: var(--type-index-title); font-weight: 700; line-height: var(--leading-index-title); letter-spacing: -0.005em; text-wrap: pretty; overflow-wrap: anywhere; }
+.index-dated-row { display: grid; grid-template-columns: 138px minmax(0, 1fr); column-gap: var(--index-column-gap); }
+.index-title { margin: 0; font-size: var(--type-index-title); font-weight: 650; line-height: var(--leading-index-title); letter-spacing: 0; text-wrap: pretty; overflow-wrap: anywhere; }
 .index-title:lang(ja) { letter-spacing: 0; line-break: strict; }
 .index-title a { color: var(--text); font-weight: inherit; text-decoration: none; }
 .index-title a:hover { color: var(--accent-ink); text-decoration: underline; }
 .index-summary { margin: var(--index-copy-gap) 0 0; font-size: var(--type-index-summary); font-weight: 400; line-height: var(--leading-index-summary); color: var(--muted); text-wrap: pretty; overflow-wrap: anywhere; }
 .index-summary:lang(ja) { line-break: strict; }
 .index-meta, .index-count { color: var(--muted); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
-.index-count { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; text-transform: uppercase; }
+.index-count { font-size: 12px; margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.index-date { color: var(--muted); font: 400 var(--type-micro)/var(--leading-meta) var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; text-transform: none; }
 .index-links { color: var(--accent-ink); font-size: var(--type-meta); font-weight: 400; line-height: var(--leading-meta); }
 .index-links a { color: var(--accent-ink); }
 /* Event kinds and Catalog Scope share one compact category-label family. */
-.category-label { display: inline-block; width: fit-content; padding: 3px 5px; border-radius: 3px; font: 600 0.625rem/1.4 var(--font-sans); letter-spacing: 0.025em; text-transform: uppercase; white-space: nowrap; color: var(--category-ink); background: var(--category-fill); }
+.category-label { display: inline-block; width: fit-content; padding: 3px 7px; border-radius: 0; font: 500 11px/1.4 var(--font-sans); letter-spacing: 0; text-transform: none; white-space: nowrap; color: var(--category-text); background: var(--category-fill); }
 @media (max-width: 760px) {
   .index-dated-row { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
 }

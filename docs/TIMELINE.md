@@ -26,7 +26,7 @@ Projection, chronological packing, bundle membership and visual collision handli
 
 Timeline always shows the combined Company + Person Matrix and both Technical and Organizational kinds. It exposes Search and Company filter only; mark shape communicates kind. Do not restore an entity-type selector or a hidden kind filter to the global overview.
 
-Events exposes Search, Signal type and Company filter for complete factual reading. Shared navigation state must not carry controls that the destination does not support. Preserve existing legacy-URL canonicalization, company predecessor search behavior, one-record handling of shared Events and inspector selection. Catalog Search/Scope remains entirely independent.
+Events exposes Search and Signal type for complete factual reading. Search includes Company names and canonical predecessor names; there is no Company picker on this surface. Unsupported `companies` parameters, including `companies=none`, are removed on Events and from links targeting Events. They must never silently narrow its records. Shared navigation state must not carry controls that the destination does not support. Preserve existing legacy-URL canonicalization, company predecessor search behavior, one-record handling of shared Events and inspector selection. Catalog Search/Scope remains entirely independent.
 
 ## Terminology
 
@@ -38,7 +38,7 @@ Golden `kind: technical` covers principally technical and standards milestones; 
 
 Desktop is the reference experience. Keep the horizontal spatial Timeline and Evidence Inspector; Events owns textual chronological reading. Narrow viewports may scroll the visualization locally, without a separate mobile-only chronology or a demand for full feature parity. Avoid broken rendering and inaccessible evidence.
 
-Individual and bundled marks remain directly selectable with keyboard focus, meaningful kind shape and the shared hit geometry. Sticky labels occlude scrolling marks without clearing selection. Company filter popovers must actually own overlapping pixels rather than merely declaring a larger z-index. Changes preserve plain factual detail pages and explicit source availability.
+Individual and bundled marks remain directly selectable with keyboard focus, meaningful kind shape and the shared hit geometry. Sticky labels occlude scrolling marks without clearing selection. Timeline Company filter popovers must actually own overlapping pixels rather than merely declaring a larger z-index. Changes preserve plain factual detail pages and explicit source availability.
 
 ## Implementation and verification
 

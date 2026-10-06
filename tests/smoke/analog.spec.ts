@@ -57,7 +57,7 @@ test('ngspice maps its reviewed release to its month without fabricated reposito
     // The strip is exactly the snapshot window, dated from the reviewed record.
     await expect(row.locator('.activity-strip > li')).toHaveCount(months.length);
     await expect(row.locator('.activity-latest')).toHaveText(renderedDate(date));
-    expect(await row.locator('.activity-latest time').innerText()).toBe(renderedDate(date).toUpperCase());
+    expect(await row.locator('.activity-latest time').innerText()).toBe(renderedDate(date));
     await expect(row.locator('.activity-latest time')).toHaveAttribute('title', new RegExp(`^${label}:`));
     await expect(row.locator('.activity-latest a')).toHaveCount(0);
     await expect(row.locator('.activity-summary')).toHaveCount(0);
