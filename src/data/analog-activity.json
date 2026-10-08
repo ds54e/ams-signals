@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-05",
-  "capturedAt": "2026-10-05T11:55:09.775Z",
+  "reviewedAt": "2026-10-08",
+  "capturedAt": "2026-10-08T09:44:38.403Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -479,7 +479,7 @@
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
       "defaultBranch": "main",
-      "headSha": "6a5695ad9bb59ffb1a1d2f3a05e1c84d7381949e",
+      "headSha": "52aefa469eebb02f64f868517c25fead5c80522f",
       "commits": [
         0,
         0,
@@ -492,9 +492,9 @@
         0,
         0,
         73,
-        3
+        8
       ],
-      "lastCommitAt": "2026-10-03",
+      "lastCommitAt": "2026-10-07",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "913bc27adc6227ddabaa15b0b0d582ab280a0552",
       "notes": "A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator."
@@ -504,7 +504,7 @@
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
       "defaultBranch": "main",
-      "headSha": "fb29298855eeaaab3732c1fcfc3bf60c3b058789",
+      "headSha": "88a83e7e505411dc3a690f0e412989e62c5577b2",
       "commits": [
         0,
         0,
@@ -517,12 +517,12 @@
         22,
         74,
         394,
-        0
+        3
       ],
-      "lastCommitAt": "2026-09-29",
-      "lastMeaningfulCommitAt": "2026-09-29",
-      "lastMeaningfulCommitSha": "e9290339b0458cbcf1f81dacc4f92d8486522f41",
-      "notes": "September 29 integrates headless schematic/Maestro workflows and forwards schematic pin orientation and signal type. The later test-import cleanup remains the raw ordering tip."
+      "lastCommitAt": "2026-10-08",
+      "lastMeaningfulCommitAt": "2026-10-06",
+      "lastMeaningfulCommitSha": "66119da2460b0b92534c7f89a2c9b1bb5993c72d",
+      "notes": "October 5 implements human GUI intervention recording, evidence-derived verification, deterministic rule-candidate mining and snapshot-bound review decisions. October 6 integrates the Candidates review report into the default branch. October 8 test compatibility changes remain the latest raw commit; adoption does not change runtime policy."
     },
     "virtuoso-agent": {
       "kind": "github",
@@ -553,7 +553,7 @@
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
       "defaultBranch": "main",
-      "headSha": "aab1180fc1399a00d18867d56594fa1fdb457a6c",
+      "headSha": "8fb328c57631f527fd99deca38eca07e3c86c8cc",
       "commits": [
         0,
         0,
@@ -566,7 +566,7 @@
         36,
         23,
         28,
-        5
+        7
       ],
       "lastCommitAt": "2026-10-05",
       "lastMeaningfulCommitAt": "2026-10-05",
@@ -602,7 +602,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "9b1cb793e828675ad6e0f0d0a70b43e4cc2a9894",
+      "headSha": "b9448d8f1db00ec9fdf09ad9501f680169e1f9cd",
       "commits": [
         0,
         0,
@@ -615,9 +615,9 @@
         1007,
         354,
         727,
-        61
+        62
       ],
-      "lastCommitAt": "2026-10-04",
+      "lastCommitAt": "2026-10-06",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd",
       "notes": "The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF."
@@ -627,7 +627,7 @@
       "repository": "Xyce/Xyce",
       "repositoryId": 185829943,
       "defaultBranch": "master",
-      "headSha": "6243c628a36dbf6431424722d7f5265e22752c4a",
+      "headSha": "16889483a370b566a61198fb4bff49e60b75e895",
       "commits": [
         1,
         0,
@@ -640,9 +640,9 @@
         0,
         1,
         1,
-        0
+        1
       ],
-      "lastCommitAt": "2026-09-21",
+      "lastCommitAt": "2026-10-05",
       "lastMeaningfulCommitAt": "2026-09-21",
       "lastMeaningfulCommitSha": "6243c628a36dbf6431424722d7f5265e22752c4a",
       "notes": "September 21 integrates GeneralExternal time-integrator error-weight masks, Xyce-PyMi exposure and optional Xyce_Dependencies discovery. The current first-parent master history starts at the 7.9 restart; old_master is not grafted."
@@ -652,7 +652,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "c15c6c05b175de17e81e6c4dd6175e07815add28",
+      "headSha": "b39048fb88cfdee6ec233b41a0462a7f329091fb",
       "commits": [
         28,
         4,
@@ -665,9 +665,9 @@
         9,
         38,
         106,
-        17
+        33
       ],
-      "lastCommitAt": "2026-10-04",
+      "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "c15c6c05b175de17e81e6c4dd6175e07815add28",
       "notes": "GUI availability guards and forked-schematic cleanup preserve modified drawings instead of silently overwriting them. This is schematic-editing correctness within the existing scope."
@@ -784,7 +784,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "a575c97c332fed89aa42cc376315e404f75876da",
+      "headSha": "aa327c8b53ee14a7f3c5f18456987a8f02dbde6a",
       "commits": [
         4,
         5,
@@ -797,9 +797,9 @@
         4,
         18,
         42,
-        22
+        38
       ],
-      "lastCommitAt": "2026-10-02",
+      "lastCommitAt": "2026-10-07",
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "dbfebf4a47582801df912f6288f240b3ac65d623",
       "notes": "The internal extraction path adds substrate/well net mapping, shields device junction contributions to avoid double counting, and skips selected substrate fringes, with technology rules and regression coverage. These are concrete Layout extraction changes, not independent process-wide accuracy qualification."
@@ -836,7 +836,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
+      "headSha": "5d1258a756359dbee4ce6d06aff7b65e9199b087",
       "commits": [
         6,
         3,
@@ -849,9 +849,9 @@
         9,
         12,
         7,
-        2
+        3
       ],
-      "lastCommitAt": "2026-10-05",
+      "lastCommitAt": "2026-10-07",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
       "notes": "The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred."
@@ -861,7 +861,7 @@
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
       "defaultBranch": "current",
-      "headSha": "d13470fb87809a4e80f472a1a5aad002d69dac84",
+      "headSha": "904ba82d1aaadca39434984bab29909a8879dbd6",
       "commits": [
         13,
         18,
@@ -874,12 +874,12 @@
         6,
         11,
         7,
-        0
+        1
       ],
-      "lastCommitAt": "2026-09-27",
+      "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-09-14",
       "lastMeaningfulCommitSha": "e0c0e154edb4f8403d53c5c5601c2ee133c9e970",
-      "notes": "September 14 replaces HDL simulator wrapper scripts with QProcess execution, following Monte Carlo parameter-validation work. The September 27 translation commit remains the raw ordering date; these are development/continuous-build changes beyond stable 26.1.1."
+      "notes": "September 14 replaces HDL simulator wrapper scripts with QProcess execution, following Monte Carlo parameter-validation work. Meaningful activity remains anchored to those implementation changes; later raw commits do not automatically extend the reviewed signal. These are development/continuous-build changes beyond stable 26.1.1."
     },
     "cocotbext-ams": {
       "kind": "github",
@@ -1133,7 +1133,7 @@
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
       "defaultBranch": "main",
-      "headSha": "f85cd32dbcc9b307f98cdf4e27099992d120a01f",
+      "headSha": "19ef3841997226b9fb2b2a512048696e0b2f3609",
       "commits": [
         0,
         0,
@@ -1146,9 +1146,9 @@
         0,
         668,
         642,
-        43
+        98
       ],
-      "lastCommitAt": "2026-10-05",
+      "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "f85cd32dbcc9b307f98cdf4e27099992d120a01f",
       "notes": "Agent-planning tests now obtain their snapshot from the real Edit Engine rather than a handwritten substitute. This is an executable integration-test improvement; it does not expand the existing runtime stage or development-provenance classification."
@@ -1158,7 +1158,7 @@
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
       "defaultBranch": "main",
-      "headSha": "cdf938cca012bb30df329beb5e5e52fb1ed58e61",
+      "headSha": "3488cbead94d656ec9738e49aae3833acf4fafa2",
       "commits": [
         0,
         0,
@@ -1171,9 +1171,9 @@
         1088,
         1687,
         1271,
-        75
+        110
       ],
-      "lastCommitAt": "2026-10-05",
+      "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-03",
       "lastMeaningfulCommitSha": "fc17c778d9beaf720baf854ec29dbcb83ac61c88",
       "notes": "The analog extraction wrapper resolves technology-LEF variants and preserves the generated wrapper path separately from measurement results. Regression coverage addresses hard-macro ports and stale wrapper bindings; it does not independently establish physical signoff."
@@ -1228,6 +1228,31 @@
       "lastMeaningfulCommitSha": "29d99ad2df4d8262e64ba883849c2974b3f01cce",
       "capturedAt": "2026-10-05T11:48:18.368Z",
       "lastMeaningfulCommitSource": "activity"
+    },
+    "sganalog": {
+      "kind": "github",
+      "repository": "Li-Yueting/SGAnalog",
+      "repositoryId": 1399683603,
+      "defaultBranch": "main",
+      "headSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-10-01",
+      "lastMeaningfulCommitAt": "2026-10-01",
+      "lastMeaningfulCommitSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
+      "notes": "Initial public implementation includes schematic/netlist data, model transcription and graph grading, a fixed-topology sizing/simulation harness, and a digest-pinned open-PDK environment. The arXiv paper was submitted October 2; the activity band records the repository commit date."
     }
   }
 }

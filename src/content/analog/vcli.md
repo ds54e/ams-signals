@@ -2,7 +2,7 @@
 name: "vcli"
 aliases: ["Virtuoso CLI","virtuoso-cli"]
 summary: "A Rust CLI and daemon for multi-session Virtuoso control, schematic operations, Maestro runs, and Spectre results."
-description: "Rust CLI for concurrent Virtuoso sessions, with schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers. Repository-shipped agent skills add model-guided circuit sizing and schematic workflows; the CLI returns structured output locally or through SSH for those workflows and ordinary scripts."
+description: "Rust CLI for concurrent Virtuoso sessions, schematic edits, Maestro/Spectre runs, PSF results and SKILL layout helpers. Repository-shipped agent skills add model-guided sizing and schematic workflows; an Evidence Loop records human GUI corrections, verifies follow-up evidence and extracts reusable rule candidates for human review."
 scope:
   design:
     ai: true
@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-08"
 sources:
   - id: "code"
     title: "Public virtuoso-cli repository"
@@ -60,6 +60,21 @@ sources:
   - id: "skill-packaging"
     title: "Rust package excludes repository agent skills"
     url: "https://github.com/deanyou/virtuoso-cli/blob/fb29298855eeaaab3732c1fcfc3bf60c3b058789/Cargo.toml"
+  - id: "evidence-loop"
+    title: "Implemented intervention records, evidence mining, and snapshot-bound decisions"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/f107754b628dd88623e2e7a0e6f9b53d14841a65"
+  - id: "candidate-mining"
+    title: "Deterministic candidate grouping and independent-evidence accounting"
+    url: "https://github.com/deanyou/virtuoso-cli/blob/f107754b628dd88623e2e7a0e6f9b53d14841a65/.claude/skills/virtuoso-gui-debug/scripts/evidence/mine_candidates.py"
+  - id: "intervention-review"
+    title: "Intervention verification provenance and human candidate decisions"
+    url: "https://github.com/deanyou/virtuoso-cli/blob/f107754b628dd88623e2e7a0e6f9b53d14841a65/.claude/skills/virtuoso-gui-debug/scripts/evidence/record_intervention.py"
+  - id: "candidate-report"
+    title: "Candidates review tab and snapshot-aware adoption reporting"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/234ba6a56f58e947401a29d43efd413fab8590d0"
+  - id: "evidence-report-integration"
+    title: "Default-branch integration of the Candidates review report"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/66119da2460b0b92534c7f89a2c9b1bb5993c72d"
 ---
 ### Implementation and lineage
 
@@ -74,6 +89,14 @@ The September 29 headless-design integration expands schematic/symbol operations
 Admin-enabled SKILL broadcast opens one connection per live local session using concurrent Rust threads. Callers must inspect per-session results: partial failure can still return a successful process exit. This is concurrency across sessions, not a promise of simultaneous execution inside one Virtuoso instance. [Broadcast implementation](#source-broadcast)
 
 The exposed EDA infrastructure does not itself demonstrate autonomous analog design, optimization quality, or specification closure. Those require a separate workflow and circuit-specific evaluation.
+
+### Evidence Loop
+
+The October 5 implementation records human GUI interventions with original-run and follow-up references, before/after evidence and verification provenance. It groups corrections by reason, action and context to extract deterministic rule candidates. Connected original/follow-up runs count as one evidence component, avoiding duplicate support from correlated retries. Verified, failed, conflicting, unknown and manual evidence remain distinct. [Implementation](#source-evidence-loop) · [Candidate mining](#source-candidate-mining) · [Verification provenance](#source-intervention-review)
+
+Stable candidate IDs and snapshot hashes bind human adoption, rejection or deferral to specific evidence. The October 6 HTML Candidates tab exposes decision states and evidence references; adoption counts apply only to the current snapshot. Its default-branch integration supplies the reviewed activity signal. [Decision workflow](#source-intervention-review) · [Review report](#source-candidate-report) · [Integration](#source-evidence-report-integration)
+
+Adoption records a review decision without changing runtime policy. This is implemented experience collection and rule-candidate review, not demonstrated autonomous self-improvement or direct learning of circuit topology/sizing knowledge. The new feature does not change the existing stage classifications, and no live Virtuoso evidence-loop run was reproduced for the catalog. [Implementation boundary](#source-evidence-loop) · [Candidate mining](#source-candidate-mining)
 
 ### Scope classification
 
