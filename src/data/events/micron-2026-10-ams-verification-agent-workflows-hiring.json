@@ -1,0 +1,22 @@
+{
+  "id": "micron-2026-10-ams-verification-agent-workflows-hiring",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "micron"
+  ],
+  "people": [],
+  "headline": "Micron advertises full-chip AMS verification with AI-agent development and output evaluation",
+  "fact": "Micron's employer-attributed LinkedIn posting JR113919 assigns block-to-full-chip AMS verification spanning analog circuitry, digital logic and firmware, including power-loss and brownout checks. The role requires prototyping agents for requirement-to-test extraction, verification-plan assistance, regression triage, failure clustering, waveform-analysis guidance, coverage-gap identification and technical reports. It specifies approved engineering-data integration, validation checks, human review, success criteria and evaluation of output accuracy, usefulness and limitations. This records an advertised development and evaluation mandate, not demonstrated deployment.",
+  "sources": [
+    {
+      "title": "Micron: SR, Engineer - AMS Verification, JR113919 — employer LinkedIn posting",
+      "url": "https://in.linkedin.com/jobs/view/sr-engineer-ams-verification-at-micron-technology-4474274440",
+      "checkedAt": "2026-10-09",
+      "summary": "Employer-attributed full job description and JobPosting metadata identify JR113919 and October 5, 2026 as the LinkedIn posting date. The official Careers first-publication date is not established. This is a distinct requisition from the March JR93301 AI-assisted-coding role."
+    }
+  ]
+}

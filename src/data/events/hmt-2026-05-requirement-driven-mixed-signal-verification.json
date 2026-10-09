@@ -1,0 +1,28 @@
+{
+  "id": "hmt-2026-05-requirement-driven-mixed-signal-verification",
+  "when": {
+    "start": "2026-05-12",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "hmt-microelectronic"
+  ],
+  "people": [],
+  "headline": "HMT presents a Polarion-to-SystemVerilog workflow for mixed-signal ASIC verification",
+  "fact": "At User2User Europe 2026, HMT Microelectronic's Vincent Camus presented a requirement-driven mixed-signal ASIC verification workflow. The public session description connects Siemens Polarion requirements to VIP-based SystemVerilog testbenches, SVA assertions and chip-level mixed-signal validation. It describes automated pass/fail reporting and centralized model hierarchy, simulation configuration and version management. Simulator independence and functional-safety compliance are claims in the presentation description; no third-party certification or quantified verification result was established.",
+  "sources": [
+    {
+      "title": "Siemens User2User Europe 2026: HMT session description",
+      "url": "https://event-new.sw.siemens.com/_widgets/10372/agenda/235901/large/session_popup/63836633/3/eng/false/94351",
+      "checkedAt": "2026-10-09",
+      "summary": "Official session detail, linked from the Functional Design & Verification catalog, identifies HMT, Vincent Camus and May 12, 2026. Its public description specifies Polarion, SystemVerilog, SVA, mixed-signal validation and traceability."
+    },
+    {
+      "title": "Verification Academy: Automated requirement-driven, SystemVerilog-based verification workflow for mixed-signal ASICs",
+      "url": "https://verificationacademy.com/topics/functional-safety/automated-requirement-driven-systemverilog-based-verification-workflow-for-mixed-signal-asics/",
+      "checkedAt": "2026-10-09",
+      "summary": "Public abstract corroborates the workflow and affiliation. The member-only recording was not reviewed; the Event date comes from the official conference session, not the page update."
+    }
+  ]
+}

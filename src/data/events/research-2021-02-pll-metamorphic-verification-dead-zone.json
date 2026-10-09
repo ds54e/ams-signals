@@ -1,0 +1,26 @@
+{
+  "id": "research-2021-02-pll-metamorphic-verification-dead-zone",
+  "when": {
+    "start": "2021-02-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [],
+  "people": [],
+  "headline": "DATE authors use metamorphic relations to expose a PFD bug in a SystemC-AMS PLL model",
+  "fact": "A DATE 2021 paper reports metamorphic testing of an industrial partner's SystemC-AMS PLL model. A relation between scaled reference and divided-feedback frequencies exposed a PFD dead-zone bug missed by existing tests: changing the reference from 1 MHz to 1.01 MHz produced 50 kHz feedback. The authors report restoring the relation after adding delay in the PFD reset path. This concerns a system-level model rather than a demonstrated silicon defect; the industrial partner is unnamed.",
+  "sources": [
+    {
+      "title": "System Level Verification of Phase-Locked Loop using Metamorphic Relations — DATE 2021 paper",
+      "url": "https://past.date-conference.com/proceedings-archive/2021/pdf/1933.pdf",
+      "checkedAt": "2026-10-09",
+      "summary": "Full paper by Muhammad Hassan, Daniel Große and Rolf Drechsler describes SystemC-AMS, eight metamorphic relations, the frequency-scaling failure and the PFD reset-delay correction. It does not identify the industrial partner."
+    },
+    {
+      "title": "DATE 2021 official program: IP8_1.2",
+      "url": "https://past.date-conference.com/proceedings-archive/2021/html/toc.html",
+      "checkedAt": "2026-10-09",
+      "summary": "Official program lists the presentation on February 4, 2021. This is the verified presentation date; the PDF first-upload date is not established."
+    }
+  ]
+}

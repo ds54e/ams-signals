@@ -5,10 +5,12 @@
     "precision": "day"
   },
   "kind": "organizational",
-  "companies": ["skyworks"],
+  "companies": [
+    "skyworks"
+  ],
   "people": [],
-  "headline": "Skyworks posts AMS automation roles for an agentic platform and a student AI workflow project",
-  "fact": "Skyworks posted an AI Automation & Software Developer co-op on August 20 for January–June 2027 in Cedar Rapids. It assigns evaluation of AI tools and software workflows for circuit design and verification; behavioral modeling, Verilog-AMS/SystemVerilog and analog/RF design are desired background. Separately, an August 24 design-automation role says a central engineering team is building an AI-enabled analog and mixed-signal design and verification platform, with agentic connections to EDA simulation, DRC, LVS, electromigration and compute schedulers, and support for real-number-modeling workflows. The descriptions do not establish that the co-op works on the same platform or that either project is deployed.",
+  "headline": "Skyworks posts agentic AMS platform roles with verification-data integration and evaluation",
+  "fact": "Skyworks listed a Cedar Rapids AI/software-workflow co-op on August 20 and a central design-automation role on August 24 describing an AI-enabled, agentic AMS design/verification platform and RNM workflows. On September 24, Irvine co-op requisition 78496 explicitly described a platform under development for mixed-signal verification debug and closure. It assigns agent tool use, retrieval and evaluation using real verification data, connections to testbenches, simulation logs, waveforms and coverage, and quality reporting. These advertisements strengthen the platform-development signal without establishing deployment or a shared platform/team across all three roles.",
   "sources": [
     {
       "title": "Skyworks Careers: AI Automation & Software Developer Co-op (Winter/Spring 2027), requisition 78222",
@@ -21,6 +23,12 @@
       "url": "https://careers.skyworksinc.com/job/Sr_-Design-Automation-Engineer/77976-en_US/",
       "checkedAt": "2026-08-30",
       "summary": "Official Skyworks role posted August 24, 2026, describing an AI-enabled, agentic AMS design and verification platform under development."
+    },
+    {
+      "title": "Skyworks Careers: Agentic Mixed Signal Verification Platform Winter/Spring Co-Op, requisition 78496",
+      "url": "https://careers.skyworksinc.com/job/Agentic-Mixed-Signal-Verification-Platform-WinterSpring-Co-Op-%28Jan-June-%2727%29/78496-en_US/",
+      "checkedAt": "2026-10-09",
+      "summary": "Official posting start date is September 24, 2026; January–June 2027 is the work term. The role connects agents to real verification data, testbenches, simulation logs, waveforms and coverage, and evaluates output quality. It reinforces the August milestone without establishing that all roles share a team."
     }
   ]
 }

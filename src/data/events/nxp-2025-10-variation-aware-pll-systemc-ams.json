@@ -1,0 +1,34 @@
+{
+  "id": "nxp-2025-10-variation-aware-pll-systemc-ams",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP authors preserve shared block variations in a SystemC-AMS PLL performance model",
+  "fact": "NXP and RPTU authors presented variation-aware PLL performance evaluation at DVCon Europe 2025. Public slides integrate statistical performance kernels into SystemC-AMS charge-pump and loop-filter models, preserving 23 shared variations between the blocks. They evaluate PLL lock-time distributions across 2,000 runs and compare approaches with independently modeled block distributions. Related NXP work appeared in 2023; this event records the 2025 evaluation rather than the methodology's first introduction.",
+  "sources": [
+    {
+      "title": "Performance Evaluation of a Phase-Locked Loop using Variation-Aware Behavioral Models — slides",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/Performance-Evaluation-of-a-Phase-Locked-Loop-using-Variation-Aware-Behavioral-Models.pdf",
+      "checkedAt": "2026-10-09",
+      "summary": "Public slides by Neha Chavan, Jan Rödel, Carna Zivkovic and Christoph Grimm show shared CP/filter variation parameters, SystemC-AMS integration and lock-time distribution comparisons. The full paper was not reviewed."
+    },
+    {
+      "title": "DVCon Europe 2025 official program: session 5C, paper 154",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2025_Proceedings.pdf",
+      "checkedAt": "2026-10-09",
+      "summary": "The official program places this presentation in session 5C on October 15, 2025."
+    },
+    {
+      "title": "Variation-Aware Performance Verification of Analog Mixed-Signal Systems — 2023 publisher abstract",
+      "url": "https://www.vde-verlag.de/proceedings-de/566205001.html",
+      "checkedAt": "2026-10-09",
+      "summary": "Publisher abstract identifies earlier NXP work using a compact linear kernel and SystemC-AMS charge-pump PLL analysis in 2023. The predecessor full text was not reviewed; it establishes prior work, not the detailed difference between the two publications."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "solidvue-2023-11-spad-tof-systemverilog-modeling",
+  "when": {
+    "start": "2023-11",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": [
+    "solidvue",
+    "scientific-analog"
+  ],
+  "people": [],
+  "headline": "SolidVue and Scientific Analog authors model a SPAD-to-histogram sensor in SystemVerilog",
+  "fact": "A DVCon Europe 2023 paper by SolidVue, Scientific Analog and Sungkyunkwan University authors reports a SystemVerilog/XMODEL simulation platform for a SPAD-based time-of-flight sensor. Poisson-based photon and dark-count models include detection probability and dead time, and connect 64 SPADs and analog front ends to a TDC, histogram counter and timing controller. The paper shows histogram responses under varied sensor and illumination parameters and reports approximately 4.6 minutes for a 1.5-m proximity-sensor simulation. These are system-model results; measured-silicon correlation was not demonstrated.",
+  "sources": [
+    {
+      "title": "System-Level Simulation of a SPAD-Based Time-of-Flight Sensor in SystemVerilog — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/91857.pdf",
+      "checkedAt": "2026-10-09",
+      "summary": "Full eight-page paper identifies the three author affiliations and details SPAD statistics, dead-time handling, XMODEL timing, system integration and histogram results. Figure 9 represents 4,095 measurements, not 4,095 histogram bins."
+    },
+    {
+      "title": "DVCon Europe 2023 official program: P2.2",
+      "url": "https://archive.dvcon-europe.org/2023-program-grid/",
+      "checkedAt": "2026-10-09",
+      "summary": "Official November 2023 conference program includes the paper in P2.2. The Event retains month precision rather than asserting an unverified first-publication day."
+    }
+  ]
+}
