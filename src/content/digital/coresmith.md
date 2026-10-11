@@ -1,7 +1,7 @@
 ---
 name: "CoreSmith"
 aliases: []
-description: "Agent-driven ASIC flow generating architecture, RTL and testbenches, with synthesis and physical implementation repair loops. Persistent architect sessions and module builds track input identities, block contracts and tool-grounded acceptance; a resumed build rejects changed inputs before continuing toward SoC integration and GDS."
+description: "Agent-driven ASIC flow generating architecture, RTL and testbenches, with synthesis and OpenROAD physical implementation repair loops. Persistent architect sessions and module builds track input identities, block contracts and tool-grounded acceptance; a resumed build rejects changed inputs before continuing toward SoC integration and GDS."
 scope:
   design:
     ai: true
