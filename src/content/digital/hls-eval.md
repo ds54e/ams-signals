@@ -45,7 +45,7 @@ The dataflow path implements an actual optimization loop, not just generation fo
 
 ## Evidence and operating boundaries
 
-AI Synthesis applies to the implemented feedback-driven optimization agent, not every benchmark mode. Conventional grading does not become AI Verification. LightningSim latency is not a final placed-and-routed chip timing result. The testbench-evaluation placeholder is empty and is not evidence of an assertion/testbench-generation feature. A measured frontier is not a globally optimal frontier.
+AI Synthesis applies to the implemented feedback-driven optimization agent, not every benchmark mode. Conventional grading does not become AI Verification. LightningSim latency is not a final placed-and-routed chip timing result. The testbench-evaluation entry point is empty and is not evidence of an assertion/testbench-generation feature. A measured frontier is not a globally optimal frontier.
 
 Public source; no top-level license found in the reviewed tree. Do not label the framework permissively licensed from its dependencies. Python 3.12+, Docker, selected Vitis/Vivado installations and model-provider access are separate requirements; the dataflow path additionally needs the compatible LightningSim/FIFOAdvisor/Pixi environment. Imported benchmark material can have separate terms. See the [README](#source-readme) for setup and the linked source materials for their own terms.
 
