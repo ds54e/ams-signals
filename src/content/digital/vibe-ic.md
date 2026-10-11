@@ -13,7 +13,7 @@ scope:
     ai: true
 access: "Apache-2.0 public plugin and bundled MCP-EDA tooling. The open path uses pinned open-source EDA tools; FPGA, commercial-EDA, PDK and lab-hardware paths require the corresponding user-provided environments."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "official"
     title: "Vibe-IC project site"
@@ -38,6 +38,9 @@ sources:
   - id: "activity-current"
     title: "Explicit area-receipt and manifest wiring in the default flow"
     url: "https://github.com/vibeic/vibe-ic/commit/cdf938cca012bb30df329beb5e5e52fb1ed58e61"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/vibeic/vibe-ic/commit/a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
 ---
 
 ### Staged flow
@@ -58,6 +61,8 @@ The repository also contains Analog A1-A9 and mixed-signal tracks. The separatel
 
 Reviewed 2026-10-01. Reopened the current staged-flow guide and release implementation. Agent skills still make RTL, stimulus/property, synthesis-diagnostic and physical-remediation decisions, supporting AI on all four stages. Current native-signoff evidence preservation is an artifact-integrity improvement, not independent verification that every supported technology or commercial path achieves signoff. [Stage contract](#source-agent-guide); [README](#source-readme).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The default flow threads an explicitly supplied, identity-bound producer area receipt and its current-run manifest through the area gate. The implementation rejects incomplete receipt/manifest pairs; evidence handling does not independently certify PPA or signoff. [Reviewed change](#source-activity-current).
+The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

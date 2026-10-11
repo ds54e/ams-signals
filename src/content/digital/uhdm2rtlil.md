@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical uhdm2rtlil repository"
@@ -39,6 +39,9 @@ sources:
   - id: "activity-current"
     title: "Mixed-array field writes preserve process-owned element temporaries"
     url: "https://github.com/alainmarcel/uhdm2rtlil/commit/42b1c3b0324c1e676ccb657aecfc7b35ecf9dda8"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/cae3a36517cae5bc47f0f551fcf158d665e71d49"
 ---
 
 ### Implementation context
@@ -59,6 +62,8 @@ UHDM-to-RTLIL compilation and translation-validation campaigns execute conventio
 
 Reviewed 2026-10-01: **AI-BUILT**. The initial vibe-coding implementation and maintainer’s iterative Claude handler-development account concern the actual C++ translation core. The approach spans the defining frontend, not merely generated input RTL. [Current maintainer development account](#source-development-1); [Initial implementation](#source-development-2).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. Dynamic field writes into mixed-representation unpacked arrays now update process-owned element temporaries rather than a flat alias that could create a combinational loop. This repairs lowering correctness; reported CVA6 outcomes were not reproduced here. [Reviewed change](#source-activity-current).
+The reviewed lowering path handles unpacked-array function arguments/outputs, function-local loop lifetime and NBA driver cases. The captured head additionally repairs dropped writes to nested struct members in function-local variables, with an equivalence regression. Scope remains phase-specific lowering rather than a language-completeness guarantee. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

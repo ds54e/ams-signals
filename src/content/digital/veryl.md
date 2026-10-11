@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "official"
     title: "Official Veryl website"
@@ -71,6 +71,9 @@ sources:
   - id: "activity-current"
     title: "Anonymous loop-variable and string-case regression fixes"
     url: "https://github.com/veryl-lang/veryl/commit/ff2e7aeaf76f9af52ff1bde9693a6fdde4f8681b"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/veryl-lang/veryl/commit/c61b9cbab12dd530b8497b065adb0655f9656da6"
 ---
 
 ### Implementation context
@@ -99,6 +102,8 @@ The engine landing remains in current history, the Wallace benchmark remains pre
 
 Reviewed 2026-10-01: **AI-ASSISTED**. The maintainer explicitly describes Claude Code implementing module instantiation and much of the remaining syntax after the simulator structure already existed. Current native-test dispatch and simulator crate confirm integration; this is significant simulator assistance, not creation of the HDL/compiler. [Maintainer account](#source-claude-development); [Current native-test integration](#source-test-cli).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The analyzer repairs anonymous loop-variable handling and string-case operand discovery regressions. These compiler corrections do not alter the separately reviewed native-simulator development provenance. [Reviewed change](#source-activity-current).
+The implemented $define namespace emits SystemVerilog macro references, with analyzer/emitter fixtures. Its first-parent integration is distinct from the author branch's commit. Native-simulator and AOT fixes remain targeted correctness evidence rather than additional design stages. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

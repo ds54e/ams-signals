@@ -2,13 +2,13 @@
 name: "KLayout-PEX"
 aliases: ["KPEX"]
 summary: "Connects layout connectivity and process stacks to parasitic extraction and interconnect-model exchange."
-description: "Parasitic extraction infrastructure connecting KLayout layouts and process stacks to Magic, FasterCap and an evolving internal 2.5D engine. It generates PEX25D descriptions and extracted RC netlists, including substrate/well capacitance handling and device-to-SPICE mapping; backend validation remains process- and engine-specific."
+description: "Parasitic extraction infrastructure linking KLayout connectivity and process stacks to Magic, FasterCap and an internal 2.5D engine. It emits PEX25D artifacts and RC netlists with geometry-based capacitance distribution along resistor networks; process-layer and MIM-terminal handling remain backend- and technology-specific."
 scope:
   layout:
     ai: false
 access: "Public Python implementation; selected extraction backends, KLayout and process-specific technology/LVS data are required."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -48,6 +48,21 @@ sources:
   - id: "release-current"
     title: "KPEX v0.6.1 stable release, October 2, 2026 UTC"
     url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.6.1"
+  - id: "review-20261011-1"
+    title: "Distributed-capacitance integration"
+    url: "https://github.com/iic-jku/klayout-pex/commit/0938f4a3e29c4eaeb8fd7f8ac1c45b0fc051dfb4"
+  - id: "review-20261011-2"
+    title: "Distributor implementation"
+    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/capacitance_distributor.py"
+  - id: "review-20261011-3"
+    title: "MIM terminal regression"
+    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/tests/pex25d/pex25d_mim_cap_terminals_test.py"
+  - id: "review-20261011-4"
+    title: "MIM dielectric checkpoint"
+    url: "https://github.com/iic-jku/klayout-pex/commit/78570a9e6cf38f938685194f4ebb6db91a1521c7"
+  - id: "review-20261011-5"
+    title: "Release v0.6.5"
+    url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.6.5"
 ---
 
 ### Implementation context
@@ -68,6 +83,8 @@ The website status still labels combined internal RC/RCC extraction planned, whi
 
 Layout covers parasitic extraction and layout-to-solver/model preparation. A field solver does not establish circuit Simulation. The reviewed operations are conventional; the README, development guide and reachable history do not establish substantial AI-assisted implementation, so no development label is assigned. [Reviewed implementation](#source-readme).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The internal extraction path adds substrate/well net mapping, shields device junction contributions to avoid double counting, and skips selected substrate fringes, with technology rules and regression coverage. These are concrete Layout extraction changes, not independent process-wide accuracy qualification. [Reviewed change](#source-activity-current).
+RCX25 preserves capacitance geometry and distributes capacitance to nodes along resistor networks, using area/edge intersections and nearest-node regions. Very small capacitances merge without changing the total between the same nets. Follow-up fixes connect label-only nodes, distinguish via identifiers, use the correct shapes when stack layers share GDS pairs and repair IHP/GF180 MIM terminal/dielectric handling. [Distributed-capacitance integration](#source-review-20261011-1) · [Distributor implementation](#source-review-20261011-2) · [MIM terminal regression](#source-review-20261011-3) · [MIM dielectric checkpoint](#source-review-20261011-4) · [Release v0.6.5](#source-review-20261011-5)
+
+The reviewed tests were not run, and source coverage is not independent process/signoff accuracy validation. RC netlist output is a Layout artifact; it does not alone add Simulation. Process and backend boundaries remain explicit.

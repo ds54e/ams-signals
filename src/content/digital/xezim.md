@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -60,6 +60,12 @@ sources:
   - id: "activity-current"
     title: "Pre-randomization callback and mailbox value fixes"
     url: "https://github.com/aionhw/xezim/commit/a314f086513a8e0d82e0dfbcb460d3557535f097"
+  - id: "review-20261011-1"
+    title: "Joint randomization"
+    url: "https://github.com/aionhw/xezim/commit/bb26f48e7a506778cc8ea3c3d0adad40d75d8313"
+  - id: "review-20261011-2"
+    title: "Captured development history"
+    url: "https://github.com/aionhw/xezim/commits/main"
 ---
 
 ### Implementation context
@@ -94,6 +100,8 @@ The current UPF path models supply states/voltage, switches, powered-down domain
 
 The reviewed main branch also documents cocotb integration, FST output, cache/native/JIT execution and post-release fixes for DPI failures, class/struct access, virtual interfaces, memory sensitivity and two-state JIT stores. Performance comparisons remain maintainer-reported, workload-specific results; the catalog does not claim blanket speed superiority. [Current README](#source-readme-current); [Post-release notes](#source-notes-current); [JIT correctness commit](#source-activity-october).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The current default-branch first-parent history no longer contains the previous activity checkpoint. The replacement reviewed change fixes pre-randomization callbacks and mailbox handling for unpacked struct values, with regressions. The snapshot uses this reachable commit and its actual committer date; prior release evidence remains historical. [Reviewed change](#source-activity-current).
+The reviewed randomization integration jointly solves random object arrays and wide subobject members. The sampled later history also changes DPI export/formal handling, automatic task storage, block shadowing and fork-child wake-up handling. [Joint randomization](#source-review-20261011-1) · [Captured development history](#source-review-20261011-2)
+
+No new general analog solver or expanded RNM coverage is established by these commits. Existing resolved-real/wreal notes should be retained on their original evidence. This research did not rerun simulator conformance or UVM workloads.

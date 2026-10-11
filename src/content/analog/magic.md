@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -27,6 +27,9 @@ sources:
   - id: "activity-refresh"
     title: "Include via/contact layers in LEF output, September 17, 2026"
     url: "https://github.com/RTimothyEdwards/magic/commit/ba4d9d46543dd0557b5dba13b83e99c7d70547ca"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/RTimothyEdwards/magic/commit/4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266"
 ---
 
 ### Scope
@@ -42,3 +45,9 @@ The September 1 implementation lets select command options operate without a lay
 Geometry editing, design-rule checking and circuit/parasitic extraction belong to the custom-layout flow. Extracting a netlist from geometry does not imply circuit-topology generation. [Reviewed source](#source-readme).
 
 Interactive/scripted layout, DRC and extraction are conventional Layout. No reviewed model inference is involved in these operations. [AI/stage evidence](#source-readme).
+
+### Current implementation and operating boundaries
+
+The WebAssembly build uses a single-threaded Tcl notifier and a correctly typed idle callback for event-loop operations used by DRC and extraction commands. This is build-specific correctness within the existing layout flow. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

@@ -1,7 +1,7 @@
 ---
 name: "Verilator"
 aliases: []
-description: "Compiled SystemVerilog simulator and lint system that translates RTL into C++/SystemC models for testbench execution, assertions, coverage and waveform debug. A separate JSON-only frontend exports elaborated design representations for downstream tooling, with an evolving format and example hierarchy consumers."
+description: "Compiled SystemVerilog simulator and lint system supporting timing, assertions, coverage, constrained randomization and VPI-based testbench access. It translates designs into C++/SystemC models and can export elaborated JSON representations for downstream tooling; feature availability depends on the selected version and build."
 scope:
   design:
     ai: false
@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -40,6 +40,12 @@ sources:
   - id: "activity-current"
     title: "Clocking-block cycle-delay correction"
     url: "https://github.com/verilator/verilator/commit/19254541ee5f745a45c59eb540d635bdf49b3919"
+  - id: "review-20261011-1"
+    title: "Windows SMT pipe"
+    url: "https://github.com/verilator/verilator/commit/60706d5c8443e9c8928586467dd8d0ceab34cd59"
+  - id: "review-20261011-2"
+    title: "Packed-member VPI"
+    url: "https://github.com/verilator/verilator/commit/56223ce8dd2a8212e442a58244b30717ebd0e0c5"
 ---
 
 ### Implementation and scope
@@ -54,6 +60,8 @@ The JSON format is evolving, and performance/language compatibility depend on th
 
 The reviewed source establishes conventional compiler/simulator operations. Incidental coding-agent contributions do not establish a substantial attributed implementation campaign, defining-core AI construction or runtime model-driven stage. [Project implementation](#source-readme).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. Synchronous clocking-block drives now retain their own clocking block when evaluating cycle delays, with supported and unsupported regression cases. This is simulator correctness within conventional Verification. [Reviewed change](#source-activity-current).
+The randomization runtime gains a Windows solver subprocess/pipe path. VPI can access packed-struct/union members. Separate fixes cover whole-unpacked-array NBAs in suspendable/forked processes, intra-assignment timing and SVA consequents. [Windows SMT pipe](#source-review-20261011-1) · [Packed-member VPI](#source-review-20261011-2)
+
+Reviewed commits are on the captured development branch. Do not describe every change as belonging to an already released stable version, or infer full UVM support from isolated improvements. Underlying simulation and solver execution remain conventional.

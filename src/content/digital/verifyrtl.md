@@ -1,7 +1,7 @@
 ---
 name: "VerifyRTL"
 aliases: []
-description: "LLM-assisted RTL verification that drafts plans, stimulus and properties, then runs simulation and formal checks with tool-derived verdicts. Trace explanations, vacuity and assumption checks, cone-of-influence coverage and bounded mutation testing help expose gaps without equating code coverage or an uncaught mutant with a complete proof."
+description: "LLM-assisted RTL verification combines simulation, property generation and formal checking with a goal-aware proof strategy planner and executor. Counterexample replay, abstraction labels, helper invariants, assumption checks and bounded progress analysis help interpret tool-produced results and select techniques for unresolved properties."
 scope:
   verification:
     ai: true
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical VerifyRTL repository"
@@ -45,6 +45,15 @@ sources:
   - id: "activity-review"
     title: "Constant-mutation implementation and AES verification regressions"
     url: "https://github.com/nimishadeepak10/verify-rtl/commit/bfb0cf72955138b0ee790a05c96499aa2853264e"
+  - id: "review-20261011-1"
+    title: "Recommend-only planner"
+    url: "https://github.com/nimishadeepak10/verify-rtl/commit/57364bb1568c933902ba2c9136d358064a975ee1"
+  - id: "review-20261011-2"
+    title: "Plan executor"
+    url: "https://github.com/nimishadeepak10/verify-rtl/commit/4af87169929ec4da12ba6a8761d798cb4c531820"
+  - id: "review-20261011-3"
+    title: "Known-truth benchmark"
+    url: "https://github.com/nimishadeepak10/verify-rtl/commit/c986b535a36c2b7648dc332d9181334bd9dab28d"
 ---
 
 
@@ -72,4 +81,8 @@ Reviewed 2026-09-07: **AI-ASSISTED**. The attributed implementation adds a backe
 
 Reviewed 2026-10-01. Current formal review adds assumption consistency, vacuity, pattern/scope summaries, cone-of-influence analysis and bounded mutation adequacy. The mutation checker lacks an equivalence filter, so an uncaught mutant may be behaviorally inert rather than evidence of a missing property. These are verification diagnostics, not a DUT optimization/design deliverable. [Current pipeline](#source-readme); [Mutation implementation](#source-mutation-adequacy).
 
-The newest reviewed meaningful first-parent change is constant-mutation implementation and AES verification regressions (2026-09-28 UTC). [Reviewed commit](#source-activity-review).
+### Current implementation and operating boundaries
+
+A deterministic planner selects applicable proof techniques according to the design and goal. The executor runs exact transforms first and reserve techniques on unresolved properties, labels abstraction outcomes and replays counterexamples. New code also supports counter/parameter reduction, data-independence checks, helper-invariant mining, assumption-necessity checking and bounded progress properties. [Recommend-only planner](#source-review-20261011-1) · [Plan executor](#source-review-20261011-2) · [Known-truth benchmark](#source-review-20261011-3)
+
+The planner itself runs no solver and is recommend-only. The executor is a separate path. A counterexample under abstraction is unconfirmed until replayed; parameter reduction is a bounded-configuration result; progress checks establish the stated bound, not unrestricted liveness. The known-truth technique-selection benchmark is newly implemented, not a measured general superiority claim.

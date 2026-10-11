@@ -11,7 +11,7 @@ scope:
     ai: true
 access: "BSD-3-Clause-Clear public source; Docker/devcontainer toolchain is provided and real agent runs require a supported LLM provider."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical RTLScout repository"
@@ -39,6 +39,9 @@ sources:
   - id: "ppa-template"
     title: "OpenROAD post-synthesis STA and power template"
     url: "https://github.com/huawei-csl/rtlscout/blob/9f95d9576c78863a844adc8cc6594c6503426074/deps/tech_eval/src/tech_eval/ppa_extract/core/template.py"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/huawei-csl/rtlscout/commit/9bb5683747dafc8722b680140070ace3c5ffceab"
 ---
 
 ### Agent loop
@@ -57,4 +60,8 @@ The external OpenCode mode can run with a shell, but the framework re-evaluates 
 
 Reviewed 2026-10-01. The main optimization loop is AI Design with deterministic synthesis/PPA measurements. The optional OpenCode design-DB integration additionally provisions rtl-dv-prep to write stimulus, dry-run it and deliver it for a one-shot oracle freeze; this is substantive AI Verification even though golden simulation supplies expected outputs. Synthesis stays conventional; the inspected OpenROAD path is post-synthesis STA/power rather than physical implementation. [Verification skill](#source-dv-skill); [Provisioning and subagent](#source-agent-integration).
 
-The newest reviewed meaningful first-parent change is RTLRewriter benchmark refresh and gate-netlist evaluation corrections (2026-09-17 UTC). [Reviewed commit](#source-activity-review).
+### Current implementation and operating boundaries
+
+The reviewed technology-evaluation path controls FA/HA mapping and runs opt_clean -purge before techmapping, so unused $fa cells do not inflate area estimates. Area results depend on that corrected measurement path; numerical author-reported gains were not reproduced. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

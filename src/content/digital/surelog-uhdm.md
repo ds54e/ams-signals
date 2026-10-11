@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical Surelog + UHDM repository"
@@ -45,6 +45,9 @@ sources:
   - id: "activity-current"
     title: "Local parameter precedence over wildcard imports"
     url: "https://github.com/chipsalliance/Surelog/commit/7c96e2fcf5712e8197cf6a1195f84fda117885cd"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/chipsalliance/Surelog/commit/6db44ea2048c8ab9c702e389c2897f7e2318ccc5"
 ---
 
 ### Implementation and scope
@@ -61,6 +64,8 @@ Reviewed 2026-10-01: **AI-ASSISTED**. A cross-cutting September frontend-correct
 
 Reported Caliptra, CVA6 and regression outcomes are upstream evidence, not catalog-reproduced experiments. The badge concerns the attributable implementation contribution; it does not assert that every recent change or upstream UHDM feature was AI-written.
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. Local parameters now supersede wildcard-imported parameters and stale imported UHDM assignments are removed. The reviewed implementation and tests address parameter layout/elaboration correctness, without generalizing reported design outcomes. [Reviewed change](#source-activity-current).
+The reviewed elaboration changes resolve cross-file $unit constants, packed widths on grouped typed ports and non-ANSI function initializers. Matching cases establish targeted frontend corrections, not complete SystemVerilog compatibility. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

@@ -1,20 +1,20 @@
 [
   {
-    "project": "vacask",
-    "date": "2026-10-05",
+    "project": "chipjev",
+    "date": "2026-10-11",
     "kind": "added",
-    "summary": "Public Codeberg simulator with compiled Verilog-A models, scripted analyses and directly captured canonical activity."
+    "summary": "Typed circuit decisions, numerical sizing and model-guided SKY130 physical design."
   },
   {
-    "project": "spicexplorer",
-    "date": "2026-10-01",
+    "project": "gf180-analog-agent",
+    "date": "2026-10-11",
     "kind": "added",
-    "summary": "Analog-DB circuit records, sizing and simulation infrastructure, and agent-driven schematic/layout co-design."
+    "summary": "GF180MCU-D circuit skills with gm/ID lookup, ngspice evaluation and model-guided diagnosis."
   },
   {
-    "project": "analog-design-bench",
-    "date": "2026-10-01",
-    "kind": "updated",
-    "summary": "Updated the public 50-task release and added the long-horizon benchmark paper, retaining reported-result boundaries."
+    "project": "analoggym-opt",
+    "date": "2026-10-11",
+    "kind": "added",
+    "summary": "GRPO fixed-topology circuit sizing with ngspice/SKY130 evaluation and optional agent integrations."
   }
 ]

@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical Pono repository"
@@ -33,6 +33,9 @@ sources:
   - id: "activity-refresh"
     title: "Guard failed lookups and empty unroller inputs in release builds"
     url: "https://github.com/stanford-centaur/pono/commit/0648dc75a82260241cd9a4c002eeeb98e2198ee2"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/stanford-centaur/pono/commit/fe3f751590262d12e420ea810af7d22eb74020c5"
 ---
 
 
@@ -47,3 +50,9 @@ Reviewed October 1, 2026 at `8f2aa66583e91db400928be1620864938f0448e1`. The Sept
 ### Scope classification
 
 Model checking, safety/liveness algorithms and counterexamples establish Verification. Input-model preparation is not a separate RTL-authoring stage. Algorithms execute conventionally, so the stage AI flag remains false. The reviewed Claude-credited lookup repair and nearby warning cleanups are bounded correctness/maintenance changes, not a substantial AI-implemented model-checking subsystem; no provenance label is assigned. [Functional evidence](#source-readme); [attributed repair](#source-activity-refresh).
+
+### Current implementation and operating boundaries
+
+The k-induction base case now returns UNKNOWN when its solver result is unknown, rather than proceeding toward a proof. The reviewed implementation changes proof-result handling; it does not establish a broader verification language or AI stage. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

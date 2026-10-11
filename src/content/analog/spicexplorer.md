@@ -2,7 +2,7 @@
 name: "SpiceXplorer"
 aliases: ["Analog-DB", "analog-db"]
 summary: "Analog circuit database, sizing and simulation platform with agent-driven schematic/layout co-design."
-description: "Combines a PDK-neutral analog circuit database with gm/ID sizing, numerical and Bayesian optimization, SPICE evaluation and parameterized layout flows. Released agent skills coordinate sizing and schematic/layout co-design, while DRC/LVS/PEX runners and optional openEMS checks produce inspectable verification artifacts."
+description: "Combines a PDK-neutral analog circuit database with gm/ID sizing, numerical and Bayesian optimization, SPICE evaluation and parameterized layout flows. Released agent workflows and worked IHP designs span schematic/layout co-design, including a PAM-4 driver and a low-pass-filter front end, with inspectable verification artifacts."
 scope:
   design:
     ai: true
@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public Python platform, Studio interface, circuit database and agent definitions. Live SPICE is opt-in; open bindings cover IHP SG13G2, SKY130 and GF180MCU. Physical and EM flows need additional tools; the Spectre path requires a user-supplied licensed environment."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical SpiceXplorer public release repository"
@@ -54,6 +54,15 @@ sources:
   - id: "activity"
     title: "Attributed EM-verification implementation and tests, September 1, 2026"
     url: "https://github.com/MacAnalog/spicexplorer-release/commit/06cd92dc1d56715cc064b2a39affa309311ccd5f"
+  - id: "review-20261011-1"
+    title: "Platform/database refresh"
+    url: "https://github.com/MacAnalog/spicexplorer-release/commit/da9cdabc82c9cb82691774a9ccb526ce999c3b8e"
+  - id: "review-20261011-2"
+    title: "Second worked design"
+    url: "https://github.com/MacAnalog/spicexplorer-release/commit/f6f3f92246cc4dbe2763155b375c34aeec7dd39d"
+  - id: "review-20261011-3"
+    title: "Capless LDO collateral"
+    url: "https://github.com/MacAnalog/spicexplorer-release/blob/f6f3f92246cc4dbe2763155b375c34aeec7dd39d/analog-db/circuits/ldo_010_capless_lowiq/README.md"
 ---
 
 ### Inclusion and project boundary
@@ -73,3 +82,9 @@ AI Layout follows the released agent workflow that writes or repairs a parameter
 The September 1 EM-verification commit is the reviewed meaningful first-parent change; the later same-day head updates documentation. The EM implementation extracts named nets from GDS, orchestrates the PDK's openEMS workflow and exports a fitted SPICE subcircuit. It is an optional verification lane outside the optimizer loop. Its handling of near-passive fits requires explicit warnings and checking the spliced deck's operating point, so the catalog does not imply guaranteed passivity or independently reproduced results. [Meaningful commit](#source-activity) · [Implementation](#source-em-implementation)
 
 That commit credits Claude Opus and introduces the actual analysis pipeline with configuration and tests. The diff supports AI-ASSISTED for this substantial subsystem, not a whole-project AI-BUILT claim or attribution of the upstream simulators. [Attributed implementation](#source-activity) · [Retained subsystem](#source-em-implementation)
+
+### Current implementation and operating boundaries
+
+The October 9 integration refreshes the database, packages and Studio and adds capless-LDO collateral. October 10 adds a pinned 250 Hz fourth-order fully differential IHP SG13G2 filter/AFE design example alongside the PAM-4 driver, and changes notebook/report storage into executable Python plus plain data. [Platform/database refresh](#source-review-20261011-1) · [Second worked design](#source-review-20261011-2) · [Capless LDO collateral](#source-review-20261011-3)
+
+The filter is a separately pinned submodule. Its parent-repository README establishes the link and release integration, not a new independently reproduced success rate. Existing AI Design / Simulation / AI Layout already covers this flow; no automatic stage expansion is warranted.

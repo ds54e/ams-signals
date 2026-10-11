@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-08",
-  "capturedAt": "2026-10-08T09:44:38.403Z",
+  "reviewedAt": "2026-10-11",
+  "capturedAt": "2026-10-11T02:30:59.543Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -184,7 +184,7 @@
       ],
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
@@ -479,7 +479,7 @@
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
       "defaultBranch": "main",
-      "headSha": "52aefa469eebb02f64f868517c25fead5c80522f",
+      "headSha": "21bfc57f076643a73dd183f56975001c8b1b9e11",
       "commits": [
         0,
         0,
@@ -492,9 +492,9 @@
         0,
         0,
         73,
-        8
+        16
       ],
-      "lastCommitAt": "2026-10-07",
+      "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "913bc27adc6227ddabaa15b0b0d582ab280a0552",
       "notes": "A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator."
@@ -504,7 +504,7 @@
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
       "defaultBranch": "main",
-      "headSha": "88a83e7e505411dc3a690f0e412989e62c5577b2",
+      "headSha": "5826254e4b55fe1868bc8cbbe06ba724cef50a84",
       "commits": [
         0,
         0,
@@ -517,7 +517,7 @@
         22,
         74,
         394,
-        3
+        4
       ],
       "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-06",
@@ -553,7 +553,7 @@
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
       "defaultBranch": "main",
-      "headSha": "8fb328c57631f527fd99deca38eca07e3c86c8cc",
+      "headSha": "378f0b640451d82bf6bccf8ece687aa27b1dcafe",
       "commits": [
         0,
         0,
@@ -566,12 +566,12 @@
         36,
         23,
         28,
-        7
+        11
       ],
-      "lastCommitAt": "2026-10-05",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "aab1180fc1399a00d18867d56594fa1fdb457a6c",
-      "notes": "The later packaging fix includes default schematic CDF filter resources in wheels and source archives, with distribution-content tests. It repairs the installable artifact rather than changing the bridge stage classification."
+      "lastCommitAt": "2026-10-09",
+      "lastMeaningfulCommitAt": "2026-10-09",
+      "lastMeaningfulCommitSha": "378f0b640451d82bf6bccf8ece687aa27b1dcafe",
+      "notes": "Substantive implementation reviewed at 378f0b640451d82bf6bccf8ece687aa27b1dcafe: Preserve native grid and decorative power rails in manifest imports (#175). Latest raw history remains separate from meaningful implementation evidence."
     },
     "zerosim": {
       "kind": "github",
@@ -602,7 +602,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "b9448d8f1db00ec9fdf09ad9501f680169e1f9cd",
+      "headSha": "335a8b2b19554c81aee77b26ea3768a4df7069a9",
       "commits": [
         0,
         0,
@@ -615,9 +615,9 @@
         1007,
         354,
         727,
-        62
+        138
       ],
-      "lastCommitAt": "2026-10-06",
+      "lastCommitAt": "2026-10-11",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd",
       "notes": "The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF."
@@ -652,7 +652,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "b39048fb88cfdee6ec233b41a0462a7f329091fb",
+      "headSha": "cbfef85df54c2f17ecbe3f2c1ddba3a466d7d3a0",
       "commits": [
         28,
         4,
@@ -665,12 +665,12 @@
         9,
         38,
         106,
-        33
+        41
       ],
-      "lastCommitAt": "2026-10-08",
-      "lastMeaningfulCommitAt": "2026-10-04",
-      "lastMeaningfulCommitSha": "c15c6c05b175de17e81e6c4dd6175e07815add28",
-      "notes": "GUI availability guards and forked-schematic cleanup preserve modified drawings instead of silently overwriting them. This is schematic-editing correctness within the existing scope."
+      "lastCommitAt": "2026-10-10",
+      "lastMeaningfulCommitAt": "2026-10-09",
+      "lastMeaningfulCommitSha": "35a2184b7247f872ded516ad6b885e903e7575a5",
+      "notes": "Substantive implementation reviewed at 35a2184b7247f872ded516ad6b885e903e7575a5: Merge pull request #511 from rafmag/feature/smith-chart. Latest raw history remains separate from meaningful implementation evidence."
     },
     "openvaf-reloaded": {
       "kind": "github",
@@ -702,7 +702,7 @@
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
       "defaultBranch": "master",
-      "headSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
+      "headSha": "4d927b797d7e2fc9ab2d8ec29781fa6559851663",
       "commits": [
         15,
         11,
@@ -715,9 +715,9 @@
         12,
         23,
         1,
-        16
+        18
       ],
-      "lastCommitAt": "2026-10-04",
+      "lastCommitAt": "2026-10-10",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
       "notes": "Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout."
@@ -727,7 +727,7 @@
       "repository": "RTimothyEdwards/magic",
       "repositoryId": 177686465,
       "defaultBranch": "master",
-      "headSha": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+      "headSha": "bed8d4ff84333767aa923d469d339cd05c56a00a",
       "commits": [
         12,
         20,
@@ -740,12 +740,12 @@
         129,
         7,
         4,
-        0
+        2
       ],
-      "lastCommitAt": "2026-09-17",
-      "lastMeaningfulCommitAt": "2026-09-17",
-      "lastMeaningfulCommitSha": "ba4d9d46543dd0557b5dba13b83e99c7d70547ca",
-      "notes": "The LEF writer correction fixes contact handling; the following version bump remains only the raw ordering date."
+      "lastCommitAt": "2026-10-07",
+      "lastMeaningfulCommitAt": "2026-10-07",
+      "lastMeaningfulCommitSha": "4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266",
+      "notes": "Substantive implementation reviewed at 4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266: wasm(tcl): make the Tcl event loop usable in the WebAssembly build. Latest raw history remains separate from meaningful implementation evidence."
     },
     "align": {
       "kind": "github",
@@ -784,7 +784,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "aa327c8b53ee14a7f3c5f18456987a8f02dbde6a",
+      "headSha": "b858237bdcdfcc002f69b8b6c244e541546d8127",
       "commits": [
         4,
         5,
@@ -797,12 +797,12 @@
         4,
         18,
         42,
-        38
+        51
       ],
-      "lastCommitAt": "2026-10-07",
-      "lastMeaningfulCommitAt": "2026-10-02",
-      "lastMeaningfulCommitSha": "dbfebf4a47582801df912f6288f240b3ac65d623",
-      "notes": "The internal extraction path adds substrate/well net mapping, shields device junction contributions to avoid double counting, and skips selected substrate fringes, with technology rules and regression coverage. These are concrete Layout extraction changes, not independent process-wide accuracy qualification."
+      "lastCommitAt": "2026-10-09",
+      "lastMeaningfulCommitAt": "2026-10-09",
+      "lastMeaningfulCommitSha": "78570a9e6cf38f938685194f4ebb6db91a1521c7",
+      "notes": "Substantive implementation reviewed at 78570a9e6cf38f938685194f4ebb6db91a1521c7: Merge pull request #283 from iic-jku/ihp-mim-tech-data. Latest raw history remains separate from meaningful implementation evidence."
     },
     "pyopus": {
       "kind": "repository",
@@ -836,7 +836,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "5d1258a756359dbee4ce6d06aff7b65e9199b087",
+      "headSha": "94767d50d3f0208d0096cb6c5d5448626117d6b7",
       "commits": [
         6,
         3,
@@ -849,9 +849,9 @@
         9,
         12,
         7,
-        3
+        4
       ],
-      "lastCommitAt": "2026-10-07",
+      "lastCommitAt": "2026-10-09",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
       "notes": "The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred."
@@ -861,7 +861,7 @@
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
       "defaultBranch": "current",
-      "headSha": "904ba82d1aaadca39434984bab29909a8879dbd6",
+      "headSha": "fea650f99d66bb1a05d170d00a8d6bc7f3be5add",
       "commits": [
         13,
         18,
@@ -874,9 +874,9 @@
         6,
         11,
         7,
-        1
+        2
       ],
-      "lastCommitAt": "2026-10-08",
+      "lastCommitAt": "2026-10-10",
       "lastMeaningfulCommitAt": "2026-09-14",
       "lastMeaningfulCommitSha": "e0c0e154edb4f8403d53c5c5601c2ee133c9e970",
       "notes": "September 14 replaces HDL simulator wrapper scripts with QProcess execution, following Monte Carlo parameter-validation work. Meaningful activity remains anchored to those implementation changes; later raw commits do not automatically extend the reviewed signal. These are development/continuous-build changes beyond stable 26.1.1."
@@ -1108,7 +1108,7 @@
       "repository": "MacAnalog/spicexplorer-release",
       "repositoryId": 1303218425,
       "defaultBranch": "main",
-      "headSha": "263d0322f8900dc331536fbbe6c0e804514fc454",
+      "headSha": "f6f3f92246cc4dbe2763155b375c34aeec7dd39d",
       "commits": [
         0,
         0,
@@ -1121,19 +1121,19 @@
         8,
         10,
         3,
-        0
+        2
       ],
-      "lastCommitAt": "2026-09-01",
-      "lastMeaningfulCommitAt": "2026-09-01",
-      "lastMeaningfulCommitSha": "06cd92dc1d56715cc064b2a39affa309311ccd5f",
-      "notes": "The September 1 EM-verification implementation adds GDS net extraction, openEMS orchestration and SPICE-model export with tests. The later same-day head is documentation; the Analog-DB paper covers the database component, not all platform capabilities."
+      "lastCommitAt": "2026-10-10",
+      "lastMeaningfulCommitAt": "2026-10-10",
+      "lastMeaningfulCommitSha": "f6f3f92246cc4dbe2763155b375c34aeec7dd39d",
+      "notes": "Substantive implementation reviewed at f6f3f92246cc4dbe2763155b375c34aeec7dd39d: Docker Hub pull retry; notebooks and recorded outputs stored as Python, no HTML/ipynb; second worked design example (#12). Latest raw history remains separate from meaningful implementation evidence."
     },
     "analog-canvas": {
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
       "defaultBranch": "main",
-      "headSha": "19ef3841997226b9fb2b2a512048696e0b2f3609",
+      "headSha": "8f015bfcbda8ab16702d55e0f00402066865cea0",
       "commits": [
         0,
         0,
@@ -1146,19 +1146,19 @@
         0,
         668,
         642,
-        98
+        167
       ],
-      "lastCommitAt": "2026-10-08",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "f85cd32dbcc9b307f98cdf4e27099992d120a01f",
-      "notes": "Agent-planning tests now obtain their snapshot from the real Edit Engine rather than a handwritten substitute. This is an executable integration-test improvement; it does not expand the existing runtime stage or development-provenance classification."
+      "lastCommitAt": "2026-10-11",
+      "lastMeaningfulCommitAt": "2026-10-08",
+      "lastMeaningfulCommitSha": "ef2c587e598e1d8905e757b4ff2af713f4da7b5e",
+      "notes": "Substantive implementation reviewed at ef2c587e598e1d8905e757b4ff2af713f4da7b5e: Headless batch drawing, dead-code and lint gates, Agent move carries pin markers; MCP 0.17.59 (Refs #1498 #1530 #1531 #1534 #1535) (#1538). Latest raw history remains separate from meaningful implementation evidence."
     },
     "vibe-ic": {
       "kind": "github",
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
       "defaultBranch": "main",
-      "headSha": "3488cbead94d656ec9738e49aae3833acf4fafa2",
+      "headSha": "38790dee844280a8f1e88625792ea28921900fcf",
       "commits": [
         0,
         0,
@@ -1171,12 +1171,12 @@
         1088,
         1687,
         1271,
-        110
+        239
       ],
-      "lastCommitAt": "2026-10-08",
-      "lastMeaningfulCommitAt": "2026-10-03",
-      "lastMeaningfulCommitSha": "fc17c778d9beaf720baf854ec29dbcb83ac61c88",
-      "notes": "The analog extraction wrapper resolves technology-LEF variants and preserves the generated wrapper path separately from measurement results. Regression coverage addresses hard-macro ports and stale wrapper bindings; it does not independently establish physical signoff."
+      "lastCommitAt": "2026-10-11",
+      "lastMeaningfulCommitAt": "2026-10-11",
+      "lastMeaningfulCommitSha": "a1157e9aee3fd3c959f9f15767aedb437b7b30d9",
+      "notes": "Substantive implementation reviewed at a1157e9aee3fd3c959f9f15767aedb437b7b30d9: fix: retain completed Default rows through final layout evidence. Latest raw history remains separate from meaningful implementation evidence."
     },
     "agentic-ai-analog-ic-auto-designer": {
       "kind": "github",
@@ -1253,6 +1253,81 @@
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
       "notes": "Initial public implementation includes schematic/netlist data, model transcription and graph grading, a fixed-topology sizing/simulation harness, and a digest-pinned open-PDK environment. The arXiv paper was submitted October 2; the activity band records the repository commit date."
+    },
+    "chipjev": {
+      "kind": "github",
+      "repository": "lab-emi/ChipJev",
+      "repositoryId": 1386929264,
+      "defaultBranch": "main",
+      "headSha": "6389189d8cc40393eca97e8776638aaba5038b95",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        28,
+        2
+      ],
+      "lastCommitAt": "2026-10-01",
+      "lastMeaningfulCommitAt": "2026-10-01",
+      "lastMeaningfulCommitSha": "6389189d8cc40393eca97e8776638aaba5038b95",
+      "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
+    },
+    "gf180-analog-agent": {
+      "kind": "github",
+      "repository": "shoebNTU/analog-agent",
+      "repositoryId": 1261819431,
+      "defaultBranch": "main",
+      "headSha": "25206f03046aefa093104e172cf511f5ad2fb8fe",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-06-24",
+      "lastMeaningfulCommitAt": "2026-06-07",
+      "lastMeaningfulCommitSha": "9de96b0ff403ab8e809ced4aa243a47fa29d369b",
+      "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
+    },
+    "analoggym-opt": {
+      "kind": "github",
+      "repository": "Computing-Intelligent-Decision-Team/AnalogGym-Opt",
+      "repositoryId": 1222511386,
+      "defaultBranch": "main",
+      "headSha": "10093e3496ef2c7d06494d91d131b0cc5de6c25b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        7,
+        0
+      ],
+      "lastCommitAt": "2026-09-16",
+      "lastMeaningfulCommitAt": "2026-09-16",
+      "lastMeaningfulCommitSha": "860c3e4996ff28d30205ecca433846313941341a",
+      "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
     }
   }
 }

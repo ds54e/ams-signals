@@ -11,7 +11,7 @@ scope:
     ai: true
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
 - id: code
   title: Canonical Vibe-IC repository
@@ -44,6 +44,9 @@ sources:
 - id: "activity-current"
   title: "Analog macro-pin and extraction-wrapper correctness"
   url: "https://github.com/vibeic/vibe-ic/commit/fc17c778d9beaf720baf854ec29dbcb83ac61c88"
+- id: "review-20261011-1"
+  title: "Reviewed implementation integration"
+  url: "https://github.com/vibeic/vibe-ic/commit/a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
 ---
 
 ### Analog scope
@@ -62,6 +65,8 @@ The September 29 first-parent integration adds layout-netlist identity checks, a
 
 Claude Code runtime skills and an AI-native product description do not establish who implemented the software. No development badge is inferred from the model-facing interface or overall repository activity. [Project description](#source-readme)
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The analog extraction wrapper resolves technology-LEF variants and preserves the generated wrapper path separately from measurement results. Regression coverage addresses hard-macro ports and stale wrapper bindings; it does not independently establish physical signoff. [Reviewed change](#source-activity-current).
+The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

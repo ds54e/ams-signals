@@ -2,7 +2,7 @@
 name: "virtuoso-bridge-lite"
 aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
-description: "Python and CLI bridge for Virtuoso schematic/layout editing, Maestro configuration and standalone Spectre execution with PSF parsing. Its bundled netlist skill uses model reasoning to separate circuit/testbench decks and clean semantic structure; simulation, Monte Carlo export and geometry operations remain conventional tool interfaces."
+description: "Python and CLI bridge for Virtuoso schematic/layout editing, Maestro configuration and persistent asynchronous simulation jobs, plus standalone Spectre execution and PSF parsing. A bundled model-driven netlist skill separates circuit/testbench decks and repairs semantic structure; users supply the licensed EDA installation and PDK."
 scope:
   design:
     ai: true
@@ -13,7 +13,7 @@ scope:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Public repository"
@@ -40,6 +40,15 @@ sources:
   - id: "activity-tip"
     title: "Package default CDF filters and check built distributions"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/aab1180fc1399a00d18867d56594fa1fdb457a6c"
+  - id: "review-20261011-1"
+    title: "Job implementation and tests"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/ace996733ccca94a8554986a4072113cde279d98"
+  - id: "review-20261011-2"
+    title: "Maestro operating contract"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/378f0b640451d82bf6bccf8ece687aa27b1dcafe/skills/virtuoso/references/maestro-python-api.md"
+  - id: "activity-reviewed-20261011"
+    title: "Reviewed substantive first-parent implementation checkpoint"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/378f0b640451d82bf6bccf8ece687aa27b1dcafe"
 ---
 ### Implemented interfaces
 
@@ -57,8 +66,8 @@ The bundled netlist skill explicitly makes model semantic reasoning the primary 
 
 Generic CLI/Python/MCP access alone would not qualify. Maestro/Spectre execution, PSF parsing and layout primitives remain conventional Simulation and Layout. The tag describes the bundled model-hosted workflow, not inference inside every bridge call. [Interfaces](#source-review)
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The bridge adds optional csh/sh environment sourcing, named environment profiles, profile audit and remote environment checks. These setup paths support the existing Cadence operations; they do not add AI to deterministic simulation or layout calls. [Reviewed change](#source-activity-current).
+MaestroJobManager persists job identity and request/completion evidence. A later Python process can reattach and observe completion markers without sending additional SKILL to the CIW. The patch includes recovery logic and tests; a separate native-grid/power-rail import fix improves schematic interoperability. [Job implementation and tests](#source-review-20261011-1) · [Maestro operating contract](#source-review-20261011-2) · [Reviewed substantive first-parent implementation checkpoint](#source-activity-reviewed-20261011)
 
-The later packaging fix includes default schematic CDF filter resources in wheels and source archives, with distribution-content tests. It repairs the installable artifact rather than changing the bridge stage classification. [Current implementation checkpoint](#source-activity-tip).
+The licensed Virtuoso process and Maestro GUI session are still required for starting the run. Client survival/reconnection is not evidence that a run survives loss of the EDA process. This API is deterministic orchestration and does not establish AI Simulation.

@@ -1,15 +1,15 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: Creates hierarchical analog schematics through a connectivity-aware editor and agent workflow, with structural SPICE/Spectre interchange. Agents can edit circuits and author simulation analyses and measurements; hosted execution and result inspection are separate from schematic drawing, while the offline Windows preview excludes agent and simulation services.
+description: "Creates hierarchical analog schematics through a connectivity-aware editor and agent workflow, with SPICE/Spectre interchange and native simulation authoring. A local headless workspace supports persistent batch drawing without a browser; separate adapters export circuits into Aether or Virtuoso, while simulation remains outside local drawing mode."
 scope:
   design:
     ai: true
   simulation:
     ai: true
-access: Public AGPL-3.0 source. Local development requires Node.js and pnpm; hosted simulation depends on the available service profile. The Windows preview is an offline editor, without agent or simulation services.
+access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -33,6 +33,15 @@ sources:
 - id: "activity-current"
   title: "Agent planning tests use real Edit Engine snapshots"
   url: "https://github.com/cascode-ai/analog-canvas/commit/f85cd32dbcc9b307f98cdf4e27099992d120a01f"
+- id: "review-20261011-1"
+  title: "Headless implementation"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/ef2c587e598e1d8905e757b4ff2af713f4da7b5e"
+- id: "review-20261011-2"
+  title: "EDA adapters"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/00d128d1bab2515c02993653aa05b684dc74465b"
+- id: "review-20261011-3"
+  title: "Local-mode limits"
+  url: "https://github.com/cascode-ai/analog-canvas/blob/37bccd4012764dce53b34927fa606c6f430296a2/docs/agent/local-workspace.md"
 ---
 
 ### Workflow and scope
@@ -41,7 +50,7 @@ The released circuit skill directs the model to read, generate, place and refine
 
 ### Access and evidence limits
 
-The README describes hosted ngspice/SKY130 execution; the current shared simulation guidance also describes VACASK-native profiles and distinguishes them from historical ngspice runs. Select the service's actual advertised profile rather than assuming the backend from the README. Local editor development and the offline Windows preview do not start the hosted simulation service; the preview also excludes agent services. No EDA runs were reproduced for this review. [Reviewed capabilities](#source-readme) · [Engine boundary](#source-simulation)
+The README describes hosted ngspice/SKY130 execution; the current shared simulation guidance also describes VACASK-native profiles and distinguishes them from historical ngspice runs. Select the service's actual advertised profile rather than assuming the backend from the README. Local headless drawing is an agent-authoring path distinct from the offline Windows preview. Neither local drawing nor the offline preview starts the hosted simulation service; the preview also excludes agent services. No EDA runs were reproduced for this review. [Reviewed capabilities](#source-readme) · [Engine boundary](#source-simulation)
 
 The reviewed October 1 correctness changes cover device-parameter ERC, ngspice name collisions, DUT port order and structural netlist errors. Their implementation and tests establish substantive activity, rather than the later package-release commit. [Meaningful activity](#source-activity)
 
@@ -49,6 +58,8 @@ The reviewed October 1 correctness changes cover device-parameter ERC, ngspice n
 
 Runtime agent integration does not establish software-development provenance. The reviewed correctness commit contains assistant attribution, but this bounded repair set alone does not establish the defining-core or substantial-subsystem contribution required for a development badge. No provenance badge is assigned from it. [Reviewed change](#source-activity)
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. Agent-planning tests now obtain their snapshot from the real Edit Engine rather than a handwritten substitute. This is an executable integration-test improvement; it does not expand the existing runtime stage or development-provenance classification. [Reviewed change](#source-activity-current).
+The local workspace runs the same editor Agent host against persistent Project files, can emit netlist and formal SVG artifacts and compare a drawing with a reference netlist. It does not run simulation. Modular eda/ tools add offline export and single/serial-batch import adapters for Aether and Virtuoso Bridge, with explicit target dependencies and native readback boundaries. [Headless implementation](#source-review-20261011-1) · [EDA adapters](#source-review-20261011-2) · [Local-mode limits](#source-review-20261011-3)
+
+Local mode is documented as an internal, evolving tool and refuses simulation, Gallery and browser-measured export operations. Native database readback is not electrical equivalence. Aether/Virtuoso imports need separately installed EDA, licensed runtimes where applicable, PDKs and process maps.

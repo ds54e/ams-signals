@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Apache-2.0 source and najaeda Python wheels; source builds require the documented frontend and native-library dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "site"
     title: "Official najaeda Python API documentation"
@@ -31,6 +31,9 @@ sources:
   - id: "activity-tip"
     title: "Primitive wiring, Verilog dump controls and PULP regressions"
     url: "https://github.com/najaeda/naja/commit/50306aa8662347000ee43bfce0ebcf6cf44720b9"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/najaeda/naja/commit/545ebd99803d301bdb46b4f326998945df83aa28"
 ---
 
 ### Implementation and scope
@@ -44,3 +47,9 @@ VHDL loading is beta. Formal equivalence belongs to Kepler-Formal, and model-hos
 The canonical main branch history was captured in full. The October 4 UTC frontend change prevents memory inference when multiple always blocks write the same array, avoiding conflicting lowered drivers. [Reviewed change](#source-activity).
 
 The later implementation adds canonical assignment primitives for VHDL wiring and optional packed-signal splitting annotations in Verilog dumps, with Python bindings and structural regressions. Expanded PULP tests exercise elaborated/dumped designs through external tools; reported workload outcomes are not independent catalog reproduction. [Current implementation checkpoint](#source-activity-tip).
+
+### Current implementation and operating boundaries
+
+The reviewed implementation repairs VHDL full-adder behavior and adds parameterized flip-flop modeling. These are targeted representation and semantic fixes within the current synthesis/design workflow. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

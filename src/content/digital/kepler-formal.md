@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Apache-2.0 public source; Nix binary distribution and CMake/Bazel source-build paths are documented."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical Kepler-Formal repository"
@@ -31,6 +31,9 @@ sources:
   - id: "activity-current"
     title: "Naja Python design-input loading"
     url: "https://github.com/keplertech/kepler-formal/commit/acb85ea8eb7b733ee8269d103df7b37f8c28fe4f"
+  - id: "review-20261011-1"
+    title: "Reviewed implementation integration"
+    url: "https://github.com/keplertech/kepler-formal/commit/ea09c2a7917496e5c1db596c79f3fef308a827b5"
 ---
 
 ### Verification modes
@@ -49,6 +52,8 @@ Equivalence and sequential-equivalence checking are direct Verification tasks. P
 
 Reviewed 2026-10-01. Current documentation retains separate LEC, gate/RTL SEC and RTL-to-gate modes. Optional certified internal-relation learning is a formal relation-discovery/checking mechanism, not evidence of a learned model or hosted AI decision path. Keep conventional Verification and the distinction between proof, partial/inconclusive results and BTOR2 export. [README](#source-readme); [SEC methods](#source-sec-methods).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. The CLI now accepts Python design scripts through Naja, while current documentation also exposes experimental VHDL SEC. Python loading is unavailable in the in-process file API. Proof, partial/inconclusive and counterexample outcomes remain distinct, and BTOR2 export alone is not proof. [Reviewed change](#source-activity-current).
+The reviewed counter-SEC regressions define truth tables and sequential-cell behavior through the Python input path without a Liberty dependency. Naja compatibility maintenance is separate. These are implemented test/setup paths, not a new general proof engine. [Reviewed implementation integration](#source-review-20261011-1)
+
+The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.

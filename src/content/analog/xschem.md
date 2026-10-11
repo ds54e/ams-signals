@@ -2,7 +2,7 @@
 name: "Xschem"
 aliases: []
 summary: "Edits hierarchical schematics and emits simulator-ready netlists."
-description: "Schematic capture and netlisting environment for hierarchical custom-IC designs, with Tcl scripting and open-PDK examples. It emits SPICE, Verilog and VHDL netlists and integrates simulator run control, waveform inspection and result backannotation with tools such as ngspice and Xyce."
+description: "Captures hierarchical custom-IC schematics, emits SPICE/Verilog/VHDL netlists and integrates simulator control and backannotation. Embedded waveform tools include Smith charts for complex S-parameter or impedance data, with reference-impedance conversion and frequency cursors; numerical analyses run through separately configured simulators and PDKs."
 scope:
   design:
     ai: false
@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-11"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -41,6 +41,12 @@ sources:
   - id: "activity-current"
     title: "Preserve modified schematics during fork cleanup"
     url: "https://github.com/StefanSchippers/xschem/commit/c15c6c05b175de17e81e6c4dd6175e07815add28"
+  - id: "review-20261011-1"
+    title: "Smith-chart integration"
+    url: "https://github.com/StefanSchippers/xschem/commit/35a2184b7247f872ded516ad6b885e903e7575a5"
+  - id: "review-20261011-2"
+    title: "Drawing/complex-data implementation"
+    url: "https://github.com/StefanSchippers/xschem/blob/cbfef85df54c2f17ecbe3f2c1ddba3a466d7d3a0/src/draw.c"
 ---
 
 ### Scope
@@ -59,6 +65,8 @@ Schematic capture and hierarchical netlisting are central. Simulator launch and 
 
 Schematic/netlist editing is conventional Design; simulator launch and back-annotation serve Simulation. Neither scripting nor external solver integration establishes AI inference. [AI/stage evidence](#source-readme).
 
-### Current activity review
+### Current implementation and operating boundaries
 
-Reviewed 2026-10-05. GUI availability guards and forked-schematic cleanup preserve modified drawings instead of silently overwriting them. This is schematic-editing correctness within the existing scope. [Reviewed change](#source-activity-current).
+The merged Smith-chart path plots complex data in the reflection-coefficient plane. For impedance inputs, imp() maps Z to (Z−Z0)/(Z+Z0), with a per-graph reference impedance and frequency cursors. Source, operating documentation and smoke/geometry/cursor regression scripts were inspected. [Smith-chart integration](#source-review-20261011-1) · [Drawing/complex-data implementation](#source-review-20261011-2)
+
+No new numerical solver or AI stage is established. The plot uses a fixed reflection-coefficient window with clipping; zoom/pan and active-device values outside it have documented limits. Z0 conversion is not automatic renormalization of already stored S-parameter data. Tests were inspected, not executed. A disabled preserve-undo branch is not a released feature.

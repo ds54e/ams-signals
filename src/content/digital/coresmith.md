@@ -1,7 +1,7 @@
 ---
 name: "CoreSmith"
 aliases: []
-description: "Agent-driven ASIC flow that decomposes specifications into architecture, generates RTL and testbenches, and drives Yosys synthesis and OpenROAD/Magic/Netgen implementation toward GDS. LangGraph and a persistent architect session coordinate block contracts, SoC integration and repair loops, with tool-grounded acceptance and explicit review gates."
+description: "Agent-driven ASIC flow generating architecture, RTL and testbenches, with synthesis and physical implementation repair loops. Persistent architect sessions and module builds track input identities, block contracts and tool-grounded acceptance; a resumed build rejects changed inputs before continuing toward SoC integration and GDS."
 scope:
   design:
     ai: true
@@ -18,7 +18,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-11"
 sources:
   - id: "code"
     title: "Canonical CoreSmith repository"
@@ -52,6 +52,18 @@ sources:
   - id: "activity-review"
     title: "SoC stages and persistent architect-session implementation"
     url: "https://github.com/facebookexperimental/coresmith/commit/4f5f94996db3ea11f39c62f469249dbed43ab6ab"
+  - id: "review-20261011-1"
+    title: "Module-build implementation checkpoint"
+    url: "https://github.com/facebookexperimental/coresmith/commit/06dc6d8acc69eae04ea8f9dc8a63a51fe07de1d3"
+  - id: "review-20261011-2"
+    title: "Build orchestration"
+    url: "https://github.com/facebookexperimental/coresmith/blob/da5b2acb3e0b1b19b2d801c40ffa5797a6086083/orchestrator/module_build.py"
+  - id: "review-20261011-3"
+    title: "Input-contract tests"
+    url: "https://github.com/facebookexperimental/coresmith/blob/da5b2acb3e0b1b19b2d801c40ffa5797a6086083/orchestrator/tests/test_module_input_contracts.py"
+  - id: "review-20261011-4"
+    title: "Release v1.0.0"
+    url: "https://github.com/facebookexperimental/coresmith/releases/tag/v1.0.0"
 ---
 
 
@@ -79,4 +91,8 @@ Reviewed 2026-09-07: **AI-ASSISTED**. The credited implementation adds conforman
 
 Reviewed 2026-10-01. The current SoC path adds generated bus fabrics, timed interface contracts, per-block VIP, incremental shell integration and agent-authored SystemC evaluation harnesses. The documented remaining work includes real-versus-real assembled-shell VIP stimulus and using the SystemC model as the block golden; these are not treated as delivered cross-block verification. [SoC stages](#source-soc-stages).
 
-The newest reviewed meaningful first-parent change is SoC stages and persistent architect-session implementation (2026-09-29 UTC). [Reviewed commit](#source-activity-review).
+### Current implementation and operating boundaries
+
+Module build admission checks readiness and binds source/specification/model/tool/worker identities before dispatch. Persisted build state is shared by CLI, daemon and MCP paths. Resume checks reject changed inputs as BUILD_STALE; operation locking, recovery and final publication keep build provenance tied to the admitted inputs. [Module-build implementation checkpoint](#source-review-20261011-1) · [Build orchestration](#source-review-20261011-2) · [Input-contract tests](#source-review-20261011-3) · [Release v1.0.0](#source-review-20261011-4)
+
+This is orchestration integrity evidence, not proof of physical signoff or silicon correctness. No EDA run or resume/recovery test was executed in this research. The four AI stages are retained from their existing evidence; this one patch does not independently re-establish all of them.
