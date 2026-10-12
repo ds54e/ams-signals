@@ -6,6 +6,11 @@ description: "VLSI layout editor with design-rule checking, circuit extraction a
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The maintainer explicitly credits Claude with implementing optional corner-fringe capacitance extraction. The patch adds extraction geometry calculations, coupling/substrate corrections and command controls retained in Magic."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-11"
@@ -30,6 +35,12 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/RTimothyEdwards/magic/commit/4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/RTimothyEdwards/magic/commit/718e02ec3f2e078b98263fdbf808637c29a36a7a"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/RTimothyEdwards/magic/blob/bed8d4ff84333767aa923d469d339cd05c56a00a/extract/ExtCouple.c"
 ---
 
 ### Scope
@@ -50,4 +61,8 @@ Interactive/scripted layout, DRC and extraction are conventional Layout. No revi
 
 The WebAssembly build uses a single-threaded Tcl notifier and a correctly typed idle callback for event-loop operations used by DRC and extraction commands. This is build-specific correctness within the existing layout flow. [Reviewed implementation integration](#source-review-20261011-1)
 
-The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+Runtime Scope classifications are preserved. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+### Development provenance
+
+The reviewed implementation adds convex/concave corner calculations and integration into the existing extractor, with an optional model scale factor. This qualifies as a substantial extraction feature. The attribution does not establish the electrical calibration of that factor or characterize construction of the original Magic codebase. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

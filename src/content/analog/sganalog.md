@@ -7,6 +7,11 @@ scope:
     ai: true
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The public implementation release credits Claude and includes executable harvesting, netlist preparation, blinded rendering and sizing/evaluation software. Its sizing evaluator remains in the published project."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 targets: "Analog and mixed-signal schematic transcription, transistor sizing, and human-reference circuit evaluation"
 access: "Benchmark code and redistributed circuit data are Apache-2.0, with per-repository attribution. Simulation uses Docker and a digest-pinned IIC-OSIC-TOOLS image with ngspice and open PDKs; new model evaluations require provider access."
 notice: "Model scores are author-reported. Tapeout provenance does not establish measured-silicon performance, and the sizing score includes convergence-only tasks."
@@ -39,6 +44,12 @@ sources:
   - id: "activity"
     title: "Initial public benchmark implementation and dataset"
     url: "https://github.com/Li-Yueting/SGAnalog/commit/ebd7e694b79cbe8475c42bd41cf4620c5d537a0f"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/Li-Yueting/SGAnalog/commit/ebd7e694b79cbe8475c42bd41cf4620c5d537a0f"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/Li-Yueting/SGAnalog/blob/ebd7e694b79cbe8475c42bd41cf4620c5d537a0f/scripts/sizing_eval.py"
 ---
 ### Dataset and implementation
 
@@ -61,3 +72,7 @@ The full collection is larger than either evaluation subset, and many harvested 
 The benchmark explicitly evaluates AI models performing schematic-to-netlist transcription and device sizing, supporting AI Design. This label describes the evaluated model's circuit operation, not AI inside the structural grader. [Task contract](#source-review) · [Implemented sizing](#source-sizing)
 
 The ngspice harness and open-PDK environment supply conventional electrical evaluation, supporting Simulation. AI-generated sizes alone do not establish AI Simulation, and tapeout-derived data do not establish a released layout-generation workflow. [Sizing harness](#source-sizing) · [Environment](#source-environment)
+
+### Development provenance
+
+The credited release contains substantial executable benchmark-pipeline and evaluation code, in addition to harvested circuits, data and paper assets. The provenance label concerns implementation of the benchmark tooling; it does not attribute the upstream shuttle designs or their silicon to AI, or infer that AI implemented every released file. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

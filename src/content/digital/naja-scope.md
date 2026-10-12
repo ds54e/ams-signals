@@ -5,6 +5,11 @@ description: "MCP server for bounded RTL and gate-netlist hierarchy, connectivit
 scope:
   verification:
     ai: true
+  aiDevelopment: built
+developmentEvidence:
+  summary: "The Claude-credited initial server implementation introduces the defining structural-query core: design cards, path resolution, connectivity, cone traversal, sessions and source indexing. The current server retains this query architecture."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
 addedAt: "2026-09-18"
 reviewedAt: "2026-10-05"
@@ -28,6 +33,12 @@ sources:
   - id: "benchmark-tasks"
     title: "Pinned CVA6 question bank and answer checks"
     url: "https://github.com/keplertech/naja-scope/blob/56bd431bb0c426a8627bfaeec19ef5e8846a6106/benchmarks/cva6-cv32.json"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/keplertech/naja-scope/commit/e80dae66dde9bdaa28d4335fbaee98c197f24d65"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/keplertech/naja-scope/blob/b61faa40e581caa3980789cf3b1918ee89f629e6/src/naja_scope/cone.py"
 ---
 
 ### Structural-query boundary
@@ -47,3 +58,7 @@ Inspection, tracing and the benchmark serve Verification. Viewing/annotating an 
 ### Canonical repository review
 
 Reviewed 2026-10-05. The repository moved from najaeda to keplertech with the same verified GitHub repository identity. Code and pinned sources use the canonical owner; documentation migration does not replace the prior meaningful implementation checkpoint or change stage/provenance classification. [Canonical implementation](#source-code); [retained implementation checkpoint](#source-activity).
+
+### Development provenance
+
+The attributed implementation introduces the named project's core modules together, including its own hierarchy/connectivity traversal and source-index/session machinery. This establishes a major role in the defining naja-scope software, rather than attributing its upstream Naja library or inferring development provenance merely from MCP support. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

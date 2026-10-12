@@ -8,6 +8,11 @@ scope:
     ai: true
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation added the per-model results explorer with rollout scores, responses, judge rationales, task navigation and shared cost calculations. The current site retains this results-browsing application."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators, LNAs and TIAs"
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
@@ -43,6 +48,12 @@ sources:
   - id: "activity-current"
     title: "Standalone model-driven direct-QA benchmark runner"
     url: "https://github.com/Arcadia-1/razavi-bench/commit/913bc27adc6227ddabaa15b0b0d582ab280a0552"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/Arcadia-1/razavi-bench/commit/59ff3d6b158cc752e48f33c293b9eca7be582dd5"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/21bfc57f076643a73dd183f56975001c8b1b9e11/docs/model.html"
 ---
 ### Inputs and modes
 
@@ -71,3 +82,7 @@ The direct and workspace modes run models to answer circuit-reasoning questions,
 ### Current activity review
 
 Reviewed 2026-10-05. A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+The reviewed patch implements the model-results view and its data/navigation/pricing integration, not only visual styling. Attribution concerns this user-facing results subsystem; the benchmark's questions, released model answers and scoring methodology are not attributed to AI by this evidence. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

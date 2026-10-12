@@ -8,6 +8,11 @@ scope:
     ai: true
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited expansion implemented the LDO evaluation environment, circuit-category environment dispatch and circuit import/validation tooling. The current project retains LdoEnv and its measurement/reward path."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "MIT. Python 3.10+, PyTorch, torch-geometric and ngspice; bundled SKY130 model resources and the documented environment must be configured. Claude skills and MCP wrappers are optional integration paths, not substitutes for the numerical engine."
 addedAt: "2026-10-11"
 reviewedAt: "2026-10-11"
@@ -38,6 +43,12 @@ sources:
     title: "AnalogGym-Opt IEEE TCAD paper"
     url: "https://ieeexplore.ieee.org/document/11690621"
     purpose: "paper"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/commit/8d8e0d071d3038eebf2ed43de1cd028e43ca0c18"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/LdoEnv.py"
 ---
 
 ## Implementation and Scope
@@ -55,3 +66,7 @@ MIT. Python 3.10+, PyTorch, torch-geometric and ngspice; bundled SKY130 model re
 ## Reviewed public activity
 
 The meaningful checkpoint is 860c3e4996ff28d30205ecca433846313941341a (2026-09-16 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-integration-checkpoint) supports the meaningful date; the latest head is separately retained for activity ordering.
+
+### Development provenance
+
+The inspected patch contains executable category-specific evaluation and environment integration in addition to imported circuits and documentation. Attribution is bounded to this implemented expansion, including LDO transient/load/regulation measurements, rather than inferred from the optional MCP interface or restored upstream RL sources. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

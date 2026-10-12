@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation introduced project-scoped compilation groups and connected cross-reference resolution to the requesting project. The current analyzer and background compiler retain the per-project compilation architecture."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "MIT. The public C++/slang-based language server and editor tooling need the documented build environment. UVM editing support does not supply a UVM simulator."
 addedAt: "2026-10-11"
 reviewedAt: "2026-10-11"
@@ -33,6 +38,15 @@ sources:
   - id: "activity"
     title: "Reviewed substantive first-parent implementation update"
     url: "https://github.com/lazyverilog/LazyVerilog/commit/b92801a05c653cc6df1ad5d6005a62c36375b471"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/lazyverilog/LazyVerilog/commit/a0fc2c3a978f92d4d83b7c4909c05347791dbe13"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/lazyverilog/LazyVerilog/commit/893c1db11597eb5cb716c6a28984e07ef0030c81"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/lazyverilog/LazyVerilog/blob/472926fb70c0a68d21259d9021129e3b4b8ca04c/src/background_compiler.cpp"
 ---
 
 ## Implementation and Scope
@@ -50,3 +64,7 @@ MIT. The public C++/slang-based language server and editor tooling need the docu
 ## Reviewed public activity
 
 The meaningful checkpoint is b92801a05c653cc6df1ad5d6005a62c36375b471 (2026-10-02 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-activity) supports the meaningful date; the latest head is separately retained for activity ordering.
+
+### Development provenance
+
+The changes replace one combined compilation context with per-project inputs, snapshots and background compilation, then route the Connect feature through that identity boundary. This is substantial language-server architecture and resolution work; the label is not based on the number of credited formatting fixes. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

@@ -10,6 +10,11 @@ scope:
     ai: false
   layout:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation added hierarchical wired-Xschem schematic generation and physical-layout/post-extraction support for SAR, flash and sampler circuit families. The current source retains the schematic geometry/connectivity layer."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Apache-2.0 project code, with separate MIT notices for derived model layers and separate checkpoint/model terms. Python 3.13, numerical/model packages, ngspice and the selected model/PDK are required; physical work adds Magic and SKY130. PDK-dependent integration tests can be skipped when the environment is absent."
 addedAt: "2026-10-11"
 reviewedAt: "2026-10-11"
@@ -39,6 +44,15 @@ sources:
   - id: "activity"
     title: "Reviewed substantive first-parent implementation update"
     url: "https://github.com/lab-emi/ChipJev/commit/6389189d8cc40393eca97e8776638aaba5038b95"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/lab-emi/ChipJev/commit/3eccd4f142d55f84785b62e8a8ba8fa9c34db8f4"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/lab-emi/ChipJev/commit/3b50dfe4184f4db9f4f4ddeeeb51436b3b25e070"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/lab-emi/ChipJev/blob/6389189d8cc40393eca97e8776638aaba5038b95/src/chipjev/schematic/sheet.py"
 ---
 
 ## Implementation and Scope
@@ -56,3 +70,7 @@ Apache-2.0 project code, with separate MIT notices for derived model layers and 
 ## Reviewed public activity
 
 The meaningful checkpoint is 6389189d8cc40393eca97e8776638aaba5038b95 (2026-10-01 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-activity) supports the meaningful date; the latest head is separately retained for activity ordering.
+
+### Development provenance
+
+The attributed changes introduce netlist parsing, hierarchy checking, symbols, wired sheets and circuit-specific drawing templates, plus executable family layout/bench integration. These establish substantial implementation contributions beyond demonstration captions or generated circuit examples. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

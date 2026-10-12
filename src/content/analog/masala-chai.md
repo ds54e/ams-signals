@@ -7,6 +7,11 @@ scope:
     ai: true
   simulation:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Cursor-credited implementation introduced the agents_v2 refinement pipeline, including component/connectivity/netlist agents and judge-driven conflict resolution. The current code retains the judge and pipeline modules."
+  sources: ["development-audit-implementation", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Python, object-detection weights and multimodal LLM access; install ngspice for actual simulation feedback."
 addedAt: "2026-09-05"
 reviewedAt: "2026-09-05"
@@ -28,6 +33,12 @@ sources:
   - id: "readme-md"
     title: "V2 release and dataset availability"
     url: "https://github.com/jitendra-bhandari/Masala-CHAI/blob/fc61c0404f45e5385bc0159d834544bb148643de/README.md"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/jitendra-bhandari/Masala-CHAI/commit/39c153aefe6780db6291bd72a3ed73fc088f1183"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/jitendra-bhandari/Masala-CHAI/blob/fc61c0404f45e5385bc0159d834544bb148643de/agents_v2/agents/judge_agent.py"
 ---
 
 ### Scope
@@ -43,3 +54,7 @@ The paper's 7,500-schematic corpus and downstream model results predate V2; the 
 Schematic-image interpretation and SPICE reconstruction are central. Optional ngspice logs provide feedback to the V2 revision loop; a skipped simulator path is not a successful electrical check. [Reviewed source](#source-readme-md).
 
 Multimodal agents reconstruct connectivity and netlists, giving AI Design. The V2 LLM judge explicitly consumes optional simulation logs and returns diagnosis/revision feedback, giving AI Simulation; missing-ngspice runs still do not establish electrical validation. [V2 judge and simulation feedback](#source-agents-v2-workflow-py).
+
+### Development provenance
+
+The attributed diff implements executable agent orchestration, stage-specific refinement, judging and conflict handling across the v2 package. It establishes substantial software implementation independently of using LLMs to generate or inspect circuit netlists at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

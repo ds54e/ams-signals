@@ -9,6 +9,11 @@ scope:
     ai: true
   layout:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited implementation added routing optimization, shared design-constraint handling and device-shaping algorithms. The retained shaping code preserves tie-group geometry and total device width within declared bounds."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: Public MIT source and Claude Code agent/skill definitions. Requires Claude Code, Magic, Netgen, ngspice, Python layout dependencies and an installed PDK; SKY130 is the documented default and GF180 is unverified.
 addedAt: '2026-10-01'
 reviewedAt: '2026-10-01'
@@ -38,6 +43,15 @@ sources:
 - id: activity
   title: Reviewed substantive implementation commit
   url: https://github.com/SunCherry/agentic-AI_analog_IC_auto-designer/commit/54c8d699b0f2f87e5a2013dde50596c506ec3aaf
+- id: "development-audit-implementation"
+  title: "Reviewed AI-attributed implementation"
+  url: "https://github.com/SunCherry/agentic-AI_analog_IC_auto-designer/commit/a2dcee00d9d6c530839a1fcbed4acdefedd07b31"
+- id: "development-audit-extension"
+  title: "Reviewed coordinated implementation extension"
+  url: "https://github.com/SunCherry/agentic-AI_analog_IC_auto-designer/commit/5bff9e4e798db6302501f2e11702c28b96c3562e"
+- id: "development-audit-retained"
+  title: "Retained implementation at the reviewed repository head"
+  url: "https://github.com/SunCherry/agentic-AI_analog_IC_auto-designer/blob/bfc0fd5e006c05d13472080fe9a3254eba3321e7/.claude/skills/device-shaper/script/shape_devices.py"
 ---
 
 ### Released implementation and scope
@@ -56,4 +70,4 @@ The reviewed September 8 commit changes actual placement/routing and device-cell
 
 ### Development provenance
 
-Being built on Claude Code subagents describes the execution platform, not sufficient attribution of software implementation. No AI-development badge is inferred from that runtime architecture. [Project description](#source-readme)
+The reviewed changes implement geometric shaping and routing support in executable Python, including constraints and verification paths. These are substantial implemented design-flow components; their attribution is independent of running the project through Claude Code. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

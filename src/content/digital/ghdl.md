@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development implemented coordinated formal-association direction handling and declared-versus-analyzed subprogram purity semantics across analysis, simulation and synthesis. Current frontend code retains these semantics."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Public GPL-2.0-or-later source, packaged and nightly binaries; runtime-library terms and backend build dependencies vary."
 addedAt: "2026-10-05"
 reviewedAt: "2026-10-05"
@@ -28,6 +33,15 @@ sources:
   - id: "activity"
     title: "Synthesis regression for issue 3417"
     url: "https://github.com/ghdl/ghdl/commit/4919fc2cad7b045a166861d5cec345d06429a6d7"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/ghdl/ghdl/commit/cf98e47517d0076427823097c21d5c7d5bc33890"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/ghdl/ghdl/commit/10ea0d9b9dfce40e5fa2fe9eba03f29f9b07ef6e"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/ghdl/ghdl/blob/2c451de76b07b73fd338c91d68fd5cefcb152512/src/vhdl/vhdl-sem_assocs.adb"
 ---
 
 ### Implementation and scope
@@ -39,3 +53,7 @@ The project reports full support for VHDL-1987/1993/2002 and partial support for
 ### Reviewed public activity
 
 The canonical master branch history is captured in full. The October 4 UTC change adds an executable synthesis regression involving a clocked process and an inout signal, providing substantive technical test activity rather than only a release-label change. [Reviewed regression](#source-activity).
+
+### Development provenance
+
+The reviewed campaign separates declaration purity from analyzed call-chain effects and consistently handles constrained/unconstrained composite associations through semantic analysis, elaboration and synthesis. Attribution covers this compiler-correctness campaign rather than documentation, platform build maintenance or construction of the original GHDL compiler. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

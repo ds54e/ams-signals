@@ -5,6 +5,11 @@ description: "Unit-testing framework for VHDL and SystemVerilog, combining Pytho
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development implemented package setup contexts and simulator-hook registration across multiple backends. The current package/runtime integration retains the hook registry and simulator dispatch."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Public MPL-2.0 framework with separately licensed bundled libraries; requires Python and a supported simulator."
 addedAt: "2026-10-05"
 reviewedAt: "2026-10-05"
@@ -29,6 +34,15 @@ sources:
   - id: "activity"
     title: "TOML package and source-level compilation options"
     url: "https://github.com/VUnit/vunit/commit/145e8c85dc6988ae61c7ad2ed5be29707f05a209"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/VUnit/vunit/commit/9b6bddf32149d54f2d7159728871a8c643e396f0"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/VUnit/vunit/commit/cdf242f705cc0fd052ddef0d5d9e4e53cf53035f"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/VUnit/vunit/blob/98063a438c957c5627d0003ca476bd4c4913ff64/vunit/sim_if/hooks.py"
 ---
 
 ### Implementation and scope
@@ -40,3 +54,7 @@ Verification is conventional automation. No material runtime model decision path
 ### Reviewed public activity
 
 The canonical master branch history was captured in full. The October 3 UTC implementation validates and applies TOML compilation options at package and individual-source levels, with regression tests; the later version bump remains the ordering tip. [Reviewed change](#source-activity).
+
+### Development provenance
+
+The reviewed changes add importable package setup, a runtime context, hook validation/registry and invocation through GHDL, NVC, ModelSim/Questa, Riviera-PRO and Active-HDL adapters. This is substantial package/runtime integration rather than ordinary CI maintenance or documentation assistance. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

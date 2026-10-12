@@ -9,6 +9,11 @@ scope:
     ai: false
   verification:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development implemented the OpenCode execution backend and the sandboxed advisory/authoritative evaluation split. The current orchestration retains backend execution, evaluation storage and post-run rescoring."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "BSD-3-Clause-Clear public source; Docker/devcontainer toolchain is provided and real agent runs require a supported LLM provider."
 addedAt: "2026-09-14"
 reviewedAt: "2026-10-11"
@@ -42,6 +47,15 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/huawei-csl/rtlscout/commit/9bb5683747dafc8722b680140070ace3c5ffceab"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/huawei-csl/rtlscout/commit/a1d307788137ff47e0edaf6c822e486f8a82599c"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/huawei-csl/rtlscout/commit/aac5ea21346bf6e563ba6e5761f5c8cae4775ea9"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/huawei-csl/rtlscout/blob/1c88113fb1111837349adee2a9aa9bcea541e06d/core/opencode_backend.py"
 ---
 
 ### Agent loop
@@ -64,4 +78,8 @@ Reviewed 2026-10-01. The main optimization loop is AI Design with deterministic 
 
 The reviewed technology-evaluation path controls FA/HA mapping and runs opt_clean -purge before techmapping, so unused $fa cells do not inflate area estimates. Area results depend on that corrected measurement path; numerical author-reported gains were not reproduced. [Reviewed implementation integration](#source-review-20261011-1)
 
-The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+Runtime Scope classifications are preserved. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+### Development provenance
+
+The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are substantial orchestration and evaluation subsystems in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

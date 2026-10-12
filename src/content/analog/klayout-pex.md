@@ -6,6 +6,11 @@ description: "Parasitic extraction infrastructure linking KLayout connectivity a
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development reworked device-terminal attachment to extracted resistor networks and implemented RC/LVS identity consistency checking. The netlist-checking module remains in the current extraction flow."
+  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
+  reviewedAt: "2026-10-12"
 access: "Public Python implementation; selected extraction backends, KLayout and process-specific technology/LVS data are required."
 addedAt: "2026-09-07"
 reviewedAt: "2026-10-11"
@@ -63,6 +68,15 @@ sources:
   - id: "review-20261011-5"
     title: "Release v0.6.5"
     url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.6.5"
+  - id: "development-audit-implementation"
+    title: "Reviewed AI-attributed implementation"
+    url: "https://github.com/iic-jku/klayout-pex/commit/fa847742905944dfc18a481efdad77055bc543fd"
+  - id: "development-audit-extension"
+    title: "Reviewed coordinated implementation extension"
+    url: "https://github.com/iic-jku/klayout-pex/commit/175f7d2a1d06e77c4bf61774ab11242139a18aa5"
+  - id: "development-audit-retained"
+    title: "Retained implementation at the reviewed repository head"
+    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/netlist_checks.py"
 ---
 
 ### Implementation context
@@ -81,10 +95,14 @@ The website status still labels combined internal RC/RCC extraction planned, whi
 
 ### Scope and development provenance
 
-Layout covers parasitic extraction and layout-to-solver/model preparation. A field solver does not establish circuit Simulation. The reviewed operations are conventional; the README, development guide and reachable history do not establish substantial AI-assisted implementation, so no development label is assigned. [Reviewed implementation](#source-readme).
+Layout covers parasitic extraction and layout-to-solver/model preparation. A field solver does not establish circuit Simulation. The reviewed extraction operations are conventional; their runtime stage classification is separate from the AI-assisted implementation evidence below. [Reviewed implementation](#source-readme).
 
 ### Current implementation and operating boundaries
 
 RCX25 preserves capacitance geometry and distributes capacitance to nodes along resistor networks, using area/edge intersections and nearest-node regions. Very small capacitances merge without changing the total between the same nets. Follow-up fixes connect label-only nodes, distinguish via identifiers, use the correct shapes when stack layers share GDS pairs and repair IHP/GF180 MIM terminal/dielectric handling. [Distributed-capacitance integration](#source-review-20261011-1) · [Distributor implementation](#source-review-20261011-2) · [MIM terminal regression](#source-review-20261011-3) · [MIM dielectric checkpoint](#source-review-20261011-4) · [Release v0.6.5](#source-review-20261011-5)
 
 The reviewed tests were not run, and source coverage is not independent process/signoff accuracy validation. RC netlist output is a Layout artifact; it does not alone add Simulation. Process and backend boundaries remain explicit.
+
+### Development provenance
+
+The contribution changes terminal/node identity propagation through extraction summaries and netlist expansion, then checks device connectivity, net isolation, ports and capacitance accounting against the LVS reference. This is a coherent electrical-correctness implementation campaign, not a label inferred from extraction being useful to agents. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
