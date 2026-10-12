@@ -184,7 +184,7 @@
       ],
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
