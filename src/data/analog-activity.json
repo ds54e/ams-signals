@@ -184,7 +184,7 @@
       ],
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
@@ -1328,6 +1328,31 @@
       "lastMeaningfulCommitAt": "2026-09-16",
       "lastMeaningfulCommitSha": "860c3e4996ff28d30205ecca433846313941341a",
       "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
+    },
+    "ic-design-studio": {
+      "kind": "github",
+      "repository": "jonahsaunders/IC-Design-Studio",
+      "repositoryId": 1362004644,
+      "defaultBranch": "main",
+      "headSha": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        19,
+        6
+      ],
+      "lastCommitAt": "2026-10-04",
+      "lastMeaningfulCommitAt": "2026-10-02",
+      "lastMeaningfulCommitSha": "f954c3c1c837c5ff88733a292a163cd2982b504f",
+      "notes": "Incremental catalog addition captured at 2026-10-12T04:54:41.740097Z; the existing snapshot header and other project captures are retained. Complete canonical main first-parent UTC history only; experimental commits and PR refs are excluded. October 2 setup-cancellation and import-correctness implementation is meaningful activity; October 4 release-guidance documentation sets the raw latest date. Draft PR 68 and experimental commit fb1a741c145595b1b0931157f1fb7ec3f236058b establish ongoing October 12 development separately from main and the public package."
     }
   }
 }
