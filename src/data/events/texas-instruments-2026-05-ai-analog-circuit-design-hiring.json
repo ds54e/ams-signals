@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2026-05-ai-analog-circuit-design-hiring",
+  "when": {
+    "start": "2026-05-21",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "TI advertises AI/ML-assisted analog circuit creation and design-methodology adoption",
+  "fact": "Texas Instruments posted Bengaluru role 25010677, Analog Circuit Design Engineer – AI/ML methodology. It assigns analog IC definition, modeling and schematic design, plus use of AI/ML-enabled tools and flows to accelerate development and create novel circuits. The engineer is also to drive adoption of those methods across product teams. Example circuit experience includes references, ADCs/DACs, amplifiers, oscillators and power-management blocks. This is a hiring mandate beyond device sizing alone; it does not demonstrate autonomous topology generation or measured design improvements.",
+  "sources": [
+    {
+      "title": "TI Careers: Analog Circuit Design Engineer – AI/ML methodology (25010677)",
+      "url": "https://edbz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/ja/sites/CX/job/25010677/",
+      "checkedAt": "2026-10-15",
+      "summary": "Official employer ATS description and Job Info display May 21, 2026. The duties explicitly connect AI/ML-enabled flows with novel circuit creation and product-team adoption; no topology-generation algorithm or achieved benefit is disclosed."
+    }
+  ]
+}

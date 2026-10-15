@@ -1,0 +1,28 @@
+{
+  "id": "micron-2026-hbm-genai-verification-architecture-hiring",
+  "when": {
+    "start": "2026-07",
+    "precision": "month"
+  },
+  "kind": "organizational",
+  "companies": [
+    "micron"
+  ],
+  "people": [],
+  "headline": "Micron HBM verification architect role assigns GenAI methods and pre-silicon AI debug",
+  "fact": "Micron advertised HBM Staff Design Verification Engineer/Architect role JR94769 in Richardson. It assigns GenAI verification-methodology development aligned with HBM design cycles and AI-assisted root-cause analysis of pre-silicon as well as post-silicon issues. The role accepts digital, FastSPICE analog or mixed-signal co-simulation/real-number-modeling experience and spans IP/SoC verification architecture. Its scope is broader than dedicated AMS verification; it does not assign every GenAI task to RNM. A retained July listing predates the current September Workday date.",
+  "sources": [
+    {
+      "title": "Micron Careers: Staff Design Verification Engineer/Architect, HBM (JR94769)",
+      "url": "https://micron.wd1.myworkdayjobs.com/External/job/Richardson-TX/Staff-Engineer--HBM-Verification-Architecture_JR94769",
+      "checkedAt": "2026-10-15",
+      "summary": "Official full Workday response gives startDate September 15, 2026 and explicit GenAI methodology, pre/post-silicon AI debug and analog/AMS/RNM experience. This current date is later than retained recruiting history, not a verified first publication."
+    },
+    {
+      "title": "Aimates: retained HBM verification-architecture posting (JR94769)",
+      "url": "https://www.aimates.org/jobs/micron-technology-staff-design-verification-engineer-architect-hbm-ture-jr94769",
+      "checkedAt": "2026-10-15",
+      "summary": "Earlier retained listing records July 8, 2026. The Event uses month precision for the earliest retained public history; it does not substitute the September repost/current metadata for that history."
+    }
+  ]
+}

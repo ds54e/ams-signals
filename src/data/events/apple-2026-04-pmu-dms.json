@@ -5,10 +5,12 @@
     "precision": "day"
   },
   "kind": "organizational",
-  "companies": ["apple"],
+  "companies": [
+    "apple"
+  ],
   "people": [],
   "headline": "Apple posts a PMU Digital Mixed Signal Modeling role",
-  "fact": "Apple posted a PMU modeling role whose description lists SystemVerilog real-number modeling, model-versus-schematic simulation, standalone model validation, full-chip DMS integration, model-library reuse, model accuracy metrics, regression, Python automation, and correlation with transistor-level simulation and silicon bring-up. The posting says RNM-based closed-loop simulations typically run more than 100 times faster than schematic-based simulations.",
+  "fact": "Apple posted PMU Digital Mixed Signal Modeling role 200659736, assigning SystemVerilog RNM, model-versus-schematic simulation, standalone validation, full-chip integration, reusable libraries, model accuracy metrics, regression and Python automation. The description states typical RNM closed-loop simulations exceed schematic speed by 100 times. Preferred experience includes LLM/AI-assisted coding for model or RTL development. This is a qualification signal, not an assigned AI model-generation workflow or independently verified speedup.",
   "sources": [
     {
       "title": "Digital Mixed Signal Modeling Engineer",
@@ -22,6 +24,12 @@
       "url": "https://tryjeremy.com/jobs/apple-digital-mixed-signal-modeling-engineer-019dbbc8fba3",
       "checkedAt": "2026-09-02",
       "summary": "Recovery copy of Apple role 200659736 preserving the PMU scope, verification responsibilities, and stated typical speedup of more than 100 times for RNM-based closed-loop simulation."
+    },
+    {
+      "title": "Apple Careers: Digital Mixed Signal Modeling Engineer (200659736-0157)",
+      "url": "https://jobs.apple.com/en-au/details/200659736-0157/digital-mixed-signal-modeling-engineer?team=HRDWR",
+      "checkedAt": "2026-10-15",
+      "summary": "Retained official indexed text displays April 23, 2026 and explicitly lists LLM/AI-assisted coding for model/RTL development among preferred qualifications. Direct regional pages may return a shell; this does not establish that the wording was newly added."
     }
   ]
 }

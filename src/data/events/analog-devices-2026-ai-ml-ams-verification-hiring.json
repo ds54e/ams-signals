@@ -10,13 +10,25 @@
   ],
   "people": [],
   "headline": "Analog Devices job posting seeks AI/ML methods for mixed-signal design verification",
-  "fact": "Analog Devices posted a role for a Staff Design Verification Engineer that asks for applying AI/ML to failure clustering, regression triage, anomaly detection, and coverage optimization in mixed-signal and UVM verification across business units. This is evidence of an explicit public hiring mandate to investigate and apply those methods, not proof of existing production deployment or measured benefit.",
+  "fact": "ADI’s June 11 Staff Design Verification Engineer posting R263414 assigns AI/ML failure clustering, regression triage, anomaly detection and coverage optimization in mixed-signal/UVM verification. Related Shanghai role R262078, dated July 14, explicitly includes analog behavioral models and digital/analog interface checks, with Verilog-AMS/RNM familiarity. Graduate role R266482, dated September 22, assigns agentic AI to testbench development, debug and regression analysis with engineer review; Shanghai preferences include AMS co-simulation. These related hiring mandates are grouped without assuming a shared team or demonstrated production deployment.",
   "sources": [
     {
       "title": "Analog Devices Careers: Staff Design Verification Engineer (AI/ML)",
       "url": "https://analogdevices.wd1.myworkdayjobs.com/en-US/External/job/Staff-Design-Verification-Engineer--AI-ML-_R263414",
       "checkedAt": "2026-08-31",
       "summary": "Official ADI requisition R263414, posted June 11, 2026, lists the mixed-signal/UVM scope and AI/ML applications in failure clustering, regression triage, anomaly detection, and coverage optimization."
+    },
+    {
+      "title": "ADI Careers: Staff Design Verification Engineer, Shanghai (R262078)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/China-Shanghai-Puxi/Staff-Engineer--Digital-Design-Engineering_R262078",
+      "checkedAt": "2026-10-15",
+      "summary": "Official public Workday startDate is July 14, 2026. Full duties explicitly connect AI/ML verification analysis with analog behavioral modeling and analog/digital interface checks; Verilog-AMS/RNM appears in qualifications."
+    },
+    {
+      "title": "ADI Careers: Digital Verification Engineer, Shanghai (R266482)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/China-Shanghai-Pudong-ZuChongzhi/Digital-Verification-Engineer_R266482",
+      "checkedAt": "2026-10-15",
+      "summary": "Official public Workday startDate is September 22, 2026. Graduate MDV duties assign agentic AI testbench/debug/regression work with reviewed outputs; Shanghai-specific preferred experience includes AMS co-simulation. Neither later source changes the original June Event date."
     }
   ]
 }

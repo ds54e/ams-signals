@@ -10,13 +10,13 @@
   ],
   "people": [],
   "headline": "Renesas posts senior verification roles for automotive PMIC RNM/AMS environments",
-  "fact": "Renesas posted related Senior Principal roles for Automotive PMIC verification, covering RNM/AMS model integration, RTL-to-GLS correlation, PVT analysis, switched-mode regulators/LDOs, cross-team handoffs and methodology leadership. A related Staff Verification Engineer description, rechecked October 6, 2026, also requires PMIC RNM/AMS environment architecture and Verilog/SystemVerilog proficiency, alongside GLS correlation and analog/digital interaction debugging. These related senior recruitment requirements are grouped without treating a different job title as a separate technical adoption milestone or changing the original Event date.",
+  "fact": "Renesas posted related Senior Principal roles for Automotive PMIC verification, covering RNM/AMS model integration, RTL-to-GLS correlation, PVT analysis, switched-mode regulators/LDOs, cross-team handoffs and methodology leadership. The Chandler role also assigns evaluation of emerging verification technologies and AI-based solutions. A related Staff description requires PMIC RNM/AMS environment architecture and Verilog/SystemVerilog proficiency. These grouped requirements include exploratory AI evaluation, not proof of AI-generated models, deployed tools or measured benefits; the original August 19 Event date is retained.",
   "sources": [
     {
       "title": "Senior Principal Verification Engineer — Chandler",
       "url": "https://jobs.renesas.com/job/senior-principal-verification-engineer-in-chandler-arizona-united-states-jid-6707",
-      "checkedAt": "2026-09-28",
-      "summary": "Official Renesas requisition 20032032_2026-08-19 for Automotive PMIC verification leadership, RNM/AMS environment architecture, GLS correlation, PVT, ATE/Silicon Validation handoffs, mentoring, and methodology improvement."
+      "checkedAt": "2026-10-15",
+      "summary": "Official Renesas requisition 20032032_2026-08-19 for Automotive PMIC verification leadership, RNM/AMS environment architecture, GLS correlation, PVT, ATE/Silicon Validation handoffs, mentoring, and methodology improvement. Rechecked October 15: the methodology responsibility explicitly includes evaluating emerging verification technologies and AI-based solutions; this is exploratory evaluation rather than a disclosed deployment."
     },
     {
       "title": "Senior Principal Design Verification Engineer — Plano",

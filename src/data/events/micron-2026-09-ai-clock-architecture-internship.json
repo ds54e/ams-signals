@@ -1,0 +1,28 @@
+{
+  "id": "micron-2026-09-ai-clock-architecture-internship",
+  "when": {
+    "start": "2026-09-14",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "micron"
+  ],
+  "people": [],
+  "headline": "Micron clock-architecture internship combines HBM clock exploration with AI-assisted analysis",
+  "fact": "Micron advertised Richardson internship JR110765 in its HBM Architecture team, with a retained listing dated September 14. The role evaluates clock distribution, WDQS timing, PLL concepts, jitter, noise sensitivity and IO timing margins, compares alternative clock architectures and supports architecture-level decisions. It assigns LLM/GenAI engineering workflows for analysis and data evaluation, and links AI assistance to design exploration. This is an advertised analysis mandate, not proof of AI topology synthesis or HDL model generation.",
+  "sources": [
+    {
+      "title": "Micron Careers: Intern – Clock Design & Architecture (JR110765)",
+      "url": "https://micron.wd1.myworkdayjobs.com/External/job/Richardson-TX/Intern---Clock-Design---Architecture--Intern_JR110765",
+      "checkedAt": "2026-10-15",
+      "summary": "Full employer-indexed duties identify JR110765 and connect AI-assisted analysis with HBM clock/PLL architecture exploration. Absolute first-publication metadata could not be retrieved; relative posting ages are not used as dates."
+    },
+    {
+      "title": "RoleSweep: retained Micron clock-architecture internship",
+      "url": "https://rolesweep.com/jobs/9a4060fab7600c85cc814c4571035e13-intern-clock-design-architecture-intern",
+      "checkedAt": "2026-10-15",
+      "summary": "Retained full description displays September 14, 2026. This secondary posting date is the Event’s date basis, not a newly verified official first-publication date."
+    }
+  ]
+}

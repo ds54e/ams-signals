@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2026-09-ai-ams-modeling-graduate-hiring",
+  "when": {
+    "start": "2026-09-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon graduate role pairs analog behavioral modeling with AI verification methodology",
+  "fact": "Infineon advertised an Andover Regional Graduate Program – Engineer Verification and Validation role for computing power-management products, with a retained September 3 listing. It assigns AI-based verification-flow improvement for coverage and documentation, alongside Verilog-AMS/SystemVerilog behavioral models, schematic correlation, targeted testbenches and analog/digital integration debug. The AI duty is an assigned methodology task; the posting does not say that AI generates those models. This is distinct from the later general AMS internship advertisements.",
+  "sources": [
+    {
+      "title": "Infineon: Regional Graduate Program – Engineer Verification and Validation — employer LinkedIn posting",
+      "url": "https://www.linkedin.com/jobs/view/regional-graduate-program-engineer-verification-and-validation-at-infineon-technologies-4462820778",
+      "checkedAt": "2026-10-15",
+      "summary": "Employer-attributed duties explicitly pair an AI verification-methodology assignment with analog behavioral modeling, Verilog-AMS/SystemVerilog and schematic correlation. Current LinkedIn JobPosting metadata gives October 7 UTC, a later channel posting than the retained September record."
+    },
+    {
+      "title": "Hardware FYI: retained Infineon graduate verification role",
+      "url": "https://jobs.hardwarefyi.com/jobs/infineon-technologies-regional-graduate-program-engineer-verification-and-validation",
+      "checkedAt": "2026-10-15",
+      "summary": "Retained full description displays September 3, 2026 and the same role/location/duties. This secondary date is used rather than treating the later LinkedIn posting as the first occurrence."
+    }
+  ]
+}

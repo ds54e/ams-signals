@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2026-09-ai-mixed-signal-systems-design-hiring",
+  "when": {
+    "start": "2026-09-08",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "ADI seeks mixed-signal systems design engineers for agentic-AI and LLM workflows",
+  "fact": "ADI posted Staff Systems Design Engineer R264626 for San Jose or Colorado Springs, spanning analog, digital, firmware and system architecture for mixed-signal ICs such as power management, sensor interfaces and data converters. The posting says its team uses agentic AI and LLM workflows for design, verification and process migration and requires willingness to adopt AI-assisted methods. AI-driven design exploration and automated verification are preferred experience. This records the team’s stated workflow and hiring requirements, without independently establishing deployment outcomes or AI-generated circuit architectures.",
+  "sources": [
+    {
+      "title": "ADI Careers: Staff Systems Design Engineer (R264626)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-CA-San-Jose-Rio-Robles/Staff-Systems-Design-Engineer_R264626",
+      "checkedAt": "2026-10-15",
+      "summary": "Official public Workday jobPostingInfo gives startDate September 8, 2026 and R264626. Full duties cover mixed-signal IC design, agentic AI/LLM design and verification, and process migration. Prior AI experience is preferred; willingness to adopt the methods is essential."
+    }
+  ]
+}

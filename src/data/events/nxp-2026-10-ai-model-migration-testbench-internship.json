@@ -10,7 +10,7 @@
   ],
   "people": [],
   "headline": "NXP lists an AI-agent internship for migrating behavioral models and generating validation testbenches",
-  "fact": "NXP posted Toulouse internship R-10066989 on September 23 to prototype AI-agent migration of legacy behavioral models and generate stimuli/testbenches for mixed-signal validation; its skills include Verilog/SystemVerilog and Verilog-AMS. Related R-10067009, posted October 5, concerns AI-assisted generation and maintenance of HDL AMS models, with a Golden Library covering oscillators, ADCs and supply blocks and Verilog-A/AMS/SystemVerilog skills. These related model-development postings are grouped as advertised research work, not evidence of completed AI deployment.",
+  "fact": "NXP posted Toulouse internship R-10066989 on September 23 for AI-agent migration of behavioral models and generation of mixed-signal validation stimuli/testbenches, with Verilog/SystemVerilog and Verilog-AMS skills. October 5 role R-10067009 covers AI-assisted HDL AMS model generation/maintenance and an oscillator/ADC/supply Golden Library. Related Design Enablement role R-10067212, dated October 6, assigns Python agents, LLM/RAG methods and evaluation of surrogate-model generation, verification and qualification; its model language is unspecified. These related research postings are grouped as advertised work, not completed AI deployment.",
   "sources": [
     {
       "title": "NXP Careers: Stage Ingénieur : Génération semi-automatique de modèles, stimuli et testbenches par agents IA (F/H) (R-10066989)",
@@ -23,6 +23,12 @@
       "url": "https://nxp.wd3.myworkdayjobs.com/careers/job/Toulouse/Stage-Ingnieur---Automatisation-de-la-gnration-et-de-la-maintenance-de-modles-AMS--l-aide-de-l-IA--F-H-_R-10067009",
       "checkedAt": "2026-10-06",
       "summary": "Official Workday startDate is October 5, 2026. The related role describes HDL AMS model generation/maintenance and an oscillator/ADC/supply Golden Library; this later posting does not change the first role’s September 23 date."
+    },
+    {
+      "title": "NXP Careers: AI-driven behavioral-model generation and qualification (R-10067212)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/careers/job/Toulouse/Stage-ingnieur---Gnration-et-qualification-de-modles-comportementaux-pilotes-par-l-IA--F-H-_R-10067212",
+      "checkedAt": "2026-10-15",
+      "summary": "Official Workday startDate is October 6, 2026. Full Design Enablement duties cover Python AI agents, LLM/RAG and prototype evaluation for surrogate behavioral-model generation/verification/qualification. Analog electronics is required; no particular HDL or circuit block is specified."
     }
   ]
 }

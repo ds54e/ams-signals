@@ -1,0 +1,22 @@
+{
+  "id": "micron-2026-09-nand-ai-circuit-review-hiring",
+  "when": {
+    "start": "2026-09-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "micron"
+  ],
+  "people": [],
+  "headline": "Micron NAND analog-design role assigns AI agents to circuit review and specification checks",
+  "fact": "Micron posted Hyderabad Staff Engineer, Analog Design role JR113578 for NAND Flash circuits including charge pumps, regulators, ADCs/DACs, references and sensor interfaces. It assigns development and evaluation of AI agents for specification-to-check extraction, schematic or connectivity review, and verification debug. Reusable workflows connect engineering data, scripts, simulation outputs and design checks, with validation and human review before decisions. These pre-silicon review tasks extend beyond the separate layout-automation and simulation-orchestration duties; the posting does not establish AI-generated circuit topology or achieved deployment benefits.",
+  "sources": [
+    {
+      "title": "Micron Careers: Staff Engineer, Analog Design (JR113578)",
+      "url": "https://micron.wd1.myworkdayjobs.com/External/job/Hyderabad---Phoenix-Aquila-India/Staff-Engineer--Analog-Design_JR113578-1",
+      "checkedAt": "2026-10-15",
+      "summary": "Official Workday startDate is September 30, 2026. The NAND analog role explicitly assigns agent prototypes for specification-to-check extraction, schematic/connectivity review and debug, with evaluation criteria and human validation."
+    }
+  ]
+}

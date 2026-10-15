@@ -10,13 +10,19 @@
   ],
   "people": [],
   "headline": "Micron advertises full-chip AMS verification with AI-agent development and output evaluation",
-  "fact": "Micron's employer-attributed LinkedIn posting JR113919 assigns block-to-full-chip AMS verification spanning analog circuitry, digital logic and firmware, including power-loss and brownout checks. The role requires prototyping agents for requirement-to-test extraction, verification-plan assistance, regression triage, failure clustering, waveform-analysis guidance, coverage-gap identification and technical reports. It specifies approved engineering-data integration, validation checks, human review, success criteria and evaluation of output accuracy, usefulness and limitations. This records an advertised development and evaluation mandate, not demonstrated deployment.",
+  "fact": "Micron advertised October 5 LinkedIn role JR113919 for block-to-full-chip AMS verification across analog circuitry, logic and firmware, including power-loss/brownout checks, plus agent development for requirements-to-test extraction, plans, triage, failure clustering, waveform guidance and coverage gaps. Related official requisition JR114263, dated October 8, reinforces these tasks and assigns behavioral/schematic models whose accuracy suits the verification objective. Both specify engineering-data validation, human review and evaluation of output accuracy, usefulness and limitations. They are distinct requisitions grouped as an advertised development mandate, not demonstrated deployment.",
   "sources": [
     {
       "title": "Micron: SR, Engineer - AMS Verification, JR113919 — employer LinkedIn posting",
       "url": "https://in.linkedin.com/jobs/view/sr-engineer-ams-verification-at-micron-technology-4474274440",
       "checkedAt": "2026-10-09",
       "summary": "Employer-attributed full job description and JobPosting metadata identify JR113919 and October 5, 2026 as the LinkedIn posting date. The official Careers first-publication date is not established. This is a distinct requisition from the March JR93301 AI-assisted-coding role."
+    },
+    {
+      "title": "Micron Careers: SR, Engineer – AMS Verification (JR114263)",
+      "url": "https://micron.wd1.myworkdayjobs.com/External/job/Hyderabad---Phoenix-Aquila-India/SR--Engineer---AMS-Verification_JR114263",
+      "checkedAt": "2026-10-15",
+      "summary": "Official public Workday startDate is October 8, 2026. Full duties include behavioral/schematic models, agent prototypes and output evaluation. This is a distinct related requisition, not a proven replacement for JR113919; the October 5 first Event date is preserved."
     }
   ]
 }

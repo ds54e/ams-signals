@@ -1,0 +1,28 @@
+{
+  "id": "onsemi-2026-09-agentic-analog-design-leadership-hiring",
+  "when": {
+    "start": "2026-09-30",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "onsemi"
+  ],
+  "people": [],
+  "headline": "onsemi seeks leadership for analog design agents, architecture exploration and agent qualification",
+  "fact": "onsemi advertised Senior Director, AI NPD Platforms & Engineering Intelligence role 2506790 to define and govern agentic-AI semiconductor development. Duties include analog and verification agents, AI-enabled circuit design and architecture exploration, and an approved agent library with qualification, validation, versioning, release and human-review processes. The role spans additional disciplines, but circuit/architecture and verification work provide the qualifying scope. It is a development and governance hiring mandate, not evidence that the proposed platform or productivity gains have been delivered.",
+  "sources": [
+    {
+      "title": "onsemi: Senior Director, AI NPD Platforms & Engineering Intelligence — employer LinkedIn posting",
+      "url": "https://www.linkedin.com/jobs/view/senior-director-ai-npd-platforms-engineering-intelligence-at-onsemi-4471777525",
+      "checkedAt": "2026-10-15",
+      "summary": "Employer JobPosting datePosted is September 29, 2026 at 21:55:17 UTC, or September 30 JST, the Event’s date basis. Full duties describe analog/verification agents, circuit architecture exploration and agent governance. The original careers first-publication date is unverified."
+    },
+    {
+      "title": "onsemi Careers: AI NPD Platforms & Engineering Intelligence (2506790)",
+      "url": "https://hctz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2506790",
+      "checkedAt": "2026-10-15",
+      "summary": "Official application requisition associated with the employer-attributed posting; the LinkedIn channel timestamp, rather than an inferred requisition date, supports chronology."
+    }
+  ]
+}

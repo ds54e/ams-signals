@@ -1,0 +1,35 @@
+{
+  "id": "apple-2026-09-agentic-ams-design-cad-hiring",
+  "when": {
+    "start": "2026-09-22",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple advertises agent governance and AI evaluation for AMS design and CAD workflows",
+  "fact": "Apple posted Analog Mixed-Signal Design Software Engineer role 200684916 on September 22, assigning agentic-AI orchestration for analog design data and a registry for agent versioning, rollback and audits, with human approval of agent changes. Related September 30 CAD role 200686566 assigns agent tuning, evaluation data, quality metrics and EDA integration across custom/analog design and other chip-design flows. These are advertised design-platform responsibilities, not evidence of autonomous analog architecture or behavioral-model generation; the postings do not establish a shared team.",
+  "sources": [
+    {
+      "title": "Apple Careers: Analog Mixed-Signal Design Software Engineer (200684916)",
+      "url": "https://jobs.apple.com/en-us/details/200684916-0836/analog-mixed-signal-design-software-engineer",
+      "checkedAt": "2026-10-15",
+      "summary": "Official indexed description displays September 22, 2026 and assigns agentic orchestration, design-data infrastructure, agent versioning/rollback/audits and human review in AMS design workflows."
+    },
+    {
+      "title": "Apple Careers: AI Methodology Design/CAD Engineer (200686566)",
+      "url": "https://jobs.apple.com/en-us/details/200686566-0836/ai-methodology-design-cad-engineer",
+      "checkedAt": "2026-10-15",
+      "summary": "Official role and search metadata display September 30, 2026. The previously verified description assigns agent evaluation/tuning and EDA integration across analog and other flows. Direct detail retrieval now returns an unavailable shell/error; related later hiring is grouped without changing the September 22 date.",
+      "status": "unavailable"
+    },
+    {
+      "title": "AnitaB.org: retained Apple CAD role 200686566",
+      "url": "https://jobs.anitab.org/companies/apple/jobs/96225713-ai-methodology-design-cad-engineer",
+      "checkedAt": "2026-10-15",
+      "summary": "Retains Apple’s September 30 summary date and full agent-evaluation, tuning, custom/analog design and verification scope. Its own October 8 listing date is not treated as Apple’s first posting date."
+    }
+  ]
+}

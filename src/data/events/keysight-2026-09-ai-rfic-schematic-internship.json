@@ -1,0 +1,28 @@
+{
+  "id": "keysight-2026-09-ai-rfic-schematic-internship",
+  "when": {
+    "start": "2026-09-29",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "keysight"
+  ],
+  "people": [],
+  "headline": "Keysight EDA internship explores AI schematic generation for RFIC and analog design",
+  "fact": "Keysight advertised EDA AI/ML Software Intern role 54582 in Calabasas, with retained listings dated September 29. The MS/PhD internship explores AI applications in RFIC/analog schematic generation alongside layout automation, device modeling and design optimization. Responsibilities include Python ML prototypes, training/evaluation pipelines and integration into desktop software. Schematic-generation exploration is the qualifying design task; the advertisement does not establish topology invention, autonomous circuit synthesis or signoff-quality generated designs.",
+  "sources": [
+    {
+      "title": "Keysight: EDA AI/ML Software Intern — employer LinkedIn posting",
+      "url": "https://www.linkedin.com/jobs/view/eda-ai-ml-software-intern-at-keysight-technologies-4471786772",
+      "checkedAt": "2026-10-15",
+      "summary": "Employer-attributed full duties explicitly include RFIC/analog schematic generation and AI/ML prototype evaluation. The retained application link identifies 54582; direct careers access returned an access error."
+    },
+    {
+      "title": "Simplify: retained Keysight EDA AI/ML internship",
+      "url": "https://simplify.jobs/p/f4ec9754-f694-4e49-89d1-e4e407d7d2ff/EDA-AIML-Software-Intern",
+      "checkedAt": "2026-10-15",
+      "summary": "Retained full listing displays September 29, 2026. This secondary date supports the Event chronology; the original official posting timestamp remains unverified."
+    }
+  ]
+}
