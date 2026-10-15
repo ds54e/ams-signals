@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Creates hierarchical analog schematics through a connectivity-aware editor and agent workflow, with SPICE/Spectre interchange and native simulation authoring. A local headless workspace supports persistent batch drawing without a browser; separate adapters export circuits into Aether or Virtuoso, while simulation remains outside local drawing mode."
+description: "Agent-assisted hierarchical analog schematic editor with connectivity inspection, SPICE/Spectre interchange and native simulation-source authoring. Logic gates and D flip-flops can retain their symbols while calling transistor-level project cells; hosted simulation and Aether/Virtuoso adapters are separate from local headless drawing, which does not execute simulations."
 scope:
   design:
     ai: true
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-15"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -22,7 +22,7 @@ sources:
   purpose: code
 - id: readme
   title: Reviewed capabilities and local/desktop limits
-  url: https://github.com/cascode-ai/analog-canvas/blob/a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9/README.md
+  url: https://github.com/cascode-ai/analog-canvas/blob/2e2cc4487ea15d8d233539254bb370d9cacaeb78/README.md
 - id: skill
   title: Released schematic-authoring agent skill
   url: https://github.com/cascode-ai/analog-canvas/blob/a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9/docs/agent/repo-skill/SKILL.md
@@ -56,6 +56,15 @@ sources:
 - id: "development-audit-retained"
   title: "Retained implementation at the reviewed repository head"
   url: "https://github.com/cascode-ai/analog-canvas/blob/5f3c0ead997d4327546dc30893a479428167fe1e/packages/edit-engine/src/transaction-inductor-coupling.ts"
+- id: "cell-bound-flip-flops"
+  title: "D flip-flop project-cell binding, netlist extraction and regression tests"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/8a6eb88d10804f34ceb50d0041d5eef3f229b792"
+- id: "selection-connectivity"
+  title: "Selected-wire and component connectivity highlighting with logical-net tests"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/b5d43fd934b25f89a5f60af64b2cfdba1721c026"
+- id: "export-net-names"
+  title: "Selection names share the netlist exporter's logical-net naming"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/331c929edc127081b75cb9ba736800d96bd2c8fd"
 ---
 
 ### Workflow and scope
@@ -73,6 +82,12 @@ The reviewed October 1 correctness changes cover device-parameter ERC, ngspice n
 The local workspace runs the same editor Agent host against persistent Project files, can emit netlist and formal SVG artifacts and compare a drawing with a reference netlist. It does not run simulation. Modular eda/ tools add offline export and single/serial-batch import adapters for Aether and Virtuoso Bridge, with explicit target dependencies and native readback boundaries. [Headless implementation](#source-review-20261011-1) · [EDA adapters](#source-review-20261011-2) · [Local-mode limits](#source-review-20261011-3)
 
 Local mode is documented as an internal, evolving tool and refuses simulation, Gallery and browser-measured export operations. Native database readback is not electrical equivalence. Aether/Virtuoso imports need separately installed EDA, licensed runtimes where applicable, PDKs and process maps.
+
+### Schematic connectivity and cell implementations
+
+The October 14 implementation lets D flip-flop variants call a transistor-level Cell of the same Project while keeping their library symbols, extending the existing logic-gate path. The planner matches signal pins by name, validates supply pins or global supplies, rejects incompatible interfaces and restores the ideal body when the binding is cleared. Netlist extraction emits the child subcircuit call in the Cell's pin order; regression fixtures cover binding, export, clearing and rename protection. Flip-flops accept project Cells rather than reviewed external standard-cell targets. This is schematic Design coverage. [Binding and extraction](#source-cell-bound-flip-flops)
+
+Selecting a wire, pin or single component highlights its logical connections, including physically separate wires joined by a shared net name. Selection labels reuse the exporter's net naming, with a draft-analysis fallback when complete extraction is unavailable. These are structural inspection aids, not electrical simulation or proof of circuit equivalence. [Connectivity implementation and tests](#source-selection-connectivity) · [Net-name implementation and tests](#source-export-net-names)
 
 ### Development provenance
 
