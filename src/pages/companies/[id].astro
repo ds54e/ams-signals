@@ -35,7 +35,7 @@ const companyEvents = events.filter((event) => event.data.companies.includes(com
     <section class="entity-empty-state" aria-labelledby="sparse-heading">
       <h2 id="sparse-heading">No events are currently indexed</h2>
       <p>This means the current public-source review did not produce an event for the Timeline. It does not imply that {company.data.name} has no internal RNM or AMS activity.</p>
-      <a href={sitePath('')}>Return to Timeline →</a>
+      <a href={sitePath('timeline/')}>Return to Timeline →</a>
     </section>
   )}
 </BaseLayout>

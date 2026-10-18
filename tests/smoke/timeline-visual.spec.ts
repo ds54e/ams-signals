@@ -3,9 +3,7 @@ import { installBrowserErrorGuards } from './release-helpers.mjs';
 
 installBrowserErrorGuards(test);
 
-const selectionShadow = (scheme: 'light' | 'dark') => scheme === 'light'
-  ? 'rgb(255, 254, 251) 0px 0px 0px 2px, rgb(36, 43, 48) 0px 0px 0px 4px'
-  : 'rgb(23, 28, 24) 0px 0px 0px 2px, rgb(237, 242, 237) 0px 0px 0px 4px';
+const selectionShadow = (_scheme: 'light' | 'dark') => 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 43, 48) 0px 0px 0px 4px';
 
 for (const colorScheme of ['light', 'dark'] as const) {
   test(`Events use compact, distinct semantic badges in ${colorScheme} mode`, async ({ page }) => {
@@ -49,7 +47,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
       const shapes = new Map<string, string>();
       const colors = new Map<string, string>();
-      for (const route of ['', 'companies/apple/', 'companies/renesas/', 'people/toshi-kawashima/']) {
+      for (const route of ['timeline/', 'companies/apple/', 'companies/renesas/', 'people/toshi-kawashima/']) {
         await page.goto(`./${route}`);
         await page.mouse.move(0, 0);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
@@ -66,9 +64,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(labelColors.length).toBeGreaterThan(0);
         for (const label of labelColors) {
           expect(['company', 'person']).toContain(label.type);
-          expect(label.color).toBe(colorScheme === 'light'
-            ? (label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(75, 109, 137)')
-            : (label.type === 'company' ? 'rgb(237, 242, 237)' : 'rgb(143, 169, 190)'));
+          expect(label.color).toBe(label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(75, 109, 137)');
         }
         const firstLabel = page.locator('.matrix-entity-label:visible, .timeline-lane > .lane-label:visible').first();
         const labelColor = await firstLabel.evaluate((el) => getComputedStyle(el).color);
@@ -155,7 +151,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
 test('Timeline category shapes and selection remain visible in forced colors', async ({ page }) => {
   await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
   const selected = [];
-  for (const route of ['', 'companies/apple/', 'people/toshi-kawashima/']) {
+  for (const route of ['timeline/', 'companies/apple/', 'people/toshi-kawashima/']) {
     await page.goto(`./${route}`);
     await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
     const mark = page.locator('[data-event-mark]:visible').first();
@@ -181,7 +177,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
     await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto('./?q=UVM-MS');
+      await page.goto('./timeline/?q=UVM-MS');
       const shared = page.locator('[data-event-mark][data-event-id="ecosystem-2025-02-uvm-ms-1-standard"]:visible');
       expect(await shared.count()).toBeGreaterThan(1);
       await shared.first().click();
@@ -199,7 +195,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await page.mouse.move(0, 0);
       await page.screenshot({ path: info.outputPath(`dense-${width}-${colorScheme}.png`) });
 
-      for (const route of ['', 'companies/apple/', 'people/toshi-kawashima/']) {
+      for (const route of ['timeline/', 'companies/apple/', 'people/toshi-kawashima/']) {
         await page.goto(`./${route}`);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
         const marks = page.locator('[data-event-mark]:visible');

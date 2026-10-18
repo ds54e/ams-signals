@@ -22,7 +22,7 @@ installBrowserErrorGuards(test);
 
 test('selecting a Timeline mark updates the Evidence Inspector', async ({ page }) => {
   const eventId = 'renesas-2023-automated-pll-model-testbench';
-  await page.goto('./?q=PLL');
+  await page.goto('./timeline/?q=PLL');
   await expectExplorerReady(page);
 
   const mark = page.locator(`[data-event-mark][data-event-id="${eventId}"]:visible`).first();
@@ -44,7 +44,7 @@ test('global Timeline Event sets remain subsets of the complete Events record', 
   ];
 
   for (const lens of lenses) {
-    await page.goto(`./${lens}`);
+    await page.goto(`./timeline/${lens}`);
     await expectExplorerReady(page);
     const timelineIds = await visibleTimelineEventIds(page);
 
@@ -73,7 +73,7 @@ test('Timeline and Events navigation preserves shared state without carrying hid
 
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await expectExplorerReady(page);
-  expect(new URL(page.url()).pathname).toBe(basePath);
+  expect(new URL(page.url()).pathname).toBe(`${basePath}timeline/`);
   expect(queryState(page.url())).toEqual({ q: 'PLL' });
   await expect(page.locator('[data-kind], [data-view]')).toHaveCount(0);
 
@@ -85,7 +85,7 @@ test('Timeline and Events navigation preserves shared state without carrying hid
 });
 
 test('legacy Entity-view URLs canonicalize to the combined global surfaces', async ({ page }) => {
-  for (const path of ['./', './events/']) {
+  for (const path of ['./timeline/', './events/']) {
     const surface = path.includes('events') ? 'events' : 'timeline';
 
     await page.goto(path);
@@ -127,7 +127,7 @@ test('shared Events remain one list record and one inspector record', async ({ p
   await expectExplorerReady(page, 'events');
   await expect(page.locator(`[data-event-result][data-event-id="${vendorCustomerEventId}"]:visible`)).toHaveCount(1);
 
-  await page.goto('./?q=UVM-MS');
+  await page.goto('./timeline/?q=UVM-MS');
   await expectExplorerReady(page);
   const marks = page.locator(`[data-event-mark][data-event-id="${uvmEventId}"]:visible`);
   expect(await marks.count()).toBeGreaterThan(1);

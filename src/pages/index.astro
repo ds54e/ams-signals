@@ -1,15 +1,60 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EventExplorer from '../components/EventExplorer.astro';
+import ActivityOverview from '../components/ActivityOverview.astro';
+import UpdatedProjects from '../components/UpdatedProjects.astro';
+import { dashboardActivity } from '../lib/dashboard';
+import { formatWhen, sortEventsNewestFirst } from '../lib/content';
+import { sortProjects as sortAnalog } from '../lib/analog/catalog';
+import { sortProjects as sortDigital } from '../lib/digital/catalog';
+import { validateActivity as validateAnalog } from '../lib/analog/schema';
+import { validateActivity as validateDigital } from '../lib/digital/schema';
+import { publicActivityDate as analogDate } from '../lib/analog/activity';
+import { publicActivityDate as digitalDate } from '../lib/digital/activity';
+import analogData from '../data/analog-activity.json';
+import digitalData from '../data/digital-activity.json';
+import { sitePath } from '../lib/paths';
+import '../styles/dashboard.css';
 
-const [events, companies, people] = await Promise.all([
-  getCollection('events'),
-  getCollection('companies'),
-  getCollection('people'),
+const [events, analog, digital] = await Promise.all([
+  getCollection('events'), getCollection('analog'), getCollection('digital'),
 ]);
+const analogActivity = validateAnalog(analog, analogData);
+const digitalActivity = validateDigital(digital, digitalData);
+const buildDate = new Date().toISOString().slice(0, 10);
+const months = dashboardActivity(events, analogActivity, digitalActivity, buildDate);
+const recent = sortEventsNewestFirst(events).slice(0, 4);
+const analogUpdated = sortAnalog(analog, analogActivity.projects).slice(0, 3).map(({ id, data }) => ({
+  id, name: data.name, description: data.description, date: analogDate(analogActivity.projects[id]),
+}));
+const digitalUpdated = sortDigital(digital, digitalActivity.projects).slice(0, 3).map(({ id, data }) => ({
+  id, name: data.name, description: data.description, date: digitalDate(digitalActivity.projects[id]),
+}));
 ---
-<BaseLayout>
-  <h1 class="visually-hidden">AMS Signals Timeline</h1>
-  <EventExplorer events={events} goldenEvents={events} companies={companies} people={people} context="global" />
+<BaseLayout description="Explore recent public RNM and mixed-signal verification Events and active Analog and Digital projects.">
+  <h1 class="visually-hidden">AMS Signals Home</h1>
+  <div class="dashboard">
+    <div class="dashboard-top">
+      <ActivityOverview months={months} buildMonth={buildDate.slice(0, 7)} />
+      <section class="dashboard-panel signals-card" aria-labelledby="signals-heading">
+        <div class="panel-heading"><h2 id="signals-heading">Recent Signals</h2><a class="dashboard-link" href={sitePath('events/')}>All events <span aria-hidden="true">→</span></a></div>
+        <ol class="recent-signals">
+          {recent.map((event) => <li data-recent-event={event.data.id}>
+            <a class="signal-link" href={sitePath(`events/${event.data.id}/`)}>
+              <span class:list={['signal-symbol', event.data.kind]} aria-hidden="true">{event.data.kind === 'technical' ? '◇' : '□'}</span>
+              <span class="signal-copy"><span class="signal-title">{event.data.headline}</span><span class="signal-meta"><time datetime={event.data.when.start}>{formatWhen(event)}</time><span> · {event.data.kind === 'technical' ? 'Technical' : 'Organizational'}</span></span></span>
+              <span class="signal-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>)}
+        </ol>
+      </section>
+    </div>
+    <section class="dashboard-projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Recently updated projects</h2>
+      <div class="updated-grid">
+        <UpdatedProjects domain="analog" title="Analog" projects={analogUpdated} />
+        <UpdatedProjects domain="digital" title="Digital" projects={digitalUpdated} />
+      </div>
+    </section>
+  </div>
 </BaseLayout>

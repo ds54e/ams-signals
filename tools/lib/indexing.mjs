@@ -5,7 +5,7 @@ import path from 'node:path';
 import { exists, filesUnder, publicPathFor, readRecords } from './built-site.mjs';
 
 const INDEXABLE = 'index, follow';
-const NAV_LABELS = ['Timeline', 'Events', 'Analog', 'Digital'];
+const NAV_LABELS = ['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗'];
 
 function occurrences(html, pattern) {
   return [...html.matchAll(pattern)].length;
@@ -81,7 +81,7 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
       labels.join(' | ') === NAV_LABELS.join(' | '),
       `${pagePath} primary navigation is [${labels.join(', ')}], expected [${NAV_LABELS.join(', ')}]`,
     );
-    const expectedHrefs = ['', 'events/', 'analog/', 'digital/'].map((route) => siteBase + route);
+    const expectedHrefs = [...['', 'timeline/', 'events/', 'analog/', 'digital/'].map((route) => siteBase + route), 'https://github.com/ds54e/ams-signals'];
     expect(
       links.map((link) => link.href).join(' | ') === expectedHrefs.join(' | '),
       `${pagePath} primary navigation has incorrect destinations`,
@@ -97,6 +97,7 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
 
   const expectedLocations = [
     siteBase,
+    `${siteBase}timeline/`,
     `${siteBase}events/`,
     ...eventIds.map((id) => `${siteBase}events/${id}/`),
     `${siteBase}analog/`,

@@ -21,6 +21,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const paths = [
     sitePath(''),
+    sitePath('timeline/'),
     sitePath('events/'),
     ...ids(events).map((id) => sitePath(`events/${id}/`)),
     sitePath('analog/'),

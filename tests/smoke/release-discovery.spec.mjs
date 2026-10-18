@@ -23,7 +23,7 @@ test('historical predecessor searches resolve through canonical Company groups',
     { term: 'Mentor', legacy: 'mentor-graphics', target: 'siemens-eda', targetName: 'Siemens EDA' },
     { term: 'Freescale', legacy: 'freescale-semiconductor', target: 'nxp', targetName: 'NXP' },
   ]) {
-    await page.goto(`./?q=${migration.term}`);
+    await page.goto(`./timeline/?q=${migration.term}`);
     await expectExplorerReady(page);
     await expect(page.locator(`[data-matrix-row][data-entity-type="company"][data-entity-id="${migration.legacy}"]`))
       .toHaveCount(0);
@@ -67,7 +67,7 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
     expect.objectContaining({ companies: [], people: independent.people }),
   );
 
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const personRow = page.locator(
     `[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="${personId}"]`,
@@ -91,7 +91,7 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   await page.locator('[data-search]').fill(independent.headline);
   await expect(independentResult).toBeVisible();
 
-  await page.goto(`./?companies=${companyId}`);
+  await page.goto(`./timeline/?companies=${companyId}`);
   await expectExplorerReady(page);
   await expect(personRow).toBeVisible();
   await expect(independentMark).toBeHidden();
@@ -109,7 +109,7 @@ test('explicit Search and Company Focus discovery preserve complete matching Eve
   ];
 
   for (const lens of lenses) {
-    await page.goto(`./${lens}`);
+    await page.goto(`./timeline/${lens}`);
     await expectExplorerReady(page);
     const timelineIds = await visibleTimelineEventIds(page);
 
@@ -169,7 +169,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   expect((await page.request.get(`./companies/${singletonCompany.id}/`)).status()).toBe(200);
   expect((await page.request.get(`./people/${singletonPerson.id}/`)).status()).toBe(200);
 
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const combinedCompanyRow = page.locator(
     `[data-group="both"] [data-matrix-row][data-entity-type="company"][data-entity-id="${singletonCompany.id}"]`,
@@ -212,7 +212,7 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
 });
 
 test('Company picker is readable, searchable, and independently clearable', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   await page.locator('[data-search]').fill('RNM');
@@ -283,7 +283,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
 });
 
 test('Timeline always shows both Signal types while Events retains kind filtering', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   await expect(page.getByText('fixed while filtering', { exact: true })).toHaveCount(0);
@@ -308,7 +308,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   expect(shapes[0].backgroundColor).not.toBe(shapes[1].backgroundColor);
 
   for (const kindValue of ['technical', 'organizational']) {
-    await page.goto(`./?kind=${kindValue}`);
+    await page.goto(`./timeline/?kind=${kindValue}`);
     await expectExplorerReady(page);
     expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
     await expect(page.locator('[data-kind]')).toHaveCount(0);

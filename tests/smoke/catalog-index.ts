@@ -51,7 +51,8 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} starts with one sparse, activity-ordered project index`, async ({ page }) => {
     expect((await open(page))!.ok()).toBe(true);
     const nav = page.getByRole('navigation', { name: 'Primary' });
-    await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+    await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
+    await expect(page.locator('[data-catalog-search]')).toHaveAttribute('placeholder', domain === 'analog' ? 'Design, Simulation, AI' : 'Design, Verification, AI');
     await expect(nav.locator('[aria-current="page"]')).toHaveText(label);
     for (const [text, route] of [['Analog', 'analog'], ['Digital', 'digital']]) {
       await expect(nav.getByRole('link', { name: text, exact: true })).toHaveAttribute('href', `${basePath}${route}/`);
@@ -406,7 +407,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       });
       expect(geometry.borders).toEqual(['0px', '0px']); expect(geometry.shadow).toBe('none');
       if (width >= 1024) {
-        expect(geometry.search.width).toBe(290); expect(geometry.scope.width).toBe(160);
+        expect(geometry.search.width).toBe(328); expect(geometry.scope.width).toBe(160);
         expect(geometry.count.left - geometry.scope.right).toBeCloseTo(12, 1);
       } else {
         expect(geometry.search.bottom).toBeLessThan(geometry.scope.top);

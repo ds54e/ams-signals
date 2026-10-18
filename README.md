@@ -6,11 +6,11 @@ AMS Signals is a technical research site for public AMS circuit modeling and mix
 
 ## Reading the site
 
-**Timeline** compares dated Company and People trajectories. **Events** provides the complete chronological factual record, stable permalinks and representative public sources. Public disclosure establishes what was disclosed, not company-wide maturity or private capability.
+**Home** shows monthly activity, recent Events and recently updated projects. **Timeline** at `/timeline/` compares dated Company and People trajectories. **Events** provides the complete chronological factual record, stable permalinks and representative public sources. Public disclosure establishes what was disclosed, not company-wide maturity or private capability.
 
 **Analog** and **Digital** are English project indexes with primary links, design-stage Scope, reviewed public activity and optional AI-development provenance. They are independent from the Golden corpus and factual export. Runtime AI involvement and AI-assisted software construction are separate concepts.
 
-Primary navigation is Timeline | Events | Analog | Digital. Event, Company and Person detail pages provide evidence and context.
+Primary navigation is Home | Timeline | Events | Analog | Digital | GitHub. Event, Company and Person detail pages provide evidence and context.
 
 ## Development and verification
 

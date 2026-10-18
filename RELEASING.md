@@ -14,13 +14,13 @@ Production is `https://ams-signals.com/`. GitHub Pages uses the manual-only [Dep
    SITE=https://ams-signals.com BASE_URL=/ PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test
    ```
 
-6. Inspect HTTPS, Timeline, Events, Analog, Digital, Event-to-source navigation, `/export.json` and narrow-screen display. Verify indexing and analytics markup below. Report the deployed SHA, CI/deploy run URLs, local/live results and any unperformed confirmation separately.
+6. Inspect HTTPS, Home, Timeline, Events, Analog, Digital, Event-to-source navigation, `/export.json` and narrow-screen display. Verify indexing and analytics markup below. Report the deployed SHA, CI/deploy run URLs, local/live results and any unperformed confirmation separately.
 
 Documentation-only changes outside build inputs normally need no deployment. Tags/Releases are not part of routine publication. During authorized branch cleanup, check that each temporary branch is fully contained in main and has no unrelated uncommitted work before deletion.
 
 ## Public routes and indexing
 
-The HTML routes are `/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/`. Every page emits one `index, follow` robots directive and one self-canonical URL derived from the configured origin/base.
+The HTML routes are `/`, `/timeline/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/`. Every page emits one `index, follow` robots directive and one self-canonical URL derived from the configured origin/base.
 
 `/sitemap.xml` lists exactly those HTML routes; `/export.json` is not listed. `/robots.txt` allows crawling and advertises the sitemap. Verify the served endpoints and unsupported-route 404s, not just configuration. A redirect check is needed when the deployment target itself changes.
 

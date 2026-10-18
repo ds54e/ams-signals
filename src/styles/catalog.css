@@ -7,7 +7,7 @@
 .catalog-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 24px; }
 .catalog-rail { display: flex; flex-direction: column; align-items: start; gap: 10px; }
 .catalog-toolbar { margin-bottom: 22px; }
-.catalog-search { flex: 0 1 290px; min-width: 0; }
+.catalog-search { flex: 0 1 328px; min-width: 0; }
 .catalog-scope-filter { flex: 0 0 160px; }
 /* Grid labels keep native inputs from reserving an inline baseline gap. */
 .catalog-search, .catalog-scope-filter { display: grid; }

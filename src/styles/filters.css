@@ -7,4 +7,5 @@
   color: var(--text); font-size: 13px;
 }
 .filter-input::placeholder { color: var(--muted); }
+.filter-input:focus-visible { border-color: #729ce4; outline: 2px solid #dce8ff; outline-offset: 0; }
 .filter-input:hover { border-color: var(--accent); }

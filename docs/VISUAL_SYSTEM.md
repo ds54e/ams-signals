@@ -1,6 +1,6 @@
 # Visual system
 
-AMS Signals is a text-first technical research index. Equivalent information shares typography, spacing, separators and contextual links; reading, listing and explorer surfaces retain distinct functional widths. Use a warm off-white background, blue links, pastel category fills and a light/dark semantic palette. Flat rows and restrained categories communicate information, not quality or ranking.
+AMS Signals is a text-first technical research index. Equivalent information shares typography, spacing, separators and contextual links; reading, listing and explorer surfaces retain distinct functional widths. Use a white background, cool light-gray dashboard panels, blue navigation/links and the existing pastel semantic category fills. The interface retains its light palette under either system color-scheme preference. Flat rows and restrained categories communicate information, not quality or ranking.
 
 ## Ownership
 
@@ -11,6 +11,7 @@ AMS Signals is a text-first technical research index. Equivalent information sha
 | `filters.css` | Native controls and rule-free utility toolbars |
 | `event-explorer.css` | Company picker, Timeline glyphs, geometry/inspector and Events row structure |
 | `global.css` | Ordered global imports plus factual/entity document context; loaded by BaseLayout |
+| `dashboard.css` | Home cards, activity chart and recent project updates |
 | `catalog.css` | One catalog presentation loaded by CatalogIndex; no second domain stylesheet |
 
 CSS owns implemented values. Keep this contract aligned when values deliberately change, without cloning literals into unrelated components. Shared catalog markup uses `CatalogIndex.astro`; catalogs and factual Event pages use shared primitives while retaining their own semantics. No remote webfonts, frontend framework or runtime data fetching is introduced for styling.
@@ -42,7 +43,7 @@ Dates share `formatDate` in `src/lib/date-format.ts` and `.index-date`: title-ca
 
 At full listing width, dated rows use 138px date + 24px gap + 878px copy; catalogs use 150px metadata rail + 24px gap + 866px body. Their outer edges align. No visible Project/Scope/Activity header row. At or below 760px, catalog content comes first with its compact rail immediately below; dates stack on Event indexes. These indexes must not require horizontal page scrolling. Timeline retains local visualization scrolling.
 
-Navigation is Timeline | Events | Analog | Digital, normally 15px; at or below 520px it uses 13px, with 5px gaps below 360px. Catalog descriptions keep their 15px size rather than shrinking to fit.
+Navigation is Home | Timeline | Events | Analog | Digital | GitHub, with compact 13px links, a gray active-page fill and blue active text. Narrow headers put navigation on its own locally scrollable row. Catalog descriptions keep their 15px size rather than shrinking to fit.
 
 ## Activity and toolbars
 
@@ -50,25 +51,27 @@ The rail order is date, activity band, Scope. Twelve cells run oldest-left to ne
 
 [Catalog activity semantics](catalog/CONTRACT.md#reviewed-public-activity) distinguish repository counts from point evidence. Their common presentation does not fabricate commits or erase canonical provenance. The accessible window label says oldest to newest.
 
+Home uses light-gray rounded panels in a two-column grid, stacking below 1020px. The paired monthly bars fill the Activity Overview card beside four Recent Signals; on narrow screens the chart scrolls locally. Recently updated project cards retain full descriptions. In forced colors, the existing accessible monthly count table becomes visible so every series remains identifiable without color.
+
 Controls use whitespace rather than toolbar border rules, cards or shadows. Native controls are 40px high with 13px text. Toolbars leave 22px before the ruled list or visualization. The Timeline Company picker has a thin border and no shadow; it remains above overlapping content on desktop and in-flow on narrow screens. Events has Search and Signal type only.
 
-Catalog Search is about 290px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and both catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular.
+Catalog Search is about 328px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and both catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular.
 
 ## Category labels and palette
 
 `.category-label` owns natural-case system-sans 11px/500, 1.4 line height, zero tracking, square corners and 3px by 7px padding. Catalog and Event labels share geometry and typography. Functional classes map `--category-fill` and `--category-text`; AI-prefixed stages inherit their stage color. Timeline legends remain lighter and retain category shapes.
 
-`foundation.css` owns the five category families; `--technical` aliases blue and `--organizational` aliases rust for labels. Catalog/Event labels use these theme-aware tokens. Timeline glyphs and legends use the fixed blue/rust fills described below. This is visual consistency, not a merger of Golden kinds and catalog Scope.
+`foundation.css` owns the five category families; `--technical` aliases blue and `--organizational` aliases rust for labels. Catalog/Event labels use these shared tokens. Timeline glyphs and legends use the fixed blue/rust fills described below. This is visual consistency, not a merger of Golden kinds and catalog Scope.
 
-| Token | Meaning | Light | Dark |
-| --- | --- | --- | --- |
-| `--category-green` | Design | #226447 | #95b0a3 |
-| `--category-blue` | Simulation / Verification / Technical | #4b6d89 | #8fa9be |
-| `--category-gold` | Synthesis | #787043 | #b4ac7e |
-| `--category-rust` | Layout / Organizational | #886454 | #b69682 |
-| `--category-purple` | Development provenance | #766281 | #c5afd3 |
+| Token | Meaning | Color |
+| --- | --- | --- |
+| `--category-green` | Design | #226447 |
+| `--category-blue` | Simulation / Verification / Technical | #4b6d89 |
+| `--category-gold` | Synthesis | #787043 |
+| `--category-rust` | Layout / Organizational | #886454 |
+| `--category-purple` | Development provenance | #766281 |
 
-Category text uses its named palette token over a corresponding `--category-*-soft` fill. Light fills are #e3eee8 (green), #e5edf4 (blue), #f8f6e9 (gold) and #f7f0eb (rust); dark fills use the same semantic families with readable contrast. The light gold/rust fills are slightly paler to keep the approved small text readable. Keep small-text contrast at least 4.5:1; compute it against the rendered/composited background, not a transparent element alone. Blue/rust glyphs must remain discernible on page and surface backgrounds. Do not substitute the danger token for provenance.
+Category text uses its named palette token over a corresponding `--category-*-soft` fill. Light fills are #e3eee8 (green), #e5edf4 (blue), #f8f6e9 (gold) and #f7f0eb (rust). The light gold/rust fills are slightly paler to keep the approved small text readable. Keep small-text contrast at least 4.5:1; compute it against the rendered/composited background, not a transparent element alone. Blue/rust glyphs must remain discernible on page and surface backgrounds. Do not substitute the danger token for provenance.
 
 AI-ASSISTED and AI-BUILT share muted-purple text, a 1px light-purple border and transparent background through `[data-ai-development]`, with opacity 1 and identical typography, padding, height and interaction styling. Text distinguishes the labels. Padding is 2px by 6px to account for the border; both retain the same 21.4px total height as functional labels. A 4px extra top margin creates an 8px gap after functional stages. Enhanced buttons have visible focus and a 3px hit-area extension on each edge.
 
@@ -84,14 +87,14 @@ The shell has 40px gutters above 820px and 18px below. Timeline uses a 170px nam
 
 ## Timeline glyphs and targets
 
-Timeline entity names use the existing Company/Person classification in both the global Matrix and context Timelines. Their light-theme text colors are #242b30 for Companies and #4b6d89 for People; dark themes use the readable text gray and category blue tokens. These colors apply only to graph names and remain stable on hover, with the existing underline, row tint, typography and navigation preserved.
+Timeline entity names use the existing Company/Person classification in both the global Matrix and context Timelines. Their text colors are #242b30 for Companies and #4b6d89 for People. These colors apply only to graph names and remain stable on hover, with the existing underline, row tint, typography and navigation preserved.
 
-All global/Company/Person marks share `.timeline-mark > .timeline-glyph`. Visible glyphs and legends are 8 by 8px: Technical is a solid #4b6d89 circle, Organizational a solid #886454 square without rounded corners. `event-explorer.css` owns their shared fill tokens, fixed across light/dark themes. Unselected glyphs have no border, outer outline or shadow. An 18 by 18px transparent button is the hit area. `TIMELINE_HIT_SIZE` owns that dimension for context placement, Matrix packing and the CSS variable, so overlapping targets are not hidden behind smaller packing rectangles.
+All global/Company/Person marks share `.timeline-mark > .timeline-glyph`. Visible glyphs and legends are 8 by 8px: Technical is a solid #4b6d89 circle, Organizational a solid #886454 square without rounded corners. `event-explorer.css` owns their shared fill tokens, fixed across system color-scheme preferences. Unselected glyphs have no border, outer outline or shadow. An 18 by 18px transparent button is the hit area. `TIMELINE_HIT_SIZE` owns that dimension for context placement, Matrix packing and the CSS variable, so overlapping targets are not hidden behind smaller packing rectangles.
 
-Selection keeps the 8px glyph unchanged and adds a 2px surface-colored gap plus a 2px outer ring, using `--timeline-selection-outline` (#242b30 in light, #edf2ed in dark). The 16px outer extent fits inside the existing 18px hit target. All visible marks for the selected Event share this treatment. Unselected hover scales only the glyph to 1.15; selected hover retains the ring and original size. Keyboard focus remains independently visible on the larger target. Sticky labels occlude scrolling marks without clearing selection. Forced colors retain the shapes and system fills, using a 2px CanvasText outline with a 2px offset in place of theme-colored shadows. Geometry/filter semantics belong to the [Timeline contract](TIMELINE.md).
+Selection keeps the 8px glyph unchanged and adds a 2px surface-colored gap plus a 2px outer ring, using `--timeline-selection-outline` (#242b30). The 16px outer extent fits inside the existing 18px hit target. All visible marks for the selected Event share this treatment. Unselected hover scales only the glyph to 1.15; selected hover retains the ring and original size. Keyboard focus remains independently visible on the larger target. Sticky labels occlude scrolling marks without clearing selection. Forced colors retain the shapes and system fills, using a 2px CanvasText outline with a 2px offset in place of theme-colored shadows. Geometry/filter semantics belong to the [Timeline contract](TIMELINE.md).
 
 ## Visual verification
 
-For relevant visual changes inspect the affected surfaces at 1440x900, 1280x800, 1024x768, 390x844 and 320x568, with light/dark themes, keyboard, forced colors, no-JavaScript where applicable and open popovers. Review representative long/multi-link/multi-stage rows. Keep screenshots as task/PR evidence, not a cumulative repository archive.
+For relevant visual changes inspect the affected surfaces at 1440x900, 1280x800, 1024x768, 390x844 and 320x568, under both system color-scheme preferences, with keyboard, forced colors, no-JavaScript where applicable and open popovers. Review representative long/multi-link/multi-stage rows. Keep screenshots as task/PR evidence, not a cumulative repository archive.
 
 `category-palette.spec.ts` protects shared token propagation, semantic mapping, contrast and forced colors; `visual-system.spec.ts` protects hierarchy, measures and toolbars; `timeline-visual.spec.ts` protects glyph/hit/selection behavior. Catalog and release suites protect their interactions and data wiring. [Testing](TESTING.md) owns check selection.

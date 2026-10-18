@@ -1,0 +1,43 @@
+---
+import { monthLabel } from '../lib/catalog-activity-band';
+import type { dashboardActivity } from '../lib/dashboard';
+interface Props { months: ReturnType<typeof dashboardActivity>; buildMonth: string }
+const { months, buildMonth } = Astro.props;
+const maximum = Math.max(1, ...months.flatMap((m) => [m.events, m.analog + m.digital]));
+const height = (count: number) => count / maximum * 218;
+const baseline = 242;
+---
+<section class="dashboard-panel chart-card" data-build-month={buildMonth} aria-labelledby="activity-heading">
+  <div class="panel-heading">
+    <h2 id="activity-heading">Activity Overview</h2>
+    <ul class="chart-legend" aria-label="Activity series">
+      <li><i class="series-events"></i>Events</li>
+      <li><i class="series-analog"></i>Analog</li>
+      <li><i class="series-digital"></i>Digital</li>
+    </ul>
+  </div>
+  <div class="chart-frame" tabindex="0" role="region" aria-label="Monthly activity chart, scroll to view all months">
+    <svg class="activity-chart" viewBox="0 0 560 290" role="img" aria-labelledby="chart-title chart-description">
+      <title id="chart-title">Monthly Events and active catalog projects</title>
+      <desc id="chart-description">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Blue bars count Events; adjacent green and orange stacks count distinct active Analog and Digital projects. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</desc>
+      {[24, 78.5, 133, 187.5, baseline].map((y) => <line class="chart-grid" x1="12" x2="548" y1={y} y2={y} />)}
+      {months.map((month, index) => {
+        const x = 20 + index * 44;
+        const label = new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString('en', { month: 'short', timeZone: 'UTC' });
+        return <g data-dashboard-month={month.month} data-events={month.events} data-analog={month.analog} data-digital={month.digital}>
+          <title>{monthLabel(month.month)}: {month.events} Events, {month.analog} Analog projects, {month.digital} Digital projects</title>
+          <rect class="series-events" x={x} y={baseline - height(month.events)} width="13" height={height(month.events)} rx="2" />
+          <rect class="series-analog" x={x + 16} y={baseline - height(month.analog)} width="13" height={height(month.analog)} />
+          <rect class="series-digital" x={x + 16} y={baseline - height(month.analog + month.digital)} width="13" height={height(month.digital)} />
+          <text x={x + 14} y="264" text-anchor="middle">{label}</text>
+          {(index === 0 || month.month.endsWith('-01')) && <text class="chart-year" x={x + 14} y="280" text-anchor="middle">{month.month.slice(0, 4)}</text>}
+        </g>;
+      })}
+    </svg>
+  </div>
+  <div class="activity-counts visually-hidden"><table>
+    <caption>Monthly activity counts; Events and distinct active projects</caption>
+    <thead><tr><th scope="col">Month</th><th scope="col">Events</th><th scope="col">Analog</th><th scope="col">Digital</th></tr></thead>
+    <tbody>{months.map((m) => <tr><th scope="row">{monthLabel(m.month)}</th><td>{m.events}</td><td>{m.analog}</td><td>{m.digital}</td></tr>)}</tbody>
+  </table></div>
+</section>

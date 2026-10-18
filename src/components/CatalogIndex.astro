@@ -30,7 +30,7 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
     <form class="catalog-toolbar filter-toolbar" role="search" aria-label={`${title} projects`} data-catalog-filters hidden>
       <label class="catalog-search">
         <span class="visually-hidden">Search projects</span>
-        <input class="filter-input" data-catalog-search type="search" placeholder="Search projects…" autocomplete="off" aria-controls="catalog:projects" />
+        <input class="filter-input" data-catalog-search type="search" placeholder={domain === 'analog' ? 'Design, Simulation, AI' : 'Design, Verification, AI'} autocomplete="off" aria-controls="catalog:projects" />
       </label>
       <label class="catalog-scope-filter">
         <span class="visually-hidden">Scope</span>

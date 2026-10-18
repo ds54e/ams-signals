@@ -25,7 +25,7 @@ test('sitemap.xml advertises public HTML routes and excludes export', async ({ p
 
   const sitemap = await response.text();
   expect(sitemap).toContain('<urlset');
-  for (const route of ['', 'events/', 'analog/', 'digital/']) {
+  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
     expect(sitemap).toContain(`<loc>${publicOrigin}${basePath}${route}</loc>`);
   }
   expect(sitemap).not.toContain('/articles/');
@@ -50,7 +50,7 @@ test('unsupported editorial routes return 404', async ({ page }) => {
 });
 
 test('indexable surfaces self-canonicalize at the configured origin', async ({ page }) => {
-  for (const route of ['', 'events/', 'analog/', 'digital/']) {
+  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
     const response = await page.goto(`./${route}`);
     expect(response?.status(), `HTTP status for ${route}`).toBe(200);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');

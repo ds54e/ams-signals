@@ -225,7 +225,7 @@ export async function ensureScrollableStickyCandidate(page, selectors) {
     if (deficit <= 0) return null;
 
     await page.setViewportSize({ width: Math.max(320, measured.clientWidth - deficit), height: 900 });
-    await page.goto('./');
+    await page.goto('./timeline/');
     await expectExplorerReady(page);
   }
 

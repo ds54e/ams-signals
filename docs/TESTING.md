@@ -24,7 +24,7 @@ A valid content addition should not require editing unrelated test literals for 
 
 | Concern | Owner under `tests/smoke/` |
 | --- | --- |
-| Rendered surfaces, terminology, chrome, overlay/stacking and export wiring | `release-surfaces.spec.mjs` |
+| Home data wiring/layout, rendered surfaces, terminology, chrome, overlay/stacking and export wiring | `release-surfaces.spec.mjs` |
 | Search, Signal-type filtering, Company picker and discoverability | `release-discovery.spec.mjs` |
 | Matrix bands, bundles, projection, row order and sticky labels | `release-matrix.spec.mjs` |
 | URL/filter transitions, inspector selection and cross-surface navigation | `release-navigation.spec.mjs` |

@@ -26,7 +26,7 @@ Use stable project filenames/IDs. Frontmatter owns public metadata, current Scop
 
 ## Presentation and disclosure
 
-Only `/analog/` and `/digital/` are supported catalog routes; no compatibility pages, redirects, project detail pages or self-permalink aliases. Use the domain's hidden H1 and browser title, correct base-path links, indexable self-canonical metadata and Timeline | Events | Analog | Digital navigation. No visible section title, introduction, review-date or methodology block, overview cards, legend, tabs or rankings.
+Only `/analog/` and `/digital/` are supported catalog routes; no compatibility pages, redirects, project detail pages or self-permalink aliases. Use the domain's hidden H1 and browser title, correct base-path links, indexable self-canonical metadata and Home | Timeline | Events | Analog | Digital | GitHub navigation. No visible section title, introduction, review-date or methodology block, overview cards, legend, tabs or rankings.
 
 The English index pairs a metadata rail with a project body, without visible column headings. The rail order is latest public date, twelve binary activity cells, then vertically stacked Scope labels. No visible month total or repeated Scope/Activity labels. The body starts with a plain-text H2 name and authored Website / Paper / Code / Results links in that order, wrapping on one left-aligned title line. No title classification badge or replacement icon.
 
@@ -64,4 +64,4 @@ Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` co
 
 Use the [catalog-refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for an actual refresh, including month rollover and canonical-host recapture. Use current records, source notes and the domain validator as the starting point.
 
-[Testing](../TESTING.md) owns check selection. Preserve source URLs except explicitly reviewed updates, functional metadata, unaffected activity, Golden data and export semantics. For presentation changes inspect representative first/middle/last, multi-stage and multi-link rows at the visual-system viewports, including dark mode, keyboard, no-JavaScript and forced colors. No hardcoded mutable project counts or weakened domain/factual guards.
+[Testing](../TESTING.md) owns check selection. Preserve source URLs except explicitly reviewed updates, functional metadata, unaffected activity, Golden data and export semantics. For presentation changes inspect representative first/middle/last, multi-stage and multi-link rows at the visual-system viewports, including system color-scheme preferences, keyboard, no-JavaScript and forced colors. No hardcoded mutable project counts or weakened domain/factual guards.

@@ -128,22 +128,22 @@ const peopleDir = path.join(projectRoot, 'src/data/people');
 const [events, companies, people] = await Promise.all([
   readRecords(eventDir), readRecords(companyDir), readRecords(peopleDir),
 ]);
-const homeHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8');
+const timelineHtml = await readFile(path.join(outputRoot, 'timeline', 'index.html'), 'utf8');
 const eventsIndexHtml = await readFile(path.join(outputRoot, 'events', 'index.html'), 'utf8');
-const homeInspectorUrls = inspectorEventUrls(homeHtml, 'Timeline');
+const timelineInspectorUrls = inspectorEventUrls(timelineHtml, 'Timeline');
 const activeCompanyIds = new Set(events.flatMap((event) => event.companies));
 
 for (const event of events) {
   const eventPath = `${siteBase}events/${event.id}/`;
   requireHref(eventsIndexHtml, eventPath, 'Events index');
-  requireInspectorEvent(homeInspectorUrls, eventPath, 'Timeline inspector data');
+  requireInspectorEvent(timelineInspectorUrls, eventPath, 'Timeline inspector data');
 }
 for (const company of companies) {
   if (activeCompanyIds.has(company.id)) {
-    requireHref(homeHtml, `${siteBase}companies/${company.id}/`, 'Timeline');
+    requireHref(timelineHtml, `${siteBase}companies/${company.id}/`, 'Timeline');
   }
 }
-for (const person of people) requireHref(homeHtml, `${siteBase}people/${person.id}/`, 'Timeline');
+for (const person of people) requireHref(timelineHtml, `${siteBase}people/${person.id}/`, 'Timeline');
 
 for (const event of events) {
   const eventHtml = await readFile(path.join(outputRoot, 'events', event.id, 'index.html'), 'utf8');

@@ -7,6 +7,8 @@
 // release-navigation.spec.mjs.
 
 import { expect, test } from '@playwright/test';
+import { catalogFixture } from './catalog-index.ts';
+import { sortEventsNewestFirst } from '../../src/lib/content.ts';
 import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
   basePath,
@@ -32,16 +34,16 @@ function expectSingleSegmentPath(pathname, prefix) {
 }
 
 test('Timeline is the temporal view with filters and one Evidence Inspector', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
-  expect(new URL(page.url()).pathname).toBe(basePath);
-  await expect(page).toHaveTitle('AMS Signals');
+  expect(new URL(page.url()).pathname).toBe(`${basePath}timeline/`);
+  await expect(page).toHaveTitle('Timeline · AMS Signals');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
   await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${publicOrigin}${basePath}`);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${publicOrigin}${basePath}timeline/`);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /RNM|mixed-signal/i);
   await expect(page.locator('h1.visually-hidden')).toHaveText('AMS Signals Timeline');
   await expect(page.locator('main > .intro')).toHaveCount(0);
@@ -50,7 +52,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
   await expect(page.locator('.desktop-timeline')).toHaveCount(0);
@@ -230,7 +232,7 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
   const eventIds = events.map(({ id }) => id).sort();
   const forbiddenPublicTerms = ['にじさんじ', 'VTuber', 'Live2D'];
 
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const row = page.locator(
     '[data-group="both"] [data-matrix-row][data-entity-type="person"][data-entity-id="lunlun"]',
@@ -330,7 +332,7 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
 });
 
 test('zero-Event researched Company pages still build without primary Timeline links', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   await expect(page.locator('a[href$="/companies/omnivision/"]')).toHaveCount(0);
   await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]:visible')).toHaveCount(1);
@@ -352,7 +354,7 @@ test('zero-Event researched Company pages still build without primary Timeline l
 
 test('Timeline utility bar places count and legend beside the compact controls', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   const utility = page.locator('.event-filter-utility');
@@ -407,7 +409,7 @@ test('Timeline utility bar places count and legend beside the compact controls',
 
 test('Company Focus panel owns overlapping pixels above every Timeline stacking context', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   await page.locator('[data-company-picker] summary').click();
@@ -460,13 +462,14 @@ test('unavailable originals remain labels and Event permalinks remain live', asy
 test('Timeline and Events expose their final surface-specific controls and terminology', async ({ page }) => {
   const removedCopy = 'Lexical search across events, evidence, companies, and people.';
 
-  for (const path of ['./', './events/']) {
+  for (const path of ['./timeline/', './events/']) {
     const isEvents = path.includes('events');
     await page.goto(`${path}?companies=apple,renesas&kind=technical&q=PLL&view=people`);
     await expectExplorerReady(page, isEvents ? 'events' : 'timeline');
     await expect(page.getByText(removedCopy, { exact: true })).toHaveCount(0);
     await expect(page.locator('.search-control > span')).toHaveText(isEvents ? 'Search events or companies' : 'Search events');
     await expect(page.locator('.search-control > span')).toHaveClass(/visually-hidden/);
+    await expect(page.locator('[data-search]')).toHaveAttribute('placeholder', 'Apple, Model, AI');
     await expect(page.getByRole('searchbox', { name: isEvents ? 'Search events or companies' : 'Search events', exact: true })).toBeVisible();
     await expect(page.locator('[data-view]')).toHaveCount(0);
     await expect(page.locator('.event-filters').getByText('Entity type', { exact: true })).toHaveCount(0);
@@ -502,7 +505,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
 
     const searchBox = await page.locator('[data-search]').boundingBox();
     expect(searchBox).not.toBeNull();
-    expect(searchBox.width).toBe(290);
+    expect(searchBox.width).toBe(328);
     if (!isEvents) {
       await page.locator('[data-company-picker] summary').click();
       await expect(page.getByRole('button', { name: 'Select all', exact: true })).toBeVisible();
@@ -536,7 +539,7 @@ test('Timeline and Events expose their final surface-specific controls and termi
 });
 
 test('Inspector and context pages use Event, Evidence, and Entity terminology', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   await expect(page.locator('[data-detail-placeholder] h2')).toHaveText('Select an event');
   await expect(page.locator('[data-detail-placeholder] > p:last-child'))
@@ -548,7 +551,7 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
   const sparseState = page.locator('.entity-empty-state');
   await expect(sparseState.getByRole('heading')).toHaveText('No events are currently indexed');
   await expect(sparseState).toContainText('did not produce an event for the Timeline');
-  await expect(sparseState.getByRole('link', { name: 'Return to Timeline →' })).toHaveAttribute('href', basePath);
+  await expect(sparseState.getByRole('link', { name: 'Return to Timeline →' })).toHaveAttribute('href', `${basePath}timeline/`);
   await expect(sparseState.getByText(/Golden|milestone/i)).toHaveCount(0);
 
   await page.goto('./people/toshi-kawashima/');
@@ -571,7 +574,7 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
 
 test('narrow viewports retain basic access without a mobile chronology fallback', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('./?companies=apple,renesas&q=PLL');
+  await page.goto('./timeline/?companies=apple,renesas&q=PLL');
   await expectExplorerReady(page);
   await expect(page.locator('.event-filters > *')).toHaveCount(2);
   await expect(page.locator('[data-kind], [data-view]')).toHaveCount(0);
@@ -602,7 +605,7 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   }));
   expect(timelineWidths.scrollWidth).toBeGreaterThan(timelineWidths.clientWidth);
 
-  await page.goto('./?q=Google');
+  await page.goto('./timeline/?q=Google');
   await expectExplorerReady(page);
   await expect(page.locator(
     '[data-group="both"] [data-matrix-row][data-entity-type="company"][data-entity-id="google"]',
@@ -625,5 +628,112 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Analog', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Digital', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
 });
+
+// Anchor the independent source calculation to the static artifact, not the smoke run date.
+async function expectedHomeActivity(page, events, analog, digital) {
+  const buildMonth = await page.locator('.chart-card').getAttribute('data-build-month');
+  expect(buildMonth).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+  const [year, month] = buildMonth.split('-').map(Number);
+  const months = Array.from({ length: 12 }, (_, i) => new Date(Date.UTC(year, month - 12 + i, 1)).toISOString().slice(0, 7));
+  const active = (fixture, key) => Object.values(fixture.activity.projects).filter((record) => record.kind === 'public-update'
+    ? record.lastPublicUpdateAt.slice(0, 7) === key
+    : record.commits[fixture.activity.months.indexOf(key)] > 0).length;
+  return months.map((key) => ({ month: key,
+    events: events.filter(({ data: { when } }) => when.precision !== 'year' && when.start.startsWith(key)).length,
+    analog: active(analog, key), digital: active(digital, key) }));
+}
+
+for (const width of [1440, 900, 390]) {
+  test(`Home renders source-derived activity, four recent Events and complete project updates at ${width}px`, async ({ page }) => {
+    const [{ events }, analog, digital] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital')]);
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('./');
+    await expect(page).toHaveTitle('AMS Signals');
+    await expect(page.getByRole('navigation', { name: 'Primary' }).locator('[aria-current="page"]')).toHaveText('Home');
+    await expect(page.locator('[data-event-explorer-root]')).toHaveCount(0);
+    expect(await page.locator('.activity-counts').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const expected = await expectedHomeActivity(page, events, analog, digital);
+    const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
+      events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital) })));
+    expect(actual).toEqual(expected);
+    const maximum = Math.max(1, ...expected.flatMap((m) => [m.events, m.analog + m.digital]));
+    const chartBars = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => [...el.querySelectorAll('rect')].map((r) => ({
+      x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), height: Number(r.getAttribute('height')), fill: getComputedStyle(r).fill }))));
+    for (let i = 0; i < chartBars.length; i++) {
+      const [event, analogBar, digitalBar] = chartBars[i];
+      expect(event.height).toBeCloseTo(expected[i].events / maximum * 218, 5);
+      expect(analogBar.height).toBeCloseTo(expected[i].analog / maximum * 218, 5);
+      expect(digitalBar.height).toBeCloseTo(expected[i].digital / maximum * 218, 5);
+      expect(event.x).toBeLessThan(analogBar.x);
+      expect(analogBar.x).toBe(digitalBar.x);
+      expect(digitalBar.y + digitalBar.height).toBeCloseTo(analogBar.y, 5);
+      expect([event.fill, analogBar.fill, digitalBar.fill]).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
+    }
+    await expect(page.locator('.recent-signals li')).toHaveCount(4);
+    expect(await page.locator('[data-recent-event]').evaluateAll((nodes) => nodes.map((el) => el.dataset.recentEvent)))
+      .toEqual(sortEventsNewestFirst(events).slice(0, 4).map((entry) => entry.id));
+    for (const fixture of [analog, digital]) {
+      const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
+      expect(await list.locator('li').evaluateAll((nodes) => nodes.map((el) => el.dataset.updatedProject)))
+        .toEqual(fixture.ordered.slice(0, 3).map((project) => project.id));
+      for (const project of fixture.ordered.slice(0, 3)) {
+        const row = list.locator(`[data-updated-project="${project.id}"]`);
+        await expect(row.locator('p')).toHaveText(project.description);
+        await expect(row.locator('a')).toHaveAttribute('href', `${basePath}${fixture.domain}/#${project.id}--name`);
+        const style = await row.locator('p').evaluate((el) => ({ clamp: getComputedStyle(el).webkitLineClamp, overflow: getComputedStyle(el).overflow }));
+        expect(style).toEqual({ clamp: 'none', overflow: 'visible' });
+      }
+    }
+    if (width === 1440) {
+      const chart = await page.locator('.chart-card').boundingBox();
+      const signals = await page.locator('.signals-card').boundingBox();
+      expect(chart.y).toBe(signals.y);
+      expect(chart.height).toBe(signals.height);
+      expect((await page.locator('.activity-chart').boundingBox()).height).toBeGreaterThan(250);
+    } else {
+      expect((await page.locator('.signals-card').boundingBox()).y).toBeGreaterThan((await page.locator('.chart-card').boundingBox()).y);
+    }
+    if (width === 390) {
+      const frame = page.locator('.chart-frame');
+      expect(await frame.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+      await frame.focus(); await page.keyboard.press('ArrowRight');
+      await expect.poll(() => frame.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+    }
+  });
+}
+
+for (const width of [1440, 390]) {
+  test(`Home exposes readable source-derived monthly counts in forced colors at ${width}px`, async ({ page }) => {
+    const [{ events }, analog, digital] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital')]);
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ forcedColors: 'active' });
+    await page.goto('./');
+    const expected = await expectedHomeActivity(page, events, analog, digital);
+    const counts = page.locator('.activity-counts');
+    const table = counts.getByRole('table', { name: 'Monthly activity counts; Events and distinct active projects' });
+    await expect(table).toBeVisible();
+    await expect(table.locator('thead th')).toHaveText(['Month', 'Events', 'Analog', 'Digital']);
+    const expectedRows = expected.map((row) => [new Date(`${row.month}-01T00:00:00Z`).toLocaleDateString('en-US', {
+      month: 'long', year: 'numeric', timeZone: 'UTC',
+    }), ...[row.events, row.analog, row.digital].map(String)]);
+    expect(await table.locator('tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim())))).toEqual(expectedRows);
+    const layout = await counts.evaluate((el) => ({
+      position: getComputedStyle(el).position, clip: getComputedStyle(el).clip,
+      width: el.clientWidth, scrollWidth: el.scrollWidth,
+    }));
+    expect(layout.position).toBe('static');
+    expect(layout.clip).toBe('auto');
+    expect(layout.scrollWidth).toBe(layout.width);
+    for (const cell of await table.locator('th, td').all()) {
+      await cell.scrollIntoViewIfNeeded();
+      await expect(cell).toBeInViewport();
+      const style = await cell.evaluate((el) => ({ fontSize: parseFloat(getComputedStyle(el).fontSize), color: getComputedStyle(el).color, background: getComputedStyle(el).backgroundColor }));
+      expect(style.fontSize).toBeGreaterThanOrEqual(12);
+      expect(style.color).not.toBe(style.background);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}

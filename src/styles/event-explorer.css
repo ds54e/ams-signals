@@ -12,8 +12,8 @@
 .event-explorer[data-surface="events"] .event-filters { display: contents; }
 .event-explorer[data-surface="events"] .select-control { flex: 0 0 160px; width: 160px; }
 .event-explorer[data-surface="events"] .search-control {
-  flex-basis: 290px;
-  width: 290px;
+  flex-basis: 328px;
+  width: 328px;
 }
 .event-filter-utility {
   position: relative;
@@ -38,8 +38,8 @@
   font-size: var(--type-ui);
 }
 .search-control {
-  flex: 0 1 290px;
-  width: 290px;
+  flex: 0 1 328px;
+  width: 328px;
 }
 .select-control {
   flex: 0 0 150px;
@@ -53,15 +53,15 @@
 }
 .company-picker {
   position: relative;
-  flex: 0 0 210px;
-  width: 210px;
+  flex: 0 0 190px;
+  width: 190px;
 }
 .company-picker summary {
   min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px;
   padding: 8px 12px;
   color: var(--muted);
   background: var(--surface-raised);
@@ -74,7 +74,7 @@
 .company-picker summary::-webkit-details-marker { display: none; }
 .company-picker summary::after { content: "+"; color: var(--accent); font-size: 1.1rem; line-height: 1; }
 .company-picker[open] summary::after { content: "−"; }
-.company-picker summary strong { margin-left: auto; color: var(--text); font-size: var(--type-meta); font-weight: 400; }
+.company-picker summary strong { margin-left: auto; color: var(--text); font-size: var(--type-meta); font-weight: 400; white-space: nowrap; }
 .company-picker-panel {
   position: absolute;
   top: calc(100% + 8px);
@@ -499,7 +499,7 @@
   padding: 18px 18px 22px;
   font-size: 14px;
   line-height: 1.65;
-  background: var(--surface-raised);
+  background: var(--surface-tint);
   border: 0;
   border-top: 1px solid var(--border-strong);
   border-bottom: 1px solid var(--border-strong);

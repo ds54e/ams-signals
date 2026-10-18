@@ -2,6 +2,12 @@
 
 AMS Signals helps engineers, verification leads, architects and technical managers inspect public RNM/AMS and mixed-signal verification activity, compare trajectories and decide what evidence to investigate next. [AGENTS.md](AGENTS.md) owns working guidance; [docs/README.md](docs/README.md) routes implementation and operating contracts.
 
+## Home dashboard
+
+Home (`/`) presents a build-time view of the latest four Events and three projects per catalog in existing activity-date order, with complete authored project descriptions. It links to the complete Events, Analog and Digital indexes. Timeline lives at `/timeline/`.
+
+Activity Overview covers twelve UTC calendar months ending in the build month. Each Event counts once at its supported start month; year-only dates are excluded. Repository buckets count distinct projects with activity in that captured month, and reviewed point evidence activates only its dated month. Analog and Digital are separate stacked project totals beside the Event count. Captured month keys are preserved when a build window moves; missing months are never extrapolated. The current month is partial, and missing reviewed activity does not prove inactivity. This presentation does not change Golden records, catalog snapshots or the factual export. `src/lib/dashboard.ts` owns aggregation.
+
 ## Factual timeline
 
 Time is the Golden corpus's organizing dimension. Timeline supports pattern discovery; Events provides complete chronological factual reading. Event, Company and Person pages expose context and representative sources. Juxtaposing trajectories does not establish causation, company-wide adoption, private internal capability, methodology transfer or maturity.

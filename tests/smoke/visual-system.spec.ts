@@ -8,7 +8,7 @@ const indexes = ['analog', 'digital', 'events'];
 async function open(page: Page, surface: string) {
   expect((await page.goto(`./${surface ? `${surface}/` : ''}`))!.ok()).toBe(true);
   await page.evaluate(() => document.fonts.ready);
-  if (surface === 'events' || surface === '') await expect(page.locator('[data-status]')).toContainText('events');
+  if (surface === 'events' || surface === 'timeline') await expect(page.locator('[data-status]')).toContainText('events');
 }
 
 async function expectToolbarReadingOrder(page: Page) {
@@ -72,7 +72,7 @@ for (const viewport of viewports) {
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
-      await expect(nav.getByRole('link')).toHaveText(['Timeline', 'Events', 'Analog', 'Digital']);
+      await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
       await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
@@ -128,7 +128,7 @@ for (const viewport of viewports) {
       expect(reports[2].copyWidth).toBe(878);
     }
 
-    await open(page, '');
+    await open(page, 'timeline');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
     expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('none');
     await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();

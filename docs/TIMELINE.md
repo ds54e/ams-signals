@@ -4,7 +4,7 @@ This document owns the current viewer behavior. [Product Context](../PROJECT_CON
 
 ## Surfaces
 
-Timeline is the global progressive-time Activity Matrix: a pattern-discovery overview of recurring public activity and trajectories. It interleaves Companies and People in one temporal field. They remain distinct factual entity types; shared placement neither merges them nor implies causation.
+Timeline (`/timeline/`) is the global progressive-time Activity Matrix: a pattern-discovery overview of recurring public activity and trajectories. It interleaves Companies and People in one temporal field. They remain distinct factual entity types; shared placement neither merges them nor implies causation.
 
 Events is the complete chronological textual record, with stable Event permalinks and representative evidence. The Evidence Inspector supports direct examination from Timeline. Company and Person detail pages retain their segmented, chronologically packed context Timelines rather than inheriting global Matrix geometry.
 

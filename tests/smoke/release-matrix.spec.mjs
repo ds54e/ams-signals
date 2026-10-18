@@ -21,7 +21,7 @@ import {
 installBrowserErrorGuards(test);
 
 test('Event bundles retain direct Event interaction and reduce cleanly under filtering', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const corpus = await viewerCorpus(page);
   const eventById = new Map(corpus.events.map((event) => [event.id, event]));
@@ -179,7 +179,7 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
 
 test('recent-activity row ordering and alphabetical Company picker stay filter-stable', async ({ page }) => {
   const payload = await (await page.request.get('./export.json')).json();
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const viewerEvents = await page.locator('[data-events-json]').evaluate((node) => (
     JSON.parse(node.textContent).map((event) => ({
@@ -252,7 +252,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     count: label.querySelector('small')?.textContent?.trim(),
   })));
 
-  for (const path of ['./', './events/']) {
+  for (const path of ['./timeline/', './events/']) {
     await page.goto(path);
     await expectExplorerReady(page, path.includes('events') ? 'events' : 'timeline');
     expect(await pickerOrder()).toEqual(path.includes('events') ? [] : expectedPicker);
@@ -263,7 +263,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     expect(await pickerOrder()).toEqual(path.includes('events') ? [] : expectedPicker);
   }
 
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const combinedRows = page.locator('[data-group="both"] [data-matrix-row]');
   const combinedRowData = await combinedRows.evaluateAll((nodes) => nodes.map((node) => ({
@@ -310,7 +310,7 @@ test('global Activity Matrix renders the validated geometry without visual bundl
   const corpus = await loadGoldenCorpus();
   const geometry = buildActivityMatrixGeometry(corpus.events, corpus.companies, corpus.people);
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   // Node contracts own projection, boundary grouping and packing. This checks the
@@ -419,7 +419,7 @@ test('global Activity Matrix renders the validated geometry without visual bundl
 });
 
 test('global Matrix uses the corpus domain while context Timelines retain derived historical ranges', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const globalCorpus = await viewerCorpus(page);
   await expect(page.locator('[data-activity-matrix-surface]'))
@@ -453,7 +453,7 @@ test('global Matrix uses the corpus domain while context Timelines retain derive
 });
 
 test('Search and Company filter never change Matrix geometry or row order', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   const geometry = () => page.locator('[data-timeline-root]').evaluate((root) => ({
@@ -558,7 +558,7 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     { width: 390, height: 844 },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto('./');
+    await page.goto('./timeline/');
     await expectExplorerReady(page);
     const bundles = await page.locator('[data-group="both"] [data-matrix-bundle]').evaluateAll((nodes) => (
       nodes.map((bundle) => ({
@@ -607,7 +607,7 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
 
 test('Matrix fills available width, scrolls only its derived excess locally, and preserves initial-lens reveal behavior', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   const scroller = page.locator('[data-timeline-scroll]');
@@ -646,7 +646,7 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
   await page.evaluate(() => scrollTo(0, 0));
 
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const medium = await scroller.evaluate((node) => {
     const shell = node.closest('.activity-matrix-shell');
@@ -663,7 +663,7 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
   expect(medium.pageScrollWidth).toBe(medium.pageClientWidth);
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
   const narrow = await scroller.evaluate((node) => ({ clientWidth: node.clientWidth, scrollWidth: node.scrollWidth }));
   expect(narrow.scrollWidth).toBeGreaterThan(narrow.clientWidth);
@@ -681,7 +681,7 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
   await page.locator('[data-company-options] input[value="apple"]').uncheck();
   expect(Math.abs(await scroller.evaluate((node) => node.scrollLeft) - userPosition)).toBeLessThanOrEqual(1);
 
-  await page.goto('./?q=Bringing%20Continuous%20Domain');
+  await page.goto('./timeline/?q=Bringing%20Continuous%20Domain');
   await expectExplorerReady(page);
   await expect(page.locator('[data-timeline-scroll]')).toHaveAttribute(
     'data-initial-reveal',
@@ -692,7 +692,7 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
 
 test('global Matrix sticky labels occlude active marks without clearing selection', async ({ page }) => {
   await page.setViewportSize({ width: 800, height: 900 });
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   // The lane under test is derived: the contract needs a mark whose current position can
@@ -745,7 +745,7 @@ test('global Matrix sticky labels occlude active marks without clearing selectio
 });
 
 test('global Matrix is one accessible interleaved view with restrained entity colors', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./timeline/');
   await expectExplorerReady(page);
 
   await expect(page.locator('[data-view]')).toHaveCount(0);
@@ -838,8 +838,8 @@ test('global Matrix is one accessible interleaved view with restrained entity co
       };
     });
     expect(colors.person, `${colorScheme} Person versus Company`).not.toBe(colors.company);
-    expect(colors.company).toBe(colorScheme === 'light' ? 'rgb(36, 43, 48)' : 'rgb(237, 242, 237)');
-    expect(colors.person).toBe(colorScheme === 'light' ? 'rgb(75, 109, 137)' : 'rgb(143, 169, 190)');
+    expect(colors.company).toBe('rgb(36, 43, 48)');
+    expect(colors.person).toBe('rgb(75, 109, 137)');
     expect(colors.person, `${colorScheme} Person versus Organizational`).not.toBe(colors.organizational);
     expect(colors.contrast, `${colorScheme} Person label contrast`).toBeGreaterThanOrEqual(4.5);
   }

@@ -72,7 +72,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
   test(`category labels and the fixed Timeline palette agree across views in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
     let foundation: Record<string, string> | undefined;
-    for (const route of ['analog/', 'digital/', 'events/', '', 'companies/apple/', 'people/toshi-kawashima/']) {
+    for (const route of ['analog/', 'digital/', 'events/', 'timeline/', 'companies/apple/', 'people/toshi-kawashima/']) {
       await page.goto(`./${route}`);
       const catalog = route === 'analog/' || route === 'digital/';
       if (!catalog) await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);

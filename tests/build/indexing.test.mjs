@@ -19,13 +19,14 @@ async function fixture(t, siteBase) {
   for (const [collection, id] of [['events', 'event-one'], ['companies', 'company-one'], ['people', 'person-one']]) {
     await write(`src/data/${collection}/record.json`, JSON.stringify({ id }));
   }
-  const routes = ['', 'events/', 'events/event-one/', 'analog/', 'digital/', 'companies/company-one/', 'people/person-one/'];
+  const routes = ['', 'timeline/', 'events/', 'events/event-one/', 'analog/', 'digital/', 'companies/company-one/', 'people/person-one/'];
   const html = (route, robots = 'index, follow') => `<!doctype html><html><head>
     <meta name="robots" content="${robots}">
     <link rel="canonical" href="${origin}${siteBase}${route}">
     </head><body><nav aria-label="Primary">
-    <a href="${siteBase}">Timeline</a><a href="${siteBase}events/">Events</a>
+    <a href="${siteBase}">Home</a><a href="${siteBase}timeline/">Timeline</a><a href="${siteBase}events/">Events</a>
     <a href="${siteBase}analog/">Analog</a><a href="${siteBase}digital/">Digital</a>
+    <a href="https://github.com/ds54e/ams-signals">GitHub ↗</a>
     </nav></body></html>`;
   const page = (route, body = html(route)) => write(`dist/${route}index.html`, body);
   for (const route of routes) await page(route);
