@@ -141,6 +141,54 @@ for (const viewport of viewports) {
   });
 }
 
+// Headless Chromium normally hides scrollbars, masking route-height shifts.
+const scrollbarTest = test.extend({ launchOptions: { ignoreDefaultArgs: ['--hide-scrollbars'] } });
+scrollbarTest.describe('shared shell with visible scrollbars', () => {
+
+  for (const width of [1440, 900, 390]) {
+    scrollbarTest(`shared shell remains aligned across short and long pages at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 1200 });
+      const shell = () => page.evaluate(() => {
+        const box = (el: Element) => {
+          const r = el.getBoundingClientRect();
+          return { x: r.x, y: r.y, width: r.width, height: r.height };
+        };
+        const main = document.querySelector('main')!;
+        const r = main.getBoundingClientRect();
+        const s = getComputedStyle(main);
+        return {
+          header: box(document.querySelector('.site-header')!),
+          inner: box(document.querySelector('.header-inner')!),
+          brand: box(document.querySelector('.brand')!),
+          logo: box(document.querySelector('.brand svg')!),
+          nav: box(document.querySelector('.site-header nav')!),
+          links: [...document.querySelectorAll('.site-header nav a')].map(box),
+          main: { x: r.x, y: r.y, width: r.width, padding: [s.paddingTop, s.paddingBottom] },
+        };
+      });
+      await open(page, '');
+      const reference = await shell();
+      let searchReference;
+      for (const surface of ['timeline', 'events', 'analog', 'digital']) {
+        await open(page, surface);
+        const search = page.locator('[data-search], [data-catalog-search]');
+        await expect(search).toBeVisible();
+        expect(await shell(), `${surface}: initial shell`).toEqual(reference);
+        const box = await search.boundingBox();
+        if (searchReference) expect(box, `${surface}: Search alignment`).toEqual(searchReference);
+        else searchReference = box;
+
+        // Real filtering makes each long index short without changing its shell.
+        await search.fill('__ams_alignment_no_results__');
+        await expect(page.locator('.index-count')).toContainText('0 of');
+        expect(await shell(), `${surface}: empty results shell`).toEqual(reference);
+        expect(await search.boundingBox(), `${surface}: Search after filtering`).toEqual(searchReference);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+      }
+    });
+  }
+});
+
 function contrast(a: number[], b: number[]) {
   const luminance = (rgb: number[]) => rgb.slice(0, 3).map((n) => n / 255)
     .map((n) => n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4)

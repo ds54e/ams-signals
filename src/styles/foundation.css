@@ -54,7 +54,7 @@
 
 
 * { box-sizing: border-box; }
-html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+html { background: var(--bg); color: var(--text); scroll-behavior: smooth; overflow-y: scroll; }
 body { margin: 0; min-width: 320px; font-size: 16px; line-height: 1.65; }
 a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 0.22em; }
 a:hover { text-decoration-color: currentColor; }
