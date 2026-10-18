@@ -32,7 +32,6 @@ const { left, right, top, baseline, monthPositions, series, ticks } = dashboardT
       })}
     </svg>
   </div>
-  <p class="chart-partial">Current month is partial.</p>
   <p id="chart-description" class="visually-hidden">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Three straight lines show blue Events, green distinct active Analog projects and orange distinct active Digital projects. Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%. Percentages show trends within each series, not count comparisons between series. The monthly table retains actual counts and full month and year. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</p>
   <div class="activity-counts visually-hidden"><table>
     <caption>Monthly activity counts; Events and distinct active projects</caption>

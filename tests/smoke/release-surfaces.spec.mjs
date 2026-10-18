@@ -714,7 +714,8 @@ for (const width of [1440, 900, 390]) {
     await expect(chart.locator('text')).toHaveCount(17);
     await expect(page.locator('.chart-card title, .chart-card [title], .chart-card [role="tooltip"]')).toHaveCount(0);
     await expect(chart.locator('rect, circle, marker, animate, animateTransform, set, a, [tabindex], [onclick], [onmouseover], [onmousemove]')).toHaveCount(0);
-    await expect(page.locator('.chart-partial')).toHaveText('Current month is partial.');
+    await expect(page.locator('.chart-partial, .chart-card > p:not(.visually-hidden)')).toHaveCount(0);
+    await expect(page.locator('#chart-description')).toContainText('Current month is partial.');
     await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%');
     await expect(page.locator('#chart-description')).toContainText('not count comparisons between series');
     expect(await page.locator('#chart-description').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
