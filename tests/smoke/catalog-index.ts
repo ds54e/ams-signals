@@ -117,7 +117,8 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect.poll(visibleIds).toEqual(aiProjects);
     await expect(page.getByRole('status')).toHaveText(`${aiProjects.length} of ${projects.length} projects`);
     await expect(row(page, aiProjects[0])).toBeVisible();
-    await expect(row(page, domain === 'analog' ? 'ngspice' : 'verilator')).toBeHidden();
+    const nonAiProject = ordered.find((p) => !aiProjects.includes(p.id))!;
+    await expect(row(page, nonAiProject.id)).toBeHidden();
 
     await search.fill('AI Design');
     const combinedWords = await visibleIds();
