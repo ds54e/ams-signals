@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { dashboardActivity } from '../../src/lib/dashboard.ts';
-import { dashboardSeriesPercentages } from '../../src/lib/dashboard-presentation.ts';
+import { dashboardSeriesPercentages, dashboardTrend } from '../../src/lib/dashboard-presentation.ts';
 
 const event = (start: string, precision = 'day', end?: string) => ({ data: { when: { start, precision, end } } });
 const empty = { months: [], projects: {} };
@@ -39,6 +39,23 @@ test('dashboard percentages preserve mixed zero buckets and entirely zero series
   const zero = Array.from({ length: 12 }, () => ({ events: 0, analog: 0, digital: 0 }));
   assert.deepEqual(dashboardSeriesPercentages(zero), zero);
   assert.deepEqual(dashboardSeriesPercentages([]), []);
+});
+
+test('dashboard trend geometry preserves independent peaks, real zero points and straight paths', () => {
+  const counts = [{ events: 2, analog: 40, digital: 0 }, { events: 4, analog: 10, digital: 0 }, { events: 0, analog: 20, digital: 0 }];
+  const original = structuredClone(counts);
+  const trend = dashboardTrend(counts);
+  assert.deepEqual(trend.monthPositions, [50, 292, 534]);
+  assert.deepEqual(trend.ticks, [{ percent: 0, y: 242 }, { percent: 25, y: 187.5 }, { percent: 50, y: 133 }, { percent: 75, y: 78.5 }, { percent: 100, y: 24 }]);
+  assert.deepEqual(trend.series, [
+    { key: 'events', line: 'M50,133 L292,24 L534,242', area: 'M50,133 L292,24 L534,242 L534,242 L50,242 Z' },
+    { key: 'analog', line: 'M50,24 L292,187.5 L534,133', area: 'M50,24 L292,187.5 L534,133 L534,242 L50,242 Z' },
+    { key: 'digital', line: 'M50,242 L292,242 L534,242', area: 'M50,242 L292,242 L534,242 L534,242 L50,242 Z' },
+  ]);
+  assert.deepEqual(counts, original);
+  assert.deepEqual(dashboardTrend([]).monthPositions, []);
+  assert(dashboardTrend([]).series.every(({ line, area }) => line === '' && area === ''));
+  assert.equal(dashboardTrend([{ events: 0, analog: 1, digital: 0 }]).series[1].line, 'M50,24');
 });
 
 test('dashboard uses twelve calendar months ending at the build month, including year rollover', () => {

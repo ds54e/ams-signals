@@ -1,20 +1,10 @@
 ---
 import { monthLabel } from '../lib/catalog-activity-band';
 import type { dashboardActivity } from '../lib/dashboard';
-import { dashboardSeriesPercentages } from '../lib/dashboard-presentation';
+import { dashboardTrend } from '../lib/dashboard-presentation';
 interface Props { months: ReturnType<typeof dashboardActivity>; buildMonth: string }
 const { months, buildMonth } = Astro.props;
-const percentages = dashboardSeriesPercentages(months);
-const baseline = 242;
-const top = 24;
-const left = 50;
-const right = 534;
-const x = (index: number) => left + index * (right - left) / Math.max(1, months.length - 1);
-const series = (['events', 'analog', 'digital'] as const).map((key) => {
-  const points = percentages.map((month, index) => `${x(index)},${baseline - month[key] / 100 * (baseline - top)}`);
-  const line = points.map((point, index) => `${index === 0 ? 'M' : 'L'}${point}`).join(' ');
-  return { key, line, area: points.length ? `${line} L${x(points.length - 1)},${baseline} L${left},${baseline} Z` : '' };
-});
+const { left, right, top, baseline, monthPositions, series, ticks } = dashboardTrend(months);
 ---
 <section class="dashboard-panel chart-card" data-build-month={buildMonth} aria-labelledby="activity-heading">
   <div class="panel-heading">
@@ -31,16 +21,13 @@ const series = (['events', 'analog', 'digital'] as const).map((key) => {
         <stop offset="0" stop-opacity="0.13" />
         <stop offset="1" stop-opacity="0" />
       </linearGradient>)}</defs>
-      {[0, 25, 50, 75, 100].map((percent) => {
-        const y = baseline - percent / 100 * (baseline - top);
-        return <g><line class="chart-grid" x1={left} x2={right} y1={y} y2={y} /><text class="chart-percent" x="40" y={y} dy="0.35em" text-anchor="end">{percent}%</text></g>;
-      })}
+      {ticks.map(({ percent, y }) => <g><line class="chart-grid" x1={left} x2={right} y1={y} y2={y} /><text class="chart-percent" x="40" y={y} dy="0.35em" text-anchor="end">{percent}%</text></g>)}
       {series.map(({ key, area }) => <path class="chart-area" data-activity-area={key} d={area} fill={`url(#activity-${key}-area)`} />)}
       {series.map(({ key, line }) => <path class={`chart-line series-${key}`} data-activity-series={key} d={line} />)}
       {months.map((month, index) => {
         const label = new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString('en', { month: 'short', timeZone: 'UTC' });
         return <g data-dashboard-month={month.month} data-events={month.events} data-analog={month.analog} data-digital={month.digital}>
-          <text x={x(index)} y="264" text-anchor="middle">{label}</text>
+          <text x={monthPositions[index]} y="264" text-anchor="middle">{label}</text>
         </g>;
       })}
     </svg>
