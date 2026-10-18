@@ -58,7 +58,7 @@ The JSON format is evolving, and performance/language compatibility depend on th
 
 ### Development provenance
 
-The reviewed source establishes conventional compiler/simulator operations. Incidental coding-agent contributions do not establish a substantial attributed implementation campaign, defining-core AI construction or runtime model-driven stage. [Project implementation](#source-readme).
+The reviewed source establishes conventional compiler/simulator operations. The inspected canonical history and primary project materials did not establish an attributable AI implementation contribution retained in current code; this does not establish exclusively human development. [Project implementation](#source-readme).
 
 ### Current implementation and operating boundaries
 

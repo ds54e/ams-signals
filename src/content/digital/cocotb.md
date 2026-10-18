@@ -5,6 +5,11 @@ description: "Python coroutine-based verification framework for driving and obse
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited correction changes the executable nox release backport tool to find consumed newsfragments from the release branch fork point. The correction remains in current code."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public Python/C++ source and versioned releases; requires a supported HDL simulator. The 2.1 pytest plugin is opt-in and its API is experimental."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -47,6 +52,12 @@ sources:
   - id: "vpi-handle-ownership"
     title: "October 14 development-branch fix for VPI object-handle leaks"
     url: "https://github.com/cocotb/cocotb/commit/f323470a5c084856840ee632fd202c2ebc34bb33"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/cocotb/cocotb/commit/46125f43a9e4d5d887f807d38d2000416ad16975"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/cocotb/cocotb/blob/ae55ced614b3f4ba89d77da5bd635024546d0737/noxfile.py"
 ---
 
 ### Implementation and scope
@@ -68,3 +79,7 @@ Version 2.1.0 was published August 30, 2026. Its TaskManager runs child awaitabl
 The reviewed development delta separates bootstrap/GPI initialization and changes implementation-library naming and removed configuration APIs, alongside signedness and LogicArrayObject maintenance. Adoption needs version-specific build/API compatibility review. [Reviewed implementation integration](#source-review-20261011-1)
 
 The October 14 VPI fix adds destructors that release owned array, object and signal handles, while preserving borrowed handles for multidimensional-array pseudo-handles and generate pseudo-regions. This targets leaks during repeated object lookup; it is development-branch implementation evidence, not a claim that the fix shipped in 2.1.0 or a measured memory/performance result. The simulator interaction remains conventional Verification. [Ownership fix](#source-vpi-handle-ownership)
+
+### Development provenance
+
+A Claude-credited correction changes the executable nox release backport tool to find consumed newsfragments from the release branch fork point. The correction remains in current code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

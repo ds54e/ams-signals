@@ -49,7 +49,7 @@ sources:
 
 The public Python UI registers HDL sources and configuration, while the runner executes suites and records passed, failed or skipped results. HDL libraries and simulator adapters provide verification support; the framework does not replace the selected simulator. Source compilation is test preparation rather than logic synthesis. [Project role](#source-readme); [runner implementation](#source-implementation).
 
-Verification is conventional automation. No material runtime model decision path or attributable substantial AI-development contribution is established by the inspected implementation and activity evidence. License terms differ for bundled libraries. [Implementation](#source-implementation); [license boundary](#source-license).
+Verification is conventional automation. No material runtime model decision path is established; the separately credited package/runtime implementation supports AI-assisted development. License terms differ for bundled libraries. [Implementation](#source-implementation); [license boundary](#source-license).
 
 ### Reviewed public activity
 

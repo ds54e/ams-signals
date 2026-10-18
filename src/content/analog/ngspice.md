@@ -6,6 +6,11 @@ description: "Open-source SPICE circuit simulator for DC, transient, AC, noise a
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude Fable 5 is credited on the E-178 diode-noise repair incorporated into upstream ngspice. The retained code initializes sidewall noise slots when no sidewall model is present."
+  sources: ["development-origin", "development-upstream", "development-retained"]
+  reviewedAt: '2026-10-18'
 access: "Upstream source and releases are distributed through SourceForge; device libraries and model parameters are provided separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -24,6 +29,15 @@ sources:
   - id: "development"
     title: "Official upstream Git access and branch information"
     url: "https://ngspice.sourceforge.io/gitaccess.html"
+  - id: "development-origin"
+    title: "Claude-credited origin of E-178 diode-noise repair"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/72834e00e96bb6d613c568f5fb3b2cbc5e9656a0"
+  - id: "development-upstream"
+    title: "Upstream E-178 diode-noise integration"
+    url: "https://sourceforge.net/p/ngspice/ngspice/ci/c74935eeb773325e6500ec29d741ab8eb926b80a/"
+  - id: "development-retained"
+    title: "Retained upstream diode-noise implementation"
+    url: "https://sourceforge.net/p/ngspice/ngspice/ci/a80f6e3e95d51534905b1f23410a951802666656/tree/src/spicelib/devices/dio/dionoise.c"
 ---
 
 ### Scope
@@ -39,3 +53,7 @@ The canonical distribution and source history are on SourceForge. The source-bac
 DC, transient, AC, noise and compact-model analysis are the simulator's central operations. Upstream releases remain source-backed activity, not inferred repository history. [Reviewed source](#source-site).
 
 Numerical circuit analysis is conventional Simulation. The source-backed release date remains separate from repository history, and no runtime AI is inferred. [AI/stage evidence](#source-site).
+
+### Development provenance
+
+Claude Fable 5 is credited on the E-178 diode-noise repair incorporated into upstream ngspice. The retained code initializes sidewall noise slots when no sidewall model is present. [Claude-credited origin of E-178 diode-noise repair](#source-development-origin) · [Upstream E-178 diode-noise integration](#source-development-upstream) · [Retained upstream diode-noise implementation](#source-development-retained).

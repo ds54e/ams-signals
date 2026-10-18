@@ -5,6 +5,11 @@ description: "Implements widely used UVM concepts in Python on top of cocotb, in
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implementing the executable SimpleMem UVM-agent example and simulator build integration. The canonical project retains the example and build targets."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Open-source Python package installable with pip; cocotb supplies simulator interaction and scheduling."
 addedAt: "2026-09-14"
 reviewedAt: "2026-10-18"
@@ -19,6 +24,12 @@ sources:
   - id: "activity"
     title: "Adopt src package layout"
     url: "https://github.com/pyuvm/pyuvm/commit/f8355f3590142c26309eedc141fd7856552feaf7"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/pyuvm/pyuvm/commit/bba9478c7284499f329f0eac4a863ea341996533"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/pyuvm/pyuvm/blob/f875bd3d2cee0cc66ae2c004f0da607eb5afcd1d/Makefile"
 ---
 
 ### Verification scope
@@ -32,3 +43,7 @@ The current IEEE 1800.2 coverage table still marks UVM Memory unimplemented and 
 ### Reviewed activity
 
 The August 31 packaging change moves the implementation into a src layout and adjusts build, documentation and tooling paths. The subsequent reviewed first-parent history through September 28 consists of release/dependency/pre-commit maintenance; it does not replace this substantive checkpoint. [Meaningful update](#source-activity).
+
+### Development provenance
+
+Claude is credited for implementing the executable SimpleMem UVM-agent example and simulator build integration. The canonical project retains the example and build targets. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

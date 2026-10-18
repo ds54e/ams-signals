@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude Code is credited for updating executable Scala domain tests to preserve domains with the new firtool option. The canonical commit and current tests retain the changes."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Apache-2.0 public source and published Scala artifacts; SystemVerilog simulation uses documented external backends such as Verilator or VCS."
 addedAt: "2026-09-22"
 reviewedAt: "2026-10-18"
@@ -34,6 +39,12 @@ sources:
   - id: "formal"
     title: "Current bounded formal-checking implementation"
     url: "https://github.com/chipsalliance/chisel/blob/8de081e1fa7d9c0d6131841e2409c8cfe0490183/src/main/scala/chiseltest/formal/package.scala"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/chipsalliance/chisel/commit/bbb0cce272b1f3b12b7ed82a5e3d6546382c625c"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/chipsalliance/chisel/blob/4929e69faeed44018dca43eb4286a2d41457ade8/src/test/scala/chiselTests/DomainSpec.scala"
 ---
 
 ### Implementation context
@@ -50,4 +61,8 @@ Reviewed October 1, 2026 at `8de081e1fa7d9c0d6131841e2409c8cfe0490183`. The Octo
 
 Design covers hardware construction, elaboration and RTL emission. Verification covers svsim simulation control and the current bounded-checking implementation, which emits BTOR2 through CIRCT and invokes btormc at a selected depth. A bounded result is not an unbounded proof; other compatibility API methods remain placeholders. Synthesis and Layout are omitted because downstream tools supply those operations. [Simulation library](#source-svsim); [formal implementation](#source-formal).
 
-Both runtime flags remain false. The latest Bool diagnostic fix explicitly credits Claude Code, but an isolated diagnostic repair and its test do not establish a substantial AI-implemented subsystem. No development-provenance label is assigned. [Reviewed repair](#source-activity-refresh).
+Both runtime flags remain false. The Bool diagnostic repair explicitly credits Claude Code; its bounded scope does not exclude it from AI-assisted development. [Reviewed repair](#source-activity-refresh).
+
+### Development provenance
+
+Claude Code is credited for updating executable Scala domain tests to preserve domains with the new firtool option. The canonical commit and current tests retain the changes. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

@@ -220,8 +220,10 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expect(item.locator('[data-provenance-toggle]')).toHaveAttribute('aria-expanded', 'false');
     }
     for (const level of ['assisted', 'built']) {
-      const project = ordered.find((p) => p.scope.aiDevelopment === level)!;
-      expect(project).toBeDefined();
+      const labeled = ordered.filter((p) => p.scope.aiDevelopment === level);
+      await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(labeled.length);
+      const project = labeled[0];
+      if (!project) continue;
       const item = row(page, project.id), button = item.locator('[data-provenance-toggle]');
       const panel = item.locator('[data-provenance-panel]');
       await expect(button).toHaveText(`AI-${level.toUpperCase()}`);
@@ -272,17 +274,24 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
         await search.fill(query);
         await expect.poll(visibleIds).toEqual(expected.map((p) => p.id));
       }
-      const project = expected.find((p) => p.scope.aiDevelopment === level)!;
-      const button = row(page, project.id).locator('[data-provenance-toggle]');
-      await button.click();
-      await expect(button).toHaveAttribute('aria-expanded', 'true');
+      const project = expected.find((p) => p.scope.aiDevelopment === level);
+      const button = project ? row(page, project.id).locator('[data-provenance-toggle]') : undefined;
+      if (button) {
+        await button.click();
+        await expect(button).toHaveAttribute('aria-expanded', 'true');
+      } else {
+        await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(0);
+      }
+      if (!expected.length) await expect(page.getByText('No projects match.', { exact: true })).toBeVisible();
       for (const stage of Object.keys(scopeStageLabels)) {
         await filter.selectOption(stage);
         await expect.poll(visibleIds).toEqual(expected.filter((p) => p.scope[stage]).map((p) => p.id));
       }
       await filter.selectOption('');
-      await expect(button).toHaveAttribute('aria-expanded', 'true');
-      await button.click(); await expect(button).toHaveAttribute('aria-expanded', 'false');
+      if (button) {
+        await expect(button).toHaveAttribute('aria-expanded', 'true');
+        await button.click(); await expect(button).toHaveAttribute('aria-expanded', 'false');
+      }
       await expect.poll(visibleIds).toEqual(expected.map((p) => p.id));
     }
     await search.fill('Development provenance');
@@ -298,7 +307,10 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     for (const width of [390, 320]) {
       await page.setViewportSize({ width, height: 844 });
       for (const level of ['assisted', 'built']) {
-        const project = ordered.find((p) => p.scope.aiDevelopment === level)!;
+        const labeled = ordered.filter((p) => p.scope.aiDevelopment === level);
+        await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(labeled.length);
+        const project = labeled[0];
+        if (!project) continue;
         const item = row(page, project.id), button = item.locator('[data-provenance-toggle]');
         const panel = item.locator('[data-provenance-panel]');
         await button.tap();

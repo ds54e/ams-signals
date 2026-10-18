@@ -7,6 +7,13 @@ scope:
     ai: false
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: A commit coauthored with Claude Opus 5 connected solver controls to netlist parsing and executable engine configuration. The current source retains the continuation, damping, solver-backend and timestep handling.
+  sources:
+  - development-solver-implementation
+  - development-solver-retained
+  reviewedAt: '2026-10-18'
 access: Public source under the project-specific RSpice license; Rust builds and device/model support follow the selected interface and platform.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -27,6 +34,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: LICENSE'
   url: https://github.com/JaimeHW/RSpice/blob/b2a4ae3e3d3631c6a1856108d804131fe49a900d/LICENSE
+- id: development-solver-implementation
+  title: Claude-coauthored solver-control implementation
+  url: https://github.com/JaimeHW/RSpice/commit/ffc2332b4e6a76e01261a5887e7da62b5d79bcbb
+- id: development-solver-retained
+  title: Retained solver-option configuration handling
+  url: https://github.com/JaimeHW/RSpice/blob/d22a98635a59592cd184bf713f800bc92929c0af/crates/rspice-core/src/engine/config_resolver.rs
 ---
 
 ### Implementation and boundaries
@@ -36,3 +49,7 @@ The released core exposes circuit storage, sparse/Newton solvers and analysis en
 ### Reviewed activity
 
 The meaningful checkpoint is `b2a4ae3e3d3631c6a1856108d804131fe49a900d` (2026-10-18 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+The solver-control implementation explicitly credits Claude Opus 5 as coauthor; its actual parser and engine-configuration changes are integrated in canonical history and retained in the current source. This supports AI-ASSISTED for a code contribution, without attributing most of RSpice to AI. Runtime Design and Simulation remain conventional. [Credited implementation](#source-development-solver-implementation) · [Retained configuration](#source-development-solver-retained).

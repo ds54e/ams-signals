@@ -8,6 +8,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implementing the ABC optimization decorator and executable regression. The canonical Spire project retains the optimization logic after its package rename."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: Public Python implementation; synthesis/simulation paths require their configured external tools.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -28,6 +33,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: src/spire/aig/aig_yosys.py'
   url: https://github.com/huawei-csl/spire-hdl/blob/9e0cd85a24632edf588805410ef8d272d419d5a1/src/spire/aig/aig_yosys.py
+- id: "development-implementation-20261018"
+  title: "AI-credited executable implementation"
+  url: "https://github.com/huawei-csl/spire-hdl/commit/e45259eb612446eda4d9280c61c31f7d9db5bf3e"
+- id: "development-retained-20261018"
+  title: "Retained executable code at the reviewed canonical head"
+  url: "https://github.com/huawei-csl/spire-hdl/blob/9e0cd85a24632edf588805410ef8d272d419d5a1/src/spire/optimize/optimize.py"
 ---
 
 ### Implementation and boundaries
@@ -37,3 +48,7 @@ The IR and authoring APIs implement Design; actual Yosys processing and optimiza
 ### Reviewed activity
 
 The meaningful checkpoint is `514b289d9648c3185bb544b9e73ffb3fd8e2bf8d` (2026-09-09 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+Claude is credited for implementing the ABC optimization decorator and executable regression. The canonical Spire project retains the optimization logic after its package rename. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

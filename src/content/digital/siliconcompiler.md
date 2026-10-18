@@ -9,6 +9,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for correcting executable Python tests for Yosys v0.70 tool manifests and synthesis warning counts. The canonical project retains the test logic."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source Python build framework and releases; selected EDA tools, licenses, device data and PDKs are separate requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-10-18"
@@ -69,6 +74,12 @@ sources:
   - id: "activity-refresh"
     title: "Resolve collected data roots without cross-library collisions"
     url: "https://github.com/siliconcompiler/siliconcompiler/commit/33c80f6558823e8c6d20d5ca2ee3969f9502dcbd"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/siliconcompiler/siliconcompiler/commit/0d423083b4fa40ca939f5c1b98fba3c12b9f430b"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/siliconcompiler/siliconcompiler/blob/de6aa298786c1d02510489f0d6f673be3f2d2c6a/tests/apps/test_sc_install.py"
 ---
 
 ### Implementation context
@@ -93,4 +104,6 @@ All runtime stage AI booleans are false. Accepting a machine-learning model as a
 
 ### Development provenance review
 
-The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. This retained orchestration is bounded control of existing operations rather than substantial new subsystem implementation, so no development badge is assigned; this does not assert exclusively human development. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).
+The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. These credited retained executable controls qualify as AI-assisted development without attributing most of SiliconCompiler to AI. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).
+
+Claude is credited for correcting executable Python tests for Yosys v0.70 tool manifests and synthesis warning counts. The canonical project retains the test logic. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

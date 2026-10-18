@@ -43,4 +43,4 @@ The short prompt names the topology, verbose describes its architecture, and spe
 
 The benchmark explicitly evaluates LLM-generated netlist topology, connectivity and relative sizing, so its evaluated operation is AI Design. The structural oracle remains deterministic; no electrical Simulation stage or circuit-performance claim follows from a full score. [Benchmark and model runner](#source-review)
 
-The construction disclosure mentions AI assistance across corpus and tooling, but does not identify a substantial AI-implemented component or establish a major implementation role across the software. Neither development-provenance label is displayed; runtime/model-evaluation scope does not resolve that separate evidence gap. [Development disclosure](#source-development-disclosure)
+The construction disclosure credits AI-assisted drafting across corpus and tooling, but the reviewed sources do not identify which executable tooling code AI implemented or corrected. Development attribution remains unconfirmed; executable tools would qualify with concrete credit and current retention. [Development disclosure](#source-development-disclosure)

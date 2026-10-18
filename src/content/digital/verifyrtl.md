@@ -75,7 +75,7 @@ Models generate plans/properties and explain trace failures, giving AI Verificat
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The attributed implementation adds a backend, substantial RTL-profile and assertion-generation modules, plus pipeline synthesis checking. These are important executable additions still present; generated tests/examples alone are not counted. [Backend and profiling implementation](#source-development-1); [Current Vivado backend](#source-development-2); [Current RTL profiling](#source-development-3).
+Reviewed 2026-09-07: **AI-ASSISTED**. The attributed implementation adds a backend, substantial RTL-profile and assertion-generation modules, plus pipeline synthesis checking. These executable additions remain present. Static generated inputs alone do not establish software-development attribution; credited executable test or example logic can qualify. [Backend and profiling implementation](#source-development-1); [Current Vivado backend](#source-development-2); [Current RTL profiling](#source-development-3).
 
 ### Current-source review
 

@@ -9,6 +9,11 @@ scope:
     ai: true
   layout:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude and Codex are credited on merged actuator-progress and post-route repair-policy code, including executable regression tests. Those contributions remain in the canonical repository; they establish assistance without proving AI built most of the project."
+  sources: ["development-claude", "development-codex", "development-retained"]
+  reviewedAt: '2026-10-18'
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
 reviewedAt: "2026-10-18"
@@ -47,6 +52,15 @@ sources:
 - id: "review-20261011-1"
   title: "Reviewed implementation integration"
   url: "https://github.com/vibeic/vibe-ic/commit/a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
+- id: "development-claude"
+  title: "Claude-credited actuator progress repair"
+  url: "https://github.com/vibeic/vibe-ic/commit/14744d00ab3e2ef25b2d223e10ad98e000cb2e7e"
+- id: "development-codex"
+  title: "Codex-authored post-GRT policy and regression tests"
+  url: "https://github.com/vibeic/vibe-ic/commit/dbdf01d77b84605b51f0dee35c0b4bbc142833d9"
+- id: "development-retained"
+  title: "Retained execution producer and repair policy"
+  url: "https://github.com/vibeic/vibe-ic/blob/c02ce870ebecd78d4fedec85759f3db83c9595b5/vibe-ic-marketplace/plugins/vibe-ic/programs/execution_backend_producers.py"
 ---
 
 ### Analog scope
@@ -63,10 +77,12 @@ The September 29 first-parent integration adds layout-netlist identity checks, a
 
 ### Development provenance
 
-Claude Code runtime skills and an AI-native product description do not establish who implemented the software. No development badge is inferred from the model-facing interface or overall repository activity. [Project description](#source-readme)
+Claude Code runtime skills and an AI-native product description do not establish who implemented the software. The separate credited actuator and repair-policy contributions support AI-assisted development; model-facing interfaces and activity counts are not the attribution basis. [Project description](#source-readme)
 
 ### Current implementation and operating boundaries
 
 The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
 
-The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+Claude and Codex are credited on merged actuator-progress and post-route repair-policy code, including executable regression tests. Those contributions remain in the canonical repository; they establish assistance without proving AI built most of the project. [Claude-credited actuator progress repair](#source-development-claude) · [Codex-authored post-GRT policy and regression tests](#source-development-codex) · [Retained execution producer and repair policy](#source-development-retained).

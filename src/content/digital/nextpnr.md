@@ -5,6 +5,11 @@ description: "Vendor-neutral, timing-driven FPGA place-and-route framework. Arch
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for correcting RAMB36E1 width-9 parity connections in the Xilinx packer. The canonical project retains the implemented pin connections."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; each architecture requires its documented device database and build dependencies."
 addedAt: "2026-09-22"
 reviewedAt: "2026-10-18"
@@ -28,6 +33,12 @@ sources:
   - id: "activity-current"
     title: "Respect unavailable wires during sink-path reservation"
     url: "https://github.com/YosysHQ/nextpnr/commit/6f71bc280b17805ee7687cad6dfdcdcb504d01d1"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/YosysHQ/nextpnr/commit/44a6c7399c77a16749d60fbf9e6f60a9ebc3571e"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/YosysHQ/nextpnr/blob/e677d5c37378daf4e3f1a28145e5cdd086cf091f/himbaechel/uarch/xilinx/pack.cc"
 ---
 
 ### Implementation context
@@ -45,3 +56,7 @@ Packing, placement, routing, constraints and post-route timing are Layout under 
 ### Current activity review
 
 Reviewed 2026-10-05. The router stops sink-path reservation at wires marked RESERVED_UNAVAILABLE. This is physical-routing correctness within conventional Layout, not a logic-synthesis feature. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+Claude is credited for correcting RAMB36E1 width-9 parity connections in the Xilinx packer. The canonical project retains the implemented pin connections. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

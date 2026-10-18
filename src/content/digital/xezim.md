@@ -7,9 +7,9 @@ scope:
     ai: false
   aiDevelopment: built
 developmentEvidence:
-  summary: "The maintainer describes AI agents implementing the parser, elaboration and event-driven simulation core through iterative coding and testing. The repository presents AI-assisted construction of core EDA software as its development premise."
-  sources: ["development-1", "development-2"]
-  reviewedAt: "2026-09-07"
+  summary: "The maintainer reports building the simulator with entirely AI-generated code through iterative coding, testing and correction. Current canonical code retains credited implementation contributions; the project-wide account is a maintainer report, not an independently reproduced code percentage."
+  sources: ["development-2", "development-1"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -88,11 +88,11 @@ Release 0.11.0 and the subsequent October 5 main-branch implementation were revi
 
 SystemVerilog execution, UVM, randomization, coverage, timing checks and RNM-oriented net semantics remain Verification capabilities. Internal bytecode/native compilation and elaboration serve verification, not a separate Design or Synthesis stage. [Reviewed source](#source-readme).
 
-SystemVerilog execution is conventional Verification. The authors identify AI agents as first-class core implementation contributors, giving AI-built provenance rather than AI Verification. [AI/stage evidence](#source-readme).
+SystemVerilog execution is conventional Verification. The maintainer’s project-wide AI construction account supports AI-built provenance independently of conventional Verification. [AI/stage evidence](#source-readme).
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-BUILT**. The repository frames AI-assisted core-EDA construction as its premise, and the maintainer’s construction account describes agent-written parser, elaboration and event-driven/four-state simulator work. Together these establish a major implementation role in the defining core. [Project premise](#source-development-1); [Maintainer account](#source-development-2).
+Reviewed 2026-09-07: **AI-BUILT**. The repository frames AI-assisted core-EDA construction as its premise, and the maintainer’s construction account describes agent-written parser, elaboration and event-driven/four-state simulator work. The maintainer additionally reports entirely AI-generated project code; this project-wide primary account supports AI-built, without independently reproducing a code percentage. [Project premise](#source-development-1); [Maintainer account](#source-development-2).
 
 ### Power-aware and post-release verification
 
@@ -105,3 +105,5 @@ The reviewed main branch also documents cocotb integration, FST output, cache/na
 The reviewed randomization integration jointly solves random object arrays and wide subobject members. The sampled later history also changes DPI export/formal handling, automatic task storage, block shadowing and fork-child wake-up handling. [Joint randomization](#source-review-20261011-1) · [Captured development history](#source-review-20261011-2)
 
 No new general analog solver or expanded RNM coverage is established by these commits. Existing resolved-real/wreal notes should be retained on their original evidence. This research did not rerun simulator conformance or UVM workloads.
+
+The maintainer’s project-wide construction account reports entirely AI-generated code. It supports AI-built independently of runtime functionality; the reported code percentage has not been independently reproduced. [Primary development account](#source-development-2) · [Primary development account](#source-development-1).

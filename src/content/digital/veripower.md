@@ -8,6 +8,11 @@ scope:
     ai: true
   verification:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implementing duplicate clock-name rejection and structured specification-tool failures. The canonical project retains the executable validation and regression tests."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: Public agent workflow, scripts and host adapters; Synopsys tools, appropriate libraries/licenses and a supported model host are separate requirements.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -28,6 +33,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: skills/simulation-triage/SKILL.md'
   url: https://github.com/chipweaver/veripower/blob/ca5b17e6ce97fab4401ce37390a83c86475683fe/skills/simulation-triage/SKILL.md
+- id: "development-implementation-20261018"
+  title: "AI-credited executable implementation"
+  url: "https://github.com/chipweaver/veripower/commit/bfe1ab9b26863c3788bcb357f3ed8d51bdc8a8a5"
+- id: "development-retained-20261018"
+  title: "Retained executable code at the reviewed canonical head"
+  url: "https://github.com/chipweaver/veripower/blob/ca5b17e6ce97fab4401ce37390a83c86475683fe/skills/specification/scripts/spec/constraints.py"
 ---
 
 ### Implementation and boundaries
@@ -37,3 +48,7 @@ RTL and verification skills direct model authoring and diagnosis. The synthesis 
 ### Reviewed activity
 
 The meaningful checkpoint is `6f764c1295e4eb0e1e05daaaea5637c424172054` (2026-10-12 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+Claude is credited for implementing duplicate clock-name rejection and structured specification-tool failures. The canonical project retains the executable validation and regression tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

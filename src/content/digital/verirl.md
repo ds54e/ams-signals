@@ -9,11 +9,11 @@ scope:
     ai: false
   verification:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude-credited initial implementation introduced VeriRL's environment, evaluator, client/server and agent loop; a further credited implementation added its RLVR training stack. These contributions establish a major role in the project's defining software."
-  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  summary: "Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project."
+  sources: ["development-audit-implementation", "development-retained-20261018", "development-audit-extension"]
+  reviewedAt: '2026-10-18'
 access: "Public source environment and training stack. Local grading needs Python, Icarus Verilog and Yosys, with SymbiYosys optional; model inference or RL training additionally needs the selected provider or training infrastructure."
 addedAt: "2026-09-26"
 reviewedAt: "2026-10-18"
@@ -43,6 +43,9 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/SupreethRao99/veriRL/blob/8977306667df7fa449b9e84798fcbed8fac02fff/server/verirl_env_environment.py"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/SupreethRao99/veriRL/blob/8977306667df7fa449b9e84798fcbed8fac02fff/client.py"
 ---
 
 ### Environment loop
@@ -64,3 +67,5 @@ Reviewed 2026-10-01. The evaluated model task is synthesizable RTL implementatio
 ### Development provenance
 
 The initial attributed diff implements the step/reset/state environment and EDA feedback/reward paths, while the later campaign implements training configuration, curriculum, datasets, environment and trainer integration. Their scope spans the project's defining environment and training software. The label does not transfer to OpenEnv, TRL or the external EDA engines. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+
+Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

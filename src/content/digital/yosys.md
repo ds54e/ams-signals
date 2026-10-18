@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implementing unpacked array-to-array assignments and ternary expansion in AST simplification. The canonical Yosys project retains the implementation and executable tests."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -37,6 +42,12 @@ sources:
   - id: "activity-current"
     title: "Portable Python-wheel toolchain and pkg-config handling"
     url: "https://github.com/YosysHQ/yosys/commit/0e8336b4e2659efb40c2b8751c7619f69c358137"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/YosysHQ/yosys/commit/6ac8c8cb05675641af5d7b645b8767d114f0e1f5"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/YosysHQ/yosys/blob/af9f71e510e87efec84d9798d8c692378e09f7db/frontends/ast/simplify.cc"
 ---
 
 ### Implementation context
@@ -56,3 +67,7 @@ RTL optimization/mapping and formal primitives execute conventionally. Their use
 ### Current activity review
 
 Reviewed 2026-10-05. Python-wheel builds resolve missing or incompatible Bison/Flex toolchains and pkg-config handling across supported platforms, with a local build harness. This is substantive installation/build support rather than a new synthesis algorithm. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+Claude is credited for implementing unpacked array-to-array assignments and ternary expansion in AST simplification. The canonical Yosys project retains the implementation and executable tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

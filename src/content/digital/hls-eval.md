@@ -9,6 +9,11 @@ scope:
     ai: true
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Claude-credited implementation rejects empty generated C++ and timed-out compile, execution and synthesis results, with executable regression updates. The canonical project retains these checks."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source; no top-level license found in the reviewed tree. Do not label the framework permissively licensed from its dependencies. Python 3.12+, Docker, selected Vitis/Vivado installations and model-provider access are separate requirements; the dataflow path additionally needs the compatible LightningSim/FIFOAdvisor/Pixi environment. Imported benchmark material can have separate terms."
 addedAt: "2026-10-11"
 reviewedAt: "2026-10-18"
@@ -35,6 +40,12 @@ sources:
   - id: "implementation-checkpoint"
     title: "Implementation checkpoint"
     url: "https://github.com/sharc-lab/hls-eval/commit/af9821608d9ee46a26edd8193b522628b731ac39"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/sharc-lab/hls-eval/commit/238e8adea004f94d5aab863645a4baa998637d2c"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/sharc-lab/hls-eval/blob/238e8adea004f94d5aab863645a4baa998637d2c/hls_eval/eval_decomp/eval_decomp.py"
 ---
 
 ## Implementation and Scope
@@ -52,3 +63,7 @@ Public source; no top-level license found in the reviewed tree. Do not label the
 ## Reviewed public activity
 
 The meaningful checkpoint is af9821608d9ee46a26edd8193b522628b731ac39 (2026-09-21 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-implementation-checkpoint) supports the meaningful date; the latest head is separately retained for activity ordering.
+
+### Development provenance
+
+A Claude-credited implementation rejects empty generated C++ and timed-out compile, execution and synthesis results, with executable regression updates. The canonical project retains these checks. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

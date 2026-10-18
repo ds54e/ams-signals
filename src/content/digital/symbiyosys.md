@@ -5,6 +5,11 @@ description: "Driver for Yosys-based formal verification flows, orchestrating bo
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Copilot is credited for correcting the executed rIC3 unsupported-mode diagnostic in the BTOR engine. The canonical project retains the diagnostic-code correction; this attribution does not claim implementation of the solver."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -26,6 +31,12 @@ sources:
     title: "Official project documentation"
     url: "https://yosyshq.readthedocs.io/projects/sby/"
     purpose: "official"
+  - id: "development-implementation-20261018"
+    title: "Copilot-credited runtime diagnostic correction"
+    url: "https://github.com/YosysHQ/sby/commit/a8f3f4bba21dbc12787c168c3e259c21cbe9f5ba"
+  - id: "development-retained-20261018"
+    title: "Retained runtime diagnostic code"
+    url: "https://github.com/YosysHQ/sby/blob/79fc9eddca5e33a28cc2f2cd19c9825efd9a7255/sbysrc/sby_engine_btor.py"
 ---
 
 
@@ -42,3 +53,7 @@ Reviewed October 1, 2026 at `b1a1e98cba941ec8433f8dc27f416cd7bb7f14be`. The Augu
 Bounded checks, proofs and cover tasks are the user-facing operations. Synthesis-tool preparation is an implementation dependency of the proof driver. [Reviewed source](#source-readme).
 
 Formal engine orchestration and proof/cover execution are conventional Verification. The preparation passes do not create an AI or independent synthesis stage. [AI/stage evidence](#source-readme).
+
+### Development provenance
+
+Copilot is credited for correcting the executed rIC3 unsupported-mode diagnostic in the BTOR engine. The canonical project retains the diagnostic-code correction; this attribution does not claim implementation of the solver. [Copilot-credited runtime diagnostic correction](#source-development-implementation-20261018) · [Retained runtime diagnostic code](#source-development-retained-20261018).

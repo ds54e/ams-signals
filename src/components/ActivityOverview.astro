@@ -1,15 +1,24 @@
 ---
 import { monthLabel } from '../lib/catalog-activity-band';
 import type { dashboardActivity } from '../lib/dashboard';
-import { dashboardBarHeights } from '../lib/dashboard-presentation';
+import { dashboardSeriesPercentages } from '../lib/dashboard-presentation';
 interface Props { months: ReturnType<typeof dashboardActivity>; buildMonth: string }
 const { months, buildMonth } = Astro.props;
-const heights = dashboardBarHeights(months);
+const percentages = dashboardSeriesPercentages(months);
 const baseline = 242;
+const top = 24;
+const left = 50;
+const right = 534;
+const x = (index: number) => left + index * (right - left) / Math.max(1, months.length - 1);
+const series = (['events', 'analog', 'digital'] as const).map((key) => {
+  const points = percentages.map((month, index) => `${x(index)},${baseline - month[key] / 100 * (baseline - top)}`);
+  const line = points.map((point, index) => `${index === 0 ? 'M' : 'L'}${point}`).join(' ');
+  return { key, line, area: points.length ? `${line} L${x(points.length - 1)},${baseline} L${left},${baseline} Z` : '' };
+});
 ---
 <section class="dashboard-panel chart-card" data-build-month={buildMonth} aria-labelledby="activity-heading">
   <div class="panel-heading">
-    <h2 id="activity-heading">Activity Overview</h2>
+    <h2 id="activity-heading">Activity Trend</h2>
     <ul class="chart-legend" aria-label="Activity series">
       <li><i class="series-events"></i>Events</li>
       <li><i class="series-analog"></i>Analog</li>
@@ -17,24 +26,27 @@ const baseline = 242;
     </ul>
   </div>
   <div class="chart-frame" tabindex="0" role="region" aria-label="Monthly activity chart, scroll to view all months">
-    <svg class="activity-chart" viewBox="0 0 560 290" role="img" aria-labelledby="chart-title chart-description">
-      <title id="chart-title">Monthly Events, active Analog projects and active Digital projects</title>
-      <desc id="chart-description">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Three separate side-by-side bars per month share one baseline: blue Events, green distinct active Analog projects and orange distinct active Digital projects. Each series is scaled to its own largest monthly count in these twelve months; heights show trends within each series, not count comparisons between series. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</desc>
-      {[24, 78.5, 133, 187.5, baseline].map((y) => <line class="chart-grid" x1="12" x2="548" y1={y} y2={y} />)}
+    <svg class="activity-chart" viewBox="0 0 560 290" role="img" aria-label="Monthly Events, active Analog projects and active Digital projects" aria-describedby="chart-description">
+      <defs>{series.map(({ key }) => <linearGradient id={`activity-${key}-area`} class={`chart-gradient series-${key}`} gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={top} y2={baseline}>
+        <stop offset="0" stop-opacity="0.13" />
+        <stop offset="1" stop-opacity="0" />
+      </linearGradient>)}</defs>
+      {[0, 25, 50, 75, 100].map((percent) => {
+        const y = baseline - percent / 100 * (baseline - top);
+        return <g><line class="chart-grid" x1={left} x2={right} y1={y} y2={y} /><text class="chart-percent" x="40" y={y} dy="0.35em" text-anchor="end">{percent}%</text></g>;
+      })}
+      {series.map(({ key, area }) => <path class="chart-area" data-activity-area={key} d={area} fill={`url(#activity-${key}-area)`} />)}
+      {series.map(({ key, line }) => <path class={`chart-line series-${key}`} data-activity-series={key} d={line} />)}
       {months.map((month, index) => {
-        const x = 20 + index * 44;
         const label = new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString('en', { month: 'short', timeZone: 'UTC' });
         return <g data-dashboard-month={month.month} data-events={month.events} data-analog={month.analog} data-digital={month.digital}>
-          <title>{monthLabel(month.month)}: {month.events} Events, {month.analog} Analog projects, {month.digital} Digital projects. Heights are scaled independently to each series' twelve-month maximum.</title>
-          <rect class="series-events" x={x} y={baseline - heights[index].events} width="10" height={heights[index].events} rx="2" />
-          <rect class="series-analog" x={x + 12} y={baseline - heights[index].analog} width="10" height={heights[index].analog} />
-          <rect class="series-digital" x={x + 24} y={baseline - heights[index].digital} width="10" height={heights[index].digital} />
-          <text x={x + 17} y="264" text-anchor="middle">{label}</text>
-          {(index === 0 || month.month.endsWith('-01')) && <text class="chart-year" x={x + 17} y="280" text-anchor="middle">{month.month.slice(0, 4)}</text>}
+          <text x={x(index)} y="264" text-anchor="middle">{label}</text>
         </g>;
       })}
     </svg>
   </div>
+  <p class="chart-partial">Current month is partial.</p>
+  <p id="chart-description" class="visually-hidden">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Three straight lines show blue Events, green distinct active Analog projects and orange distinct active Digital projects. Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%. Percentages show trends within each series, not count comparisons between series. The monthly table retains actual counts and full month and year. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</p>
   <div class="activity-counts visually-hidden"><table>
     <caption>Monthly activity counts; Events and distinct active projects</caption>
     <thead><tr><th scope="col">Month</th><th scope="col">Events</th><th scope="col">Analog</th><th scope="col">Digital</th></tr></thead>

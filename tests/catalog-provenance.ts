@@ -1,10 +1,30 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { readFileSync } from 'node:fs';
 import type { DevelopmentEvidence } from '../src/lib/catalog-scope.ts';
 
 export const developmentEvidence = (): DevelopmentEvidence => ({
   summary: 'The maintainer credits an AI assistant with implementing the simulator backend and its command integration.',
   sources: ['code'], reviewedAt: '2026-09-07',
+});
+
+// These are editorial evidence requirements, not claims that a schema can
+// authenticate upstream authorship. Keep the owning policy's boundaries explicit.
+test('shared provenance policy requires credited retained executable code and reserves built for most of the project', () => {
+  const policy = readFileSync(new URL('../docs/AI_DEVELOPMENT.md', import.meta.url), 'utf8');
+  assert.match(policy, /AI-ASSISTED:\*\* verified credited AI contribution to actual implemented or corrected executable project code retained in the current project/);
+  assert.match(policy, /Isolated fixes and executable test, build, tool and example logic qualify/);
+  assert.match(policy, /Verify the AI actor's identity, the corresponding actual code commit or PR, its merged canonical integration and current retention/);
+  assert.match(policy, /name-only coincidence does not establish AI identity/);
+  assert.match(policy, /Documentation-only changes, prose comments, static data or generated inputs without executable logic, mere proposals and unmerged PRs do not establish implementation/);
+  assert.match(policy, /Executable tests, build scripts, tools and examples use the same actor, code, integration and retention requirements/);
+  assert.match(policy, /A handwritten change that AI merely reviewed does not establish AI implementation/);
+  assert.match(policy, /Runtime AI flags remain independent of development labels in either direction/);
+  assert.match(policy, /AI-BUILT:\*\* strong primary evidence that AI built most of the project/);
+  assert.match(policy, /One core component, coauthor credit or commit does not establish this project-wide claim/);
+  assert.match(policy, /it does not attribute an uncredited rewrite or port to AI/);
+  assert.match(policy, /This does not assert exclusively human development/);
+  assert.doesNotMatch(policy, /Docs\/tests-only|isolated fixes[^.]*do not qualify|defining core that reasonably characterizes|substantial AI-assisted implementation/);
 });
 
 // Exercise each domain's actual schema with small fixtures, independently of the
@@ -15,6 +35,28 @@ export function provenanceSchemaTests(domain: string, schema: {
 }, base: () => { addedAt: string; sources: readonly { id: string }[] }, stages: readonly string[]) {
   const evidence = () => ({ ...developmentEvidence(), sources: [base().sources[0].id], reviewedAt: base().addedAt });
   const labeled = () => ({ ...base(), scope: { [stages[0]]: { ai: false }, aiDevelopment: 'assisted' }, developmentEvidence: evidence() });
+
+  test(`${domain} accepts paired evidence for a retained isolated functional correction independently of runtime AI`, () => {
+    const input = { ...labeled(), developmentEvidence: { ...evidence(),
+      summary: 'The merged commit credits Claude with correcting one executable condition. The canonical implementation retains the correction.',
+    } };
+    const result = schema.parse(input) as typeof input;
+    assert.equal(result.scope.aiDevelopment, 'assisted');
+    assert.deepEqual(result.scope[stages[0]], { ai: false });
+    assert.deepEqual(result.developmentEvidence, input.developmentEvidence);
+  });
+
+  test(`${domain} accepts credited retained executable test, build, tool and example evidence`, () => {
+    for (const role of ['test', 'build', 'tool', 'example']) {
+      const input = { ...labeled(), developmentEvidence: { ...evidence(),
+        summary: `The merged commit credits Codex with implementing executable ${role} logic. The canonical project retains that code.`,
+      } };
+      const result = schema.parse(input) as typeof input;
+      assert.equal(result.scope.aiDevelopment, 'assisted');
+      assert.deepEqual(result.scope[stages[0]], { ai: false });
+      assert.deepEqual(result.developmentEvidence, input.developmentEvidence);
+    }
+  });
 
   test(`${domain} accepts assisted, built or absent independently of every runtime AI stage`, () => {
     for (const stage of stages) for (const ai of [false, true]) for (const level of [undefined, 'assisted', 'built']) {

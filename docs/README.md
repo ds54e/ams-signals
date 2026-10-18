@@ -4,6 +4,7 @@ Read the guide and sections needed for the task. Each document owns one current 
 
 | Question | Owner |
 | --- | --- |
+| Contributing and local setup | [Contributor entry point](#contributing-and-local-setup) |
 | Product purpose and research boundaries | [Product Context](../PROJECT_CONTEXT.md) |
 | Agent working rules and task routing | [Root guidance](../AGENTS.md) |
 | Golden editing and record validation | [Golden guidance](../src/data/AGENTS.md) / [content schema](../src/content.config.ts) |
@@ -14,6 +15,35 @@ Read the guide and sections needed for the task. Each document owns one current 
 | Typography, palette, layout and responsive behavior | [Visual system](VISUAL_SYSTEM.md) |
 | Check selection and test ownership | [Testing](TESTING.md) |
 | Exact-SHA production deployment and verification | [Release checklist](../RELEASING.md) |
+
+## Contributing and local setup
+
+Start with [Product Context](../PROJECT_CONTEXT.md) and the relevant scoped guide linked from [root guidance](../AGENTS.md). The table above routes content, implementation and documentation contributions to their owning contracts.
+
+Use Node.js 24 and the locked dependencies:
+
+```bash
+npm ci
+npm run dev
+```
+
+[package.json](../package.json) owns executable commands; [Testing](TESTING.md) owns check selection, including `npm run check` and the browser suite. Install Chromium with `npx playwright install chromium` before running that suite. Activity refreshes are manual networked operations, separate from builds and tests; see the reusable workflows below. Publication and its authorization remain in the [release checklist](../RELEASING.md).
+
+### Repository layout
+
+- `src/data/events/`, `src/data/companies/`, `src/data/people/`: Golden factual records.
+- `src/content/analog/`, `src/content/digital/`: catalog metadata and source-backed implementation/classification notes.
+- `src/data/*-activity.json`: reviewed catalog activity captures.
+- `src/lib/`: factual transforms, catalog contracts and shared presentation helpers.
+- `src/components/`, `src/pages/`, `src/scripts/`, `src/styles/`: Astro views and browser behavior.
+- `tools/`: validation, build-output audits and manual refresh commands.
+- `tests/`: deterministic contracts and Chromium interaction/visual tests.
+
+### Build target and analytics configuration
+
+[The deployment resolver](../src/lib/site-deployment.mjs) owns the build origin/base used by Astro and audits. Unset variables fall back to `https://ds54e.github.io/ams-signals/`; invalid explicit values fail. [Testing](TESTING.md#local-production-shaped-and-live-checks) explains consistent build/audit settings, and the [release checklist](../RELEASING.md#publication) gives the production target and exact-SHA gates.
+
+[Analytics configuration](../src/lib/analytics.mjs) owns production-only Cloudflare beacon emission and the public served site token, which is not an API credential. The [analytics boundary](../RELEASING.md#analytics-boundary) distinguishes markup checks, intercepted browser smoke and provider-side ingestion, and retains owner control of account settings.
 
 ## Sources of truth
 

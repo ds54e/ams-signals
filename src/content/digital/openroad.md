@@ -5,6 +5,11 @@ description: "Physical-design engine for floorplanning, placement, clock-tree sy
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for correcting the web viewer shutdown to wait for its Tcl evaluation before interpreter teardown. The canonical project retains the synchronization code."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -35,6 +40,12 @@ sources:
   - id: "activity-current"
     title: "Generated macro-placement-file regression"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/13fb7ea1a03ff75562c1fa06004f12c54911f0ac"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/33da610b4d812a0e085328cd0812b67ac1964ab8"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/3cc34a657d42b68f18fffb26235e9598e33f7899/src/web/src/web_serve.cpp"
 ---
 
 ### Implementation context
@@ -54,3 +65,7 @@ Placement, clock trees, routing and backend timing are conventional Layout algor
 ### Current activity review
 
 Reviewed 2026-10-05. An executable macro-placement regression checks the generated placement file and its exclusion of standard-cell locations. This is substantive physical-flow test coverage rather than a new placement algorithm or AI capability. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+Claude is credited for correcting the web viewer shutdown to wait for its Tcl evaluation before interpreter teardown. The canonical project retains the synchronization code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

@@ -6,6 +6,11 @@ description: "Python toolkit for measured or simulated N-port RF networks, inclu
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude Opus 4.7 is credited on the MDIF parser repair that folds tab-prefixed continuation lines before parsing. The merged implementation remains in the canonical project."
+  sources: ["assistance-fix", "development-retained"]
+  reviewedAt: '2026-10-18'
 access: "Public Python package and documentation; network data, measurement hardware and external circuit simulators are separate inputs or tools."
 addedAt: "2026-09-07"
 reviewedAt: "2026-10-18"
@@ -51,6 +56,9 @@ sources:
   - id: "activity-current"
     title: "Cobalt VNA SCPI instrument interface"
     url: "https://github.com/scikit-rf/scikit-rf/commit/7b66a4ae43df31c299e2f9bb047d05228b44a2c8"
+  - id: "development-retained"
+    title: "Retained MDIF continuation-line parser"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/05f8486420fe94a91d983c685948e78f95296ffa/skrf/io/mdif.py"
 ---
 
 ### Implementation context
@@ -69,8 +77,12 @@ Later master changes add one-port passivity assessment with regression tests and
 
 Simulation covers network/electrical evaluation and RF model preparation. These numerical fitting and analysis operations do not establish runtime AI or an additional custom-IC Design stage.
 
-The bounded provenance review inspected credited parser/array fixes, plotting, tests and diagnostic edits. The plotting addition wraps existing error calculations; the parser correction repairs continuation lines. These do not establish substantial AI implementation of a modeling subsystem or campaign, so no development label is assigned. This does not assert an absence of assistant use. [Parser change](#source-assistance-fix); [plotting change](#source-assistance-plot).
+The bounded provenance review inspected credited parser/array fixes, plotting, tests and diagnostic edits. The plotting addition wraps existing error calculations; the retained Claude-credited parser correction repairs continuation lines and supports AI-assisted development without a minimum subsystem-size requirement. [Parser change](#source-assistance-fix); [plotting change](#source-assistance-plot).
 
 ### Current activity review
 
 Reviewed 2026-10-05. The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+Claude Opus 4.7 is credited on the MDIF parser repair that folds tab-prefixed continuation lines before parsing. The merged implementation remains in the canonical project. [Bounded Claude-attributed MDIF parser correction](#source-assistance-fix) · [Retained MDIF continuation-line parser](#source-development-retained).

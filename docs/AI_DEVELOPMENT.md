@@ -4,21 +4,21 @@ This is the shared classification policy for Analog and Digital. It describes ho
 
 ## Shared policy
 
-- **AI-ASSISTED:** strong direct evidence of substantial AI-assisted implementation of a meaningful feature, subsystem or implementation campaign within the current project, without characterizing its whole or defining-core construction.
-- **AI-BUILT:** strong direct evidence that AI played a major implementation role across the project, or in a defining core that reasonably characterizes its development provenance.
-- **No label:** qualifying evidence is absent, inaccessible, ambiguous or incidental. This does not assert exclusively human development.
+- **AI-ASSISTED:** verified credited AI contribution to actual implemented or corrected executable project code retained in the current project. Isolated fixes and executable test, build, tool and example logic qualify when their actual code contribution is established; no minimum size, subsystem significance or product-code role is required.
+- **AI-BUILT:** strong primary evidence that AI built most of the project. One core component, coauthor credit or commit does not establish this project-wide claim.
+- **No label:** qualifying evidence is absent, inaccessible or ambiguous. This does not assert exclusively human development.
 
-Both displayed categories require strong direct evidence. The distinction is contribution scope and significance, not confidence, software quality, maturity, runtime autonomy or estimated generated-code percentage. AI-ASSISTED is not a fallback for weak AI-BUILT evidence. AI-BUILT permits human architecture, direction and correctness review; it does not imply every file was generated.
+Both displayed categories require strong direct evidence. AI-ASSISTED requires a verified code contribution even when AI-BUILT is unsupported. AI-BUILT permits human architecture, direction and correctness review; it does not imply every file was generated. Neither label measures confidence, software quality, maturity or runtime autonomy. Do not infer project-wide authorship or a generated-code percentage from commit counts.
 
 ## Evidence and interpretation
 
-A creation account can establish a defining-core role. A bounded implementation decision needs an identifiable contribution, attributable implementation material and evidence that it remains meaningful in the current project. Read the actual attributed diff, purpose and integration, not just its commit message or credit trailer. File size, credit counts and large test/data diffs are not thresholds.
+Verify the AI actor's identity, the corresponding actual code commit or PR, its merged canonical integration and current retention. Read the attributed diff and the retained implementation, not just its message or credit trailer. A Contributors entry for Claude, Codex or an AI bot is a research lead; a name-only coincidence does not establish AI identity, and a bot's presence does not attribute every commit to AI.
 
-Substantial backend, analysis, orchestration or runtime-storage subsystems differ from a thin control invoking an existing algorithm, an isolated correctness repair or ordinary build maintenance. Refactoring must establish a substantive implemented contribution rather than moved lines. A handwritten change that AI merely reviewed does not establish AI implementation.
+An isolated correctness repair or a thin control invoking an existing algorithm qualifies when AI is verifiably credited for its implemented code and that contribution remains integrated. Refactoring needs an actual code contribution rather than credit inferred from moved lines. A handwritten change that AI merely reviewed does not establish AI implementation.
 
-Runtime models, MCP/agent interfaces, AI research topics, generated test inputs/examples/docs, ordinary completion, isolated fixes, instruction files, bot PRs and casual assistant mentions do not qualify alone. A vague disclosure mentioning both tooling and corpus is not corpus-only, but still needs concrete implementation attribution. Importance of the surrounding compiler or simulator does not enlarge a small contribution.
+Documentation-only changes, prose comments, static data or generated inputs without executable logic, mere proposals and unmerged PRs do not establish implementation. Executable tests, build scripts, tools and examples use the same actor, code, integration and retention requirements as other project code. Runtime AI features, MCP/agent interfaces, AI research topics, instruction files and casual assistant mentions do not establish development provenance. A vague disclosure mentioning both tooling and corpus still needs concrete implementation attribution. Runtime AI flags remain independent of development labels in either direction.
 
-Assess forks, ports and enhancements as the named catalog project. Do not transfer attribution to upstream dependencies, to a different component or to an unattributed rewrite. A significant subsystem can justify AI-ASSISTED without attributing the entire HDL/compiler to AI.
+Assess forks, ports and enhancements as the named catalog project. Retained coauthor-credited original port lineage can support AI-ASSISTED for that contribution; it does not attribute an uncredited rewrite or port to AI. Do not transfer attribution to upstream dependencies or a different component. A qualifying component contribution supports AI-ASSISTED, while AI-BUILT still requires primary evidence that AI built most of the named project.
 
 Use primary project/maintainer evidence and revision-pinned implementation links where practical. Search and disclosure gaps are limits of the investigation, not a census of private tool use. Preserve relevant uncertainty in project notes and reopen sources before changing a judgment.
 

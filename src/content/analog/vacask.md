@@ -37,7 +37,7 @@ Author-reported performance comparisons depend on the stated circuits, model lib
 
 ### Scope and development provenance
 
-Simulation covers electrical equation solving and analysis. Netlist/control scripting supports that operation rather than independently establishing circuit synthesis or layout. The numerical solver has no reviewed runtime model decision path. The authors disclose GenAI use primarily for mathematical preparation, audits, debugging, testing, builds and documentation; this statement alone does not establish an attributable substantial implementation contribution under the catalog's development-badge policy. [Capabilities and development statement](#source-readme).
+Simulation covers electrical equation solving and analysis. Netlist/control scripting supports that operation rather than independently establishing circuit synthesis or layout. The numerical solver has no reviewed runtime model decision path. The authors disclose GenAI use primarily for mathematical preparation, audits, debugging, testing, builds and documentation; the reviewed statement does not identify which retained executable code AI implemented or corrected, so development attribution remains unconfirmed. [Capabilities and development statement](#source-readme).
 
 ### Reviewed public activity
 

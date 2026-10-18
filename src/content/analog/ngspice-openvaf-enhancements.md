@@ -8,11 +8,11 @@ scope:
     ai: true
   simulation:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The owner describes this repository as a Claude Code effort to enhance ngspice and OpenVAF. Its defining work includes compiler lowering and OSDI simulator callbacks; the attribution concerns these enhancements."
+  summary: "The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These contributions support assistance; the evidence does not establish AI built most of the combined project."
   sources: ["development-1", "development-2"]
-  reviewedAt: "2026-09-07"
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -78,8 +78,10 @@ The September 30 update adds a bounded trust-region optimizer and preserves the 
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-BUILT**. The owner explicitly defines this project as a Claude Code enhancement effort; the documented campaign and inspected compiler lowering/OSDI callback changes substantiate its defining contribution. Attribution applies to the enhancements, not the upstream codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
+**AI-ASSISTED** applies to the credited compiler lowering and OSDI callback enhancements retained in this combined tree. The owner’s Claude Code development account does not establish that AI built most of the project, including the inherited simulator/compiler codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
 
 ### Current activity review
 
 Reviewed 2026-10-05. The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF. [Reviewed change](#source-activity-current).
+
+The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These contributions support assistance; the evidence does not establish AI built most of the combined project. [Owner’s development account](#source-development-1) · [Compiler and simulator implementation](#source-development-2).

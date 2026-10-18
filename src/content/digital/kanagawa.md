@@ -7,6 +7,11 @@ scope:
     ai: false
   synthesis:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Copilot is credited for implementing per-export SystemVerilog packages and qualified named-type references. The canonical compiler retains the implementation."
+  sources: ["activity-refresh", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source language, compiler and libraries with stable and nightly distributions; compiler builds include CIRCT and documented dependencies."
 addedAt: "2026-09-06"
 reviewedAt: "2026-10-18"
@@ -46,6 +51,9 @@ sources:
   - id: "activity-refresh"
     title: "Emit per-export SystemVerilog packages for named types"
     url: "https://github.com/microsoft/kanagawa/commit/a092594c061122572fc895ac8a98d61e356ca52b"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/microsoft/kanagawa/blob/fc79ea428900bcf43a4f05ac17a3114812461c6b/compiler/cpp/circt_util.cpp"
 ---
 
 ### Implementation context
@@ -64,4 +72,8 @@ The current stable release is **v1.3.1**, published September 21. The previously
 
 Design covers authoring hardware behavior and reusable components. Synthesis covers optimization, hardware scheduling, pipelining and lowering to implementable RTL. The reviewed Verilator/CTest machinery tests the compiler and bundled library; it does not independently establish a general project-facing Verification stage. Generated RTL and downstream tool files do not establish Layout. [Compiler and test boundaries](#source-architecture); [build/test guide](#source-build).
 
-Both runtime stage booleans are false. The reviewed type-alias and per-export package changes credit coding assistance, but implement bounded type-emission support and correctness repairs, not a substantial new compiler subsystem. They do not meet the current AI-ASSISTED or AI-BUILT threshold. [Earlier type support](#source-activity); [package correction](#source-activity-refresh).
+Both runtime stage booleans are false. The reviewed type-alias and per-export package changes credit coding assistance for implemented type-emission support and correctness repairs. These bounded executable contributions support AI-assisted development. [Earlier type support](#source-activity); [package correction](#source-activity-refresh).
+
+### Development provenance
+
+Copilot is credited for implementing per-export SystemVerilog packages and qualified named-type references. The canonical compiler retains the implementation. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-activity-refresh) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

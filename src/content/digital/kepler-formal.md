@@ -5,6 +5,11 @@ description: "Equivalence checker for gate-level combinational LEC and gate/RTL 
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for correcting internal-relation certification to use literal substitution rather than SAT assumptions. The canonical project retains the proof implementation and executable regressions."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Apache-2.0 public source; Nix binary distribution and CMake/Bazel source-build paths are documented."
 addedAt: "2026-09-18"
 reviewedAt: "2026-10-18"
@@ -34,6 +39,12 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/keplertech/kepler-formal/commit/ea09c2a7917496e5c1db596c79f3fef308a827b5"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/keplertech/kepler-formal/commit/726805aa47ca6db3efeadbf6ed60294c19548593"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/keplertech/kepler-formal/blob/8170b6a4fc01b6793c3d6efeb70775704fca797e/src/sec/proof/InternalRelations.cpp"
 ---
 
 ### Verification modes
@@ -56,4 +67,8 @@ Reviewed 2026-10-01. Current documentation retains separate LEC, gate/RTL SEC an
 
 The reviewed counter-SEC regressions define truth tables and sequential-cell behavior through the Python input path without a Liberty dependency. Naja compatibility maintenance is separate. These are implemented test/setup paths, not a new general proof engine. [Reviewed implementation integration](#source-review-20261011-1)
 
-The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+### Development provenance
+
+Claude is credited for correcting internal-relation certification to use literal substitution rather than SAT assumptions. The canonical project retains the proof implementation and executable regressions. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

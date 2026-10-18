@@ -661,35 +661,64 @@ for (const width of [1440, 900, 390]) {
     expect(actual).toEqual(expected);
     const series = ['events', 'analog', 'digital'];
     const maxima = series.map((key) => Math.max(...expected.map((m) => m[key])));
-    const chartBars = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => [...el.querySelectorAll('rect')].map((r) => ({
-      x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), height: Number(r.getAttribute('height')), width: Number(r.getAttribute('width')), fill: getComputedStyle(r).fill }))));
-    for (let i = 0; i < chartBars.length; i++) {
-      expect(chartBars[i]).toHaveLength(3);
-      const [event, analogBar, digitalBar] = chartBars[i];
-      for (const [j, key] of series.entries()) {
-        expect(chartBars[i][j].height).toBeCloseTo(maxima[j] === 0 ? 0 : expected[i][key] / maxima[j] * 218, 5);
-      }
-      expect(event.x).toBeLessThan(analogBar.x);
-      expect(event.x + event.width).toBeLessThan(analogBar.x);
-      expect(analogBar.x + analogBar.width).toBeLessThan(digitalBar.x);
-      for (const bar of chartBars[i]) {
-        expect(bar.y + bar.height).toBeCloseTo(242, 5);
-        expect(bar.y).toBeGreaterThanOrEqual(24);
-        expect(bar.width).toBeGreaterThan(0);
-      }
-      expect(event.x).toBeGreaterThanOrEqual(12);
-      expect(digitalBar.x + digitalBar.width).toBeLessThanOrEqual(548);
-      if (i < chartBars.length - 1) expect(digitalBar.x + digitalBar.width).toBeLessThan(chartBars[i + 1][0].x);
-      expect([event.fill, analogBar.fill, digitalBar.fill]).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
-    }
+    await expect(page.getByRole('heading', { name: 'Activity Trend', exact: true })).toBeVisible();
+    const chart = page.locator('.activity-chart');
+    await expect(chart).toHaveAccessibleName('Monthly Events, active Analog projects and active Digital projects');
+    await expect(chart).toHaveAttribute('aria-describedby', 'chart-description');
+    const chartLines = await chart.locator('[data-activity-series]').evaluateAll((nodes) => nodes.map((el) => ({
+      series: el.dataset.activitySeries, path: el.getAttribute('d'), stroke: getComputedStyle(el).stroke,
+      strokeWidth: getComputedStyle(el).strokeWidth, fill: getComputedStyle(el).fill,
+      pointerEvents: getComputedStyle(el).pointerEvents, animation: getComputedStyle(el).animationName,
+      transition: getComputedStyle(el).transitionDuration,
+    })));
+    expect(chartLines.map((line) => line.series)).toEqual(series);
+    expect(chartLines.map((line) => line.stroke)).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
     for (const [j, key] of series.entries()) {
-      expect(Math.max(...chartBars.map((bars) => bars[j].height)), `${key} peak`).toBe(maxima[j] === 0 ? 0 : 218);
+      const line = chartLines[j];
+      // Exactly one real point per month, connected only by straight segments.
+      expect(line.path.match(/[A-Za-z]/g)).toEqual(['M', ...Array(11).fill('L')]);
+      const points = line.path.split(' ').map((point) => point.slice(1).split(',').map(Number));
+      expect(points).toHaveLength(12);
+      const percentages = expected.map((month) => maxima[j] === 0 ? 0 : month[key] / maxima[j] * 100);
+      for (const [i, [x, y]] of points.entries()) {
+        expect(x).toBeCloseTo(50 + i * 44, 5);
+        expect(y).toBeCloseTo(242 - percentages[i] / 100 * 218, 5);
+        expect(y).toBeGreaterThanOrEqual(24);
+        expect(y).toBeLessThanOrEqual(242);
+      }
+      expect(Math.min(...points.map((point) => point[1])), `${key} peak`).toBe(maxima[j] === 0 ? 242 : 24);
+      expect(line.strokeWidth).toBe('2.5px');
+      expect(line.fill).toBe('none');
+      expect(line.pointerEvents).toBe('none');
+      expect(line.animation).toBe('none');
+      expect(line.transition).toBe('0s');
+      const area = chart.locator(`[data-activity-area="${key}"]`);
+      await expect(area).toHaveAttribute('d', `${line.path} L534,242 L50,242 Z`);
+      await expect(area).toHaveAttribute('fill', `url(#activity-${key}-area)`);
+      const gradient = chart.locator(`#activity-${key}-area`);
+      await expect(gradient).toHaveAttribute('gradientUnits', 'userSpaceOnUse');
+      await expect(gradient).toHaveAttribute('y1', '24');
+      await expect(gradient).toHaveAttribute('y2', '242');
+      expect(await gradient.locator('stop').evaluateAll((nodes) => nodes.map((el) => ({
+        offset: el.getAttribute('offset'), opacity: el.getAttribute('stop-opacity'), color: getComputedStyle(el).stopColor,
+      })))).toEqual([
+        { offset: '0', opacity: '0.13', color: line.stroke },
+        { offset: '1', opacity: '0', color: line.stroke },
+      ]);
     }
-    await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months');
+    await expect(chart.locator('.chart-percent')).toHaveText(['0%', '25%', '50%', '75%', '100%']);
+    expect(await chart.locator('.chart-percent').evaluateAll((nodes) => nodes.map((el) => Number(el.getAttribute('y')))))
+      .toEqual([242, 187.5, 133, 78.5, 24]);
+    await expect(page.locator('[data-dashboard-month] > text')).toHaveText(expected.map((m) =>
+      new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })));
+    await expect(chart.locator('text')).toHaveCount(17);
+    await expect(page.locator('.chart-card title, .chart-card [title], .chart-card [role="tooltip"]')).toHaveCount(0);
+    await expect(chart.locator('rect, circle, marker, animate, animateTransform, set, a, [tabindex], [onclick], [onmouseover], [onmousemove]')).toHaveCount(0);
+    await expect(page.locator('.chart-partial')).toHaveText('Current month is partial.');
+    await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%');
     await expect(page.locator('#chart-description')).toContainText('not count comparisons between series');
+    expect(await page.locator('#chart-description').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
     const monthNames = expected.map((m) => new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }));
-    expect(await page.locator('[data-dashboard-month] > title').allTextContents()).toEqual(expected.map((m, i) =>
-      `${monthNames[i]}: ${m.events} Events, ${m.analog} Analog projects, ${m.digital} Digital projects. Heights are scaled independently to each series' twelve-month maximum.`));
     expect(await page.locator('.activity-counts tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim()))))
       .toEqual(expected.map((m, i) => [monthNames[i], ...series.map((key) => String(m[key]))]));
     await expect(page.locator('.recent-signals li')).toHaveCount(4);
@@ -755,6 +784,17 @@ for (const width of [1440, 390]) {
     await page.emulateMedia({ forcedColors: 'active' });
     await page.goto('./');
     const expected = await expectedHomeActivity(page, events, analog, digital);
+    await expect(page.locator('.chart-area:visible')).toHaveCount(0);
+    await expect(page.locator('.chart-percent')).toHaveText(['0%', '25%', '50%', '75%', '100%']);
+    const forcedLines = await page.locator('.chart-line').evaluateAll((nodes) => nodes.map((el) => ({
+      stroke: getComputedStyle(el).stroke, dash: getComputedStyle(el).strokeDasharray,
+    })));
+    const systemText = await page.locator('.chart-percent').first().evaluate((el) => getComputedStyle(el).fill);
+    expect(forcedLines).toEqual([
+      { stroke: systemText, dash: 'none' },
+      { stroke: systemText, dash: '6px, 3px' },
+      { stroke: systemText, dash: '2px, 3px' },
+    ]);
     const counts = page.locator('.activity-counts');
     const table = counts.getByRole('table', { name: 'Monthly activity counts; Events and distinct active projects' });
     await expect(table).toBeVisible();

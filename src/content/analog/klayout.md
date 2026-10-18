@@ -6,6 +6,11 @@ description: "Layout editor and verification platform for custom integrated circ
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "GLM 5.3 is credited on a merged global-net cluster repair that redirects every absorbed entry before deletion. The corrected C++ implementation remains in the canonical project."
+  sources: ["development-fix", "development-retained"]
+  reviewedAt: '2026-10-18'
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -27,6 +32,12 @@ sources:
   - id: "activity-current"
     title: "Acute-angle polygon-sizing tolerance correction"
     url: "https://github.com/KLayout/klayout/commit/0460c3e253393063c76c163b18d87f1ad7c47fb5"
+  - id: "development-fix"
+    title: "GLM-credited global-net iterator repair"
+    url: "https://github.com/KLayout/klayout/commit/abc4717f6090ccbb9d566f097a2e646fa6e01505"
+  - id: "development-retained"
+    title: "Retained global-net cluster implementation"
+    url: "https://github.com/KLayout/klayout/blob/748fc5c2de8b894a02608824fc59467c405fcfd3/src/db/db/dbHierNetworkProcessor.cc"
 ---
 
 ### Scope
@@ -46,3 +57,7 @@ Layout editing, PCells and verification scripts are conventional layout operatio
 ### Current activity review
 
 Reviewed 2026-10-05. Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+GLM 5.3 is credited on a merged global-net cluster repair that redirects every absorbed entry before deletion. The corrected C++ implementation remains in the canonical project. [GLM-credited global-net iterator repair](#source-development-fix) · [Retained global-net cluster implementation](#source-development-retained).

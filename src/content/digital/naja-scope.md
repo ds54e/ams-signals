@@ -5,11 +5,11 @@ description: "MCP server for bounded RTL and gate-netlist hierarchy, connectivit
 scope:
   verification:
     ai: true
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The Claude-credited initial server implementation introduces the defining structural-query core: design cards, path resolution, connectivity, cone traversal, sessions and source indexing. The current server retains this query architecture."
-  sources: ["development-audit-implementation", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  summary: "Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project."
+  sources: ["development-audit-implementation", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
 addedAt: "2026-09-18"
 reviewedAt: "2026-10-18"
@@ -39,6 +39,9 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/keplertech/naja-scope/blob/b61faa40e581caa3980789cf3b1918ee89f629e6/src/naja_scope/cone.py"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/keplertech/naja-scope/blob/da79bfa50c863b0b47a4d74835ee61aadc30d3ed/src/naja_scope/api.py"
 ---
 
 ### Structural-query boundary
@@ -61,4 +64,6 @@ Reviewed 2026-10-05. The repository moved from najaeda to keplertech with the sa
 
 ### Development provenance
 
-The attributed implementation introduces the named project's core modules together, including its own hierarchy/connectivity traversal and source-index/session machinery. This establishes a major role in the defining naja-scope software, rather than attributing its upstream Naja library or inferring development provenance merely from MCP support. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The attributed implementation introduces the named project's core modules together, including its own hierarchy/connectivity traversal and source-index/session machinery. These retained executable contributions support AI-assisted development; they do not establish that AI built most of naja-scope or attribute its upstream Naja library to AI. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+
+Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

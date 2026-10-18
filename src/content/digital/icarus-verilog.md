@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implemented constant-function unpacked-array handling across elaboration and compile-time evaluation. The canonical project retains the code."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -40,6 +45,12 @@ sources:
   - id: "activity-current"
     title: "Own nonblocking-assignment event-control expressions"
     url: "https://github.com/steveicarus/iverilog/commit/467d830d2435d28d63ecdfc011c5bf150f15f206"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/steveicarus/iverilog/commit/c8611317c6a0fec68df3f219ef9839c8cfad27f4"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/steveicarus/iverilog/blob/ad0260be5bb384e13ef68eef6881d62bbf16df93/elab_expr.cc"
 ---
 
 ### Implementation and scope
@@ -57,3 +68,7 @@ The September 28 UTC change makes indexed signal expressions own their word-inde
 ### Current activity review
 
 Reviewed 2026-10-05. Nonblocking assignments now own their event-control and count expressions through managed pointers. The inspected implementation repairs elaboration lifetime handling; it does not claim new language conformance. [Reviewed change](#source-activity-current).
+
+### Development provenance
+
+Claude is credited for implemented constant-function unpacked-array handling across elaboration and compile-time evaluation. The canonical project retains the code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

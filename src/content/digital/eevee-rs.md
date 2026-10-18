@@ -5,6 +5,11 @@ description: "Pre-alpha Rust SystemVerilog simulator with four-state event-drive
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The implementation ledger explicitly credits Claude Sonnet with correcting zero-delay scheduling to use the Inactive queue before NBA settlement. The canonical project retains the scheduler correction and executable regression."
+  sources: ["development-ledger", "activity", "implementation"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -40,4 +45,6 @@ The project remains pre-alpha and explicitly unsuitable for signoff. Its UVM rep
 
 ### Development provenance review
 
-The implementation ledger records an agent workflow and specifically attributes negative hierarchy regressions, an allocated-context width repair and the zero-delay correction to Sonnet, with other models reviewing or testing. Those bounded attributions do not establish that AI implemented the whole hierarchical-lookup subsystem or the simulator's defining core; instruction files and the size of the surrounding change are not enough. No public development badge is assigned from this evidence. [Attribution and limits](#source-development-ledger); [actual hierarchy diff](#source-hierarchy-update).
+The implementation ledger records an agent workflow and specifically attributes negative hierarchy regressions, an allocated-context width repair and the zero-delay correction to Sonnet, with other models reviewing or testing. These attributed executable contributions support AI-assisted development without establishing that AI built most of the simulator. Reviewer or verifier roles alone do not establish implementation. [Attribution and limits](#source-development-ledger); [actual hierarchy diff](#source-hierarchy-update).
+
+The implementation ledger explicitly credits Claude Sonnet with correcting zero-delay scheduling to use the Inactive queue before NBA settlement. The canonical project retains the scheduler correction and executable regression. Other models reviewed or verified the change; this does not establish that AI built most of the simulator. [Primary development account](#source-development-ledger) · [Primary development account](#source-activity) · [Primary development account](#source-implementation).

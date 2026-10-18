@@ -4,6 +4,11 @@ description: Simulation-debugging MCP server that relates logs, waveform events 
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited for implementing worker-thread offload and cooperative cancellation for waveform tools. The canonical project retains the server dispatch, cancellation and query checkpoints."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: Public Python implementation; FSDB/FST and commercial-tool integration require their documented native dependencies.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -24,6 +29,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: src/source_graph_x_trace.py'
   url: https://github.com/gokeshenzhen/TraceWeave/blob/a2654bcba727bc8676dde84d230a3d3871f6defc/src/source_graph_x_trace.py
+- id: "development-implementation-20261018"
+  title: "AI-credited executable implementation"
+  url: "https://github.com/gokeshenzhen/TraceWeave/commit/715740b68196e81603f2717e8c0a97cb7aa018c9"
+- id: "development-retained-20261018"
+  title: "Retained executable code at the reviewed canonical head"
+  url: "https://github.com/gokeshenzhen/TraceWeave/blob/a2654bcba727bc8676dde84d230a3d3871f6defc/src/cancellation.py"
 ---
 
 ### Implementation and boundaries
@@ -33,3 +44,7 @@ X-source tracing and guarded source-graph expansion implement Verification evide
 ### Reviewed activity
 
 The meaningful checkpoint is `a2654bcba727bc8676dde84d230a3d3871f6defc` (2026-10-13 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+Claude is credited for implementing worker-thread offload and cooperative cancellation for waveform tools. The canonical project retains the server dispatch, cancellation and query checkpoints. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

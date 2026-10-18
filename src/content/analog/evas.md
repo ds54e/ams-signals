@@ -5,6 +5,11 @@ description: "Event-driven behavioral Verilog-A simulator that accepts Spectre-s
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is credited on merged voltage-contribution classification code and a repair to the executable parser tests. The corrected implementation and tests remain in the canonical project."
+  sources: ["development-fix", "development-test-fix", "development-retained"]
+  reviewedAt: '2026-10-18'
 access: "The evas-sim Python package with its Rust core; compatible wheels or a Rust build environment."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -32,6 +37,15 @@ sources:
   - id: "meaningful-implementation"
     title: "Reviewed substantive implementation or technical maintenance"
     url: "https://github.com/Arcadia-1/EVAS/commit/5a3925103bb6d8cc7c0a60541b98d0160c4d607d"
+  - id: "development-fix"
+    title: "Claude-credited driven-node classification repair"
+    url: "https://github.com/Arcadia-1/EVAS/commit/0ef7004f833106f387e5f5cc3cbeee7f2daf7f10"
+  - id: "development-test-fix"
+    title: "Claude-credited executable parser-test repair"
+    url: "https://github.com/Arcadia-1/EVAS/commit/7fe8e4d0e3e16f71b9d4814a6933ae26215b0099"
+  - id: "development-retained"
+    title: "Retained driven-node classification implementation"
+    url: "https://github.com/Arcadia-1/EVAS/blob/6cb6fa7a7dac70fc0d4120126d8cf74258e6637b/evas/simulator/rust_program.py"
 ---
 
 ### Independent tool
@@ -47,3 +61,7 @@ The implemented engine is event-driven and voltage-mode, with a required Rust ba
 Running behavioral Verilog-A transient models and producing waveform data is the central user-facing operation. The internal compiler serves simulation, not circuit design. [Reviewed source](#source-readme-md).
 
 Event-driven behavioral Verilog-A execution is conventional Simulation. Being available to an agent does not introduce AI into the simulator. [AI/stage evidence](#source-readme-md).
+
+### Development provenance
+
+Claude is credited on merged voltage-contribution classification code and a repair to the executable parser tests. The corrected implementation and tests remain in the canonical project. [Claude-credited driven-node classification repair](#source-development-fix) · [Claude-credited executable parser-test repair](#source-development-test-fix) · [Retained driven-node classification implementation](#source-development-retained).

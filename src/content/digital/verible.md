@@ -7,6 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The maintainer credits Gemini-generated changes in executable C++ container tests, then human review and refinement. The canonical project retains the corrected allocation-capacity assertions."
+  sources: ["development-implementation-20261018", "development-retained-20261018"]
+  reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -31,6 +36,12 @@ sources:
   - id: "activity-refresh"
     title: "Fix formatting of modport dot member selects"
     url: "https://github.com/chipsalliance/verible/commit/0f26265133bda3ade669bc36fc71a6e1f39ad809"
+  - id: "development-implementation-20261018"
+    title: "AI-credited executable implementation"
+    url: "https://github.com/chipsalliance/verible/commit/d0d15e081a5f9c2b4dd8391bf69679718801eafe"
+  - id: "development-retained-20261018"
+    title: "Retained executable code at the reviewed canonical head"
+    url: "https://github.com/chipsalliance/verible/blob/0f26265133bda3ade669bc36fc71a6e1f39ad809/verible/common/util/container-proxy_test.cc"
 ---
 
 ### Implementation and scope
@@ -40,3 +51,7 @@ Formatting, source transformations and language services support conventional HD
 ### Reviewed activity
 
 The September 23 merge corrects spacing for nested member selects inside explicit modport connections. Formatter and token-annotation regressions distinguish the leading port-name separator from dots inside expressions, so this is functional formatter correctness rather than cosmetic repository churn. [Reviewed merge](#source-activity-refresh); [spacing implementation](#source-implementation).
+
+### Development provenance
+
+The maintainer credits Gemini-generated changes in executable C++ container tests, then human review and refinement. The canonical project retains the corrected allocation-capacity assertions. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
