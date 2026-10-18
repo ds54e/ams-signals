@@ -10,7 +10,7 @@ scope:
     ai: true
 access: "Configured Virtuoso/Calibre environment and matching foundry I/O libraries; the public repository is not an unrestricted open-source PDK release."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "AMS-IO-Bench and AMS-IO-Agent: Benchmarking and Structured Reasoning for Analog and Mixed-Signal Integrated Circuit Input/Output Design"
@@ -38,6 +38,9 @@ sources:
   - id: "physical-intent"
     title: "Model-facing pad order, positions, domain continuity and corner selection"
     url: "https://github.com/Arcadia-1/AMS-IO-Agent/blob/046a2e3edccd76322ab3e47c4dd9a5a1eded1e8a/Knowledge_Base/03_DESIGN_BLOCKS/IO_Ring/Core/structured_T28.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/Arcadia-1/AMS-IO-Agent/commit/00e666131ad99320d5c47f3281da4d9956ef9e30"
 ---
 
 ### Scope and inventory

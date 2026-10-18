@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"

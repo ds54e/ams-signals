@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Python/PyTorch, the released topology data and trained generator/classifier weights."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "AnalogToBi: Device-Level Analog Circuit Topology Generation via Bipartite Graph and Grammar Guided Decoding"
@@ -26,6 +26,9 @@ sources:
   - id: "metric-novelty-py"
     title: "Topology novelty evaluation"
     url: "https://github.com/Seungmin0825/AnalogToBi/blob/e2033e9e5347dd0b702d24a8809de0c0f5470f87/METRIC_Novelty.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/Seungmin0825/AnalogToBi/commit/7c7d89d8a4cf4c7aeae190b93b5bf6740df734be"
 ---
 
 ### Scope

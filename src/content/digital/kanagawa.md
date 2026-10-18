@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source language, compiler and libraries with stable and nightly distributions; compiler builds include CIRCT and documented dependencies."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "Wavefront Threading Enables Effective High-Level Synthesis, PLDI 2024"

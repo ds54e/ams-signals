@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public task bundles and Python/Docker tooling; the r53 runtime pins EVAS 0.8.7. Model access is supplied separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -45,6 +45,9 @@ sources:
   - id: "ai-testbench-task"
     title: "Released task requiring agent-authored stimulus and transient testbench"
     url: "https://github.com/Arcadia-1/behavioral-veriloga-eval/blob/7b5616dc52195ec275ec6d21c71d7763613702cd/benchmark-vabench-release-v4/release/benchmarkv4-r53/tasks/502-capacitive-sar-feedback-dac-testbench/public/instruction.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/Arcadia-1/behavioral-veriloga-eval/commit/7b5616dc52195ec275ec6d21c71d7763613702cd"
 ---
 
 ### Current tasks

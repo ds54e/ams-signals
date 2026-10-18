@@ -12,7 +12,7 @@ targets: "References, LDOs, amplifiers, ADCs, DACs, oscillators, RF blocks and m
 access: "All 50 task directories, development benches, verifiers and environment definitions are public, with a Hugging Face dataset mirror. Tasks require ngspice, SKY130 models and the specified container environment; software is Apache-2.0 and benchmark content is CC BY-NC 4.0."
 notice: "Paper and website results are author-reported. Public task availability does not establish independent reproduction of the reported agent evaluations."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official V2 task count and author-reported results"

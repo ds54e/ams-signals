@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Python/PyTorch, ngspice and released policy checkpoints; optional LLM netlist paths require separate model access."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -31,6 +31,9 @@ sources:
   - id: "conference"
     title: "Official MLCAD 2026 program identifying G-DiffPS and authors"
     url: "https://mlcad.org/symposium/2026/program/"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/ACADLab/G-DiffPS/commit/496fb22a85000a2cbf30ecc8a6326021596ed576"
 ---
 
 ### Scope

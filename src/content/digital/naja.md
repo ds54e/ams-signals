@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Apache-2.0 source and najaeda Python wheels; source builds require the documented frontend and native-library dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official najaeda Python API documentation"

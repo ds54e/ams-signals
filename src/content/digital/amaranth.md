@@ -13,7 +13,7 @@ scope:
     ai: false
 access: "Public source Python language and toolchain; native simulation is included, while FPGA builds require the selected external toolchain."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Amaranth language and toolchain documentation"

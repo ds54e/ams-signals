@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-08"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public virtuoso-cli repository"

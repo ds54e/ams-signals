@@ -1,48 +1,45 @@
 ---
-name: "AnalogSAGE"
-summary: "Analog design agents with simulation-grounded memory."
-description: "Uses LLM agents for topology exploration and transistor sizing in SKY130 op-amps. Retrieved circuit knowledge and memory of earlier attempts guide topology proposals and sizing ranges, while Bayesian search evaluates candidates through ngspice feedback."
+name: AnalogSAGE
+summary: Analog topology and sizing agents with grounded memory and public circuit adapters.
+description: Uses LLM agents for topology selection, refinement and transistor sizing in SKY130 op-amps, LDOs and bandgap references. Retrieved knowledge, accumulated experience and Bayesian/genetic search guide circuit proposals, while released adapters and testbenches execute ngspice measurements; the configured model and PDK remain external dependencies.
 scope:
   design:
     ai: true
   simulation:
     ai: false
-access: "Python, LLM access, knowledge/topology databases, SKY130 and a configured ngspice simulation workspace."
-addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+access: Public Python implementation; requires configured model/embedding endpoints, SKY130 and ngspice. Optional Pinecone knowledge retrieval has a separate setup.
+addedAt: '2026-09-05'
+reviewedAt: '2026-10-18'
 sources:
-  - id: "paper"
-    title: "AnalogSAGE: Self-evolving Analog Design Multi-Agents with Stratified Memory and Grounded Experience"
-    url: "https://arxiv.org/abs/2512.22435"
-    purpose: "paper"
-  - id: "code"
-    title: "Public project implementation"
-    url: "https://github.com/wznmickey/AnalogSAGE"
-    purpose: "code"
-  - id: "paper-repository"
-    title: "Paper-linked lab fork and upstream identity"
-    url: "https://github.com/xz-group/AnalogSAGE"
-  - id: "tolology-py"
-    title: "Topology exploration and memory loop"
-    url: "https://github.com/wznmickey/AnalogSAGE/blob/dc6dd652efeff9918497d4b19f18ceda8cf08b5d/tolology.py"
-  - id: "sizing-py"
-    title: "LLM-guided sizing-range loop"
-    url: "https://github.com/wznmickey/AnalogSAGE/blob/dc6dd652efeff9918497d4b19f18ceda8cf08b5d/sizing.py"
-  - id: "bo-py"
-    title: "Bayesian sizing and ngspice calls"
-    url: "https://github.com/wznmickey/AnalogSAGE/blob/dc6dd652efeff9918497d4b19f18ceda8cf08b5d/BO.py"
+- id: paper
+  title: AnalogSAGE research paper
+  url: https://arxiv.org/abs/2512.22435
+  purpose: paper
+- id: code
+  title: Canonical author implementation
+  url: https://github.com/wznmickey/AnalogSAGE
+  purpose: code
+- id: readme
+  title: Revised public workflow and setup
+  url: https://github.com/wznmickey/AnalogSAGE/blob/8fd72e235d2b331ee3ef2e3b633b4875bb9fa358/README.md
+- id: topology
+  title: Topology selection and retrieval
+  url: https://github.com/wznmickey/AnalogSAGE/blob/8fd72e235d2b331ee3ef2e3b633b4875bb9fa358/tolology.py
+- id: sizing
+  title: Parameter optimization and simulator integration
+  url: https://github.com/wznmickey/AnalogSAGE/blob/8fd72e235d2b331ee3ef2e3b633b4875bb9fa358/sizing_mix.py
+- id: simulation
+  title: Released ngspice execution adapter
+  url: https://github.com/wznmickey/AnalogSAGE/blob/8fd72e235d2b331ee3ef2e3b633b4875bb9fa358/simulation/ngspice.py
+- id: activity
+  title: Replacement public implementation snapshot
+  url: https://github.com/wznmickey/AnalogSAGE/commit/8fd72e235d2b331ee3ef2e3b633b4875bb9fa358
 ---
 
-### Repository identity
+### Implementation and Scope
 
-The paper links the lab's `xz-group/AnalogSAGE`, which GitHub identifies as a fork of the author's `wznmickey/AnalogSAGE`. The latter is the original public repository and contains the newer May 2026 implementation changes. Only that upstream default branch supplies activity; the fork is not counted. [Paper](#source-paper) · [Lab fork](#source-paper-repository) · [Author implementation](#source-code)
+The current release implements topology selection/refinement, parameter search and memory-guided decisions, giving AI Design. Local circuit adapters and testbenches now connect sizing to an ngspice runner, giving conventional Simulation rather than AI Simulation. The model chooses circuits and parameters; numerical feedback alone is not a separate model-driven analysis stage. No paper performance result was reproduced. [Workflow](#source-readme) · [Topology](#source-topology) · [Sizing](#source-sizing) · [Execution adapter](#source-simulation).
 
-### Scope and release
+### Repository and activity boundary
 
-Topology proposals, reflection/memory and numerical sizing are implemented in public Python files. `BO.py` writes parameter files, invokes ngspice and scores measured specifications. The surrounding research scripts retain local task/database paths and a `simulation` adapter import not shipped as that module. Simulation is retained for the explicit ngspice execution and measurement path; the ten-task paper results are not independently reproduced or a turnkey-release claim. [Topology loop](#source-tolology-py) · [Sizing loop](#source-sizing-py) · [Numerical backend](#source-bo-py)
-
-### Scope classification
-
-Topology selection, sizing and accumulated design knowledge drive the agent. Simulation feedback supports that process, while the released integration still depends on an external evaluation adapter. [Reviewed source](#source-tolology-py).
-
-LLM topology proposals and reflections drive circuit-design choices, hence AI Design. The secondary simulation adapter supplies numerical feedback to that design search; it does not implement a learned simulator or a separate AI analysis stage. [AI/stage evidence](#source-tolology-py).
+The canonical author repository retains its numeric identity, but the captured default branch has one October 17 root commit. The earlier May history must not be carried into its new monthly buckets. This snapshot includes circuit adapters and testbench files absent from the earlier reviewed release, so the implementation itself was re-reviewed rather than treating a history rewrite alone as new work. Its commit date describes the captured replacement release, not the first creation of the research method. [Implementation snapshot](#source-activity).

@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "MIT-licensed framework and v1.0 dataset. Synopsys VCS/URG with the matching Verdi PLI is the reference experimental backend; Icarus Verilog supports only a limited compatibility path and does not reproduce the full VCS workflow."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical VeriBugBench repository"

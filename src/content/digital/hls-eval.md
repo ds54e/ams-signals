@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public source; no top-level license found in the reviewed tree. Do not label the framework permissively licensed from its dependencies. Python 3.12+, Docker, selected Vitis/Vivado installations and model-provider access are separate requirements; the dataflow path additionally needs the compatible LightningSim/FIFOAdvisor/Pixi environment. Imported benchmark material can have separate terms."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public implementation"

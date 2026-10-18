@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public browser frontend, Rust server and Surelog-based HDL extraction backend. Source navigation uses generated KDB data and waveform inspection uses existing FST artifacts."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical WHAT repository"

@@ -9,7 +9,7 @@ scope:
     ai: true
 access: "Public source implementation; requires Python, target-core submodules, Verilator, an OSS CAD Suite formal toolchain and a configured LLM provider or local Codex CLI."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical LACE repository"

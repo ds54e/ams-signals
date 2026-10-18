@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Open-source Python package installable with pip; cocotb supplies simulator interaction and scheduling."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical pyuvm repository"

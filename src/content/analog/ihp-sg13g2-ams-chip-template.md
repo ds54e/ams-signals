@@ -13,7 +13,7 @@ scope:
 targets: "Mixed-signal chips using the IHP SG13G2 Open-PDK and the IIC-OSIC-TOOLS environment."
 access: "Public template and tutorial; documented baseline is IIC-OSIC-TOOLS 2026.08 or newer with the IHP SG13G2 Open-PDK."
 addedAt: "2026-09-14"
-reviewedAt: "2026-09-14"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical IHP SG13G2 AMS chip template repository"

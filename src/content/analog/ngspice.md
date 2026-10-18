@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Upstream source and releases are distributed through SourceForge; device libraries and model parameters are provided separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official ngspice project"

@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public Rust compiler, interpreter and debugger; external RTL simulation and implementation tools are configured separately."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Calyx website"

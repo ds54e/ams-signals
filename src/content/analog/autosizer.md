@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Python, LLM access, SKY130 and ngspice; optional layout/PEX paths require separately supplied tool adapters."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "AutoSizer: Automatic Sizing of Analog and Mixed-Signal Circuits via Large Language Model Agents"
@@ -32,6 +32,9 @@ sources:
   - id: "test-magic-pex-py"
     title: "Optional external Magic PEX tool contract"
     url: "https://github.com/yuxi120407/AutoSizer/blob/1b9b8f6498e2c7ad3b650bbbc78c8e3b0e1205e1/test_magic_pex.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/yuxi120407/AutoSizer/commit/97ef89f5e34a46eb8a508ed68b15afea2f551044"
 ---
 
 ### Scope

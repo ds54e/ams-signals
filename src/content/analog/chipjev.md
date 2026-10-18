@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Apache-2.0 project code, with separate MIT notices for derived model layers and separate checkpoint/model terms. Python 3.13, numerical/model packages, ngspice and the selected model/PDK are required; physical work adds Magic and SKY130. PDK-dependent integration tests can be skipped when the environment is absent."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public implementation"

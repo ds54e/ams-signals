@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Python package and public source; requires cocotb plus ngspice or Xyce with the supported shared-library interface."
 addedAt: "2026-09-14"
-reviewedAt: "2026-09-14"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical cocotbext-ams repository"

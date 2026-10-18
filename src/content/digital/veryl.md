@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Veryl website"

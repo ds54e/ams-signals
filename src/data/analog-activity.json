@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-11",
-  "capturedAt": "2026-10-11T02:30:59.543Z",
+  "reviewedAt": "2026-10-18",
+  "capturedAt": "2026-10-18T01:14:45.461Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -39,6 +39,7 @@
       ],
       "lastCommitAt": "2025-12-25",
       "lastMeaningfulCommitAt": "2025-12-25",
+      "lastMeaningfulCommitSha": "00e666131ad99320d5c47f3281da4d9956ef9e30",
       "notes": "Substantive implementation/task/result activity reviewed at 00e666131ad99320d5c47f3281da4d9956ef9e30: Update configuration to disable logging and modify test cases. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analog-design-bench": {
@@ -88,55 +89,33 @@
       ],
       "lastCommitAt": "2026-03-14",
       "lastMeaningfulCommitAt": "2026-02-22",
+      "lastMeaningfulCommitSha": "9803c902141071ed4f98722f00ee3999a35ee106",
       "notes": "Substantive implementation/task/result activity reviewed at 9803c902141071ed4f98722f00ee3999a35ee106: update first generation python file. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
-    "analogforge-agent": {
-      "kind": "github",
-      "repository": "appleweiping/analog-forge-agent",
-      "repositoryId": 1330890445,
-      "defaultBranch": "main",
-      "headSha": "70d98cfabb883156588c3302c1aeb56c547e3979",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-08-11",
-      "lastMeaningfulCommitAt": "2026-08-11",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 12a33d71bd6215004ed3b769a271fb265c019f6c: feat: implement auditable core workbench. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "analogsage": {
       "kind": "github",
       "repository": "wznmickey/AnalogSAGE",
       "repositoryId": 1098707425,
       "defaultBranch": "main",
-      "headSha": "dc6dd652efeff9918497d4b19f18ceda8cf08b5d",
+      "headSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
       "commits": [
-        4,
         0,
         0,
         0,
         0,
         0,
-        3,
         0,
         0,
         0,
         0,
-        0
+        0,
+        0,
+        1
       ],
-      "lastCommitAt": "2026-05-23",
-      "lastMeaningfulCommitAt": "2026-05-23",
-      "notes": "Substantive implementation/task/result activity reviewed at dc6dd652efeff9918497d4b19f18ceda8cf08b5d: Update candidate.py. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastCommitAt": "2026-10-17",
+      "lastMeaningfulCommitAt": "2026-10-17",
+      "lastMeaningfulCommitSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
+      "notes": "The canonical repository keeps ID 1098707425 but its default branch was rewritten to one October 17 implementation snapshot. It now includes circuit adapters, testbenches and an ngspice runner absent from the earlier reviewed release. Counts describe only the current first-parent chain, not original development or publication dates."
     },
     "analogtobi": {
       "kind": "github",
@@ -160,6 +139,7 @@
       ],
       "lastCommitAt": "2026-05-07",
       "lastMeaningfulCommitAt": "2026-05-06",
+      "lastMeaningfulCommitSha": "7c7d89d8a4cf4c7aeae190b93b5bf6740df734be",
       "notes": "Substantive implementation/task/result activity reviewed at 7c7d89d8a4cf4c7aeae190b93b5bf6740df734be: Refactor preprocessing pipeline and evaluation metrics. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "arcs": {
@@ -184,7 +164,8 @@
       ],
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastMeaningfulCommitSha": "c4d2689d224ebf4b3dea77c310c64be58fe1f560",
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
@@ -207,8 +188,9 @@
         0
       ],
       "lastCommitAt": "2026-09-09",
-      "lastMeaningfulCommitAt": "2025-10-28",
-      "notes": "Substantive implementation/task/result activity reviewed at dfcaf188bd1b013d392dff693af06a65fe53fa71: update. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastMeaningfulCommitAt": "2025-10-27",
+      "lastMeaningfulCommitSha": "cf1f3361d6286a6ba5c771fc6f2ae65d55c696e8",
+      "notes": "The October 27, 2025 public implementation release adds the optimizer, reasoning client/server and simulation adapter. Later lookup-data removal and the code-review-only merge do not renew implementation freshness."
     },
     "autosizer": {
       "kind": "github",
@@ -232,6 +214,7 @@
       ],
       "lastCommitAt": "2026-05-26",
       "lastMeaningfulCommitAt": "2026-05-26",
+      "lastMeaningfulCommitSha": "97ef89f5e34a46eb8a508ed68b15afea2f551044",
       "notes": "Substantive implementation/task/result activity reviewed at 97ef89f5e34a46eb8a508ed68b15afea2f551044: Release: clean paths, add test_magic_pex.py, add README. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "behavioral-veriloga-eval": {
@@ -256,6 +239,7 @@
       ],
       "lastCommitAt": "2026-07-28",
       "lastMeaningfulCommitAt": "2026-07-28",
+      "lastMeaningfulCommitSha": "7b5616dc52195ec275ec6d21c71d7763613702cd",
       "notes": "Substantive implementation/task/result activity reviewed at 7b5616dc52195ec275ec6d21c71d7763613702cd: Promote r53 on EVAS 0.8.7 (#507). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "circuitrubric": {
@@ -280,6 +264,7 @@
       ],
       "lastCommitAt": "2026-06-23",
       "lastMeaningfulCommitAt": "2026-06-23",
+      "lastMeaningfulCommitSha": "36fc0ee5e43e562f0d17ee124096fca12532eb8d",
       "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 36fc0ee5e43e562f0d17ee124096fca12532eb8d: Add Claude reasoning-effort runs and Gemini model data. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "evas": {
@@ -304,6 +289,7 @@
       ],
       "lastCommitAt": "2026-07-28",
       "lastMeaningfulCommitAt": "2026-07-28",
+      "lastMeaningfulCommitSha": "5a3925103bb6d8cc7c0a60541b98d0160c4d607d",
       "notes": "Substantive implementation/task/result activity reviewed at 5a3925103bb6d8cc7c0a60541b98d0160c4d607d: Merge pull request #122 from BucketSran/fix/spectre-event-timer-residuals. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "evo-ldo-bench": {
@@ -328,6 +314,7 @@
       ],
       "lastCommitAt": "2026-09-03",
       "lastMeaningfulCommitAt": "2026-09-03",
+      "lastMeaningfulCommitSha": "fa54a6615dd0dc26ea19fd28d7ae3433f92768ff",
       "notes": "Substantive implementation/task/result activity reviewed at fa54a6615dd0dc26ea19fd28d7ae3433f92768ff: Support scoped formal benchmark reports. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "g-diffps": {
@@ -352,6 +339,7 @@
       ],
       "lastCommitAt": "2026-08-21",
       "lastMeaningfulCommitAt": "2026-08-21",
+      "lastMeaningfulCommitSha": "496fb22a85000a2cbf30ecc8a6326021596ed576",
       "notes": "Substantive implementation/task/result activity reviewed at 496fb22a85000a2cbf30ecc8a6326021596ed576: Merge pull request #1 from ACADLab/release/mlcad-code. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "gmoverid-skill": {
@@ -376,6 +364,7 @@
       ],
       "lastCommitAt": "2026-07-07",
       "lastMeaningfulCommitAt": "2026-07-07",
+      "lastMeaningfulCommitSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
       "notes": "Substantive implementation/task/result activity reviewed at 8feb841f3684898d7aa44225b62e16263a501e3c: Reorganize Sky130 examples. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "loadbench": {
@@ -400,6 +389,7 @@
       ],
       "lastCommitAt": "2026-08-03",
       "lastMeaningfulCommitAt": "2026-08-03",
+      "lastMeaningfulCommitSha": "dfb0582658fcdeef77aee73462ac6300c3cf6f41",
       "notes": "Substantive implementation/task/result activity reviewed at dfb0582658fcdeef77aee73462ac6300c3cf6f41: Added circuit generation coverage script. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "masala-chai": {
@@ -424,6 +414,7 @@
       ],
       "lastCommitAt": "2026-08-09",
       "lastMeaningfulCommitAt": "2026-05-09",
+      "lastMeaningfulCommitSha": "c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b",
       "notes": "Substantive implementation/task/result activity reviewed at c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b: Merge pull request #11 from jitendra-bhandari/subhash. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "netlistbench": {
@@ -448,6 +439,7 @@
       ],
       "lastCommitAt": "2026-08-04",
       "lastMeaningfulCommitAt": "2026-08-04",
+      "lastMeaningfulCommitSha": "66e0cbcc04489da3fce9b8b497751a42dd943c24",
       "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 66e0cbcc04489da3fce9b8b497751a42dd943c24: NetlistBench: benchmark, oracle, runners, and example run. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "panda": {
@@ -472,6 +464,7 @@
       ],
       "lastCommitAt": "2026-06-18",
       "lastMeaningfulCommitAt": "2026-06-18",
+      "lastMeaningfulCommitSha": "9e53e43c0d29bdc8c0f326640b9d66c7075e841b",
       "notes": "Substantive implementation/task/result activity reviewed at 9e53e43c0d29bdc8c0f326640b9d66c7075e841b: Release PANDA open-source snapshot. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "razavi-bench": {
@@ -479,7 +472,7 @@
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
       "defaultBranch": "main",
-      "headSha": "21bfc57f076643a73dd183f56975001c8b1b9e11",
+      "headSha": "74187b810529d69a6368e33dd43ccb9c7088384e",
       "commits": [
         0,
         0,
@@ -492,9 +485,9 @@
         0,
         0,
         73,
-        16
+        20
       ],
-      "lastCommitAt": "2026-10-08",
+      "lastCommitAt": "2026-10-14",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "913bc27adc6227ddabaa15b0b0d582ab280a0552",
       "notes": "A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator."
@@ -504,7 +497,7 @@
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
       "defaultBranch": "main",
-      "headSha": "5826254e4b55fe1868bc8cbbe06ba724cef50a84",
+      "headSha": "95a99c6eeff10356b21b4e775c603868919ede5e",
       "commits": [
         0,
         0,
@@ -517,9 +510,9 @@
         22,
         74,
         394,
-        4
+        5
       ],
-      "lastCommitAt": "2026-10-08",
+      "lastCommitAt": "2026-10-15",
       "lastMeaningfulCommitAt": "2026-10-06",
       "lastMeaningfulCommitSha": "66119da2460b0b92534c7f89a2c9b1bb5993c72d",
       "notes": "October 5 implements human GUI intervention recording, evidence-derived verification, deterministic rule-candidate mining and snapshot-bound review decisions. October 6 integrates the Candidates review report into the default branch. October 8 test compatibility changes remain the latest raw commit; adoption does not change runtime policy."
@@ -546,6 +539,7 @@
       ],
       "lastCommitAt": "2026-07-03",
       "lastMeaningfulCommitAt": "2026-07-03",
+      "lastMeaningfulCommitSha": "54974c33c5f5a6d380b216ea12750aff6ee8bc99",
       "notes": "Substantive implementation/task/result activity reviewed at 54974c33c5f5a6d380b216ea12750aff6ee8bc99: Release: SABLE framework snapshot. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "virtuoso-bridge-lite": {
@@ -553,7 +547,7 @@
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
       "defaultBranch": "main",
-      "headSha": "378f0b640451d82bf6bccf8ece687aa27b1dcafe",
+      "headSha": "b5285a9c006dc70a2e3819fc6805135d257a246f",
       "commits": [
         0,
         0,
@@ -566,9 +560,9 @@
         36,
         23,
         28,
-        11
+        86
       ],
-      "lastCommitAt": "2026-10-09",
+      "lastCommitAt": "2026-10-16",
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "378f0b640451d82bf6bccf8ece687aa27b1dcafe",
       "notes": "Substantive implementation reviewed at 378f0b640451d82bf6bccf8ece687aa27b1dcafe: Preserve native grid and decorative power rails in manifest imports (#175). Latest raw history remains separate from meaningful implementation evidence."
@@ -595,6 +589,7 @@
       ],
       "lastCommitAt": "2026-04-24",
       "lastMeaningfulCommitAt": "2026-04-24",
+      "lastMeaningfulCommitSha": "9af8a6976cf1aae9788eedcd882b7cc201ee95ef",
       "notes": "Substantive implementation/task/result activity reviewed at 9af8a6976cf1aae9788eedcd882b7cc201ee95ef: init. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "ngspice-openvaf-enhancements": {
@@ -602,7 +597,7 @@
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
       "defaultBranch": "main",
-      "headSha": "335a8b2b19554c81aee77b26ea3768a4df7069a9",
+      "headSha": "aed9c8d97b6c8de336f58be6e1d2ff482e1e4a91",
       "commits": [
         0,
         0,
@@ -615,9 +610,9 @@
         1007,
         354,
         727,
-        138
+        191
       ],
-      "lastCommitAt": "2026-10-11",
+      "lastCommitAt": "2026-10-18",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd",
       "notes": "The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF."
@@ -652,7 +647,7 @@
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
       "defaultBranch": "master",
-      "headSha": "cbfef85df54c2f17ecbe3f2c1ddba3a466d7d3a0",
+      "headSha": "6bbc0e36bc14e4a2d4d5b5b573b0b1655e4edb01",
       "commits": [
         28,
         4,
@@ -665,9 +660,9 @@
         9,
         38,
         106,
-        41
+        68
       ],
-      "lastCommitAt": "2026-10-10",
+      "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "35a2184b7247f872ded516ad6b885e903e7575a5",
       "notes": "Substantive implementation reviewed at 35a2184b7247f872ded516ad6b885e903e7575a5: Merge pull request #511 from rafmag/feature/smith-chart. Latest raw history remains separate from meaningful implementation evidence."
@@ -702,7 +697,7 @@
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
       "defaultBranch": "master",
-      "headSha": "4d927b797d7e2fc9ab2d8ec29781fa6559851663",
+      "headSha": "748fc5c2de8b894a02608824fc59467c405fcfd3",
       "commits": [
         15,
         11,
@@ -715,9 +710,9 @@
         12,
         23,
         1,
-        18
+        28
       ],
-      "lastCommitAt": "2026-10-10",
+      "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
       "notes": "Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout."
@@ -784,7 +779,7 @@
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
       "defaultBranch": "main",
-      "headSha": "b858237bdcdfcc002f69b8b6c244e541546d8127",
+      "headSha": "d3582837761b045ef330ce84737984114fe240e3",
       "commits": [
         4,
         5,
@@ -797,9 +792,9 @@
         4,
         18,
         42,
-        51
+        85
       ],
-      "lastCommitAt": "2026-10-09",
+      "lastCommitAt": "2026-10-16",
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "78570a9e6cf38f938685194f4ebb6db91a1521c7",
       "notes": "Substantive implementation reviewed at 78570a9e6cf38f938685194f4ebb6db91a1521c7: Merge pull request #283 from iic-jku/ihp-mim-tech-data. Latest raw history remains separate from meaningful implementation evidence."
@@ -828,7 +823,7 @@
       "lastMeaningfulCommitAt": "2026-09-16",
       "lastMeaningfulCommitSha": "3ee2f571a037915b337cadb8be6eb988c9b901e9",
       "notes": "Canonical Codeberg identity and full first-parent history reviewed; the latest fix corrects an undefined NumPy reference in the equal-index XatIrange path.",
-      "capturedAt": "2026-10-05T11:48:18.368Z",
+      "capturedAt": "2026-10-18T01:09:21.347095Z",
       "lastMeaningfulCommitSource": "activity"
     },
     "scikit-rf": {
@@ -836,7 +831,7 @@
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
       "defaultBranch": "master",
-      "headSha": "94767d50d3f0208d0096cb6c5d5448626117d6b7",
+      "headSha": "aa156629bd321ccab042c841e14c9d665f273b9a",
       "commits": [
         6,
         3,
@@ -849,9 +844,9 @@
         9,
         12,
         7,
-        4
+        7
       ],
-      "lastCommitAt": "2026-10-09",
+      "lastCommitAt": "2026-10-11",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
       "notes": "The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred."
@@ -861,7 +856,7 @@
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
       "defaultBranch": "current",
-      "headSha": "fea650f99d66bb1a05d170d00a8d6bc7f3be5add",
+      "headSha": "46e47e8fabe852a9d6aab41d8a612ff5a78370c1",
       "commits": [
         13,
         18,
@@ -874,9 +869,9 @@
         6,
         11,
         7,
-        2
+        6
       ],
-      "lastCommitAt": "2026-10-10",
+      "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-09-14",
       "lastMeaningfulCommitSha": "e0c0e154edb4f8403d53c5c5601c2ee133c9e970",
       "notes": "September 14 replaces HDL simulator wrapper scripts with QProcess execution, following Monte Carlo parameter-validation work. Meaningful activity remains anchored to those implementation changes; later raw commits do not automatically extend the reviewed signal. These are development/continuous-build changes beyond stable 26.1.1."
@@ -910,7 +905,7 @@
       "repository": "iic-jku/ihp-sg13g2-ams-chip-template",
       "repositoryId": 1228233737,
       "defaultBranch": "main",
-      "headSha": "6524ffdd01daf7065d1669f268091b40cc4e3c21",
+      "headSha": "b1d4a98d0ec8ad71c57f8ec4c33344340f911dad",
       "commits": [
         0,
         0,
@@ -923,9 +918,9 @@
         102,
         2,
         0,
-        0
+        2
       ],
-      "lastCommitAt": "2026-08-26",
+      "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-08-26",
       "lastMeaningfulCommitSha": "6524ffdd01daf7065d1669f268091b40cc4e3c21"
     },
@@ -999,9 +994,9 @@
         0
       ],
       "lastCommitAt": "2026-07-04",
-      "lastMeaningfulCommitAt": "2026-07-04",
-      "lastMeaningfulCommitSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
-      "notes": "The July 4 dataset update is the latest reviewed substantive public repository update; the public README also states that code and data remain under progressive refinement."
+      "lastMeaningfulCommitAt": "2026-06-22",
+      "lastMeaningfulCommitSha": "5c6cb29468b672a2476438084a127f434cce6d18",
+      "notes": "Meaningful activity follows the June 22 physical-code release on the captured first-parent chain. The later image-dataset upload remains in raw history but does not renew freshness for the Layout-only scope."
     },
     "analogxpert": {
       "kind": "github",
@@ -1058,7 +1053,7 @@
       "repository": "DeconBear/vibe-analog",
       "repositoryId": 1224524252,
       "defaultBranch": "main",
-      "headSha": "d97ca469ca9dab71a7394d7ede848d3d53e2b693",
+      "headSha": "14210e73f1974db3e7adee4155e3bb36c64354c5",
       "commits": [
         0,
         0,
@@ -1070,10 +1065,10 @@
         83,
         242,
         7,
-        5,
-        0
+        11,
+        1
       ],
-      "lastCommitAt": "2026-09-01",
+      "lastCommitAt": "2026-10-13",
       "lastMeaningfulCommitAt": "2026-09-01",
       "lastMeaningfulCommitSha": "7d46afe213a15dbe125ad5fedbd52942d55053bf",
       "notes": "The September 1 ERC interaction fix is the latest reviewed substantive implementation change; the later same-day head prepares the v0.1.11 release."
@@ -1133,7 +1128,7 @@
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
       "defaultBranch": "main",
-      "headSha": "8f015bfcbda8ab16702d55e0f00402066865cea0",
+      "headSha": "3b1a179789ab17df5cfe1c51c9426c13abcc5c85",
       "commits": [
         0,
         0,
@@ -1146,9 +1141,9 @@
         0,
         668,
         642,
-        167
+        263
       ],
-      "lastCommitAt": "2026-10-11",
+      "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-10-08",
       "lastMeaningfulCommitSha": "ef2c587e598e1d8905e757b4ff2af713f4da7b5e",
       "notes": "Substantive implementation reviewed at ef2c587e598e1d8905e757b4ff2af713f4da7b5e: Headless batch drawing, dead-code and lint gates, Agent move carries pin markers; MCP 0.17.59 (Refs #1498 #1530 #1531 #1534 #1535) (#1538). Latest raw history remains separate from meaningful implementation evidence."
@@ -1158,7 +1153,7 @@
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
       "defaultBranch": "main",
-      "headSha": "38790dee844280a8f1e88625792ea28921900fcf",
+      "headSha": "d3ebe1567d94f66292977c179466de1e9f569d82",
       "commits": [
         0,
         0,
@@ -1171,9 +1166,9 @@
         1088,
         1687,
         1271,
-        239
+        812
       ],
-      "lastCommitAt": "2026-10-11",
+      "lastCommitAt": "2026-10-18",
       "lastMeaningfulCommitAt": "2026-10-11",
       "lastMeaningfulCommitSha": "a1157e9aee3fd3c959f9f15767aedb437b7b30d9",
       "notes": "Substantive implementation reviewed at a1157e9aee3fd3c959f9f15767aedb437b7b30d9: fix: retain completed Default rows through final layout evidence. Latest raw history remains separate from meaningful implementation evidence."
@@ -1208,7 +1203,7 @@
       "repository": "https://codeberg.org/arpadbuermen/VACASK",
       "repositoryId": "codeberg:207664",
       "defaultBranch": "main",
-      "headSha": "7eeb9d2ec0234139b96a53ab194f772c0b902dc9",
+      "headSha": "da17a594f9a67bd660bc68664be1a4bdb480a353",
       "commits": [
         39,
         3,
@@ -1221,12 +1216,12 @@
         201,
         105,
         130,
-        13
+        51
       ],
-      "lastCommitAt": "2026-10-05",
+      "lastCommitAt": "2026-10-15",
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "29d99ad2df4d8262e64ba883849c2974b3f01cce",
-      "capturedAt": "2026-10-05T11:48:18.368Z",
+      "capturedAt": "2026-10-18T01:09:26.550210Z",
       "lastMeaningfulCommitSource": "activity"
     },
     "sganalog": {
@@ -1353,6 +1348,283 @@
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "f954c3c1c837c5ff88733a292a163cd2982b504f",
       "notes": "Incremental catalog addition captured at 2026-10-12T04:54:41.740097Z; the existing snapshot header and other project captures are retained. Complete canonical main first-parent UTC history only; experimental commits and PR refs are excluded. October 2 setup-cancellation and import-correctness implementation is meaningful activity; October 4 release-guidance documentation sets the raw latest date. Draft PR 68 and experimental commit fb1a741c145595b1b0931157f1fb7ec3f236058b establish ongoing October 12 development separately from main and the public package."
+    },
+    "rspice": {
+      "kind": "github",
+      "repository": "JaimeHW/RSpice",
+      "repositoryId": 1136014493,
+      "defaultBranch": "main",
+      "headSha": "b2a4ae3e3d3631c6a1856108d804131fe49a900d",
+      "commits": [
+        0,
+        0,
+        385,
+        642,
+        139,
+        149,
+        0,
+        1621,
+        2261,
+        2192,
+        2942,
+        2122
+      ],
+      "lastCommitAt": "2026-10-18",
+      "lastMeaningfulCommitAt": "2026-10-18",
+      "lastMeaningfulCommitSha": "b2a4ae3e3d3631c6a1856108d804131fe49a900d",
+      "notes": "Meaningful activity manually reviewed: fix(schematic): a transistor's value stands on its drain's side of the bulk. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "revolution-eda": {
+      "kind": "github",
+      "repository": "eskiyerli/revolution-eda",
+      "repositoryId": 574462291,
+      "defaultBranch": "master",
+      "headSha": "107cdd8734e6ed115b55dea89211efa60408bd5b",
+      "commits": [
+        16,
+        5,
+        2,
+        4,
+        22,
+        23,
+        18,
+        25,
+        3,
+        5,
+        23,
+        3
+      ],
+      "lastCommitAt": "2026-10-10",
+      "lastMeaningfulCommitAt": "2026-10-09",
+      "lastMeaningfulCommitSha": "fd2e962fb40045a9c7c8d8bdb088ecab0a879e2d",
+      "notes": "Meaningful activity manually reviewed: feat(plugins,build): Harden plugin/licensing boundaries and startup lifecycle. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "morphnet": {
+      "kind": "github",
+      "repository": "das-dias/morphnet",
+      "repositoryId": 1351586843,
+      "defaultBranch": "main",
+      "headSha": "63c7868826fe0c2ac7b9112aaa1ff7b6847694f8",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        9,
+        1
+      ],
+      "lastCommitAt": "2026-10-14",
+      "lastMeaningfulCommitAt": "2026-10-14",
+      "lastMeaningfulCommitSha": "63c7868826fe0c2ac7b9112aaa1ff7b6847694f8",
+      "notes": "Meaningful activity manually reviewed: Merge pull request #8 from das-dias/dev/update-schema. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "serdes-systemc": {
+      "kind": "github",
+      "repository": "LewisLiuLiuLiu/SerDesSystemCProject",
+      "repositoryId": 1102426944,
+      "defaultBranch": "main",
+      "headSha": "5aaf3e864e9eafe121a69f122c9bbbaf3393d654",
+      "commits": [
+        8,
+        17,
+        58,
+        5,
+        39,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        22
+      ],
+      "lastCommitAt": "2026-10-17",
+      "lastMeaningfulCommitAt": "2026-10-17",
+      "lastMeaningfulCommitSha": "751f125d46291eaaf1f3c67712c85266606564dd",
+      "notes": "Meaningful activity manually reviewed: feat(rx): clean 1/UI data_out via data-strobe latch (approved). Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "eda-agent": {
+      "kind": "github",
+      "repository": "HrishikeshGawasIIITH/EDA_Agent",
+      "repositoryId": 1267234013,
+      "defaultBranch": "main",
+      "headSha": "50a1b67a9caa3ff74cf1f5572226498523ce73a1",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-09-29",
+      "lastMeaningfulCommitAt": "2026-06-13",
+      "lastMeaningfulCommitSha": "9f72d5ebc1cd48cefb03ff5b2673b7adec30515d",
+      "notes": "Meaningful activity manually reviewed: some bug fixes in tb creation. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "microelectronic-block-generator": {
+      "kind": "github",
+      "repository": "mthudaa/Microelectronic-Block-Generator",
+      "repositoryId": 1244743752,
+      "defaultBranch": "main",
+      "headSha": "c09fd766935056c940ff364eef478e698c344859",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        39,
+        12,
+        2,
+        1
+      ],
+      "lastCommitAt": "2026-10-16",
+      "lastMeaningfulCommitAt": "2026-10-16",
+      "lastMeaningfulCommitSha": "c09fd766935056c940ff364eef478e698c344859",
+      "notes": "Meaningful activity manually reviewed: Merge chore/tidy-repo: remove regenerable simulation bulk, fix pre-sim netlist. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "diagen": {
+      "kind": "github",
+      "repository": "Chaoos-404/diagen",
+      "repositoryId": 1383327063,
+      "defaultBranch": "main",
+      "headSha": "c59aa5079dc741c8fb00b7c2f3ca96ca1ffd20aa",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        21,
+        0
+      ],
+      "lastCommitAt": "2026-09-27",
+      "lastMeaningfulCommitAt": "2026-09-27",
+      "lastMeaningfulCommitSha": "790df92d6635fea92259fb8489a42f5014822e65",
+      "notes": "Meaningful activity manually reviewed: Engine: pins of one net that meet need no wire. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "vagen": {
+      "kind": "github",
+      "repository": "rpm2003rpm/vagen",
+      "repositoryId": 605641263,
+      "defaultBranch": "main",
+      "headSha": "c632252a46965309c31e0d3c1364e79fcaf4f8b5",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        11,
+        0
+      ],
+      "lastCommitAt": "2026-09-24",
+      "lastMeaningfulCommitAt": "2026-09-23",
+      "lastMeaningfulCommitSha": "d580b43f9e4baece3d7b013de0f9efe30c094597",
+      "notes": "Meaningful activity manually reviewed: improvements in code structure using AI. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "vajax": {
+      "kind": "github",
+      "repository": "ChipFlow/vajax",
+      "repositoryId": 1106272774,
+      "defaultBranch": "main",
+      "headSha": "2dfc4072cc8a00bef4e5773619dbda3e9a413220",
+      "commits": [
+        3,
+        486,
+        314,
+        137,
+        118,
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-07",
+      "lastMeaningfulCommitAt": "2026-03-30",
+      "lastMeaningfulCommitSha": "5ae5deefa600e037ba8891d2e033b425cdddcd3b",
+      "notes": "Meaningful activity manually reviewed: feat: SCCP constant propagation eliminates 73% of PSP103 dead blocks. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "wirewright": {
+      "kind": "github",
+      "repository": "house-of-houses/wirewright",
+      "repositoryId": 1226513871,
+      "defaultBranch": "master",
+      "headSha": "40b90b07a9b6ec55bd5d6942b67c2c2badfe7d86",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-03",
+      "lastMeaningfulCommitAt": "2026-05-03",
+      "lastMeaningfulCommitSha": "8b523f2a94103f8eb9e796554ae986d51f7a39ad",
+      "notes": "Meaningful activity manually reviewed: feat(rails): clustered power/ground rails as default; add --rails knob. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+    },
+    "gnucap": {
+      "kind": "repository",
+      "repository": "https://codeberg.org/gnucap/gnucap",
+      "repositoryId": "codeberg:591",
+      "defaultBranch": "develop",
+      "headSha": "2efebaa0df0bfc390bf90743a2b85c28401a1490",
+      "commits": [
+        4,
+        4,
+        4,
+        2,
+        5,
+        3,
+        2,
+        2,
+        1,
+        2,
+        4,
+        7
+      ],
+      "lastCommitAt": "2026-10-13",
+      "lastMeaningfulCommitAt": "2026-10-13",
+      "lastMeaningfulCommitSha": "2efebaa0df0bfc390bf90743a2b85c28401a1490",
+      "notes": "Canonical Codeberg repository ID/default branch verified directly. Savannah master is older and the GitHub repository is a read-only mirror; neither supplies these monthly counts.",
+      "capturedAt": "2026-10-18T01:13:06.516Z",
+      "lastMeaningfulCommitSource": "activity"
     }
   }
 }

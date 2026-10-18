@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "BSD-3-Clause-Clear public source; Docker/devcontainer toolchain is provided and real agent runs require a supported LLM provider."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical RTLScout repository"

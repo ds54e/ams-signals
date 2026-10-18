@@ -12,7 +12,7 @@ targets: "LDO constraint calculations, diagnosis, workflow planning, and SKY130 
 access: "Task packages, structured answer contracts, graders, and runners are public. Tool tracks additionally require a fixed SKY130 revision, ngspice, and an evaluator isolated from the model workspace."
 notice: "The reasoning track does not run SPICE. This is a public development benchmark; formal rankings still require hidden isomorphic variants and independent expert review."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public repository"
@@ -24,6 +24,9 @@ sources:
   - id: "tools"
     title: "Six SKY130/ngspice EDA tool-agent tasks"
     url: "https://github.com/jialinlu/ldo_benchmark_for_agent/blob/fa54a6615dd0dc26ea19fd28d7ae3433f92768ff/docs/EDA_TOOL_AGENT_TRACK_ZH.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/jialinlu/ldo_benchmark_for_agent/commit/fa54a6615dd0dc26ea19fd28d7ae3433f92768ff"
 ---
 ### Reasoning track
 

@@ -9,7 +9,7 @@ scope:
 targets: "Analog layout generators and PCells for mapped open PDKs including SKY130, GF180 and the repository's IHP130 mapping."
 access: "MIT-licensed public Python source; core layout generation is installable without an LLM, while the LLM path requires the documented model/inference environment."
 addedAt: "2026-09-14"
-reviewedAt: "2026-09-14"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical gLayout repository"

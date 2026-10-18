@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Apache-2.0 public source; Nix binary distribution and CMake/Bazel source-build paths are documented."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical Kepler-Formal repository"

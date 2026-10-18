@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Zenodo data, Python metric scripts and SKY130/ngspice; the complete simulation archives are large."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "dataset"
     title: "LOADBench Dataset: released archives and simulation instructions"
@@ -38,6 +38,9 @@ sources:
   - id: "ai-benchmark-readme"
     title: "Model evaluation protocols and conventional ngspice measurements"
     url: "https://github.com/FilipeAz/LOADBench-Scripts/blob/03cc45620afbbbee19652d83d625f26f3368d951/README.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/FilipeAz/LOADBench-Scripts/commit/dfb0582658fcdeef77aee73462ac6300c3cf6f41"
 ---
 
 ### Scope

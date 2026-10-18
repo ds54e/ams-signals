@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public MPL-2.0 framework with separately licensed bundled libraries; requires Python and a supported simulator."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official VUnit documentation"

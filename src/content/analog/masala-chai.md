@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Python, object-detection weights and multimodal LLM access; install ngspice for actual simulation feedback."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "Masala-CHAI: A Large-Scale SPICE Netlist Dataset for Analog Circuits by Harnessing AI"
@@ -39,6 +39,9 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/jitendra-bhandari/Masala-CHAI/blob/fc61c0404f45e5385bc0159d834544bb148643de/agents_v2/agents/judge_agent.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/jitendra-bhandari/Masala-CHAI/commit/c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b"
 ---
 
 ### Scope

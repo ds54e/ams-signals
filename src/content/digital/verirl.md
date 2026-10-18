@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public source environment and training stack. Local grading needs Python, Icarus Verilog and Yosys, with SymbiYosys optional; model inference or RL training additionally needs the selected provider or training infrastructure."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical VeriRL repository"

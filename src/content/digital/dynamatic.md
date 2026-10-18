@@ -18,7 +18,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source academic compiler; optional simulation, model-checking, visualization and FPGA evaluation tools have separate installation requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Dynamatic documentation"

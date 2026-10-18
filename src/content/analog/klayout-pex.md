@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Python implementation; selected extraction backends, KLayout and process-specific technology/LVS data are required."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"

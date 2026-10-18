@@ -360,14 +360,17 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expectActivityBands(rows(page), `.catalog-activity`, activity);
     await expect(rows(page).locator('[data-provenance-toggle]')).toHaveCount(0);
     const labeled = ordered.filter((p) => p.scope.aiDevelopment);
-    await expect(rows(page).locator('[data-provenance-panel]')).toHaveCount(labeled.length);
-    for (const project of labeled) {
-      const panel = row(page, project.id).locator('[data-provenance-panel]');
-      await expect(panel).toBeVisible();
-      await expect(panel.locator('.catalog-provenance-summary')).toHaveText(project.developmentEvidence.summary);
-      expect(await panel.locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href'))))
-        .toEqual(project.developmentEvidence.sources.map((id: string) => project.sources.find((s: any) => s.id === id).url));
-    }
+    const panels = rows(page).locator('[data-provenance-panel]');
+    await expect(panels).toHaveCount(labeled.length);
+    await expect(panels.filter({ visible: true })).toHaveCount(labeled.length);
+    expect(await panels.evaluateAll((nodes) => nodes.map((panel) => ({
+      project: panel.closest('[data-catalog-project]')!.getAttribute('data-catalog-project'),
+      summary: panel.querySelector('.catalog-provenance-summary')!.textContent!.replace(/\s+/g, ' ').trim(),
+      links: [...panel.querySelectorAll('a')].map((link) => link.getAttribute('href')),
+    })))).toEqual(labeled.map((project) => ({
+      project: project.id, summary: project.developmentEvidence.summary.replace(/\s+/g, ' ').trim(),
+      links: project.developmentEvidence.sources.map((id: string) => project.sources.find((s: any) => s.id === id).url),
+    })));
     const last = rows(page).last().locator(`.catalog-quicklinks a`).first();
     await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
     const href = (await last.getAttribute('href'))!;

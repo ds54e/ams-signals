@@ -10,7 +10,7 @@ scope:
 targets: "Analog circuit sizing benchmarks, including larger designs reported with up to 55 transistors and 60 sizing variables."
 access: "Apache-2.0 public research package. Python runs support a deterministic mock backend; real evaluation requires a configured model endpoint plus the user's licensed Cadence Virtuoso/Maestro environment and project assets."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical AgenticSizing repository"

@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Python CLI and exporter packages; individual exporters and community plugins have their own installation and support boundaries."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "documentation"
     title: "Official PeakRDL introduction and supported outputs"
@@ -53,7 +53,7 @@ This SystemRDL-centered architecture differs from RgGen's varied authoring forma
 
 ### Release and activity boundary
 
-Reviewed October 1, 2026 at `dc4f779cc97d07519d475ff392a2b26f6a8373f2`. The September 1, 2026 head adds community-plugin documentation. The November 10, 2025 technical correction renames enable/reset to en/rst in the working SystemRDL style-guide examples to avoid language-version compatibility problems. This source-example correctness fix qualifies as meaningful technical maintenance within the October 1, 2025 cutoff; it is not a new generator feature. The October 3 version-only commit and unrelated community listings are not the freshness basis. [Current project source](#source-readme); [meaningful activity](#source-activity-refresh).
+Rechecked October 18, 2026 at `dc4f779cc97d07519d475ff392a2b26f6a8373f2`. The September 1, 2026 head adds community-plugin documentation. The November 10, 2025 technical correction renames enable/reset to en/rst in the working SystemRDL style-guide examples to avoid language-version compatibility problems. This source-example correctness fix qualifies as meaningful technical maintenance within the October 18, 2025 cutoff; it is not a new generator feature. The October 3 version-only commit and unrelated community listings are not the freshness basis. [Current project source](#source-readme); [meaningful activity](#source-activity-refresh).
 
 Root **v1.5.0** was published October 3, 2025 with argument-file expansion and `this_dir` support. Root history alone drives its activity cells; component repositories are not aggregated. [Release](#source-release); [earlier implementation](#source-activity).
 

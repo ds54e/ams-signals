@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "GPL-3.0-or-later Python/PySide6 source and Windows/Linux desktop packages. Process work requires matching models and physical decks; engine and runtime requirements vary by workflow. Windows digital implementation uses an app-owned WSL 2 runtime, while the SAR bridge requires native local ngspice/Icarus executables."
 addedAt: "2026-10-12"
-reviewedAt: "2026-10-12"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical IC Design Studio repository"

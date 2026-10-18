@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public GPL-2.0-or-later source, packaged and nightly binaries; runtime-library terms and backend build dependencies vary."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official GHDL documentation"

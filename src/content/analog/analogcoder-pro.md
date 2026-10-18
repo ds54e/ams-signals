@@ -12,7 +12,7 @@ targets: "Amplifiers, mixers, comparators, oscillators, filters, and related cir
 access: "Task tables, sample circuits, testbenches, LLM run scripts, and waveform examples are public. Requires Python, ngspice, PySpice, and a separately configured model endpoint."
 notice: "The reviewed checklist still leaves Bayesian optimization updates and some ablation prompts unfinished. The complete optimization workflow described by the research should not be assumed reproducible from the public code."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public repository"
@@ -28,6 +28,9 @@ sources:
   - id: "tasks"
     title: "Public task table: circuit requests and input/output ports"
     url: "https://github.com/laiyao1/AnalogCoderPro/blob/05542af46020e5c37d5a7e3ca79da9f24626e1c9/problem_set.tsv"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/laiyao1/AnalogCoderPro/commit/9803c902141071ed4f98722f00ee3999a35ee106"
 ---
 ### Inputs and workflow
 

@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "MIT. Python 3.10+, PyTorch, torch-geometric and ngspice; bundled SKY130 model resources and the documented environment must be configured. Claude skills and MCP wrappers are optional integration paths, not substitutes for the numerical engine."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public implementation"

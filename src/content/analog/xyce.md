@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C++ implementation; build and solver-library requirements are documented by Sandia."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official project documentation"

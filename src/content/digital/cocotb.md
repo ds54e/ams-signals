@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python/C++ source and versioned releases; requires a supported HDL simulator. The 2.1 pytest plugin is opt-in and its API is experimental."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical cocotb repository"

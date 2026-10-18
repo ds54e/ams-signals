@@ -16,7 +16,7 @@ targets: "Analog and mixed-signal schematic transcription, transistor sizing, an
 access: "Benchmark code and redistributed circuit data are Apache-2.0, with per-repository attribution. Simulation uses Docker and a digest-pinned IIC-OSIC-TOOLS image with ngspice and open PDKs; new model evaluations require provider access."
 notice: "Model scores are author-reported. Tapeout provenance does not establish measured-silicon performance, and the sizing score includes convergence-only tasks."
 addedAt: "2026-10-08"
-reviewedAt: "2026-10-08"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public SGAnalog implementation and circuit data"

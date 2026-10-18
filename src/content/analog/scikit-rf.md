@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public Python package and documentation; network data, measurement hardware and external circuit simulators are separate inputs or tools."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "documentation"
     title: "Official scikit-rf documentation"

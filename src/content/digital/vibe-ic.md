@@ -13,7 +13,7 @@ scope:
     ai: true
 access: "Apache-2.0 public plugin and bundled MCP-EDA tooling. The open path uses pinned open-source EDA tools; FPGA, commercial-EDA, PDK and lab-hardware paths require the corresponding user-provided environments."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Vibe-IC project site"

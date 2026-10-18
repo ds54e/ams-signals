@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public skill framework. Review mode can run without EDA; the full path requires configured servers plus the user's Virtuoso/Spectre environment, and optional external model endpoints for cross-model review."
 addedAt: "2026-09-26"
-reviewedAt: "2026-09-26"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "analog-agents project site"

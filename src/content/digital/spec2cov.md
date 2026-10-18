@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Public Python source and experiment setups; requires a supported model provider and Verilator or a licensed Questa installation. The README explicitly notes that some tests and scripts are not up to date."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical Spec2Cov repository"

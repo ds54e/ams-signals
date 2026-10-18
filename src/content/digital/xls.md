@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public source implementation and rolling binary releases; the project documents experimental interfaces and build requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official XLS documentation"

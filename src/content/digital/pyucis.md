@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public Python package; supported coverage exports or compatible UCIS interfaces are required, and format-specific preservation limits apply."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "documentation"
     title: "Current official PyUCIS documentation"

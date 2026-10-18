@@ -15,7 +15,7 @@ developmentEvidence:
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public repository"
@@ -39,6 +39,9 @@ sources:
   - id: "simulation-setup-tests"
     title: "Maestro setup validation and dispatch tests"
     url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/tests/test_track_c_v2_maestro_setup.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/lixunqi12/virtuoso-agent/commit/54974c33c5f5a6d380b216ea12750aff6ee8bc99"
 ---
 ### Execution contract
 

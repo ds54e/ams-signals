@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public source and desktop packages; circuit analyses require the selected simulation backend and appropriate device models."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official Qucs-S overview and stable download channel"

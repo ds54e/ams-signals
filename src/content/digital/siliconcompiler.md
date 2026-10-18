@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source Python build framework and releases; selected EDA tools, licenses, device data and PDKs are separate requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official SiliconCompiler documentation"

@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Ruby toolchain; optional input/language plugins and generated RTL/UVM dependencies are selected separately."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "readme"
     title: "Official RgGen guide at the reviewed master revision"

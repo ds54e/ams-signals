@@ -10,7 +10,7 @@ targets: "SPICE connectivity, device parameters, terminal roles, hierarchy, and 
 access: "The v2 release supplies 2,342 cases across 24 task families, prompts, Python graders, runners, and sample model outputs. Structural scoring requires no simulator or PDK; new model runs require an endpoint."
 notice: "Passing establishes the requested netlist operation, not analog performance or successful circuit design."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "NetlistBench paper v1"
@@ -29,6 +29,9 @@ sources:
   - id: "grader"
     title: "Released canonical-IR comparison and edit grader"
     url: "https://github.com/WoshiMayou/NetlistBench/blob/413c56f4fedd2c574d4be0ffcc66480504f8d364/scripts/eval_ir_match.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/WoshiMayou/NetlistBench/commit/66e0cbcc04489da3fce9b8b497751a42dd943c24"
 ---
 ### Tasks and outputs
 

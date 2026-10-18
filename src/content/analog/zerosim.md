@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Python/PyTorch, training data and model weights; ngspice is used by the separate dataset-generation scripts."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "ZeroSim: Zero-Shot Analog Circuit Evaluation with Unified Transformer Embeddings"
@@ -30,6 +30,9 @@ sources:
   - id: "circuit-ga-amp-py"
     title: "Simulation-backed amplifier data generation"
     url: "https://github.com/xz-group/ZeroSim/blob/9af8a6976cf1aae9788eedcd882b7cc201ee95ef/circuit_ga/AMP.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/xz-group/ZeroSim/commit/9af8a6976cf1aae9788eedcd882b7cc201ee95ef"
 ---
 
 ### Scope

@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Public research code and datasets. Running the scripts requires an OpenAI-compatible model endpoint and replacing repository-local site-specific paths; the release is not packaged as a turnkey flow."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "AnalogXpert: Automating Analog Topology Synthesis by Incorporating Circuit Design Expertise into Large Language Models"

@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical naja-scope repository"

@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official project documentation"

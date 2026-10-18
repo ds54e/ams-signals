@@ -10,7 +10,7 @@ scope:
     ai: true
 access: "MIT project code and MIT notices for imported CircuitCollector code. Requires the GF180MCU environment, ngspice, Python/FastAPI and notebooks; the documented IIC-OSIC-TOOLS setup and model-hosted skills are supplied separately."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public implementation"

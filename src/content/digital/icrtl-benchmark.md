@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public benchmark source. The open path uses Icarus Verilog, Yosys and a separately installed NanGate45 library; the optional commercial evaluation path requires VCS, Design Compiler and PrimeTime."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical ICRTL-Benchmark repository"

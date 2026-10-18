@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public Python platform, Studio interface, circuit database and agent definitions. Live SPICE is opt-in; open bindings cover IHP SG13G2, SKY130 and GF180MCU. Physical and EM flows need additional tools; the Spectre path requires a user-supplied licensed environment."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical SpiceXplorer public release repository"

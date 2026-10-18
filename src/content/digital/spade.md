@@ -13,7 +13,7 @@ scope:
     ai: false
 access: "Public source compiler and Swim build tool; simulation and FPGA implementation require the selected external tools."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Spade language website"

@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public datasets, per-case analyses and evaluation code. Revised prompts retain upstream benchmark licensing; evaluation requires model access and Icarus, with cocotb for the CVDP subsets."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical RTL-BenchMT repository"

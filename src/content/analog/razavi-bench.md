@@ -17,7 +17,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official project website"

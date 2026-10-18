@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-15"
+reviewedAt: "2026-10-18"
 sources:
 - id: code
   title: Canonical Analog Canvas repository

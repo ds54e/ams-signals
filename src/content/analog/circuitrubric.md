@@ -10,7 +10,7 @@ targets: "Amplifiers, current mirrors, OTAs, oscillators, and related circuit st
 access: "125 fixtures, reference netlists, ratio constraints, a Python grader and CLI, and example runs are public. Structural grading needs neither SPICE execution nor a PDK; generation requires a model."
 notice: "FULL means a structural match, not a verified circuit. Bias point, gain, stability, and absolute component values are outside the evaluation scope."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public repository"
@@ -25,6 +25,9 @@ sources:
   - id: "development-disclosure"
     title: "Project construction disclosure: AI-assisted corpus and tooling"
     url: "https://github.com/levantlabs/circuitrubric-bench/blob/f96512bf602152d1646c0cfc11ea7af8e6ade99f/NOTICE.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/levantlabs/circuitrubric-bench/commit/36fc0ee5e43e562f0d17ee124096fca12532eb8d"
 ---
 ### Evaluation
 

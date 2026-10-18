@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Public Python/LangGraph framework and 16-design benchmark suite. Generation requires an OpenAI-compatible model setup; the documented compile, coverage and formal-refinement paths require Synopsys VCS/URG and VC Formal."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical HAVEN repository"

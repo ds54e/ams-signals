@@ -9,7 +9,7 @@ scope:
     ai: true
 access: "Public benchmark framework and dataset; Docker and model access are required for the documented workflows. Commercial rows require licensed EDA. The full public dataset omits reference solutions."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical CVDP Benchmark repository"

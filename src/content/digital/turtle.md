@@ -13,7 +13,7 @@ scope:
     ai: false
 access: "Public framework with API or local-model inference. Evaluation needs its documented EDA/container environment; local inference may require GPU or cluster resources."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical TuRTLe repository"

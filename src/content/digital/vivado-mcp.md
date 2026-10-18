@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public Python MCP server; requires Python 3.10+ and an installed AMD/Xilinx Vivado environment. The project documents testing with Vivado 2023.2+."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical vivado_mcp repository"

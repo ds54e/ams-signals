@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Apache-2.0 code; CC BY 4.0 dataset. The formal workflow needs OSS CAD Suite/Yosys/SymbiYosys/Bitwuzla; generation uses the documented Transformers/PyTorch or MLX model environment. Model terms are separate."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public implementation"

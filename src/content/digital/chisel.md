@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Apache-2.0 public source and published Scala artifacts; SystemVerilog simulation uses documented external backends such as Verilator or VCS."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "official"
     title: "Official Chisel documentation"

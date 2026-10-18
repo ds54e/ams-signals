@@ -11,7 +11,7 @@ scope:
     ai: true
 access: "Configured Cadence/Virtuoso/Spectre host, PDK/PCells and placement/routing/verification backends; public code uses a noncommercial license."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "paper"
     title: "PANDA: An LLM-Enhanced Performance-Driven Analog Design Framework Bridging Design Intent and Layout Generation"
@@ -40,6 +40,9 @@ sources:
   - id: "stage-planning"
     title: "Implemented LLM placement and routing planning with physical backend wiring"
     url: "https://github.com/PKU-IDEA/PANDA/blob/9e53e43c0d29bdc8c0f326640b9d66c7075e841b/analog_agent_flow.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/PKU-IDEA/PANDA/commit/9e53e43c0d29bdc8c0f326640b9d66c7075e841b"
 ---
 
 ### Scope

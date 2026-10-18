@@ -1,0 +1,36 @@
+---
+name: VAJAX
+summary: JAX-based analog simulator that compiles Verilog-A device models through an OpenVAF-derived path and evaluates circuit equations on CPU or GPU.
+description: JAX-based analog simulator that compiles Verilog-A device models through an OpenVAF-derived path and evaluates circuit equations on CPU or GPU. Public analysis code includes DC, transient and frequency-domain workflows; model coverage, backend setup and numerical behavior remain implementation-specific rather than universal SPICE compatibility.
+scope:
+  simulation:
+    ai: false
+access: Public Python/Rust source; JAX, OpenVAF integration and any selected GPU runtime must be configured separately.
+addedAt: '2026-10-18'
+reviewedAt: '2026-10-18'
+sources:
+- id: code
+  title: Canonical public implementation
+  url: https://github.com/ChipFlow/vajax
+  purpose: code
+- id: readme
+  title: Project workflow and operating boundaries at the captured revision
+  url: https://github.com/ChipFlow/vajax/blob/2dfc4072cc8a00bef4e5773619dbda3e9a413220/README.md
+- id: activity
+  title: 'feat: SCCP constant propagation eliminates 73% of PSP103 dead blocks'
+  url: https://github.com/ChipFlow/vajax/commit/5ae5deefa600e037ba8891d2e033b425cdddcd3b
+- id: implementation-1
+  title: 'Released implementation: vajax/analysis/engine.py'
+  url: https://github.com/ChipFlow/vajax/blob/2dfc4072cc8a00bef4e5773619dbda3e9a413220/vajax/analysis/engine.py
+- id: implementation-2
+  title: 'Released implementation: vajax/analysis/dc_operating_point.py'
+  url: https://github.com/ChipFlow/vajax/blob/2dfc4072cc8a00bef4e5773619dbda3e9a413220/vajax/analysis/dc_operating_point.py
+---
+
+### Implementation and boundaries
+
+The circuit engine implements electrical analyses using compiled model evaluations and numerical solvers. JAX/GPU acceleration is not runtime AI. The selected constant-propagation implementation changes production model code generation; performance percentages in its commit title are author claims, not reproduced catalog results. VACASK is a component dependency, and its history is not aggregated into this project. [Project workflow](#source-readme) · [Implementation](#source-implementation-1).
+
+### Reviewed activity
+
+The meaningful checkpoint is `5ae5deefa600e037ba8891d2e033b425cdddcd3b` (2026-03-30 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).

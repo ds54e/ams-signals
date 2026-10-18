@@ -10,7 +10,7 @@ scope:
 targets: "Released analog-circuit problem set including amplifiers, op-amps, oscillators, PLLs, VCOs, mirrors, integrators and related blocks."
 access: "MIT-licensed public MVP; requires Python, ngspice/PySpice, and configured model-provider access for real agent runs."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical AnalogAgent repository"

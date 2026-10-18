@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical public source repository"

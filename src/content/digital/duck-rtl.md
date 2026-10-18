@@ -9,7 +9,7 @@ scope:
     ai: true
 access: "MIT-licensed public source; can run as a Claude Code plugin or standalone CLI with Python, Icarus Verilog and optional Graphviz."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical Duck RTL repository"

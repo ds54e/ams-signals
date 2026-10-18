@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public GPL-3.0-or-later source and packaged binaries; source builds require LLVM and documented native dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official NVC documentation and releases"

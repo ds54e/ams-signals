@@ -11,7 +11,7 @@ scope:
     ai: true
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-11"
+reviewedAt: "2026-10-18"
 sources:
 - id: code
   title: Canonical Vibe-IC repository

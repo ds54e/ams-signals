@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "The evas-sim Python package with its Rust core; compatible wheels or a Rust build environment."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "website"
     title: "Official EVAS documentation"
@@ -29,6 +29,9 @@ sources:
   - id: "readme-md"
     title: "Voltage-mode behavioral scope"
     url: "https://github.com/Arcadia-1/EVAS/blob/6cb6fa7a7dac70fc0d4120126d8cf74258e6637b/README.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/Arcadia-1/EVAS/commit/5a3925103bb6d8cc7c0a60541b98d0160c4d607d"
 ---
 
 ### Independent tool

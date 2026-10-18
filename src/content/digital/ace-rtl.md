@@ -9,7 +9,7 @@ scope:
     ai: true
 access: "Public source and agent skills. Requires a coding-agent host or configured external model backend, Python and task-specific EDA tools; commercial CVDP rows need licensed tools."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Canonical ACE-RTL repository"

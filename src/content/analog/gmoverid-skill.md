@@ -9,7 +9,7 @@ scope:
     ai: true
 access: "Python, ngspice and the selected transistor models; SKY130 examples require the local PDK. The installed reasoning and visual-validation skills additionally require a compatible model host."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-01"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -27,6 +27,9 @@ sources:
   - id: "runtime-skill"
     title: "Agent sizing decisions and LLM characterization-result assessment"
     url: "https://github.com/Arcadia-1/gmoverid-skill/blob/8feb841f3684898d7aa44225b62e16263a501e3c/gmoverid/SKILL.md"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/Arcadia-1/gmoverid-skill/commit/8feb841f3684898d7aa44225b62e16263a501e3c"
 ---
 
 ### Scope

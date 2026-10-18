@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public AGPL-3.0 C++ source and prebuilt packages; model compilation, numerical libraries and process-specific models are separate dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official VACASK overview and distributions"

@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public Python library and GUI; simulator installations, device models and optional parallel-computing dependencies are supplied separately."
 addedAt: "2026-09-07"
-reviewedAt: "2026-09-07"
+reviewedAt: "2026-10-18"
 sources:
   - id: "site"
     title: "Official PyOPUS overview and 0.12 release announcement"

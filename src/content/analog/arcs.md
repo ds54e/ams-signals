@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Python/PyTorch and ngspice; generation and training depend on the selected released model and dataset configuration."
 addedAt: "2026-09-05"
-reviewedAt: "2026-09-05"
+reviewedAt: "2026-10-18"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -48,6 +48,9 @@ sources:
   - id: "development-3"
     title: "Current training integration"
     url: "https://github.com/tusharpathaknyu/ARCS/blob/b14a1f2afcced3d3a339ecb4d0927be4305c426d/scripts/train_latent_reward.py"
+  - id: "meaningful-implementation"
+    title: "Reviewed substantive implementation or technical maintenance"
+    url: "https://github.com/tusharpathaknyu/ARCS/commit/c4d2689d224ebf4b3dea77c310c64be58fe1f560"
 ---
 
 ### Scope
