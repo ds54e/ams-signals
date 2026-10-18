@@ -233,30 +233,6 @@
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "b4a296a1033b33755d0401cc8d971a0f15752b59"
     },
-    "mcy": {
-      "kind": "github",
-      "repository": "YosysHQ/mcy",
-      "repositoryId": 185404842,
-      "defaultBranch": "main",
-      "headSha": "5a2cad0cbefceb7f23051c08348bd23128fd1046",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        2,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-08-04",
-      "lastMeaningfulCommitAt": "2025-10-15",
-      "lastMeaningfulCommitSha": "8b23eba5f22d86dd6466afe33900b1255afd7678"
-    },
     "openada": {
       "kind": "github",
       "repository": "simra-tech/OpenADA",
