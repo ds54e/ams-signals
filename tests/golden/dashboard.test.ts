@@ -1,9 +1,45 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { dashboardActivity } from '../../src/lib/dashboard.ts';
+import { dashboardBarHeights } from '../../src/lib/dashboard-presentation.ts';
 
 const event = (start: string, precision = 'day', end?: string) => ({ data: { when: { start, precision, end } } });
 const empty = { months: [], projects: {} };
+
+test('dashboard heights use each displayed series maximum, including unequal peaks in different months', () => {
+  const counts = [
+    { events: 2, analog: 40, digital: 0 },
+    { events: 4, analog: 10, digital: 1 },
+    { events: 0, analog: 20, digital: 2 },
+  ];
+  const original = structuredClone(counts);
+  assert.deepEqual(dashboardBarHeights(counts), [
+    { events: 109, analog: 218, digital: 0 },
+    { events: 218, analog: 54.5, digital: 109 },
+    { events: 0, analog: 109, digital: 218 },
+  ]);
+  assert.deepEqual(counts, original);
+  // An out-of-window peak must not influence the scale of the displayed slice.
+  assert.deepEqual(dashboardBarHeights(counts.slice(1)), [
+    { events: 218, analog: 109, digital: 109 },
+    { events: 0, analog: 218, digital: 218 },
+  ]);
+});
+
+test('dashboard heights preserve mixed zero buckets and entirely zero series without invalid geometry', () => {
+  assert.deepEqual(dashboardBarHeights([
+    { events: 0, analog: 0, digital: 3 },
+    { events: 6, analog: 0, digital: 0 },
+    { events: 0, analog: 0, digital: 1 },
+  ]), [
+    { events: 0, analog: 0, digital: 218 },
+    { events: 218, analog: 0, digital: 0 },
+    { events: 0, analog: 0, digital: 1 / 3 * 218 },
+  ]);
+  const zero = Array.from({ length: 12 }, () => ({ events: 0, analog: 0, digital: 0 }));
+  assert.deepEqual(dashboardBarHeights(zero), zero);
+  assert.deepEqual(dashboardBarHeights([]), []);
+});
 
 test('dashboard uses twelve calendar months ending at the build month, including year rollover', () => {
   const rows = dashboardActivity([], empty, empty, '2027-02-03');

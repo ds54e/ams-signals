@@ -7,6 +7,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "A Devin-generated implementation introduced the shared connectivity engine, typed parameter model and inherited net expressions, integrating them with editor scenes and netlisters. The current source retains the connectivity resolver."
+  sources: ["development-connectivity-implementation", "development-connectivity-retained"]
+  reviewedAt: "2026-10-18"
 access: Public Python/Qt core; process libraries and optional commercial plugins are separate dependencies.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -27,6 +32,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: revedaEditor/scenes/layoutScene.py'
   url: https://github.com/eskiyerli/revolution-eda/blob/107cdd8734e6ed115b55dea89211efa60408bd5b/revedaEditor/scenes/layoutScene.py
+- id: "development-connectivity-implementation"
+  title: "Devin-attributed shared connectivity and parameter implementation"
+  url: https://github.com/eskiyerli/revolution-eda/commit/8a76b22bd9cd869fdcbc013a0f63606b83a1e381
+- id: "development-connectivity-retained"
+  title: "Retained semantic connectivity resolver"
+  url: https://github.com/eskiyerli/revolution-eda/blob/107cdd8734e6ed115b55dea89211efa60408bd5b/revedaEditor/connectivity/resolve.py
 ---
 
 ### Implementation and boundaries
@@ -36,3 +47,7 @@ The netlist parser and layout scene establish public Design and Layout operation
 ### Reviewed activity
 
 The meaningful checkpoint is `fd2e962fb40045a9c7c8d8bdb088ecab0a879e2d` (2026-10-09 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+The explicitly Devin-generated implementation adds shared semantic connectivity, typed parameters and inherited net expressions across editor scenes, checks and netlisters. The retained resolver evaluates inherited bindings, resolves group names and diagnoses conflicts; attribution is limited to this substantial subsystem within the existing editor. [Attributed implementation](#source-development-connectivity-implementation) · [Retained resolver](#source-development-connectivity-retained).

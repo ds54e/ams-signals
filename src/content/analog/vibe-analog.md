@@ -9,9 +9,9 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude-credited implementation added project-specific component parameter forms, PDK installation/registration binding and schematic import/export integration. The current desktop retains the Analog IC parameter-form implementation."
+  summary: "Cursor-credited implementation added project-specific component parameter forms, PDK installation/registration binding and schematic import/export integration. The current desktop retains the Analog IC parameter-form implementation."
   sources: ["development-audit-implementation", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  reviewedAt: "2026-10-18"
 access: "Public source workbench and portable agent skill. Requires Node.js/Python and ngspice for simulation; analog-IC use requires user-supplied PDK/model files, while Claude Code, Codex or another compatible coding agent supplies the model-driven workflow."
 addedAt: "2026-09-26"
 reviewedAt: "2026-10-18"
@@ -59,4 +59,4 @@ Ngspice and deterministic extraction still produce the numerical evidence. Schem
 
 ### Development provenance
 
-The inspected change implements Electron IPC, project/model binding, type-specific forms and schematic interchange controls across the desktop. The development label records this substantial subsystem contribution, independently of the coding agents that operate the workbench at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The Cursor-credited desktop change implements Electron IPC, project/model binding, type-specific forms and schematic interchange controls across the desktop. The development label records this substantial subsystem contribution, independently of the coding agents that operate the workbench at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

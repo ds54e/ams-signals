@@ -6,6 +6,11 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Copilot-credited implementation introduced module-scoped services for waveform capture, netlist output and inspection, with registry and lifecycle integration. The merged API and current registry/waveform implementations retain this substantial extension to ROHD."
+  sources: ["development-audit-services", "development-audit-retained-registry", "development-audit-retained-waveform"]
+  reviewedAt: "2026-10-18"
 access: Public Dart implementation; external simulators and synthesis tools are separate integrations.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-18'
@@ -26,6 +31,15 @@ sources:
 - id: implementation-2
   title: 'Released implementation: lib/src/simulator.dart'
   url: https://github.com/intel/rohd/blob/a2b439e8dccfa2e260862184c99f2a2484c26e20/lib/src/simulator.dart
+- id: "development-audit-services"
+  title: "Copilot-attributed module services implementation"
+  url: https://github.com/intel/rohd/commit/e35954abe7c81c4cd0a6042fbb67fbef0c14d06f
+- id: "development-audit-retained-registry"
+  title: "Current module service registry"
+  url: https://github.com/intel/rohd/blob/f992f80e5d6c4705b73f9deb05fab243965ab60e/lib/src/diagnostics/module_services.dart
+- id: "development-audit-retained-waveform"
+  title: "Current waveform service implementation"
+  url: https://github.com/intel/rohd/blob/f992f80e5d6c4705b73f9deb05fab243965ab60e/lib/src/diagnostics/waveform_service.dart
 ---
 
 ### Implementation and boundaries
@@ -35,3 +49,7 @@ The module and simulator classes implement Design and Verification. SystemVerilo
 ### Reviewed activity
 
 The meaningful checkpoint is `a2b439e8dccfa2e260862184c99f2a2484c26e20` (2026-10-17 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Development provenance
+
+The original Copilot-credited module-services contribution implements a reusable service registry and artifact contracts, with module-build registration, netlist output and waveform lifecycle integration. The retained registry and waveform services support substantial extension of the existing framework; reused simulator and output internals are not attributed as new AI construction. [Attributed implementation](#source-development-audit-services) · [Retained registry](#source-development-audit-retained-registry) · [Retained waveform service](#source-development-audit-retained-waveform).

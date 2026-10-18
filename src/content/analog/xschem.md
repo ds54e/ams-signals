@@ -8,6 +8,11 @@ scope:
     ai: false
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The Smith-chart contributor explicitly states that an AI coding assistant implemented the feature. The merged and retained code adds complex-expression conversion, Smith-grid and trace rendering, and frequency-linked cursor interaction."
+  sources: ["development-smith-disclosure", "review-20261011-1", "development-smith-retained"]
+  reviewedAt: "2026-10-18"
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -47,6 +52,12 @@ sources:
   - id: "review-20261011-2"
     title: "Drawing/complex-data implementation"
     url: "https://github.com/StefanSchippers/xschem/blob/cbfef85df54c2f17ecbe3f2c1ddba3a466d7d3a0/src/draw.c"
+  - id: "development-smith-disclosure"
+    title: "Author disclosure of AI implementation for Smith-chart feature"
+    url: https://github.com/StefanSchippers/xschem/pull/511
+  - id: "development-smith-retained"
+    title: "Retained Smith expression and plotting implementation"
+    url: https://github.com/StefanSchippers/xschem/blob/7a4a73b70cca12d248b1d25e65c3c93e463cde40/src/draw.c
 ---
 
 ### Scope
@@ -70,3 +81,7 @@ Schematic/netlist editing is conventional Design; simulator launch and back-anno
 The merged Smith-chart path plots complex data in the reflection-coefficient plane. For impedance inputs, imp() maps Z to (Z−Z0)/(Z+Z0), with a per-graph reference impedance and frequency cursors. Source, operating documentation and smoke/geometry/cursor regression scripts were inspected. [Smith-chart integration](#source-review-20261011-1) · [Drawing/complex-data implementation](#source-review-20261011-2)
 
 No new numerical solver or AI stage is established. The plot uses a fixed reflection-coefficient window with clipping; zoom/pan and active-device values outside it have documented limits. Z0 conversion is not automatic renormalization of already stored S-parameter data. Tests were inspected, not executed. A disabled preserve-undo branch is not a released feature.
+
+### Development provenance
+
+The merged Smith-chart PR explicitly discloses that opencode implemented the feature. Its retained complex-expression evaluation, impedance-to-reflection conversion, grid/trace plotting and cursor interaction establish substantial feature implementation; tests, manuals and the general AI contribution policy are not the attribution basis. [Author disclosure](#source-development-smith-disclosure) · [Retained plotting implementation](#source-development-smith-retained).

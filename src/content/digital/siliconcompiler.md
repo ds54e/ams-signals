@@ -9,11 +9,6 @@ scope:
     ai: false
   layout:
     ai: false
-  aiDevelopment: assisted
-developmentEvidence:
-  summary: "Claude-credited flow work implemented an optional post-global-route timing-repair task and connected it to SiliconCompiler’s routing flow. The campaign also aligned the OpenROAD adapter and repair sequence."
-  sources: ["development-1", "development-2", "development-3"]
-  reviewedAt: "2026-10-01"
 access: "Public source Python build framework and releases; selected EDA tools, licenses, device data and PDKs are separate requirements."
 addedAt: "2026-09-06"
 reviewedAt: "2026-10-18"
@@ -98,4 +93,4 @@ All runtime stage AI booleans are false. Accepting a machine-learning model as a
 
 ### Development provenance review
 
-Reviewed 2026-10-01: **AI-ASSISTED**. The credited campaign introduces an optional post-route repair task and flow node, Tcl repair sequencing and tested adapter behavior. This is a meaningful new timing-closure path inside the existing build system, retained in the current routing flow. [Post-route timing implementation](#source-development-1); [Flow integration follow-up](#source-development-2); [Current routing flow](#source-development-3).
+The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. This retained orchestration is bounded control of existing operations rather than substantial new subsystem implementation, so no development badge is assigned; this does not assert exclusively human development. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).

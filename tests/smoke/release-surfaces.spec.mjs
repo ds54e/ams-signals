@@ -659,15 +659,16 @@ for (const width of [1440, 900, 390]) {
     const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
       events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital) })));
     expect(actual).toEqual(expected);
-    const maximum = Math.max(1, ...expected.flatMap((m) => [m.events, m.analog, m.digital]));
+    const series = ['events', 'analog', 'digital'];
+    const maxima = series.map((key) => Math.max(...expected.map((m) => m[key])));
     const chartBars = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => [...el.querySelectorAll('rect')].map((r) => ({
       x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), height: Number(r.getAttribute('height')), width: Number(r.getAttribute('width')), fill: getComputedStyle(r).fill }))));
     for (let i = 0; i < chartBars.length; i++) {
       expect(chartBars[i]).toHaveLength(3);
       const [event, analogBar, digitalBar] = chartBars[i];
-      expect(event.height).toBeCloseTo(expected[i].events / maximum * 218, 5);
-      expect(analogBar.height).toBeCloseTo(expected[i].analog / maximum * 218, 5);
-      expect(digitalBar.height).toBeCloseTo(expected[i].digital / maximum * 218, 5);
+      for (const [j, key] of series.entries()) {
+        expect(chartBars[i][j].height).toBeCloseTo(maxima[j] === 0 ? 0 : expected[i][key] / maxima[j] * 218, 5);
+      }
       expect(event.x).toBeLessThan(analogBar.x);
       expect(event.x + event.width).toBeLessThan(analogBar.x);
       expect(analogBar.x + analogBar.width).toBeLessThan(digitalBar.x);
@@ -681,12 +682,31 @@ for (const width of [1440, 900, 390]) {
       if (i < chartBars.length - 1) expect(digitalBar.x + digitalBar.width).toBeLessThan(chartBars[i + 1][0].x);
       expect([event.fill, analogBar.fill, digitalBar.fill]).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
     }
-    const largestCount = Math.max(...expected.flatMap((m) => [m.events, m.analog, m.digital]));
-    expect(Math.max(...chartBars.flat().map((bar) => bar.height))).toBeCloseTo(largestCount / maximum * 218, 5);
-    await expect(page.locator('#chart-description')).toContainText('Three separate side-by-side bars per month share one baseline and count scale');
+    for (const [j, key] of series.entries()) {
+      expect(Math.max(...chartBars.map((bars) => bars[j].height)), `${key} peak`).toBe(maxima[j] === 0 ? 0 : 218);
+    }
+    await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months');
+    await expect(page.locator('#chart-description')).toContainText('not count comparisons between series');
+    const monthNames = expected.map((m) => new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }));
+    expect(await page.locator('[data-dashboard-month] > title').allTextContents()).toEqual(expected.map((m, i) =>
+      `${monthNames[i]}: ${m.events} Events, ${m.analog} Analog projects, ${m.digital} Digital projects. Heights are scaled independently to each series' twelve-month maximum.`));
+    expect(await page.locator('.activity-counts tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim()))))
+      .toEqual(expected.map((m, i) => [monthNames[i], ...series.map((key) => String(m[key]))]));
     await expect(page.locator('.recent-signals li')).toHaveCount(4);
     expect(await page.locator('[data-recent-event]').evaluateAll((nodes) => nodes.map((el) => el.dataset.recentEvent)))
       .toEqual(sortEventsNewestFirst(events).slice(0, 4).map((entry) => entry.id));
+    for (const entry of sortEventsNewestFirst(events).slice(0, 4)) {
+      const row = page.locator(`[data-recent-event="${entry.id}"]`);
+      await expect(row.locator('.signal-title')).toHaveText(entry.data.headline);
+      await expect(row.locator('a')).toHaveAttribute('href', `${basePath}events/${entry.id}/`);
+      await expect(row.locator('.signal-meta')).toContainText(entry.data.kind === 'technical' ? 'Technical' : 'Organizational');
+      const icon = row.locator(`.signal-symbol.${entry.data.kind} svg`);
+      await expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, fill: s.fill }; }))
+        .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', fill: 'none' });
+      await expect(icon.locator(entry.data.kind === 'technical' ? 'rect' : 'circle')).toHaveCount(1);
+      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 2 : 1);
+    }
     for (const fixture of [analog, digital]) {
       const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
       expect(await list.locator('li').evaluateAll((nodes) => nodes.map((el) => el.dataset.updatedProject)))
@@ -708,6 +728,7 @@ for (const width of [1440, 900, 390]) {
       const analogBox = await analogCard.boundingBox();
       const digitalBox = await digitalCard.boundingBox();
       expect(chart.width).toBe(signals.width);
+      expect(chart.width).toBe(592);
       expect(signals.x - (chart.x + chart.width)).toBe(16);
       expect(digitalBox.x - (analogBox.x + analogBox.width)).toBe(16);
       for (const key of ['x', 'width']) {

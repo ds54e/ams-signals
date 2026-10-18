@@ -7,11 +7,6 @@ scope:
     ai: false
   verification:
     ai: false
-  aiDevelopment: assisted
-developmentEvidence:
-  summary: "Claude-credited development implemented coordinated formal-association direction handling and declared-versus-analyzed subprogram purity semantics across analysis, simulation and synthesis. Current frontend code retains these semantics."
-  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
 access: "Public GPL-2.0-or-later source, packaged and nightly binaries; runtime-library terms and backend build dependencies vary."
 addedAt: "2026-10-05"
 reviewedAt: "2026-10-18"
@@ -56,4 +51,4 @@ The canonical master branch history is captured in full. The October 4 UTC chang
 
 ### Development provenance
 
-The reviewed campaign separates declaration purity from analyzed call-chain effects and consistently handles constrained/unconstrained composite associations through semantic analysis, elaboration and synthesis. Attribution covers this compiler-correctness campaign rather than documentation, platform build maintenance or construction of the original GHDL compiler. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The cited Claude-credited changes repair formal-association direction/error handling and declared-versus-analyzed purity in existing compiler semantics. These isolated correctness repairs do not establish substantial implementation of a new subsystem or broad campaign, so no development badge is assigned; this does not assert exclusively human development. [Association repair](#source-development-audit-implementation) · [Purity repair](#source-development-audit-extension) · [Retained frontend](#source-development-audit-retained).

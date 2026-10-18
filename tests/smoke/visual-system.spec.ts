@@ -157,6 +157,39 @@ function hue(rgb: number[]) {
   return (sector * 60 + 360) % 360;
 }
 
+for (const mode of ['light', 'dark', 'forced'] as const) {
+  test(`Timeline entire top axis shares the dashboard surface with readable labels in ${mode} mode`, async ({ page }) => {
+    await page.emulateMedia(mode === 'forced' ? { forcedColors: 'active' } : { colorScheme: mode });
+    await open(page, '');
+    const cardFill = await page.locator('.dashboard-panel').first().evaluate((el) => getComputedStyle(el).backgroundColor);
+    for (const width of [1440, 900, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      await open(page, 'timeline');
+      const measure = () => page.evaluate(() => {
+        const rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
+        const root = document.querySelector('.activity-matrix-axis')!;
+        const labels = [...root.querySelectorAll('.matrix-axis-spacer, .activity-band-label')];
+        const fills = ['.activity-matrix-axis-viewport', '.activity-matrix-axis', '.matrix-axis-spacer'].map((selector) => {
+          const s = getComputedStyle(document.querySelector(selector)!);
+          return { fill: s.backgroundColor, opacity: s.opacity };
+        });
+        return { fills, labels: labels.map((el) => ({ text: el.textContent, color: rgb(getComputedStyle(el).color) })),
+          labelPosition: getComputedStyle(labels[0]).position, background: rgb(getComputedStyle(root).backgroundColor) };
+      });
+      const initial = await measure();
+      expect(initial.fills).toEqual(Array(3).fill({ fill: cardFill, opacity: '1' }));
+      if (mode !== 'forced') expect(cardFill).toBe('rgb(245, 246, 248)');
+      expect(initial.labels[0].text).toBe('Company / Person');
+      expect(initial.labels.some((label) => label.text === '2026')).toBe(true);
+      expect(initial.labels.some((label) => label.text === '2025')).toBe(true);
+      for (const label of initial.labels) expect(contrast(label.color, initial.background), `${label.text} contrast`).toBeGreaterThanOrEqual(4.5);
+      expect(initial.labelPosition).toBe('sticky');
+      await page.locator('[data-timeline-scroll]').evaluate((el) => { el.scrollLeft = 200; el.dispatchEvent(new Event('scroll')); });
+      expect(await measure()).toEqual(initial);
+    }
+  });
+}
+
 for (const colorScheme of ['light', 'dark'] as const) {
   test(`Catalog and Events share compact badge typography with distinct Scope colors in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });

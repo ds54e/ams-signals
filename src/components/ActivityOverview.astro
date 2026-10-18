@@ -1,10 +1,10 @@
 ---
 import { monthLabel } from '../lib/catalog-activity-band';
 import type { dashboardActivity } from '../lib/dashboard';
+import { dashboardBarHeights } from '../lib/dashboard-presentation';
 interface Props { months: ReturnType<typeof dashboardActivity>; buildMonth: string }
 const { months, buildMonth } = Astro.props;
-const maximum = Math.max(1, ...months.flatMap((m) => [m.events, m.analog, m.digital]));
-const height = (count: number) => count / maximum * 218;
+const heights = dashboardBarHeights(months);
 const baseline = 242;
 ---
 <section class="dashboard-panel chart-card" data-build-month={buildMonth} aria-labelledby="activity-heading">
@@ -19,16 +19,16 @@ const baseline = 242;
   <div class="chart-frame" tabindex="0" role="region" aria-label="Monthly activity chart, scroll to view all months">
     <svg class="activity-chart" viewBox="0 0 560 290" role="img" aria-labelledby="chart-title chart-description">
       <title id="chart-title">Monthly Events, active Analog projects and active Digital projects</title>
-      <desc id="chart-description">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Three separate side-by-side bars per month share one baseline and count scale: blue Events, green distinct active Analog projects and orange distinct active Digital projects. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</desc>
+      <desc id="chart-description">{monthLabel(months[0].month)} to {monthLabel(months[11].month)}. Three separate side-by-side bars per month share one baseline: blue Events, green distinct active Analog projects and orange distinct active Digital projects. Each series is scaled to its own largest monthly count in these twelve months; heights show trends within each series, not count comparisons between series. Current month is partial. Year-only Events are excluded. Only reviewed activity is counted.</desc>
       {[24, 78.5, 133, 187.5, baseline].map((y) => <line class="chart-grid" x1="12" x2="548" y1={y} y2={y} />)}
       {months.map((month, index) => {
         const x = 20 + index * 44;
         const label = new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString('en', { month: 'short', timeZone: 'UTC' });
         return <g data-dashboard-month={month.month} data-events={month.events} data-analog={month.analog} data-digital={month.digital}>
-          <title>{monthLabel(month.month)}: {month.events} Events, {month.analog} Analog projects, {month.digital} Digital projects</title>
-          <rect class="series-events" x={x} y={baseline - height(month.events)} width="10" height={height(month.events)} rx="2" />
-          <rect class="series-analog" x={x + 12} y={baseline - height(month.analog)} width="10" height={height(month.analog)} />
-          <rect class="series-digital" x={x + 24} y={baseline - height(month.digital)} width="10" height={height(month.digital)} />
+          <title>{monthLabel(month.month)}: {month.events} Events, {month.analog} Analog projects, {month.digital} Digital projects. Heights are scaled independently to each series' twelve-month maximum.</title>
+          <rect class="series-events" x={x} y={baseline - heights[index].events} width="10" height={heights[index].events} rx="2" />
+          <rect class="series-analog" x={x + 12} y={baseline - heights[index].analog} width="10" height={heights[index].analog} />
+          <rect class="series-digital" x={x + 24} y={baseline - heights[index].digital} width="10" height={heights[index].digital} />
           <text x={x + 17} y="264" text-anchor="middle">{label}</text>
           {(index === 0 || month.month.endsWith('-01')) && <text class="chart-year" x={x + 17} y="280" text-anchor="middle">{month.month.slice(0, 4)}</text>}
         </g>;

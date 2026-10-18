@@ -9,9 +9,9 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "A Claude-credited implementation introduced separate query and execute tools with Tcl command-permission checks. That permission model remains in the current TypeScript server; the evidence concerns the original subsystem implementation."
-  sources: ["development-1", "development-2", "development-3"]
-  reviewedAt: "2026-09-07"
+  summary: "Claude-credited Python work implemented command-permission checks and separate query/execute tools. The documented one-to-one TypeScript port retains that policy and enforcement; attribution covers this retained contribution, not authorship of the port."
+  sources: ["development-1", "development-port-lineage", "development-3"]
+  reviewedAt: "2026-10-18"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -34,16 +34,22 @@ sources:
     url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/commit/e6b22895ddcfe3971b952ff12aef6d0e7ccdab8b"
   - id: "development-2"
     title: "Current command validators"
-    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/ae4937cdc1183029c29c8597f7319517058a2929/typescript/src/config/command_whitelist.ts"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/54c98a692baba40cfe8034012acc9162a7f2ccd2/typescript/src/config/command_whitelist.ts"
   - id: "development-3"
     title: "Current query/execute tools"
-    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/ae4937cdc1183029c29c8597f7319517058a2929/typescript/src/tools/interactive.ts"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/54c98a692baba40cfe8034012acc9162a7f2ccd2/typescript/src/tools/interactive.ts"
   - id: "flow-runner"
     title: "Explicit synthesis and physical-design job implementation"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/77f39cc9c290da0e564af6ef01b336672ed40066/typescript/src/tools/flow_run.ts"
   - id: "activity-review"
     title: "Remove obsolete ORFS gate evaluation and correct result semantics"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/commit/0e0d4bfe35c3ecb84c86fd443615363fd661e84e"
+  - id: "development-port-lineage"
+    title: "Official one-to-one command-policy port and parity account"
+    url: https://github.com/The-OpenROAD-Project/OpenROAD-MCP/pull/127
+  - id: "development-tools-port"
+    title: "Explicit TypeScript translation of session and command tools"
+    url: https://github.com/The-OpenROAD-Project/OpenROAD-MCP/commit/417e3d275ac2eedc9adb4de47c0bf93bdd3c0cfe
 ---
 
 
@@ -63,7 +69,7 @@ The implemented ORFS runner explicitly accepts synth, floorplan, place, cts, grt
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The credited Python campaign implements permission checks, separate read/query and modifying/execute tools, server wiring and regression tests. The same tool boundary and validators persist in the current TypeScript port, verified in code; the port itself is not attributed to AI. [Security/refactor history](#source-development-1); [Current command validators](#source-development-2); [Current query/execute tools](#source-development-3).
+The Claude-credited Python contribution implements command-permission checks and separate query/execute enforcement. The official port account explicitly describes a one-to-one policy translation, and the tool translation preserves enforcement before command execution; current TypeScript validators and tools retain that contribution with later hardening. Attribution concerns the retained original implementation, while AI authorship of the TypeScript translation and later changes remains unconfirmed. [Original implementation](#source-development-1) · [Port lineage](#source-development-port-lineage) · [Tool translation](#source-development-tools-port) · [Current validators](#source-development-2) · [Current tools](#source-development-3).
 
 ### Current-source review
 

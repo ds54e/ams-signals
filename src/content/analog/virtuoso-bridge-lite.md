@@ -10,6 +10,11 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude-credited development added the doctor diagnostic subsystem and CLI integration. Its retained implementation analyzes connection identity, configuration, session blockers, host permissions and EDA availability, with structured findings and guarded read-only checks."
+  sources: ["development-doctor-implementation", "development-doctor-retained"]
+  reviewedAt: "2026-10-18"
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
@@ -49,6 +54,12 @@ sources:
   - id: "activity-reviewed-20261011"
     title: "Reviewed substantive first-parent implementation checkpoint"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/378f0b640451d82bf6bccf8ece687aa27b1dcafe"
+  - id: "development-doctor-implementation"
+    title: "Claude-attributed diagnostic subsystem and CLI integration"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/fe814c2f4049a38bfd60e3120d387fb50d287795
+  - id: "development-doctor-retained"
+    title: "Retained setup diagnosis implementation"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/ecaf5a5c5499051ea4c4796a480e278a3e9c0da8/src/virtuoso_bridge/doctor.py
 ---
 ### Implemented interfaces
 
@@ -71,3 +82,7 @@ Generic CLI/Python/MCP access alone would not qualify. Maestro/Spectre execution
 MaestroJobManager persists job identity and request/completion evidence. A later Python process can reattach and observe completion markers without sending additional SKILL to the CIW. The patch includes recovery logic and tests; a separate native-grid/power-rail import fix improves schematic interoperability. [Job implementation and tests](#source-review-20261011-1) · [Maestro operating contract](#source-review-20261011-2) · [Reviewed substantive first-parent implementation checkpoint](#source-activity-reviewed-20261011)
 
 The licensed Virtuoso process and Maestro GUI session are still required for starting the run. Client survival/reconnection is not evidence that a run survives loss of the EDA process. This API is deterministic orchestration and does not establish AI Simulation.
+
+### Development provenance
+
+The Claude-attributed doctor feature implements a user-facing diagnostic subsystem with shared observation state, guarded read-only queries, connection and ownership checks, session-blocker handling and structured findings. Its retained diagnosis logic is substantial implementation beyond setup instructions or thin command forwarding; attribution does not extend to separate Maestro features or the whole bridge. [Attributed implementation](#source-development-doctor-implementation) · [Retained diagnosis](#source-development-doctor-retained).
