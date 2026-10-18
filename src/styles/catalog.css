@@ -1,6 +1,6 @@
 /* One presentation for both independently prepared domain catalogs. */
 .catalog {
-  max-width: var(--layout-listing);
+  max-width: var(--layout-explorer);
   margin-inline: auto;
   overflow-wrap: anywhere;
 }

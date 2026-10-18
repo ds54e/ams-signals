@@ -187,14 +187,14 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
   }));
   for (const row of geometry) {
     expect(row.columns).toHaveLength(2);
-    expect(row.row.width).toBeLessThanOrEqual(1040);
+    expect(row.row.width).toBeLessThanOrEqual(1200);
     if (width >= 1024) {
       expect(row.columns[0].width).toBe(150);
       expect(row.columns[1].width).toBeGreaterThan(754);
       expect(row.columns[1].left - row.columns[0].right).toBe(24);
       if (width >= 1280) {
-        expect(row.row.width).toBe(1040);
-        expect(row.columns[1].width).toBe(866);
+        expect(row.row.width).toBe(1200);
+        expect(row.columns[1].width).toBe(1026);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);

@@ -38,10 +38,10 @@ Dates share `formatDate` in `src/lib/date-format.ts` and `.index-date`: title-ca
 | Token | Maximum | Surface |
 | --- | --- | --- |
 | `--layout-reading` | 800px | Factual reading pages |
-| `--layout-listing` | 1040px | Events, Analog and Digital indexes |
-| `--layout-explorer` | 1200px | Shell and Timeline explorer |
+| `--layout-listing` | 1040px | Entity headers |
+| `--layout-explorer` | 1200px | Shell, Timeline, Events, Analog and Digital indexes |
 
-At full listing width, dated rows use 138px date + 24px gap + 878px copy; catalogs use 150px metadata rail + 24px gap + 866px body. Their outer edges align. No visible Project/Scope/Activity header row. At or below 760px, catalog content comes first with its compact rail immediately below; dates stack on Event indexes. These indexes must not require horizontal page scrolling. Timeline retains local visualization scrolling.
+At full listing width, dated rows use 138px date + 24px gap + 1038px copy; catalogs use 150px metadata rail + 24px gap + 1026px body. Their outer edges and Search starting positions align with Timeline. No visible Project/Scope/Activity header row. At or below 760px, catalog content comes first with its compact rail immediately below; dates stack on Event indexes. These indexes must not require horizontal page scrolling. Timeline retains local visualization scrolling.
 
 Navigation is Home | Timeline | Events | Analog | Digital | GitHub, with compact 13px links, a gray active-page fill and blue active text. Narrow headers put navigation on its own locally scrollable row. Catalog descriptions keep their 15px size rather than shrinking to fit.
 
@@ -51,7 +51,7 @@ The rail order is date, activity band, Scope. Twelve cells run oldest-left to ne
 
 [Catalog activity semantics](catalog/CONTRACT.md#reviewed-public-activity) distinguish repository counts from point evidence. Their common presentation does not fabricate commits or erase canonical provenance. The accessible window label says oldest to newest.
 
-Home uses light-gray rounded panels in a two-column grid, stacking below 1020px. The paired monthly bars fill the Activity Overview card beside four Recent Signals; on narrow screens the chart scrolls locally. Recently updated project cards retain full descriptions. In forced colors, the existing accessible monthly count table becomes visible so every series remains identifiable without color.
+Home uses light-gray rounded panels in equal two-column grids with matching 16px center gutters. The top grid stacks at or below 1020px and the project grid at or below 980px. Three separate side-by-side monthly bars (blue Events, green Analog, orange Digital) share a baseline and a scale set by the largest individual series count in the Activity Overview card beside four Recent Signals; on narrow screens the chart scrolls locally. Recently updated project cards retain full descriptions. In forced colors, the existing accessible monthly count table becomes visible so every series remains identifiable without color.
 
 Controls use whitespace rather than toolbar border rules, cards or shadows. Native controls are 40px high with 13px text. Toolbars leave 22px before the ruled list or visualization. The Timeline Company picker has a thin border and no shadow; it remains above overlapping content on desktop and in-flow on narrow screens. Events has Search and Signal type only.
 

@@ -166,7 +166,7 @@ test('Events is the chronological textual view without a Timeline or inspector',
       right: document.documentElement.clientWidth - rect.right,
     };
   });
-  expect(eventsLayout.width).toBeLessThanOrEqual(1040);
+  expect(eventsLayout.width).toBeLessThanOrEqual(1200);
   expect(Math.abs(eventsLayout.left - eventsLayout.right)).toBeLessThanOrEqual(1);
 
   await page.locator('[data-search]').fill('PLL');
@@ -659,19 +659,31 @@ for (const width of [1440, 900, 390]) {
     const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
       events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital) })));
     expect(actual).toEqual(expected);
-    const maximum = Math.max(1, ...expected.flatMap((m) => [m.events, m.analog + m.digital]));
+    const maximum = Math.max(1, ...expected.flatMap((m) => [m.events, m.analog, m.digital]));
     const chartBars = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => [...el.querySelectorAll('rect')].map((r) => ({
-      x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), height: Number(r.getAttribute('height')), fill: getComputedStyle(r).fill }))));
+      x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), height: Number(r.getAttribute('height')), width: Number(r.getAttribute('width')), fill: getComputedStyle(r).fill }))));
     for (let i = 0; i < chartBars.length; i++) {
+      expect(chartBars[i]).toHaveLength(3);
       const [event, analogBar, digitalBar] = chartBars[i];
       expect(event.height).toBeCloseTo(expected[i].events / maximum * 218, 5);
       expect(analogBar.height).toBeCloseTo(expected[i].analog / maximum * 218, 5);
       expect(digitalBar.height).toBeCloseTo(expected[i].digital / maximum * 218, 5);
       expect(event.x).toBeLessThan(analogBar.x);
-      expect(analogBar.x).toBe(digitalBar.x);
-      expect(digitalBar.y + digitalBar.height).toBeCloseTo(analogBar.y, 5);
+      expect(event.x + event.width).toBeLessThan(analogBar.x);
+      expect(analogBar.x + analogBar.width).toBeLessThan(digitalBar.x);
+      for (const bar of chartBars[i]) {
+        expect(bar.y + bar.height).toBeCloseTo(242, 5);
+        expect(bar.y).toBeGreaterThanOrEqual(24);
+        expect(bar.width).toBeGreaterThan(0);
+      }
+      expect(event.x).toBeGreaterThanOrEqual(12);
+      expect(digitalBar.x + digitalBar.width).toBeLessThanOrEqual(548);
+      if (i < chartBars.length - 1) expect(digitalBar.x + digitalBar.width).toBeLessThan(chartBars[i + 1][0].x);
       expect([event.fill, analogBar.fill, digitalBar.fill]).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
     }
+    const largestCount = Math.max(...expected.flatMap((m) => [m.events, m.analog, m.digital]));
+    expect(Math.max(...chartBars.flat().map((bar) => bar.height))).toBeCloseTo(largestCount / maximum * 218, 5);
+    await expect(page.locator('#chart-description')).toContainText('Three separate side-by-side bars per month share one baseline and count scale');
     await expect(page.locator('.recent-signals li')).toHaveCount(4);
     expect(await page.locator('[data-recent-event]').evaluateAll((nodes) => nodes.map((el) => el.dataset.recentEvent)))
       .toEqual(sortEventsNewestFirst(events).slice(0, 4).map((entry) => entry.id));
@@ -692,6 +704,16 @@ for (const width of [1440, 900, 390]) {
       const signals = await page.locator('.signals-card').boundingBox();
       expect(chart.y).toBe(signals.y);
       expect(chart.height).toBe(signals.height);
+      const [analogCard, digitalCard] = await page.locator('.updated-grid > .dashboard-panel').all();
+      const analogBox = await analogCard.boundingBox();
+      const digitalBox = await digitalCard.boundingBox();
+      expect(chart.width).toBe(signals.width);
+      expect(signals.x - (chart.x + chart.width)).toBe(16);
+      expect(digitalBox.x - (analogBox.x + analogBox.width)).toBe(16);
+      for (const key of ['x', 'width']) {
+        expect(chart[key]).toBe(analogBox[key]);
+        expect(signals[key]).toBe(digitalBox[key]);
+      }
       expect((await page.locator('.activity-chart').boundingBox()).height).toBeGreaterThan(250);
     } else {
       expect((await page.locator('.signals-card').boundingBox()).y).toBeGreaterThan((await page.locator('.chart-card').boundingBox()).y);

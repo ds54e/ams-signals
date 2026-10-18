@@ -6,7 +6,7 @@
   min-width: 0;
 }
 .event-explorer[data-surface="events"] {
-  width: min(100%, var(--layout-listing));
+  width: min(100%, var(--layout-explorer));
   margin-inline: auto;
 }
 .event-explorer[data-surface="events"] .event-filters { display: contents; }

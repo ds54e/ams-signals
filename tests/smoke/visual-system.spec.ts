@@ -102,9 +102,10 @@ for (const viewport of viewports) {
         return { size: s.fontSize, weight: s.fontWeight, color: s.color, line: s.lineHeight, numeric: s.fontVariantNumeric };
       }));
       const content = page.locator(surface === 'analog' || surface === 'digital' ? '.catalog' : '[data-event-explorer-root]');
-      const max = 1040;
+      const max = 1200;
       const box = (await content.boundingBox())!;
       edges.push({ x: box.x, width: box.width });
+      expect((await page.locator('[data-catalog-search], [data-search]').boundingBox())!.x).toBe(box.x);
       expect(box.width).toBeLessThanOrEqual(max);
       expect(box.x).toBeCloseTo((viewport.width - box.width) / 2, 1);
       if (viewport.width >= 1280) expect(box.width).toBe(max);
@@ -124,8 +125,8 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '12px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(866);
-      expect(reports[2].copyWidth).toBe(878);
+      expect(reports[0].copyWidth).toBe(1026);
+      expect(reports[2].copyWidth).toBe(1038);
     }
 
     await open(page, 'timeline');
@@ -133,6 +134,10 @@ for (const viewport of viewports) {
     expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('none');
     await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
     await expectToolbarReadingOrder(page);
+    const timelineBox = (await page.locator('[data-event-explorer-root]').boundingBox())!;
+    const timelineSearch = (await page.locator('[data-search]').boundingBox())!;
+    for (const edge of edges) expect(edge).toEqual({ x: timelineBox.x, width: timelineBox.width });
+    expect(timelineSearch.x).toBe(timelineBox.x);
   });
 }
 
