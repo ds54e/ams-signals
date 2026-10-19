@@ -8,15 +8,17 @@
   "companies": [
     "broadcom"
   ],
-  "people": [],
+  "people": [
+    "jeevan-ramaswamy"
+  ],
   "headline": "Broadcom presents a unified AMS-SDF approach for high-capacity macro verification",
   "fact": "Synopsys AMS SIG India 2026 lists a Broadcom user presentation by Jeevan Ramaswamy titled “High-Capacity Macro Verification: A Unified AMS-SDF Approach using VCS PrimeSim AMS.” The public agenda and proceedings establish a Broadcom-authored macro-verification flow combining AMS and SDF in VCS PrimeSim AMS. Because the presentation deck is gated, this Event does not assert implementation details, capacity results, speedup, or deployment scope beyond the published title.",
   "sources": [
     {
       "title": "Synopsys AMS SIG India 2026 proceedings",
       "url": "https://www.synopsys.com/events/ams-sig/proceedings-2026.html",
-      "checkedAt": "2026-09-21",
-      "summary": "The official proceedings list Jeevan Ramaswamy of Broadcom and the high-capacity macro-verification presentation using a unified AMS-SDF approach with VCS PrimeSim AMS."
+      "checkedAt": "2026-10-19",
+      "summary": "The official proceedings list Jeevan Ramaswamy of Broadcom and the high-capacity macro-verification presentation using a unified AMS-SDF approach with VCS PrimeSim AMS. The currently retrievable public pages do not establish a day; year precision is retained."
     },
     {
       "title": "Synopsys AMS SIG India 2026 agenda",

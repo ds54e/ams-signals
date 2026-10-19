@@ -1,0 +1,25 @@
+{
+  "id": "mediatek-2026-09-synopsys-agentic-ams-design-collaboration",
+  "when": {
+    "start": "2026-09-28",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "mediatek",
+    "synopsys"
+  ],
+  "people": [
+    "ching-san-wu"
+  ],
+  "headline": "MediaTek VP Ching San Wu describes continuing collaboration on Synopsys Agentic AI AMS Platform",
+  "fact": "In a Synopsys announcement, MediaTek vice president Ching San Wu describes continuing collaboration on the Agentic AI AMS Platform for creating, optimizing and implementing analog/mixed-signal designs. He distinguishes this work from an earlier deployment of SmartFloorplanning. The release schedules broader AgentEngineer and Autopilot availability for the end of 2026. This records a named customer-side statement about collaboration, not completed deployment of the announced AMS platform or measured company-wide design productivity.",
+  "sources": [
+    {
+      "title": "Synopsys: long-horizon agents and Autopilot Platform",
+      "url": "https://news.synopsys.com/2026-09-28-Synopsys-Powers-Autonomous-Engineering-with-a-Broad-Portfolio-of-Long-Horizon-Agents-and-Autopilot-Platform",
+      "checkedAt": "2026-10-19",
+      "summary": "September 28, 2026 release quotes MediaTek VP Ching San Wu on continued Agentic AI AMS Platform collaboration; the same release says portfolio availability is planned for the end of 2026."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "maieutic-2026-07-generative-analog-topology-presentation",
+  "when": {
+    "start": "2026-07-27",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "maieutic-semiconductors"
+  ],
+  "people": [
+    "rakesh-kumar"
+  ],
+  "headline": "Maieutic announces Rakesh Kumar presentation on generative analog circuits beyond parameter tuning",
+  "fact": "Maieutic's company account announces Rakesh Kumar's DAC 2026 presentation, GenAI Powered Circuits: Beyond Parametric Tuning, in a Silicon Integration Initiative session. The company's public materials position its analog-design work around generative circuit design rather than parameter adjustment alone. The date is the explicitly advertised July 27 session, not the relative age of the LinkedIn post. This records the named presentation and advertised scope, not independently verified design results or a customer deployment.",
+  "sources": [
+    {
+      "title": "Maieutic company announcement: Rakesh Kumar at DAC 2026",
+      "url": "https://www.linkedin.com/company/maieutic-semiconductors",
+      "checkedAt": "2026-10-19",
+      "summary": "The company post explicitly gives July 27, 2026, room 104C, noon, the presenter and the GenAI circuit-design topic."
+    },
+    {
+      "title": "UTEC: Maieutic founders and analog-design scope",
+      "url": "https://www.ut-ec.co.jp/english/our_companies/maieutic-semiconductors-pvt-ltd/",
+      "checkedAt": "2026-10-19",
+      "summary": "The investor identifies Rakesh Kumar as cofounder/CPO and explains the team's analog IC design experience and AI-assisted design mission; prior Renesas employment is not treated as a technology-transfer claim."
+    }
+  ]
+}

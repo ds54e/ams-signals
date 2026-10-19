@@ -1,0 +1,30 @@
+{
+  "id": "nxp-2025-12-uwb-systemc-ams-verification-presentation",
+  "when": {
+    "start": "2025-12-04",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nxp"
+  ],
+  "people": [
+    "carna-zivkovic"
+  ],
+  "headline": "Carna Zivkovic presents NXP-related SystemC-AMS UWB verification and process-variation modeling",
+  "fact": "Carna Zivkovic presents a SystemC/SystemC-AMS model of a UWB transmitter, channel and receiver, comparing behavior with MATLAB and hardware measurements and examining how receiver gain/noise variations affect packet errors and sensitivity. The cover identifies her as an external contractor, not an NXP employee appointment. The slides credit Shrief Rizkalla as the main author of earlier work and Zivkovic as presenter. This Event records the December presentation and its statistical-model extension, not first publication of the underlying UWB research.",
+  "sources": [
+    {
+      "title": "NXP-related UWB system simulation presentation",
+      "url": "https://coseda-tech.com/customers-partners",
+      "checkedAt": "2026-10-19",
+      "summary": "The public customer archive links COSEDA_UGM_2025__C.Zivkovic_NXP.pdf. The linked slides were reviewed: The cover states External contractor; pages 17-19 describe statistical behavior, earlier research and distinct main-author/presenter roles."
+    },
+    {
+      "title": "COSEDA User Group Meeting 2025: program",
+      "url": "https://coseda-tech.com/news-reader/coseda-user-group-meeting-2025",
+      "checkedAt": "2026-10-19",
+      "summary": "The event page links the official December 3-4, 2025 agenda, which places this presentation on December 4."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "mach42-2026-10-david-tester-engineering-appointment",
+  "when": {
+    "start": "2026-10-15",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "mach42"
+  ],
+  "people": [
+    "david-tester"
+  ],
+  "headline": "Mach42 appoints David Tester to lead engineering for AI-generated analog verification models",
+  "fact": "Mach42 announced David Tester as vice president of engineering, citing his experience at semiconductor companies including EnSilica. The company says its engineering team doubled in 2026. Its platform learns neural surrogate models and exports behavioral representations in Verilog-A, SystemVerilog and C/C++ for analog and mixed-signal verification. The appointment supports product and engineering expansion; the release does not establish an immediate transfer from EnSilica, independent accuracy results or replacement of golden sign-off simulation.",
+  "sources": [
+    {
+      "title": "Mach42: David Tester appointed vice president of engineering",
+      "url": "https://www.businesswire.com/news/home/20261015097755/en/Mach42-Appoints-David-Tester-as-Vice-President-of-Engineering-to-Scale-AI-Powered-Analog-Verification",
+      "checkedAt": "2026-10-19",
+      "summary": "Company-issued October 15, 2026 announcement identifies Tester, engineering-team growth and exports of learned analog models. EnSilica appears as career experience, not a verified immediately preceding employer."
+    }
+  ]
+}

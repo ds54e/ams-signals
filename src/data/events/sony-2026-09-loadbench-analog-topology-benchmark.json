@@ -1,0 +1,32 @@
+{
+  "id": "sony-2026-09-loadbench-analog-topology-benchmark",
+  "when": {
+    "start": "2026-09-09",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "sony-ai",
+    "sony-semiconductor-solutions"
+  ],
+  "people": [
+    "stefan-uhlich",
+    "lorenzo-servadei"
+  ],
+  "headline": "Sony and university researchers present LOADBench for analog circuit generation and topology-selection evaluation",
+  "fact": "The MLCAD 2026 program lists LOADBench with Stefan Uhlich, Lorenzo Servadei and university coauthors in the September 9 analog-design session. The work provides more than 100 SkyWater130 op-amp topologies, annotations and ngspice testbenches, with benchmarks including structural circuit generation and topology selection as well as sizing. The program lists Sony Semiconductor Solutions Europe and Sony AI; the later manuscript uses SonyAI affiliation labels. The October 15 arXiv upload supports this September research milestone and is not treated as a second Event or the first public presentation.",
+  "sources": [
+    {
+      "title": "MLCAD 2026 official program: September 9, session 8",
+      "url": "https://mlcad.org/symposium/2026/program/",
+      "checkedAt": "2026-10-19",
+      "summary": "The program lists LOADBench on September 9 with its authors and Sony AI/Sony Semiconductor Solutions Europe and university affiliations."
+    },
+    {
+      "title": "LOADBench manuscript and artifact description",
+      "url": "https://arxiv.org/html/2610.21591",
+      "checkedAt": "2026-10-19",
+      "summary": "The October 15, 2026 manuscript describes topology data, ngspice testbenches and six benchmark tasks; generation and topology selection qualify beyond sizing-only optimization."
+    }
+  ]
+}

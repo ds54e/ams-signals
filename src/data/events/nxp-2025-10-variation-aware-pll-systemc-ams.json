@@ -8,7 +8,10 @@
   "companies": [
     "nxp"
   ],
-  "people": [],
+  "people": [
+    "neha-chavan",
+    "carna-zivkovic"
+  ],
   "headline": "NXP authors preserve shared block variations in a SystemC-AMS PLL performance model",
   "fact": "NXP and RPTU authors presented variation-aware PLL performance evaluation at DVCon Europe 2025. Public slides integrate statistical performance kernels into SystemC-AMS charge-pump and loop-filter models, preserving 23 shared variations between the blocks. They evaluate PLL lock-time distributions across 2,000 runs and compare approaches with independently modeled block distributions. Related NXP work appeared in 2023; this event records the 2025 evaluation rather than the methodology's first introduction.",
   "sources": [

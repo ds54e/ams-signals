@@ -1,0 +1,30 @@
+{
+  "id": "ibm-2026-07-explore-language-model-topology-search",
+  "when": {
+    "start": "2026-07-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ibm"
+  ],
+  "people": [
+    "xin-zhang"
+  ],
+  "headline": "IBM and Duke researchers publish EXPLORE for language-model-guided analog topology exploration",
+  "fact": "Guanglei Zhou, Xin Zhang and coauthors publish EXPLORE, combining an autoregressive circuit language model with Monte Carlo tree search and simulation feedback to explore analog circuit topologies. The manuscript lists Duke University, MIT-IBM Watson AI Lab and IBM Research affiliations. It concerns generating circuit structure as well as optimizing candidate designs. July 15 is the initial arXiv publication date; later MLCAD presentation is supporting context for the same research, not evidence of production adoption.",
+  "sources": [
+    {
+      "title": "EXPLORE: arXiv publication record",
+      "url": "https://arxiv.org/abs/2607.13416",
+      "checkedAt": "2026-10-19",
+      "summary": "The record dates the first public arXiv version to July 15, 2026."
+    },
+    {
+      "title": "EXPLORE v1: author affiliations and methodology",
+      "url": "https://arxiv.org/html/2607.13416v1",
+      "checkedAt": "2026-10-19",
+      "summary": "The manuscript identifies the university and IBM affiliations, including Xin Zhang at IBM, and describes language-model/MCTS topology generation with simulator feedback."
+    }
+  ]
+}

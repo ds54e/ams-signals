@@ -1,0 +1,32 @@
+{
+  "id": "sony-2026-08-llm-spicemixer-topology-generation",
+  "when": {
+    "start": "2026-08-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "sony-ai",
+    "sony-semiconductor-solutions"
+  ],
+  "people": [
+    "stefan-uhlich",
+    "lorenzo-servadei"
+  ],
+  "headline": "Sony AI and Sony Semiconductor Solutions authors publish LLM-SPICEMixer for analog netlist generation",
+  "fact": "Stefan Uhlich, Lorenzo Servadei and coauthors publish LLM-SPICEMixer, combining evolutionary circuit synthesis with an LLM operator that proposes new SPICE netlists from promising candidates. SPICE evaluation, rather than the language model, supplies the circuit reward. The task synthesizes transistor-level analog discriminant circuits. Author affiliations distinguish Sony AI in Switzerland, Sony Semiconductor Solutions in Japan and university collaborators. This is simulated topology-generation research, not fixed-topology sizing alone or evidence of production deployment.",
+  "sources": [
+    {
+      "title": "Spicing up Genetic Netlist Generation with LLMs: publication record",
+      "url": "https://arxiv.org/abs/2608.23317",
+      "checkedAt": "2026-10-19",
+      "summary": "The arXiv record dates the initial version to August 24, 2026."
+    },
+    {
+      "title": "LLM-SPICEMixer v1: affiliations and synthesis flow",
+      "url": "https://arxiv.org/html/2608.23317v1",
+      "checkedAt": "2026-10-19",
+      "summary": "The manuscript explicitly identifies Sony AI and Sony Semiconductor Solutions, the IGEL netlist-proposal operator and transistor-level circuit synthesis evaluated by SPICE."
+    }
+  ]
+}

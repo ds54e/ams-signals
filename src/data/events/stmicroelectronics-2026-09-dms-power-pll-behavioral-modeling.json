@@ -8,14 +8,18 @@
   "companies": [
     "stmicroelectronics"
   ],
-  "people": [],
+  "people": [
+    "preeti-shukla",
+    "amit-singh",
+    "isha-sharma"
+  ],
   "headline": "STMicroelectronics authors present DMS power estimation and feedforward PLL behavioral modeling",
   "fact": "The DVCon India 2026 Day 2 agenda lists two AMS & Low Power Design presentations co-authored by Amit Singh: “Left-Shift Power Estimation in SoC Design: Verification-Integrated Framework for Early Power Estimation Using Digital Mixed-Signal Simulation” with Isha Sharma, and “Design-Focused Feedforward Behavioural Modeling of PLL IPs for Fast SoC Verification” with Preeti Shukla. Public profiles identify Sharma and Shukla with STMicroelectronics. This Event records the two public technical disclosures without asserting unexposed accuracy, runtime, or deployment results.",
   "sources": [
     {
       "title": "DVCon India 2026 Day 2 agenda",
       "url": "https://dvcon-india.org/wp-content/uploads/2026/08/Day2v13_DVCon_India_2026_Agenda-copy.pdf",
-      "checkedAt": "2026-09-21",
+      "checkedAt": "2026-10-19",
       "summary": "The official September 2 AMS & Low Power Design agenda lists the DMS power-estimation paper by Isha Sharma and Amit Singh and the feedforward PLL behavioral-modeling paper by Preeti Shukla and Amit Singh."
     },
     {

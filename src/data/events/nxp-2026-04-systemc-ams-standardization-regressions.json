@@ -8,7 +8,9 @@
   "companies": [
     "nxp"
   ],
-  "people": [],
+  "people": [
+    "martin-barnasconi"
+  ],
   "headline": "NXP-affiliated Accellera chair reports SystemC-AMS revision and regression-test progress",
   "fact": "Martin Barnasconi, identified with NXP and as Accellera SystemC Technical Committee chair, presented the SystemC-AMS standardization status at SystemC Evolution Fika. The slides report preparation for the next IEEE 1666.1 revision and work toward a public regression-test repository. Accellera coordinates this standardization work; it is not an NXP product release. The presentation does not announce a newly issued standard or the first public regression suite: a 2023 presentation already links a regression-test tar archive.",
   "sources": [

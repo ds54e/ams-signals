@@ -1,0 +1,31 @@
+{
+  "id": "nvidia-2025-11-heart-hierarchical-ams-design-agents",
+  "when": {
+    "start": "2025-11-24",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "nvidia"
+  ],
+  "people": [
+    "souradip-poddar",
+    "chia-tung-ho"
+  ],
+  "headline": "NVIDIA and university authors publish HeaRT for hierarchy-aware AMS circuit design exploration",
+  "fact": "Souradip Poddar, Chia-Tung Ho and coauthors present HeaRT, an agentic AMS design framework that organizes circuit hierarchy, functional roles and feedback relationships to guide design changes. The work includes topology exploration as well as parameter refinement. The authors list NVIDIA, UT Austin and George Washington University affiliations. This records a research publication, not NVIDIA production deployment. The Event retains the November 24, 2025 initial-publication date; the March 26, 2026 revision is supporting evidence for the same research milestone.",
+  "sources": [
+    {
+      "title": "HeaRT: arXiv version history",
+      "url": "https://arxiv.org/abs/2511.19669",
+      "checkedAt": "2026-10-19",
+      "summary": "The public record dates v1 to November 24, 2025 and v2 to March 26, 2026."
+    },
+    {
+      "title": "HeaRT v1 manuscript",
+      "url": "https://arxiv.org/html/2511.19669v1",
+      "checkedAt": "2026-10-19",
+      "summary": "The original manuscript describes hierarchical circuit reasoning and topology exploration, with NVIDIA and university author affiliations."
+    }
+  ]
+}

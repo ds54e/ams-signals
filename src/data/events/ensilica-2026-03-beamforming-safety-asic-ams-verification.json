@@ -1,0 +1,24 @@
+{
+  "id": "ensilica-2026-03-beamforming-safety-asic-ams-verification",
+  "when": {
+    "start": "2026-03-31",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ensilica"
+  ],
+  "people": [
+    "konstantinos-glaros"
+  ],
+  "headline": "EnSilica design lead presents AMS/DMS verification for beamforming arrays and safety-critical ASICs",
+  "fact": "The DESN program lists Konstantinos Glaros, also introduced as Kostas Glaros, as EnSilica associate director of analogue IC design. His talk addresses AMS and DMS verification where multiple analog channels operate alongside complex digital signal processing, and traceable requirements compliance in industrial and automotive ASICs. This records a named technical presentation and its published scope; the public abstract does not identify a specific modeling language or quantified verification result.",
+  "sources": [
+    {
+      "title": "DESN: Designing the Future, Analogue Mixed Signal",
+      "url": "https://desn.org.uk/event/designing-the-future-analogue-mixed-signal-ams/",
+      "checkedAt": "2026-10-19",
+      "summary": "The March 31, 2026 program and speaker abstract name Glaros and EnSilica and explicitly describe AMS/DMS verification of multichannel and safety-critical ASICs."
+    }
+  ]
+}

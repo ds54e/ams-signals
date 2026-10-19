@@ -1,0 +1,30 @@
+{
+  "id": "cadence-2026-07-virastack-analog-design-agent-presentation",
+  "when": {
+    "start": "2026-07-17",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cadence"
+  ],
+  "people": [
+    "tadokoro-haruko"
+  ],
+  "headline": "Cadence Japan presents ViraStack agents for analog/custom circuit design and verification workflows",
+  "fact": "CadenceLIVE Japan lists a presentation by 田所 晴子 of Cadence Japan on ViraStack, a natural-language-operated AI agent for analog and custom design in Virtuoso. Its advertised scope spans circuit design, layout and verification rather than layout automation alone. The speaker biography identifies application-engineering work on Virtuoso ADE and Spectre since 2005. This records the scheduled technical presentation and public abstract, not customer adoption, measured productivity gains or responsibility for developing the product.",
+  "sources": [
+    {
+      "title": "CadenceLIVE Japan 2026",
+      "url": "https://www.cadence.com/en_US/home/company/events/industry-events/cadencelive-silicon-valley-20261.html",
+      "checkedAt": "2026-10-19",
+      "summary": "Cadence dates its Tokyo event to July 17, 2026."
+    },
+    {
+      "title": "Session B-3: ViraStack for custom design",
+      "url": "https://cadencelivejapan2026.smktg.jp/public/session/view/19",
+      "checkedAt": "2026-10-19",
+      "summary": "The official session page names the speaker, Cadence Japan affiliation and circuit/layout/verification agent scope. The Person retains the name as published."
+    }
+  ]
+}

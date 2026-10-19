@@ -9,15 +9,17 @@
     "analog-port",
     "siemens-eda"
   ],
-  "people": [],
+  "people": [
+    "neel-natekar"
+  ],
   "headline": "Analog Port and Siemens report a UVM-based chiplet mixed-signal verification flow",
   "fact": "At DAC 2026, Analog Port and Siemens EDA authors described a top-down mixed-signal verification methodology for a 32 Gbps, 16-transmit/16-receive full-duplex die-to-die interface. The flow extends a UVM-based digital verification environment into the mixed-signal domain, using SPICE simulation for critical analog blocks and high-performance digital simulation for the broader system. The authors report up to 26x memory savings and more than 3x performance gain for the presented RX and TX simulations; these are case-specific presentation results.",
   "sources": [
     {
       "title": "Bridging Analog Fidelity and Digital Performance in Chiplet Interface Mixed-Signal IP Verification",
       "url": "https://63dac.conference-program.com/presentation/?id=ENGPOST278&sess=sess296",
-      "checkedAt": "2026-09-25",
-      "summary": "The official DAC 2026 record identifies the Analog Port and Siemens authors, July 29 presentation, UVM-based top-down methodology, selective SPICE/digital partitioning, 32 Gbps 16-TX/16-RX interface, and reported up-to-26x memory and greater-than-3x performance results."
+      "checkedAt": "2026-10-19",
+      "summary": "The official DAC 2026 record identifies the Analog Port and Siemens authors, July 29 presentation, UVM-based top-down methodology, selective SPICE/digital partitioning, 32 Gbps 16-TX/16-RX interface, and reported up-to-26x memory and greater-than-3x performance results. Neel Natekar is listed among the Siemens authors."
     },
     {
       "title": "How Siemens Symphony Pro enabled AnalogPort to verify complex chip interfaces",

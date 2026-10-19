@@ -5,16 +5,33 @@
     "precision": "day"
   },
   "kind": "organizational",
-  "companies": ["apple"],
-  "people": [],
+  "companies": [
+    "apple"
+  ],
+  "people": [
+    "vineet-bhargava",
+    "sunil-kumar"
+  ],
   "headline": "Apple posts a Wireless Radio Verification role spanning digital and RF-modeled subsystems",
-  "fact": "Apple posted a Wireless Radio Verification Engineer role whose description covers radio digital controllers and Digital+RF subsystems spanning PLL, DAC and ADC data paths, power management, and coexistence. The hiring mandate includes UVM environments, constrained-random tests, coverage and assertions, and digital-plus-mixed-signal co-simulation integrating SystemVerilog behavioral and DMS models.",
+  "fact": "Apple posted a Wireless Radio Verification Engineer role whose description covers radio digital controllers and Digital+RF subsystems spanning PLL, DAC and ADC data paths, power management, and coexistence. The hiring mandate includes UVM environments, constrained-random tests, coverage and assertions, and digital-plus-mixed-signal co-simulation integrating SystemVerilog behavioral and DMS models. In related recruiting posts, Vineet Bhargava invited candidates to the team that verified the N1 radio and Sunil Kumar explicitly said his group was hiring. Their linked requisition is 200632346-3956, distinct from the original 200632358-3956. The posts' exact dates are unverified; the Event retains the original job-posting date.",
   "sources": [
     {
       "title": "Wireless Radio Verification Engineer",
       "url": "https://jobs.apple.com/en-us/details/200632358-3956/wireless-radio-verification-engineer",
       "checkedAt": "2026-09-02",
       "summary": "Official Apple posting dated November 17, 2025, describing verification of radio digital controllers and Digital+RF subsystems with UVM, constrained random testing, coverage, assertions, and mixed-signal co-simulation."
+    },
+    {
+      "title": "Vineet Bhargava: N1 radio verification recruiting",
+      "url": "https://www.linkedin.com/posts/vineetbh_wireless-radio-verification-engineer-jobs-activity-7402158651584782336-EhW_",
+      "checkedAt": "2026-10-19",
+      "summary": "The author invites candidates to the team that verified the N1 radio. The linked job card resolves to 200632346-3956, not 200632358-3956. Relative post age is not used as a precise publication date."
+    },
+    {
+      "title": "Sunil Kumar: radio design verification hiring",
+      "url": "https://www.linkedin.com/posts/sunil-kumar-bahuguna_wireless-radio-verification-engineer-jobs-activity-7402161449172922368-5oa1",
+      "checkedAt": "2026-10-19",
+      "summary": "Kumar explicitly says his group is hiring Radio Design Verification Engineers while sharing Bhargava's post; this is a direct recruiting statement, not merely an unannotated repost."
     }
   ]
 }

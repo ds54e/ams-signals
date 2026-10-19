@@ -1,0 +1,30 @@
+{
+  "id": "qualcomm-2026-10-rfchipagent-lna-design-preprint",
+  "when": {
+    "start": "2026-10-07",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "qualcomm"
+  ],
+  "people": [
+    "awani-khodkumbhe"
+  ],
+  "headline": "Qualcomm-affiliated authors publish RFChipAgent for LNA topology selection, schematic assembly and verification",
+  "fact": "Awani Khodkumbhe and Qualcomm-affiliated coauthors publish RFChipAgent, a human-supervised LLM-agent flow for analog/RF design. It connects document retrieval, topology selection, schematic and testbench assembly, simulation-guided optimization, and operating-point and stability checks. The reported case is a GF22FDSOI 60 GHz wideband LNA. The paper is a preprint submitted for possible publication, not a product release, measured-silicon result or evidence of company-wide adoption. Khodkumbhe also lists UC Berkeley affiliation.",
+  "sources": [
+    {
+      "title": "RFChipAgent: arXiv submission record",
+      "url": "https://arxiv.org/abs/2610.10858",
+      "checkedAt": "2026-10-19",
+      "summary": "The record dates v1 to October 7, 2026 and lists the authors, LNA scope and preprint status."
+    },
+    {
+      "title": "RFChipAgent v1: author affiliations and design flow",
+      "url": "https://arxiv.org/html/2610.10858v1",
+      "checkedAt": "2026-10-19",
+      "summary": "The HTML manuscript identifies Qualcomm Technologies affiliations and Khodkumbhe's UC Berkeley affiliation; topology and schematic generation qualify beyond fixed-topology sizing."
+    }
+  ]
+}

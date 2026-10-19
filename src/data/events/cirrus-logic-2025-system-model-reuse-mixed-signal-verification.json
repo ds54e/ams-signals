@@ -1,23 +1,26 @@
 {
   "id": "cirrus-logic-2025-system-model-reuse-mixed-signal-verification",
   "when": {
-    "start": "2025",
-    "precision": "year"
+    "start": "2025-02-26",
+    "precision": "day"
   },
   "kind": "technical",
   "companies": [
     "cirrus-logic",
     "mathworks"
   ],
-  "people": [],
+  "people": [
+    "bahaa-osman",
+    "suhas-belgal"
+  ],
   "headline": "Cirrus Logic and MathWorks authors report reusing system models in mixed-signal verification",
   "fact": "A DVCon U.S. 2025 paper by Cirrus Logic and MathWorks authors describes generating SystemVerilog DPI-C components from system-level models for reuse in mixed-signal verification. A reported test ran in 30 seconds with DPI-C versus 51 seconds with a user-defined nettype and 54 seconds with Verilog-AMS. The paper also contrasts two projects whose closed-loop verification began 18 and 43 weeks after RTL availability; those project timings are not presented as a controlled comparison.",
   "sources": [
     {
-      "title": "Reuse of System-Level Circuit Models in Mixed-Signal Verification",
-      "url": "https://dvcon-proceedings.org/document/reuse-of-system-level-circuit-models-in-mixed-signal-verification/",
-      "checkedAt": "2026-08-30",
-      "summary": "DVCon's record identifies the Cirrus Logic and MathWorks model-reuse paper."
+      "title": "DVCon U.S. 2025 official program: session 12",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-U.S.-2025-Proceedings.pdf",
+      "checkedAt": "2026-10-19",
+      "summary": "Program page 32 dates paper 1057 to February 26, 2025 and identifies the Cirrus Logic/MathWorks authors, including presenter Bahaa Osman and Suhas Belgal. The paper and technical article remain separate supporting sources."
     },
     {
       "title": "Reuse of System-Level Circuit Models in Mixed-Signal Verification — paper",

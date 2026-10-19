@@ -1,0 +1,24 @@
+{
+  "id": "ibm-2026-07-hrl-topo-analog-topology-synthesis",
+  "when": {
+    "start": "2026-07-26",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "ibm"
+  ],
+  "people": [
+    "xin-zhang"
+  ],
+  "headline": "IBM authors publish HRL-Topo for LLM-guided hierarchical analog circuit topology synthesis",
+  "fact": "IBM Research lists HRL-Topo by Prashanth Vijayaraghavan, Xin Zhang and coauthors as a DAC 2026 publication dated July 26. The work combines language-model circuit guidance with hierarchical reinforcement learning to construct analog circuit topologies and evaluate them through simulation. This records a topology-synthesis research publication, rather than fixed-topology sizing alone or deployment across IBM design teams. The date is IBM's publication-record date, not a separately verified presentation time.",
+  "sources": [
+    {
+      "title": "IBM Research: HRL-Topo",
+      "url": "https://research.ibm.com/publications/hrl-topo-hierarchical-reinforcement-learning-with-large-language-models-for-analog-circuit-topology-synthesis",
+      "checkedAt": "2026-10-19",
+      "summary": "IBM lists July 26, 2026, DAC 2026, the author group including Xin Zhang, and the hierarchical reinforcement-learning/LLM topology-synthesis scope."
+    }
+  ]
+}

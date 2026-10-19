@@ -1,0 +1,30 @@
+{
+  "id": "infineon-2025-12-gate-driver-systemc-ams-rf-models",
+  "when": {
+    "start": "2025-12-03",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [
+    "guillermo-conde"
+  ],
+  "headline": "Infineon presents mixed RF and SystemC-AMS models for isolated gate-driver integration verification",
+  "fact": "Guillermo Conde of Infineon presents SystemC-AMS/COSIDE models for smart gate drivers using coreless-transformer isolation. The flow combines discrete-event, timed-data-flow and electrical models with selectable RF baseband/passband abstractions. The integration example connects the RF isolation path to SPICE-level surrounding circuits for AMS verification. December 3 is the scheduled presentation date; November 27 on internal slide footers is not treated as the public presentation date. The slides describe a modeling approach, not company-wide deployment.",
+  "sources": [
+    {
+      "title": "Infineon: Bridging Power and RF",
+      "url": "https://coseda-tech.com/customers-partners",
+      "checkedAt": "2026-10-19",
+      "summary": "The public customer archive links COSEDA_UGM_2025__G.Conde_Infineon.pdf. The linked slides were reviewed: The cover names Conde and December 3; pages 12-15 show the isolated gate-driver architecture, mixed RF abstractions and SPICE integration."
+    },
+    {
+      "title": "COSEDA User Group Meeting 2025: program",
+      "url": "https://coseda-tech.com/news-reader/coseda-user-group-meeting-2025",
+      "checkedAt": "2026-10-19",
+      "summary": "The event page links the official December 3-4, 2025 agenda, which places this presentation on December 3."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "bosch-sensortec-2025-12-systemc-ams-project-reuse",
+  "when": {
+    "start": "2025-12-03",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "bosch-sensortec"
+  ],
+  "people": [
+    "alexandra-kuester"
+  ],
+  "headline": "Bosch Sensortec presents automated setup and maintenance of reusable SystemC-AMS virtual prototypes",
+  "fact": "Alexandra Küster of Bosch Sensortec presents a COSIDE scripting flow for heterogeneous sensor virtual prototypes combining MEMS, analog, digital and firmware models. The slides contrast manual project copying and backporting with common templates, versioned building blocks, automated updates and a working top-level/testbench scaffold. Python copier, CMake and continuous integration support model reuse and maintenance. Automated test creation remains a next step. This is a reported modeling workflow, not an AI circuit-generation claim.",
+  "sources": [
+    {
+      "title": "Bosch Sensortec: Automated Project Setup using COSIDE Scripting",
+      "url": "https://coseda-tech.com/customers-partners",
+      "checkedAt": "2026-10-19",
+      "summary": "The public customer archive links COSEDA_UGM_2025__A.Kuester_Bosch-Sensortec.pdf. The linked slides were reviewed: Küster and Bosch Sensortec appear on the cover; pages 7-8 describe reuse and setup, while page 13 identifies test creation as future work."
+    },
+    {
+      "title": "COSEDA User Group Meeting 2025: program",
+      "url": "https://coseda-tech.com/news-reader/coseda-user-group-meeting-2025",
+      "checkedAt": "2026-10-19",
+      "summary": "The event page links the official December 3-4, 2025 agenda, which places this presentation on December 3."
+    }
+  ]
+}

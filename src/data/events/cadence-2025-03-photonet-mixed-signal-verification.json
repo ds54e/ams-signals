@@ -1,0 +1,24 @@
+{
+  "id": "cadence-2025-03-photonet-mixed-signal-verification",
+  "when": {
+    "start": "2025-03-27",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "cadence"
+  ],
+  "people": [
+    "paul-graykowski"
+  ],
+  "headline": "Cadence author describes PhotoNet and EEnet models for integrated photonic/electrical/digital verification",
+  "fact": "Paul Graykowski, identified as a Cadence product-marketing director, describes SystemVerilog real-number modeling of photonic components with PhotoNet and electrical circuits with EEnet in Xcelium. The sponsored technical article targets verification of multi-chip systems containing photonics, analog electronics and digital controllers, and references associated models and adoption examples. March 27 is the article publication date, not a verified initial library release date. It does not identify a customer deployment or establish that the author implemented the libraries.",
+  "sources": [
+    {
+      "title": "High-Speed High-Capacity Mixed-Signal Simulation of Silicon Photonics",
+      "url": "https://semiengineering.com/high-speed-high-capacity-mixed-signal-simulation-of-silicon-photonics/",
+      "checkedAt": "2026-10-19",
+      "summary": "The page is dated March 27, 2025, labels the article Sponsor Blog, identifies Graykowski and Cadence, and describes PhotoNet/EEnet mixed-signal verification."
+    }
+  ]
+}
