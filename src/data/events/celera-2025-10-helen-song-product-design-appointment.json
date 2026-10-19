@@ -1,0 +1,30 @@
+{
+  "id": "celera-2025-10-helen-song-product-design-appointment",
+  "when": {
+    "start": "2025-10-28",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "mediatek",
+    "celera-semiconductor"
+  ],
+  "people": [
+    "helen-song"
+  ],
+  "headline": "Celera announces Helen Song as product-design VP following her MediaTek analog-design leadership role",
+  "fact": "Celera announced that Helen Song had joined as vice president of Product Design to lead customized analog product development. The announcement identifies her preceding role as general manager of MediaTek's Analog Design and Technology Product Group. Celera describes an AI-assisted analog development flow and a mandate to expand its engineering and reusable IP capabilities. October 28 is the announcement date, not a verified employment start date; the move does not establish transfer of MediaTek technology.",
+  "sources": [
+    {
+      "title": "Celera: Helen Song joins to lead product design",
+      "url": "https://www.prnewswire.com/news-releases/industry-veteran-dr-helen-song-joins-celera-semiconductor-to-lead-product-design-302594723.html",
+      "checkedAt": "2026-10-19",
+      "summary": "Celera-issued release dated October 28, 2025 names Song, her new design role and preceding MediaTek role; it describes AI-assisted analog product development."
+    }
+  ],
+  "affiliationChange": {
+    "person": "helen-song",
+    "from": "mediatek",
+    "to": "celera-semiconductor"
+  }
+}

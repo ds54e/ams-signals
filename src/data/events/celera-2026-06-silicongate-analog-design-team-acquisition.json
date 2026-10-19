@@ -1,0 +1,24 @@
+{
+  "id": "celera-2026-06-silicongate-analog-design-team-acquisition",
+  "when": {
+    "start": "2026-06-09",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "celera-semiconductor"
+  ],
+  "people": [
+    "helen-song"
+  ],
+  "headline": "Celera acquires SiliconGate to expand power-management design capacity and AI-assisted analog development",
+  "fact": "Celera announced its acquisition of SiliconGate, an analog design business with teams in Lisbon and Porto. The release describes prior collaboration in power-management design and plans to expand the Portuguese engineering team. Helen Song, identified as vice president of design, links the team and technology integration to expanding custom analog capacity and advancing AI-assisted product development. This records the completed acquisition and stated integration plans, not delivery of fully autonomous analog design.",
+  "sources": [
+    {
+      "title": "Celera announces SiliconGate acquisition",
+      "url": "https://www.prnewswire.com/news-releases/celera-semiconductor-acquires-portugal-based-silicongate-a-global-leader-in-analog-ic-design-302792050.html",
+      "checkedAt": "2026-10-19",
+      "summary": "Celera-issued June 9, 2026 release records the acquisition and names Song as design VP. SiliconGate is retained as the historical acquired organization in the fact, under the Celera corporate group."
+    }
+  ]
+}
