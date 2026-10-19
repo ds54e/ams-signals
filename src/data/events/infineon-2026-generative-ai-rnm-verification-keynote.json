@@ -18,15 +18,17 @@
       "title": "AI Transformation in IC Development: An Industrial Perspective on Reshaping Verification Methodology in the Generative-AI Era",
       "url": "https://smacd-conference.org/keynote.html",
       "checkedAt": "2026-10-19",
-      "summary": "Previously reviewed on September 2, 2026. The official keynote page identifies Joachim Glas and Infineon and describes the AI-assistant, RAG, EDA-API, guardrail, human-in-the-loop, and SystemVerilog RNM example scope. The URL was unavailable when rechecked on October 19; the historical verified record is retained.",
-      "status": "unavailable"
+      "summary": "The original URL returned 404 on October 19, 2026. The September 23 archive was reviewed on October 19 and explicitly identifies Joachim Glas, Infineon and the AI-assistant, RAG, EDA-API, guardrail, human-review and SystemVerilog RNM example scope.",
+      "status": "unavailable",
+      "archiveUrl": "https://web.archive.org/web/20260923040441/https://smacd-conference.org/keynote.html"
     },
     {
       "title": "SMACD 2026 programme",
       "url": "https://smacd-conference.org/programme_extended2.html",
       "checkedAt": "2026-10-19",
-      "summary": "Previously reviewed on September 2, 2026. The official programme places the Joachim Glas keynote at 09:00 on Thursday, July 2, 2026. The URL was unavailable when rechecked on October 19; the historical verified record is retained.",
-      "status": "unavailable"
+      "summary": "The original URL returned 404 on October 19, 2026. The September 23 archive was reviewed on October 19: the Day 4 Thursday, July 2 table places Joachim Glas and AI Transformation in IC Development in the 09:00 keynote row of the SMACD 2026 programme.",
+      "status": "unavailable",
+      "archiveUrl": "https://web.archive.org/web/20260923040441/https://smacd-conference.org/programme_extended2.html"
     }
   ]
 }

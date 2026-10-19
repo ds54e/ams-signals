@@ -8,9 +8,7 @@
   "companies": [
     "cadence"
   ],
-  "people": [
-    "daniel-cross"
-  ],
+  "people": [],
   "headline": "Cadence author applies metamorphic testing to a SystemVerilog RNM receiver model",
   "fact": "A Cadence DVCon U.S. 2026 paper applies metamorphic testing to a SystemVerilog real-number model of a receiver baseband, ADC, and automatic-gain-control system where a detailed test oracle is impractical. It defines relations for doubled or halved input, constant ADC magnitude, and plus-or-minus 6 dB RSSI changes and exercises them with randomized stimuli. This is a reported case study, not an AI method or a company-wide deployment claim.",
   "sources": [
