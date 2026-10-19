@@ -12,7 +12,7 @@
     "aadhar-sharma"
   ],
   "headline": "TI authors present ANA-MODELGEN for analog behavioral-model generation and SPICE-based validation",
-  "fact": "The DAC 2026 program lists ANA-MODELGEN by Aadhar Sharma and Texas Instruments coauthors. Its abstract describes automated generation of analog IP behavioral models and validation testbenches, with equivalence checks against SPICE references. The authors report use in production SoC verification flows and improvements in modeling effort and verification coverage. This records the presented method and author-reported application; the public abstract does not establish use of an LLM or disclose independently verified results.",
+  "fact": "The DAC 2026 program lists ANA-MODELGEN by Aadhar Sharma and Texas Instruments coauthors. Its abstract describes automated generation of analog IP behavioral models and validation testbenches, with equivalence checks against SPICE references. The authors report use in production SoC verification flows and improvements in execution speed and functional coverage. This records the presented method and author-reported application; the public abstract does not establish use of an LLM or disclose independently verified results.",
   "sources": [
     {
       "title": "DAC 2026: ANA-MODELGEN",

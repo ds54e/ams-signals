@@ -212,6 +212,12 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
 });
 
 test('Company picker is readable, searchable, and independently clearable', async ({ page }) => {
+  const { companies } = await loadGoldenCorpus();
+  const sonyCompanyNames = companies
+    .map(({ data }) => data.name)
+    .filter((name) => name.toLowerCase().includes('sony'))
+    .sort((left, right) => left.localeCompare(right, 'en'));
+  expect(sonyCompanyNames.length, 'source corpus supplies Sony Company search matches').toBeGreaterThan(0);
   await page.goto('./timeline/');
   await expectExplorerReady(page);
 
@@ -248,8 +254,8 @@ test('Company picker is readable, searchable, and independently clearable', asyn
   const eventFilterUrl = page.url();
   const checkedBeforePickerSearch = await checked.count();
   await page.locator('[data-company-search]').fill('sony');
-  await expect(page.locator('[data-company-option]:visible')).toHaveCount(1);
-  await expect(page.locator('[data-company-option]:visible > span')).toHaveText(['Sony Semiconductor']);
+  await expect(page.locator('[data-company-option]:visible')).toHaveCount(sonyCompanyNames.length);
+  await expect(page.locator('[data-company-option]:visible > span')).toHaveText(sonyCompanyNames);
   expect(page.url()).toBe(eventFilterUrl);
   await expect(checked).toHaveCount(checkedBeforePickerSearch);
   await page.locator('[data-company-search]').fill('apple');
