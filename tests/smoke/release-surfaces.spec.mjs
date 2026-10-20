@@ -738,6 +738,10 @@ for (const width of [1440, 900, 390]) {
         .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', fill: 'none' });
       await expect(icon.locator('rect, circle')).toHaveCount(0);
       await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 7);
+      await expect(icon.locator('path').first()).toHaveAttribute('d', entry.data.kind === 'technical'
+        ? 'M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2'
+        : 'M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z');
+      await expect(icon.locator('path').last()).toHaveAttribute('d', entry.data.kind === 'technical' ? 'M7 16h10' : 'M10 18h4');
     }
     for (const fixture of [analog, digital]) {
       const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
