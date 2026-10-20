@@ -732,16 +732,20 @@ for (const width of [1440, 900, 390]) {
       await expect(row.locator('.signal-meta')).toContainText(entry.data.kind === 'technical' ? 'Technical' : 'Organizational');
       const icon = row.locator(`.signal-symbol.${entry.data.kind} svg`);
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
-      await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'lucide lucide-building-2');
+      await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'signal-icon-buildings');
       await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
       expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, fill: s.fill }; }))
         .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', fill: 'none' });
       await expect(icon.locator('rect, circle')).toHaveCount(0);
-      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 7);
+      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 4);
       await expect(icon.locator('path').first()).toHaveAttribute('d', entry.data.kind === 'technical'
         ? 'M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2'
-        : 'M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z');
-      await expect(icon.locator('path').last()).toHaveAttribute('d', entry.data.kind === 'technical' ? 'M7 16h10' : 'M10 18h4');
+        : 'M5 20V7a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v13');
+      await expect(icon.locator('path').last()).toHaveAttribute('d', entry.data.kind === 'technical' ? 'M7 16h10' : 'M3 20h19');
+      if (entry.data.kind === 'organizational') {
+        await expect(icon.locator('path').nth(1)).toHaveAttribute('d', 'M14 10h4a2 2 0 0 1 2 2v8');
+        await expect(icon.locator('path').nth(2)).toHaveAttribute('d', 'M10 20v-3');
+      }
     }
     for (const fixture of [analog, digital]) {
       const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
