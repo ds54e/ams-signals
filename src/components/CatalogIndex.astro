@@ -48,7 +48,7 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
           <div class="catalog-rail">
             <div class="catalog-activity" data-activity-kind={project.activity.kind}>
               <span class="visually-hidden">Public activity: </span>
-              <p class="activity-latest"><time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{formatDate(project.activity.date)}</time></p>
+              <p class="activity-latest">{project.activity.date ? <time class="index-date" datetime={project.activity.date} title={project.activity.provenance}>{formatDate(project.activity.date)}</time> : <span class="index-date" title={project.activity.provenance}>Activity not fetched</span>}</p>
               <ul class="activity-strip" aria-label={`${project.name}: ${windowLabel}; ${project.activity.activeMonths} months with reviewed public activity; ${project.activity.provenance}`}>
                 {project.activity.cells.map((cell) => <li class:list={{ active: cell.active }} data-month={cell.month} data-signal={cell.signal} data-source={cell.source} data-commits={cell.commits} title={cell.detail}>
                   <span class="visually-hidden">{cell.detail}</span>

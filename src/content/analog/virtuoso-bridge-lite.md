@@ -2,7 +2,7 @@
 name: "virtuoso-bridge-lite"
 aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
-description: "Python and CLI bridge for Virtuoso schematic/layout editing, Maestro configuration and persistent asynchronous simulation jobs, plus standalone Spectre execution and PSF parsing. A bundled model-driven netlist skill separates circuit/testbench decks and repairs semantic structure; users supply the licensed EDA installation and PDK."
+description: "Python, CLI and optional MCP bridge for Virtuoso schematic/layout editing, Maestro configuration and persistent asynchronous simulation jobs, plus standalone Spectre execution and PSF parsing. A bundled model-driven netlist skill repairs circuit/testbench structure; users supply the licensed EDA installation and PDK."
 scope:
   design:
     ai: true
@@ -60,6 +60,12 @@ sources:
   - id: "development-doctor-retained"
     title: "Retained setup diagnosis implementation"
     url: https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/ecaf5a5c5499051ea4c4796a480e278a3e9c0da8/src/virtuoso_bridge/doctor.py
+  - id: mcp-adapter
+    title: Optional MCP adapter over existing bridge APIs
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/b7fdc810cff4a1d7bb1a1a0e04ad50e2366f8765
+  - id: psf-fast-parser
+    title: Optional PSF ASCII parser and RMS regressions
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/25a6d14bc65d4c70fb2c988dd1f59ea3c7410529
 ---
 ### Implemented interfaces
 
@@ -82,6 +88,8 @@ Generic CLI/Python/MCP access alone would not qualify. Maestro/Spectre execution
 MaestroJobManager persists job identity and request/completion evidence. A later Python process can reattach and observe completion markers without sending additional SKILL to the CIW. The patch includes recovery logic and tests; a separate native-grid/power-rail import fix improves schematic interoperability. [Job implementation and tests](#source-review-20261011-1) · [Maestro operating contract](#source-review-20261011-2) · [Reviewed substantive first-parent implementation checkpoint](#source-activity-reviewed-20261011)
 
 The licensed Virtuoso process and Maestro GUI session are still required for starting the run. Client survival/reconnection is not evidence that a run survives loss of the EDA process. This API is deterministic orchestration and does not establish AI Simulation.
+
+The October 20 optional MCP adapter exposes existing bridge operations to MCP clients; it does not add model-driven simulation or replace licensed Virtuoso, Spectre or a PDK. The separately opt-in PSF ASCII parser adds faster result reading with RMS regressions, without changing the simulation engine. The persistent job contract still avoids resending a timed-out request and recovers through receipts and history rather than assuming a second execution. [MCP adapter](#source-mcp-adapter) · [PSF parser](#source-psf-fast-parser) · [Job contract](#source-review-20261011-2)
 
 ### Development provenance
 

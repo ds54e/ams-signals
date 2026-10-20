@@ -6,6 +6,7 @@ type ActivitySnapshot = {
   projects: Readonly<Record<string,
     | { kind: 'github' | 'repository'; commits: readonly number[] }
     | { kind: 'public-update'; lastPublicUpdateAt?: string }
+    | { kind: 'unfetched' }
   >>;
 };
 
@@ -14,8 +15,8 @@ type ActivitySnapshot = {
  */
 function activeProjects(snapshot: ActivitySnapshot, month: string): number {
   const index = snapshot.months.indexOf(month);
-  return Object.values(snapshot.projects).filter((record) => record.kind === 'public-update'
-    ? record.lastPublicUpdateAt?.slice(0, 7) === month
+  return Object.values(snapshot.projects).filter((record) => record.kind === 'unfetched' ? false
+    : record.kind === 'public-update' ? record.lastPublicUpdateAt?.slice(0, 7) === month
     : index !== -1 && record.commits[index] > 0).length;
 }
 

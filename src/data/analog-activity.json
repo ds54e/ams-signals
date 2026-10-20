@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-18",
-  "capturedAt": "2026-10-18T01:14:45.461Z",
+  "reviewedAt": "2026-10-20",
+  "capturedAt": "2026-10-20T09:53:19.374Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -21,6 +21,7 @@
       "kind": "github",
       "repository": "Arcadia-1/AMS-IO-Agent",
       "repositoryId": 1095857754,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "046a2e3edccd76322ab3e47c4dd9a5a1eded1e8a",
       "commits": [
@@ -46,6 +47,7 @@
       "kind": "github",
       "repository": "Arcadia-1/analog-design-bench",
       "repositoryId": 1316892846,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "972f7cd7c95381134387b250edf18f3bd23bdd25",
       "commits": [
@@ -71,6 +73,7 @@
       "kind": "github",
       "repository": "laiyao1/AnalogCoderPro",
       "repositoryId": 1017790227,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "05542af46020e5c37d5a7e3ca79da9f24626e1c9",
       "commits": [
@@ -96,6 +99,7 @@
       "kind": "github",
       "repository": "wznmickey/AnalogSAGE",
       "repositoryId": 1098707425,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
       "commits": [
@@ -121,6 +125,7 @@
       "kind": "github",
       "repository": "Seungmin0825/AnalogToBi",
       "repositoryId": 1153242793,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "e2033e9e5347dd0b702d24a8809de0c0f5470f87",
       "commits": [
@@ -146,6 +151,7 @@
       "kind": "github",
       "repository": "tusharpathaknyu/ARCS",
       "repositoryId": 1161198916,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "b14a1f2afcced3d3a339ecb4d0927be4305c426d",
       "commits": [
@@ -165,12 +171,13 @@
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
       "lastMeaningfulCommitSha": "c4d2689d224ebf4b3dea77c310c64be58fe1f560",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "astra": {
       "kind": "github",
       "repository": "IceLab-X/ASTRA",
       "repositoryId": 1033923589,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "63dd09abd42d77852394e71317004577007995a7",
       "commits": [
@@ -196,6 +203,7 @@
       "kind": "github",
       "repository": "yuxi120407/AutoSizer",
       "repositoryId": 1147553501,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "1b9b8f6498e2c7ad3b650bbbc78c8e3b0e1205e1",
       "commits": [
@@ -221,6 +229,7 @@
       "kind": "github",
       "repository": "Arcadia-1/behavioral-veriloga-eval",
       "repositoryId": 1187171041,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "7b5616dc52195ec275ec6d21c71d7763613702cd",
       "commits": [
@@ -246,6 +255,7 @@
       "kind": "github",
       "repository": "levantlabs/circuitrubric-bench",
       "repositoryId": 1275409857,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "f96512bf602152d1646c0cfc11ea7af8e6ade99f",
       "commits": [
@@ -271,6 +281,7 @@
       "kind": "github",
       "repository": "Arcadia-1/EVAS",
       "repositoryId": 1181157417,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "6cb6fa7a7dac70fc0d4120126d8cf74258e6637b",
       "commits": [
@@ -296,6 +307,7 @@
       "kind": "github",
       "repository": "jialinlu/ldo_benchmark_for_agent",
       "repositoryId": 1316715189,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "fa54a6615dd0dc26ea19fd28d7ae3433f92768ff",
       "commits": [
@@ -321,6 +333,7 @@
       "kind": "github",
       "repository": "ACADLab/G-DiffPS",
       "repositoryId": 1338569737,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "18837578cffac275f2a86ddeed69254f231b9c73",
       "commits": [
@@ -346,6 +359,7 @@
       "kind": "github",
       "repository": "Arcadia-1/gmoverid-skill",
       "repositoryId": 1175725842,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
       "commits": [
@@ -371,6 +385,7 @@
       "kind": "github",
       "repository": "FilipeAz/LOADBench-Scripts",
       "repositoryId": 1318272617,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "03cc45620afbbbee19652d83d625f26f3368d951",
       "commits": [
@@ -396,6 +411,7 @@
       "kind": "github",
       "repository": "jitendra-bhandari/Masala-CHAI",
       "repositoryId": 861559319,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "fc61c0404f45e5385bc0159d834544bb148643de",
       "commits": [
@@ -421,6 +437,7 @@
       "kind": "github",
       "repository": "WoshiMayou/NetlistBench",
       "repositoryId": 1254046097,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "413c56f4fedd2c574d4be0ffcc66480504f8d364",
       "commits": [
@@ -446,6 +463,7 @@
       "kind": "github",
       "repository": "PKU-IDEA/PANDA",
       "repositoryId": 1196298374,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "9e53e43c0d29bdc8c0f326640b9d66c7075e841b",
       "commits": [
@@ -471,6 +489,7 @@
       "kind": "github",
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "74187b810529d69a6368e33dd43ccb9c7088384e",
       "commits": [
@@ -496,6 +515,7 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "95a99c6eeff10356b21b4e775c603868919ede5e",
       "commits": [
@@ -521,6 +541,7 @@
       "kind": "github",
       "repository": "lixunqi12/virtuoso-agent",
       "repositoryId": 1218408173,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "54974c33c5f5a6d380b216ea12750aff6ee8bc99",
       "commits": [
@@ -546,8 +567,9 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
+      "capturedAt": "2026-10-20T09:53:19.374Z",
       "defaultBranch": "main",
-      "headSha": "b5285a9c006dc70a2e3819fc6805135d257a246f",
+      "headSha": "7301613180c6033d93bdcae76ce93c9d0c3c7a6f",
       "commits": [
         0,
         0,
@@ -560,17 +582,18 @@
         36,
         23,
         28,
-        86
+        95
       ],
-      "lastCommitAt": "2026-10-16",
-      "lastMeaningfulCommitAt": "2026-10-09",
-      "lastMeaningfulCommitSha": "378f0b640451d82bf6bccf8ece687aa27b1dcafe",
-      "notes": "Substantive implementation reviewed at 378f0b640451d82bf6bccf8ece687aa27b1dcafe: Preserve native grid and decorative power rails in manifest imports (#175). Latest raw history remains separate from meaningful implementation evidence."
+      "lastCommitAt": "2026-10-20",
+      "lastMeaningfulCommitAt": "2026-10-20",
+      "lastMeaningfulCommitSha": "b7fdc810cff4a1d7bb1a1a0e04ad50e2366f8765",
+      "notes": "Reviewed optional MCP adapter over existing bridge APIs at b7fdc810cff4a1d7bb1a1a0e04ad50e2366f8765. Raw commits remain separate from meaningful activity."
     },
     "zerosim": {
       "kind": "github",
       "repository": "xz-group/ZeroSim",
       "repositoryId": 1220413679,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "9af8a6976cf1aae9788eedcd882b7cc201ee95ef",
       "commits": [
@@ -596,6 +619,7 @@
       "kind": "github",
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "aed9c8d97b6c8de336f58be6e1d2ff482e1e4a91",
       "commits": [
@@ -621,6 +645,7 @@
       "kind": "github",
       "repository": "Xyce/Xyce",
       "repositoryId": 185829943,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "16889483a370b566a61198fb4bff49e60b75e895",
       "commits": [
@@ -646,6 +671,7 @@
       "kind": "github",
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "6bbc0e36bc14e4a2d4d5b5b573b0b1655e4edb01",
       "commits": [
@@ -671,6 +697,7 @@
       "kind": "github",
       "repository": "OpenVAF/OpenVAF-Reloaded",
       "repositoryId": 896282056,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "mob",
       "headSha": "fdf2522b70f42793f64b1c72f0195c96dea0cc19",
       "commits": [
@@ -696,6 +723,7 @@
       "kind": "github",
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "748fc5c2de8b894a02608824fc59467c405fcfd3",
       "commits": [
@@ -721,6 +749,7 @@
       "kind": "github",
       "repository": "RTimothyEdwards/magic",
       "repositoryId": 177686465,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "bed8d4ff84333767aa923d469d339cd05c56a00a",
       "commits": [
@@ -746,6 +775,7 @@
       "kind": "github",
       "repository": "ALIGN-analoglayout/ALIGN-public",
       "repositoryId": 177476440,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "8d3cc2e9aa5511315203eb5cbfd00d2c88fdbd18",
       "commits": [
@@ -778,6 +808,7 @@
       "kind": "github",
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "d3582837761b045ef330ce84737984114fe240e3",
       "commits": [
@@ -803,6 +834,7 @@
       "kind": "repository",
       "repository": "https://codeberg.org/arpadbuermen/PyOPUS",
       "repositoryId": "codeberg:230380",
+      "capturedAt": "2026-10-18T01:09:21.347095Z",
       "defaultBranch": "main",
       "headSha": "3ee2f571a037915b337cadb8be6eb988c9b901e9",
       "commits": [
@@ -823,13 +855,13 @@
       "lastMeaningfulCommitAt": "2026-09-16",
       "lastMeaningfulCommitSha": "3ee2f571a037915b337cadb8be6eb988c9b901e9",
       "notes": "Canonical Codeberg identity and full first-parent history reviewed; the latest fix corrects an undefined NumPy reference in the equal-index XatIrange path.",
-      "capturedAt": "2026-10-18T01:09:21.347095Z",
       "lastMeaningfulCommitSource": "activity"
     },
     "scikit-rf": {
       "kind": "github",
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "aa156629bd321ccab042c841e14c9d665f273b9a",
       "commits": [
@@ -855,6 +887,7 @@
       "kind": "github",
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "current",
       "headSha": "46e47e8fabe852a9d6aab41d8a612ff5a78370c1",
       "commits": [
@@ -880,6 +913,7 @@
       "kind": "github",
       "repository": "VLSIDA/cocotbext-ams",
       "repositoryId": 1184907467,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "c64ad5c8a5b0a7550243520ab5d08651306edf0d",
       "commits": [
@@ -904,6 +938,7 @@
       "kind": "github",
       "repository": "iic-jku/ihp-sg13g2-ams-chip-template",
       "repositoryId": 1228233737,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "b1d4a98d0ec8ad71c57f8ec4c33344340f911dad",
       "commits": [
@@ -928,6 +963,7 @@
       "kind": "github",
       "repository": "ReaLLMASIC/gLayout",
       "repositoryId": 846657008,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab",
       "commits": [
@@ -952,6 +988,7 @@
       "kind": "github",
       "repository": "TheWind-upBird/Analogagent",
       "repositoryId": 1261182836,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "b27ee9c0d11e0e74322e44e1ea45a7abbb1ff11a",
       "commits": [
@@ -977,6 +1014,7 @@
       "kind": "github",
       "repository": "sjjjoaps/AnalogMaster",
       "repositoryId": 1267424772,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
       "commits": [
@@ -1002,6 +1040,7 @@
       "kind": "github",
       "repository": "zhywhite/AnalogXpert",
       "repositoryId": 1304004023,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "72a4e450390a1588b48376f768d0518ef7f8e652",
       "commits": [
@@ -1027,6 +1066,7 @@
       "kind": "github",
       "repository": "aprilaihub/agentic-analog-sizing",
       "repositoryId": 1313088510,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "d4b59e00bb54029e952b5a38d519ab34665dcc02",
       "commits": [
@@ -1052,6 +1092,7 @@
       "kind": "github",
       "repository": "DeconBear/vibe-analog",
       "repositoryId": 1224524252,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "14210e73f1974db3e7adee4155e3bb36c64354c5",
       "commits": [
@@ -1077,6 +1118,7 @@
       "kind": "github",
       "repository": "Arcadia-1/analog-agents",
       "repositoryId": 1201926784,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "4d6bd218ceff60624d7ee62887787aa83daecdb4",
       "commits": [
@@ -1102,6 +1144,7 @@
       "kind": "github",
       "repository": "MacAnalog/spicexplorer-release",
       "repositoryId": 1303218425,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "f6f3f92246cc4dbe2763155b375c34aeec7dd39d",
       "commits": [
@@ -1127,8 +1170,9 @@
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
+      "capturedAt": "2026-10-20T09:53:19.374Z",
       "defaultBranch": "main",
-      "headSha": "3b1a179789ab17df5cfe1c51c9426c13abcc5c85",
+      "headSha": "a9db6681525b0e60b8939be442d51bab0153a195",
       "commits": [
         0,
         0,
@@ -1141,17 +1185,18 @@
         0,
         668,
         642,
-        263
+        270
       ],
-      "lastCommitAt": "2026-10-17",
-      "lastMeaningfulCommitAt": "2026-10-08",
-      "lastMeaningfulCommitSha": "ef2c587e598e1d8905e757b4ff2af713f4da7b5e",
-      "notes": "Substantive implementation reviewed at ef2c587e598e1d8905e757b4ff2af713f4da7b5e: Headless batch drawing, dead-code and lint gates, Agent move carries pin markers; MCP 0.17.59 (Refs #1498 #1530 #1531 #1534 #1535) (#1538). Latest raw history remains separate from meaningful implementation evidence."
+      "lastCommitAt": "2026-10-19",
+      "lastMeaningfulCommitAt": "2026-10-19",
+      "lastMeaningfulCommitSha": "c72fbfca50d6217e00a80074ac24c611b9dd26be",
+      "notes": "Reviewed RNL import/export and port-permutation consistency at c72fbfca50d6217e00a80074ac24c611b9dd26be. Raw commits remain separate from meaningful activity."
     },
     "vibe-ic": {
       "kind": "github",
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "d3ebe1567d94f66292977c179466de1e9f569d82",
       "commits": [
@@ -1177,6 +1222,7 @@
       "kind": "github",
       "repository": "SunCherry/agentic-AI_analog_IC_auto-designer",
       "repositoryId": 1338610160,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "bfc0fd5e006c05d13472080fe9a3254eba3321e7",
       "commits": [
@@ -1202,6 +1248,7 @@
       "kind": "repository",
       "repository": "https://codeberg.org/arpadbuermen/VACASK",
       "repositoryId": "codeberg:207664",
+      "capturedAt": "2026-10-18T01:09:26.550210Z",
       "defaultBranch": "main",
       "headSha": "da17a594f9a67bd660bc68664be1a4bdb480a353",
       "commits": [
@@ -1221,13 +1268,13 @@
       "lastCommitAt": "2026-10-15",
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "29d99ad2df4d8262e64ba883849c2974b3f01cce",
-      "capturedAt": "2026-10-18T01:09:26.550210Z",
       "lastMeaningfulCommitSource": "activity"
     },
     "sganalog": {
       "kind": "github",
       "repository": "Li-Yueting/SGAnalog",
       "repositoryId": 1399683603,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
       "commits": [
@@ -1253,6 +1300,7 @@
       "kind": "github",
       "repository": "lab-emi/ChipJev",
       "repositoryId": 1386929264,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "6389189d8cc40393eca97e8776638aaba5038b95",
       "commits": [
@@ -1278,6 +1326,7 @@
       "kind": "github",
       "repository": "shoebNTU/analog-agent",
       "repositoryId": 1261819431,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "25206f03046aefa093104e172cf511f5ad2fb8fe",
       "commits": [
@@ -1303,6 +1352,7 @@
       "kind": "github",
       "repository": "Computing-Intelligent-Decision-Team/AnalogGym-Opt",
       "repositoryId": 1222511386,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "10093e3496ef2c7d06494d91d131b0cc5de6c25b",
       "commits": [
@@ -1328,6 +1378,7 @@
       "kind": "github",
       "repository": "jonahsaunders/IC-Design-Studio",
       "repositoryId": 1362004644,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "49c79957b4d6f4978127da612e167e5c75cda6b3",
       "commits": [
@@ -1353,6 +1404,7 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "b2a4ae3e3d3631c6a1856108d804131fe49a900d",
       "commits": [
@@ -1378,6 +1430,7 @@
       "kind": "github",
       "repository": "eskiyerli/revolution-eda",
       "repositoryId": 574462291,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "107cdd8734e6ed115b55dea89211efa60408bd5b",
       "commits": [
@@ -1403,6 +1456,7 @@
       "kind": "github",
       "repository": "das-dias/morphnet",
       "repositoryId": 1351586843,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "63c7868826fe0c2ac7b9112aaa1ff7b6847694f8",
       "commits": [
@@ -1428,6 +1482,7 @@
       "kind": "github",
       "repository": "LewisLiuLiuLiu/SerDesSystemCProject",
       "repositoryId": 1102426944,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "5aaf3e864e9eafe121a69f122c9bbbaf3393d654",
       "commits": [
@@ -1453,6 +1508,7 @@
       "kind": "github",
       "repository": "HrishikeshGawasIIITH/EDA_Agent",
       "repositoryId": 1267234013,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "50a1b67a9caa3ff74cf1f5572226498523ce73a1",
       "commits": [
@@ -1478,6 +1534,7 @@
       "kind": "github",
       "repository": "mthudaa/Microelectronic-Block-Generator",
       "repositoryId": 1244743752,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "c09fd766935056c940ff364eef478e698c344859",
       "commits": [
@@ -1503,6 +1560,7 @@
       "kind": "github",
       "repository": "Chaoos-404/diagen",
       "repositoryId": 1383327063,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "c59aa5079dc741c8fb00b7c2f3ca96ca1ffd20aa",
       "commits": [
@@ -1528,6 +1586,7 @@
       "kind": "github",
       "repository": "rpm2003rpm/vagen",
       "repositoryId": 605641263,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "c632252a46965309c31e0d3c1364e79fcaf4f8b5",
       "commits": [
@@ -1553,6 +1612,7 @@
       "kind": "github",
       "repository": "ChipFlow/vajax",
       "repositoryId": 1106272774,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "main",
       "headSha": "2dfc4072cc8a00bef4e5773619dbda3e9a413220",
       "commits": [
@@ -1578,6 +1638,7 @@
       "kind": "github",
       "repository": "house-of-houses/wirewright",
       "repositoryId": 1226513871,
+      "capturedAt": "2026-10-18T01:14:45.461Z",
       "defaultBranch": "master",
       "headSha": "40b90b07a9b6ec55bd5d6942b67c2c2badfe7d86",
       "commits": [
@@ -1603,6 +1664,7 @@
       "kind": "repository",
       "repository": "https://codeberg.org/gnucap/gnucap",
       "repositoryId": "codeberg:591",
+      "capturedAt": "2026-10-18T01:13:06.516Z",
       "defaultBranch": "develop",
       "headSha": "2efebaa0df0bfc390bf90743a2b85c28401a1490",
       "commits": [
@@ -1623,8 +1685,32 @@
       "lastMeaningfulCommitAt": "2026-10-13",
       "lastMeaningfulCommitSha": "2efebaa0df0bfc390bf90743a2b85c28401a1490",
       "notes": "Canonical Codeberg repository ID/default branch verified directly. Savannah master is older and the GitHub repository is a read-only mirror; neither supplies these monthly counts.",
-      "capturedAt": "2026-10-18T01:13:06.516Z",
       "lastMeaningfulCommitSource": "activity"
+    },
+    "rnl": {
+      "kind": "github",
+      "repository": "rich-netlist/rnl",
+      "repositoryId": 1382051453,
+      "capturedAt": "2026-10-20T09:53:19.374Z",
+      "defaultBranch": "main",
+      "headSha": "28315964f57b28079c7e411c3adb1775e2f8cc3a",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        151
+      ],
+      "lastCommitAt": "2026-10-20",
+      "lastMeaningfulCommitAt": "2026-10-20",
+      "lastMeaningfulCommitSha": "f18d7409fa32ea80b9a48d62f955bd1f474de52c"
     }
   }
 }

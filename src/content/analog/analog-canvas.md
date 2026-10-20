@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Agent-assisted hierarchical analog schematic editor with connectivity inspection, SPICE/Spectre interchange and native simulation-source authoring. Logic gates and D flip-flops can retain their symbols while calling transistor-level project cells; hosted simulation and Aether/Virtuoso adapters are separate from local headless drawing, which does not execute simulations."
+description: "Agent-assisted hierarchical analog schematic editor with connectivity inspection, SPICE/Spectre and RNL interchange, and native simulation-source authoring. Logic gates and D flip-flops can retain their symbols while calling transistor-level project cells; hosted simulation and EDA adapters are separate from local headless drawing, which does not execute simulations."
 scope:
   design:
     ai: true
@@ -65,6 +65,9 @@ sources:
 - id: "export-net-names"
   title: "Selection names share the netlist exporter's logical-net naming"
   url: "https://github.com/cascode-ai/analog-canvas/commit/331c929edc127081b75cb9ba736800d96bd2c8fd"
+- id: rnl-interchange
+  title: RNL import and export with port-permutation consistency checks
+  url: https://github.com/cascode-ai/analog-canvas/commit/c72fbfca50d6217e00a80074ac24c611b9dd26be
 ---
 
 ### Workflow and scope
@@ -88,6 +91,8 @@ Local mode is documented as an internal, evolving tool and refuses simulation, G
 The October 14 implementation lets D flip-flop variants call a transistor-level Cell of the same Project while keeping their library symbols, extending the existing logic-gate path. The planner matches signal pins by name, validates supply pins or global supplies, rejects incompatible interfaces and restores the ideal body when the binding is cleared. Netlist extraction emits the child subcircuit call in the Cell's pin order; regression fixtures cover binding, export, clearing and rename protection. Flip-flops accept project Cells rather than reviewed external standard-cell targets. This is schematic Design coverage. [Binding and extraction](#source-cell-bound-flip-flops)
 
 Selecting a wire, pin or single component highlights its logical connections, including physically separate wires joined by a shared net name. Selection labels reuse the exporter's net naming, with a draft-analysis fallback when complete extraction is unavailable. These are structural inspection aids, not electrical simulation or proof of circuit equivalence. [Connectivity implementation and tests](#source-selection-connectivity) · [Net-name implementation and tests](#source-export-net-names)
+
+The October 19 interchange change adds SPICE+RNL and Spectre+RNL exports and an RNL import path. Its tests check consistent port permutation across the annotated netlist and editor representation. The RNL runtime is loaded separately by the application; this does not imply every user must install it separately. These are schematic Design operations and do not turn local headless drawing into simulation. [RNL interchange](#source-rnl-interchange)
 
 ### Development provenance
 

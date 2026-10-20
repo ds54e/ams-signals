@@ -18,11 +18,11 @@ npm run refresh:analog-activity
 npm run refresh:digital-activity
 ```
 
-Run only the requested command(s), not both by default. They use Git/gh, recapture GitHub history, preserve manually reviewed fields and non-GitHub records, then validate and atomically replace the complete snapshot. The scripts derive capture/review dates from actual UTC capture; do not invent historical captures or unsupported command flags. Normal builds must remain offline with respect to repository hosts.
+Run only the requested command(s), not both by default. They use Git and GitHub metadata, recapture GitHub history, preserve manually reviewed fields and non-GitHub records, then validate and atomically replace the complete snapshot. Use `-- --project=<slug>` for a targeted recapture; untouched GitHub records retain their actual capture timestamps. New catalog articles register from their canonical GitHub Code source and explicit `activity` commit source. The scripts derive capture/review dates from actual UTC capture; do not invent historical captures. Normal builds must remain offline with respect to repository hosts.
 
 For non-GitHub monthly records, inspect the canonical host directly, pin identity/branch/head/capture time and recapture complete first-parent UTC buckets. Do not borrow mirrors or silently shift old buckets to a new month. On month rollover, coordinate a complete internally consistent candidate snapshot, including manual captures; inspect the existing validator/refresh entry conditions rather than patching production JSON blindly. Point evidence retains its actual reviewed event date/type/source, with no synthetic commits.
 
-A failed capture, changed identity, expired eligibility or inconsistent window is not a successful refresh. Preserve the checked-in snapshot, record the exact blocker and resolve reviewable issues within the request. Do not weaken validation, relabel stale evidence as fresh or publish partial results. A curation decision such as removing an expired project must be explicit in the review, not a hidden consequence of the refresh script.
+A failed existing capture, changed identity, expired eligibility or inconsistent window is not a successful refresh. Preserve the checked-in snapshot, record the exact blocker and resolve reviewable issues within the request. A failed new GitHub capture may register as `unfetched`, visibly without synthetic activity; retry it before claiming reviewed freshness. Do not weaken validation or relabel stale evidence as fresh. A curation decision such as removing an expired project must be explicit in the review, not a hidden consequence of the refresh script.
 
 ## Finish
 

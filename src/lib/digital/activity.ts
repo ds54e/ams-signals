@@ -8,8 +8,9 @@ export { freshnessCutoff, activityMonths, countActivity } from '../catalog-activ
 
 export type PublicActivity =
   | { kind: 'github' | 'repository'; lastCommitAt: string }
-  | { kind: 'public-update'; lastPublicUpdateAt: string };
+  | { kind: 'public-update'; lastPublicUpdateAt: string }
+  | { kind: 'unfetched' };
 
 export function publicActivityDate(activity: PublicActivity): string {
-  return hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt;
+  return activity.kind === 'unfetched' ? '' : hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt;
 }

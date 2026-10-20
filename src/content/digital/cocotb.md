@@ -58,6 +58,9 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/cocotb/cocotb/blob/ae55ced614b3f4ba89d77da5bd635024546d0737/noxfile.py"
+  - id: interface-references
+    title: Development-branch VPI interface and modport reference resolution
+    url: https://github.com/cocotb/cocotb/commit/29cb070b39acbdc7b7a827324527c02524bb7c33
 ---
 
 ### Implementation and scope
@@ -79,6 +82,8 @@ Version 2.1.0 was published August 30, 2026. Its TaskManager runs child awaitabl
 The reviewed development delta separates bootstrap/GPI initialization and changes implementation-library naming and removed configuration APIs, alongside signedness and LogicArrayObject maintenance. Adoption needs version-specific build/API compatibility review. [Reviewed implementation integration](#source-review-20261011-1)
 
 The October 14 VPI fix adds destructors that release owned array, object and signal handles, while preserving borrowed handles for multidimensional-array pseudo-handles and generate pseudo-regions. This targets leaks during repeated object lookup; it is development-branch implementation evidence, not a claim that the fix shipped in 2.1.0 or a measured memory/performance result. The simulator interaction remains conventional Verification. [Ownership fix](#source-vpi-handle-ownership)
+
+The October 19 development-branch change resolves SystemVerilog interface and modport references through VPI handles. The change includes Verilator and Xcelium coverage; Verilator versions below 5.053 retain an expected-failure caveat. This is unreleased development work, not a 2.1.0 feature, and preserves cocotb's conventional Verification classification. [Interface-reference change](#source-interface-references)
 
 ### Development provenance
 

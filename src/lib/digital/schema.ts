@@ -83,6 +83,7 @@ const branch = text.refine((value) => !/^[./-]|[/.]$|\.\.|@\{|[\s~^:?*\[\\\x00-\
   && !value.split('/').some((part) => part.startsWith('.') || part.endsWith('.lock')) && value !== '@', 'Invalid default branch');
 const githubActivity = z.object({
   kind: z.literal('github'), repository, repositoryId: z.number().int().positive().safe(),
+  capturedAt: z.string().datetime().optional(),
   defaultBranch: branch, headSha: sha,
   commits: z.array(z.number().int().nonnegative().safe()).length(12),
   lastCommitAt: date, lastMeaningfulCommitAt: date, lastMeaningfulCommitSha: sha,
@@ -99,11 +100,15 @@ const publicUpdate = z.object({
   kind: z.literal('public-update'), lastPublicUpdateAt: date, lastPublicUpdateSource: catalogSlug,
   lastPublicUpdateType: z.enum(publicSignalTypes),
 }).strict();
+const unfetchedActivity = z.object({
+  kind: z.literal('unfetched'), repository,
+  attemptedAt: z.string().datetime(),
+}).strict();
 
 export const activitySchema = z.object({
   reviewedAt: date, capturedAt: z.string().datetime(), method: z.literal('first-parent-committer-utc'),
   months: z.array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/)).length(12),
-  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate])),
+  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate, unfetchedActivity])),
 }).strict().superRefine((snapshot, context) => {
   if (snapshot.capturedAt.slice(0, 10) !== snapshot.reviewedAt) {
     context.addIssue({ code: 'custom', message: 'Snapshot and capture dates differ' });
@@ -112,6 +117,14 @@ export const activitySchema = z.object({
     context.addIssue({ code: 'custom', path: ['months'], message: 'Use twelve consecutive months ending in the snapshot month' });
   }
   for (const [id, activity] of Object.entries(snapshot.projects)) {
+    if (activity.kind === 'unfetched') {
+      if (activity.attemptedAt > snapshot.capturedAt) context.addIssue({ code: 'custom', path: ['projects', id], message: 'Attempt cannot follow snapshot capture' });
+      continue;
+    }
+    if (activity.kind === 'github' && activity.capturedAt
+      && (activity.capturedAt > snapshot.capturedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
+      context.addIssue({ code: 'custom', path: ['projects', id, 'capturedAt'], message: 'GitHub capture cannot follow the snapshot or precede its latest commit' });
+    }
     if (activity.kind === 'repository' && (activity.capturedAt.slice(0, 7) !== snapshot.reviewedAt.slice(0, 7)
       || activity.capturedAt.slice(0, 10) > snapshot.reviewedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
       context.addIssue({ code: 'custom', path: ['projects', id], message: 'Repository capture must cover the snapshot month and reviewed commit dates' });
@@ -143,6 +156,13 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
     const record = snapshot.projects[project.id];
     if (!record) throw new Error(`Missing activity project: ${project.id}`);
     const data = digitalSchema.parse(project.data);
+    if (record.kind === 'unfetched') {
+      const code = data.sources.find((source) => source.purpose === 'code');
+      if (!code || code.url.toLowerCase().replace(/\/$/, '') !== `https://github.com/${record.repository}`.toLowerCase()) {
+        throw new Error(`${project.id}: unfetched repository must match the Code source`);
+      }
+      continue;
+    }
     if (data.reviewedAt > snapshot.reviewedAt) throw new Error(`${project.id}: review is after the snapshot`);
     const code = data.sources.find((source) => source.purpose === 'code');
     if (record.kind === 'repository') {

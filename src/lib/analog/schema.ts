@@ -104,6 +104,7 @@ const githubActivity = z.object({
   kind: z.literal('github'),
   repository: githubRepository,
   repositoryId: z.number().int().positive().safe().optional(),
+  capturedAt: z.string().datetime().optional(),
   defaultBranch: branch,
   headSha: z.string().regex(/^[a-f0-9]{40}$/),
   commits: z.array(z.number().int().nonnegative().safe()).length(12),
@@ -130,12 +131,16 @@ const publicUpdate = z.object({
   lastPublicUpdateType: z.enum(publicSignalTypes),
   notes: text.optional(),
 }).strict();
+const unfetchedActivity = z.object({
+  kind: z.literal('unfetched'), repository: githubRepository,
+  attemptedAt: z.string().datetime(),
+}).strict();
 export const activitySchema = z.object({
   reviewedAt: date,
   capturedAt: z.string().datetime(),
   method: z.literal('first-parent-committer-utc'),
   months: z.array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/)).length(12),
-  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate])),
+  projects: z.record(catalogSlug, z.discriminatedUnion('kind', [githubActivity, repositoryActivity, publicUpdate, unfetchedActivity])),
 }).strict().superRefine((snapshot, context) => {
   if (snapshot.capturedAt.slice(0, 10) !== snapshot.reviewedAt) {
     context.addIssue({ code: 'custom', message: 'Snapshot and capture dates differ' });
@@ -144,6 +149,14 @@ export const activitySchema = z.object({
     context.addIssue({ code: 'custom', path: ['months'], message: 'Use twelve consecutive months ending in the snapshot month' });
   }
   for (const [id, activity] of Object.entries(snapshot.projects)) {
+    if (activity.kind === 'unfetched') {
+      if (activity.attemptedAt > snapshot.capturedAt) context.addIssue({ code: 'custom', path: ['projects', id], message: 'Attempt cannot follow snapshot capture' });
+      continue;
+    }
+    if (activity.kind === 'github' && activity.capturedAt
+      && (activity.capturedAt > snapshot.capturedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
+      context.addIssue({ code: 'custom', path: ['projects', id, 'capturedAt'], message: 'GitHub capture cannot follow the snapshot or precede its latest commit' });
+    }
     if (activity.kind === 'repository' && (activity.capturedAt.slice(0, 7) !== snapshot.reviewedAt.slice(0, 7)
       || activity.capturedAt.slice(0, 10) > snapshot.reviewedAt || activity.lastCommitAt > activity.capturedAt.slice(0, 10))) {
       context.addIssue({ code: 'custom', path: ['projects', id], message: 'Repository capture must cover the snapshot month and reviewed commit dates' });
@@ -174,6 +187,13 @@ export function validateActivity(projects: readonly { id: string; data: unknown 
     const activity = snapshot.projects[project.id];
     if (!activity) throw new Error(`Missing activity project: ${project.id}`);
     const data = analogSchema.parse(project.data);
+    if (activity.kind === 'unfetched') {
+      const code = data.sources.find((source) => source.purpose === 'code');
+      if (!code || code.url.toLowerCase().replace(/\/$/, '') !== `https://github.com/${activity.repository}`.toLowerCase()) {
+        throw new Error(`${project.id}: unfetched repository must match the Code source`);
+      }
+      continue;
+    }
     if (activity.kind === 'repository') {
       validateRepositorySources(activity, data.sources);
     } else if (activity.kind === 'github') {

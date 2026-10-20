@@ -213,7 +213,7 @@ test('freshness checks meaningful activity rather than accepting cosmetic recent
   assert.equal(record.kind, 'github');
   const cutoff = freshnessCutoff(s.reviewedAt);
   const stale = new Date(new Date(`${cutoff}T00:00:00Z`).valueOf() - 86_400_000).toISOString().slice(0, 10);
-  Object.assign(record, { lastCommitAt: s.reviewedAt, lastMeaningfulCommitAt: stale, commits: Array(12).fill(1) });
+  Object.assign(record, { capturedAt: s.capturedAt, lastCommitAt: s.reviewedAt, lastMeaningfulCommitAt: stale, commits: Array(12).fill(1) });
   assert.throws(() => validateActivity(projects, s), /Stale meaningful activity/);
   Object.assign(record, { lastMeaningfulCommitAt: cutoff });
   assert.doesNotThrow(() => validateActivity(projects, s));
@@ -520,7 +520,7 @@ test('Digital explicitly curates all-zero windows without treating missing histo
   const repository = (snapshot.projects[github.id] as any).repository;
   project.data.reviewedAt = '2026-10-01';
   project.data.sources.push({ id: 'window-fixture', title: 'Reviewed fixture commit', url: `https://github.com/${repository}/commit/${sha}` });
-  const record = { ...snapshot.projects[github.id], commits: Array(12).fill(0),
+  const record = { ...snapshot.projects[github.id], capturedAt: '2026-10-01T12:00:00Z', commits: Array(12).fill(0),
     lastCommitAt: '2025-10-01', lastMeaningfulCommitAt: '2025-10-01', lastMeaningfulCommitSha: sha };
   const value = { ...snapshot, reviewedAt: '2026-10-01', capturedAt: '2026-10-01T12:00:00Z',
     months: activityMonths('2026-10-01'), projects: { [github.id]: record } };

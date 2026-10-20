@@ -46,7 +46,7 @@ Show `N projects` when unfiltered, or `N of TOTAL projects` for any nonempty sea
 
 ## Reviewed public activity
 
-The snapshot uses `reviewedAt`, UTC `capturedAt`, `method: first-parent-committer-utc`, exactly twelve consecutive `months` ending in its snapshot month, and one record for each catalog project. The current month is partial. Validate complete coverage, date/window consistency and nonnegative safe-integer repository buckets. Domain-specific required/optional fields remain distinct.
+The snapshot uses `reviewedAt`, UTC `capturedAt`, `method: first-parent-committer-utc`, exactly twelve consecutive `months` ending in its snapshot month, and one record for each catalog project. The current month is partial. Validate complete coverage, date/window consistency and nonnegative safe-integer repository buckets. Domain-specific required/optional fields remain distinct. GitHub records can carry their own `capturedAt` when a targeted refresh retains older captures; the snapshot timestamp does not claim that every record was fetched again.
 
 **Repository history:** use exactly one verified canonical public repository and its actual default branch per project. Pin identity, branch, head and capture time. Count the captured head's full first-parent committer history in UTC: a merge counts once at integration, without separate side-branch counts. Never sum component repositories or non-landed PR refs. Commit dates are not verified push/landing times; imports, rewrites, fast-forwards, bots and bulk commits can distort observed visibility. Keep material limitations with the record, not public dashboard prose.
 
@@ -56,11 +56,13 @@ The latest commit date drives order. `lastMeaningfulCommitAt` is manually review
 
 **Point evidence:** `kind: public-update` requires `lastPublicUpdateAt`, `lastPublicUpdateSource` and `lastPublicUpdateType` (`paper`, `release`, `public-update`). It means this activity view lacks reviewed monthly repository history, not that no public repository or code exists. Activate only the source-backed event's calendar month inside the window, without synthetic commits, repository or SHA. An out-of-window event produces twelve inactive cells without changing its date or freshness rule.
 
+**Failed new capture:** `kind: unfetched` retains the catalog's canonical GitHub repository and the actual `attemptedAt`. It has no commit counts or activity date, sorts after dated projects and displays “Activity not fetched.” Retry capture before treating it as reviewed activity. A failed refresh of an existing good record leaves the destination unchanged.
+
 The same twelve-cell presentation does not flatten provenance. Repository cells retain real counts; point cells describe paper publication/release/public update and inactive cells say no reviewed public activity signal, never zero commits. Exact month/year and provenance remain in hover/accessibility metadata. Inactive months do not prove development stopped. Counts never change visible strength; cells have one binary appearance and always run oldest-left to newest-right. [The visual system](../VISUAL_SYSTEM.md) owns their dimensions.
 
 ## Maintenance and verification
 
-Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` commands refresh GitHub history, preserve reviewed meaningful activity and manual non-GitHub records, validate the full candidate snapshot, then replace the destination atomically. A network, identity, history or validation failure leaves checked-in data intact. They are not build/check/browser dependencies; normal builds need no repository-host access.
+Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` commands derive registrations from catalog Code links and explicit `activity` commit sources, refresh GitHub history, preserve reviewed meaningful activity and manual non-GitHub records, validate the full candidate snapshot, then replace the destination atomically. Optional `-- --project=<slug>` arguments capture selected projects within the same snapshot month while preserving the actual capture timestamp of untouched GitHub records; month rollover requires complete recapture. New GitHub capture failures produce `unfetched`; existing good-record failures leave the checked-in snapshot intact. Removed or renamed articles require explicit curation. These commands are not build/check/browser dependencies; normal builds need no repository-host access.
 
 Use the [catalog-refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for an actual refresh, including month rollover and canonical-host recapture. Use current records, source notes and the domain validator as the starting point.
 

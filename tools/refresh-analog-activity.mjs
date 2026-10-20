@@ -6,53 +6,79 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
 import { activityMonths, countActivity } from '../src/lib/analog/activity.ts';
-import { validateActivity } from '../src/lib/analog/schema.ts';
+import { activitySchema, validateActivity, validateCatalog } from '../src/lib/analog/schema.ts';
+import { githubMetadata, planActivityRegistration, preserveUnselectedCapture } from './activity-registration.mjs';
 
 const exec = promisify(execFile);
 const run = async (command, args) => (await exec(command, args, {
   timeout: 120_000, maxBuffer: 32 * 1024 * 1024, env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
 })).stdout;
 const directory = new URL('../src/content/analog/', import.meta.url);
-const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
-  id: file.slice(0, -3), data: parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
-})));
+const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
+  const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
+  return { id: file.slice(0, -3), data: frontmatter, body: content };
+}));
+const updates = JSON.parse(await readFile(new URL('../src/data/analog-updates.json', import.meta.url), 'utf8'));
+validateCatalog(projects, updates);
 const destination = new URL('../src/data/analog-activity.json', import.meta.url);
-const previous = validateActivity(projects, JSON.parse(await readFile(destination, 'utf8')));
+const previous = activitySchema.parse(JSON.parse(await readFile(destination, 'utf8')));
+const selected = process.argv.slice(2).map((arg) => {
+  if (!arg.startsWith('--project=')) throw new Error(`Unknown option: ${arg}`);
+  return arg.slice('--project='.length);
+});
+if (selected.length && new Date().toISOString().slice(0, 7) !== previous.reviewedAt.slice(0, 7)) {
+  throw new Error('Month rollover requires a complete refresh, including manually captured repositories');
+}
+const registrations = planActivityRegistration(projects, previous, selected);
+validateActivity(registrations.filter(({ existing }) => existing).map(({ project }) => project), previous);
 const scratch = await mkdtemp(join(tmpdir(), 'analog-activity-'));
 const candidate = new URL(`../src/data/.analog-activity-${process.pid}.tmp`, import.meta.url);
 try {
   const records = {};
   const histories = new Map();
-  for (const [id, record] of Object.entries(previous.projects)) {
+  for (const { project, existing: record, repository, meaningfulSha, selected: capture } of registrations) {
+    const id = project.id;
+    if (!capture) { records[id] = preserveUnselectedCapture(record, previous.capturedAt); continue; }
     // Non-GitHub history is reviewed manually; validation rejects a shifted capture month.
-    if (record.kind !== 'github') { records[id] = record; continue; }
-    const meta = JSON.parse(await run('gh', ['api', `repos/${record.repository}`]));
-    if (meta.private || meta.fork || meta.archived || meta.full_name.toLowerCase() !== record.repository.toLowerCase()
-      || (record.repositoryId !== undefined && meta.id !== record.repositoryId)) {
-      throw new Error(`${id}: repository identity/access changed; review the primary source manually`);
-    }
-    await run('git', ['check-ref-format', `refs/heads/${meta.default_branch}`]);
-    const git = join(scratch, `${id}.git`);
-    await run('git', ['clone', '--quiet', '--bare', '--filter=blob:none', '--single-branch', '--branch', meta.default_branch,
-      `https://github.com/${record.repository}.git`, git]);
-    const headSha = (await run('git', [`--git-dir=${git}`, 'rev-parse', 'HEAD'])).trim();
-    const log = await run('git', [`--git-dir=${git}`, 'log', '--first-parent', '--format=%H\t%cI', headSha]);
-    const history = log.trim().split('\n').map((line) => line.split('\t'));
-    if (record.lastMeaningfulCommitSha) {
-      const date = history.find(([sha]) => sha === record.lastMeaningfulCommitSha)?.[1];
-      if (!date || new Date(date).toISOString().slice(0, 10) !== record.lastMeaningfulCommitAt) {
-        throw new Error(`${id}: meaningful commit is absent from first-parent history or its date differs; review manually`);
+    if (record && record.kind !== 'github' && record.kind !== 'unfetched') { records[id] = record; continue; }
+    const repo = record?.repository ?? repository;
+    try {
+      const meta = await githubMetadata(repo);
+      if (meta.private || meta.fork || meta.archived || meta.full_name.toLowerCase() !== repo.toLowerCase()
+        || (record?.repositoryId !== undefined && meta.id !== record.repositoryId)) {
+        throw new Error(`${id}: repository identity/access changed; review the primary source manually`);
       }
+      await run('git', ['check-ref-format', `refs/heads/${meta.default_branch}`]);
+      const git = join(scratch, `${id}.git`);
+      await run('git', ['clone', '--quiet', '--bare', '--filter=blob:none', '--single-branch', '--branch', meta.default_branch,
+        `https://github.com/${repo}.git`, git]);
+      const headSha = (await run('git', [`--git-dir=${git}`, 'rev-parse', 'HEAD'])).trim();
+      const log = await run('git', [`--git-dir=${git}`, 'log', '--first-parent', '--format=%H\t%cI', headSha]);
+      const history = log.trim().split('\n').map((line) => line.split('\t'));
+      const reviewedSha = record?.lastMeaningfulCommitSha ?? meaningfulSha;
+      const meaningfulDate = history.find(([sha]) => sha === reviewedSha)?.[1];
+      if (!meaningfulDate || (record?.lastMeaningfulCommitAt
+        && new Date(meaningfulDate).toISOString().slice(0, 10) !== record.lastMeaningfulCommitAt)) {
+          throw new Error(`${id}: meaningful commit is absent from first-parent history or its date differs; review manually`);
+      }
+      histories.set(id, history.map(([, date]) => date));
+      // Fresh commits do not automatically establish meaningful project activity.
+      // Preserve the manually reviewed date; validation requires re-curation when it ages out.
+      records[id] = { ...(record?.kind === 'github' ? record : {
+        kind: 'github', repository: repo, repositoryId: meta.id,
+        lastMeaningfulCommitAt: new Date(meaningfulDate).toISOString().slice(0, 10),
+        lastMeaningfulCommitSha: reviewedSha,
+      }), defaultBranch: meta.default_branch, headSha };
+      console.log(`${id}: captured ${repo} (${meta.default_branch}) at ${headSha.slice(0, 7)}`);
+    } catch (error) {
+      if (record?.kind === 'github') throw error;
+      records[id] = { kind: 'unfetched', repository: repo, attemptedAt: new Date().toISOString() };
+      console.warn(`${id}: activity not fetched (${error.message}); catalog entry remains visible`);
     }
-    histories.set(id, history.map(([, date]) => date));
-    // Fresh commits do not automatically establish meaningful project activity.
-    // Preserve the manually reviewed date; validation requires re-curation when it ages out.
-    records[id] = { ...record, defaultBranch: meta.default_branch, headSha };
-    console.log(`${id}: captured ${record.repository} (${meta.default_branch}) at ${headSha.slice(0, 7)}`);
   }
   const capturedAt = new Date().toISOString();
   const reviewedAt = capturedAt.slice(0, 10);
-  for (const [id, dates] of histories) Object.assign(records[id], countActivity(dates, capturedAt));
+  for (const [id, dates] of histories) Object.assign(records[id], countActivity(dates, capturedAt), { capturedAt });
   const snapshot = validateActivity(projects, {
     reviewedAt, capturedAt, method: 'first-parent-committer-utc', months: activityMonths(reviewedAt), projects: records,
   });

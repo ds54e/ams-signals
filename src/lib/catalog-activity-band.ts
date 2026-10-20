@@ -8,9 +8,10 @@ const signalLabels: Record<PublicSignalType, string> = {
 
 type ActivityRecord =
   | { kind: 'github' | 'repository'; repository: string; defaultBranch: string; lastCommitAt: string; commits: readonly number[] }
-  | { kind: 'public-update'; lastPublicUpdateAt?: string; lastPublicUpdateSource?: string; lastPublicUpdateType: PublicSignalType };
+  | { kind: 'public-update'; lastPublicUpdateAt?: string; lastPublicUpdateSource?: string; lastPublicUpdateType: PublicSignalType }
+  | { kind: 'unfetched'; repository: string; attemptedAt: string };
 type ActivityCell = {
-  month: string; active: boolean; detail: string; signal: 'repository' | PublicSignalType;
+  month: string; active: boolean; detail: string; signal: 'repository' | PublicSignalType | 'unfetched';
   commits?: number; source?: string;
 };
 
@@ -29,6 +30,11 @@ export function activityBand(record: ActivityRecord, months: readonly string[], 
       month, active: record.commits[index] > 0, commits: record.commits[index], signal: 'repository',
       detail: `${monthLabel(month)} · ${record.commits[index]} default-branch commits`,
     }));
+  } else if (record.kind === 'unfetched') {
+    date = '';
+    provenance = `Activity not fetched for ${record.repository}; last attempt ${record.attemptedAt}`;
+    cells = months.map((month) => ({ month, active: false, signal: 'unfetched',
+      detail: `${monthLabel(month)} — activity not fetched` }));
   } else {
     const source = sources.find((source) => source.id === record.lastPublicUpdateSource);
     if (!record.lastPublicUpdateAt || !source) throw new Error('Public activity needs its reviewed date and source');
