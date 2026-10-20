@@ -734,8 +734,8 @@ for (const width of [1440, 900, 390]) {
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
       await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'signal-icon-buildings');
       await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
-      expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, fill: s.fill }; }))
-        .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', fill: 'none' });
+      expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, strokeWidth: s.strokeWidth, fill: s.fill }; }))
+        .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', strokeWidth: '1.6px', fill: 'none' });
       await expect(icon.locator('rect, circle')).toHaveCount(0);
       await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 4);
       await expect(icon.locator('path').first()).toHaveAttribute('d', entry.data.kind === 'technical'

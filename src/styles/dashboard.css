@@ -25,7 +25,7 @@
 .signal-link { display: flex; align-items: center; gap: 12px; width: 100%; padding-block: 12px; text-decoration: none; }
 .signal-symbol, .project-symbol { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; border-radius: 9px; background: #e7ecf7; color: #3c65a4; }
 .signal-symbol.organizational { background: #fff0e4; color: #886454; }
-.signal-symbol svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.signal-symbol svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .signal-copy { min-width: 0; }
 .signal-title { display: block; font-size: 13px; font-weight: 600; line-height: 1.5; }
 .signal-meta { display: block; margin-top: 4px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
