@@ -732,10 +732,12 @@ for (const width of [1440, 900, 390]) {
       await expect(row.locator('.signal-meta')).toContainText(entry.data.kind === 'technical' ? 'Technical' : 'Organizational');
       const icon = row.locator(`.signal-symbol.${entry.data.kind} svg`);
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
+      await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'lucide lucide-building-2');
+      await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
       expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, fill: s.fill }; }))
         .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', fill: 'none' });
-      await expect(icon.locator(entry.data.kind === 'technical' ? 'rect' : 'circle')).toHaveCount(1);
-      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 2 : 1);
+      await expect(icon.locator('rect, circle')).toHaveCount(0);
+      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 7);
     }
     for (const fixture of [analog, digital]) {
       const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
