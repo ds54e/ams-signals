@@ -20,6 +20,162 @@ import {
 
 installBrowserErrorGuards(test);
 
+// Count entity rows, not packing slots or an assumed uniform pixel height.
+async function expectMatrixRowWindow(page, limit) {
+  await expect.poll(() => page.locator('.activity-matrix-scroll').evaluate((scroller, count) => {
+    const rows = [...scroller.querySelectorAll('[data-matrix-row]')].filter((row) => !row.hidden);
+    const expected = rows.slice(0, count).reduce((height, row) => height + row.getBoundingClientRect().height, 0);
+    return Math.abs(scroller.clientHeight - expected);
+  }, limit)).toBeLessThanOrEqual(1);
+}
+
+test('Matrix row window measures variable rows across resize and full-corpus filtering', async ({ page }) => {
+  await page.goto('./timeline/');
+  await expectExplorerReady(page);
+  const scroller = page.locator('.activity-matrix-scroll');
+  const shell = page.locator('.activity-matrix-shell');
+  const rowKeys = () => page.locator('[data-matrix-row]').evaluateAll((rows) => rows.map((row) => (
+    `${row.dataset.entityType}:${row.dataset.entityId}`
+  )));
+  const originalOrder = await rowKeys();
+  const fullCorpus = await page.locator('[data-events-json]').textContent();
+  const exportBefore = await (await page.request.get('./export.json')).text();
+
+  for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568], [760, 844], [761, 844]]) {
+    await page.setViewportSize({ width, height });
+    const limit = width <= 760 ? 10 : 20;
+    await expectMatrixRowWindow(page, limit);
+    await expect(shell).toHaveAttribute('data-more-rows', '');
+    const dimensions = await scroller.evaluate((node, count) => {
+      const rows = [...node.querySelectorAll('[data-matrix-row]')].filter((row) => !row.hidden);
+      const top = node.getBoundingClientRect().top;
+      return {
+        heights: rows.slice(0, count).map((row) => row.getBoundingClientRect().height),
+        nextRowOffset: rows[count].getBoundingClientRect().top - top,
+        height: node.clientHeight,
+        overflow: node.scrollHeight > node.clientHeight,
+        scrollbar: getComputedStyle(node).scrollbarWidth,
+        webkitScrollbar: getComputedStyle(node, '::-webkit-scrollbar').display,
+        pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      };
+    }, limit);
+    expect(new Set(dimensions.heights).size).toBeGreaterThan(1);
+    expect(dimensions.nextRowOffset).toBeCloseTo(dimensions.height, 0);
+    expect(dimensions.overflow).toBe(true);
+    expect(dimensions.scrollbar).toBe('none');
+    expect(dimensions.webkitScrollbar).toBe('none');
+    expect(dimensions.pageOverflow).toBe(0);
+    expect(await rowKeys()).toEqual(originalOrder);
+  }
+
+  // A late row remains searchable even though it starts outside either row window.
+  const lateCompany = await page.locator('[data-matrix-row]:not([hidden])[data-entity-type="company"]')
+    .evaluateAll((rows) => rows.at(-1).dataset.entityId);
+  const companyName = await page.locator(`[data-company-option] input[value="${lateCompany}"]`)
+    .locator('..').locator('span').textContent();
+  await scroller.evaluate((node) => { node.scrollTop = node.scrollHeight; });
+  await page.locator('[data-search]').fill(companyName);
+  await expect(page.locator(`[data-matrix-row][data-entity-id="${lateCompany}"]`)).toBeVisible();
+  await expectMatrixRowWindow(page, 20);
+  expect(await scroller.evaluate((node) => node.scrollTop)).toBe(0);
+
+  // Narrow to one Company: all of its records, including singletons, remain discoverable.
+  await page.locator('[data-search]').fill('');
+  await page.locator('[data-company-picker] summary').click();
+  await page.locator('[data-clear-all-companies]').click();
+  await expect(shell).not.toHaveAttribute('data-more-rows');
+  await page.locator(`[data-company-options] input[value="${lateCompany}"]`).check();
+  await page.locator('[data-company-picker] summary').click();
+  await expectMatrixRowWindow(page, 20);
+  await expect(shell).not.toHaveAttribute('data-more-rows');
+  const matchingIds = await scroller.locator('[data-matrix-mark]:visible').evaluateAll((marks) => (
+    [...new Set(marks.map((mark) => mark.dataset.eventId))].sort()
+  ));
+  const expectedIds = JSON.parse(fullCorpus).filter((event) => event.companies.some(({ id }) => id === lateCompany))
+    .map(({ id }) => id).sort();
+  expect(matchingIds).toEqual(expectedIds);
+
+  await page.locator('[data-search]').fill('zzzznomatchtimeline');
+  await expect(shell).not.toHaveAttribute('data-more-rows');
+  expect(await scroller.evaluate((node) => node.scrollHeight - node.clientHeight)).toBe(0);
+  await page.locator('[data-search]').fill('');
+  await page.locator('[data-company-picker] summary').click();
+  await page.locator('[data-select-all-companies]').click();
+  await page.locator('[data-company-picker] summary').click();
+  await expectMatrixRowWindow(page, 20);
+  await expect(shell).toHaveAttribute('data-more-rows', '');
+
+  // ResizeObserver also catches a row-height change without a window resize.
+  await scroller.locator('[data-matrix-row]:visible').first().evaluate((row) => {
+    row.style.height = `${row.getBoundingClientRect().height + 37}px`;
+  });
+  await expectMatrixRowWindow(page, 20);
+  expect(await rowKeys()).toEqual(originalOrder);
+  expect(await page.locator('[data-events-json]').textContent()).toBe(fullCorpus);
+  expect(await (await page.request.get('./export.json')).text()).toBe(exportBefore);
+});
+
+for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844 }]]) {
+  test.describe(`Matrix ${label} native scrolling`, () => {
+    test.use({ viewport, hasTouch: label === 'mobile' });
+    test('keeps its heading and fade correct', async ({ page, context }, testInfo) => {
+      await page.goto('./timeline/');
+      await expectExplorerReady(page);
+      await expectMatrixRowWindow(page, label === 'mobile' ? 10 : 20);
+      const scroller = page.locator('.activity-matrix-scroll');
+      const shell = page.locator('.activity-matrix-shell');
+      const topScreenshot = testInfo.outputPath(`timeline-${label}-top.png`);
+      await page.screenshot({ path: topScreenshot, fullPage: true });
+      await testInfo.attach(`timeline-${label}-top`, { path: topScreenshot, contentType: 'image/png' });
+      await scroller.focus();
+      await scroller.press('PageDown');
+      await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
+      await scroller.press('Home');
+      await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBe(0);
+
+      // Keep the frame top in view so actual wheel/touch input lands on the region.
+      await page.evaluate(() => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, document.querySelector('.activity-matrix-shell').getBoundingClientRect().top + window.scrollY - 10);
+      });
+      const heading = await page.locator('.activity-matrix-axis-viewport').boundingBox();
+      const bounds = await scroller.boundingBox();
+      const x = bounds.x + bounds.width / 2;
+      const y = Math.min(bounds.y + 180, viewport.height - 30);
+      await page.mouse.move(x, y);
+      await page.mouse.wheel(0, 150);
+      await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
+      await expect(shell).toHaveAttribute('data-more-rows', '');
+      expect((await page.locator('.activity-matrix-axis-viewport').boundingBox()).y).toBe(heading.y);
+
+      if (label === 'mobile') {
+        const touch = await context.newCDPSession(page);
+        const before = await scroller.evaluate((node) => node.scrollTop);
+        await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }] });
+        for (let step = 1; step <= 6; step += 1) {
+          await touch.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x, y: y - step * 20, id: 1 }] });
+        }
+        await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(before);
+        await touch.detach();
+      }
+
+      await scroller.focus();
+      await scroller.press('End');
+      await expect.poll(() => scroller.evaluate((node) => node.scrollHeight - node.clientHeight - node.scrollTop)).toBeLessThanOrEqual(1);
+      await expect(shell).not.toHaveAttribute('data-more-rows');
+      expect(await shell.evaluate((node) => getComputedStyle(node, '::after').opacity)).toBe('0');
+      expect((await page.locator('.activity-matrix-axis-viewport').boundingBox()).y).toBe(heading.y);
+      const bottomScreenshot = testInfo.outputPath(`timeline-${label}-bottom.png`);
+      await page.screenshot({ path: bottomScreenshot, fullPage: true });
+      await testInfo.attach(`timeline-${label}-bottom`, { path: bottomScreenshot, contentType: 'image/png' });
+      await scroller.press('Home');
+      await expect(shell).toHaveAttribute('data-more-rows', '');
+      expect(await shell.evaluate((node) => getComputedStyle(node, '::after').pointerEvents)).toBe('none');
+    });
+  });
+}
+
 test('Event bundles retain direct Event interaction and reduce cleanly under filtering', async ({ page }) => {
   await page.goto('./timeline/');
   await expectExplorerReady(page);
@@ -636,13 +792,23 @@ test('Matrix fills available width, scrolls only its derived excess locally, and
   }));
   expect(documentWidth.scrollWidth).toBe(documentWidth.clientWidth);
 
-  await page.evaluate(() => scrollTo(0, 800));
+  // A bounded Matrix can make the document too short to scroll its heading to y=0.
+  const expectedStickyTop = await page.locator('.activity-matrix-shell').evaluate((node) => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    const documentTop = node.getBoundingClientRect().top + window.scrollY;
+    const maximumScroll = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo(0, 800);
+    return Math.max(documentTop - Math.min(800, maximumScroll), 0);
+  });
+  await expect.poll(() => page.locator('.activity-matrix-axis-viewport').evaluate((node, expected) => (
+    Math.abs(node.getBoundingClientRect().top - expected)
+  ), expectedStickyTop)).toBeLessThanOrEqual(1);
   const stickyAxis = await page.locator('.activity-matrix-axis-viewport').evaluate((node) => ({
     position: getComputedStyle(node).position,
     top: node.getBoundingClientRect().top,
   }));
   expect(stickyAxis.position).toBe('sticky');
-  expect(Math.abs(stickyAxis.top)).toBeLessThanOrEqual(1);
+  expect(Math.abs(stickyAxis.top - expectedStickyTop)).toBeLessThanOrEqual(1);
   await page.evaluate(() => scrollTo(0, 0));
 
   await page.setViewportSize({ width: 1280, height: 800 });

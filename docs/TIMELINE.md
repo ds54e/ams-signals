@@ -42,6 +42,8 @@ Desktop is the reference experience. Keep the horizontal spatial Timeline and Ev
 
 Individual and bundled marks remain directly selectable with keyboard focus, meaningful kind shape and the shared hit geometry. Sticky labels occlude scrolling marks without clearing selection. Timeline Company filter popovers must actually own overlapping pixels rather than merely declaring a larger z-index. Changes preserve plain factual detail pages and explicit source availability.
 
+The global Matrix frame shows the first 20 currently matching entity rows, or 10 at widths up to 760px. Its height is measured from complete rendered rows, including variable bundle packing, and recalculated after filtering and size changes. All remaining rows stay in the same locally scrollable region; the limit never narrows data, search, ordering or geometry. Filter changes return vertical scrolling to the first matching row while retaining horizontal position. The time heading stays above the scrolling rows. Scrollbars are hidden, with native wheel, touch and keyboard scrolling retained through the focusable region. A subtle bottom fade indicates more rows below and disappears at the bottom or when all rows fit.
+
 ## Implementation and verification
 
 `src/components/EventExplorer.astro` owns the viewer surface; `src/lib/activityMatrix.ts` owns global Matrix geometry; `src/styles/event-explorer.css` owns explorer layout. Use [test ownership](TESTING.md#where-a-new-browser-assertion-belongs) for the affected behavior. Deterministic projection/order/bundle logic belongs in Node contracts; browser tests verify serialization wiring, interaction, layout, accessibility and state transitions. Derive mutable corpus expectations from source inputs.

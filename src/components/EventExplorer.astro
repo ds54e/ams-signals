@@ -588,6 +588,9 @@ const matrixMarkLabel = (event: EventEntry) => (
     const detail = root.querySelector('[data-detail]');
     const timelineScroll = root.querySelector('[data-timeline-scroll]');
     const activityAxis = root.querySelector('[data-activity-axis]');
+    const matrixShell = root.querySelector('.activity-matrix-shell');
+    const matrix = root.querySelector('[data-activity-matrix-surface]');
+    const matrixRows = [...root.querySelectorAll('[data-matrix-row]')];
     let activeId = null;
     let activeMark = null;
     let visibleIds = new Set();
@@ -633,6 +636,34 @@ const matrixMarkLabel = (event: EventEntry) => (
       if (activityAxis && timelineScroll) {
         activityAxis.style.setProperty('--matrix-scroll-left', `${timelineScroll.scrollLeft}px`);
       }
+    };
+
+    const syncMatrixFade = () => {
+      if (!matrixShell || !timelineScroll) return;
+      matrixShell.toggleAttribute('data-more-rows',
+        timelineScroll.scrollHeight - timelineScroll.clientHeight - timelineScroll.scrollTop > 1);
+    };
+    const updateMatrixViewport = () => {
+      if (!matrixShell || !matrix || !timelineScroll) return;
+      const rowLimit = Number.parseInt(getComputedStyle(matrixShell).getPropertyValue('--matrix-visible-rows'), 10);
+      const rows = matrixRows.filter((row) => !row.hidden);
+      const lastRow = rows[Math.min(rowLimit, rows.length) - 1];
+      // Measure complete rendered rows: bundle packing gives each entity a different height.
+      const height = lastRow
+        ? `${lastRow.getBoundingClientRect().bottom - matrix.getBoundingClientRect().top}px`
+        : 'none';
+      if (timelineScroll.style.getPropertyValue('--matrix-viewport-height') !== height) {
+        timelineScroll.style.setProperty('--matrix-viewport-height', height);
+      }
+      syncMatrixFade();
+    };
+    let matrixResizeFrame = 0;
+    const scheduleMatrixViewport = () => {
+      if (matrixResizeFrame) return;
+      matrixResizeFrame = requestAnimationFrame(() => {
+        matrixResizeFrame = 0;
+        updateMatrixViewport();
+      });
     };
 
     const matchingFields = (event, terms) => {
@@ -928,6 +959,10 @@ const matrixMarkLabel = (event: EventEntry) => (
           && !explicitDiscovery;
         lane.hidden = !hasVisibleMark || suppressSingleton;
       });
+      if (matrixShell && timelineScroll) {
+        timelineScroll.scrollTop = 0;
+        updateMatrixViewport();
+      }
 
       representedTimelineIds = isActivityMatrix
         ? new Set([...root.querySelectorAll('[data-matrix-mark]')]
@@ -1002,7 +1037,15 @@ const matrixMarkLabel = (event: EventEntry) => (
       companyChecks.forEach((check) => { check.checked = false; });
       apply();
     });
-    timelineScroll?.addEventListener('scroll', syncActivityAxis, { passive: true });
+    timelineScroll?.addEventListener('scroll', () => {
+      syncActivityAxis();
+      syncMatrixFade();
+    }, { passive: true });
+    if (matrixShell && matrix && timelineScroll) {
+      const matrixResizeObserver = new ResizeObserver(scheduleMatrixViewport);
+      [matrix, timelineScroll, ...matrixRows].forEach((node) => matrixResizeObserver.observe(node));
+      window.addEventListener('resize', scheduleMatrixViewport, { passive: true });
+    }
     companyPicker?.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         companyPicker.open = false;
