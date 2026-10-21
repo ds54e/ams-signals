@@ -43,7 +43,7 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
 
   for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568], [760, 844], [761, 844]]) {
     await page.setViewportSize({ width, height });
-    const limit = width <= 760 ? 10 : 20;
+    const limit = width <= 760 ? 10 : 25;
     await expectMatrixRowWindow(page, limit);
     await expect(shell).toHaveAttribute('data-more-rows', '');
     const dimensions = await scroller.evaluate((node, count) => {
@@ -76,7 +76,7 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
   await scroller.evaluate((node) => { node.scrollTop = node.scrollHeight; });
   await page.locator('[data-search]').fill(companyName);
   await expect(page.locator(`[data-matrix-row][data-entity-id="${lateCompany}"]`)).toBeVisible();
-  await expectMatrixRowWindow(page, 20);
+  await expectMatrixRowWindow(page, 25);
   expect(await scroller.evaluate((node) => node.scrollTop)).toBe(0);
 
   // Narrow to one Company: all of its records, including singletons, remain discoverable.
@@ -86,7 +86,7 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
   await expect(shell).not.toHaveAttribute('data-more-rows');
   await page.locator(`[data-company-options] input[value="${lateCompany}"]`).check();
   await page.locator('[data-company-picker] summary').click();
-  await expectMatrixRowWindow(page, 20);
+  await expectMatrixRowWindow(page, 25);
   await expect(shell).not.toHaveAttribute('data-more-rows');
   const matchingIds = await scroller.locator('[data-matrix-mark]:visible').evaluateAll((marks) => (
     [...new Set(marks.map((mark) => mark.dataset.eventId))].sort()
@@ -102,14 +102,14 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
   await page.locator('[data-company-picker] summary').click();
   await page.locator('[data-select-all-companies]').click();
   await page.locator('[data-company-picker] summary').click();
-  await expectMatrixRowWindow(page, 20);
+  await expectMatrixRowWindow(page, 25);
   await expect(shell).toHaveAttribute('data-more-rows', '');
 
   // ResizeObserver also catches a row-height change without a window resize.
   await scroller.locator('[data-matrix-row]:visible').first().evaluate((row) => {
     row.style.height = `${row.getBoundingClientRect().height + 37}px`;
   });
-  await expectMatrixRowWindow(page, 20);
+  await expectMatrixRowWindow(page, 25);
   expect(await rowKeys()).toEqual(originalOrder);
   expect(await page.locator('[data-events-json]').textContent()).toBe(fullCorpus);
   expect(await (await page.request.get('./export.json')).text()).toBe(exportBefore);
@@ -121,7 +121,7 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
     test('keeps its heading and fade correct', async ({ page, context }, testInfo) => {
       await page.goto('./timeline/');
       await expectExplorerReady(page);
-      await expectMatrixRowWindow(page, label === 'mobile' ? 10 : 20);
+      await expectMatrixRowWindow(page, label === 'mobile' ? 10 : 25);
       const scroller = page.locator('.activity-matrix-scroll');
       const shell = page.locator('.activity-matrix-shell');
       const topScreenshot = testInfo.outputPath(`timeline-${label}-top.png`);

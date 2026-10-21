@@ -331,7 +331,7 @@
 
 .activity-matrix-shell {
   --matrix-label-width: 170px;
-  --matrix-visible-rows: 20;
+  --matrix-visible-rows: 25;
   position: relative;
   z-index: 0;
   isolation: isolate;
