@@ -1,7 +1,7 @@
 ---
 name: "slang"
 aliases: []
-description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations. Its standalone tool performs static analysis, while C++ APIs and pyslang Python bindings support source inspection, refactoring and integration into other compilers or developer tools."
+description: "SystemVerilog frontend exposing parsing, elaboration, type checking and reusable design representations. Its standalone tools and slang-tidy provide static analysis, while C++ APIs and pyslang Python bindings support source inspection and compiler integration; parsing assertions does not itself prove their properties."
 scope:
   design:
     ai: false
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-22"
 sources:
   - id: "code"
     title: "Canonical slang repository"
@@ -45,6 +45,9 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/MikePopoloski/slang/blob/b7f11c1f034029b9534444ee9d63090037f23e87/source/parsing/Parser.cpp"
+  - id: "review-20261022-tidy"
+    title: "Current slang-tidy configuration and checks"
+    url: "https://github.com/MikePopoloski/slang/blob/3b351a52b15755b896d3b0144ae0432547d86618/tools/tidy/README.md"
 ---
 
 ### Implementation and scope
@@ -62,3 +65,9 @@ Reviewed 2026-10-05. Python bindings add checked conversion from scope-bearing s
 ### Development provenance
 
 Claude is credited for correcting parseGuess to handle member keywords that do not parse as members, avoiding a null dereference. The canonical project retains the parser correction and tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Review of exposed operations and limits, October 22, 2026
+
+slang-tidy supplies configurable static checks in addition to the frontend. Assertion parsing and elaboration are distinct from lowering to an executable property model or proving that model. Existing Design/Verification stages are retained without inferring a formal solver. [Static-analysis tool](#source-review-20261022-tidy).
+
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.

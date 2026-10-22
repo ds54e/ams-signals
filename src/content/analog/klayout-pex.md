@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Python implementation; selected extraction backends, KLayout and process-specific technology/LVS data are required."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-22"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -77,6 +77,21 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/netlist_checks.py"
+  - id: "review-20261022-generator"
+    title: "Current IHP technology generator"
+    url: "https://github.com/iic-jku/klayout-pex/blob/d3582837761b045ef330ce84737984114fe240e3/scripts/gen_tech_pb/ihp_sg13.py"
+  - id: "review-20261022-cmos5l"
+    title: "Version-specific SG13CMOS5L extraction bench"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13cmos5l/pex_bench/README.md"
+  - id: "review-20261022-gf180"
+    title: "Version-specific GF180 extraction bench"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/gf180mcuD/pex_bench/README.md"
+  - id: "review-20261022-sky130"
+    title: "SKY130 extraction bench coverage"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/sky130A/pex_bench/README.md"
+  - id: "review-20261022-ihp"
+    title: "IHP extraction comparison method"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/README.md"
 ---
 
 ### Implementation context
@@ -106,3 +121,11 @@ The reviewed tests were not run, and source coverage is not independent process/
 ### Development provenance
 
 The contribution changes terminal/node identity propagation through extraction summaries and netlist expansion, then checks device connectivity, net isolation, ports and capacitance accounting against the LVS reference. This is a coherent electrical-correctness implementation campaign, not a label inferred from extraction being useful to agents. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+
+### Review of exposed operations and limits, October 22, 2026
+
+Process availability and accuracy are separate questions. The SG13CMOS5L bench records missing included LVS decks through 0.4.4, an executable path from 0.4.5, and pinned results at 0.6.3. The GF180 bench records a top-metal technology-file failure through 0.5.1 and its correction in 0.5.2. Current upstream is 0.6.10 at the reviewed head; those historical results are not a complete qualification of this version. The current IHP generator and the bench still require coefficient-by-coefficient review for the CMOS5L variant; no old defect count is promoted to a current universal claim. [Technology generator](#source-review-20261022-generator); [CMOS5L](#source-review-20261022-cmos5l); [GF180](#source-review-20261022-gf180); [SKY130](#source-review-20261022-sky130).
+
+KPEX driving Magic and Magic run directly are not independent numerical references. Deck arithmetic, internal 2.5D models and FasterCap results use different assumptions and boundary/mesh choices; agreement with a PDK deck is distinct from agreement with measured silicon. A disagreement need not mean that exactly one engine is wrong. [Comparison setup](#source-review-20261022-ihp).
+
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.

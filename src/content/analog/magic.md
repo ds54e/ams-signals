@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-22"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -41,6 +41,15 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/RTimothyEdwards/magic/blob/bed8d4ff84333767aa923d469d339cd05c56a00a/extract/ExtCouple.c"
+  - id: "review-20261022-557"
+    title: "Reported extraction defects and affected configurations"
+    url: "https://github.com/RTimothyEdwards/magic/issues/557"
+  - id: "review-20261022-550"
+    title: "Reported extresist coupling-capacitance handling"
+    url: "https://github.com/RTimothyEdwards/magic/issues/550"
+  - id: "review-20261022-bench"
+    title: "Version-specific IHP extraction regression context"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/README.md"
 ---
 
 ### Scope
@@ -66,3 +75,9 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 ### Development provenance
 
 The reviewed implementation adds convex/concave corner calculations and integration into the existing extractor, with an optional model scale factor. This qualifies as a substantial extraction feature. The attribution does not establish the electrical calibration of that factor or characterize construction of the original Magic codebase. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+
+### Review of exposed operations and limits, October 22, 2026
+
+Extraction needs review by version, technology deck, hierarchy mode and resistance/coupling options. Issues 557 and 550 were open at the October 22 observation and report sidewall, hierarchy, resistor-network and coupling-capacitance concerns in specified configurations. Those issue reports and the regression suite are not an independent rerun on the latest head, and open status alone does not establish that every reported case is still unfixed. [Reported defects](#source-review-20261022-557); [coupling report](#source-review-20261022-550); [regression context](#source-review-20261022-bench).
+
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.

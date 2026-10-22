@@ -1,0 +1,41 @@
+---
+name: "ABC"
+aliases: []
+description: "Logic synthesis and formal-verification system with an independent command shell and reusable algorithms. AIG optimization, technology mapping, equivalence checking and sequential property checking operate on supported logic models; assertion languages and RTL elaboration are normally handled by surrounding frontends."
+scope:
+  synthesis:
+    ai: false
+  verification:
+    ai: false
+access: "Public C/C++ implementation; a supported compiler/build environment and appropriate logic-model inputs are required."
+addedAt: "2026-10-22"
+reviewedAt: "2026-10-22"
+sources:
+  - id: "code"
+    title: "Canonical public implementation"
+    url: "https://github.com/berkeley-abc/abc"
+    purpose: "code"
+  - id: "readme"
+    title: "Project overview at the reviewed revision"
+    url: "https://github.com/berkeley-abc/abc/blob/fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b/README.md"
+  - id: "implementation-1"
+    title: "Reviewed source: src/base/abci/abc.c"
+    url: "https://github.com/berkeley-abc/abc/blob/fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b/src/base/abci/abc.c"
+  - id: "activity"
+    title: "Reviewed meaningful change: Merge pull request #591 from zxxr1113/sresub-drw-upstream-20261020"
+    url: "https://github.com/berkeley-abc/abc/commit/fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b"
+---
+
+### Implemented operations and boundaries
+
+The independent command system exposes synthesis/mapping and formal operations. Supported logic-model inputs and selected engines determine semantics; ABC is not a direct full-SVA elaborator merely because Yosys uses it.
+
+[Project overview](#source-readme); [Source 1](#source-implementation-1).
+
+### Scope and activity review
+
+The exposed operations support Synthesis, Verification. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
+
+The meaningful checkpoint is 2026-10-21T18:49:03Z (`fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.

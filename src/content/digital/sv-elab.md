@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-22"
 sources:
   - id: "code"
     title: "Canonical sv-elab repository"
@@ -42,6 +42,9 @@ sources:
   - id: "activity-current"
     title: "Yosys backend release-build compatibility"
     url: "https://github.com/povik/sv-elab/commit/1582cc2d5bd199949669a1440a4c8947d713f842"
+  - id: "review-20261022-sva"
+    title: "Current concurrent-assertion lowering subset"
+    url: "https://github.com/povik/sv-elab/blob/3e152133b9c22b7883a6a03d483ed35e8c74aba5/src/yosys_plugin/sva.cc"
 ---
 
 ### Implementation and scope
@@ -59,3 +62,9 @@ Reviewed 2026-10-01: **AI-ASSISTED**. Explicit assistance accompanies a coordina
 ### Current activity review
 
 Reviewed 2026-10-05. The Yosys backend suppresses an unused-width warning after release builds remove assertions. This is an actual source-build compatibility correction, not a new transformation stage. [Reviewed change](#source-activity-current).
+
+### Review of exposed operations and limits, October 22, 2026
+
+The historical yosys-slang identity is already represented by this entry. Current SVA lowering handles selected clocked simple assertion forms, disable-iff and assert/assume/cover flavors, but rejects unsupported property shapes and simple-sequence repetition. This is a frontend transformation boundary, not full SVA semantics or a proof engine, so no separate duplicate or Verification stage is added. [Lowering implementation](#source-review-20261022-sva).
+
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.

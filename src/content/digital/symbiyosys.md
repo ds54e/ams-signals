@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-22"
 sources:
   - id: "code"
     title: "Canonical SymbiYosys repository"
@@ -37,6 +37,15 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained runtime diagnostic code"
     url: "https://github.com/YosysHQ/sby/blob/79fc9eddca5e33a28cc2f2cd19c9825efd9a7255/sbysrc/sby_engine_btor.py"
+  - id: "review-20261022-itp"
+    title: "Reviewed upstream ITP status adapter"
+    url: "https://github.com/YosysHQ/sby/blob/79fc9eddca5e33a28cc2f2cd19c9825efd9a7255/sbysrc/sby_engine_itp.py"
+  - id: "review-20261022-btor"
+    title: "Reviewed BTOR/rIC3 engine adapter"
+    url: "https://github.com/YosysHQ/sby/blob/79fc9eddca5e33a28cc2f2cd19c9825efd9a7255/sbysrc/sby_engine_btor.py"
+  - id: "review-20261022-itp-core"
+    title: "ITP bounded and fixpoint result paths"
+    url: "https://github.com/inquisitour/itp-bmc/blob/bdd5342f0ec275b1de044d050505c483e7ee3737/src/model_checker.cpp"
 ---
 
 
@@ -57,3 +66,9 @@ Formal engine orchestration and proof/cover execution are conventional Verificat
 ### Development provenance
 
 Copilot is credited for correcting the executed rIC3 unsupported-mode diagnostic in the BTOR engine. The canonical project retains the diagnostic-code correction; this attribution does not claim implementation of the solver. [Copilot-credited runtime diagnostic correction](#source-development-implementation-20261018) · [Retained runtime diagnostic code](#source-development-retained-20261018).
+
+### Review of exposed operations and limits, October 22, 2026
+
+Engine availability is not a uniform proof guarantee. The reviewed ITP adapter accepts prove/bmc but maps both Fixpoint reached and Safe up to bound to PASS; the standalone checker also returns OK for bounded-only outcomes. This static result-contract concern prevents treating every ITP PASS as an unbounded proof, and itp-bmc is held from the proposed additions. No independent failure reproduction was performed. rIC3 remains a separate BTOR engine with its own supported modes, and the RTL frontend still limits assertion support. [ITP adapter](#source-review-20261022-itp); [checker](#source-review-20261022-itp-core); [BTOR adapter](#source-review-20261022-btor).
+
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.

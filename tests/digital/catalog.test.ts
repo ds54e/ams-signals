@@ -518,6 +518,8 @@ test('Digital explicitly curates all-zero windows without treating missing histo
   const project = structuredClone(github);
   const sha = 'a'.repeat(40);
   const repository = (snapshot.projects[github.id] as any).repository;
+  // Keep this historical window fixture valid when the first catalog entry is newly added.
+  project.data.addedAt = '2026-10-01';
   project.data.reviewedAt = '2026-10-01';
   project.data.sources.push({ id: 'window-fixture', title: 'Reviewed fixture commit', url: `https://github.com/${repository}/commit/${sha}` });
   const record = { ...snapshot.projects[github.id], capturedAt: '2026-10-01T12:00:00Z', commits: Array(12).fill(0),
