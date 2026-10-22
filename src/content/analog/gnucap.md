@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public C++ source; build dependencies and additional model/language plugins follow the official project documentation.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-22'
 sources:
 - id: code
   title: Canonical Gnucap Codeberg repository
@@ -25,6 +25,9 @@ sources:
 - id: activity
   title: Transmission-line time-pair correction and regression test
   url: https://codeberg.org/gnucap/gnucap/commit/2efebaa0df0bfc390bf90743a2b85c28401a1490
+- id: activity-reviewed-20261022
+  title: Add arbitrary-order interpolation and measurement regressions
+  url: https://codeberg.org/gnucap/gnucap/commit/31528ae729a537b2048794c29e7d3883123824e9
 ---
 
 ### Implementation and boundaries
@@ -34,3 +37,7 @@ The numerical core and device/command plugins implement conventional Simulation.
 ### Canonical activity
 
 The official contribution guide points to Codeberg for project development. Its repository ID and actual default branch, `develop`, were verified directly and its complete first-parent UTC history was captured. The Savannah repository defaults to an older `master`; the GitHub project is a read-only mirror. Neither is substituted into this capture. [Host references](#source-hosting).
+
+### Current implementation and activity
+
+The October 22 implementation adds an interpolation-order argument and Neville-style evaluation, and updates measurement/waveform callers and regression fixtures. Its own notes retain an extrapolation limitation; this review does not turn the new numerical path into a general accuracy or language-conformance claim. [Reviewed implementation change](#source-activity-reviewed-20261022).

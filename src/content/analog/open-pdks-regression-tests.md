@@ -6,9 +6,14 @@ description: "Executable DRC, LVS and parasitic-extraction regression suites for
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Make/Python implementation; IIC-OSIC-TOOLS, matching PDKs and selected extraction backends are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -38,6 +43,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: ihp-sg13g2, ihp-sg13cmos5l: add sg13_cmomf, put the MOM pins on stubs"
     url: "https://github.com/iic-jku/open-pdks-regression-tests/commit/3a97ca55bfbf482400f6b8d35f341b465303fe13"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/iic-jku/open-pdks-regression-tests/commit/52a58e1db8ec562b66a3d89a0470ef6fd9ec2381
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/scripts/compare_engines.py
 ---
 
 ### Implemented operations and boundaries
@@ -52,4 +63,8 @@ The exposed operations support Layout. The reviewed operations are conventional;
 
 The meaningful checkpoint is 2026-10-20T15:10:39Z (`3a97ca55bfbf482400f6b8d35f341b465303fe13`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

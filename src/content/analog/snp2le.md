@@ -6,9 +6,14 @@ description: "GUI and batch converter from Touchstone S-parameters to SPICE or V
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for correcting S-parameter plotting on PySide6 builds that return list-valued selector data. The canonical plot view retains handling of both tuples and lists."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python implementation; scikit-rf and numerical packages are required, with PySide6 for the GUI and Xschem/simulators for optional testbench runs."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -29,6 +34,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #30 from iic-jku/fix/cli-batch-and-fit-spread"
     url: "https://github.com/iic-jku/snp2le/commit/446e2b3b5c2cdfea4b508455a4470b77557f543c"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/iic-jku/snp2le/commit/f055649a06bafa623547ed0928f252fb0b72c1c7
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/iic-jku/snp2le/blob/07a8222d52f25080274168eeed2fe27d064a268c/snp2le/gui/plot_view.py
 ---
 
 ### Implemented operations and boundaries
@@ -43,4 +54,8 @@ The exposed operations support Simulation. The reviewed operations are conventio
 
 The meaningful checkpoint is 2026-10-18T17:35:20Z (`446e2b3b5c2cdfea4b508455a4470b77557f543c`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for correcting S-parameter plotting on PySide6 builds that return list-valued selector data. The canonical plot view retains handling of both tuples and lists. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

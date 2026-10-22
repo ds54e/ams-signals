@@ -5,9 +5,14 @@ description: "Hardware unit-test agent that analyzes DUTs, generates tests and r
 scope:
   verification:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical UCAgent repository"
@@ -32,6 +37,12 @@ sources:
   - id: "activity-review"
     title: "Parallel task MCP-port selection and regression tests"
     url: "https://github.com/XS-MLVP/UCAgent/commit/ac007684b2c6b1b4b7a1ca6e3090fef174d459fa"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/XS-MLVP/UCAgent/commit/4dc53c15379ab09cad6defca5007bc26f37630ec
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/XS-MLVP/UCAgent/blob/1c7473085ad7f4d891604065b868fdcdb05d0cc3/examples/MiniWorkflow/my_tools.py
 ---
 
 
@@ -56,3 +67,7 @@ Implemented model backends analyze DUTs, generate tests and choose verification 
 Reviewed 2026-10-01. The current README documents direct model and external coding-agent modes, plus optional formal and coverage workflows. Default Python stage checking is heuristic; optional LLM and human checking does not establish arbitrary-DUT correctness. The blank backend remains a model-free coordination option rather than evidence that all modes lack inference. [README](#source-readme); [Blank backend](#source-implementation).
 
 The newest reviewed meaningful first-parent change is parallel task MCP-port selection and regression tests (2026-09-30 UTC). [Reviewed commit](#source-activity-review).
+
+### Development provenance
+
+Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

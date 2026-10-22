@@ -6,9 +6,14 @@ description: "Electromagnetic field solver using the EC-FDTD method, with Python
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude Code is credited with assisting implementation of the VTK-independent field-dump writer. The canonical C++ implementation retains XML escaping, base64 encoding and zlib-compressed array output."
+  sources: [activity, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public C++/Python/Matlab implementation; CSXCAD and solver build/runtime dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -26,6 +31,9 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Write the VTK files without VTK"
     url: "https://github.com/thliebig/openEMS/commit/d9ca3b6a6359c7b04bf862adc59ed54fbd275bd4"
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/thliebig/openEMS/blob/11aa0638ec2c554d84fd77f71ba778d7fb2d6de9/tools/vtk_file_writer.cpp
 ---
 
 ### Implemented operations and boundaries
@@ -40,4 +48,8 @@ The exposed operations support Simulation. The reviewed operations are conventio
 
 The meaningful checkpoint is 2026-10-20T23:46:26Z (`d9ca3b6a6359c7b04bf862adc59ed54fbd275bd4`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude Code is credited with assisting implementation of the VTK-independent field-dump writer. The canonical C++ implementation retains XML escaping, base64 encoding and zlib-compressed array output. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

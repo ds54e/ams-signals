@@ -5,9 +5,14 @@ description: "Standalone static-timing analyzer consuming gate netlists, Liberty
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for implementing configurable precision in JSON timing reports. The canonical path-report writer retains the report-digits setting for timing and capacitance values."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public C++/Tcl implementation; supported build dependencies, timing libraries, constraints and parasitic data are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +30,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: write_path_spice: deassert asynchronous set/reset pins pr #481"
     url: "https://github.com/parallaxsw/OpenSTA/commit/f7100b9276667aa5e51d6b7b152e457595991751"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/parallaxsw/OpenSTA/commit/230e28d9880294170f1e659dbdc675d66468ce2d
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/parallaxsw/OpenSTA/blob/f7100b9276667aa5e51d6b7b152e457595991751/search/ReportPath.cc
 ---
 
 ### Implemented operations and boundaries
@@ -39,4 +50,8 @@ The exposed operations support Layout. The reviewed operations are conventional;
 
 The meaningful checkpoint is 2026-10-21T22:41:45Z (`f7100b9276667aa5e51d6b7b152e457595991751`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for implementing configurable precision in JSON timing reports. The canonical path-report writer retains the report-digits setting for timing and capacitance values. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

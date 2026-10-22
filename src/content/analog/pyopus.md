@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public Python library and GUI; simulator installations, device models and optional parallel-computing dependencies are supplied separately."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-22'
 sources:
   - id: "site"
     title: "Official PyOPUS overview and 0.12 release announcement"
@@ -38,6 +38,9 @@ sources:
   - id: "activity"
     title: "Equal-index XatIrange NumPy-reference fix, September 16, 2026"
     url: "https://codeberg.org/arpadbuermen/PyOPUS/commit/3ee2f571a037915b337cadb8be6eb988c9b901e9"
+  - id: activity-reviewed-20261022
+    title: Add offscreen PySide6 GUI smoke coverage
+    url: https://codeberg.org/arpadbuermen/PyOPUS/commit/677211e837b5dc84d0e07d7323ce33ad7e281ffb
 ---
 
 ### Implementation context
@@ -48,10 +51,14 @@ Documentation lists SpiceOpus, ngspice, Xyce, HSPICE and Spectre adapters. Their
 
 ### Release and activity boundary
 
-Version 0.12 was released January 14, 2026. Its changelog records the NumPy 2 transition and evaluator/design fixes. Later main changes repair GUI startup, aggregate-result formatting and the equal-index XatIrange path. The September 16 correction removes an undefined NumPy reference and is the latest reviewed meaningful commit. [Release announcement](#source-site); [changelog](#source-changelog); [GUI correction](#source-gui-fix); [meaningful activity](#source-activity).
+Version 0.12 was released January 14, 2026. Its changelog records the NumPy 2 transition and evaluator/design fixes. Later main changes repair GUI startup, aggregate-result formatting and the equal-index XatIrange path. The September 16 correction removes an undefined NumPy reference and is the earlier reviewed meaningful commit. [Release announcement](#source-site); [changelog](#source-changelog); [GUI correction](#source-gui-fix); [meaningful activity](#source-activity).
 
 The official release README names Codeberg as the Git source. Canonical API identity and full first-parent history were retrieved; the activity record uses the existing non-GitHub repository method, actual Codeberg ID, branch, head and UTC counts. No mirror history is substituted. [Canonical source](#source-code); [upstream Git instructions](#source-release-readme).
 
 ### Scope and development provenance
 
 Design covers sizing and numerical optimization; Simulation covers simulator execution and electrical performance extraction. Conventional search and statistical methods do not establish runtime AI. Reviewed official documentation and canonical history do not establish qualifying AI-assisted implementation; no development label is assigned. [Workflow evidence](#source-documentation).
+
+### Current implementation and activity
+
+The current development tree ports the GUI and plotter to PySide6 and adds an offscreen GUI smoke program exercising editor models, tree operations and plot widgets. The October 19 test addition is the new meaningful checkpoint; later installation and README edits advance the tip without claiming another release. [Reviewed implementation change](#source-activity-reviewed-20261022).

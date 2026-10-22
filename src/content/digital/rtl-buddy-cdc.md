@@ -5,9 +5,14 @@ description: "Experimental structural CDC/RDC analyzer using Yosys or slang elab
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for correcting synchronizer-chain recognition through per-stage synchronous-reset multiplexers. The canonical rule engine retains the reset-mux index and chain-walking logic."
+  sources: [activity, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python implementation; Yosys or supported pyslang, SDC constraints and optional Tcl runtime are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -28,6 +33,9 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: fix(rules): step over per-stage sync-reset mux in separate-flop sync chains (#304) (#305)"
     url: "https://github.com/rtl-buddy/rtl-buddy-cdc/commit/df996d55af0e8b824183d03d531426b8601af429"
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/rtl-buddy/rtl-buddy-cdc/blob/df996d55af0e8b824183d03d531426b8601af429/src/rtl_buddy_cdc/rules.py
 ---
 
 ### Implemented operations and boundaries
@@ -42,4 +50,8 @@ The exposed operations support Verification. The reviewed operations are convent
 
 The meaningful checkpoint is 2026-09-28T05:29:15Z (`df996d55af0e8b824183d03d531426b8601af429`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for correcting synchronizer-chain recognition through per-stage synchronous-reset multiplexers. The canonical rule engine retains the reset-mux index and chain-walking logic. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

@@ -33,7 +33,14 @@ const nextReviewedAt = (() => {
 })();
 const github = projects.find((p) => snapshot.projects[p.id].kind === 'github')!;
 const surfer = projects.find((p) => p.id === 'surfer')!;
-const data = () => structuredClone(github.data);
+// Schema fixtures vary sources independently of the first authored project's
+// optional development evidence; the inventory test validates that pairing.
+const data = () => {
+  const value = structuredClone(github.data);
+  delete value.scope.aiDevelopment;
+  delete value.developmentEvidence;
+  return value;
+};
 const activity = () => structuredClone(snapshot);
 // Point-update support remains tested even when all current Digital entries have monthly history.
 // The surrogate carries the reviewed record's own public date, so swapping a repository record for
@@ -515,7 +522,7 @@ test('Digital Scope displays composed AI stages and one provenance label without
 
 
 test('Digital explicitly curates all-zero windows without treating missing history as inactivity', () => {
-  const project = structuredClone(github);
+  const project = { ...structuredClone(github), data: data() };
   const sha = 'a'.repeat(40);
   const repository = (snapshot.projects[github.id] as any).repository;
   // Keep this historical window fixture valid when the first catalog entry is newly added.

@@ -7,9 +7,14 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for repairing stalled SAT ATPG and multi-bit primary-input handling. The canonical ATPG implementation retains the real-input enumeration and launch/capture constraints."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python/native flow; Yosys, supported cell libraries and selected SAT/simulation dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -27,6 +32,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #2 from ranaumarnadeem/dev"
     url: "https://github.com/ranaumarnadeem/faultflow/commit/45725dff360ce8a5242a6579d98bed8faeac8df3"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/ranaumarnadeem/faultflow/commit/bc8824f7ff2a26e2963c2deb42622482af7c73bc
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/ranaumarnadeem/faultflow/blob/45725dff360ce8a5242a6579d98bed8faeac8df3/src/core/atpg/progressive_atpg.cpp
 ---
 
 ### Implemented operations and boundaries
@@ -41,4 +52,8 @@ The exposed operations support Design, Verification. The reviewed operations are
 
 The meaningful checkpoint is 2026-08-19T14:47:08Z (`45725dff360ce8a5242a6579d98bed8faeac8df3`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for repairing stalled SAT ATPG and multi-bit primary-input handling. The canonical ATPG implementation retains the real-input enumeration and launch/capture constraints. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

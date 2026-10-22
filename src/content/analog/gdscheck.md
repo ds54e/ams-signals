@@ -6,9 +6,14 @@ description: "Experimental Rust design-rule checker for GDSII layouts with decla
 scope:
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for correcting edge-piece classification at polygon walls. The canonical Rust implementation retains separate tolerances for labels and edge midpoints, with an executable regression."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Rust implementation; a recent Rust toolchain and a matching rule deck are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -26,6 +31,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: pdks: ihp-sg13cmos5l reads no generated nBuLay"
     url: "https://github.com/aesc-silicon/gdscheck/commit/2100e66b5bad4bc6cb8ef0dc66db788022d19fb8"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/aesc-silicon/gdscheck/commit/dee4df85c048ec054fa12d500ecb9525026d384b
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/aesc-silicon/gdscheck/blob/2100e66b5bad4bc6cb8ef0dc66db788022d19fb8/src/merge.rs
 ---
 
 ### Implemented operations and boundaries
@@ -40,4 +51,8 @@ The exposed operations support Layout. The reviewed operations are conventional;
 
 The meaningful checkpoint is 2026-10-16T12:54:24Z (`2100e66b5bad4bc6cb8ef0dc66db788022d19fb8`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for correcting edge-piece classification at polygon walls. The canonical Rust implementation retains separate tolerances for labels and edge midpoints, with an executable regression. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

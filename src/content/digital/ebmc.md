@@ -5,9 +5,14 @@ description: "Model checker for Verilog and SystemVerilog hardware with bounded 
 scope:
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for implementing implicit-net declarations for nested concatenations on continuous-assignment left-hand sides. The canonical Verilog type checker retains the recursive implementation."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public C++ implementation; selected SAT/SMT or automata backend dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -40,6 +45,12 @@ sources:
   - id: "buechi-zero-delay"
     title: "Buechi zero-delay semantic correction"
     url: "https://github.com/diffblue/hw-cbmc/commit/ad1f7dd12b739003d39f85784664bcb8963a14ab"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/diffblue/hw-cbmc/commit/1e934d1d0cbbab886766f1df6e4e98bc3204de89
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/diffblue/hw-cbmc/blob/f8a2deeec151e7e11daabdad6e71547b2412cde0/src/verilog/verilog_typecheck.cpp
 ---
 
 ### Implemented operations and boundaries
@@ -54,4 +65,8 @@ The exposed operations support Verification. The reviewed operations are convent
 
 The meaningful checkpoint is 2026-10-21T20:10:15Z (`f8a2deeec151e7e11daabdad6e71547b2412cde0`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for implementing implicit-net declarations for nested concatenations on continuous-assignment left-hand sides. The canonical Verilog type checker retains the recursive implementation. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

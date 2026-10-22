@@ -6,9 +6,14 @@ description: "Python library for parametric chip-layout generation, hierarchical
 scope:
   layout:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for repairing component-sequence connections without replacing electrical ports. The retained executable sample allows cross-section mismatches while preserving the original port identities for layout export."
+  sources: [activity, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python implementation; a compatible kfactory/KLayout stack and suitable PDK definitions are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -29,6 +34,9 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Feat/extrude config (#4898)"
     url: "https://github.com/gdsfactory/gdsfactory/commit/8b6fe0ae8db7eac245a9b67d1fece75fc8d3aa6a"
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/gdsfactory/gdsfactory/blob/727e64e67753810da456a9b8fcd9bfc09939c36b/gdsfactory/samples/16_component_sequence2.py
 ---
 
 ### Implemented operations and boundaries
@@ -43,4 +51,8 @@ The exposed operations support Layout. The AI prefix describes the optional impl
 
 The meaningful checkpoint is 2026-10-17T05:20:16Z (`8b6fe0ae8db7eac245a9b67d1fece75fc8d3aa6a`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for repairing component-sequence connections without replacing electrical ports. The retained executable sample allows cross-section mismatches while preserving the original port identities for layout export. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

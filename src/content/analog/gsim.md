@@ -6,9 +6,14 @@ description: "Simulation interface connecting GDSFactory layouts to electromagne
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python implementation; the declared GDSFactory/GDSFactory+ versions and selected local solver or cloud access are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -26,6 +31,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: fix(palace): detect connected conductor necks and notches (#384)"
     url: "https://github.com/gdsfactory/gsim/commit/f3e032c5a14a5e769c955f9a49407b82339e53e8"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/gdsfactory/gsim/commit/d7a33127dcd4b1d18db2a0a05e2199ab457f86cf
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/gdsfactory/gsim/blob/0b3a3a1c9d8e9e2fe54ff0e766a9b11064dfc97a/src/gsim/palace/results.py
 ---
 
 ### Implemented operations and boundaries
@@ -40,4 +51,8 @@ The exposed operations support Simulation. The reviewed operations are conventio
 
 The meaningful checkpoint is 2026-10-21T17:29:52Z (`f3e032c5a14a5e769c955f9a49407b82339e53e8`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

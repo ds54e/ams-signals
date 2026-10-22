@@ -9,9 +9,14 @@ scope:
     ai: false
   layout:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited for repairing SDC clock resolution and unresolved-clock reporting. The canonical Tcl reader retains structured read results and detection of clock commands inside unevaluated script bodies."
+  sources: [development-code-20261022, development-retained-20261022]
+  reviewedAt: '2026-10-22'
 access: "Public Python implementation; command-specific external simulators, SymbiYosys, the documented Yosys fork and OpenROAD/platform data are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-22'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -29,6 +34,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: fix(pnr): render resume-check scripts as the run writes them (#937)"
     url: "https://github.com/rtl-buddy/rtl_buddy/commit/7ef509c029fbf15b483684223492393d12ded066"
+  - id: development-code-20261022
+    title: Credited executable development contribution
+    url: https://github.com/rtl-buddy/rtl_buddy/commit/2fbdc552502b01ef84a6a8149978e27014582245
+  - id: development-retained-20261022
+    title: Retained executable contribution at the reviewed head
+    url: https://github.com/rtl-buddy/rtl_buddy/blob/2fbdc552502b01ef84a6a8149978e27014582245/src/rtl_buddy/constraints/tcl_reader.py
 ---
 
 ### Implemented operations and boundaries
@@ -43,4 +54,8 @@ The exposed operations support Synthesis, Verification, Layout. The reviewed ope
 
 The meaningful checkpoint is 2026-10-21T05:46:49Z (`7ef509c029fbf15b483684223492393d12ded066`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
-Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
+
+### Development provenance
+
+Claude is co-credited for repairing SDC clock resolution and unresolved-clock reporting. The canonical Tcl reader retains structured read results and detection of clock commands inside unevaluated script bodies. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

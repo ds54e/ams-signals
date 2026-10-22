@@ -13,7 +13,7 @@ scope:
     ai: false
 access: "Public source compiler and Swim build tool; simulation and FPGA implementation require the selected external tools."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-22'
 sources:
   - id: "official"
     title: "Official Spade language website"
@@ -62,6 +62,9 @@ sources:
   - id: "activity-current"
     title: "Correct dereference lowering and memory initialization output"
     url: "https://codeberg.org/spade-lang/spade/commit/f5a4a5d5992381a3b8effe7c7131fa5342dd4dac"
+  - id: activity-reviewed-20261022
+    title: Preserve signed operands in arithmetic shift code generation
+    url: https://codeberg.org/spade-lang/spade/commit/14016f476f6868881b045611fe06cff54665bcb4
 ---
 
 ### Implementation context
@@ -87,3 +90,7 @@ All stage AI booleans are false. The reviewed sources do not establish qualifyin
 ### Current activity review
 
 Reviewed 2026-10-05. Dereference lowering now preserves a black-box alias and avoids panics, with compiler regressions. The preceding change also removes an invalid trailing comma in emitted memory initialization. These are concrete compiler/Synthesis corrections. [Reviewed change](#source-activity-current).
+
+### Current implementation and activity
+
+The October 18 code-generation repair emits signed left and right arithmetic shifts through the signed operator path and updates the corresponding executable regression assertions. Later standard-library and Clippy changes move the repository tip; the arithmetic-shift repair is the new reviewed meaningful checkpoint. [Reviewed implementation change](#source-activity-reviewed-20261022).
