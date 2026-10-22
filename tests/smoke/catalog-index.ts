@@ -75,7 +75,8 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(text).not.toMatch(/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u);
     const indexText = await catalog.evaluate((el) => {
       const clone = el.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('[data-provenance-panel]').forEach((panel) => panel.remove());
+      // Check interface labels without banning words inside authored names or descriptions.
+      clone.querySelectorAll('[data-provenance-panel], .catalog-title h2, .catalog-description').forEach((node) => node.remove());
       return clone.textContent;
     });
     for (const forbidden of ['Flow', 'AI Build', 'AI Development', 'AI Runtime', 'AI-powered', 'Keywords', 'Type / Links', 'Traditional', 'AI-enabled', 'Design Agent', 'Landscape', 'Recent additions', 'Methodology', 'What it does', 'Primary sources', 'A–Z', '◐']) expect(indexText).not.toContain(forbidden);
