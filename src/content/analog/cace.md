@@ -10,7 +10,7 @@ scope:
     ai: false
 access: "Public Python implementation; ngspice, layout/checking tools and matching PDK data are required by the selected parameters."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -37,6 +37,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Updated the extraction script for magic when doing full R-C"
     url: "https://github.com/fossi-foundation/cace/commit/54928b7be865baa37cc5c03f1f3e8d2892750850"
+  - id: website
+    title: Official project website and documentation
+    url: https://cace.readthedocs.io/en/latest/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

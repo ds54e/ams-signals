@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public Python implementation; modified PySpice, ngspice or Xyce, cell netlists and device models are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -29,6 +29,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Add combinational dynamic power charactereization"
     url: "https://github.com/stineje/CharLib/commit/ebe8fb0da5a9d5bcf0fba07ab80af1e5c0541a43"
+  - id: website
+    title: Official project website and documentation
+    url: https://stineje.github.io/CharLib/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

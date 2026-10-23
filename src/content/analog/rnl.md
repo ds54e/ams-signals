@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-10-20"
+reviewedAt: '2026-10-23'
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -39,6 +39,10 @@ sources:
   - id: spec-release
     title: Specification 0.3 revision 2
     url: https://github.com/rich-netlist/rnl/releases/tag/spec-0.3-r2
+  - id: website
+    title: Official project website and documentation
+    url: https://rich-netlist.github.io/rnl/
+    purpose: official
 ---
 
 ### Implementation and scope

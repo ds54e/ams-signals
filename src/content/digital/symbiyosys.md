@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical SymbiYosys repository"
@@ -29,7 +29,7 @@ sources:
     url: "https://github.com/YosysHQ/sby/commit/6e3dc04d9279da257b29e336edf3b599cccd4907"
   - id: "website"
     title: "Official project documentation"
-    url: "https://yosyshq.readthedocs.io/projects/sby/"
+    url: "https://yosyshq.readthedocs.io/projects/sby/en/latest/"
     purpose: "official"
   - id: "development-implementation-20261018"
     title: "Copilot-credited runtime diagnostic correction"

@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Public repository"
@@ -66,6 +66,10 @@ sources:
   - id: psf-fast-parser
     title: Optional PSF ASCII parser and RMS regressions
     url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/25a6d14bc65d4c70fb2c988dd1f59ea3c7410529
+  - id: website
+    title: Official project website and documentation
+    url: https://virtuoso-bridge.tokenzhang.com/
+    purpose: official
 ---
 ### Implemented interfaces
 

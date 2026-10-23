@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public Python/Rust tooling; Docker, editor, EDA stack and agent CLI are needed for the integrated workflow, with licensed Vivado for FPGA implementation.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -44,6 +44,10 @@ sources:
 - id: "development-retained-20261018"
   title: "Retained executable code at the reviewed canonical head"
   url: "https://github.com/boldaxolotl/booley/blob/9f5bc119d195d46845fe6671734f1f371c60c6ed/tests/qa/test_missions.py"
+- id: website
+  title: Official project website and documentation
+  url: https://boldaxolotl.github.io/booley/
+  purpose: official
 ---
 
 ### Implementation and boundaries

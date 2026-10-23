@@ -12,7 +12,7 @@ scope:
     ai: false
 access: "Public C/C++ implementation; supported GUI/build dependencies, technology files and device models are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -27,6 +27,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: WRspice: exit mmjco REPL gracefully at end of file - PR 46"
     url: "https://github.com/wrcad/xictools/commit/54d16b5f20a470fdde1e3e7606292c31a8fccf8c"
+  - id: website
+    title: Official project website and documentation
+    url: https://wrcad.com
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

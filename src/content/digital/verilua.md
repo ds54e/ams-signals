@@ -6,7 +6,7 @@ scope:
     ai: false
 access: Public Lua/Rust/C++ implementation; LuaJIT and a supported simulator/backend are required.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -24,6 +24,10 @@ sources:
 - id: implementation-2
   title: 'Released implementation: src/lua/verilua/LuaSimulator.lua'
   url: https://github.com/cyril0124/verilua/blob/88d0104e8b2d790c4f6ba2c36809120b2ecafa38/src/lua/verilua/LuaSimulator.lua
+- id: website
+  title: Official project website and documentation
+  url: https://cyril0124.github.io/verilua/
+  purpose: official
 ---
 
 ### Implementation and boundaries

@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source language, compiler and libraries with stable and nightly distributions; compiler builds include CIRCT and documented dependencies."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "paper"
     title: "Wavefront Threading Enables Effective High-Level Synthesis, PLDI 2024"
@@ -54,6 +54,10 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/microsoft/kanagawa/blob/fc79ea428900bcf43a4f05ac17a3114812461c6b/compiler/cpp/circt_util.cpp"
+  - id: website
+    title: Official project website and documentation
+    url: https://microsoft.github.io/kanagawa/library-docs/
+    purpose: official
 ---
 
 ### Implementation context

@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; a compatible Verible syntax executable is required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +25,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #68 from AsFigo/srini_dev"
     url: "https://github.com/AsFigo/svalint/commit/3f4f77765f577cfa24b90c4afb6441cf3dd96b48"
+  - id: website
+    title: Official project website and documentation
+    url: https://asfigo.github.io/svalint/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

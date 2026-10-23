@@ -9,12 +9,11 @@ scope:
     ai: false
 access: "Public Ruby toolchain; optional input/language plugins and generated RTL/UVM dependencies are selected separately."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "readme"
     title: "Official RgGen guide at the reviewed master revision"
     url: "https://github.com/rggen/rggen/blob/2b0b8fe5b006b92fb2630f414c123bfb09ee6de9/README.md"
-    purpose: "official"
   - id: "code"
     title: "Canonical RgGen repository"
     url: "https://github.com/rggen/rggen"
@@ -37,6 +36,10 @@ sources:
   - id: "mapping"
     title: "SystemRDL component mapping and unsupported constructs"
     url: "https://github.com/rggen/rggen-systemrdl/blob/c2647adb817398aeedbc514fef383ecc408da266/notes/systemrdl_to_rggen_mapping.md"
+  - id: website
+    title: Official RgGen web interface
+    url: https://rggen.github.io/rggen-webui/
+    purpose: official
 ---
 
 ### Implementation context

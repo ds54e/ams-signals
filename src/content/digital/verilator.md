@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -26,7 +26,7 @@ sources:
     url: "https://github.com/verilator/verilator/commit/b1c06fdb09c45e018804ef603058abf866a910fc"
   - id: "website"
     title: "Official project documentation"
-    url: "https://verilator.org"
+    url: "https://www.veripool.org/verilator/"
     purpose: "official"
   - id: "activity-refresh"
     title: "Optimize exhaustive case if-chains with an unconditional else"

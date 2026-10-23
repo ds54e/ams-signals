@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public C/C++ implementation; a supported compiler/build environment and appropriate logic-model inputs are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -35,6 +35,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/berkeley-abc/abc/blob/fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b/src/base/wlc/wlcBlast.c
+  - id: website
+    title: Official project website and documentation
+    url: https://people.eecs.berkeley.edu/~alanmi/abc/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

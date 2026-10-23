@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C++ implementation; its MPI/MFEM/libCEED-based build or supported packaged environment and prepared meshes are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -26,6 +26,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #952 from awslabs/hughcars/driven-sampling-validation"
     url: "https://github.com/awslabs/palace/commit/29ad351f916e47e005a43730513f155eeb634e3e"
+  - id: website
+    title: Official project website and documentation
+    url: https://awslabs.github.io/palace/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public Rust source and examples; requires a supported simulator and platform-specific VPI build setup.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -35,6 +35,10 @@ sources:
 - id: "development-retained-20261018"
   title: "Retained executable code at the reviewed canonical head"
   url: "https://github.com/rustdv/rustdv/blob/ac72f6f4e95331e5e542a93d0a1574a6ca72dcb2/rustdv/framework-tests/src/clocks.rs"
+- id: website
+  title: Official project website and documentation
+  url: https://rustdv.org
+  purpose: official
 ---
 
 ### Implementation and boundaries

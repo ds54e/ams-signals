@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical wave-mcp repository"
@@ -25,6 +25,10 @@ sources:
   - id: "activity-refresh"
     title: "Latest reviewed meaningful implementation update"
     url: "https://github.com/Tencent/wave-mcp/commit/06a0b98be46da9b3f81119c3f97d8833be71b401"
+  - id: website
+    title: Official package page
+    url: https://pypi.org/project/wave-mcp/
+    purpose: official
 ---
 
 

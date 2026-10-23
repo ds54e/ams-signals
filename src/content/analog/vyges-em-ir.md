@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; network or supported DEF/LEF inputs, load currents and reviewed current-limit data are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -37,6 +37,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/vyges-tools/em-ir/blob/1115601efd636b9baf4dd0aa1228767a461f6b2a/.github/workflows/release.yml
+  - id: website
+    title: Official project website and documentation
+    url: https://vyges.com/products/loom/em-ir/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

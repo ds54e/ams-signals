@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public Python implementation; FSDB/FST and commercial-tool integration require their documented native dependencies.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -35,6 +35,10 @@ sources:
 - id: "development-retained-20261018"
   title: "Retained executable code at the reviewed canonical head"
   url: "https://github.com/gokeshenzhen/TraceWeave/blob/a2654bcba727bc8676dde84d230a3d3871f6defc/src/cancellation.py"
+- id: website
+  title: Official package page
+  url: https://pypi.org/project/traceweave-mcp/
+  purpose: official
 ---
 
 ### Implementation and boundaries

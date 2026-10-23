@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation; Tcl and process-specific LVS setup files are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -26,6 +26,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Applied a fix suggested by yashv373 in issue #111 on github.  A"
     url: "https://github.com/RTimothyEdwards/netgen/commit/e5a185dcfa16ee6317883f02bfdc8cf10feabd0e"
+  - id: website
+    title: Official project website and documentation
+    url: https://opencircuitdesign.com/netgen/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

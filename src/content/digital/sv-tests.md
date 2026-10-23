@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public tests and runner infrastructure; tool installations and third-party integration dependencies are configured separately.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -35,6 +35,10 @@ sources:
 - id: "development-retained-20261018"
   title: "Retained executable code at the reviewed canonical head"
   url: "https://github.com/chipsalliance/sv-tests/blob/3b80a0fa421d111652832f16a85137fc658d213b/tests/chapter-7/unions/tagged/basic.sv"
+- id: website
+  title: Official project website and documentation
+  url: https://chipsalliance.github.io/sv-tests-results/
+  purpose: official
 ---
 
 ### Implementation and boundaries

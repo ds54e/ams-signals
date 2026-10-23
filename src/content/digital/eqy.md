@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical EQY repository"
@@ -24,7 +24,7 @@ sources:
     url: "https://github.com/YosysHQ/eqy/commit/4a72eb94fc253062464afee4d0018359017bb846"
   - id: "website"
     title: "Official project documentation"
-    url: "https://yosyshq.readthedocs.io/projects/eqy/"
+    url: "https://yosyshq.readthedocs.io/projects/eqy/en/latest/"
     purpose: "official"
 ---
 

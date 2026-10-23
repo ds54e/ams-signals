@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; supported SDC syntax and optional design/context inputs are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -31,6 +31,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: feat(release): v1.5.11 - Context-Aware Constraint Analysis"
     url: "https://github.com/RAMA-L7/rta-constraint-intelligence/commit/3b5c2f25c48d6b6b1d4809f0d5d69fc467d387ea"
+  - id: website
+    title: Official project website and documentation
+    url: https://rama-l7.github.io/rta-constraint-intelligence/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

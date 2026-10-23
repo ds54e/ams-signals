@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; a compatible Verible syntax executable is required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +25,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #8 from IncludedGem/cg-naming-rule"
     url: "https://github.com/AsFigo/fcovlint/commit/9be9f9e4573094b5b8fedd2b51fbd7e48d127f0d"
+  - id: website
+    title: Official project website and documentation
+    url: https://asfigo.github.io/fcovlint/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

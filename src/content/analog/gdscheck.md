@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; a recent Rust toolchain and a matching rule deck are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -37,6 +37,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/aesc-silicon/gdscheck/blob/2100e66b5bad4bc6cb8ef0dc66db788022d19fb8/src/merge.rs
+  - id: website
+    title: Official project website and documentation
+    url: https://aesc-silicon.github.io/gdscheck/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "MIT. The public C++/slang-based language server and editor tooling need the documented build environment. UVM editing support does not supply a UVM simulator."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -47,6 +47,10 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/lazyverilog/LazyVerilog/blob/472926fb70c0a68d21259d9021129e3b4b8ca04c/src/background_compiler.cpp"
+  - id: website
+    title: Official project website and documentation
+    url: https://lazyverilog.github.io
+    purpose: official
 ---
 
 ## Implementation and Scope

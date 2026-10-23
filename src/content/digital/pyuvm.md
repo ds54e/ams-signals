@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Open-source Python package installable with pip; cocotb supplies simulator interaction and scheduling."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical pyuvm repository"
@@ -30,6 +30,10 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/pyuvm/pyuvm/blob/f875bd3d2cee0cc66ae2c004f0da607eb5afcd1d/Makefile"
+  - id: website
+    title: Official project website and documentation
+    url: https://pyuvm.readthedocs.io/en/latest/
+    purpose: official
 ---
 
 ### Verification scope

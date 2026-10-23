@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public C++ source; build dependencies and additional model/language plugins follow the official project documentation.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical Gnucap Codeberg repository
@@ -28,6 +28,10 @@ sources:
 - id: activity-reviewed-20261022
   title: Add arbitrary-order interpolation and measurement regressions
   url: https://codeberg.org/gnucap/gnucap/commit/31528ae729a537b2048794c29e7d3883123824e9
+- id: website
+  title: Official project website and documentation
+  url: http://gnucap.org/
+  purpose: official
 ---
 
 ### Implementation and boundaries

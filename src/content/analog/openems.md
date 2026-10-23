@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public C++/Python/Matlab implementation; CSXCAD and solver build/runtime dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -34,6 +34,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/thliebig/openEMS/blob/11aa0638ec2c554d84fd77f71ba778d7fb2d6de9/tools/vtk_file_writer.cpp
+  - id: website
+    title: Official project website and documentation
+    url: https://www.openems.de/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

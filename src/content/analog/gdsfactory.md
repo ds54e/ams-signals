@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; a compatible kfactory/KLayout stack and suitable PDK definitions are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -37,6 +37,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/gdsfactory/gdsfactory/blob/727e64e67753810da456a9b8fcd9bfc09939c36b/gdsfactory/samples/16_component_sequence2.py
+  - id: website
+    title: Official project website and documentation
+    url: https://gdsfactory.github.io/gdsfactory/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

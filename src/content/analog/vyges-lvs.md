@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; supported SPICE inputs or separately prepared extraction artifacts are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -37,6 +37,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/vyges-tools/lvs/blob/94a82bf411d0bfa3e40091f2d4bbeb83133eb146/.github/workflows/release.yml
+  - id: website
+    title: Official project website and documentation
+    url: https://vyges.com/products/loom/lvs/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

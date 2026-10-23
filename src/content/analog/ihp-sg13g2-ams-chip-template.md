@@ -13,7 +13,7 @@ scope:
 targets: "Mixed-signal chips using the IHP SG13G2 Open-PDK and the IIC-OSIC-TOOLS environment."
 access: "Public template and tutorial; documented baseline is IIC-OSIC-TOOLS 2026.08 or newer with the IHP SG13G2 Open-PDK."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical IHP SG13G2 AMS chip template repository"
@@ -31,6 +31,10 @@ sources:
   - id: "review-20261022-cmos5l"
     title: "Related SG13CMOS5L template targets"
     url: "https://github.com/iic-jku/ihp-sg13cmos5l-ams-chip-template/blob/60166ac618be6cc312253b7fed33f8478d044a55/Makefile"
+  - id: website
+    title: Official project website and documentation
+    url: https://iic-jku.github.io/ihp-sg13g2-ams-chip-template/
+    purpose: official
 ---
 
 ### Integrated flow

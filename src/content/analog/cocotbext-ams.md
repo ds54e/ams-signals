@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Python package and public source; requires cocotb plus ngspice or Xyce with the supported shared-library interface."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical cocotbext-ams repository"
@@ -20,6 +20,10 @@ sources:
   - id: "activity"
     title: "Add Xyce simulator support behind SimulatorInterface abstraction"
     url: "https://github.com/VLSIDA/cocotbext-ams/commit/c64ad5c8a5b0a7550243520ab5d08651306edf0d"
+  - id: website
+    title: Official project website and documentation
+    url: https://vlsida.github.io/cocotbext-ams/
+    purpose: official
 ---
 
 ### Co-simulation path

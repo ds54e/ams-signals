@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical naja-scope repository"
@@ -42,6 +42,10 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/keplertech/naja-scope/blob/da79bfa50c863b0b47a4d74835ee61aadc30d3ed/src/naja_scope/api.py"
+  - id: website
+    title: Official package page
+    url: https://pypi.org/project/naja-scope
+    purpose: official
 ---
 
 ### Structural-query boundary

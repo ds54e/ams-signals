@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; a compatible Verible syntax executable is required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +25,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #6 from vajeetha/vak_dist_fractions"
     url: "https://github.com/AsFigo/cnstlint/commit/0b1c68328b520ce527589992ae2e6b7b496b9045"
+  - id: website
+    title: Official project website and documentation
+    url: https://asfigo.github.io/cnstlint/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

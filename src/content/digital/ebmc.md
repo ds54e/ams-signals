@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public C++ implementation; selected SAT/SMT or automata backend dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -51,6 +51,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/diffblue/hw-cbmc/blob/f8a2deeec151e7e11daabdad6e71547b2412cde0/src/verilog/verilog_typecheck.cpp
+  - id: website
+    title: Official project website and documentation
+    url: https://www.cprover.org/ebmc/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

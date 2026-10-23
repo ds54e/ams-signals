@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: Public Python/Rust source; JAX, OpenVAF integration and any selected GPU runtime must be configured separately.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -36,6 +36,10 @@ sources:
 - id: "development-sccp-retained"
   title: "Retained MIR constant-propagation implementation"
   url: https://github.com/ChipFlow/vajax/blob/2dfc4072cc8a00bef4e5773619dbda3e9a413220/openvaf_jax/mir/constprop.py
+- id: website
+  title: Official project website and documentation
+  url: https://docs.chipflow.io/vajax/
+  purpose: official
 ---
 
 ### Implementation and boundaries

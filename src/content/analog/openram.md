@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; supported technology ports, SPICE models and configured DRC/LVS/simulation tools are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -44,6 +44,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/VLSIDA/OpenRAM/blob/b2b069ce119d1488cbe6883b2240bceb5c7ce29a/compiler/modules/ptx.py
+  - id: website
+    title: Official project website and documentation
+    url: https://openram.org/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

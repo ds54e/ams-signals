@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; command-specific external simulators, SymbiYosys, the documented Yosys fork and OpenROAD/platform data are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -40,6 +40,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/rtl-buddy/rtl_buddy/blob/2fbdc552502b01ef84a6a8149978e27014582245/src/rtl_buddy/constraints/tcl_reader.py
+  - id: website
+    title: Official project website and documentation
+    url: https://rtl-buddy.github.io/rtl_buddy/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

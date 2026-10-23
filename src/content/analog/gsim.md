@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; the declared GDSFactory/GDSFactory+ versions and selected local solver or cloud access are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -24,24 +24,28 @@ sources:
     url: "https://github.com/gdsfactory/gsim/blob/0b3a3a1c9d8e9e2fe54ff0e766a9b11064dfc97a/README.md"
   - id: "implementation-1"
     title: "Reviewed source: pyproject.toml"
-    url: "https://github.com/gdsfactory/gsim/blob/0b3a3a1c9d8e9e2fe54ff0e766a9b11064dfc97a/pyproject.toml"
+    url: "https://github.com/gdsfactory/gsim/blob/30b1659f49e4e2ec3eac259aa9fc94abcb4c99be/pyproject.toml"
   - id: "implementation-2"
     title: "Reviewed source: src/gsim/palace/__init__.py"
     url: "https://github.com/gdsfactory/gsim/blob/0b3a3a1c9d8e9e2fe54ff0e766a9b11064dfc97a/src/gsim/palace/__init__.py"
   - id: "activity"
-    title: "Reviewed meaningful change: fix(palace): detect connected conductor necks and notches (#384)"
-    url: "https://github.com/gdsfactory/gsim/commit/f3e032c5a14a5e769c955f9a49407b82339e53e8"
+    title: "Reviewed meaningful change: contain disconnected sidewalls in the FDTD physical domain (#418)"
+    url: "https://github.com/gdsfactory/gsim/commit/fe55668055bd3aaea944a4e8fde03a73f728cd1d"
   - id: development-code-20261022
     title: Credited executable development contribution
     url: https://github.com/gdsfactory/gsim/commit/d7a33127dcd4b1d18db2a0a05e2199ab457f86cf
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/gdsfactory/gsim/blob/0b3a3a1c9d8e9e2fe54ff0e766a9b11064dfc97a/src/gsim/palace/results.py
+  - id: website
+    title: Official project website and documentation
+    url: https://gdsfactory.github.io/gsim/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries
 
-The reviewed pyproject is version 0.7.0 and requires gdsfactory>=9,<10 and gdsfactoryplus>=1.8.20,<3. These constraints matter because the separately reviewed core main is version 10. Local solver dependencies and authenticated cloud operations are separate paths.
+The reviewed pyproject is version 0.8.0 and requires gdsfactory>=9,<10 and gdsfactoryplus>=1.8.20,<3. These constraints matter because the separately reviewed core main is version 10. Local solver dependencies and authenticated cloud operations are separate paths.
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2).
 
@@ -49,7 +53,7 @@ The reviewed pyproject is version 0.7.0 and requires gdsfactory>=9,<10 and gdsfa
 
 The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The meaningful checkpoint is 2026-10-21T17:29:52Z (`f3e032c5a14a5e769c955f9a49407b82339e53e8`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+The meaningful checkpoint is 2026-10-22T11:57:19Z (`fe55668055bd3aaea944a4e8fde03a73f728cd1d`). It clips disconnected sidewall solids to the physical domain and rejects mesh nodes outside those bounds; the later 0.8.0 version bump does not independently renew meaningful activity. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
 

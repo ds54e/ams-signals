@@ -8,7 +8,7 @@ scope:
     ai: true
 access: "Public Rust/WASM implementation; browser graphics support or native build dependencies are required, with model API access for the optional AI workflow."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -38,6 +38,10 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: fix(io): the OASIS byte gate is decided by the bytes, not by a projection (QA-183, P1)"
     url: "https://github.com/AlpharomeroJL/reticle/commit/91c482a2f0d0d2699b45beaad4b47a012e2bbc5f"
+  - id: website
+    title: Official project website and documentation
+    url: https://alpharomerojl.github.io/reticle/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

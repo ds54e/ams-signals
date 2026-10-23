@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public C++/Tcl implementation; supported build dependencies, timing libraries, constraints and parasitic data are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -36,6 +36,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/parallaxsw/OpenSTA/blob/f7100b9276667aa5e51d6b7b152e457595991751/search/ReportPath.cc
+  - id: website
+    title: Official project website and documentation
+    url: https://opensta.readthedocs.io/en/latest/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

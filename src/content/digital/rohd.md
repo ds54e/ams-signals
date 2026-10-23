@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: Public Dart implementation; external simulators and synthesis tools are separate integrations.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -40,6 +40,10 @@ sources:
 - id: "development-audit-retained-waveform"
   title: "Current waveform service implementation"
   url: https://github.com/intel/rohd/blob/f992f80e5d6c4705b73f9deb05fab243965ab60e/lib/src/diagnostics/waveform_service.dart
+- id: website
+  title: Official project website and documentation
+  url: https://intel.github.io/rohd-website/
+  purpose: official
 ---
 
 ### Implementation and boundaries

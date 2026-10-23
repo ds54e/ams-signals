@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: Public Python/Qt core; process libraries and optional commercial plugins are separate dependencies.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -38,6 +38,10 @@ sources:
 - id: "development-connectivity-retained"
   title: "Retained semantic connectivity resolver"
   url: https://github.com/eskiyerli/revolution-eda/blob/107cdd8734e6ed115b55dea89211efa60408bd5b/revedaEditor/connectivity/resolve.py
+- id: website
+  title: Official project website and documentation
+  url: https://reveda.eu
+  purpose: official
 ---
 
 ### Implementation and boundaries

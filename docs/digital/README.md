@@ -4,6 +4,8 @@ The catalog at `/digital/` covers RTL and digital-design projects. Its hidden H1
 
 ## Scope
 
+VHDL-only projects are outside this catalog. VHDL-first tools whose Verilog support remains experimental are also excluded. Mixed-language frameworks remain eligible when they provide an implemented, supported Verilog/SystemVerilog workflow; a VHDL frontend's downstream netlist export or foreign interface alone does not establish that workflow.
+
 Stages appear in this order:
 
 | Field | Label | Meaningful user-facing coverage |

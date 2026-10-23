@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical Yosys repository"
@@ -31,7 +31,7 @@ sources:
     url: "https://github.com/YosysHQ/yosys/commit/435977e97008578a4532da60e70f75b5e88d076d"
   - id: "website"
     title: "Official project documentation"
-    url: "https://yosyshq.readthedocs.io/projects/yosys/"
+    url: "https://yosyshq.readthedocs.io/projects/yosys/en/latest/"
     purpose: "official"
   - id: "activity-refresh"
     title: "Preserve signedness in shift-add peephole optimization"

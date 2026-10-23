@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python/native flow; Yosys, supported cell libraries and selected SAT/simulation dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -38,6 +38,10 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/ranaumarnadeem/faultflow/blob/45725dff360ce8a5242a6579d98bed8faeac8df3/src/core/atpg/progressive_atpg.cpp
+  - id: website
+    title: Official project website and documentation
+    url: https://ranaumarnadeem.github.io/faultflow/
+    purpose: official
 ---
 
 ### Implemented operations and boundaries

@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Apache-2.0 project code, with separate MIT notices for derived model layers and separate checkpoint/model terms. Python 3.13, numerical/model packages, ngspice and the selected model/PDK are required; physical work adds Magic and SKY130. PDK-dependent integration tests can be skipped when the environment is absent."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -53,6 +53,10 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/lab-emi/ChipJev/blob/6389189d8cc40393eca97e8776638aaba5038b95/src/chipjev/schematic/sheet.py"
+  - id: website
+    title: Official project website and documentation
+    url: https://chipjev.com/
+    purpose: official
 ---
 
 ## Implementation and Scope

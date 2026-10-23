@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical Vibe-IC repository
@@ -61,6 +61,10 @@ sources:
 - id: "development-retained"
   title: "Retained execution producer and repair policy"
   url: "https://github.com/vibeic/vibe-ic/blob/c02ce870ebecd78d4fedec85759f3db83c9595b5/vibe-ic-marketplace/plugins/vibe-ic/programs/execution_backend_producers.py"
+- id: website
+  title: Official project website and documentation
+  url: https://vibeic.ai
+  purpose: official
 ---
 
 ### Analog scope

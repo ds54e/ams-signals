@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public Python implementation with Lark/protobuf-based data models; dialect support is bounded by the released parsers and writers.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: '2026-10-23'
 sources:
 - id: code
   title: Canonical public implementation
@@ -25,6 +25,10 @@ sources:
 - id: implementation-2
   title: 'Released implementation: src/morphnet/netlist/vams/writer.py'
   url: https://github.com/das-dias/morphnet/blob/63c7868826fe0c2ac7b9112aaa1ff7b6847694f8/src/morphnet/netlist/vams/writer.py
+- id: website
+  title: Official project website and documentation
+  url: https://das-dias.github.io/morphnet/
+  purpose: official
 ---
 
 ### Implementation and boundaries
