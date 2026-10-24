@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-23",
-  "capturedAt": "2026-10-23T08:44:59.957Z",
+  "reviewedAt": "2026-10-24",
+  "capturedAt": "2026-10-24T09:43:56.992Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -808,9 +808,9 @@
       "kind": "github",
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-24T09:43:56.992Z",
       "defaultBranch": "main",
-      "headSha": "d3582837761b045ef330ce84737984114fe240e3",
+      "headSha": "9f26477da2df4f9c10a16853bbfde52be60701d9",
       "commits": [
         4,
         5,
@@ -823,12 +823,12 @@
         4,
         18,
         42,
-        85
+        95
       ],
-      "lastCommitAt": "2026-10-16",
-      "lastMeaningfulCommitAt": "2026-10-09",
-      "lastMeaningfulCommitSha": "78570a9e6cf38f938685194f4ebb6db91a1521c7",
-      "notes": "Substantive implementation reviewed at 78570a9e6cf38f938685194f4ebb6db91a1521c7: Merge pull request #283 from iic-jku/ihp-mim-tech-data. Latest raw history remains separate from meaningful implementation evidence."
+      "lastCommitAt": "2026-10-23",
+      "lastMeaningfulCommitAt": "2026-10-23",
+      "lastMeaningfulCommitSha": "43f6bb0989fd6e392a150f90a93f8bead01eb53e",
+      "notes": "Reviewed first-parent integration 43f6bb0989fd6e392a150f90a93f8bead01eb53e includes the SKY130 diffusion-resistor contact correction; device-contact and GF180 isolated-well work landed in preceding merges. Later version/dependency maintenance is not substituted for this implementation checkpoint."
     },
     "pyopus": {
       "kind": "repository",
@@ -1404,9 +1404,9 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-24T09:43:56.992Z",
       "defaultBranch": "main",
-      "headSha": "8f5179bd5ba053e2917ee572060387dbf36e5381",
+      "headSha": "040a2f1f21a880c56a461ae7cf1c349f69bf1e85",
       "commits": [
         0,
         0,
@@ -1419,12 +1419,12 @@
         2261,
         2192,
         2942,
-        2875
+        3073
       ],
-      "lastCommitAt": "2026-10-23",
-      "lastMeaningfulCommitAt": "2026-10-18",
-      "lastMeaningfulCommitSha": "b2a4ae3e3d3631c6a1856108d804131fe49a900d",
-      "notes": "Meaningful activity manually reviewed: fix(schematic): a transistor's value stands on its drain's side of the bulk. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+      "lastCommitAt": "2026-10-24",
+      "lastMeaningfulCommitAt": "2026-10-24",
+      "lastMeaningfulCommitSha": "b7a089985ebd82199950ff35ee1b4086fabfdc9a",
+      "notes": "Meaningful activity manually reviewed: internal HDL variable tracing through .ESAVE, with transient checkpoint/rollback handling; preceding CLI assertion reporting is also integrated. Raw counts include cosmetic, automated and bulk-import commits and do not independently establish freshness."
     },
     "revolution-eda": {
       "kind": "github",
@@ -1691,9 +1691,9 @@
       "kind": "github",
       "repository": "rich-netlist/rnl",
       "repositoryId": 1382051453,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-24T09:43:56.992Z",
       "defaultBranch": "main",
-      "headSha": "f388e69c606aa473f335b020c5b8b25dac7fa0a2",
+      "headSha": "7e39c6561cc32c4bb2a2056e8238dda0f9bcde37",
       "commits": [
         0,
         0,
@@ -1706,11 +1706,11 @@
         0,
         0,
         9,
-        167
+        190
       ],
-      "lastCommitAt": "2026-10-23",
-      "lastMeaningfulCommitAt": "2026-10-20",
-      "lastMeaningfulCommitSha": "f18d7409fa32ea80b9a48d62f955bd1f474de52c"
+      "lastCommitAt": "2026-10-24",
+      "lastMeaningfulCommitAt": "2026-10-24",
+      "lastMeaningfulCommitSha": "810a83d02a24a081bca9f9e588ef4b61ee2217a0"
     },
     "cace": {
       "kind": "github",
