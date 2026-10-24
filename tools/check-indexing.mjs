@@ -77,7 +77,7 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Validated indexing policy at ${origin}${siteBase}: ${audited.stats.pages} indexable HTML page(s) `
+  `Validated indexing policy at ${origin}${siteBase}: ${audited.stats.pages} HTML page(s), ${audited.stats.indexable} indexable, `
   + `with a matching ${audited.stats.sitemapUrls}-URL sitemap and a permissive robots.txt. `
   + 'Detection self-check confirmed the sitemap cross-check rejects an unlisted indexable page.',
 );

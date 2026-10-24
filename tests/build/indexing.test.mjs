@@ -17,7 +17,10 @@ async function fixture(t, siteBase) {
     await writeFile(absolute, body);
   };
   for (const [collection, id] of [['events', 'event-one'], ['companies', 'company-one'], ['people', 'person-one']]) {
-    await write(`src/data/${collection}/record.json`, JSON.stringify({ id }));
+    const record = collection === 'events'
+      ? { id, companies: ['company-one'], people: ['person-one'] }
+      : { id };
+    await write(`src/data/${collection}/record.json`, JSON.stringify(record));
   }
   const routes = ['', 'timeline/', 'events/', 'events/event-one/', 'analog/', 'digital/', 'companies/company-one/', 'people/person-one/'];
   const html = (route, robots = 'index, follow') => `<!doctype html><html><head>
@@ -95,3 +98,33 @@ test('robots cannot block routes while advertising permissive crawling', async (
   const result = await auditIndexing(f.options);
   assert(result.errors.includes('robots.txt blocks public crawling'));
 });
+
+for (const siteBase of ['/', '/a+b/']) {
+  test(`empty entities stay crawlable but are excluded from search at ${siteBase}`, async (t) => {
+    const f = await fixture(t, siteBase);
+    const emptyRoutes = ['companies/empty-company/', 'people/empty-person/'];
+    for (const [collection, id] of [['companies', 'empty-company'], ['people', 'empty-person']]) {
+      await f.write(`src/data/${collection}/empty.json`, JSON.stringify({ id }));
+    }
+    for (const route of emptyRoutes) await f.page(route, f.html(route, 'noindex, follow'));
+    assert.deepEqual((await auditIndexing(f.options)).errors, []);
+
+    await f.write('dist/sitemap.xml', f.sitemap([...f.routes, ...emptyRoutes]));
+    assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith('sitemap.xml advertises non-indexable page(s):')));
+    await f.write('dist/sitemap.xml', f.sitemap(f.routes));
+
+    await f.page(emptyRoutes[0]);
+    assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith(`${siteBase}${emptyRoutes[0]} robots`)));
+    await f.page(emptyRoutes[0], f.html(emptyRoutes[0], 'noindex, follow'));
+
+    // Adding real evidence makes both entity pages indexable again.
+    await f.write('src/data/events/record.json', JSON.stringify({
+      id: 'event-one', companies: ['company-one', 'empty-company'], people: ['person-one', 'empty-person'],
+    }));
+    assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith(`${siteBase}${emptyRoutes[0]} robots`)));
+    for (const route of emptyRoutes) await f.page(route);
+    const routes = [...f.routes.slice(0, 7), emptyRoutes[0], emptyRoutes[1], f.routes[7]];
+    await f.write('dist/sitemap.xml', f.sitemap(routes));
+    assert.deepEqual((await auditIndexing(f.options)).errors, []);
+  });
+}

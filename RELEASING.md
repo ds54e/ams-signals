@@ -20,9 +20,9 @@ Documentation-only changes outside build inputs normally need no deployment. Tag
 
 ## Public routes and indexing
 
-The HTML routes are `/`, `/timeline/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/`. Every page emits one `index, follow` robots directive and one self-canonical URL derived from the configured origin/base.
+The HTML routes are `/`, `/timeline/`, `/events/`, `/events/<id>/`, `/analog/`, `/digital/`, `/companies/<id>/` and `/people/<id>/`. Every page emits one robots directive and one self-canonical URL derived from the configured origin/base. Company and Person pages without a linked Golden Event retain their HTTP 200 empty state for readers, emit `noindex, follow`, and are omitted from the sitemap. Other pages emit `index, follow`. Nonempty Company/Person views include their existing factual Event summaries and detail links in a `noscript` fallback; JavaScript-enabled Timeline/Inspector behavior is unchanged. Adding or removing an entity's last linked Event changes its indexing eligibility automatically; do not add filler content or block crawling in robots.txt.
 
-`/sitemap.xml` lists exactly those HTML routes; `/export.json` is not listed. `/robots.txt` allows crawling and advertises the sitemap. Verify the served endpoints and unsupported-route 404s, not just configuration. A redirect check is needed when the deployment target itself changes.
+`/sitemap.xml` lists exactly the indexable HTML routes; `/export.json` is not listed. `/robots.txt` allows crawling and advertises the sitemap. Verify the served endpoints and unsupported-route 404s, not just configuration. A redirect check is needed when the deployment target itself changes.
 
 ## Analytics boundary
 

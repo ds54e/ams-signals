@@ -499,7 +499,24 @@ const matrixMarkLabel = (event: EventEntry) => (
         </div>
       )}
 
-      <noscript><p class="empty-note">JavaScript is required for Timeline filtering. Every Event remains available in the <a href={sitePath('events/')}>chronological Events view</a>.</p></noscript>
+      <noscript>
+        <p class="empty-note">JavaScript is required for Timeline filtering. Every Event remains available in the <a href={sitePath('events/')}>chronological Events view</a>.</p>
+        {context !== 'global' && (
+          <section aria-label="Related Events" class="result-list index-list">
+            {newestFirst.map((event) => (
+              <article class="result-event index-row index-dated-row" data-static-event>
+                <div class="result-date">
+                  <time class="index-date" datetime={event.data.when.start}>{formatWhen(event)}</time>
+                </div>
+                <div class="result-body">
+                  <h3 class="index-title"><a href={sitePath(`events/${event.data.id}/`)}>{event.data.headline}</a></h3>
+                  <p class="result-fact index-summary">{event.data.fact}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+        )}
+      </noscript>
     </div>
 
     <aside class="event-detail" data-detail aria-label="Event evidence inspector" aria-live="polite" tabindex="-1">

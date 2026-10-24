@@ -19,6 +19,7 @@ const personEvents = events.filter((event) => event.data.people.includes(person.
 <BaseLayout
   title={`${person.data.name} · AMS Signals`}
   description={`Public technical and organizational Events linked to ${person.data.name}.`}
+  indexable={personEvents.length > 0}
 >
   <header class="entity-header">
     <h1>{person.data.name}</h1>
