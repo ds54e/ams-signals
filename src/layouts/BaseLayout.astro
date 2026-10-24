@@ -7,12 +7,14 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
+  indexable?: boolean;
 }
 
 const {
   title = 'AMS Signals',
   description = 'Public signals in RNM and mixed-signal verification.',
   lang = 'en',
+  indexable = true,
 } = Astro.props;
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
 const inAnalog = Astro.url.pathname.startsWith(sitePath('analog/'));
@@ -33,7 +35,7 @@ const analyticsEnabled = analyticsEnabledFor(Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={indexable ? 'index, follow' : 'noindex, follow'} />
     <link rel="canonical" href={canonicalHref} />
     <link rel="icon" type="image/svg+xml" href={sitePath('favicon.svg')} />
     <title>{title}</title>

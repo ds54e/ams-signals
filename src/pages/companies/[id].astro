@@ -20,6 +20,7 @@ const companyEvents = events.filter((event) => event.data.companies.includes(com
 <BaseLayout
   title={`${company.data.name} · AMS Signals`}
   description={`Publicly observable RNM and mixed-signal verification events linked to ${company.data.name}.`}
+  indexable={companyEvents.length > 0}
 >
   <header class="entity-header">
     <h1>{company.data.name}</h1>

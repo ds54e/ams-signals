@@ -15,10 +15,6 @@ function compareIds(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-async function readIds(directory) {
-  return (await readRecords(directory)).map((record) => record.id).sort(compareIds);
-}
-
 /**
  * Audits one built output tree. Pure with respect to the filesystem: it only
  * reads, so the detection self-check can point it at a mutated clone.
@@ -34,6 +30,22 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
     return { errors, stats: null };
   }
 
+  const [events, companies, people] = await Promise.all([
+    readRecords(path.join(projectRoot, 'src/data/events')),
+    readRecords(path.join(projectRoot, 'src/data/companies')),
+    readRecords(path.join(projectRoot, 'src/data/people')),
+  ]);
+  const ids = (records) => records.map((record) => record.id).sort(compareIds);
+  const eventIds = ids(events);
+  const companyIds = ids(companies);
+  const peopleIds = ids(people);
+  const activeCompanies = new Set(events.flatMap((event) => event.companies));
+  const activePeople = new Set(events.flatMap((event) => event.people));
+  const emptyEntityPaths = new Set([
+    ...companyIds.filter((id) => !activeCompanies.has(id)).map((id) => `${siteBase}companies/${id}/`),
+    ...peopleIds.filter((id) => !activePeople.has(id)).map((id) => `${siteBase}people/${id}/`),
+  ]);
+
   // --- Built HTML: robots + canonical -------------------------------------
   const navReports = [];
   const indexableCanonicals = new Set();
@@ -46,7 +58,7 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
     expect(robotsCount === 1, `${pagePath} emits ${robotsCount} robots directives, expected exactly 1`);
 
     const robotsValue = html.match(/<meta\b[^>]*\bname="robots"[^>]*\bcontent="([^"]*)"/i)?.[1];
-    const expectedRobots = INDEXABLE;
+    const expectedRobots = emptyEntityPaths.has(pagePath) ? 'noindex, follow' : INDEXABLE;
     expect(
       robotsValue === expectedRobots,
       `${pagePath} robots is ${JSON.stringify(robotsValue)}, expected ${JSON.stringify(expectedRobots)}`,
@@ -89,12 +101,6 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
   }
 
   // --- sitemap.xml --------------------------------------------------------
-  const [eventIds, companyIds, peopleIds] = await Promise.all([
-    readIds(path.join(projectRoot, 'src/data/events')),
-    readIds(path.join(projectRoot, 'src/data/companies')),
-    readIds(path.join(projectRoot, 'src/data/people')),
-  ]);
-
   const expectedLocations = [
     siteBase,
     `${siteBase}timeline/`,
@@ -102,8 +108,8 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
     ...eventIds.map((id) => `${siteBase}events/${id}/`),
     `${siteBase}analog/`,
     `${siteBase}digital/`,
-    ...companyIds.map((id) => `${siteBase}companies/${id}/`),
-    ...peopleIds.map((id) => `${siteBase}people/${id}/`),
+    ...companyIds.filter((id) => activeCompanies.has(id)).map((id) => `${siteBase}companies/${id}/`),
+    ...peopleIds.filter((id) => activePeople.has(id)).map((id) => `${siteBase}people/${id}/`),
   ].map((entry) => `${origin}${entry}`);
 
   const sitemapFile = path.join(outputRoot, 'sitemap.xml');
@@ -150,8 +156,8 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
   }
 
   expect(
-    indexableCanonicals.size === htmlFiles.length,
-    `indexable canonical count ${indexableCanonicals.size} differs from ${htmlFiles.length} built HTML page(s)`,
+    indexableCanonicals.size === htmlFiles.length - emptyEntityPaths.size,
+    `indexable canonical count ${indexableCanonicals.size} differs from the expected nonempty route count ${htmlFiles.length - emptyEntityPaths.size}`,
   );
 
   return {

@@ -15,6 +15,9 @@ export const GET: APIRoute = async ({ site }) => {
   ]);
 
   const origin = site ?? new URL('http://localhost');
+  // Empty entity views remain available to readers, but are not search results.
+  const activeCompanies = new Set(events.flatMap((event) => event.data.companies));
+  const activePeople = new Set(events.flatMap((event) => event.data.people));
   const ids = (entries: { data: { id: string } }[]) => entries
     .map((entry) => entry.data.id)
     .sort(compareIds);
@@ -26,8 +29,8 @@ export const GET: APIRoute = async ({ site }) => {
     ...ids(events).map((id) => sitePath(`events/${id}/`)),
     sitePath('analog/'),
     sitePath('digital/'),
-    ...ids(companies).map((id) => sitePath(`companies/${id}/`)),
-    ...ids(people).map((id) => sitePath(`people/${id}/`)),
+    ...ids(companies.filter((entry) => activeCompanies.has(entry.data.id))).map((id) => sitePath(`companies/${id}/`)),
+    ...ids(people.filter((entry) => activePeople.has(entry.data.id))).map((id) => sitePath(`people/${id}/`)),
   ];
 
   const body = [
