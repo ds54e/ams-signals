@@ -109,10 +109,9 @@ test('canonical public Company display names stay intentional', async () => {
 test('retired unreferenced Company records stay out of the factual export', async () => {
   const payload = await buildPayload();
   const companyIds = new Set(payload.companies.map(({ id }) => id));
-  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics']) {
+  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
     assert.equal(companyIds.has(id), false, `${id} must not remain as an empty Company record`);
   }
-  assert.ok(companyIds.has('omnivision'), 'the intentional researched-empty OMNIVISION record remains');
 });
 
 test('historical predecessor Events keep their canonical successor associations', async () => {

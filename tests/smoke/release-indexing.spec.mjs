@@ -60,7 +60,7 @@ test('unsupported editorial routes return 404', async ({ page }) => {
 test('retired empty Company routes return genuine 404 and leave sitemap/export', async ({ page }) => {
   const sitemap = await (await page.request.get('./sitemap.xml')).text();
   const payload = await (await page.request.get('./export.json')).json();
-  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics']) {
+  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
     const route = `companies/${id}/`;
     const response = await page.request.get(`./${route}`, { maxRedirects: 0 });
     expect(response.status(), route).toBe(404);
