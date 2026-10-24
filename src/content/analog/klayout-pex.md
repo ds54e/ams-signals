@@ -2,7 +2,7 @@
 name: "KLayout-PEX"
 aliases: ["KPEX"]
 summary: "Connects layout connectivity and process stacks to parasitic extraction and interconnect-model exchange."
-description: "Parasitic extraction infrastructure linking KLayout connectivity and process stacks to Magic, FasterCap and an internal 2.5D engine. It emits PEX25D artifacts and RC netlists with geometry-based capacitance distribution along resistor networks; process-layer and MIM-terminal handling remain backend- and technology-specific."
+description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Device-aware terminal placement, contact resistance and process-specific well coupling feed PEX25D/RC artifacts; the GPL-3.0-or-later project remains Pre-Alpha, with backend- and technology-specific accuracy limits."
 scope:
   layout:
     ai: false
@@ -11,9 +11,9 @@ developmentEvidence:
   summary: "Claude-credited development reworked device-terminal attachment to extracted resistor networks and implemented RC/LVS identity consistency checking. The netlist-checking module remains in the current extraction flow."
   sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
   reviewedAt: "2026-10-12"
-access: "Public Python implementation; selected extraction backends, KLayout and process-specific technology/LVS data are required."
+access: "Public Python implementation under GPL-3.0-or-later, classified Pre-Alpha by the project. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-10-24"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -92,6 +92,21 @@ sources:
   - id: "review-20261022-ihp"
     title: "IHP extraction comparison method"
     url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/README.md"
+  - id: "review-20261024-device-contacts"
+    title: "Device contacts as vias and source/drain terminal placement"
+    url: "https://github.com/iic-jku/klayout-pex/commit/5532a30100075a7925a6bd338ec035f3f83d8d28"
+  - id: "review-20261024-diffusion-resistance"
+    title: "SKY130 diffusion-resistor terminals and contact resistance"
+    url: "https://github.com/iic-jku/klayout-pex/commit/b9e160bfa8dea19f406ed8e9ff9d4884667c5c31"
+  - id: "review-20261024-isolated-wells"
+    title: "GF180 isolated p-well and deep-nwell coupling"
+    url: "https://github.com/iic-jku/klayout-pex/commit/4799f2e31c13e7435d88e07a57edaac357f77a69"
+  - id: "review-20261024-integration"
+    title: "First-parent integration including diffusion-resistor contact corrections"
+    url: "https://github.com/iic-jku/klayout-pex/commit/43f6bb0989fd6e392a150f90a93f8bead01eb53e"
+  - id: "review-20261024-status"
+    title: "GPL-3.0-or-later license and Pre-Alpha project metadata"
+    url: "https://github.com/iic-jku/klayout-pex/blob/9f26477da2df4f9c10a16853bbfde52be60701d9/pyproject.toml"
 ---
 
 ### Implementation context
@@ -124,8 +139,16 @@ The contribution changes terminal/node identity propagation through extraction s
 
 ### Review of exposed operations and limits, October 22, 2026
 
-Process availability and accuracy are separate questions. The SG13CMOS5L bench records missing included LVS decks through 0.4.4, an executable path from 0.4.5, and pinned results at 0.6.3. The GF180 bench records a top-metal technology-file failure through 0.5.1 and its correction in 0.5.2. Current upstream is 0.6.10 at the reviewed head; those historical results are not a complete qualification of this version. The current IHP generator and the bench still require coefficient-by-coefficient review for the CMOS5L variant; no old defect count is promoted to a current universal claim. [Technology generator](#source-review-20261022-generator); [CMOS5L](#source-review-20261022-cmos5l); [GF180](#source-review-20261022-gf180); [SKY130](#source-review-20261022-sky130).
+Process availability and accuracy are separate questions. The SG13CMOS5L bench records missing included LVS decks through 0.4.4, an executable path from 0.4.5, and pinned results at 0.6.3. The GF180 bench records a top-metal technology-file failure through 0.5.1 and its correction in 0.5.2. The October 22 review examined upstream 0.6.10; those historical results do not qualify later development commits. The current IHP generator and the bench still require coefficient-by-coefficient review for the CMOS5L variant; no old defect count is promoted to a current universal claim. [Technology generator](#source-review-20261022-generator); [CMOS5L](#source-review-20261022-cmos5l); [GF180](#source-review-20261022-gf180); [SKY130](#source-review-20261022-sky130).
 
 KPEX driving Magic and Magic run directly are not independent numerical references. Deck arithmetic, internal 2.5D models and FasterCap results use different assumptions and boundary/mesh choices; agreement with a PDK deck is distinct from agreement with measured silicon. A disagreement need not mean that exactly one engine is wrong. [Comparison setup](#source-review-20261022-ihp).
 
-This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Development-provenance labels are preserved.
+
+### Device terminals and process-specific well coupling
+
+The reviewed development changes model device contacts as vias and place source/drain terminals on their contacts, with IHP, SKY130 and GF180 device-terminal regressions. Diffusion provides an empty geometric anchor at the contact end, not a complete semiconductor geometry or device-physics model. The SKY130 diffusion-resistor change attaches terminals to their licons and applies process-specific contact resistance. [Device contacts](#source-review-20261024-device-contacts) · [Diffusion-resistor correction](#source-review-20261024-diffusion-resistance).
+
+GF180 now distinguishes an isolated LVPWELL within DNWELL from an LVPWELL outside DNWELL that belongs to the substrate. The corresponding technology data and metal-over-well regressions connect coupling to the appropriate well nets. This is process-specific electrical connectivity and extraction work, not universal well accuracy validation. [Isolated-well implementation and cases](#source-review-20261024-isolated-wells).
+
+The individual changes are side-branch commits integrated on October 23 UTC. The meaningful activity checkpoint is first-parent merge `43f6bb0989fd6e392a150f90a93f8bead01eb53e`, which includes the diffusion-resistor correction; later version and dependency maintenance are not substituted for this implementation evidence. These are default-branch development updates, with tagged-release inclusion and external extraction tests unverified. The project remains GPL-3.0-or-later and Pre-Alpha; Layout and its existing runtime-AI/development-provenance classification are unchanged. [Integration](#source-review-20261024-integration) · [Project status and license](#source-review-20261024-status).

@@ -1,7 +1,7 @@
 ---
 name: "OpenROAD"
 aliases: []
-description: "Physical-design engine for floorplanning, placement, clock-tree synthesis, timing analysis, parasitic estimation and routing. Tcl and limited Python interfaces operate on a shared design database; UPF-driven power-domain implementation can insert isolation and level-shifter cells, without establishing comprehensive low-power verification."
+description: "Physical-design engine for floorplanning, placement, clock-tree synthesis, timing, routing and UPF isolation/level-shifter insertion over OpenDB. An experimental floating-random-walk field solver reads routed net geometry for capacitance extraction; Manhattan and dielectric-model limits remain, and upstream regressions do not establish signoff accuracy."
 scope:
   layout:
     ai: false
@@ -10,9 +10,9 @@ developmentEvidence:
   summary: "Claude is credited for correcting the web viewer shutdown to wait for its Tcl evaluation before interpreter teardown. The canonical project retains the synchronization code."
   sources: ["development-implementation-20261018", "development-retained-20261018"]
   reviewedAt: '2026-10-18'
-access: "Public source implementation; tool and environment requirements are documented by the project."
+access: "Public source under BSD-3-Clause; build dependencies and process-stack inputs remain project- and technology-specific."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-10-24"
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"
@@ -38,8 +38,8 @@ sources:
     title: "OpenROAD Tcl/Python design-data interfaces"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/eb752b2f9025769a5b8e2991ba0471d026cfa2ab/src/README.md"
   - id: "activity-current"
-    title: "Generated macro-placement-file regression"
-    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/13fb7ea1a03ff75562c1fa06004f12c54911f0ac"
+    title: "Routed SKY130HD GCD field-solver regression integration"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/ca012aeab485a964fb7a3dedaf6f5fb5ca89974d"
   - id: "development-implementation-20261018"
     title: "AI-credited executable implementation"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/33da610b4d812a0e085328cd0812b67ac1964ab8"
@@ -52,6 +52,18 @@ sources:
   - id: "review-20261022-upf-doc"
     title: "UPF operations and command reference"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/cee41731fae55adbdf73912d05a1114ee3c5cfb4/src/upf/README.md"
+  - id: "review-20261024-fsv-nets"
+    title: "Merged routed-net OpenDB reader and window-leakage implementation"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/pull/11967"
+  - id: "review-20261024-fsv-gcd"
+    title: "Merged routed SKY130HD GCD regression cases"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/pull/11975"
+  - id: "review-20261024-fsv-readme"
+    title: "Field-solver operations and limits at the integrated revision"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/ca012aeab485a964fb7a3dedaf6f5fb5ca89974d/src/fsv/README.md"
+  - id: "review-20261024-license"
+    title: "OpenROAD BSD 3-Clause license"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/ca012aeab485a964fb7a3dedaf6f5fb5ca89974d/LICENSE"
 ---
 
 ### Implementation context
@@ -68,9 +80,13 @@ Floorplanning, placement, clock trees, routing and backend timing/extraction def
 
 Placement, clock trees, routing and backend timing are conventional Layout algorithms. No AI behavior of downstream agents is attributed to the engine. [AI/stage evidence](#source-readme).
 
-### Current activity review
+### Routed-net field solver
 
-Reviewed 2026-10-05. An executable macro-placement regression checks the generated placement file and its exclusion of standard-cell locations. This is substantive physical-flow test coverage rather than a new placement algorithm or AI capability. [Reviewed change](#source-activity-current).
+The October 24 default-branch integrations add `add_field_solver_nets`: it reads target nets and nearby geometry from the routed OpenDB design, including wires, vias and pins, into a floating-random-walk electrostatic capacitance solve. A window/halo bounds neighbouring geometry; outside-window leakage is reported rather than used as an automatic acceptance rule. This is a new extraction operation, not merely documentation for a planned database reader. [Reader implementation](#source-review-20261024-fsv-nets) · [Pinned operations and limits](#source-review-20261024-fsv-readme).
+
+The following integration adds three routed SKY130HD GCD net regressions, covering a short net, jogs/vias and a die-edge input pin, with window/leakage checks. The meaningful activity checkpoint is the first-parent merge `ca012aeab485a964fb7a3dedaf6f5fb5ca89974d` on October 24 UTC. [Regression changes](#source-review-20261024-fsv-gcd) · [Integrated checkpoint](#source-activity-current).
+
+Design geometry is Manhattan-only. The reviewed ITF reader supports conformal dielectric shells with `THICKNESS = 0` and no `BW_T`; leakage is diagnostic, not signoff qualification. Upstream timing measurements depend on their specific routed designs, tolerances and thread count and are not generalized here. These are reviewed development commits; tagged-release inclusion and independent solver/EDA execution were not verified. Conventional Layout and the existing development-provenance label remain unchanged. [Limits](#source-review-20261024-fsv-readme) · [BSD-3-Clause](#source-review-20261024-license).
 
 ### Development provenance
 
@@ -80,4 +96,4 @@ Claude is credited for correcting the web viewer shutdown to wait for its Tcl ev
 
 UPF code evaluates power domains and implements isolation and level-shifter strategies in the physical design database. These exposed implementation operations remain Layout; they do not add Verification or prove all power states, retention behavior or operating modes. STA, extraction and power-grid analyses remain distinct backend operations. [Implementation](#source-review-20261022-upf); [commands](#source-review-20261022-upf-doc).
 
-This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Development-provenance labels are preserved.
