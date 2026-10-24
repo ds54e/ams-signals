@@ -331,24 +331,13 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
   for (const event of events) expect(payload.events.map(({ id }) => id)).not.toContain(event.id);
 });
 
-test('zero-Event researched Company pages still build without primary Timeline links', async ({ page }) => {
+test('retired empty Companies have no primary Timeline links', async ({ page }) => {
   await page.goto('./timeline/');
   await expectExplorerReady(page);
-  await expect(page.locator('a[href$="/companies/omnivision/"]')).toHaveCount(0);
   await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]:visible')).toHaveCount(1);
 
-  for (const company of [
-    { id: 'omnivision', name: 'OMNIVISION' },
-  ]) {
-    await page.goto(`./companies/${company.id}/`);
-    await expect(page).toHaveTitle(`${company.name} · AMS Signals`);
-    await expect(page.locator('.entity-header h1')).toHaveText(company.name);
-    await expect(page.locator('.entity-meta')).toContainText('0 indexed events');
-    const emptyState = page.locator('.entity-empty-state');
-    await expect(emptyState.getByRole('heading', { name: 'No events are currently indexed' })).toBeVisible();
-    await expect(emptyState).toContainText('does not imply');
-    await expect(page.getByText('RESEARCHED SPARSE RECORD', { exact: true })).toHaveCount(0);
-    await expect(page.locator('.site-header nav [aria-current="page"]')).toHaveCount(0);
+  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
+    await expect(page.locator(`a[href$="/companies/${id}/"]`)).toHaveCount(0);
   }
 });
 
@@ -546,13 +535,6 @@ test('Inspector and context pages use Event, Evidence, and Entity terminology', 
     .toHaveText('Choose a Timeline mark to inspect the event and its evidence.');
   await expect(page.locator('[data-detail-event]')).toHaveText('Open event →');
   await expect(page.locator('[data-detail-cluster], [data-detail-cluster-select]')).toHaveCount(0);
-
-  await page.goto('./companies/omnivision/');
-  const sparseState = page.locator('.entity-empty-state');
-  await expect(sparseState.getByRole('heading')).toHaveText('No events are currently indexed');
-  await expect(sparseState).toContainText('did not produce an event for the Timeline');
-  await expect(sparseState.getByRole('link', { name: 'Return to Timeline →' })).toHaveAttribute('href', `${basePath}timeline/`);
-  await expect(sparseState.getByText(/Golden|milestone/i)).toHaveCount(0);
 
   await page.goto('./people/toshi-kawashima/');
   await expect(page.getByText('PERSON TIMELINE', { exact: true })).toHaveCount(0);
