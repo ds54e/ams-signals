@@ -56,7 +56,6 @@ const CANONICAL_DISPLAY_NAMES: Record<string, string> = {
   'sony-semiconductor-solutions': 'Sony Semiconductor',
   stmicroelectronics: 'STMicroelectronics',
   'texas-instruments': 'Texas Instruments',
-  'thine-electronics': 'THine',
   'toshiba-electronic-devices-storage': 'Toshiba',
 };
 
@@ -105,6 +104,15 @@ test('canonical public Company display names stay intentional', async () => {
   for (const [id, name] of Object.entries(CANONICAL_DISPLAY_NAMES)) {
     assert.equal(byId.get(id), name, `${id} must keep its canonical public display name`);
   }
+});
+
+test('retired unreferenced Company records stay out of the factual export', async () => {
+  const payload = await buildPayload();
+  const companyIds = new Set(payload.companies.map(({ id }) => id));
+  for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics']) {
+    assert.equal(companyIds.has(id), false, `${id} must not remain as an empty Company record`);
+  }
+  assert.ok(companyIds.has('omnivision'), 'the intentional researched-empty OMNIVISION record remains');
 });
 
 test('historical predecessor Events keep their canonical successor associations', async () => {
