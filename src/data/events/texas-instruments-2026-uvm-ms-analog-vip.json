@@ -12,13 +12,19 @@
     "aadhar-sharma"
   ],
   "headline": "TI authors report using UVM-MS analog VIP for mixed-signal verification",
-  "fact": "A Texas Instruments DAC 2026 presentation reports a UVM-MS-based flow in which verification components drive and monitor analog signals without traditional connect modules. The authors describe reusable analog VIP and report improvements in simulation runtime and verification coverage for the presented use cases. The record supports this reported TI application, not universal adoption across the company.",
+  "fact": "A Texas Instruments DAC 2026 presentation reports a UVM-MS-based flow in which verification components drive and monitor analog signals without traditional connect modules. The authors describe reusable analog VIP and report improvements in simulation runtime and verification coverage for the presented use cases. The record supports this reported TI application, not universal adoption across the company. In an August 25 public post, Aadhar Sharma confirmed presenting this work at DAC and described plans to apply the conference takeaways to ongoing TI workflows; the post does not quantify additional deployment results.",
   "sources": [
     {
       "title": "UVM-MS: A Novel Approach to Mixed-Signal IP Verification",
       "url": "https://63dac.conference-program.com/presentation/?id=ENGPRES340&sess=sess265",
       "checkedAt": "2026-08-31",
       "summary": "The official DAC 2026 record identifies the TI authors and describes analog VIP, removal of connect-module dependence, and reported runtime and coverage improvements."
+    },
+    {
+      "title": "Aadhar Sharma: DAC 2026 reflections on ANA-MODELGEN and UVM-MS",
+      "url": "https://www.linkedin.com/posts/aadharsharma218_dac2026-designautomation-semiconductors-activity-7497927138050895872-jnpv",
+      "checkedAt": "2026-10-25",
+      "summary": "The presenter's own public post, dated August 25, 2026 at 08:05 UTC, names both presentations and attributes them to his TI teams. It supports personal participation and stated follow-up plans; its publication date is distinct from the July presentations."
     }
   ]
 }

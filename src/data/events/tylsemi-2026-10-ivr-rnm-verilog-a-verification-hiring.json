@@ -1,0 +1,28 @@
+{
+  "id": "tylsemi-2026-10-ivr-rnm-verilog-a-verification-hiring",
+  "when": {
+    "start": "2026-10-25",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "tylsemi"
+  ],
+  "people": [],
+  "headline": "TYLsemi's retained IVR role links Verilog-A/RNM models, co-simulation and power-control checks",
+  "fact": "An employer-attributed TYLsemi LinkedIn role observed October 25, 2026 describes high-current integrated-voltage-regulator verification. It assigns Verilog-A and SystemVerilog RNM models for power stages, integrated inductors, the power-delivery network and analog blocks; analog/digital co-simulation; and testbenches for load transients, loop stability, ripple, protection and startup/shutdown. Duties also include PVT/Monte Carlo regressions and simulation-to-lab correlation. The first publication date is unconfirmed, so this Event uses the observation date of the retained advertisement, not a claimed October hiring launch.",
+  "sources": [
+    {
+      "title": "TYLsemi employer LinkedIn: Senior Mixed-Signal Verification Engineer - Power Management ICs",
+      "url": "https://www.linkedin.com/jobs/view/senior-mixed-signal-verification-engineer-power-management-ics-at-tylsemi-4446565851",
+      "checkedAt": "2026-10-25",
+      "summary": "Retained full employer description was checked October 25, 2026. It names high-current IVRs, Verilog-A/SystemVerilog RNM models, simulator combinations, control-loop checks and lab correlation. No reliable original datePosted was exposed; relative ages are not used."
+    },
+    {
+      "title": "TYLsemi employer LinkedIn: related retained IVR verification listing",
+      "url": "https://www.linkedin.com/jobs/view/senior-mixed-signal-verification-engineer-power-management-ics-at-tylsemi-4447043899",
+      "checkedAt": "2026-10-25",
+      "summary": "Related retained copy repeats the IVR modeling and verification duties and is marked no longer accepting applications. Grouped with the same mandate; this does not establish a separate recruitment event or current vacancy."
+    }
+  ]
+}

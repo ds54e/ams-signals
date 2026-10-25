@@ -1,0 +1,28 @@
+{
+  "id": "hrl-2026-10-cryo-cmos-rnm-uvm-ams-verification-hiring",
+  "when": {
+    "start": "2026-10-06",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "ibm"
+  ],
+  "people": [],
+  "headline": "HRL advertises cryogenic-CMOS model correlation and UVM-AMS verification leadership",
+  "fact": "HRL Laboratories' Qubit Systems Laboratory posted an AMS verification role for quantum-control cryogenic CMOS. It assigns Verilog-A/AMS, wreal and SV-RNM models aligned with transistor-level implementations; UVM-AMS environments, SVA/PSL and coverage; regression infrastructure; and block-to-top-level integration for ADCs, DACs, PLLs, LDOs, SerDes and power-management blocks. Model correlation spans PVT/corner simulation and later measurements. The employer identifies HRL as an IBM company. These are advertised responsibilities, not demonstrated model accuracy.",
+  "sources": [
+    {
+      "title": "HRL Careers: Analog/Mixed Signal Verification Engineer, Qubit Systems Laboratory",
+      "url": "https://jobs.lever.co/dodmg/0dd665ca-8391-4aa2-80ec-f6da87bf9a76",
+      "checkedAt": "2026-10-25",
+      "summary": "Official employer page and JobPosting datePosted identify October 6, 2026. Full text names cryogenic CMOS, RNM/Verilog-A/AMS, UVM-AMS, transistor-model alignment, assertions and regression/CI ownership; the page identifies HRL as an IBM company."
+    },
+    {
+      "title": "HRL: IBM completes acquisition of HRL Laboratories",
+      "url": "https://www.hrl.com/news/2026/07/23/ibm-to-acquire-hrl-laboratories-to-power-the-future-of-quantum",
+      "checkedAt": "2026-10-25",
+      "summary": "The current official page contains IBM's completion announcement above the earlier July agreement announcement. It supports canonical IBM grouping; the URL's July date is not treated as the acquisition-completion date or a verification milestone."
+    }
+  ]
+}

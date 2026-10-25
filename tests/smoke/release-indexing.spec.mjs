@@ -57,16 +57,18 @@ test('unsupported editorial routes return 404', async ({ page }) => {
   }
 });
 
-test('retired empty Company routes return genuine 404 and leave sitemap/export', async ({ page }) => {
+test('retired empty Company routes stay absent unless factual Events restore the group', async ({ page }) => {
   const sitemap = await (await page.request.get('./sitemap.xml')).text();
   const payload = await (await page.request.get('./export.json')).json();
   for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
+    const restored = companies.some((company) => company.id === id);
+    expect(!restored || events.some((event) => event.companies.includes(id)), id).toBe(true);
     const route = `companies/${id}/`;
     const response = await page.request.get(`./${route}`, { maxRedirects: 0 });
-    expect(response.status(), route).toBe(404);
+    expect(response.status(), route).toBe(restored ? 200 : 404);
     expect(response.headers(), route).not.toHaveProperty('location');
-    expect(sitemap, route).not.toContain(`<loc>${publicOrigin}${basePath}${route}</loc>`);
-    expect(payload.companies.map((company) => company.id), route).not.toContain(id);
+    expect(sitemap.includes(`<loc>${publicOrigin}${basePath}${route}</loc>`), route).toBe(restored);
+    expect(payload.companies.some((company) => company.id === id), route).toBe(restored);
   }
 });
 

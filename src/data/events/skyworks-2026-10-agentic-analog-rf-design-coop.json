@@ -1,0 +1,28 @@
+{
+  "id": "skyworks-2026-10-agentic-analog-rf-design-coop",
+  "when": {
+    "start": "2026-10-14",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "skyworks"
+  ],
+  "people": [],
+  "headline": "Skyworks advertises circuit-simulator agents and RAG evaluation for analog/RF design",
+  "fact": "Skyworks posted San Jose co-op 78610 within the Mobile Solutions Division Software Engineering group. It assigns LLM agents connected to circuit simulators such as Spectre/Virtuoso and ADS, RAG over design documents and PDKs, and agent-performance evaluation on LNAs, PAs, switches and bias circuits in Si/SOI processes. The project includes schematic and simulation automation alongside layout tasks. January-June 2027 is the advertised work term. This analog/RF circuit-design research mandate is distinct from the earlier mixed-signal verification-platform co-op; neither posting demonstrates completed deployment.",
+  "sources": [
+    {
+      "title": "Skyworks Careers: Analog and RF circuit design Winter/Spring Co-Op (78610)",
+      "url": "https://careers.skyworksinc.com/job/Analog-and-RF-circuit-design-WinterSpring-Co-Op-%28Jan-June-%2727%29/78610-en_US/",
+      "checkedAt": "2026-10-25",
+      "summary": "Official posting displays October 14, 2026, requisition 78610, Mobile Solutions Division and the simulator-agent, RAG and circuit-task evaluation duties. The 2027 dates identify the work term."
+    },
+    {
+      "title": "Skyworks employer LinkedIn: analog/RF circuit-design co-op",
+      "url": "https://www.linkedin.com/jobs/view/analog-and-rf-circuit-design-winter-spring-co-op-jan-june-27-at-skyworks-solutions-inc-4479579396",
+      "checkedAt": "2026-10-25",
+      "summary": "Full employer description and JobPosting datePosted October 14 confirm the official role. Search snippets giving October 6 are not used as the publication-date basis. Related seasonal hiring is not a separate Event."
+    }
+  ]
+}

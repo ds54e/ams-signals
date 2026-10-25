@@ -1,0 +1,22 @@
+{
+  "id": "cadence-2026-09-rnm-schematic-correlation-verification-hiring",
+  "when": {
+    "start": "2026-09-25",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Cadence advertises SystemVerilog RNM model qualification against schematics and analog assertions",
+  "fact": "Cadence posted Mixed-Signal Systems and Verification Engineer R55855. The assigned work develops accurate, simulation-efficient SystemVerilog analog/RF behavioral models, verifies them against analog schematics, integrates them with RTL, and checks analog functionality against specifications using testbenches, scenarios and assertions. Qualifications name RNM, UDN/UDT/UDR, wreal, Verilog-AMS and analog assertion-based verification. Modeling and verification results are documented for formal review. This records an engineering hiring mandate rather than a product release or a reported customer deployment.",
+  "sources": [
+    {
+      "title": "Cadence Careers: Mixed-Signal Systems and Verification Engineer (R55855)",
+      "url": "https://cadence.wd1.myworkdayjobs.com/en-US/External_Careers/job/Mixed--Signal-Systems-and-Verification-Engineer_R55855",
+      "checkedAt": "2026-10-25",
+      "summary": "Official Workday startDate is September 25, 2026. Full duties explicitly distinguish model development, schematic-correlation checks, RTL integration, specification checks and formal review."
+    }
+  ]
+}

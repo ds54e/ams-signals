@@ -1,7 +1,7 @@
 {
   "id": "melexis-2026-10-claude-ams-verification-internship",
   "when": {
-    "start": "2026-10-06",
+    "start": "2026-10-05",
     "precision": "day"
   },
   "kind": "organizational",
@@ -10,13 +10,14 @@
   ],
   "people": [],
   "headline": "Melexis posts a Claude-based AMS verification internship for automotive sensor ICs",
-  "fact": "Melexis posted Bevaix internship/master’s-thesis project 3932 for automotive sensor IC mixed-signal design verification and system integration. The six-month 2027 project assigns Claude Code workflows, test-case development, and automated classification and root-cause analysis of simulation/verification failures. SystemVerilog/Verilog is essential; UVM is beneficial. Optional work compares Chipstack with Claude. Deployment into real projects and efficiency improvements are expected project results, not demonstrated outcomes. The official timestamp is October 5 at 20:00 UTC, corresponding to October 6 JST; 2027 is the work cohort.",
+  "fact": "Melexis posted Bevaix internship/master's-thesis project 3932 for automotive sensor IC mixed-signal design verification and system integration. The six-month 2027 project assigns Claude Code workflows, test-case development, and automated classification and root-cause analysis of simulation/verification failures. SystemVerilog/Verilog is essential; UVM is beneficial. Optional work compares Chipstack with Claude. Deployment into real projects and efficiency improvements are expected project results, not demonstrated outcomes. The retained official timestamp is October 5 at 20:00 UTC; 2027 identifies the work cohort.",
   "sources": [
     {
       "title": "Melexis Careers: AI Infrastructure Development for Automotive Sensor IC Design Verification (3932)",
       "url": "https://www.melexis.com/en/careers/3932/internship-ai-infrastructure-development-for-automotive-sensor-ic-design-verification",
-      "checkedAt": "2026-10-15",
-      "summary": "Official JobPosting metadata gives datePosted 2026-10-05T20:00:00+00:00 and identifier 3932. The Event uses October 6 JST. Duties explicitly concern mixed-signal test development and verification-failure triage with Claude, not only simulation execution or real-chip measurements."
+      "checkedAt": "2026-10-25",
+      "summary": "Previously verified official JobPosting metadata gives October 5, 2026 at 20:00 UTC and identifier 3932; the UTC date corrects the prior October 6 JST record. The official page returns HTTP 403 on October 25, so this is an availability check, not a fresh full-text review. Retained duties concern Claude-based mixed-signal test development and failure triage.",
+      "status": "unavailable"
     }
   ]
 }

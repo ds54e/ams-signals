@@ -10,19 +10,26 @@
   ],
   "people": [],
   "headline": "Cirrus Logic role links SV-RNM models to analog design, UVM verification, HW/SW validation, and AMS-UVM reuse",
-  "fact": "As observed on September 14, 2026, Cirrus Logic's official careers site listed an Analog Mixed Signal Modeling & Verification Engineer role for Austin, Chandler, and Greensboro. The posting says the team generates and verifies analog circuit equivalent models for analog design, UVM verification, and HW/SW validation; develops SV-RNM, SV-UDT, and Verilog-AMS models; builds DMS and AMS test plans and platforms; supports chip-level integration and regression debug; and works with UVM verification engineers so verification components are used in an AMS-UVM flow. It also names collaboration spanning pre-silicon verification and post-silicon validation plus automation for design, verification, and modeling. The public page does not expose a reliable creation date, so this Event records the observation date rather than claiming when the role was first posted.",
+  "fact": "As observed September 14, Cirrus Logic listed an Analog Mixed Signal Modeling & Verification Engineer role for Austin, Chandler and Greensboro. It assigns equivalent models reused across analog design, UVM verification and HW/SW validation; SV-RNM, SV-UDT and Verilog-AMS; DMS/AMS plans and platforms; regression debug; and verification-component reuse in AMS-UVM. The original UL-01 page is now unavailable. Related current UL-02 role, observed October 25, repeats those duties and adds architectural exploration and design-partitioning input. The postings establish a reusable-model methodology hiring mandate, not measured deployment. No reliable first-publication date is exposed, so the September observation date remains.",
   "sources": [
     {
       "title": "Cirrus Logic Careers: Analog Mixed Signal Modeling & Verification Engineer (UL - 01)",
       "url": "https://jobs.eu.lever.co/cirrus/25795154-6942-4b8b-b5e6-37c1bf0eb7c1",
-      "checkedAt": "2026-09-14",
-      "summary": "The official posting describes equivalent-model reuse across analog design, UVM verification, and HW/SW validation; SV-RNM/SV-UDT/Verilog-AMS modeling; DMS/AMS verification; AMS-UVM component reuse; chip integration; regression debug; and automation."
+      "checkedAt": "2026-10-25",
+      "summary": "Previously verified September 14 description covers equivalent-model reuse, SV-RNM/SV-UDT/Verilog-AMS, AMS-UVM, chip integration and regression debug. The original UL-01 page returns HTTP 404 on October 25; this is not a fresh full-text review.",
+      "status": "unavailable"
     },
     {
       "title": "Cirrus Logic Careers: current job listing",
       "url": "https://jobs.eu.lever.co/cirrus",
-      "checkedAt": "2026-09-14",
-      "summary": "Cirrus Logic's current official careers index lists the company's active analog mixed-signal modeling roles alongside its design-verification openings."
+      "checkedAt": "2026-10-25",
+      "summary": "Current official index lists related UL-02 modeling and GNEG4 mixed-signal modeling/verification roles. The public listing does not provide a reliable creation date."
+    },
+    {
+      "title": "Cirrus Logic Careers: Analog Mixed Signal Modeling Engineer (UL - 02)",
+      "url": "https://jobs.eu.lever.co/cirrus/37ead846-469d-449a-bfcf-f4ae192c03a5",
+      "checkedAt": "2026-10-25",
+      "summary": "Current official posting and public Lever response repeat equivalent-model reuse across design, UVM and HW/SW validation, SV-RNM/SV-UDT/Verilog-AMS and AMS-UVM component reuse, with architectural exploration and partitioning responsibilities. Observed October 25; first publication is unconfirmed."
     }
   ]
 }

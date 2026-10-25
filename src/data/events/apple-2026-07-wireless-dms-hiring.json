@@ -5,10 +5,12 @@
     "precision": "day"
   },
   "kind": "organizational",
-  "companies": ["apple"],
+  "companies": [
+    "apple"
+  ],
   "people": [],
   "headline": "Apple lists multiple Wireless Silicon Digital Mixed-Signal Modeling roles",
-  "fact": "Apple listed multiple Digital Mixed-Signal Modeling Engineer roles in its wireless silicon development team in the San Francisco Bay Area and Beaverton. The descriptions state that the roles model and verify analog, RF, mixed-signal blocks, and SoCs using SystemVerilog behavioral models and testbenches.",
+  "fact": "Apple listed Wireless Silicon Digital Mixed-Signal Modeling Engineer roles in the San Francisco Bay Area and Beaverton on July 16. Related October 16 role 200689643 assigns accurate, simulation-efficient SystemVerilog models for analog/RF blocks, reusable monitors/checkers, test-plan execution, debug and flow automation. It explicitly develops emulation-ready models and requests understanding of synthesis-ready mixed-signal model requirements, with SystemC/C++ and high-level synthesis among preferred skills. These related postings are grouped with the existing wireless modeling mandate; the later role does not establish successful emulator execution or change the July Event date.",
   "sources": [
     {
       "title": "Digital Mixed-Signal Modeling Engineer — San Francisco Bay Area",
@@ -21,6 +23,12 @@
       "url": "https://jobs.apple.com/en-us/details/200672770-0505/digital-mixed-signal-modeling-engineer",
       "checkedAt": "2026-08-30",
       "summary": "Official Apple location variant dated July 16, 2026, for the same wireless-silicon modeling and verification work in Beaverton."
+    },
+    {
+      "title": "Apple Careers: Wireless Digital Mixed-Signal Modeling Engineer (200689643)",
+      "url": "https://jobs.apple.com/en-us/details/200689643-0505/digital-mixed-signal-modeling-engineer",
+      "checkedAt": "2026-10-25",
+      "summary": "Official posting displays October 16, 2026. Assigned work includes SystemVerilog analog/RF models and emulation readiness; synthesis-ready requirements, SystemC and high-level synthesis appear in qualifications. The Beaverton/Sunnyvale variants are not separate Events."
     }
   ]
 }

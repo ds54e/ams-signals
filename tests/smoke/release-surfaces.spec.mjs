@@ -331,13 +331,16 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
   for (const event of events) expect(payload.events.map(({ id }) => id)).not.toContain(event.id);
 });
 
-test('retired empty Companies have no primary Timeline links', async ({ page }) => {
+test('retired empty Companies gain Timeline links only when factual Events restore the group', async ({ page }) => {
   await page.goto('./timeline/');
   await expectExplorerReady(page);
   await expect(page.locator('a[href$="/companies/sony-semiconductor-solutions/"]:visible')).toHaveCount(1);
 
+  const corpus = await loadGoldenCorpus();
   for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
-    await expect(page.locator(`a[href$="/companies/${id}/"]`)).toHaveCount(0);
+    const restored = corpus.companies.some((company) => company.id === id);
+    expect(!restored || corpus.events.some((event) => event.data.companies.includes(id)), id).toBe(true);
+    await expect(page.locator(`a[href$="/companies/${id}/"]`)).toHaveCount(restored ? 1 : 0);
   }
 });
 

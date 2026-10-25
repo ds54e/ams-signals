@@ -1,0 +1,22 @@
+{
+  "id": "atrisa-2026-10-analog-design-agent-evaluation-hiring",
+  "when": {
+    "start": "2026-10-10",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "atrisa"
+  ],
+  "people": [],
+  "headline": "Atrisa advertises founding analog-design work to build circuit tools and AI-agent evaluations",
+  "fact": "Atrisa posted a Founding Analog Design Engineer role in Bengaluru on its Y Combinator recruiting page. The company describes building AI agents for analog circuit design. The role designs, simulates and verifies analog/mixed-signal blocks and works with software and AI engineers to turn circuit-design problems into tools and evaluations. It includes specification tradeoffs, schematic design, SPICE simulation, layout review and silicon validation. This is an advertised circuit-design and evaluation mandate, not evidence that agents autonomously complete specification-to-layout designs or have achieved silicon results.",
+  "sources": [
+    {
+      "title": "Atrisa employer listing: Founding Analog Design Engineer",
+      "url": "https://www.ycombinator.com/companies/atrisa/jobs/bQRwY6B-founding-analog-design-engineer",
+      "checkedAt": "2026-10-25",
+      "summary": "Employer-authored YC posting and JobPosting datePosted identify October 10, 2026 at 10:47 UTC. The full role explicitly connects analog circuit work with software/AI tools and evaluations; no particular HDL model language or achieved agent performance is specified."
+    }
+  ]
+}

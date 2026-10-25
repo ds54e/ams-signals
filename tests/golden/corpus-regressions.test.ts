@@ -109,8 +109,10 @@ test('canonical public Company display names stay intentional', async () => {
 test('retired unreferenced Company records stay out of the factual export', async () => {
   const payload = await buildPayload();
   const companyIds = new Set(payload.companies.map(({ id }) => id));
+  const referencedCompanyIds = new Set(payload.events.flatMap(({ companies }) => companies));
   for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
-    assert.equal(companyIds.has(id), false, `${id} must not remain as an empty Company record`);
+    // A supported new Event can restore a canonical group; an empty record cannot.
+    assert.ok(!companyIds.has(id) || referencedCompanyIds.has(id), `${id} must not remain as an empty Company record`);
   }
 });
 

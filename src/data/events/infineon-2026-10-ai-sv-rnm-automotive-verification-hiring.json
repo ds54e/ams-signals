@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2026-10-ai-sv-rnm-automotive-verification-hiring",
+  "when": {
+    "start": "2026-10-05",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon seeks a Senior Staff engineer for AI-based SV-RNM and automotive AMS verification",
+  "fact": "Infineon's Bengaluru Senior Staff Engineer Analog Mixed-Signal Verification posting assigns AI-based SystemVerilog real-number behavioral models with speed/accuracy tradeoffs for pre-silicon verification. The role leads automotive subsystem and analog-on-top full-chip verification, develops AMS plans, SPICE-netlist integration, checkers, assertions and coverage, and models bandgaps, LDOs and buck-boost regulators. This is an advertised development and methodology-leadership mandate; the posting does not disclose an AI algorithm, model-generation results or production adoption.",
+  "sources": [
+    {
+      "title": "Infineon Careers: Senior Staff Engineer Analog Mixed-Signal Verification",
+      "url": "https://jobs.infineon.com/careers/job/563808971219634",
+      "checkedAt": "2026-10-25",
+      "summary": "Official JobPosting datePosted is October 5, 2026. Assigned work explicitly includes AI-based SV-RNM, accuracy/runtime tradeoffs and automotive subsystem/full-chip verification; this is separate from the earlier graduate and internship advertisements."
+    },
+    {
+      "title": "Infineon employer LinkedIn: Senior Staff AMS verification",
+      "url": "https://in.linkedin.com/jobs/view/senior-staff-engineer-analog-mixed-signal-verification-at-infineon-technologies-4426837442",
+      "checkedAt": "2026-10-25",
+      "summary": "Employer-attributed description independently repeats the AI-based SV-RNM assignment. Current LinkedIn metadata dates this copy October 7; that later platform date is not substituted for the official October 5 date."
+    }
+  ]
+}

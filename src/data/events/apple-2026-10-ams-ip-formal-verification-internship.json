@@ -1,0 +1,22 @@
+{
+  "id": "apple-2026-10-ams-ip-formal-verification-internship",
+  "when": {
+    "start": "2026-10-14",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple advertises an AMS IP formal-verification internship in London",
+  "fact": "Apple posted London internship 200688723 for its AMS IP team. The project develops property sets for hardware-model functional coverage, formalizes SVA properties, executes formal proofs and studies model-accuracy versus proof-convergence tradeoffs. It also extends the framework to integrate properties at higher levels for system verification. The posting describes proposed intern work within an AMS IP organization; it does not report completed proofs or a deployed formal flow.",
+  "sources": [
+    {
+      "title": "Apple Careers: Formal Verification Framework for Hardware IPs Validation (200688723)",
+      "url": "https://jobs.apple.com/en-us/details/200688723/formal-verification-framework-for-hardware-ips-validation",
+      "checkedAt": "2026-10-25",
+      "summary": "Official page hydration data gives October 14, 2026 and the London AMS IP team. Full duties specify SVA, model accuracy, proof convergence and higher-level property integration. No particular analog model language or completed result is disclosed."
+    }
+  ]
+}

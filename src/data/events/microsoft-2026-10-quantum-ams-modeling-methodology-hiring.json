@@ -1,0 +1,22 @@
+{
+  "id": "microsoft-2026-10-quantum-ams-modeling-methodology-hiring",
+  "when": {
+    "start": "2026-10-12",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "microsoft"
+  ],
+  "people": [],
+  "headline": "Microsoft Quantum advertises system-wide AMS simulation and shared modeling methodology",
+  "fact": "Microsoft posted a Senior Quantum Analog Mixed-Signal Verification Engineer role assigning the Quantum 1st Party Hardware ASIC team system-wide AMS models, simulation environments and test plans. It combines analog and digital blocks across multiple SoCs, supplies behavioral models to full-chip digital verification, and establishes standardized AMS verification/modeling methodology with peers. Qualifications include UVM/OVM, Spectre AMS or Synopsys XA, and modeling corners and process variability. AI-tool use is a general work requirement rather than a specified model-generation method. This records an advertised infrastructure mandate, not deployed quantum-SoC verification results.",
+  "sources": [
+    {
+      "title": "Microsoft employer LinkedIn: Senior Quantum Analog Mixed-Signal Verification Engineer",
+      "url": "https://www.linkedin.com/jobs/view/senior-quantum-analog-mixed-signal-verification-engineer-at-microsoft-4414607082",
+      "checkedAt": "2026-10-25",
+      "summary": "Full employer-attributed posting and current JobPosting metadata give October 12, 2026. Duties explicitly cover shared AMS methodology, cross-SoC simulation and analog behavioral models for digital verification. No particular HDL or measured AI-generated modeling result is disclosed."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "blue-origin-2026-08-terawave-ams-cosimulation-methodology-hiring",
+  "when": {
+    "start": "2026-08-21",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "blue-origin"
+  ],
+  "people": [],
+  "headline": "Blue Origin advertises TeraWave AMS co-simulation methodology and behavioral-model infrastructure",
+  "fact": "Blue Origin advertised TeraWave AMS Design Verification Engineer R65544 to lead mixed-mode verification methodology. The role defines the co-simulation EDA environment with analog and digital teams, creates Verilog/SystemVerilog testbenches and analog/mixed-signal behavioral models, and develops block- and chip-level verification methods. An August 21 recruiting-board copy predates the current official Workday September 15 date. The earlier retained public posting dates this Event; the role establishes a hiring mandate for model and verification infrastructure, without an assigned AI-verification task.",
+  "sources": [
+    {
+      "title": "Blue Origin Careers: Analog Mixed-Signal Design Verification Engineer - TeraWave (R65544)",
+      "url": "https://blueorigin.wd5.myworkdayjobs.com/en-US/BlueOrigin/job/Analog-Mixed-Signal-Design-Verification-Engineer---TeraWave_R65544",
+      "checkedAt": "2026-10-25",
+      "summary": "Official Workday full description assigns co-simulation environment/methodology and Verilog/SystemVerilog model and testbench development. Current startDate is September 15, 2026; this is later than the retained public recruiting history."
+    },
+    {
+      "title": "FPGAjobs: retained Blue Origin TeraWave AMS role",
+      "url": "https://www.fpgajobs.com/company/blue-origin/job/analog-mixed-signal-design-verification-engineer-t/ykty0rh3FC/",
+      "checkedAt": "2026-10-25",
+      "summary": "Retained employer description and JobPosting datePosted record August 21, 2026. This is the recruiting-board publication date, not a verified first employer publication or the date of completed infrastructure."
+    }
+  ]
+}

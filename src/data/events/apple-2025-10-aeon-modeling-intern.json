@@ -9,8 +9,8 @@
     "apple"
   ],
   "people": [],
-  "headline": "Apple posts an Aeon Modeling Intern role",
-  "fact": "Apple posted an Aeon Modeling Intern role in Munich. Its description places the internship in an AMS modeling software team and lists behavioral and electrical models for SerDes, PLLs, memory interfaces, and data converters; comparison with circuit simulations and measurements; modeling methods and automation; simulation-accuracy tradeoffs; and LLM-assisted model and software-framework development.",
+  "headline": "Apple's Aeon internships describe AMS models, LLM workflows and SPICE-based accuracy checks",
+  "fact": "Apple posted an Aeon Modeling Intern role in Munich on October 1, 2025 for AMS interface models, circuit/measurement comparison, automation and LLM-assisted development. Related role 200690119, posted October 19, 2026, assigns Python/C++ models for SerDes, PLLs, memory interfaces and converters; ML surrogate models trained on circuit simulations and silicon measurements; LLM/agent workflows for specification-to-model generation, code translation, tests and documentation; and automated accuracy checks against SPICE and measurements. It also proposes GPU/parallel acceleration and model-order reduction, with documented accuracy bounds and engineer ownership of correctness. The later recruitment is grouped with the existing Aeon mandate, without changing its original date or asserting completed AI-modeling results.",
   "sources": [
     {
       "title": "Aeon Modeling Intern (m/f/d)",
@@ -18,6 +18,12 @@
       "checkedAt": "2026-08-30",
       "status": "unavailable",
       "summary": "Original Apple role dated October 1, 2025, describing AMS interface models, circuit and measurement comparison, methodology, automation, accuracy-performance tradeoffs, and LLM-assisted development; the page is no longer available at the last check."
+    },
+    {
+      "title": "Apple Careers: Aeon Modeling Software Intern (200690119)",
+      "url": "https://jobs.apple.com/en-us/details/200690119-1731/aeon-modeling-software-intern",
+      "checkedAt": "2026-10-25",
+      "summary": "Official page hydration data gives October 19, 2026. Full assigned work explicitly covers ML surrogates, LLM/agent model/test generation, SPICE/measurement accuracy checks and accuracy bounds. This related role strengthens the earlier Aeon Event; it is not a newly verified release or deployment."
     }
   ]
 }

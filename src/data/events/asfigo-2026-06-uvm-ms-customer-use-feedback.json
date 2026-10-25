@@ -1,0 +1,31 @@
+{
+  "id": "asfigo-2026-06-uvm-ms-customer-use-feedback",
+  "when": {
+    "start": "2026-06-17",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "asfigo"
+  ],
+  "people": [
+    "srinivasan-venkataramanan",
+    "evgeny-vlasov"
+  ],
+  "headline": "Srinivasan Venkataramanan reports UVM-MS customer work and shares working-group feedback discussions",
+  "fact": "In a June 17 public post, Srinivasan Venkataramanan reported that AsFigo's Ajeetha Kumari was deploying UVM-MS v1.0 on customer projects and had reviewed DVCon India papers from users of the standard. He shared a digest attributed to UVM-AMS working-group chair Evgeny Vlasov describing feedback from companies using v1.0 and proposals for driver/proxy/core communication while defining possible v2.0 scope. These are attributed reports of customer work and standards discussions, without named customers, independently verified adoption results or an issued v2.0 release. June 17 dates Venkataramanan's post, not the underlying meetings.",
+  "sources": [
+    {
+      "title": "Srinivasan Venkataramanan: UVM-MS customer use and shared WG digest",
+      "url": "https://www.linkedin.com/posts/svenka3_genai-uvm-dvcon-activity-7473135252048257024-eUqk",
+      "checkedAt": "2026-10-25",
+      "summary": "Public SocialMediaPosting metadata gives June 17, 2026 at 22:11 UTC. The author's own text reports AsFigo customer deployment and paper review; sharedContent attributes the feedback/proxy-layer digest to Evgeny Vlasov. Exact customer and committee-meeting dates are not established."
+    },
+    {
+      "title": "Accellera: UVM-MS Working Group",
+      "url": "https://www.accellera.org/activities/working-groups/uvm-ms",
+      "checkedAt": "2026-10-25",
+      "summary": "Current official working-group page identifies Evgeny Vlasov as chair and describes driving/monitoring mixed-signal nets and extending verification components. It provides standards context, not proof of customer adoption or a v2.0 release."
+    }
+  ]
+}

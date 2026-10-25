@@ -12,13 +12,19 @@
     "aadhar-sharma"
   ],
   "headline": "TI authors present ANA-MODELGEN for analog behavioral-model generation and SPICE-based validation",
-  "fact": "The DAC 2026 program lists ANA-MODELGEN by Aadhar Sharma and Texas Instruments coauthors. Its abstract describes automated generation of analog IP behavioral models and validation testbenches, with equivalence checks against SPICE references. The authors report use in production SoC verification flows and improvements in execution speed and functional coverage. This records the presented method and author-reported application; the public abstract does not establish use of an LLM or disclose independently verified results.",
+  "fact": "The DAC 2026 program lists ANA-MODELGEN by Aadhar Sharma and Texas Instruments coauthors. Its abstract describes automated generation of analog IP behavioral models and validation testbenches, with equivalence checks against SPICE references. The authors report use in production SoC verification flows and improvements in execution speed and functional coverage. This records the presented method and author-reported application; the public abstract does not establish use of an LLM or disclose independently verified results. In an August 25 public post, Aadhar Sharma confirmed presenting this work at DAC and described plans to apply the conference takeaways to ongoing TI workflows; the post does not quantify additional deployment results.",
   "sources": [
     {
       "title": "DAC 2026: ANA-MODELGEN",
       "url": "https://63dac.conference-program.com/presentation/?id=ENGPRES367&sess=sess272",
       "checkedAt": "2026-10-19",
       "summary": "Official program identifies the TI authors including Aadhar Sharma, July 28 presentation, behavioral-model/testbench generation and SPICE equivalence scope. No AI mechanism is specified in the abstract."
+    },
+    {
+      "title": "Aadhar Sharma: DAC 2026 reflections on ANA-MODELGEN and UVM-MS",
+      "url": "https://www.linkedin.com/posts/aadharsharma218_dac2026-designautomation-semiconductors-activity-7497927138050895872-jnpv",
+      "checkedAt": "2026-10-25",
+      "summary": "The presenter's own public post, dated August 25, 2026 at 08:05 UTC, names both presentations and attributes them to his TI teams. It supports personal participation and stated follow-up plans; its publication date is distinct from the July presentations."
     }
   ]
 }
