@@ -1,13 +1,14 @@
 .event-explorer {
   --timeline-glyph-size: 9px;
-  --timeline-technical-fill: #2563eb;
-  --timeline-organizational-fill: #c2710c;
-  --timeline-axis-fill: #edf2f8;
-  --timeline-latest-fill: #f1f6ff;
-  --timeline-row-alt: #f8fafc;
-  --timeline-row-hover: #edf4ff;
+  --timeline-technical-fill: #3c65a4;
+  --timeline-organizational-fill: #886454;
+  --timeline-axis-fill: #f5f6f8;
+  --timeline-latest-fill: #f1f3f5;
+  --timeline-row-alt: #fafafa;
+  --timeline-row-hover: #f5f5f5;
+  --timeline-selection-outline: #3c65a4;
   --timeline-frame-radius: 15px;
-  --matrix-guide-color: #e5eaf1;
+  --matrix-guide-color: #edf0f2;
   min-width: 0;
 }
 .event-explorer[data-surface="events"] {
@@ -185,6 +186,8 @@
 .legend-mark { width: var(--timeline-glyph-size); height: var(--timeline-glyph-size); display: inline-block; border-radius: 50%; }
 
 .timeline-workspace {
+  --border: #e8eaee;
+  --accent-soft: #eef0f2;
   position: relative;
   z-index: 1;
   isolation: isolate;
@@ -296,7 +299,7 @@
   left: 0;
   right: 0;
   top: 50%;
-  border-top: 1px solid var(--border-strong);
+  border-top: 1px solid var(--matrix-guide-color);
 }
 /* A shared visible glyph inside a larger hit target in every Timeline view. */
 .timeline-mark {
@@ -448,7 +451,7 @@
   line-height: 1;
 }
 .activity-band-label:first-child {
-  color: var(--accent-ink);
+  color: #4b6180;
   background: var(--timeline-latest-fill);
   font-weight: 650;
 }

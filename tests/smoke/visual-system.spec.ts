@@ -223,10 +223,10 @@ for (const mode of ['light', 'dark', 'forced'] as const) {
           labelPosition: getComputedStyle(labels[0]).position, background: rgb(getComputedStyle(root).backgroundColor) };
       });
       const initial = await measure();
-      const axisFill = mode === 'forced' ? initial.fills[0].fill : 'rgb(237, 242, 248)';
+      const axisFill = mode === 'forced' ? initial.fills[0].fill : 'rgb(245, 246, 248)';
       expect(initial.fills).toEqual(Array(3).fill({ fill: axisFill, opacity: '1' }));
       if (mode !== 'forced') {
-        expect(initial.labels[1]).toMatchObject({ fill: 'rgb(241, 246, 255)', color: [21, 86, 187], weight: '650' });
+        expect(initial.labels[1]).toMatchObject({ fill: 'rgb(241, 243, 245)', color: [75, 97, 128], weight: '650' });
       }
       expect(initial.labels[0].text).toBe('Company / Person');
       expect(initial.labels.some((label) => label.text === '2026')).toBe(true);

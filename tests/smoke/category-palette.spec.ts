@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'purple' };
 const kindColors = { technical: 'blue', organizational: 'rust' };
-const timelineColors = { technical: 'rgb(37, 99, 235)', organizational: 'rgb(194, 113, 12)' };
+const timelineColors = { technical: 'rgb(60, 101, 164)', organizational: 'rgb(136, 100, 84)' };
 
 function contrast(first: string, second: string) {
   const luminance = (color: string) => color.match(/[\d.]+/g)!.slice(0, 3).map(Number)
@@ -25,6 +25,11 @@ async function readColors(page: Page) {
     tokens['provenance-border'] = resolve('provenance-border');
     const semantics = { technical: resolve('technical'), organizational: resolve('organizational') };
     const surfaces = [resolve('bg'), resolve('surface')];
+    const explorer = document.querySelector('.event-explorer');
+    if (explorer) {
+      explorer.append(probe);
+      surfaces.push(resolve('timeline-row-alt'), resolve('timeline-row-hover'));
+    }
     probe.remove();
     const badges = [...document.querySelectorAll<HTMLElement>('.category-label')].map((el) => {
       const style = getComputedStyle(el);
@@ -83,7 +88,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       if (catalog || route === 'events/') expect(actual.badges.length).toBeGreaterThan(0);
       else expect(actual.glyphs.length).toBeGreaterThan(0);
 
-      // Label tokens propagate while the plot retains its fixed blue/amber fills.
+      // Label tokens propagate while every Timeline retains the fixed Home icon fills.
       const replacements = { green: 'rgb(61, 83, 70)', blue: 'rgb(56, 74, 96)', gold: 'rgb(100, 93, 56)',
         rust: 'rgb(112, 79, 61)', purple: 'rgb(110, 66, 129)', 'green-soft': 'rgb(228, 239, 232)', 'blue-soft': 'rgb(228, 235, 243)',
         'gold-soft': 'rgb(240, 237, 219)', 'rust-soft': 'rgb(240, 230, 224)', 'provenance-border': 'rgb(170, 145, 185)' };
