@@ -12,19 +12,19 @@
     "charles-dancak"
   ],
   "headline": "Charles Dančak presents XMODEL-assisted SVA/PSL checks for voltage spikes in an LDO bias line",
-  "fact": "Charles Dančak of Betasoft Consulting presents an AMS assertion method for an LDO op-amp bias line. XMODEL represents the analog signal as piecewise mathematical expressions; meas_max and meas_min compute extrema over measurement intervals, which SVA/PSL properties can check for spikes missed by point sampling. Assertion evaluation remains clocked and detection depends on the model and measurement setup. This is a presented verification technique, not a general guarantee for arbitrary physical waveforms.",
+  "fact": "Charles Dančak of Betasoft Consulting presents an AMS assertion method for the op-amp bias line of the LDO regulator studied in his earlier UVM testbench paper. XMODEL represents the analog signal as piecewise mathematical expressions; meas_max and meas_min compute extrema over measurement intervals, which SVA/PSL properties can check for spikes missed by point sampling. Assertion evaluation remains clocked and detection depends on the model and measurement setup. This is a presented verification technique, not a general guarantee for arbitrary physical waveforms.",
   "sources": [
     {
       "title": "DVCon U.S. 2025 program: session 12",
       "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-U.S.-2025-Proceedings.pdf",
-      "checkedAt": "2026-10-19",
+      "checkedAt": "2026-10-25",
       "summary": "Program page 32 places paper 1128 and Charles Dancak of Betasoft on February 26, 2025."
     },
     {
       "title": "Catching the Elusive Voltage Spike with Analog/Mixed-Signal SVA/PSL Assertions",
       "url": "https://dvcon-proceedings.org/wp-content/uploads/1128.pdf",
-      "checkedAt": "2026-10-19",
-      "summary": "The paper identifies the author and affiliation and demonstrates the LDO bias-line example, analytic extrema measurements and clocked SVA checking."
+      "checkedAt": "2026-10-25",
+      "summary": "The sole author is affiliated with Betasoft. The paper explicitly refers to the earlier LDO UVM work, then adds analytic-extrema instrumentation and SVA/PSL checks for injected bias-line spikes; XMODEL use does not establish Scientific Analog coauthorship."
     }
   ]
 }

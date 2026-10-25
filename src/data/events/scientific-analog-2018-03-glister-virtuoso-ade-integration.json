@@ -1,0 +1,23 @@
+{
+  "id": "scientific-analog-2018-03-glister-virtuoso-ade-integration",
+  "when": {
+    "start": "2018-03-31",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog",
+    "cadence"
+  ],
+  "people": [],
+  "headline": "Scientific Analog announces GLISTER integration with Cadence Virtuoso ADE",
+  "fact": "Scientific Analog announces that the official XMODEL 2018.03 release integrates GLISTER features into Cadence Virtuoso Analog Design Environment. The announced interface supports composing testbenches, generating netlists and launching XMODEL simulations through ADE menus and commands. The company attributes the integration to its partnership with Cadence through the Connections EDA Program. March 31 is the announcement date; the version label does not establish another release day. The announcement establishes workflow integration, not functional equivalence with SPICE or a customer performance result.",
+  "sources": [
+    {
+      "title": "GLISTER-ADE Integration Released",
+      "url": "https://www.scianalog.com/news/glister-ade/",
+      "checkedAt": "2026-10-25",
+      "summary": "The dated release announcement names XMODEL 2018.03, the three ADE workflow operations and the Cadence Connections partnership."
+    }
+  ]
+}

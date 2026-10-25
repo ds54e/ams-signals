@@ -1,0 +1,30 @@
+{
+  "id": "betasoft-2024-03-ldo-directed-random-uvm",
+  "when": {
+    "start": "2024-03-05",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "betasoft"
+  ],
+  "people": [
+    "charles-dancak"
+  ],
+  "headline": "Charles Dančak presents directed and randomly sequenced UVM tests for an LDO regulator",
+  "fact": "Charles Dančak of Betasoft Consulting presents a UVM testbench for a programmable 45-nm CMOS LDO. MODELZEN extracts a SystemVerilog/XMODEL model from its Virtuoso schematic. Eight directed tests cover regulation, transients, operating modes and supply rejection; a randsequence alternates line and load transients while carrying circuit conditions between tests. A UVM event pool coordinates stimulus and measurements. One Xcelium run with seed 3947 reports four failing transient tests out of ten, including a 279-mV overshoot. These are modeled testbench results, not measured silicon or a universal coverage guarantee. This is the regulator-testbench work referenced by the later voltage-spike assertion paper.",
+  "sources": [
+    {
+      "title": "A UVM SystemVerilog Testbench for Directed and Random Testing of an AMS Low-Dropout Voltage Regulator — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1141-1.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "Pages 1–2 establish the Betasoft author, LDO model extraction and eight tests; Section VII identifies seed 3947 and the particular failing transient run."
+    },
+    {
+      "title": "DVCon U.S. 2024 official program: poster 1141",
+      "url": "https://confcats-siteplex.s3.us-east-1.amazonaws.com/dvconus/dvconus24_program_v2_7854c7d723.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "The March 5 poster session lists paper 1141 and Charles Dancak of Betasoft; the paper title spells out Low-Dropout, while slides abbreviate LDO."
+    }
+  ]
+}

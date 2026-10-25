@@ -1,0 +1,22 @@
+{
+  "id": "samsung-snu-2020-09-nand-sensing-xmodel-announcement",
+  "when": {
+    "start": "2020-09-01",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Scientific Analog announces an SNU/Samsung NAND-sensing SystemVerilog modeling paper",
+  "fact": "Scientific Analog announces acceptance at ICCAD 2020 of Modeling and Simulation of NAND Flash Memory Sensing Systems with Cell-to-Cell Vth Variations, identifying researchers affiliated with Seoul National University and Samsung. The announcement describes SystemVerilog/XMODEL models tracking cell threshold voltages while exercising read, program and erase algorithms. It reports a 40-microsecond incremental-step-pulse-programming simulation of a 12-Kb single-level-cell block in under two minutes, without specifying the host setup. September 1 is the announcement date; a November 3 conference presentation was planned. Full paper access was unavailable in this check, so author details, silicon correlation and broader performance are not asserted. Scientific Analog is the announcing tool vendor, not an identified research-author affiliation.",
+  "sources": [
+    {
+      "title": "Seoul National University and Samsung Electronics to Present XMODEL-based Verification Framework for NAND Flash Memory Sensing Systems at ICCAD 2020",
+      "url": "https://www.scianalog.com/news/iccad-2020/",
+      "checkedAt": "2026-10-25",
+      "summary": "The September 1 company announcement identifies the research institutions, accepted title, planned November 3 presentation and bounded 12-Kb/40-microsecond runtime claim. Full paper and host conditions were not available for review."
+    }
+  ]
+}

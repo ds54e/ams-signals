@@ -1,0 +1,30 @@
+{
+  "id": "snu-2024-10-dfe-global-convergence-uvm",
+  "when": {
+    "start": "2024-10-16",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim presents a UVM state-coverage testbench for DFE adaptation convergence",
+  "fact": "Jaeha Kim of Seoul National University presents a DVCon Europe paper on checking a four-tap, six-bit sign-sign LMS DFE adaptation loop with SystemVerilog/XMODEL and UVM. Shared state coverage and a global UVM event select unvisited starting states. The examples find false locked states with high channel loss or unconstrained coefficients. With a -20-dB channel at 8 GHz and explicit coefficient-magnitude and ordering constraints, the paper reports covering 2,347 states in 1,721 trials over 5 hours 12 minutes. The convergence result applies to this constrained discrete model, not arbitrary channels or all continuous analog states. Scientific Analog and IDEC supplied EDA-tool support; the author affiliation is SNU.",
+  "sources": [
+    {
+      "title": "A UVM Testbench for Checking the Global Convergence of Analog/Mixed-Signal Systems: An Adaptive Decision-Feedback Equalizer Example — author preprint",
+      "url": "https://easychair.org/publications/preprint/jl62/open",
+      "checkedAt": "2026-10-25",
+      "summary": "The cover dates preprint 15247 to October 18, 2024. Sections IV–V define visited-state handling, failure examples and the constrained 2,347-state success case; acknowledgments identify tool support."
+    },
+    {
+      "title": "DVCon Europe 2024 official program: session 3B",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-Europe-2024-Proceedings.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "Program page 29 lists the exact DFE-convergence title and Jaeha Kim in the October 16 session. This presentation precedes the October 18 preprint posting."
+    }
+  ]
+}

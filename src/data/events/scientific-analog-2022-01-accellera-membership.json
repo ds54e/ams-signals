@@ -1,0 +1,28 @@
+{
+  "id": "scientific-analog-2022-01-accellera-membership",
+  "when": {
+    "start": "2022-01-15",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [],
+  "headline": "Scientific Analog joins Accellera Systems Initiative",
+  "fact": "Scientific Analog announces that it joined Accellera Systems Initiative as of January 15, 2022. Its January 18 announcement connects participation to its SystemVerilog analog-verification products and interoperability goals. Accellera’s August 2022 newsletter independently welcomes Scientific Analog among new members. Membership alone does not establish a particular working-group contribution, standard release, or customer adoption.",
+  "sources": [
+    {
+      "title": "Scientific Analog Joins Accellera",
+      "url": "https://www.scianalog.com/news/accellera/",
+      "checkedAt": "2026-10-25",
+      "summary": "The January 18 announcement explicitly gives January 15, 2022 as the membership effective date."
+    },
+    {
+      "title": "Accellera Community Newsletter: August 2022",
+      "url": "https://www.accellera.org/news/newsletters/2022-august",
+      "checkedAt": "2026-10-25",
+      "summary": "Accellera welcomes Scientific Analog among its newest members; it does not identify specific technical contributions."
+    }
+  ]
+}

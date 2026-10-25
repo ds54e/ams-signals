@@ -1,0 +1,36 @@
+{
+  "id": "scientific-analog-2025-01-silicon-photonics-systemverilog",
+  "when": {
+    "start": "2025-01-21",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim presents SystemVerilog/XMODEL models of three-channel silicon-photonic WDM links",
+  "fact": "At ASP-DAC 2025, Jaeha Kim, affiliated with Seoul National University and Scientific Analog, presents an invited paper on SystemVerilog/XMODEL simulation of silicon-photonic systems. The conference abstract describes mapping photonic elements to equivalent multi-port transmission lines and event-driven simulation of 5-Gb/s, three-channel WDM links using micro-ring, Mach-Zehnder and electro-absorption modulators. It reports 4.2, 8.3 and 8.3 simulated symbols per second for those examples. These are model-simulation results, not measured link throughput or demonstrated silicon correlation. January 21 is the scheduled presentation date; the publisher proceedings date is later.",
+  "sources": [
+    {
+      "title": "ASP-DAC 2025 official technical program and abstract: 1F-3",
+      "url": "https://www.aspdac.com/aspdac2025/archive/program/program_abst.html",
+      "checkedAt": "2026-10-25",
+      "summary": "Session 1F-3 on January 21, 10:55–11:20, supplies the exact title, dual affiliation, model method, link conditions and simulation speeds."
+    },
+    {
+      "title": "Invited paper: Modeling and Simulation of Silicon Photonics Systems in SystemVerilog/XMODEL — SNU publication record",
+      "url": "https://snu.elsevierpure.com/en/publications/invited-paper-modeling-and-simulation-of-silicon-photonics-system/",
+      "checkedAt": "2026-10-25",
+      "summary": "University metadata identifies pages 141–146 and DOI 10.1145/3658617.3703934; its March 4 publication date is distinguished from the January conference presentation."
+    },
+    {
+      "title": "Introduction to Silicon Photonics Systems and Their Modeling with XMODEL — earlier tutorial record",
+      "url": "https://www.scianalog.com/webinars/w20201109/",
+      "checkedAt": "2026-10-25",
+      "summary": "The November 9, 2020 tutorial already introduces combined photonic/electronic WDM modeling with the same modulator families. It supplies earlier methodological context, not evidence that the later quantitative results existed in 2020; it is not indexed as a second research milestone."
+    }
+  ]
+}

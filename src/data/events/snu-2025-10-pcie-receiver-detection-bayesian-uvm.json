@@ -1,0 +1,36 @@
+{
+  "id": "snu-2025-10-pcie-receiver-detection-bayesian-uvm",
+  "when": {
+    "start": "2025-10-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim reports Bayesian UVM margin exploration for a PCIe receiver-detection circuit",
+  "fact": "A DVCon Europe 2025 paper by Jaeha Kim of Seoul National University combines reactive UVM stimulus with BayesOpt through SystemVerilog DPI to explore a PCIe receiver-detection model built with XMODEL. It searches coupling/channel capacitances and termination resistances for period-count extrema with and without a receiver. With comparator thresholds of 1.75 V and 1.35 V, the reported extrema are 2,507 and 223 counts; other threshold settings lose margin or fail to oscillate. The 400-search-iteration example took 91 seconds with Xcelium/XMODEL on emulated RHEL7 on an Apple M4 Pro with 48 GB RAM. This bounded model search is not an exhaustive proof over continuous parameters or measured silicon. Scientific Analog and IDEC are acknowledged for EDA-tool support, rather than identified as research-author affiliations.",
+  "sources": [
+    {
+      "title": "A UVM Testbench for Exploring Design Margins of Analog/Mixed-Signal Circuits: A PCI-Express Receiver Detection Circuit Example — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVConEU_2025_paper_136.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "Pages 1, 4–5 and 8–9 identify the SNU author, DPI/Bayesian search, parameter-dependent results, host conditions and tool-support acknowledgments."
+    },
+    {
+      "title": "DVCon Europe 2025 proceedings record",
+      "url": "https://dvcon-proceedings.org/document/a-uvm-testbench-for-exploring-design-margins-of-analog-mixed-signal-circuits-a-pci-express-receiver-detection-circuit-example/",
+      "checkedAt": "2026-10-25",
+      "summary": "The official archive identifies the SNU author and 2025 paper. The company’s dated conference notice separately identifies the October 15 session."
+    },
+    {
+      "title": "Scientific Analog DVCon Europe 2025 paper schedule",
+      "url": "https://www.scianalog.com/news/dvconeurope2025/",
+      "checkedAt": "2026-10-25",
+      "summary": "The October 14 notice schedules this exact paper for October 15 at 5:15 PM in session 7C. The Event uses the presentation date, not the news date."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "scientific-analog-2023-02-receiver-jitter-tolerance-uvm",
+  "when": {
+    "start": "2023-02-28",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim presents reactive UVM measurement of modeled receiver jitter tolerance",
+  "fact": "Jaeha Kim presents a reactive UVM testbench for high-speed wireline receiver jitter tolerance at DVCon U.S. 2023. The slides identify Seoul National University and Scientific Analog affiliations and place the SystemVerilog/XMODEL transceiver, jitter stimulus and statistical BER instrumentation inside a fixture. Standard UVM components use prior BER results to select the next sinusoidal-jitter amplitude, with linear and binary searches for the pass/fail boundary. The example reports 106 trials at 20 jitter frequencies in 41 minutes for a target BER below 10^-12. The BER comes from statistical model instrumentation, not a measured silicon run or counting 10^12 received bits.",
+  "sources": [
+    {
+      "title": "A UVM Reactive Testbench for Jitter Tolerance Measurement of High-Speed Wireline Receivers — slides",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1113-A-UVM-Reactive-Testbench-for-Jitter-Tolerance-Measurement-of-High-Speed-Wireline-Receivers-1.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "Slides 1, 8 and 11–14 identify dual affiliation, statistical BER, reactive search and the stated trial/frequency/runtime example."
+    },
+    {
+      "title": "DVCon U.S. 2023 official program: poster 2",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-US-2023_Proceedings.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "The February 28 poster session lists the receiver jitter-tolerance presentation and SNU author. Later tutorials and uploaded recordings are not separate research Events."
+    }
+  ]
+}

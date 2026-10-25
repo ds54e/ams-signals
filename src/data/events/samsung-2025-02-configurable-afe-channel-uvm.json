@@ -1,0 +1,28 @@
+{
+  "id": "samsung-2025-02-configurable-afe-channel-uvm",
+  "when": {
+    "start": "2025-02-25",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "samsung"
+  ],
+  "people": [],
+  "headline": "Samsung authors report configurable AFE/channel models for PCIe receiver-logic verification",
+  "fact": "Samsung authors present a configurable analog front-end behavioral and channel model in a UVM testbench for 16.0-GT/s PCIe receiver digital logic. Randomizable offsets and FIR channel coefficients exercise eye monitoring, offset calibration, DFE adaptation and margin logic, including deliberately out-of-range conditions that expose retry and timeout bugs. For the reported regression, time to 100% digital code coverage falls from 54.26 to 16.13 hours. The conventional comparison uses an XMODEL analog behavioral model; this does not establish Scientific Analog coauthorship or collaboration. The authors retain conventional circuit-reflecting models for verification requiring actual AFE/channel behavior.",
+  "sources": [
+    {
+      "title": "An Effective Digital Logic Verification Methodology of High Speed Interface IP Using a Configurable AFE Behavioral and Channel Model — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/1035-2.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "The eight-page paper identifies Samsung-only authors, the 16.0-GT/s application, deliberately extended stimulus ranges and the Table 2 comparison; XMODEL is used in the conventional baseline."
+    },
+    {
+      "title": "DVCon U.S. 2025 program: poster 1035",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/DVCon-U.S.-2025-Proceedings.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "The February 25 poster session lists paper 1035 and Samsung authors; this is the presentation date, rather than the PDF upload date."
+    }
+  ]
+}

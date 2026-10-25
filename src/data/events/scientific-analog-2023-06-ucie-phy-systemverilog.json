@@ -1,0 +1,30 @@
+{
+  "id": "scientific-analog-2023-06-ucie-phy-systemverilog",
+  "when": {
+    "start": "2023-06-29",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim presents interacting electrical and logical UCIe PHY models in SystemVerilog",
+  "fact": "Scientific Analog hosts Jaeha Kim’s UCIe PHY Modeling and Simulation with XMODEL webinar. The resource page describes SystemVerilog models of PLL, DLL, duty-cycle correction, phase interpolation and transmitter/receiver circuits interacting with logical-layer FSMs. Training examples adjust reference voltages, clock/data timing, lane skew and link data rate using pseudo-random data; FSM coverage can be inspected in SystemVerilog. The materials include a recording, slides and a model package. The stated 4–32-GT/s range concerns model/design requirements, not a measured silicon implementation or UCIe compliance certification.",
+  "sources": [
+    {
+      "title": "UCIe PHY Modeling and Simulation with XMODEL — webinar and resource record",
+      "url": "https://www.scianalog.com/webinars/w20230629/",
+      "checkedAt": "2026-10-25",
+      "summary": "The June 29, 2023 webinar record identifies Kim and both PHY layers, enumerates modeled blocks and training functions, and lists the recording and model-package resources."
+    },
+    {
+      "title": "Scientific Analog webinar announcement, June 2, 2023",
+      "url": "https://www.scianalog.com/news/webinar-05/",
+      "checkedAt": "2026-10-25",
+      "summary": "The announcement schedules the webinar for June 29 and identifies Kim as Scientific Analog CEO/founder; June 2 is the news date, not the event date."
+    }
+  ]
+}

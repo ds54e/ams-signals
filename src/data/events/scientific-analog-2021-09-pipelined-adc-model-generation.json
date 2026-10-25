@@ -1,0 +1,30 @@
+{
+  "id": "scientific-analog-2021-09-pipelined-adc-model-generation",
+  "when": {
+    "start": "2021-09-15",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Jaeha Kim explains structural and functional SystemVerilog model generation using a pipelined ADC",
+  "fact": "In an IEEE Silicon Valley SSCS-sponsored webinar, Jaeha Kim explains automatic SystemVerilog model extraction using a pipelined ADC example. Structural modeling maps circuit devices and connectivity into models, retaining a low abstraction level that limits speed improvement. Functional modeling maps selected circuit regions to predefined templates and requires manual input. The resource record lists a recording and slides. This is a demonstrated modeling workflow, not evidence of fully automatic abstraction of arbitrary analog circuits or deployment at a named customer.",
+  "sources": [
+    {
+      "title": "Automatic Generation of SystemVerilog Models from Analog/Mixed-Signal Circuits: a Pipelined ADC Example — webinar record",
+      "url": "https://www.scianalog.com/webinars/w20210915/",
+      "checkedAt": "2026-10-25",
+      "summary": "The September 15 record describes both approaches, their abstraction/manual-input tradeoffs and recording resources."
+    },
+    {
+      "title": "Scientific Analog announcement of the IEEE SSCS webinar",
+      "url": "https://www.scianalog.com/news/webinar-02/",
+      "checkedAt": "2026-10-25",
+      "summary": "The September 3 announcement names IEEE Silicon Valley SSCS sponsorship and the September 15 event time, distinguishing news from presentation."
+    }
+  ]
+}

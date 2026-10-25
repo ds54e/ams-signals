@@ -1,0 +1,29 @@
+{
+  "id": "sk-hynix-2018-dram-peripheral-model-verification",
+  "when": {
+    "start": "2018",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "sk-hynix",
+    "scientific-analog"
+  ],
+  "people": [],
+  "headline": "SK hynix, SNU and Scientific Analog describe automatically generated DRAM peripheral models",
+  "fact": "A 2018 DAC Designer/IP Track case study concerns analog/mixed-signal verification of DRAM peripherals with automatically generated SystemVerilog models. Scientific Analog’s announcement identifies joint work with SK hynix and Seoul National University, describes MODELZEN model generation followed by XMODEL simulation, and schedules a June 27 poster. SNU’s laboratory publication list independently records the 2018 work. The accessible sources establish the modeling flow and participants, but do not establish quantitative accuracy, speedup, silicon correlation or company-wide deployment. The Event retains year precision rather than treating the advance announcement as proof of the actual presentation day.",
+  "sources": [
+    {
+      "title": "SNU MICS Group publication list: Analog/Mixed-Signal Verification of DRAM Peripherals with Automatically-Generated System Verilog Models",
+      "url": "https://mics.snu.ac.kr/people.html",
+      "checkedAt": "2026-10-25",
+      "summary": "Jiho Lee’s publication list records the Yinjae Lee, Jiho Lee et al. DAC IP/DT Track work in 2018."
+    },
+    {
+      "title": "SK Hynix to Present DRAM Verification Flow Based on XMODEL at DAC 2018 Designer Track",
+      "url": "https://www.scianalog.com/news/skhynix-dac2018/",
+      "checkedAt": "2026-10-25",
+      "summary": "The April 19 advance announcement explicitly identifies joint SK hynix/SNU/Scientific Analog work, MODELZEN and XMODEL, and a planned June 27 poster; no quantitative result is given."
+    }
+  ]
+}

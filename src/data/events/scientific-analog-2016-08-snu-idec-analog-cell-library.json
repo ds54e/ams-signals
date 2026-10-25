@@ -1,0 +1,24 @@
+{
+  "id": "scientific-analog-2016-08-snu-idec-analog-cell-library",
+  "when": {
+    "start": "2016-08-08",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "scientific-analog"
+  ],
+  "people": [
+    "jaeha-kim"
+  ],
+  "headline": "Scientific Analog reports SNU/IDEC analog-cell library distribution with XMODEL PLL verification",
+  "fact": "Scientific Analog reports an August 8, 2016 announcement by Seoul National University’s MICS Group of an Analog Cell Library and reference flow released through IDEC. The flow uses XMODEL for PLL behavior/performance simulation and Synopsys IC Compiler for physical implementation. The reported Samsung 65-nm library supports an 8-GHz LC-oscillator PLL or 1–2-GHz ring-oscillator PLL and is restricted to research groups with appropriate technology access and NDA. The October 4 report quotes MICS director and Scientific Analog founder Jaeha Kim. SNU/IDEC are the library’s releasing/distributing organizations; the named tool vendors and technology provider are not thereby coauthors of every design. The source does not establish unrestricted public library availability.",
+  "sources": [
+    {
+      "title": "Seoul National University and IDEC distributes Analog Cell Library (ACL) in 65nm CMOS",
+      "url": "https://www.scianalog.com/news/celllibrary/",
+      "checkedAt": "2026-10-25",
+      "summary": "The October 4, 2016 report explicitly dates the SNU release announcement to August 8, identifies IDEC distribution, XMODEL/IC Compiler roles, PLL examples and technology-access/NDA restrictions."
+    }
+  ]
+}

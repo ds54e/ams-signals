@@ -1,0 +1,30 @@
+{
+  "id": "betasoft-2022-analog-filter-uvm-testbench",
+  "when": {
+    "start": "2022",
+    "precision": "year"
+  },
+  "kind": "technical",
+  "companies": [
+    "betasoft"
+  ],
+  "people": [
+    "charles-dancak"
+  ],
+  "headline": "Charles Dančak reports a UVM/SystemVerilog testbench for a programmable analog filter",
+  "fact": "A DVCon U.S. paper by Charles Dančak of Betasoft Consulting extends an object-oriented testbench into UVM for a digitally programmable analog bandpass filter. A fixture encapsulates the DUT and XMODEL stimulus/measurement primitives, while UVM components randomize frequencies and modes, compare transfer gain with HSPICE reference tables and collect functional coverage. SystemVerilog assertions check supply current and bias voltage during power-down. The paper reports agreement within 2% of HSPICE for the illustrated filter example; this is not a general analog-model error bound. The official proceedings archive assigns the work to 2022; conflicting secondary citations to 2021 are not used to backdate the Event.",
+  "sources": [
+    {
+      "title": "A UVM SystemVerilog Testbench for Analog/Mixed-Signal Verification: A Digitally-Programmable Analog Filter Example — paper",
+      "url": "https://dvcon-proceedings.org/wp-content/uploads/A-UVM-SystemVerilog-Testbench-for-AnalogMixed-Signal-Verification-A-Digitally-Programmable-Analog-Filter-Example.pdf",
+      "checkedAt": "2026-10-25",
+      "summary": "The paper identifies the Betasoft author, UVM fixture architecture, filter tests and the example-specific HSPICE comparison."
+    },
+    {
+      "title": "DVCon official proceedings record: analog-filter paper",
+      "url": "https://dvcon-proceedings.org/document/a-uvm-systemverilog-testbench-for-analog-mixed-signal-verification-a-digitally-programmable-analog-filter-example/",
+      "checkedAt": "2026-10-25",
+      "summary": "The official archive identifies the author, title and year 2022. The year differs from some later bibliographies; no unverified 2021 presentation date is asserted."
+    }
+  ]
+}
