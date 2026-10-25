@@ -191,14 +191,14 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     if (width >= 1024) {
       expect(row.columns[0].width).toBe(120);
       expect(row.columns[1].width).toBeGreaterThan(754);
-      expect(row.columns[1].left - row.columns[0].right).toBe(12);
+      expect(row.columns[1].left - row.columns[0].right).toBe(0);
       if (width >= 1280) {
         expect(row.row.width).toBe(1200);
-        expect(row.columns[1].width).toBe(1068);
+        expect(row.columns[1].width).toBe(1080);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);
-      expect(row.columns[1].bottom).toBeLessThan(row.columns[0].top);
+      expect(row.columns[1].bottom).toBeLessThanOrEqual(row.columns[0].top);
     }
     expect(row.date.bottom).toBeLessThan(row.strip.top);
     expect(row.strip.top - row.date.bottom).toBeCloseTo(6, 1);
@@ -256,6 +256,8 @@ export async function expectCompleteDescriptions(descriptions: Locator) {
       project: el.closest('[data-catalog-project]')!.getAttribute('data-catalog-project'),
       clamp: style.webkitLineClamp, height: el.clientHeight, fullHeight: el.scrollHeight,
       width: el.clientWidth, fullWidth: el.scrollWidth,
+      paintOutset: Math.max(0, -parseFloat(getComputedStyle(el, '::before').right) || 0),
+      copyWidth: el.parentElement!.clientWidth, copyFullWidth: el.parentElement!.scrollWidth,
       textFits: lines.every((line) => line.top >= bounds.top - 1 && line.bottom <= bounds.bottom + 1
         && line.left >= bounds.left - 1 && line.right <= bounds.right + 1),
     };
@@ -264,7 +266,9 @@ export async function expectCompleteDescriptions(descriptions: Locator) {
   for (const description of rendered) {
     expect(description.clamp, description.project!).toBe('none');
     expect(description.fullHeight, description.project!).toBeLessThanOrEqual(description.height + 1);
-    expect(description.fullWidth, description.project!).toBeLessThanOrEqual(description.width + 1);
+    // The inert background extends into the existing body inset; text must still fit the paragraph.
+    expect(description.fullWidth, description.project!).toBeLessThanOrEqual(description.width + description.paintOutset + 1);
+    expect(description.copyFullWidth, description.project!).toBeLessThanOrEqual(description.copyWidth + 1);
     expect(description.textFits, description.project!).toBe(true);
   }
 }

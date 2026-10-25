@@ -125,8 +125,8 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '12px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(1028);
-      expect(reports[2].copyWidth).toBe(1028);
+      expect(reports[0].copyWidth).toBe(1040);
+      expect(reports[2].copyWidth).toBe(1040);
     }
 
     await open(page, 'timeline');
@@ -367,7 +367,7 @@ test('Events toolbar is flat and retains search and Signal type controls', async
 });
 
 for (const mode of ['light', 'dark', 'forced'] as const) {
-  test(`shared copy surfaces preserve compact rails and readable padding in ${mode} mode`, async ({ page }) => {
+  test(`Description surfaces preserve compact rails, white context and responsive padding in ${mode} mode`, async ({ page }) => {
     await page.emulateMedia(mode === 'forced' ? { forcedColors: 'active' } : { colorScheme: mode });
     for (const width of [320, 400, 401, 760, 761, 960, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -377,40 +377,62 @@ for (const mode of ['light', 'dark', 'forced'] as const) {
         const geometry = await page.evaluate(() => {
           const body = document.querySelector('.result-body, .catalog-overview')!;
           const rail = document.querySelector('.result-date, .catalog-rail')!;
+          const description = body.querySelector('.index-description')!;
           const list = document.querySelector('.index-list')!;
-          const rect = (el: Element) => el.getBoundingClientRect();
-          const s = getComputedStyle(body), r = rect(rail), b = rect(body);
-          const probe = document.createElement('span');
-          body.append(probe); probe.style.background = 'var(--index-copy-fill)';
-          const fill = getComputedStyle(probe).backgroundColor; probe.remove();
+          const r = rail.getBoundingClientRect(), b = body.getBoundingClientRect();
+          const s = getComputedStyle(body), d = getComputedStyle(description), paint = getComputedStyle(description, '::before');
           const rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
+          const transparent = (color: string) => { const parts = rgb(color); return parts.length === 4 && parts[3] === 0; };
           return { rail: r.width, gap: b.x - r.right, copyX: b.x + parseFloat(s.paddingLeft),
-            padding: [s.paddingLeft, s.paddingRight], fill, background: s.backgroundColor,
-            gradient: getComputedStyle(list).backgroundImage,
-            title: rgb(getComputedStyle(body.querySelector('.index-title')!).color),
-            summary: rgb(getComputedStyle(body.querySelector('.index-summary')!).color),
-            railBelow: r.top > b.bottom, bodyBelow: b.top > r.bottom,
+            padding: [s.paddingLeft, s.paddingRight], vertical: [d.paddingTop, d.paddingBottom],
+            outset: [paint.left, paint.right], fill: paint.backgroundColor, backgroundAlpha: rgb(s.backgroundColor)[3] ?? 1,
+            gradient: getComputedStyle(list).backgroundImage, pageFill: rgb(getComputedStyle(document.documentElement).backgroundColor),
+            title: rgb(getComputedStyle(body.querySelector('.index-title')!).color), summary: rgb(d.color),
+            contextWhite: [...body.querySelectorAll('.result-context, .catalog-title')].every(n => transparent(getComputedStyle(n).backgroundColor)),
+            railBelow: r.top >= b.bottom - .1, bodyBelow: b.top >= r.bottom - .1,
             overflow: document.documentElement.scrollWidth > innerWidth || body.scrollWidth > body.clientWidth + 1 };
         });
         const inset = width <= 400 ? '8px' : width <= 760 ? '12px' : '20px';
+        const vertical = width <= 400 ? '4px' : width <= 760 ? '6px' : '8px';
+        const outset = width <= 400 ? '-8px' : width <= 760 ? '-12px' : '-10px';
         expect(geometry.padding).toEqual([inset, inset]);
-        expect(geometry.overflow).toBe(false);
-        if (mode !== 'forced') {
-          expect(geometry.fill).toBe('rgb(247, 248, 250)');
-          expect(geometry.background).toBe(width <= 760 ? geometry.fill : 'rgba(0, 0, 0, 0)');
-          expect(geometry.gradient === 'none').toBe(width <= 760);
-        }
-        const fill = geometry.fill.match(/[\d.]+/g)!.map(Number);
-        expect(contrast(geometry.title, fill)).toBeGreaterThanOrEqual(4.5);
-        expect(contrast(geometry.summary, fill)).toBeGreaterThanOrEqual(4.5);
+        expect(geometry.vertical).toEqual([vertical, vertical]);
+        expect(geometry.outset).toEqual([outset, outset]);
+        expect(geometry.overflow).toBe(false); expect(geometry.contextWhite).toBe(true);
+        expect(geometry.backgroundAlpha).toBe(0); expect(geometry.gradient).toBe('none');
+        if (mode !== 'forced') expect(geometry.fill).toBe('rgb(247, 248, 250)');
+        expect(contrast(geometry.title, geometry.pageFill)).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(geometry.summary, geometry.fill.match(/[\d.]+/g)!.map(Number))).toBeGreaterThanOrEqual(4.5);
         if (width > 760) {
-          expect(geometry.rail).toBe(120); expect(geometry.gap).toBe(12);
+          expect(geometry.rail).toBe(120); expect(geometry.gap).toBe(0);
           if (copyStart !== undefined) expect(geometry.copyX).toBe(copyStart);
           copyStart = geometry.copyX;
-        } else {
-          expect(surface === 'events' ? geometry.bodyBelow : geometry.railBelow).toBe(true);
-        }
+        } else expect(surface === 'events' ? geometry.bodyBelow : geometry.railBelow).toBe(true);
       }
     }
   });
 }
+
+test('Description paint excludes mixed company/person links and leaves no empty surface', async ({ page }) => {
+  for (const surface of indexes) {
+    await open(page, surface);
+    const rows = page.locator('.index-row');
+    const row = surface === 'events'
+      ? rows.filter({ has: page.locator('.result-context a[href*="/companies/"]') })
+        .filter({ has: page.locator('.result-context a[href*="/people/"]') }).first()
+      : rows.first();
+    const description = row.locator('.index-description');
+    await expect(description).toBeVisible();
+    await expect(description).not.toHaveText('');
+    if (surface === 'events') {
+      await expect(row.locator('.result-context a[href*="/companies/"]').first()).toBeVisible();
+      await expect(row.locator('.result-context a[href*="/people/"]').first()).toBeVisible();
+      expect(await row.locator('.result-context').evaluate(n => getComputedStyle(n, '::before').content)).toBe('none');
+    }
+    await description.evaluate(n => { n.textContent = ''; });
+    await expect(description).toBeHidden();
+    await description.evaluate(n => n.remove());
+    await expect(row.locator('.index-title')).toBeVisible();
+    await expect(row.locator('.result-body, .catalog-overview')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  }
+});

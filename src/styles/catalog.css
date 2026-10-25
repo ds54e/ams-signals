@@ -43,7 +43,6 @@
 .catalog-provenance-toggle:hover { text-decoration: underline; text-underline-offset: 2px; }
 .catalog-provenance {
   grid-column: 1 / -1;
-  background: var(--surface);
   margin-top: 14px;
   padding-left: 12px;
   border-left: 2px solid var(--provenance-border);
@@ -59,8 +58,8 @@
 .activity-strip li { height: 8px; border: 0; background: var(--activity-empty); }
 .activity-strip li.active { background: var(--activity-active); }
 @media (max-width: 760px) {
-  .catalog-row { grid-template-columns: minmax(0, 1fr); gap: 13px; }
-  .catalog-overview { order: -1; }
+  .catalog-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .catalog-overview { order: -1; padding-bottom: 13px; }
   .catalog-quicklinks { gap: 5px 16px; }
   .catalog-quicklinks a { padding-block: 5px; }
   .catalog-provenance { margin-top: 0; }

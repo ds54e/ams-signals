@@ -623,6 +623,8 @@
   .event-explorer[data-surface="events"] .event-filter-summary { flex: 0 0 auto; min-height: 40px; padding: 0; }
   .event-detail { max-width: none; }
   .result-date { align-items: center; flex-direction: row; flex-wrap: wrap; }
+  .event-explorer[data-surface="events"] .index-dated-row { row-gap: 0; }
+  .event-explorer[data-surface="events"] .result-body { padding-top: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .timeline-glyph { transition: none; }

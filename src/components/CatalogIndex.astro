@@ -68,7 +68,7 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
                 {project.sources.filter((source) => source.purpose).sort((a, b) => Object.keys(linkLabels).indexOf(a.purpose!) - Object.keys(linkLabels).indexOf(b.purpose!)).map((source) => <li><a href={source.url}>{linkLabels[source.purpose!]}</a></li>)}
               </ul>
             </div>
-            <p class="catalog-description index-summary">{project.description}</p>
+            <p class="catalog-description index-summary index-description">{project.description}</p>
           </div>
           {project.developmentEvidence && <div class="catalog-provenance" id={`${project.id}--development`} data-provenance-panel role="group" aria-labelledby={`${project.id}--name ${project.id}--development-heading`}>
             <p class="catalog-provenance-heading" id={`${project.id}--development-heading`}>Development provenance</p>
