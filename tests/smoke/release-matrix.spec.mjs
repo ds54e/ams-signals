@@ -124,13 +124,24 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       await expectMatrixRowWindow(page, label === 'mobile' ? 10 : 25);
       const scroller = page.locator('.activity-matrix-scroll');
       const shell = page.locator('.activity-matrix-shell');
+      // Native keyboard/wheel/touch scrolling can still be animating when a
+      // nonzero scrollTop first appears. Finish that input before sending the next.
+      const nativeScroll = async (input) => {
+        await scroller.evaluate((node) => {
+          node.testScrollEnded = new Promise((resolve) => {
+            node.addEventListener('scrollend', () => resolve(), { once: true });
+          });
+        });
+        await input();
+        await scroller.evaluate((node) => node.testScrollEnded);
+      };
       const topScreenshot = testInfo.outputPath(`timeline-${label}-top.png`);
       await page.screenshot({ path: topScreenshot, fullPage: true });
       await testInfo.attach(`timeline-${label}-top`, { path: topScreenshot, contentType: 'image/png' });
       await scroller.focus();
-      await scroller.press('PageDown');
+      await nativeScroll(() => scroller.press('PageDown'));
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
-      await scroller.press('Home');
+      await nativeScroll(() => scroller.press('Home'));
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBe(0);
 
       // Keep the frame top in view so actual wheel/touch input lands on the region.
@@ -138,12 +149,14 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
         document.documentElement.style.scrollBehavior = 'auto';
         window.scrollTo(0, document.querySelector('.activity-matrix-shell').getBoundingClientRect().top + window.scrollY - 10);
       });
+      // Let the viewport scroll reach the compositor before hit-tested input.
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const heading = await page.locator('.activity-matrix-axis-viewport').boundingBox();
       const bounds = await scroller.boundingBox();
       const x = bounds.x + bounds.width / 2;
       const y = Math.min(bounds.y + 180, viewport.height - 30);
       await page.mouse.move(x, y);
-      await page.mouse.wheel(0, 150);
+      await nativeScroll(() => page.mouse.wheel(0, 150));
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
       await expect(shell).toHaveAttribute('data-more-rows', '');
       expect((await page.locator('.activity-matrix-axis-viewport').boundingBox()).y).toBe(heading.y);
@@ -151,17 +164,19 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       if (label === 'mobile') {
         const touch = await context.newCDPSession(page);
         const before = await scroller.evaluate((node) => node.scrollTop);
-        await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }] });
-        for (let step = 1; step <= 6; step += 1) {
-          await touch.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x, y: y - step * 20, id: 1 }] });
-        }
-        await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await nativeScroll(async () => {
+          await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }] });
+          for (let step = 1; step <= 6; step += 1) {
+            await touch.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x, y: y - step * 20, id: 1 }] });
+          }
+          await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        });
         await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(before);
         await touch.detach();
       }
 
       await scroller.focus();
-      await scroller.press('End');
+      await nativeScroll(() => scroller.press('End'));
       await expect.poll(() => scroller.evaluate((node) => node.scrollHeight - node.clientHeight - node.scrollTop)).toBeLessThanOrEqual(1);
       await expect(shell).not.toHaveAttribute('data-more-rows');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').opacity)).toBe('0');
@@ -169,7 +184,7 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       const bottomScreenshot = testInfo.outputPath(`timeline-${label}-bottom.png`);
       await page.screenshot({ path: bottomScreenshot, fullPage: true });
       await testInfo.attach(`timeline-${label}-bottom`, { path: bottomScreenshot, contentType: 'image/png' });
-      await scroller.press('Home');
+      await nativeScroll(() => scroller.press('Home'));
       await expect(shell).toHaveAttribute('data-more-rows', '');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').pointerEvents)).toBe('none');
     });
