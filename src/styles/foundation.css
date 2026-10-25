@@ -11,7 +11,7 @@
   --accent: #216cf0;
   --accent-ink: #1556bb;
   --accent-soft: #e9f0ff;
-  /* One categorical palette for list labels, Timeline glyphs and legends. */
+  /* Categorical list labels; Timeline glyphs use their own fixed fills. */
   --category-green: #226447;
   --category-blue: #4b6d89;
   --category-gold: #787043;
@@ -26,9 +26,9 @@
   --activity-active: #6089ad;
   --technical: var(--category-blue);
   --organizational: var(--category-rust);
-  --timeline-selection-outline: #242b30;
+  --timeline-selection-outline: var(--accent-ink);
   --entity-company: #242b30;
-  --entity-person: #4b6d89;
+  --entity-person: #187565;
   --danger-muted: #8b4b43;
   --layout-reading: 800px;
   --layout-listing: 1040px;

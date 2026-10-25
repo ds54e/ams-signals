@@ -206,10 +206,8 @@ function hue(rgb: number[]) {
 }
 
 for (const mode of ['light', 'dark', 'forced'] as const) {
-  test(`Timeline entire top axis shares the dashboard surface with readable labels in ${mode} mode`, async ({ page }) => {
+  test(`Timeline axis and latest period use readable Home palette surfaces in ${mode} mode`, async ({ page }) => {
     await page.emulateMedia(mode === 'forced' ? { forcedColors: 'active' } : { colorScheme: mode });
-    await open(page, '');
-    const cardFill = await page.locator('.dashboard-panel').first().evaluate((el) => getComputedStyle(el).backgroundColor);
     for (const width of [1440, 900, 390]) {
       await page.setViewportSize({ width, height: 900 });
       await open(page, 'timeline');
@@ -221,16 +219,19 @@ for (const mode of ['light', 'dark', 'forced'] as const) {
           const s = getComputedStyle(document.querySelector(selector)!);
           return { fill: s.backgroundColor, opacity: s.opacity };
         });
-        return { fills, labels: labels.map((el) => ({ text: el.textContent, color: rgb(getComputedStyle(el).color) })),
+        return { fills, labels: labels.map((el) => ({ text: el.textContent, color: rgb(getComputedStyle(el).color), fill: getComputedStyle(el).backgroundColor, weight: getComputedStyle(el).fontWeight })),
           labelPosition: getComputedStyle(labels[0]).position, background: rgb(getComputedStyle(root).backgroundColor) };
       });
       const initial = await measure();
-      expect(initial.fills).toEqual(Array(3).fill({ fill: cardFill, opacity: '1' }));
-      if (mode !== 'forced') expect(cardFill).toBe('rgb(245, 246, 248)');
+      const axisFill = mode === 'forced' ? initial.fills[0].fill : 'rgb(237, 242, 248)';
+      expect(initial.fills).toEqual(Array(3).fill({ fill: axisFill, opacity: '1' }));
+      if (mode !== 'forced') {
+        expect(initial.labels[1]).toMatchObject({ fill: 'rgb(241, 246, 255)', color: [21, 86, 187], weight: '650' });
+      }
       expect(initial.labels[0].text).toBe('Company / Person');
       expect(initial.labels.some((label) => label.text === '2026')).toBe(true);
       expect(initial.labels.some((label) => label.text === '2025')).toBe(true);
-      for (const label of initial.labels) expect(contrast(label.color, initial.background), `${label.text} contrast`).toBeGreaterThanOrEqual(4.5);
+      for (const label of initial.labels) expect(contrast(label.color, label.fill === 'rgba(0, 0, 0, 0)' ? initial.background : label.fill.match(/[\d.]+/g)!.map(Number)), `${label.text} contrast`).toBeGreaterThanOrEqual(4.5);
       expect(initial.labelPosition).toBe('sticky');
       await page.locator('[data-timeline-scroll]').evaluate((el) => { el.scrollLeft = 200; el.dispatchEvent(new Event('scroll')); });
       expect(await measure()).toEqual(initial);

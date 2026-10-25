@@ -1,8 +1,13 @@
 .event-explorer {
-  --timeline-glyph-size: 8px;
-  --timeline-technical-fill: #4b6d89;
-  --timeline-organizational-fill: #886454;
-  --matrix-guide-color: color-mix(in srgb, var(--border) 60%, transparent);
+  --timeline-glyph-size: 9px;
+  --timeline-technical-fill: #2563eb;
+  --timeline-organizational-fill: #c2710c;
+  --timeline-axis-fill: #edf2f8;
+  --timeline-latest-fill: #f1f6ff;
+  --timeline-row-alt: #f8fafc;
+  --timeline-row-hover: #edf4ff;
+  --timeline-frame-radius: 15px;
+  --matrix-guide-color: #e5eaf1;
   min-width: 0;
 }
 .event-explorer[data-surface="events"] {
@@ -198,7 +203,7 @@
   overflow-y: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-panel);
+  border-radius: var(--timeline-frame-radius);
   scrollbar-width: thin;
   overscroll-behavior-x: contain;
 }
@@ -218,14 +223,20 @@
 .timeline-axis {
   min-height: 46px;
   color: var(--muted);
-  background: var(--surface);
+  background: var(--timeline-axis-fill);
   border-bottom: 1px solid var(--border);
   font: 0.64rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 .timeline-lane {
   height: 46px;
 }
-.timeline-lane:hover { background: color-mix(in srgb, var(--surface-tint) 42%, transparent); }
+.timeline-lane,
+.activity-matrix-row { background: var(--surface); }
+/* Keep the visible-row predicate below hover specificity, including after filtering. */
+.timeline-lane:where(:nth-child(even of :not([hidden]))),
+.activity-matrix-row:where(:nth-child(even of :not([hidden]))) { background: var(--timeline-row-alt); }
+.timeline-lane:hover,
+.activity-matrix-row:hover { background: var(--timeline-row-hover); }
 .lane-label {
   position: sticky;
   left: 0;
@@ -236,19 +247,18 @@
   min-width: 0;
   padding: 0 14px;
   color: var(--text);
-  background: var(--surface);
+  background: inherit;
   box-shadow: 1px 0 0 var(--border);
   font-size: var(--type-meta);
   font-weight: 680;
   line-height: 1.2;
   text-decoration: none;
 }
-.timeline-lane:hover .lane-label { background: color-mix(in srgb, var(--surface-tint) 42%, var(--surface)); }
 .lane-label:hover { text-decoration: underline; }
 .axis-label {
   z-index: 7;
   color: var(--muted);
-  background: var(--surface);
+  background: var(--timeline-axis-fill);
   font-weight: 600;
 }
 .lane-track,
@@ -337,9 +347,8 @@
   isolation: isolate;
   max-width: 100%;
   background: var(--surface);
-  border: 0;
-  border-bottom: 1px solid var(--border-strong);
-  border-radius: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--timeline-frame-radius);
 }
 .activity-matrix-shell::after {
   content: "";
@@ -348,6 +357,7 @@
   z-index: 9;
   height: 16px;
   background: linear-gradient(transparent, var(--surface));
+  border-radius: 0 0 14px 14px;
   pointer-events: none;
   opacity: 0;
 }
@@ -358,8 +368,8 @@
   z-index: 9;
   max-width: 100%;
   overflow: hidden;
-  background: var(--surface-tint);
-  border-radius: 0;
+  background: var(--timeline-axis-fill);
+  border-radius: 14px 14px 0 0;
 }
 .activity-matrix-scroll {
   position: relative;
@@ -369,7 +379,7 @@
   max-height: var(--matrix-viewport-height, none);
   overflow-x: auto;
   overflow-y: auto;
-  border-radius: 0;
+  border-radius: 0 0 14px 14px;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
 }
@@ -390,9 +400,8 @@
   z-index: 1;
   height: 37px;
   color: var(--muted);
-  background: var(--surface-tint);
-  border-top: 1px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-strong);
+  background: var(--timeline-axis-fill);
+  border-bottom: 1px solid var(--border);
   font: 400 12px/1.2 var(--font-sans);
 }
 .matrix-axis-spacer {
@@ -402,7 +411,7 @@
   position: sticky;
   left: 0;
   z-index: 10;
-  background: var(--surface-tint);
+  background: var(--timeline-axis-fill);
   border-right: 1px solid var(--matrix-guide-color);
   box-shadow: none;
 }
@@ -438,6 +447,11 @@
   font-weight: 400;
   line-height: 1;
 }
+.activity-band-label:first-child {
+  color: var(--accent-ink);
+  background: var(--timeline-latest-fill);
+  font-weight: 650;
+}
 .activity-guides {
   position: absolute;
   inset: 0;
@@ -455,7 +469,6 @@
   min-height: 28px;
   border-bottom: 1px solid var(--border);
 }
-.activity-matrix-row:hover { background: color-mix(in srgb, var(--surface-tint) 42%, transparent); }
 .matrix-entity-label {
   position: sticky;
   left: 0;
@@ -466,7 +479,7 @@
   overflow: hidden;
   padding: calc((var(--matrix-row-height) - 1em) / 2) 13px 0;
   color: var(--entity-company);
-  background: var(--surface);
+  background: inherit;
   border-right: 1px solid var(--matrix-guide-color);
   box-shadow: none;
   font-size: 13px;
@@ -480,9 +493,6 @@
 .matrix-entity-company { color: var(--entity-company); }
 .timeline-lane[data-lane-type="person"] > .lane-label,
 .matrix-entity-person { color: var(--entity-person); }
-.activity-matrix-row:hover .matrix-entity-label {
-  background: color-mix(in srgb, var(--surface-tint) 42%, var(--surface));
-}
 .matrix-entity-label:hover { text-decoration: underline; }
 .activity-bundle {
   position: absolute;
@@ -514,10 +524,8 @@
   font-size: 14px;
   line-height: 1.65;
   background: var(--surface-tint);
-  border: 0;
-  border-top: 1px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-strong);
-  border-radius: var(--radius-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--timeline-frame-radius);
   scrollbar-width: thin;
 }
 .event-detail:focus { outline: none; }
@@ -615,6 +623,7 @@
 }
 
 @media (forced-colors: active) {
+  .timeline-scroll, .activity-matrix-shell, .event-detail { border-color: CanvasText; }
   .timeline-glyph, .legend-mark { forced-color-adjust: none; }
   .timeline-mark.event-kind-technical .timeline-glyph,
   .timeline-mark.event-kind-organizational .timeline-glyph,

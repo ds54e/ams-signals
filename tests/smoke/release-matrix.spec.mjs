@@ -731,7 +731,7 @@ test('Activity Matrix axis and rows share temporal-track geometry at every respo
     expectAligned(initial, `${viewport.width}px initial`);
     expect(initial.newestBandLeft, `${viewport.width}px 2026 band clears label column`)
       .toBeGreaterThanOrEqual(initial.labelRight - 1);
-    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBe(35);
+    expect(initial.axisHeight, `${viewport.width}px compact axis height`).toBe(36);
 
 
     if (viewport.width === 390) {
@@ -948,7 +948,7 @@ test('global Matrix is one accessible interleaved view with restrained entity co
   expect(visualGrammar.labelOverflow).toBe('hidden');
   expect(visualGrammar.labelTextOverflow).toBe('ellipsis');
   expect(visualGrammar.hitWidth).toBe(18);
-  expect(visualGrammar.glyphWidth).toBe(8);
+  expect(visualGrammar.glyphWidth).toBe(9);
   const longLabel = page.locator('[data-group="both"] [data-matrix-row][data-entity-id="cadence"] .matrix-entity-label');
   await expect(longLabel).toHaveText('Cadence');
   await expect(longLabel).toHaveAttribute('title', 'Cadence');
@@ -1005,7 +1005,7 @@ test('global Matrix is one accessible interleaved view with restrained entity co
     });
     expect(colors.person, `${colorScheme} Person versus Company`).not.toBe(colors.company);
     expect(colors.company).toBe('rgb(36, 43, 48)');
-    expect(colors.person).toBe('rgb(75, 109, 137)');
+    expect(colors.person).toBe('rgb(24, 117, 101)');
     expect(colors.person, `${colorScheme} Person versus Organizational`).not.toBe(colors.organizational);
     expect(colors.contrast, `${colorScheme} Person label contrast`).toBeGreaterThanOrEqual(4.5);
   }

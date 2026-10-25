@@ -3,7 +3,7 @@ import { installBrowserErrorGuards } from './release-helpers.mjs';
 
 installBrowserErrorGuards(test);
 
-const selectionShadow = (_scheme: 'light' | 'dark') => 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 43, 48) 0px 0px 0px 4px';
+const selectionShadow = (_scheme: 'light' | 'dark') => 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(21, 86, 187) 0px 0px 0px 4px';
 
 for (const colorScheme of ['light', 'dark'] as const) {
   test(`Events use compact, distinct semantic badges in ${colorScheme} mode`, async ({ page }) => {
@@ -64,7 +64,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(labelColors.length).toBeGreaterThan(0);
         for (const label of labelColors) {
           expect(['company', 'person']).toContain(label.type);
-          expect(label.color).toBe(label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(75, 109, 137)');
+          expect(label.color).toBe(label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(24, 117, 101)');
         }
         const firstLabel = page.locator('.matrix-entity-label:visible, .timeline-lane > .lane-label:visible').first();
         const labelColor = await firstLabel.evaluate((el) => getComputedStyle(el).color);
@@ -83,11 +83,11 @@ for (const colorScheme of ['light', 'dark'] as const) {
         }));
         expect(measured.length).toBeGreaterThan(0);
         for (const mark of measured) {
-          expect(mark.hit).toEqual([18, 18]); expect(mark.glyph).toEqual(['8px', '8px']);
-          expect(mark.renderedWidth).toBeCloseTo(8, 1);
+          expect(mark.hit).toEqual([18, 18]); expect(mark.glyph).toEqual(['9px', '9px']);
+          expect(mark.renderedWidth).toBeCloseTo(9, 1);
           expect(Math.max(...mark.centered)).toBeLessThan(0.1);
           expect(mark.radius).toBe(mark.kind === 'technical' ? '50%' : '0px');
-          expect(mark.background).toBe(mark.kind === 'technical' ? 'rgb(75, 109, 137)' : 'rgb(136, 100, 84)');
+          expect(mark.background).toBe(mark.kind === 'technical' ? 'rgb(37, 99, 235)' : 'rgb(194, 113, 12)');
           expect([mark.border, mark.outline, mark.shadow]).toEqual(['0px', 'none', mark.active ? selectionShadow(colorScheme) : 'none']);
           if (shapes.has(mark.kind)) expect(mark.radius).toBe(shapes.get(mark.kind));
           if (colors.has(mark.kind)) expect(mark.background).toBe(colors.get(mark.kind));
@@ -97,8 +97,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const legend = page.locator(`.legend-mark.event-kind-${kind}`);
           await expect(legend).toHaveCSS('background-color', colors.get(kind)!);
           await expect(legend).toHaveCSS('border-radius', shapes.get(kind)!);
-          await expect(legend).toHaveCSS('width', '8px');
-          await expect(legend).toHaveCSS('height', '8px');
+          await expect(legend).toHaveCSS('width', '9px');
+          await expect(legend).toHaveCSS('height', '9px');
           await expect(legend).toHaveCSS('border-width', '0px');
           await expect(legend).toHaveCSS('outline-style', 'none');
           await expect(legend).toHaveCSS('box-shadow', 'none');
@@ -111,7 +111,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const linked = page.locator(`[data-event-mark][data-event-id="${id}"]:visible`);
           if (!(await mark.evaluate((el) => el.classList.contains('is-active')))) {
             await mark.hover();
-            expect((await mark.locator('.timeline-glyph').boundingBox())!.width).toBeCloseTo(9.2, 1);
+            expect((await mark.locator('.timeline-glyph').boundingBox())!.width).toBeCloseTo(10.35, 1);
           }
           await mark.click();
           await expect(mark).toHaveAttribute('aria-pressed', 'true');
@@ -121,7 +121,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           }
           await mark.hover();
           await expect(mark.locator('.timeline-glyph')).toHaveCSS('box-shadow', selectionShadow(colorScheme));
-          expect((await mark.locator('.timeline-glyph').boundingBox())!.width).toBeCloseTo(8, 1);
+          expect((await mark.locator('.timeline-glyph').boundingBox())!.width).toBeCloseTo(9, 1);
           await page.mouse.move(0, 0);
           await mark.focus(); await page.keyboard.press('Enter');
           expect(await mark.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
@@ -162,7 +162,7 @@ test('Timeline category shapes and selection remain visible in forced colors', a
         width: el.getBoundingClientRect().width, outline: s.outlineStyle, outlineWidth: s.outlineWidth, offset: s.outlineOffset };
     });
     expect(colors.border).toBe('0px'); expect(colors.shadow).toBe('none');
-    expect(colors.width).toBeCloseTo(8, 1);
+    expect(colors.width).toBeCloseTo(9, 1);
     expect([colors.outline, colors.outlineWidth, colors.offset]).toEqual(['solid', '2px', '2px']);
     expect(await mark.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
     const kind = await mark.evaluate((el) => el.classList.contains('event-kind-technical') ? 'technical' : 'organizational');
@@ -199,7 +199,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         await page.goto(`./${route}`);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
         const marks = page.locator('[data-event-mark]:visible');
-        // A selected ring is 16px, so its whole painted extent remains inside
+        // A selected ring is 17px, so its whole painted extent remains inside
         // the original 18px target, row and track even at content boundaries.
         const issues = await marks.evaluateAll((nodes) => nodes.flatMap((el) => {
           const glyph = el.querySelector('.timeline-glyph')!.getBoundingClientRect();
@@ -233,4 +233,69 @@ for (const colorScheme of ['light', 'dark'] as const) {
       }
     }
   });
+}
+
+for (const colorScheme of ['light', 'dark'] as const) {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800 }, { width: 1024, height: 768 }, { width: 390, height: 844 }, { width: 320, height: 568 }]) {
+    test(`Timeline opaque stripes, hover and sticky labels survive discovery at ${viewport.width}px in ${colorScheme}`, async ({ page }, info) => {
+      await page.setViewportSize(viewport);
+      await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
+      for (const route of ['timeline/', 'companies/renesas/', 'people/toshi-kawashima/']) {
+        await page.goto(`./${route}`);
+        await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
+        const rows = page.locator('.activity-matrix-row:visible, .timeline-lane:visible');
+        const originalOrder = await rows.evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-entity-id') ?? el.getAttribute('data-lane-id')));
+        const stripeCheck = async () => {
+          await page.mouse.move(0, 0);
+          const fills = await rows.evaluateAll((nodes) => nodes.map((el) => ({
+            fill: getComputedStyle(el).backgroundColor,
+            label: getComputedStyle(el.querySelector('.matrix-entity-label, .lane-label')!).backgroundColor,
+            parity: [...el.parentElement!.children].filter((row) => !row.hasAttribute('hidden')).indexOf(el) % 2,
+          })));
+          expect(fills.length).toBeGreaterThan(0);
+          for (const row of fills) {
+            expect(row.fill).toBe(row.parity ? 'rgb(248, 250, 252)' : 'rgb(255, 255, 255)');
+            expect(row.label).toBe(row.fill);
+          }
+          // Exercise both stripe parities. Hovering the fixed label must tint the entire row.
+          for (const row of (await rows.all()).slice(0, 2)) {
+            await row.locator('.matrix-entity-label, .lane-label').hover();
+            await expect(row).toHaveCSS('background-color', 'rgb(237, 244, 255)');
+            await expect(row.locator('.matrix-entity-label, .lane-label')).toHaveCSS('background-color', 'rgb(237, 244, 255)');
+          }
+          await page.mouse.move(0, 0);
+        };
+        await stripeCheck();
+        const label = rows.first().locator('.matrix-entity-label, .lane-label');
+        const before = (await label.boundingBox())!.x;
+        const scroll = page.locator('.activity-matrix-scroll, .timeline-scroll').first();
+        await scroll.evaluate((el) => { el.scrollLeft = 200; });
+        const scrollRange = await scroll.evaluate((el) => el.scrollWidth - el.clientWidth);
+        expect(await scroll.evaluate((el) => el.scrollLeft)).toBe(Math.min(200, scrollRange));
+        expect((await label.boundingBox())!.x).toBeCloseTo(before, 1);
+        await expect(label).toHaveCSS('position', 'sticky');
+        // Fixed labels own pixels even where scrolling marks pass underneath them.
+        expect(await label.evaluate((el) => {
+          const box = el.getBoundingClientRect();
+          const top = document.elementFromPoint(box.right - 4, box.y + box.height / 2);
+          return top === el || el.contains(top);
+        })).toBe(true);
+        if (route === 'timeline/') {
+          await expect(page.locator('.activity-matrix-shell')).toHaveCSS('overflow', 'visible');
+          await page.locator('[data-search]').fill('UVM');
+          await stripeCheck();
+          await page.locator('[data-search]').fill('');
+          await page.locator('[data-company-picker] summary').click();
+          await page.locator('[data-clear-all-companies]').click();
+          await page.locator('[data-company-options] input[value="renesas"]').check();
+          await page.locator('[data-company-picker] summary').click();
+          await stripeCheck();
+          await page.screenshot({ path: info.outputPath(`filtered-sticky-${viewport.width}-${colorScheme}.png`) });
+          await page.goto('./timeline/');
+          expect(await rows.evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-entity-id') ?? el.getAttribute('data-lane-id')))).toEqual(originalOrder);
+        }
+        await page.screenshot({ path: info.outputPath(`palette-${route.replaceAll('/', '-')}-${viewport.width}-${colorScheme}.png`), fullPage: true });
+      }
+    });
+  }
 }
