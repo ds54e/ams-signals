@@ -125,8 +125,8 @@ for (const viewport of viewports) {
     expect(counts[0]).toMatchObject({ size: '12px', weight: '400', numeric: 'tabular-nums' });
     expect(reports[0]).toEqual(reports[1]); // One Catalog presentation path.
     if (viewport.width >= 1280) {
-      expect(reports[0].copyWidth).toBe(1026);
-      expect(reports[2].copyWidth).toBe(1038);
+      expect(reports[0].copyWidth).toBe(1028);
+      expect(reports[2].copyWidth).toBe(1028);
     }
 
     await open(page, 'timeline');
@@ -365,3 +365,52 @@ test('Events toolbar is flat and retains search and Signal type controls', async
   await page.locator('[data-search]').focus();
   expect(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
 });
+
+for (const mode of ['light', 'dark', 'forced'] as const) {
+  test(`shared copy surfaces preserve compact rails and readable padding in ${mode} mode`, async ({ page }) => {
+    await page.emulateMedia(mode === 'forced' ? { forcedColors: 'active' } : { colorScheme: mode });
+    for (const width of [320, 400, 401, 760, 761, 960, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      let copyStart: number | undefined;
+      for (const surface of indexes) {
+        await open(page, surface);
+        const geometry = await page.evaluate(() => {
+          const body = document.querySelector('.result-body, .catalog-overview')!;
+          const rail = document.querySelector('.result-date, .catalog-rail')!;
+          const list = document.querySelector('.index-list')!;
+          const rect = (el: Element) => el.getBoundingClientRect();
+          const s = getComputedStyle(body), r = rect(rail), b = rect(body);
+          const probe = document.createElement('span');
+          body.append(probe); probe.style.background = 'var(--index-copy-fill)';
+          const fill = getComputedStyle(probe).backgroundColor; probe.remove();
+          const rgb = (color: string) => color.match(/[\d.]+/g)!.map(Number);
+          return { rail: r.width, gap: b.x - r.right, copyX: b.x + parseFloat(s.paddingLeft),
+            padding: [s.paddingLeft, s.paddingRight], fill, background: s.backgroundColor,
+            gradient: getComputedStyle(list).backgroundImage,
+            title: rgb(getComputedStyle(body.querySelector('.index-title')!).color),
+            summary: rgb(getComputedStyle(body.querySelector('.index-summary')!).color),
+            railBelow: r.top > b.bottom, bodyBelow: b.top > r.bottom,
+            overflow: document.documentElement.scrollWidth > innerWidth || body.scrollWidth > body.clientWidth + 1 };
+        });
+        const inset = width <= 400 ? '8px' : width <= 760 ? '12px' : '20px';
+        expect(geometry.padding).toEqual([inset, inset]);
+        expect(geometry.overflow).toBe(false);
+        if (mode !== 'forced') {
+          expect(geometry.fill).toBe('rgb(247, 248, 250)');
+          expect(geometry.background).toBe(width <= 760 ? geometry.fill : 'rgba(0, 0, 0, 0)');
+          expect(geometry.gradient === 'none').toBe(width <= 760);
+        }
+        const fill = geometry.fill.match(/[\d.]+/g)!.map(Number);
+        expect(contrast(geometry.title, fill)).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(geometry.summary, fill)).toBeGreaterThanOrEqual(4.5);
+        if (width > 760) {
+          expect(geometry.rail).toBe(120); expect(geometry.gap).toBe(12);
+          if (copyStart !== undefined) expect(geometry.copyX).toBe(copyStart);
+          copyStart = geometry.copyX;
+        } else {
+          expect(surface === 'events' ? geometry.bodyBelow : geometry.railBelow).toBe(true);
+        }
+      }
+    }
+  });
+}

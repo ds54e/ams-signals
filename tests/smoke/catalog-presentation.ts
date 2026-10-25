@@ -23,7 +23,7 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     expect(item.font).toBe(11); expect(item.weight).toBe(500);
     expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
     expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
-    expect(item.width).toBeLessThanOrEqual(150);
+    expect(item.width).toBeLessThanOrEqual(120);
     expect(item.height).toBeCloseTo(21.4, 1);
     if (item.development && !forcedColors) {
       expect(item.fill).toBe('rgba(0, 0, 0, 0)');
@@ -124,7 +124,7 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
     expect(item.activityWidth).toBeGreaterThanOrEqual(94);
-    expect(item.activityWidth).toBeLessThanOrEqual(150);
+    expect(item.activityWidth).toBeLessThanOrEqual(120);
     expect(item.stripWidth).toBeCloseTo(94, 1);
     expect(item.stripWidth).toBeLessThanOrEqual(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
@@ -189,12 +189,12 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     expect(row.columns).toHaveLength(2);
     expect(row.row.width).toBeLessThanOrEqual(1200);
     if (width >= 1024) {
-      expect(row.columns[0].width).toBe(150);
+      expect(row.columns[0].width).toBe(120);
       expect(row.columns[1].width).toBeGreaterThan(754);
-      expect(row.columns[1].left - row.columns[0].right).toBe(24);
+      expect(row.columns[1].left - row.columns[0].right).toBe(12);
       if (width >= 1280) {
         expect(row.row.width).toBe(1200);
-        expect(row.columns[1].width).toBe(1026);
+        expect(row.columns[1].width).toBe(1068);
       }
     } else {
       expect(row.columns[0].left).toBe(row.columns[1].left);

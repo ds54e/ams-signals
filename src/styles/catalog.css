@@ -4,7 +4,7 @@
   margin-inline: auto;
   overflow-wrap: anywhere;
 }
-.catalog-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 24px; }
+.catalog-row { display: grid; grid-template-columns: var(--index-rail-width) minmax(0, 1fr); column-gap: var(--index-column-gap); }
 .catalog-rail { display: flex; flex-direction: column; align-items: start; gap: 10px; }
 .catalog-toolbar { margin-bottom: 22px; }
 .catalog-search { flex: 0 1 328px; min-width: 0; }
@@ -38,11 +38,12 @@
   white-space: nowrap;
   cursor: pointer;
 }
-/* Increase the touch target without changing the shared shared badge geometry. */
+/* Increase the touch target without changing the shared badge geometry. */
 .catalog-provenance-toggle::after { content: ''; position: absolute; inset: -3px; }
 .catalog-provenance-toggle:hover { text-decoration: underline; text-underline-offset: 2px; }
 .catalog-provenance {
   grid-column: 1 / -1;
+  background: var(--surface);
   margin-top: 14px;
   padding-left: 12px;
   border-left: 2px solid var(--provenance-border);

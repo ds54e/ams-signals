@@ -1,16 +1,19 @@
 .event-explorer {
   --timeline-glyph-size: 9px;
-  --timeline-technical-fill: #3c65a4;
-  --timeline-organizational-fill: #886454;
+  --timeline-technical-fill: #6089ad;
+  --timeline-organizational-fill: #b17a44;
   --timeline-axis-fill: #f5f6f8;
   --timeline-latest-fill: #f1f3f5;
-  --timeline-row-alt: #fafafa;
-  --timeline-row-hover: #f5f5f5;
+  --timeline-row-alt: #f9fafb;
+  --timeline-row-hover: #eef3f8;
   --timeline-selection-outline: #3c65a4;
   --timeline-frame-radius: 15px;
-  --matrix-guide-color: #edf0f2;
+  --timeline-frame-border: #edf0f4;
+  --matrix-guide-color: #edf0f4;
   min-width: 0;
 }
+.event-explorer[data-surface="timeline"] .filter-input:hover { border-color: #6a8aa9; }
+.event-explorer[data-surface="timeline"] .filter-input:focus-visible { border-color: #4b6d89; outline-color: #4b6d89; }
 .event-explorer[data-surface="events"] {
   width: min(100%, var(--layout-explorer));
   margin-inline: auto;
@@ -186,7 +189,7 @@
 .legend-mark { width: var(--timeline-glyph-size); height: var(--timeline-glyph-size); display: inline-block; border-radius: 50%; }
 
 .timeline-workspace {
-  --border: #e8eaee;
+  --border: #e8edf2;
   --accent-soft: #eef0f2;
   position: relative;
   z-index: 1;
@@ -205,7 +208,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--timeline-frame-border);
   border-radius: var(--timeline-frame-radius);
   scrollbar-width: thin;
   overscroll-behavior-x: contain;
@@ -350,7 +353,7 @@
   isolation: isolate;
   max-width: 100%;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--timeline-frame-border);
   border-radius: var(--timeline-frame-radius);
 }
 .activity-matrix-shell::after {
@@ -527,7 +530,7 @@
   font-size: 14px;
   line-height: 1.65;
   background: var(--surface-tint);
-  border: 1px solid var(--border);
+  border: 1px solid var(--timeline-frame-border);
   border-radius: var(--timeline-frame-radius);
   scrollbar-width: thin;
 }

@@ -87,7 +87,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           expect(mark.renderedWidth).toBeCloseTo(9, 1);
           expect(Math.max(...mark.centered)).toBeLessThan(0.1);
           expect(mark.radius).toBe(mark.kind === 'technical' ? '50%' : '0px');
-          expect(mark.background).toBe(mark.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)');
+          expect(mark.background).toBe(mark.kind === 'technical' ? 'rgb(96, 137, 173)' : 'rgb(177, 122, 68)');
           expect([mark.border, mark.outline, mark.shadow]).toEqual(['0px', 'none', mark.active ? selectionShadow(colorScheme) : 'none']);
           if (shapes.has(mark.kind)) expect(mark.radius).toBe(shapes.get(mark.kind));
           if (colors.has(mark.kind)) expect(mark.background).toBe(colors.get(mark.kind));
@@ -254,14 +254,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
           })));
           expect(fills.length).toBeGreaterThan(0);
           for (const row of fills) {
-            expect(row.fill).toBe(row.parity ? 'rgb(250, 250, 250)' : 'rgb(255, 255, 255)');
+            expect(row.fill).toBe(row.parity ? 'rgb(249, 250, 251)' : 'rgb(255, 255, 255)');
             expect(row.label).toBe(row.fill);
           }
           // Exercise both stripe parities. Hovering the fixed label must tint the entire row.
           for (const row of (await rows.all()).slice(0, 2)) {
             await row.locator('.matrix-entity-label, .lane-label').hover();
-            await expect(row).toHaveCSS('background-color', 'rgb(245, 245, 245)');
-            await expect(row.locator('.matrix-entity-label, .lane-label')).toHaveCSS('background-color', 'rgb(245, 245, 245)');
+            await expect(row).toHaveCSS('background-color', 'rgb(238, 243, 248)');
+            await expect(row.locator('.matrix-entity-label, .lane-label')).toHaveCSS('background-color', 'rgb(238, 243, 248)');
           }
           await page.mouse.move(0, 0);
         };
