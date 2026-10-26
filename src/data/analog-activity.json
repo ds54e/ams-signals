@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-24",
-  "capturedAt": "2026-10-24T09:43:56.992Z",
+  "reviewedAt": "2026-10-26",
+  "capturedAt": "2026-10-26T08:55:14.287Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -2161,6 +2161,13 @@
       "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-07",
       "lastMeaningfulCommitSha": "54d16b5f20a470fdde1e3e7606292c31a8fccf8c"
+    },
+    "uberwave": {
+      "kind": "public-update",
+      "lastPublicUpdateAt": "2026-10-22",
+      "lastPublicUpdateSource": "release",
+      "lastPublicUpdateType": "release",
+      "notes": "WP5 Alpha 1 evaluation release published October 22, 2026; reviewed October 26 against tagged source 53480275199affda8d86dba6a60110dc37bb3b5a. This is point release evidence, not monthly repository history. Existing project captures are retained unchanged."
     }
   }
 }

@@ -1,5 +1,11 @@
 [
   {
+    "project": "uberwave",
+    "date": "2026-10-26",
+    "kind": "added",
+    "summary": "Analog / Mixed-Signal Waveform Visualization with released RAW/UwRaw and PSF import."
+  },
+  {
     "project": "chipjev",
     "date": "2026-10-11",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-10-11",
     "kind": "added",
     "summary": "GF180MCU-D circuit skills with gm/ID lookup, ngspice evaluation and model-guided diagnosis."
-  },
-  {
-    "project": "analoggym-opt",
-    "date": "2026-10-11",
-    "kind": "added",
-    "summary": "GRPO fixed-topology circuit sizing with ngspice/SKY130 evaluation and optional agent integrations."
   }
 ]
