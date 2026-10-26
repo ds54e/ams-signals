@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 # Optional repository Actions variables make the manual deployment target switchable
-# without rewriting the workflow. Leaving them unset preserves the current Pages URL.
+# without rewriting the workflow. Leaving them unset selects the GitHub project fallback.
 env:
   SITE: ${{ vars.SITE || 'https://ds54e.github.io' }}
   BASE_URL: ${{ vars.BASE_URL || '/ams-signals' }}

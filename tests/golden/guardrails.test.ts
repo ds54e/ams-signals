@@ -73,6 +73,52 @@ test('Golden validator rejects an Event that references an unknown Company', asy
   });
 });
 
+test('Golden CLI enforces precision, calendar dates and ordered ranges', async () => {
+  await withFixture(async ({ root, eventPath, event }) => {
+    for (const when of [
+      { start: '2024-02-29', precision: 'day' },
+      { start: '2025-12', end: '2026-01', precision: 'month' },
+      { start: '2025', end: '2026', precision: 'year' },
+    ]) {
+      await writeJson(eventPath, { ...event, when });
+      const accepted = run(validateScript, root);
+      assert.equal(accepted.status, 0, accepted.stderr);
+    }
+    for (const when of [
+      { start: '2026-02-30', precision: 'day' }, { start: '2026-13', precision: 'month' },
+      { start: '2026-01-01', precision: 'year' }, { start: '2026', end: '2025', precision: 'year' },
+    ]) {
+      await writeJson(eventPath, { ...event, when });
+      const rejected = run(validateScript, root);
+      assert.notEqual(rejected.status, 0);
+      assert.match(rejected.stderr, /when must use valid calendar dates matching precision/);
+    }
+    await writeJson(eventPath, { ...event, sources: [{ ...event.sources[0], checkedAt: '2026-02-30' }] });
+    const source = run(validateScript, root);
+    assert.notEqual(source.status, 0);
+    assert.match(source.stderr, /source checkedAt must be a valid/);
+    await writeJson(eventPath, event);
+    await writeJson(join(root, 'src/data/companies/acme.json'), { id: 'acme', name: 'Acme', lastReviewed: '2026-02-30' });
+    const company = run(validateScript, root);
+    assert.notEqual(company.status, 0);
+    assert.match(company.stderr, /lastReviewed must be a valid/);
+  });
+});
+
+test('Golden CLI rejects nested JSON in each collection instead of skipping it', async () => {
+  for (const collection of ['events', 'companies', 'people']) {
+    await withFixture(async ({ root, event }) => {
+      assert.equal(run(validateScript, root).status, 0);
+      const nested = join(root, 'src/data', collection, 'nested', 'deeper');
+      await mkdir(nested, { recursive: true });
+      await writeJson(join(nested, `${event.id}.json`), event);
+      const rejected = run(validateScript, root);
+      assert.notEqual(rejected.status, 0);
+      assert.match(rejected.stderr, /Golden JSON records must be directly inside/);
+    });
+  }
+});
+
 test('Golden fact lint rejects hiring facts that erase job-posting source modality', async () => {
   await withFixture(async ({ root, eventPath, event }) => {
     const baseline = run(factLintScript, root);

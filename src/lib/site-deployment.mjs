@@ -7,7 +7,7 @@
 //   SITE      public origin, e.g. https://ds54e.github.io
 //   BASE_URL  public base path, e.g. /ams-signals or /
 //
-// When unset, the current production target (https://ds54e.github.io + /ams-signals)
+// When unset, the fallback target (https://ds54e.github.io + /ams-signals)
 // is used. Explicitly set but invalid values fail loudly with an explanation;
 // they are never silently replaced by the defaults.
 //
@@ -69,7 +69,7 @@ export function normalizeBasePath(value, name = 'BASE_URL') {
 
 /**
  * Resolve the public deployment target from an environment-like object.
- * Absent variables fall back to the production defaults; present but invalid
+ * Absent variables fall back to the GitHub project defaults; present but invalid
  * variables throw with an explanation.
  */
 export function resolveSiteDeployment(env = process.env) {

@@ -622,7 +622,7 @@ async function expectedHomeActivity(page, events, analog, digital) {
   expect(buildMonth).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
   const [year, month] = buildMonth.split('-').map(Number);
   const months = Array.from({ length: 12 }, (_, i) => new Date(Date.UTC(year, month - 12 + i, 1)).toISOString().slice(0, 7));
-  const active = (fixture, key) => Object.values(fixture.activity.projects).filter((record) => record.kind === 'public-update'
+  const active = (fixture, key) => Object.values(fixture.activity.projects).filter((record) => record.kind === 'unfetched' ? false : record.kind === 'public-update'
     ? record.lastPublicUpdateAt.slice(0, 7) === key
     : record.commits[fixture.activity.months.indexOf(key)] > 0).length;
   return months.map((key) => ({ month: key,

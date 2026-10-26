@@ -61,10 +61,29 @@ test('authored Digital catalog inventory, provenance and snapshot validate toget
   assert.equal(freshnessCutoff('2026-09-05'), '2025-09-05');
   for (const p of projects) {
     const record = snapshot.projects[p.id];
-    const meaningful = hasRepositoryHistory(record) ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
-    assert.ok(meaningful >= freshnessCutoff(snapshot.reviewedAt));
+    if (record.kind !== 'unfetched') {
+      const meaningful = hasRepositoryHistory(record) ? record.lastMeaningfulCommitAt : record.lastPublicUpdateAt;
+      assert.ok(meaningful >= freshnessCutoff(snapshot.reviewedAt));
+    }
     assert.ok(Object.values(p.data.scope).length > 0);
   }
+});
+
+test('Digital keeps a failed new capture without inventing activity or ranking it above dated entries', () => {
+  const missing = activity();
+  missing.projects[github.id] = {
+    kind: 'unfetched', repository: snapshot.projects[github.id].repository, attemptedAt: snapshot.capturedAt,
+  };
+  const validated = validateActivity(projects, missing);
+  assert.equal(publicActivityDate(validated.projects[github.id]), '');
+  const ordered = sortProjects(projects, validated.projects);
+  const firstMissing = ordered.findIndex((project) => validated.projects[project.id].kind === 'unfetched');
+  assert.ok(firstMissing > 0);
+  assert.ok(ordered.slice(firstMissing).every((project) => validated.projects[project.id].kind === 'unfetched'));
+  const band = activityBand(validated.projects[github.id], validated.months, github.data.sources);
+  assert.equal(band.activeMonths, 0);
+  assert.ok(band.cells.every((cell) => !cell.active && cell.signal === 'unfetched' && cell.commits === undefined));
+  assert.match(band.provenance, /Activity not fetched/);
 });
 
 test('Digital preserves domain membership and rejects obsolete role/AI fields', async () => {

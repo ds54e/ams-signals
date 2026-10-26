@@ -12,7 +12,7 @@ import { expect } from '@playwright/test';
 import { resolveSiteDeployment } from '../../src/lib/site-deployment.mjs';
 import { analyticsEnabledFor, isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
-// The base path of the deployment under test. Defaults to the current production
+// The base path of the deployment under test. Defaults to the GitHub project
 // base /ams-signals/; override with BASE_URL to run the suite against a root
 // deployment. External targets (PLAYWRIGHT_BASE_URL) are expected to use the
 // same base.

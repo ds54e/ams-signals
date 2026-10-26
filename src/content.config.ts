@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { isCalendarDate, isValidWhen } from './lib/golden-dates.mjs';
 import { analogSchema, catalogSlug } from './lib/analog/schema';
 import { digitalSchema, catalogSlug as digitalSlug } from './lib/digital/schema';
 
@@ -11,12 +12,12 @@ const whenSchema = z.object({
   start: z.string().min(4),
   end: z.string().min(4).optional(),
   precision: datePrecision,
-}).strict();
+}).strict().refine(isValidWhen, 'Use calendar dates matching precision and an end not before start');
 
 const sourceSchema = z.object({
   title: z.string().min(1),
   url: z.string().url(),
-  checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  checkedAt: z.string().refine(isCalendarDate, 'Use a valid YYYY-MM-DD calendar date'),
   status: z.enum(['available', 'unavailable']).optional(),
   summary: z.string().min(1),
   archiveUrl: z.string().url().optional(),
@@ -56,7 +57,7 @@ const companies = defineCollection({
   schema: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
-    lastReviewed: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    lastReviewed: z.string().refine(isCalendarDate, 'Use a valid YYYY-MM-DD calendar date').optional(),
   }).strict(),
 });
 

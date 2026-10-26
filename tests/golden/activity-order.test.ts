@@ -105,12 +105,14 @@ test('the latest timestamp outranks total Event count', () => {
     clock,
     event('a-2024', '2024-06-05', ['a-company']),
     event('b-2024', '2024-01-05', ['b-company']),
+    event('b-2010', '2010-01-05', ['b-company']),
   ];
 
   const stats = new Map(statsOrder(entities, events).map(({ entity, stats: value }) => [entity.data.id, value]));
   assert.equal(stats.get('a-company')?.recent3, stats.get('b-company')?.recent3);
   assert.equal(stats.get('a-company')?.recent5, stats.get('b-company')?.recent5);
-  assert.equal(stats.get('a-company')?.total, stats.get('b-company')?.total);
+  assert.ok((stats.get('b-company')?.total ?? 0) > (stats.get('a-company')?.total ?? 0));
+  assert.ok((stats.get('a-company')?.latestStart ?? '') > (stats.get('b-company')?.latestStart ?? ''));
 
   precedes(order(entities, events), 'a-company', 'b-company', 'the newer latest timestamp must lead');
 });

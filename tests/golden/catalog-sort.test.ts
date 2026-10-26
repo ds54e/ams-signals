@@ -33,6 +33,15 @@ test('name comparison is Unicode-normalized, case-insensitive and trimmed', () =
   assert.deepEqual(sorted.map((item) => item.id), ['a', 'z']);
 });
 
+test('undated entries sort last, then by normalized name and id', () => {
+  const items = [
+    { id: 'b', data: { name: 'Alpha' } }, { id: 'dated', data: { name: 'Zebra' } },
+    { id: 'z', data: { name: 'Zulu' } }, { id: 'a', data: { name: 'ＡＬＰＨＡ' } },
+  ];
+  assert.deepEqual(sortByActivityThenName(items, (item) => item.id === 'dated' ? '2026-01-01' : '')
+    .map((item) => item.id), ['dated', 'a', 'b', 'z']);
+});
+
 test('id is the final deterministic tie-break when date and name are both equal', () => {
   const items = [
     { id: 'z', data: { name: 'Same' } },

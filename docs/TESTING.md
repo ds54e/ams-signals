@@ -20,6 +20,8 @@ For the Activity Matrix, `activity-matrix.test.ts` owns fixed boundary fixtures,
 
 A valid content addition should not require editing unrelated test literals for totals, active entities, activity order, period density or packing. Derive expectations independently from source inputs where possible; comparing rendered output only with itself proves little. Keep explicit identities only when they are intentional fixtures: export exclusions, canonical successors, rejected identities or historical associations. Do not weaken exact semantics into vague lower bounds.
 
+Golden date fixtures cover calendar validity, precision, range order and nested-record rejection. Activity-order fixtures make competing statistical keys disagree. Catalog and Home expectations handle `unfetched` records: they have no activity date/counts, sort after dated entries and never count as reviewed activity.
+
 ## Where a new browser assertion belongs
 
 | Concern | Owner under `tests/smoke/` |
@@ -33,6 +35,8 @@ A valid content addition should not require editing unrelated test literals for 
 Use the domain catalog browser suites for catalog behavior; `catalog-index.ts` owns shared catalog assertions. Pure logic belongs in Node tests even when its output is later rendered.
 
 Each release spec registers `installBrowserErrorGuards(test)` at module scope. `release-helpers.mjs` owns shared readiness/corpus/label helpers; a hook declared only inside an imported helper can attach to the first loaded suite. Preserve test-name and URL/surface diagnostics, plus the configured failure traces/screenshots/video. Do not suppress unrelated console errors to make a test pass.
+
+When the browser CI job fails, it uploads `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
 
 ## Local, production-shaped and live checks
 

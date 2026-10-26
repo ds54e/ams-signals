@@ -12,7 +12,7 @@ export async function catalogFixture(domain: 'analog' | 'digital') {
     id: file.slice(0, -3), ...parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
   })));
   const activity = JSON.parse(await readFile(new URL(`../../src/data/${domain}-activity.json`, import.meta.url), 'utf8'));
-  const date = (id: string) => activity.projects[id].lastCommitAt ?? activity.projects[id].lastPublicUpdateAt;
+  const date = (id: string) => activity.projects[id].lastCommitAt ?? activity.projects[id].lastPublicUpdateAt ?? '';
   const key = (name: string) => name.normalize('NFKC').toLowerCase().trim();
   const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
   const ordered = [...projects].sort((a, b) => compare(date(b.id), date(a.id)) || compare(key(a.name), key(b.name)) || compare(a.id, b.id));

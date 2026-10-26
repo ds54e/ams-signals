@@ -59,14 +59,14 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
   const monthLabels = snapshot.months.map((month) => monthFormat.format(new Date(`${month}-01T00:00:00Z`)));
   const rendered = await rows.evaluateAll((nodes, selector) => nodes.map((el) => {
     const activity = el.querySelector<HTMLElement>(selector)!;
-    const time = activity.querySelector('time')!;
+    const time = activity.querySelector<HTMLElement>('.index-date')!;
     const strip = activity.querySelector('ul');
     const stripBox = strip?.getBoundingClientRect();
     const visible = activity.cloneNode(true) as HTMLElement;
     visible.querySelectorAll('.visually-hidden').forEach((node) => node.remove());
     return {
       id: el.getAttribute('data-catalog-project'), kind: activity.getAttribute('data-activity-kind'), text: [...visible.childNodes].map((node) => node.textContent).join(' ').replace(/\s+/g, ' ').trim(),
-      date: time.getAttribute('datetime'), dateText: time.textContent!, dateRendered: time.innerText,
+      dateTag: time.tagName, date: time.getAttribute('datetime'), dateText: time.textContent!, dateRendered: time.innerText,
       dateTransform: getComputedStyle(time).textTransform, weight: Number(getComputedStyle(time).fontWeight),
       dateLine: time.parentElement!.innerText, provenance: time.title,
       dateBottom: time.getBoundingClientRect().bottom, dateRight: time.getBoundingClientRect().right,
@@ -89,12 +89,14 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
   for (const item of rendered) {
     const record = snapshot.projects[item.id];
     const repositoryBacked = record.kind === 'github' || record.kind === 'repository';
-    const date = repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
+    const unfetched = record.kind === 'unfetched';
+    const date = unfetched ? '' : repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
     expect(item.kind).toBe(record.kind);
-    expect(item.date).toBe(date);
-    expect(item.dateText).toBe(dateFormat.format(new Date(`${date}T00:00:00Z`)));
+    expect(item.dateTag).toBe(unfetched ? 'SPAN' : 'TIME');
+    expect(item.date).toBe(date || null);
+    expect(item.dateText).toBe(unfetched ? 'Activity not fetched' : dateFormat.format(new Date(`${date}T00:00:00Z`)));
     expect(item.dateRendered).toBe(item.dateText);
-    expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
+    if (!unfetched) expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
     expect(item.dateTransform).toBe('none');
     expect(item.weight).toBe(400);
     expect(item.dateLine).toBe(item.dateRendered);
@@ -107,6 +109,9 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       expect(item.text).not.toContain(record.repository!);
       expect(item.label).toContain(record.repository!);
       expect(item.label).toContain(`default branch ${record.defaultBranch}`);
+    } else if (unfetched) {
+      expect(item.provenance).toContain(`Activity not fetched for ${record.repository}; last attempt `);
+      expect(item.label).toContain(item.provenance);
     } else {
       expect(item.provenance).toMatch(new RegExp(`^${signalLabel}: .+`));
       expect(item.label).toContain(item.provenance);
@@ -134,9 +139,10 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       month, active, signal, count, source, title, accessible, width, height, borderWidth, opacity,
     })), item.id!).toEqual(snapshot.months.map((month, index) => {
       const count = record.commits?.[index];
-      const active = repositoryBacked ? count! > 0 : month === date.slice(0, 7);
-      const title = `${monthLabels[index]} · ${repositoryBacked ? `${count} default-branch commits` : active ? signalLabel : 'no reviewed public activity signal'}`;
-      return { month, active, signal: repositoryBacked ? 'repository' : record.lastPublicUpdateType,
+      const active = !unfetched && (repositoryBacked ? count! > 0 : month === date.slice(0, 7));
+      const title = unfetched ? `${monthLabels[index]} — activity not fetched`
+        : `${monthLabels[index]} · ${repositoryBacked ? `${count} default-branch commits` : active ? signalLabel : 'no reviewed public activity signal'}`;
+      return { month, active, signal: unfetched ? 'unfetched' : repositoryBacked ? 'repository' : record.lastPublicUpdateType,
         count: repositoryBacked ? String(count) : undefined,
         source: !repositoryBacked && active ? record.lastPublicUpdateSource : undefined,
         title, accessible: title, width: 6, height: 8, borderWidth: forcedColors ? 1 : 0, opacity: '1' };

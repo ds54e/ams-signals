@@ -83,6 +83,7 @@ test('repository counts become distinct active projects; snapshot months align b
     second: { kind: 'repository' as const, commits: [2, 6] },
     paper: { kind: 'public-update' as const, lastPublicUpdateAt: '2026-09-20' },
     old: { kind: 'public-update' as const, lastPublicUpdateAt: '2024-09-20' },
+    missing: { kind: 'unfetched' as const },
   } };
   const digital = { months: ['2026-08', '2026-09'], projects: {
     first: { kind: 'github' as const, commits: [4, 7] },
