@@ -14,7 +14,7 @@ catalogSearchRegression(fixture, {
   SKY130: ['analog-design-bench', 'gmoverid-skill'],
   AI: ['analogsage', 'zerosim'],
   layout: ['klayout', 'magic'],
-  sizing: ['autosizer', 'astra', 'analogsage', 'gmoverid-skill', 'pyopus'],
+  sizing: ['autosizer', 'circuitrubric', 'analogsage', 'gmoverid-skill', 'pyopus'],
   'KLayout-PEX': ['klayout-pex'],
   parasitic: ['klayout-pex'],
   PEX: ['klayout-pex'],
