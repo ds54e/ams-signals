@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public Apache-2.0 source and najaeda Python wheels; source builds require the documented frontend and native-library dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-10-31"
 sources:
   - id: "site"
     title: "Official najaeda Python API documentation"
@@ -22,26 +22,26 @@ sources:
     purpose: "official"
   - id: "code"
     title: "Canonical Naja implementation"
-    url: "https://github.com/najaeda/naja"
+    url: "https://github.com/keplertech/naja"
     purpose: "code"
   - id: "readme"
     title: "Reviewed framework, APIs, transformations and companion boundaries"
-    url: "https://github.com/najaeda/naja/blob/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f/README.md"
+    url: "https://github.com/keplertech/naja/blob/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f/README.md"
   - id: "implementation"
     title: "Netlist editing and optimization CLI"
-    url: "https://github.com/najaeda/naja/blob/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f/src/apps/naja_edit/NajaEdit.cpp"
+    url: "https://github.com/keplertech/naja/blob/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f/src/apps/naja_edit/NajaEdit.cpp"
   - id: "activity"
     title: "Avoid memory inference for arrays with multiple sequential writers"
-    url: "https://github.com/najaeda/naja/commit/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f"
+    url: "https://github.com/keplertech/naja/commit/931afedebbd6269bb5e1f27a2cc2cc1a73dfc37f"
   - id: "activity-tip"
     title: "Primitive wiring, Verilog dump controls and PULP regressions"
-    url: "https://github.com/najaeda/naja/commit/50306aa8662347000ee43bfce0ebcf6cf44720b9"
+    url: "https://github.com/keplertech/naja/commit/50306aa8662347000ee43bfce0ebcf6cf44720b9"
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
-    url: "https://github.com/najaeda/naja/commit/545ebd99803d301bdb46b4f326998945df83aa28"
+    url: "https://github.com/keplertech/naja/commit/545ebd99803d301bdb46b4f326998945df83aa28"
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
-    url: "https://github.com/najaeda/naja/blob/217a85474042f6c5a38e1b6217427ea94f10e51e/src/nl/netlist/snl/SNLParameter.cpp"
+    url: "https://github.com/keplertech/naja/blob/217a85474042f6c5a38e1b6217427ea94f10e51e/src/nl/netlist/snl/SNLParameter.cpp"
 ---
 
 ### Implementation and scope
@@ -65,3 +65,6 @@ The implementation review preserves functional Scope. Source and regression evid
 ### Development provenance
 
 Claude is credited in a canonical implementation change that releases parameter properties before destruction, including Python-wrapper invalidation. Current Naja code retains these cleanup calls. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-activity) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+
+The canonical repository moved from `najaeda/naja` to `keplertech/naja` with GitHub repository ID 414906187 unchanged. Source links now use that canonical owner; the move does not independently establish new implementation activity.

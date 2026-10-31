@@ -2,7 +2,7 @@
 name: "gsim"
 aliases: []
 summary: "Simulation interface connecting GDSFactory layouts to electromagnetic solvers through geometry, meshing and port setup."
-description: "Simulation interface connecting GDSFactory layouts to electromagnetic solvers through geometry, meshing and port setup. Local and cloud workflows have backend-specific requirements, including GDSFactory+ dependencies; the reviewed package constrains GDSFactory to version 9 rather than supporting arbitrary current core releases."
+description: "Connects GDSFactory layouts to electromagnetic solvers through PDK-derived geometry, meshing and multimode ports, including terminal S-parameter extraction. Optional FEMwell mode solving and DEVSIM-driven electro-optic workflows extend the analysis interface; local/cloud backends retain separate dependencies, and the package requires GDSFactory 9."
 scope:
   simulation:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; the declared GDSFactory/GDSFactory+ versions and selected local solver or cloud access are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-10-31"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -41,6 +41,18 @@ sources:
     title: Official project website and documentation
     url: https://gdsfactory.github.io/gsim/
     purpose: official
+  - id: review-20261031-stack
+    title: "PDK-authoritative layer-stack resolution for Palace and Meep"
+    url: https://github.com/gdsfactory/gsim/commit/b5d858801191920ec502fe7a2bedfb4226abfe15
+  - id: review-20261031-ports
+    title: "Terminal S-parameters assembled from multimode wave-port runs"
+    url: https://github.com/gdsfactory/gsim/blob/9f31460946f5c3f036fb91bc32a2ed1bc38245ce/src/gsim/palace/terminal_ports/assembly.py
+  - id: review-20261031-electrooptic
+    title: "Optional FEMwell adapter and TCAD-driven traveling-wave modulator workflow"
+    url: https://github.com/gdsfactory/gsim/commit/16c7ac6a3d760570944dde79f018a0cc7cef9bc9
+  - id: review-20261031-dependencies
+    title: "Current dependency and optional-extra constraints"
+    url: https://github.com/gdsfactory/gsim/blob/9f31460946f5c3f036fb91bc32a2ed1bc38245ce/pyproject.toml
 ---
 
 ### Implemented operations and boundaries
@@ -53,10 +65,14 @@ The reviewed pyproject is version 0.8.0 and requires gdsfactory>=9,<10 and gdsfa
 
 The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The meaningful checkpoint is 2026-10-22T11:57:19Z (`fe55668055bd3aaea944a4e8fde03a73f728cd1d`). It clips disconnected sidewall solids to the physical domain and rejects mesh nodes outside those bounds; the later 0.8.0 version bump does not independently renew meaningful activity. [Implementation activity](#source-activity).
+The earlier meaningful checkpoint was 2026-10-22T11:57:19Z (`fe55668055bd3aaea944a4e8fde03a73f728cd1d`). It clips disconnected sidewall solids to the physical domain and rejects mesh nodes outside those bounds; the later 0.8.0 version bump does not independently renew meaningful activity. The current reviewed implementation checkpoint is the October 29 PDK-stack integration described below. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
 
 ### Development provenance
 
 Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+
+The opt-in PDK-authoritative stack preserves layer elevation, thickness, material and mesh order instead of reconstructing them from generic assumptions. The Palace terminal-port pipeline joins driven-run modal S-parameters with aligned two-dimensional voltage/current matrices; its mode ordering and gauge requirements still apply. [Stack integration](#source-review-20261031-stack) · [Terminal assembly](#source-review-20261031-ports).
+
+The optional FEMwell adapter and DEVSIM-based traveling-wave modulator examples add mode solving, carrier-dependent material transfer and electro-optic response calculations. These are implementation and example workflows, not independent validation against silicon. Version 0.8.0 still declares `gdsfactory>=9,<10` and `gdsfactoryplus>=1.8.20,<3`; installing optional extras and external solvers remains separate. [Electro-optic workflow](#source-review-20261031-electrooptic) · [Dependencies](#source-review-20261031-dependencies).

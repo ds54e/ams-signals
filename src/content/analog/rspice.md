@@ -1,7 +1,7 @@
 ---
 name: RSpice
 summary: Rust circuit simulator with schematic editing, SPICE netlist execution and waveform analysis through desktop, browser, CLI and Python interfaces.
-description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, cross-domain measurements and HDL tracing. It adds OP/DC/transient circuit assertions alongside AC/RF analyses; the source-available personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
+description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, cross-domain measurements, HDL tracing and circuit assertions. Its SystemVerilog subset adds packages, imports and single-driver real nettypes; custom resolution functions remain unsupported. The source-available personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
 scope:
   design:
     ai: false
@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-10-24"
+reviewedAt: "2026-10-31"
 sources:
 - id: code
   title: Canonical public implementation
@@ -52,6 +52,18 @@ sources:
 - id: review-20261024-license
   title: RSpice Personal Use License v1.1
   url: https://github.com/JaimeHW/RSpice/blob/b7a089985ebd82199950ff35ee1b4086fabfdc9a/LICENSE
+- id: review-20261031-packages
+  title: "Implemented package imports and real nettypes"
+  url: https://github.com/JaimeHW/RSpice/commit/a512951cc6b865d7b37fde7b0976d1cfcb4da59f
+- id: review-20261031-runtime
+  title: "Real-nettype execution plan integration"
+  url: https://github.com/JaimeHW/RSpice/commit/10186eb7a7d47b5e15e0ed2df28bf6775f4904f9
+- id: review-20261031-regression
+  title: "Mixed-signal real-nettype versus wreal regression"
+  url: https://github.com/JaimeHW/RSpice/blob/e0c2b7e47980e5889b78f19938776eeadc33519a/crates/rspice-core/tests/veriloga_mixed_signal_hardening.rs
+- id: review-20261031-boundaries
+  title: "Current mixed-language and connect-module boundaries"
+  url: https://github.com/JaimeHW/RSpice/blob/e0c2b7e47980e5889b78f19938776eeadc33519a/README.md
 ---
 
 ### Implementation and boundaries
@@ -73,3 +85,7 @@ The CLI reports `.ASSERT` checks for operating-point, DC and transient runs. An 
 `.ESAVE` can select internal HDL registers, real variables and vectors by instance path, rejects unknown names, and integrates trace state with transient rollback/checkpoint handling. This extends observable mixed-signal waveforms rather than adding an AI runtime. [Tracing implementation and regression cases](#source-review-20261024-hdl-traces).
 
 These are reviewed default-branch development commits, not independently reproduced simulator results or verified tagged-release coverage. The Personal Use License v1.1 prohibits commercial evaluation/prototyping and redistribution without express written permission; source availability is not an unrestricted open-source grant. Design, Simulation and the existing AI-assisted development classification remain unchanged. [License terms](#source-review-20261024-license).
+
+Package/import binding and real-nettype handling extend beyond syntax parsing into the digital execution plan. A retained mixed-signal regression runs the SystemVerilog real-nettype biquad and compares accepted times, node/branch traces, event traces and prints with its wreal counterpart. This is upstream executable evidence, not a test independently run for the catalog. [Package implementation](#source-review-20261031-packages) · [Execution integration](#source-review-20261031-runtime) · [Regression](#source-review-20261031-regression).
+
+Real-nettype nets accept one driver; custom resolution functions and `interconnect` are rejected. Automatic connect modules apply at deck-node boundaries, while discrete-to-analog boundaries wholly inside HDL hierarchy require exposure at a deck node or an ordinary converter instance. Direct instantiation of a `connectmodule` is refused. These restrictions do not establish full SystemVerilog or Verilog-AMS conformance. The Personal Use License v1.1 restrictions remain unchanged. [Current language boundaries](#source-review-20261031-boundaries) · [License](#source-review-20261024-license).
