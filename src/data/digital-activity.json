@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-24",
-  "capturedAt": "2026-10-24T09:43:17.171Z",
+  "reviewedAt": "2026-10-31",
+  "capturedAt": "2026-10-31T01:28:25.634Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -2330,6 +2330,56 @@
       "lastCommitAt": "2025-11-04",
       "lastMeaningfulCommitAt": "2025-11-04",
       "lastMeaningfulCommitSha": "a199c0caa6299958fccde2aedd87c5652c9d15cf"
+    },
+    "pssc": {
+      "kind": "github",
+      "repository": "PSSTools/pssc",
+      "repositoryId": 575021060,
+      "capturedAt": "2026-10-31T01:28:25.634Z",
+      "defaultBranch": "main",
+      "headSha": "ef909bbdde946278984886d1909a6b3d491ddebf",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        11,
+        8,
+        1,
+        17,
+        2,
+        7,
+        21,
+        106
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "ef909bbdde946278984886d1909a6b3d491ddebf"
+    },
+    "pssparser": {
+      "kind": "github",
+      "repository": "PSSTools/pssparser",
+      "repositoryId": 236354504,
+      "capturedAt": "2026-10-31T01:28:25.634Z",
+      "defaultBranch": "master",
+      "headSha": "262a99f138b7c3f57d5ba0bb50062ee3de2e69fe",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0,
+        9,
+        3,
+        16,
+        51,
+        50
+      ],
+      "lastCommitAt": "2026-10-21",
+      "lastMeaningfulCommitAt": "2026-10-21",
+      "lastMeaningfulCommitSha": "c904f333b94b92aa4999d76d3e96613158521c51"
     }
   }
 }

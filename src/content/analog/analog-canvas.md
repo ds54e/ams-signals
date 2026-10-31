@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Agent-assisted hierarchical analog schematic editor with connectivity inspection, SPICE/Spectre and RNL interchange, and native simulation-source authoring. Logic gates and D flip-flops can retain their symbols while calling transistor-level project cells; hosted simulation and EDA adapters are separate from local headless drawing, which does not execute simulations."
+description: "Agent-assisted hierarchical schematic editor with connectivity inspection, native simulation-source authoring and SPICE/Spectre/RNL interchange. Recent round-trip fixes preserve project-cell call symbols, PDK terminals, library bodies and document-local identities; hosted simulation and EDA adapters retain separate dependencies, while local headless drawing does not execute simulation."
 scope:
   design:
     ai: true
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-10-31"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -72,6 +72,15 @@ sources:
   title: Official project website and documentation
   url: https://analog-canvas.tokenzhang.com
   purpose: official
+- id: review-20261031-rnl
+  title: RNL project-cell symbols, PDK terminals, library bodies and top-cell preservation
+  url: https://github.com/cascode-ai/analog-canvas/commit/b295fc3dbfde584466037cd67739bd60baa8c18c
+- id: review-20261031-identities
+  title: Distinguish document-local parts when ordering bodies and call symbols
+  url: https://github.com/cascode-ai/analog-canvas/commit/1abf83781d704b9de5b504841bd4d810e5eb40c9
+- id: review-20261031-tests
+  title: Retained interchange regression tests
+  url: https://github.com/cascode-ai/analog-canvas/blob/1abf83781d704b9de5b504841bd4d810e5eb40c9/apps/editor/src/features/netlist-export/rnl-round-trip.test.ts
 ---
 
 ### Workflow and scope
@@ -101,3 +110,9 @@ The October 19 interchange change adds SPICE+RNL and Spectre+RNL exports and an 
 ### Development provenance
 
 The coupling change spans typed model data, transactions, clipboard behavior, rendering and electrical export, while the simulation change binds declared cell libraries through the hosted execution contract. The reviewed contribution is broader than the earlier isolated ERC repair; it supports a substantial-subsystem provenance label. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+
+### Hierarchical RNL round-trip correctness
+
+The October 30 changes extend RNL export/import for project-cell call symbols, PDK property terminals, textual library bodies, no-connect information and the editor's top-cell block. The following fix distinguishes parts belonging to different Documents when ordering generated bodies and call symbols. The implementation and regression cases address structural interchange and symbol/terminal consistency; they do not establish electrical equivalence of imported circuits. [Interchange implementation](#source-review-20261031-rnl) · [Document identity fix](#source-review-20261031-identities) · [Retained regression tests](#source-review-20261031-tests).
+
+Meaningful activity advances to the document-identity correction on canonical main. This is a source-level development review; upstream EDA/simulation tests and release inclusion were not independently reproduced. The existing hosted/local simulation and license boundaries remain applicable.

@@ -1,20 +1,20 @@
 [
   {
-    "project": "uberwave",
-    "date": "2026-10-26",
+    "project": "gnucap-modelgen-verilog",
+    "date": "2026-10-31",
     "kind": "added",
-    "summary": "Analog / Mixed-Signal Waveform Visualization with released RAW/UwRaw and PSF import."
+    "summary": "Behavioral-model compilation with pending-event and delay corrections for Gnucap."
   },
   {
-    "project": "chipjev",
-    "date": "2026-10-11",
+    "project": "vera",
+    "date": "2026-10-31",
     "kind": "added",
-    "summary": "Typed circuit decisions, numerical sizing and model-guided SKY130 physical design."
+    "summary": "Verilog-A/AMS device compilation with explicit fixture-runner and OSDI boundaries."
   },
   {
-    "project": "gf180-analog-agent",
-    "date": "2026-10-11",
+    "project": "spicebind",
+    "date": "2026-10-31",
     "kind": "added",
-    "summary": "GF180MCU-D circuit skills with gm/ID lookup, ngspice evaluation and model-guided diagnosis."
+    "summary": "VPI mixed-signal co-simulation with HDL/ngspice timestep synchronization."
   }
 ]

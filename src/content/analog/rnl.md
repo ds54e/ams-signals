@@ -1,7 +1,7 @@
 ---
 name: RNL
 summary: Constraint-aware netlist notation and tooling for analog schematics.
-description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with per-file dialect detection across includes and native Rust check, solve and render tools. A WebAssembly viewer supports per-file format overrides; the solver remains native-only, and mixed-format parsing does not establish mixed-dialect electrical simulation."
+description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and a WebAssembly viewer. Hierarchical browsing exposes subcircuit parameters and alternative library definitions; viewer parameter bindings rebuild the displayed document rather than rewriting electrical values, and the native solver remains a preview."
 scope:
   design:
     ai: true
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-10-24"
+reviewedAt: "2026-10-31"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -58,6 +58,18 @@ sources:
   - id: review-20261024-readme
     title: Reviewed source and separate code, specification, data and font licenses
     url: https://github.com/rich-netlist/rnl/blob/810a83d02a24a081bca9f9e588ef4b61ee2217a0/README.md
+  - id: review-20261031-params
+    title: Viewer subcircuit parameter bar, binding dialog and tests
+    url: https://github.com/rich-netlist/rnl/commit/dc19b37f5891f1ba2b3c6d67b5b4be658b1566f5
+  - id: review-20261031-choices
+    title: Choose among library definitions when entering an instance
+    url: https://github.com/rich-netlist/rnl/commit/1ad7c060af4f10e99aea395a5b143602364d2efa
+  - id: review-20261031-param-code
+    title: Retained parameter-view implementation
+    url: https://github.com/rich-netlist/rnl/blob/b494cbaf454d3c8614efb321c299314b4d238b42/apps/viewer-ui/params.js
+  - id: review-20261031-preview
+    title: CLI explicitly identifies the solver as a preview
+    url: https://github.com/rich-netlist/rnl/commit/67929f84743bfb525bef9ee1b04f5fd4d26ee498
 ---
 
 ### Implementation and scope
@@ -81,3 +93,9 @@ The October 24 integrations add per-file parse-format interfaces and make each i
 The viewer adds a format menu for each file and include, preserving edits while rebuilding. Desktop overrides persist in settings; the web viewer persists choices for server-served files by address, while local-file choices last only for the open page. These controls do not add a browser-side solver or a general graphical placement editor. [Viewer implementation](#source-review-20261024-viewer).
 
 Meaningful activity advances to first-parent integration `810a83d02a24a081bca9f9e588ef4b61ee2217a0` on October 24 UTC, following the format-interface and viewer merges. This source review did not independently execute Rust/WASM/viewer tests or verify tagged-release inclusion. Existing AI Design and AI-assisted development labels are preserved; the new parsing controls do not themselves establish new AI participation. Code remains MIT; specification/documentation is CC-BY-4.0, libraries/tests/examples are CC0-1.0, and bundled font metrics use OFL-1.1. [Integration](#source-review-20261024-integration) · [License mapping](#source-review-20261024-readme).
+
+### Hierarchical browsing and parameter context
+
+The October 30/31 integrations let the viewer choose among multiple library definitions for an instance and display a subcircuit's parameters with their default, instance or changed origin. A parameter dialog rebuilds the Document with bound values and can carry them when entering a separately stored definition. These are schematic-inspection and display bindings: the drawing retains its written expressions and the operation does not rewrite the netlist's electrical parameters. Source and browser-test changes were reviewed, without reproducing the upstream Rust/WASM suite. [Definition choice](#source-review-20261031-choices) · [Parameters and regression tests](#source-review-20261031-params) · [Retained code](#source-review-20261031-param-code).
+
+The native solver is explicitly labeled a preview; this update does not promote it to a mature placement editor or add Simulation. Existing AI Design and software-development provenance are retained on their earlier evidence. Meaningful activity follows the first-parent parameter integration, not the subsequent version bump. [Solver boundary](#source-review-20261031-preview).

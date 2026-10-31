@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-10-26",
-  "capturedAt": "2026-10-26T08:55:14.287Z",
+  "reviewedAt": "2026-10-31",
+  "capturedAt": "2026-10-31T01:29:43.537Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-11",
@@ -172,32 +172,6 @@
       "lastMeaningfulCommitAt": "2026-03-27",
       "lastMeaningfulCommitSha": "c4d2689d224ebf4b3dea77c310c64be58fe1f560",
       "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
-    "astra": {
-      "kind": "github",
-      "repository": "IceLab-X/ASTRA",
-      "repositoryId": 1033923589,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
-      "defaultBranch": "main",
-      "headSha": "63dd09abd42d77852394e71317004577007995a7",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0
-      ],
-      "lastCommitAt": "2026-09-09",
-      "lastMeaningfulCommitAt": "2025-10-27",
-      "lastMeaningfulCommitSha": "cf1f3361d6286a6ba5c771fc6f2ae65d55c696e8",
-      "notes": "The October 27, 2025 public implementation release adds the optimizer, reasoning client/server and simulation adapter. Later lookup-data removal and the code-review-only merge do not renew implementation freshness."
     },
     "autosizer": {
       "kind": "github",
@@ -697,9 +671,9 @@
       "kind": "github",
       "repository": "OpenVAF/OpenVAF-Reloaded",
       "repositoryId": 896282056,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-31T01:29:43.537Z",
       "defaultBranch": "mob",
-      "headSha": "49d4887c54660b79fcaa590bcd00de220b694438",
+      "headSha": "b6622cd8befed2ae2293593ff50ee7d5caa21f2c",
       "commits": [
         4,
         5,
@@ -708,16 +682,16 @@
         0,
         0,
         0,
-        28,
-        4,
-        9,
+        5,
         0,
-        2
+        2,
+        0,
+        56
       ],
-      "lastCommitAt": "2026-10-22",
-      "lastMeaningfulCommitAt": "2026-08-25",
-      "lastMeaningfulCommitSha": "fdf2522b70f42793f64b1c72f0195c96dea0cc19",
-      "notes": "August 25 changes the actual Linux LLVM build feature and library packaging in the release workflow; this is manual technical build maintenance, not a generated release bump. August 1 also integrates compiler event-function signature changes."
+      "lastCommitAt": "2026-10-25",
+      "lastMeaningfulCommitAt": "2026-10-25",
+      "lastMeaningfulCommitSha": "9a75d3d3c2f730ce92b78ca4f67e98adc929297d",
+      "notes": "Canonical identity/default branch reverified. Previously reviewed fdf2522 is no longer in the captured mob first-parent history; new meaningful checkpoint 9a75d3d was reviewed directly with implementation and tests. Counts use only current canonical first-parent committer history; dates are not verified push times."
     },
     "klayout": {
       "kind": "github",
@@ -1170,9 +1144,9 @@
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-31T01:29:43.537Z",
       "defaultBranch": "main",
-      "headSha": "2dc32b7759d61c5fc193108ba2411eb8dfa48ad7",
+      "headSha": "1abf83781d704b9de5b504841bd4d810e5eb40c9",
       "commits": [
         0,
         0,
@@ -1185,12 +1159,12 @@
         0,
         668,
         642,
-        291
+        350
       ],
-      "lastCommitAt": "2026-10-23",
-      "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "c72fbfca50d6217e00a80074ac24c611b9dd26be",
-      "notes": "Reviewed RNL import/export and port-permutation consistency at c72fbfca50d6217e00a80074ac24c611b9dd26be. Raw commits remain separate from meaningful activity."
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "1abf83781d704b9de5b504841bd4d810e5eb40c9",
+      "notes": "Substantive implementation and regression evidence reviewed 2026-10-31; project Markdown records exact changes and limits. Latest commits and raw counts remain independent of meaningful activity."
     },
     "vibe-ic": {
       "kind": "github",
@@ -1482,7 +1456,7 @@
       "kind": "github",
       "repository": "LewisLiuLiuLiu/SerDesSystemCProject",
       "repositoryId": 1102426944,
-      "capturedAt": "2026-10-23T08:35:00.841Z",
+      "capturedAt": "2026-10-31T01:29:43.537Z",
       "defaultBranch": "main",
       "headSha": "052ac49a825bfcdcef2d4d1f56157555df9755b5",
       "commits": [
@@ -1500,9 +1474,9 @@
         35
       ],
       "lastCommitAt": "2026-10-18",
-      "lastMeaningfulCommitAt": "2026-10-17",
-      "lastMeaningfulCommitSha": "751f125d46291eaaf1f3c67712c85266606564dd",
-      "notes": "Meaningful activity manually reviewed: feat(rx): clean 1/UI data_out via data-strobe latch (approved). Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+      "lastMeaningfulCommitAt": "2026-10-18",
+      "lastMeaningfulCommitSha": "3095b58badecf22a1ec0f64d0a7206881cea5e96",
+      "notes": "Substantive implementation and regression evidence reviewed 2026-10-31; project Markdown records exact changes and limits. Latest commits and raw counts remain independent of meaningful activity."
     },
     "eda-agent": {
       "kind": "github",
@@ -1664,9 +1638,9 @@
       "kind": "repository",
       "repository": "https://codeberg.org/gnucap/gnucap",
       "repositoryId": "codeberg:591",
-      "capturedAt": "2026-10-23T08:36:10.248Z",
+      "capturedAt": "2026-10-31T01:28:22.244Z",
       "defaultBranch": "develop",
-      "headSha": "31528ae729a537b2048794c29e7d3883123824e9",
+      "headSha": "3504b93da546b4f497b26c5334b42f9642d30aee",
       "commits": [
         4,
         4,
@@ -1679,21 +1653,21 @@
         1,
         2,
         4,
-        9
+        11
       ],
-      "lastCommitAt": "2026-10-22",
-      "lastMeaningfulCommitAt": "2026-10-22",
-      "lastMeaningfulCommitSha": "31528ae729a537b2048794c29e7d3883123824e9",
-      "notes": "Canonical Codeberg repository ID/default branch verified directly. Savannah master is older and the GitHub repository is a read-only mirror; neither supplies these monthly counts.",
-      "lastMeaningfulCommitSource": "activity-reviewed-20261022"
+      "lastCommitAt": "2026-10-29",
+      "lastMeaningfulCommitAt": "2026-10-29",
+      "lastMeaningfulCommitSha": "245d23a1ea370bd2addbe87f69dfe18dd2748a37",
+      "notes": "Canonical Codeberg identity and develop branch verified directly; complete first-parent committer history captured. GitHub mirror activity is not substituted. Technical implementation and evidence limits are recorded in project Markdown.",
+      "lastMeaningfulCommitSource": "review-20261031-accept"
     },
     "rnl": {
       "kind": "github",
       "repository": "rich-netlist/rnl",
       "repositoryId": 1382051453,
-      "capturedAt": "2026-10-24T09:43:56.992Z",
+      "capturedAt": "2026-10-31T01:29:43.537Z",
       "defaultBranch": "main",
-      "headSha": "7e39c6561cc32c4bb2a2056e8238dda0f9bcde37",
+      "headSha": "b494cbaf454d3c8614efb321c299314b4d238b42",
       "commits": [
         0,
         0,
@@ -1706,11 +1680,11 @@
         0,
         0,
         9,
-        190
+        319
       ],
-      "lastCommitAt": "2026-10-24",
-      "lastMeaningfulCommitAt": "2026-10-24",
-      "lastMeaningfulCommitSha": "810a83d02a24a081bca9f9e588ef4b61ee2217a0"
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "dc19b37f5891f1ba2b3c6d67b5b4be658b1566f5"
     },
     "cace": {
       "kind": "github",
@@ -2168,6 +2142,158 @@
       "lastPublicUpdateSource": "release",
       "lastPublicUpdateType": "release",
       "notes": "WP5 Alpha 1 evaluation release published October 22, 2026; reviewed October 26 against tagged source 53480275199affda8d86dba6a60110dc37bb3b5a. This is point release evidence, not monthly repository history. Existing project captures are retained unchanged."
+    },
+    "gnucap-modelgen-verilog": {
+      "kind": "repository",
+      "repository": "https://codeberg.org/gnucap/gnucap-modelgen-verilog",
+      "repositoryId": "codeberg:119338",
+      "capturedAt": "2026-10-31T01:28:22.244Z",
+      "defaultBranch": "develop",
+      "headSha": "37e0b2af90950cc76c3ed3c51c55c1f9fed53ea8",
+      "commits": [
+        1,
+        7,
+        15,
+        7,
+        4,
+        0,
+        2,
+        4,
+        1,
+        1,
+        8,
+        33
+      ],
+      "lastCommitAt": "2026-10-29",
+      "lastMeaningfulCommitAt": "2026-10-29",
+      "lastMeaningfulCommitSha": "284ca0939301370ea99517d61fb60e43f6569ade",
+      "notes": "Canonical Codeberg identity and develop branch verified directly; complete first-parent committer history captured. GitHub mirror activity is not substituted. Technical implementation and evidence limits are recorded in project Markdown.",
+      "lastMeaningfulCommitSource": "activity"
+    },
+    "espice": {
+      "kind": "github",
+      "repository": "OpenFAT/EGSpice",
+      "repositoryId": 1436380592,
+      "capturedAt": "2026-10-31T01:29:43.537Z",
+      "defaultBranch": "main",
+      "headSha": "34fdb418af589eb51a51d0c1f835f9d42f36f80f",
+      "commits": [
+        0,
+        13,
+        60,
+        0,
+        23,
+        48,
+        130,
+        102,
+        105,
+        109,
+        38,
+        69
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-25",
+      "lastMeaningfulCommitSha": "bc0018f23026646bf38d8529fc8fce64a35ae05b"
+    },
+    "shapeic": {
+      "kind": "github",
+      "repository": "ShapeIC/shapeic",
+      "repositoryId": 1300256384,
+      "capturedAt": "2026-10-31T01:29:43.537Z",
+      "defaultBranch": "main",
+      "headSha": "b5e44f327a9dd2cd7c939bc9549fc46f8d7c04b9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        21,
+        5,
+        5,
+        9
+      ],
+      "lastCommitAt": "2026-10-08",
+      "lastMeaningfulCommitAt": "2026-10-08",
+      "lastMeaningfulCommitSha": "69243885839bd5d3abc66895dfc946e5d7e172db"
+    },
+    "spicebind": {
+      "kind": "github",
+      "repository": "themperek/spicebind",
+      "repositoryId": 999832494,
+      "capturedAt": "2026-10-31T01:29:43.537Z",
+      "defaultBranch": "main",
+      "headSha": "668b9a6a1b474f7b5181b5caed915e8d0a1505bd",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        18,
+        0
+      ],
+      "lastCommitAt": "2026-09-22",
+      "lastMeaningfulCommitAt": "2026-09-09",
+      "lastMeaningfulCommitSha": "fbeefee701ee8d1e03b88bbf9305b54de374ac87"
+    },
+    "vams-conformance-suite": {
+      "kind": "github",
+      "repository": "OpenFAT/VAMS-Conformance-Suite",
+      "repositoryId": 1439053326,
+      "capturedAt": "2026-10-31T01:29:43.537Z",
+      "defaultBranch": "main",
+      "headSha": "9d74f7374b6f05ab98a86519a8561ea9f58feb98",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        19
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-25",
+      "lastMeaningfulCommitSha": "044c6cced380ad62bfd43c5ef76400b0f964697a"
+    },
+    "vera": {
+      "kind": "github",
+      "repository": "OpenFAT/VerA",
+      "repositoryId": 1436380055,
+      "capturedAt": "2026-10-31T01:29:43.537Z",
+      "defaultBranch": "main",
+      "headSha": "c3df3498ec42a761f5c70332507fcbee05ad796a",
+      "commits": [
+        0,
+        28,
+        151,
+        134,
+        201,
+        58,
+        40,
+        72,
+        112,
+        89,
+        151,
+        203
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-25",
+      "lastMeaningfulCommitSha": "14541a6f966b2e96eca145546b36e4550078dc0f"
     }
   }
 }
