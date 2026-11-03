@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 access: Public Apache-2.0 Python implementation; requires compatible pssparser, Zuspec IR and selected backend/solver packages. SystemVerilog/DPI execution requires a suitable simulator and runtime integration.
 addedAt: '2026-10-31'
-reviewedAt: '2026-10-31'
+reviewedAt: "2026-11-03"
 sources:
 - id: code
   title: Canonical public implementation
@@ -31,6 +31,9 @@ sources:
 - id: development-retained
   title: Retained implementation at reviewed head
   url: https://github.com/PSSTools/pssc/blob/ef909bbdde946278984886d1909a6b3d491ddebf/tests/plugins/pssc_hal_fixture/pssc_hal_fixture/backend.py
+- id: review-20261103-api
+  title: "Visibility-based hierarchical operation-model APIs and tests"
+  url: https://github.com/PSSTools/pssc/commit/f37708c43250ee229e39ab1798a5d72cea04a249
 developmentEvidence:
   summary: Claude is credited for implementing a HAL fixture plugin that generates a stateless C API through backend hooks. The executable plugin and differential tests remain in the current canonical tree; this supports assisted development of that contribution.
   sources:
@@ -48,3 +51,7 @@ The driver parses PSS using pssparser, maps it into Zuspec IR and invokes a sele
 Target availability is not equivalent to complete PSS implementation or qualified simulator support. Backend and solver versions matter, and known dependency/test failures remain documented upstream. This review inspected implementation and tests without executing the generated multi-tool flows. [Known limitations](#source-limits).
 
 The October 21 HAL fixture implementation explicitly credits Claude and implements a stateless C API through generator hooks. The current canonical branch retains that executable plugin and differential-test path. This supports AI-assisted software development; it does not make generated verification stimulus a runtime AI workflow. [Credited change](#source-development-implementation) · [Retained plugin](#source-development-retained).
+
+### Selection and current source review
+
+The canonical first-parent lineage no longer contains the prior October 30 checkpoint. The inspected November 1 replacement exposes the operation-model component tree according to visibility, emits hierarchical accessors and SV interface adapters, and extends C/SV structured accesses with regression tests. Private/protected functions and instances are excluded; these are generator-specific interfaces, not a claim of complete PSS compliance. The maintained implementation supports retention and a new pinned checkpoint while the existing description/Verification classification remains adequate. Existing backend dependency and known-test limitations still apply. [Current integrated implementation/tests](#source-review-20261103-api).

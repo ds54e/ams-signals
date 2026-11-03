@@ -3,18 +3,18 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
-  ['ngspice', 'panda', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'zerosim', 'analogsage', 'klayout',
+  ['ngspice', 'klayout-tools', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'gmoverid-skill', 'analogsage', 'klayout',
     'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s']);
 
 catalogSearchRegression(fixture, {
   ngspice: ['ngspice', 'analog-design-bench', 'autosizer'],
   Virtuoso: ['virtuoso-agent', 'virtuoso-bridge-lite', 'vcli'],
-  Spectre: ['panda', 'vcli', 'virtuoso-agent'],
+  Spectre: ['virtuoso-bridge-lite', 'vcli', 'virtuoso-agent'],
   'Verilog-A': ['evas', 'openvaf-reloaded'],
   SKY130: ['analog-design-bench', 'gmoverid-skill'],
-  AI: ['analogsage', 'zerosim'],
+  AI: ['analogsage', 'gmoverid-skill'],
   layout: ['klayout', 'magic'],
-  sizing: ['autosizer', 'circuitrubric', 'analogsage', 'gmoverid-skill', 'pyopus'],
+  sizing: ['autosizer', 'klayout-tools', 'analogsage', 'gmoverid-skill', 'pyopus'],
   'KLayout-PEX': ['klayout-pex'],
   parasitic: ['klayout-pex'],
   PEX: ['klayout-pex'],

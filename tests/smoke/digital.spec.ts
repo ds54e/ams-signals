@@ -3,7 +3,7 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
-  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'haven', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
+  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'ucagent', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
     'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'peakrdl']);
 
 catalogSearchRegression(fixture, {
@@ -13,7 +13,7 @@ catalogSearchRegression(fixture, {
   RTL: ['veryl', 'spade', 'kanagawa', 'dynamatic'],
   simulator: ['verilator', 'icarus-verilog', 'veryl', 'amaranth'],
   cocotb: ['veryl'],
-  UVM: ['haven', 'xezim', 'rggen', 'peakrdl'],
+  UVM: ['iverilog-uvm', 'xezim', 'rggen', 'peakrdl'],
   formal: ['pono', 'symbiyosys', 'verifyrtl', 'siliconcompiler'],
   waveform: ['surfer', 'what', 'vitamin', 'amaranth'],
   Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil', 'spade', 'siliconcompiler', 'amaranth'],
@@ -30,7 +30,7 @@ catalogSearchRegression(fixture, {
   Dynamatic: ['dynamatic'],
   MLIR: ['circt', 'dynamatic'],
   dataflow: ['dynamatic'],
-  AI: ['haven', 'ucagent'],
+  AI: ['sentinel-dv', 'ucagent'],
   RgGen: ['rggen'],
   register: ['rggen', 'peakrdl'],
   CSR: ['rggen', 'peakrdl'],

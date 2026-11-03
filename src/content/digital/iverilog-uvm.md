@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Canonical iverilog-uvm repository"
@@ -50,6 +50,9 @@ sources:
   - id: "activity-current"
     title: "Dynamic-array randomization and scoped class-call handling"
     url: "https://github.com/dsellerbrock/iverilog-uvm/commit/b4a296a1033b33755d0401cc8d971a0f15752b59"
+  - id: review-20261103-implementation
+    title: "Integrated SystemVerilog/UVM correctness train and tests"
+    url: https://github.com/dsellerbrock/iverilog-uvm/commit/1d54995b84358de76b3494e8fbce63d4d6b17a96
 ---
 
 ### Implementation and scope
@@ -67,3 +70,7 @@ Reviewed 2026-10-01: **AI-BUILT**. The maintainer explicitly calls this fork lar
 ### Current activity review
 
 Reviewed 2026-10-05. The elaborator adds two-dimensional dynamic-array randomization handling and preserves scoped class-method resolution, with technical regression evidence. Existing UVM compatibility remains workload-specific rather than complete language compliance. [Reviewed change](#source-activity-current).
+
+### Selection and current source review
+
+The November 3 first-parent train integrates numeric clocking-input skew initialization, recursive array-pattern defaults, object naming and string-property indexing corrections, plus executable regression fixtures. These are sustained correctness/verification improvements rather than evidence of complete IEEE/UVM compliance. No simulator or production qualification campaign was independently run. The experimental-use warning, exposed vlog95 Design operation and independently attributed AI-built fork extensions remain unchanged. [Implementation and regression evidence](#source-review-20261103-implementation).

@@ -157,13 +157,13 @@ test('Analog Scope reflects reviewed design, evaluation and layout operations', 
   const scopes = {
     analogsage: ['design', 'simulation'],
     autosizer: ['design', 'simulation'],
-    panda: ['design', 'simulation', 'layout'],
-    analogmaster: ['layout'], circuitrubric: ['design'],
+    'klayout-tools': ['design', 'simulation', 'layout'],
+    analogmaster: ['layout'], 'rnl': ['design'],
     'razavi-bench': ['design', 'simulation'],
     'virtuoso-agent': ['design', 'simulation'],
     'virtuoso-bridge-lite': ['design', 'simulation', 'layout'],
     vcli: ['design', 'simulation', 'layout'],
-    zerosim: ['simulation'], evas: ['simulation'],
+    'openpcells': ['layout'], evas: ['simulation'],
   };
   for (const [id, expectedStages] of Object.entries(scopes)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
@@ -461,18 +461,18 @@ test('Scope rendering separates stage inference from development provenance and 
 
 test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, generic tools and provenance', async () => {
   const expected = {
-    zerosim: ['AI Simulation'], ngspice: ['Simulation'], klayout: ['Layout'],
+    openpcells: ['Layout'], ngspice: ['Simulation'], klayout: ['Layout'],
     analogsage: ['AI Design', 'Simulation'], autosizer: ['AI Design', 'Simulation'],
-    panda: ['AI Design', 'Simulation', 'AI Layout'],
+    'klayout-tools': ['AI Design', 'Simulation', 'AI Layout'],
     'masala-chai': ['AI Design', 'AI Simulation'],
     'evo-ldo-bench': ['AI Design', 'AI Simulation'],
     'virtuoso-agent': ['AI Design', 'AI Simulation'],
     'virtuoso-bridge-lite': ['AI Design', 'Simulation', 'Layout'], vcli: ['AI Design', 'Simulation', 'Layout'],
-    'gmoverid-skill': ['AI Design', 'AI Simulation'], circuitrubric: ['AI Design'],
+    'gmoverid-skill': ['AI Design', 'AI Simulation'], rnl: ['AI Design'],
     'behavioral-veriloga-eval': ['AI Design', 'AI Simulation'],
     // Benchmark purpose qualifies the tested stage, not every supporting tool.
     'analog-design-bench': ['AI Design', 'Simulation'], loadbench: ['AI Design', 'Simulation'],
-    netlistbench: ['AI Design'], 'razavi-bench': ['AI Design', 'Simulation'], evas: ['Simulation'],
+    'razavi-bench': ['AI Design', 'Simulation'], evas: ['Simulation'],
     // Model-authored physical decisions and electrical setup count even with conventional engines.
     'ams-io-agent': ['AI Design', 'AI Layout'], 'vibe-analog': ['AI Design', 'AI Simulation'],
     'agentic-sizing': ['AI Design', 'AI Simulation'], analogmaster: ['Layout'],

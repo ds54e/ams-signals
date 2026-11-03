@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-03"
 sources:
 - id: code
   title: Canonical public implementation
@@ -64,6 +64,9 @@ sources:
 - id: review-20261031-boundaries
   title: "Current mixed-language and connect-module boundaries"
   url: https://github.com/JaimeHW/RSpice/blob/e0c2b7e47980e5889b78f19938776eeadc33519a/README.md
+- id: review-20261103-timing
+  title: "Coupled XSPICE event rounding correction and regressions"
+  url: https://github.com/JaimeHW/RSpice/commit/feab81ca22ad61d2de5d23c08cfb7753a300ce38
 ---
 
 ### Implementation and boundaries
@@ -72,7 +75,7 @@ The public core exposes circuit storage, sparse/Newton solvers and analysis engi
 
 ### Reviewed activity
 
-The meaningful checkpoint is `b7a089985ebd82199950ff35ee1b4086fabfdc9a` (October 24, 2026 UTC), verified on the captured canonical default branch's first-parent history. It implements internal HDL signal tracing; the preceding October 22 assertion-reporting change is also retained on that history. Latest raw activity and twelve UTC monthly buckets remain separate from the manually reviewed implementation checkpoint. [Meaningful tracing change](#source-activity) · [Assertion implementation](#source-review-20261024-assertions).
+The earlier reviewed checkpoint was `b7a089985ebd82199950ff35ee1b4086fabfdc9a` (October 24, 2026 UTC), verified on the captured canonical default branch's first-parent history. It implements internal HDL signal tracing; the preceding October 22 assertion-reporting change is also retained on that history. Latest raw activity and twelve UTC monthly buckets remain separate from the manually reviewed implementation checkpoint. [Meaningful tracing change](#source-activity) · [Assertion implementation](#source-review-20261024-assertions).
 
 ### Development provenance
 
@@ -89,3 +92,7 @@ These are reviewed default-branch development commits, not independently reprodu
 Package/import binding and real-nettype handling extend beyond syntax parsing into the digital execution plan. A retained mixed-signal regression runs the SystemVerilog real-nettype biquad and compares accepted times, node/branch traces, event traces and prints with its wreal counterpart. This is upstream executable evidence, not a test independently run for the catalog. [Package implementation](#source-review-20261031-packages) · [Execution integration](#source-review-20261031-runtime) · [Regression](#source-review-20261031-regression).
 
 Real-nettype nets accept one driver; custom resolution functions and `interconnect` are rejected. Automatic connect modules apply at deck-node boundaries, while discrete-to-analog boundaries wholly inside HDL hierarchy require exposure at a deck node or an ordinary converter instance. Direct instantiation of a `connectmodule` is refused. These restrictions do not establish full SystemVerilog or Verilog-AMS conformance. The Personal Use License v1.1 restrictions remain unchanged. [Current language boundaries](#source-review-20261031-boundaries) · [License](#source-review-20261024-license).
+
+### Selection and current source review
+
+Continued implementation includes harmonic-balance numerical changes, control-language compatibility work and a coupled XSPICE/HDL event-lattice correction. The reviewed correction prevents rounding a zero-delay code-model output across the instant that scheduled it and updates executable boundary regressions. This supports retention and a new meaningful checkpoint without changing the already adequate description or relaxing its single-driver real-nettype, connect-module and license limits. No RF accuracy, simulator comparison or standards-conformance campaign was independently reproduced. [Timing correction and tests](#source-review-20261103-timing).

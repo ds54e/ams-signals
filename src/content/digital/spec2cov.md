@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Public Python source and experiment setups; requires a supported model provider and Verilator or a licensed Questa installation. The README explicitly notes that some tests and scripts are not up to date."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Canonical Spec2Cov repository"
@@ -22,6 +22,9 @@ sources:
   - id: "activity"
     title: "Merge remote-tracking branch 'origin/rag-integration' Merging Rag Branch to Main"
     url: "https://github.com/advent-lab/Spec2Cov/commit/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb"
+  - id: review-20261103-development
+    title: Functional-coverage development-branch workflow correction
+    url: https://github.com/advent-lab/Spec2Cov/commit/fd59b737cc762a07551acac24c334ea6e9df2f6e
 ---
 
 
@@ -44,3 +47,7 @@ Models generate and revise testbenches from specifications and coverage feedback
 ### Current-source review
 
 Reviewed 2026-10-01. Reopened the canonical README and Verilator adapter. LLM-authored stimulus and iterative coverage feedback remain AI Verification; no DUT-generation or independent physical-design stage is established. The stale clone example and documented test/script maintenance caveats remain relevant to reproducibility. [README](#source-readme); [Adapter](#source-implementation).
+
+### Retention and development branches
+
+The quiet default branch is not the complete development history: the canonical repository retains substantive functional-coverage and testbench workflow work on separate branches. The inspected correction changes graph/tool routing and functional-coverage feedback with concrete testbench examples. This supports retention alongside the earlier integrated Verilator feedback fixes, without claiming the separate branch is integrated into the default or adding its commits to the default-branch activity strip. Description and Scope remain on the integrated workflow evidence. [Separate implementation](#source-review-20261103-development).

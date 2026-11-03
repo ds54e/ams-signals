@@ -2,7 +2,7 @@
 name: "virtuoso-bridge-lite"
 aliases: ["VirtuosoBridgeLite","Virtuoso-Bridge"]
 summary: "Exposes Python and CLI primitives for Virtuoso schematic, layout, Maestro, and Spectre operations."
-description: "Python, CLI and optional MCP bridge for Virtuoso schematic/layout editing, Maestro configuration and persistent asynchronous simulation jobs, plus standalone Spectre execution and PSF parsing. A bundled model-driven netlist skill repairs circuit/testbench structure; users supply the licensed EDA installation and PDK."
+description: "Python, CLI and optional MCP bridge for Virtuoso schematic/layout editing, Maestro engine and Spectre X preset configuration, asynchronous simulation jobs, standalone Spectre execution and PSF parsing. A bundled model-driven netlist skill repairs circuit/testbench structure; licensed EDA installations and PDKs remain user-supplied."
 scope:
   design:
     ai: true
@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Public repository"
@@ -70,6 +70,15 @@ sources:
     title: Official project website and documentation
     url: https://virtuoso-bridge.tokenzhang.com/
     purpose: official
+  - id: review-20261103-engine
+    title: "Maestro Spectre engines and explicit X presets"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/6bde1430c4b905e5d6fb5436b1dca49e69e45a94
+  - id: review-20261103-bbox
+    title: "Diagnose and safely recompute cellview bounds"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/e21635ccad3bb122c08bad0fe099858dbfd71eaf
+  - id: review-20261103-groups
+    title: "Checked OA groups and figGroups"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/8842058f712e1270aa96f4524463007f2abbf8a3
 ---
 ### Implemented interfaces
 
@@ -98,3 +107,7 @@ The October 20 optional MCP adapter exposes existing bridge operations to MCP cl
 ### Development provenance
 
 The Claude-attributed doctor feature implements a user-facing diagnostic subsystem with shared observation state, guarded read-only queries, connection and ownership checks, session-blocker handling and structured findings. Its retained diagnosis logic is substantial implementation beyond setup instructions or thin command forwarding; attribution does not extend to separate Maestro features or the whole bridge. [Attributed implementation](#source-development-doctor-implementation) · [Retained diagnosis](#source-development-doctor-retained).
+
+### Selection and current source review
+
+The November 2 integrations add checked OA group/figGroup builders, bounding-box diagnosis/recomputation and Maestro Spectre engine/X-preset configuration, each with unit and opt-in live tests. Explicit engine/preset validation avoids inferring a valid preset from a generic simulator name. The later traffic-statistics commits count only in raw activity; the meaningful checkpoint is the engine implementation. These deterministic operations retain ordinary Simulation/Layout and the separately evidenced AI Design netlist skill. They are development changes beyond the reviewed v1.0.0 tag; no licensed live EDA tests were run for the catalog. [Engine implementation and tests](#source-review-20261103-engine) · [Bounding-box operations](#source-review-20261103-bbox) · [Checked groups](#source-review-20261103-groups).

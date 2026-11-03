@@ -1,9 +1,8 @@
 {
-  "reviewedAt": "2026-10-31",
-  "capturedAt": "2026-10-31T09:42:04.364471Z",
+  "reviewedAt": "2026-11-03",
+  "capturedAt": "2026-11-03T07:54:23.977Z",
   "method": "first-parent-committer-utc",
   "months": [
-    "2025-11",
     "2025-12",
     "2026-01",
     "2026-02",
@@ -14,19 +13,20 @@
     "2026-07",
     "2026-08",
     "2026-09",
-    "2026-10"
+    "2026-10",
+    "2026-11"
   ],
   "projects": {
     "ams-io-agent": {
       "kind": "github",
       "repository": "Arcadia-1/AMS-IO-Agent",
       "repositoryId": 1095857754,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "046a2e3edccd76322ab3e47c4dd9a5a1eded1e8a",
       "commits": [
-        7,
         13,
+        0,
         0,
         0,
         0,
@@ -47,7 +47,7 @@
       "kind": "github",
       "repository": "Arcadia-1/analog-design-bench",
       "repositoryId": 1316892846,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "972f7cd7c95381134387b250edf18f3bd23bdd25",
       "commits": [
@@ -59,9 +59,9 @@
         0,
         0,
         0,
-        0,
         2,
         9,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-26",
@@ -73,11 +73,10 @@
       "kind": "github",
       "repository": "laiyao1/AnalogCoderPro",
       "repositoryId": 1017790227,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
       "headSha": "5db764d33889c3ed7a25dfa73ab7db900d33f8e4",
       "commits": [
-        0,
         0,
         0,
         4,
@@ -88,7 +87,8 @@
         0,
         0,
         0,
-        6
+        6,
+        0
       ],
       "lastCommitAt": "2026-10-30",
       "lastMeaningfulCommitAt": "2026-02-22",
@@ -99,7 +99,7 @@
       "kind": "github",
       "repository": "wznmickey/AnalogSAGE",
       "repositoryId": 1098707425,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
       "commits": [
@@ -113,8 +113,8 @@
         0,
         0,
         0,
-        0,
-        1
+        1,
+        0
       ],
       "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-10-17",
@@ -125,11 +125,10 @@
       "kind": "github",
       "repository": "Seungmin0825/AnalogToBi",
       "repositoryId": 1153242793,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "4234a2199e0e852b2b349610b89e61a7380031d9",
       "commits": [
-        3,
         0,
         0,
         4,
@@ -140,7 +139,8 @@
         0,
         0,
         0,
-        2
+        2,
+        0
       ],
       "lastCommitAt": "2026-10-27",
       "lastMeaningfulCommitAt": "2026-05-06",
@@ -151,16 +151,16 @@
       "kind": "github",
       "repository": "tusharpathaknyu/ARCS",
       "repositoryId": 1161198916,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "b14a1f2afcced3d3a339ecb4d0927be4305c426d",
       "commits": [
         0,
         0,
-        0,
         20,
         123,
         6,
+        0,
         0,
         0,
         0,
@@ -177,7 +177,7 @@
       "kind": "github",
       "repository": "yuxi120407/AutoSizer",
       "repositoryId": 1147553501,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "1b9b8f6498e2c7ad3b650bbbc78c8e3b0e1205e1",
       "commits": [
@@ -185,9 +185,9 @@
         0,
         0,
         0,
-        0,
         6,
         5,
+        0,
         0,
         0,
         0,
@@ -203,11 +203,10 @@
       "kind": "github",
       "repository": "Arcadia-1/behavioral-veriloga-eval",
       "repositoryId": 1187171041,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "7b5616dc52195ec275ec6d21c71d7763613702cd",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -218,6 +217,7 @@
         596,
         0,
         0,
+        0,
         0
       ],
       "lastCommitAt": "2026-07-28",
@@ -225,41 +225,14 @@
       "lastMeaningfulCommitSha": "7b5616dc52195ec275ec6d21c71d7763613702cd",
       "notes": "Substantive implementation/task/result activity reviewed at 7b5616dc52195ec275ec6d21c71d7763613702cd: Promote r53 on EVAS 0.8.7 (#507). Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
-    "circuitrubric": {
-      "kind": "github",
-      "repository": "levantlabs/circuitrubric-bench",
-      "repositoryId": 1275409857,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "main",
-      "headSha": "f96512bf602152d1646c0cfc11ea7af8e6ade99f",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        4,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-06-23",
-      "lastMeaningfulCommitAt": "2026-06-23",
-      "lastMeaningfulCommitSha": "36fc0ee5e43e562f0d17ee124096fca12532eb8d",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 36fc0ee5e43e562f0d17ee124096fca12532eb8d: Add Claude reasoning-effort runs and Gemini model data. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
     "evas": {
       "kind": "github",
       "repository": "Arcadia-1/EVAS",
       "repositoryId": 1181157417,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "6cb6fa7a7dac70fc0d4120126d8cf74258e6637b",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -268,6 +241,7 @@
         8,
         31,
         95,
+        0,
         0,
         0,
         0
@@ -281,7 +255,7 @@
       "kind": "github",
       "repository": "jialinlu/ldo_benchmark_for_agent",
       "repositoryId": 1316715189,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "fa54a6615dd0dc26ea19fd28d7ae3433f92768ff",
       "commits": [
@@ -293,9 +267,9 @@
         0,
         0,
         0,
-        0,
         24,
         4,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-03",
@@ -307,7 +281,7 @@
       "kind": "github",
       "repository": "ACADLab/G-DiffPS",
       "repositoryId": 1338569737,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "18837578cffac275f2a86ddeed69254f231b9c73",
       "commits": [
@@ -319,8 +293,8 @@
         0,
         0,
         0,
-        0,
         3,
+        0,
         0,
         0
       ],
@@ -333,11 +307,10 @@
       "kind": "github",
       "repository": "Arcadia-1/gmoverid-skill",
       "repositoryId": 1175725842,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -346,6 +319,7 @@
         3,
         0,
         10,
+        0,
         0,
         0,
         0
@@ -359,7 +333,7 @@
       "kind": "github",
       "repository": "FilipeAz/LOADBench-Scripts",
       "repositoryId": 1318272617,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "03cc45620afbbbee19652d83d625f26f3368d951",
       "commits": [
@@ -370,9 +344,9 @@
         0,
         0,
         0,
-        0,
         1,
         5,
+        0,
         0,
         0
       ],
@@ -385,11 +359,10 @@
       "kind": "github",
       "repository": "jitendra-bhandari/Masala-CHAI",
       "repositoryId": 861559319,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "7478979675be02c61f22a137ecde64b0eadc0232",
       "commits": [
-        0,
         5,
         0,
         0,
@@ -400,74 +373,22 @@
         0,
         1,
         0,
-        4
+        4,
+        0
       ],
       "lastCommitAt": "2026-10-26",
       "lastMeaningfulCommitAt": "2026-05-09",
       "lastMeaningfulCommitSha": "c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b",
       "notes": "Substantive implementation/task/result activity reviewed at c112eda98baa5c5fdfa6dbbed0c3f27a48765c1b: Merge pull request #11 from jitendra-bhandari/subhash. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
-    "netlistbench": {
-      "kind": "github",
-      "repository": "WoshiMayou/NetlistBench",
-      "repositoryId": 1254046097,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "main",
-      "headSha": "413c56f4fedd2c574d4be0ffcc66480504f8d364",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-08-04",
-      "lastMeaningfulCommitAt": "2026-08-04",
-      "lastMeaningfulCommitSha": "66e0cbcc04489da3fce9b8b497751a42dd943c24",
-      "notes": "The visible history contains a small number of publication commits, including bulk releases. It does not reveal how earlier work was distributed over time. Substantive implementation/task/result activity reviewed at 66e0cbcc04489da3fce9b8b497751a42dd943c24: NetlistBench: benchmark, oracle, runners, and example run. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
-    "panda": {
-      "kind": "github",
-      "repository": "PKU-IDEA/PANDA",
-      "repositoryId": 1196298374,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "main",
-      "headSha": "9e53e43c0d29bdc8c0f326640b9d66c7075e841b",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-06-18",
-      "lastMeaningfulCommitAt": "2026-06-18",
-      "lastMeaningfulCommitSha": "9e53e43c0d29bdc8c0f326640b9d66c7075e841b",
-      "notes": "Substantive implementation/task/result activity reviewed at 9e53e43c0d29bdc8c0f326640b9d66c7075e841b: Release PANDA open-source snapshot. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
     "razavi-bench": {
       "kind": "github",
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "ff5374f2dd48c8e909020a50fa94508c2a0528d9",
+      "headSha": "816ba4787975225fe7e65fd73033cd826f9111c1",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -478,9 +399,10 @@
         0,
         0,
         73,
-        37
+        37,
+        9
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "913bc27adc6227ddabaa15b0b0d582ab280a0552",
       "notes": "A standalone direct-QA runner connects benchmark questions to OpenRouter and adds response/retry tests. It supplies a concrete model-execution path for the existing circuit-reasoning benchmark, without turning answer grading into an AI simulator."
@@ -489,11 +411,10 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "95a99c6eeff10356b21b4e775c603868919ede5e",
+      "headSha": "1990f04a2f438f6a8f771995c06ae891890d888e",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -504,9 +425,10 @@
         22,
         74,
         394,
+        10,
         5
       ],
-      "lastCommitAt": "2026-10-15",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-06",
       "lastMeaningfulCommitSha": "66119da2460b0b92534c7f89a2c9b1bb5993c72d",
       "notes": "October 5 implements human GUI intervention recording, evidence-derived verification, deterministic rule-candidate mining and snapshot-bound review decisions. October 6 integrates the Candidates review report into the default branch. October 8 test compatibility changes remain the latest raw commit; adoption does not change runtime policy."
@@ -515,11 +437,10 @@
       "kind": "github",
       "repository": "lixunqi12/virtuoso-agent",
       "repositoryId": 1218408173,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "54974c33c5f5a6d380b216ea12750aff6ee8bc99",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -528,6 +449,7 @@
         11,
         10,
         1,
+        0,
         0,
         0,
         0
@@ -541,11 +463,10 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "f3640d42ccd51bb00be5f6234c2af5726f37ea9a",
+      "headSha": "e7cc112a8ea98434e2e7710458b2bb49b51470ed",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -556,48 +477,22 @@
         36,
         23,
         28,
-        103
+        103,
+        6
       ],
-      "lastCommitAt": "2026-10-30",
-      "lastMeaningfulCommitAt": "2026-10-20",
-      "lastMeaningfulCommitSha": "b7fdc810cff4a1d7bb1a1a0e04ad50e2366f8765",
-      "notes": "Reviewed optional MCP adapter over existing bridge APIs at b7fdc810cff4a1d7bb1a1a0e04ad50e2366f8765. Raw commits remain separate from meaningful activity."
-    },
-    "zerosim": {
-      "kind": "github",
-      "repository": "xz-group/ZeroSim",
-      "repositoryId": 1220413679,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "main",
-      "headSha": "9af8a6976cf1aae9788eedcd882b7cc201ee95ef",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-04-24",
-      "lastMeaningfulCommitAt": "2026-04-24",
-      "lastMeaningfulCommitSha": "9af8a6976cf1aae9788eedcd882b7cc201ee95ef",
-      "notes": "Substantive implementation/task/result activity reviewed at 9af8a6976cf1aae9788eedcd882b7cc201ee95ef: init. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastCommitAt": "2026-11-02",
+      "lastMeaningfulCommitAt": "2026-11-02",
+      "lastMeaningfulCommitSha": "6bde1430c4b905e5d6fb5436b1dca49e69e45a94",
+      "notes": "Meaningful November checkpoint adds explicit Maestro Spectre engine/X-preset configuration with unit and opt-in live tests, following checked layout groups and bounding-box operations. Later traffic-statistics commits affect raw order/counts only; no licensed live EDA tests were independently run."
     },
     "ngspice-openvaf-enhancements": {
       "kind": "github",
       "repository": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
       "repositoryId": 1281323943,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "46c6366176ac429f74f48e892bd5707bf31d504c",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -608,7 +503,8 @@
         1007,
         354,
         727,
-        231
+        231,
+        0
       ],
       "lastCommitAt": "2026-10-23",
       "lastMeaningfulCommitAt": "2026-10-04",
@@ -619,11 +515,10 @@
       "kind": "github",
       "repository": "Xyce/Xyce",
       "repositoryId": 185829943,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
       "headSha": "e5b7b9bb5b221630c66654c059fc2d33524f5b21",
       "commits": [
-        1,
         0,
         3,
         2,
@@ -634,7 +529,8 @@
         0,
         1,
         1,
-        2
+        2,
+        0
       ],
       "lastCommitAt": "2026-10-19",
       "lastMeaningfulCommitAt": "2026-09-21",
@@ -645,11 +541,10 @@
       "kind": "github",
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "7811010c934a93b14ed07cbf2afd217fb2058ee6",
+      "headSha": "9c722b798d0ebe26101b3e5c951519bff48c31b3",
       "commits": [
-        28,
         4,
         19,
         19,
@@ -660,9 +555,10 @@
         9,
         38,
         106,
-        115
+        115,
+        3
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "35a2184b7247f872ded516ad6b885e903e7575a5",
       "notes": "Substantive implementation reviewed at 35a2184b7247f872ded516ad6b885e903e7575a5: Merge pull request #511 from rafmag/feature/smith-chart. Latest raw history remains separate from meaningful implementation evidence."
@@ -671,11 +567,10 @@
       "kind": "github",
       "repository": "OpenVAF/OpenVAF-Reloaded",
       "repositoryId": 896282056,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "mob",
-      "headSha": "b6622cd8befed2ae2293593ff50ee7d5caa21f2c",
+      "headSha": "2b5909bccd17b1cdc01a3ebced8ca7b3833c8a5c",
       "commits": [
-        4,
         5,
         42,
         4,
@@ -686,22 +581,22 @@
         0,
         2,
         0,
-        56
+        3,
+        99
       ],
-      "lastCommitAt": "2026-10-25",
-      "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "9a75d3d3c2f730ce92b78ca4f67e98adc929297d",
-      "notes": "Canonical identity/default branch reverified. Previously reviewed fdf2522 is no longer in the captured mob first-parent history; new meaningful checkpoint 9a75d3d was reviewed directly with implementation and tests. Counts use only current canonical first-parent committer history; dates are not verified push times."
+      "lastCommitAt": "2026-11-02",
+      "lastMeaningfulCommitAt": "2026-11-02",
+      "lastMeaningfulCommitSha": "2b5909bccd17b1cdc01a3ebced8ca7b3833c8a5c",
+      "notes": "Canonical mob history was rewritten again; the former 9a75d3d cache-key checkpoint is absent. Reviewed replacement 2b5909b reconciles lowering and tests with OSDI 0.5, retaining the cache fix and unscheduled-event warnings on the new lineage. First-parent committer counts are not verified push times."
     },
     "klayout": {
       "kind": "github",
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "7eb9a25b42242a97e61300ad3a1486e10937abf5",
+      "headSha": "2d74073d3f20ddfe6d96f57d61cb1e20fe6a1fec",
       "commits": [
-        15,
         11,
         0,
         24,
@@ -712,9 +607,10 @@
         12,
         23,
         1,
-        29
+        32,
+        9
       ],
-      "lastCommitAt": "2026-10-18",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-04",
       "lastMeaningfulCommitSha": "0460c3e253393063c76c163b18d87f1ad7c47fb5",
       "notes": "Polygon-sizing tolerance is scaled to the relevant edge length, with acute-angle regression coverage. This is geometry correctness work within conventional Layout."
@@ -723,11 +619,10 @@
       "kind": "github",
       "repository": "RTimothyEdwards/magic",
       "repositoryId": 177686465,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "707d67e6c66e10fedf1efa7e2930017032ff6716",
+      "headSha": "6f32dde1d967c40ed9fccb02d1dc2c47bb12911e",
       "commits": [
-        12,
         20,
         33,
         28,
@@ -738,9 +633,10 @@
         129,
         7,
         4,
-        21
+        22,
+        1
       ],
-      "lastCommitAt": "2026-10-29",
+      "lastCommitAt": "2026-11-01",
       "lastMeaningfulCommitAt": "2026-10-07",
       "lastMeaningfulCommitSha": "4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266",
       "notes": "Substantive implementation reviewed at 4d249cd45c3df0fc4bd5ea17e42ccc0f3e93e266: wasm(tcl): make the Tcl event loop usable in the WebAssembly build. Latest raw history remains separate from meaningful implementation evidence."
@@ -749,11 +645,10 @@
       "kind": "github",
       "repository": "ALIGN-analoglayout/ALIGN-public",
       "repositoryId": 177476440,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
       "headSha": "8d3cc2e9aa5511315203eb5cbfd00d2c88fdbd18",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -764,6 +659,7 @@
         1,
         0,
         3,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-15",
@@ -782,11 +678,10 @@
       "kind": "github",
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "81020e16de957866bfa77e34400b4d935aa7ed35",
+      "headSha": "1873dc8cafc45c5f4b0d2ff54d1bebb4717e69b4",
       "commits": [
-        4,
         5,
         4,
         5,
@@ -797,9 +692,10 @@
         4,
         18,
         42,
-        123
+        123,
+        9
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "43f6bb0989fd6e392a150f90a93f8bead01eb53e",
       "notes": "Reviewed first-parent integration 43f6bb0989fd6e392a150f90a93f8bead01eb53e includes the SKY130 diffusion-resistor contact correction; device-contact and GF180 isolated-well work landed in preceding merges. Later version/dependency maintenance is not substituted for this implementation checkpoint."
@@ -808,11 +704,10 @@
       "kind": "repository",
       "repository": "https://codeberg.org/arpadbuermen/PyOPUS",
       "repositoryId": "codeberg:230380",
-      "capturedAt": "2026-10-31T09:36:55.412571Z",
+      "capturedAt": "2026-11-03T07:35:48.108Z",
       "defaultBranch": "main",
-      "headSha": "cef2a3b7e57b7378de56ece03647e1a03d4cb539",
+      "headSha": "391015a911216c9d8208ad4910e98a0ab3bcb7fe",
       "commits": [
-        0,
         0,
         2,
         0,
@@ -823,9 +718,10 @@
         0,
         0,
         1,
-        9
+        9,
+        1
       ],
-      "lastCommitAt": "2026-10-22",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-19",
       "lastMeaningfulCommitSha": "677211e837b5dc84d0e07d7323ce33ad7e281ffb",
       "notes": "Canonical Codeberg identity and complete first-parent history recaptured. The meaningful checkpoint adds executable offscreen PySide6 GUI coverage; later installation and README changes remain raw activity.",
@@ -835,11 +731,10 @@
       "kind": "github",
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "f08f683460cfe495424279261471aaddac3c3b1e",
+      "headSha": "96e1745d499852a9e267f07bad18e5f613f59089",
       "commits": [
-        6,
         3,
         3,
         8,
@@ -850,9 +745,10 @@
         9,
         12,
         7,
-        12
+        12,
+        2
       ],
-      "lastCommitAt": "2026-10-29",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "7b66a4ae43df31c299e2f9bb047d05228b44a2c8",
       "notes": "The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred."
@@ -861,11 +757,10 @@
       "kind": "github",
       "repository": "ra3xdh/qucs_s",
       "repositoryId": 96015964,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "current",
-      "headSha": "899808827218757b1241468d40d2b44d55d8957d",
+      "headSha": "603940d4ee8f027a3ab4514011eb75892ce86dc2",
       "commits": [
-        13,
         18,
         9,
         4,
@@ -876,47 +771,22 @@
         6,
         11,
         7,
-        13
+        14,
+        0
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-10-31",
       "lastMeaningfulCommitAt": "2026-09-14",
       "lastMeaningfulCommitSha": "e0c0e154edb4f8403d53c5c5601c2ee133c9e970",
       "notes": "September 14 replaces HDL simulator wrapper scripts with QProcess execution, following Monte Carlo parameter-validation work. Meaningful activity remains anchored to those implementation changes; later raw commits do not automatically extend the reviewed signal. These are development/continuous-build changes beyond stable 26.1.1."
-    },
-    "cocotbext-ams": {
-      "kind": "github",
-      "repository": "VLSIDA/cocotbext-ams",
-      "repositoryId": 1184907467,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "master",
-      "headSha": "c64ad5c8a5b0a7550243520ab5d08651306edf0d",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        24,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-03-19",
-      "lastMeaningfulCommitAt": "2026-03-19",
-      "lastMeaningfulCommitSha": "c64ad5c8a5b0a7550243520ab5d08651306edf0d"
     },
     "ihp-sg13g2-ams-chip-template": {
       "kind": "github",
       "repository": "iic-jku/ihp-sg13g2-ams-chip-template",
       "repositoryId": 1228233737,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "b1d4a98d0ec8ad71c57f8ec4c33344340f911dad",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -927,7 +797,8 @@
         102,
         2,
         0,
-        2
+        2,
+        0
       ],
       "lastCommitAt": "2026-10-17",
       "lastMeaningfulCommitAt": "2026-08-26",
@@ -937,11 +808,10 @@
       "kind": "github",
       "repository": "ReaLLMASIC/gLayout",
       "repositoryId": 846657008,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab",
       "commits": [
-        2,
         0,
         2,
         1,
@@ -951,6 +821,7 @@
         0,
         0,
         13,
+        0,
         0,
         0
       ],
@@ -962,7 +833,7 @@
       "kind": "github",
       "repository": "TheWind-upBird/Analogagent",
       "repositoryId": 1261182836,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "b27ee9c0d11e0e74322e44e1ea45a7abbb1ff11a",
       "commits": [
@@ -972,8 +843,8 @@
         0,
         0,
         0,
-        0,
         3,
+        0,
         0,
         0,
         0,
@@ -988,11 +859,10 @@
       "kind": "github",
       "repository": "sjjjoaps/AnalogMaster",
       "repositoryId": 1267424772,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1003,6 +873,7 @@
         3,
         0,
         0,
+        0,
         0
       ],
       "lastCommitAt": "2026-07-04",
@@ -1010,37 +881,11 @@
       "lastMeaningfulCommitSha": "5c6cb29468b672a2476438084a127f434cce6d18",
       "notes": "Meaningful activity follows the June 22 physical-code release on the captured first-parent chain. The later image-dataset upload remains in raw history but does not renew freshness for the Layout-only scope."
     },
-    "analogxpert": {
-      "kind": "github",
-      "repository": "zhywhite/AnalogXpert",
-      "repositoryId": 1304004023,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
-      "defaultBranch": "master",
-      "headSha": "72a4e450390a1588b48376f768d0518ef7f8e652",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-07-17",
-      "lastMeaningfulCommitAt": "2026-07-17",
-      "lastMeaningfulCommitSha": "72a4e450390a1588b48376f768d0518ef7f8e652",
-      "notes": "The single public release commit contains the topology-synthesis agent, self-checking code, prompt and subcircuit libraries, and evaluation datasets; its author identity matches the paper lead."
-    },
     "agentic-sizing": {
       "kind": "github",
       "repository": "aprilaihub/agentic-analog-sizing",
       "repositoryId": 1313088510,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "d4b59e00bb54029e952b5a38d519ab34665dcc02",
       "commits": [
@@ -1051,10 +896,10 @@
         0,
         0,
         0,
-        0,
         13,
         2,
         1,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-22",
@@ -1066,11 +911,10 @@
       "kind": "github",
       "repository": "DeconBear/vibe-analog",
       "repositoryId": 1224524252,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "14210e73f1974db3e7adee4155e3bb36c64354c5",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1081,7 +925,8 @@
         242,
         7,
         11,
-        1
+        1,
+        0
       ],
       "lastCommitAt": "2026-10-13",
       "lastMeaningfulCommitAt": "2026-09-01",
@@ -1092,11 +937,10 @@
       "kind": "github",
       "repository": "Arcadia-1/analog-agents",
       "repositoryId": 1201926784,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "4d6bd218ceff60624d7ee62887787aa83daecdb4",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1105,6 +949,7 @@
         4,
         0,
         1,
+        0,
         0,
         0,
         0
@@ -1118,7 +963,7 @@
       "kind": "github",
       "repository": "MacAnalog/spicexplorer-release",
       "repositoryId": 1303218425,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "7932a92ff0b8ebe8b341271cdd7549fb378efeb3",
       "commits": [
@@ -1129,11 +974,11 @@
         0,
         0,
         0,
-        0,
         8,
         10,
         3,
-        3
+        3,
+        0
       ],
       "lastCommitAt": "2026-10-26",
       "lastMeaningfulCommitAt": "2026-10-10",
@@ -1144,11 +989,10 @@
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "54b0385ea4847b4c9468ffc11c144beaf838a92d",
+      "headSha": "6d6b3d3e8c7718019ac06db6ccb40ca5fb3ccb5d",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1159,22 +1003,22 @@
         0,
         668,
         642,
-        362
+        364,
+        12
       ],
-      "lastCommitAt": "2026-10-31",
-      "lastMeaningfulCommitAt": "2026-10-30",
-      "lastMeaningfulCommitSha": "1abf83781d704b9de5b504841bd4d810e5eb40c9",
-      "notes": "Substantive implementation and regression evidence reviewed 2026-10-31; project Markdown records exact changes and limits. Latest commits and raw counts remain independent of meaningful activity."
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "9556c9eaf31a40d56df98cd1e4cb8548f8c78470",
+      "notes": "Meaningful November review covers integrated SG13G2 device/corner/cell qualification with implementation and upstream regression artifacts. Later environment cleanup remains raw activity; no hosted qualification campaign was independently run."
     },
     "vibe-ic": {
       "kind": "github",
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "9e4ba7dd1b6b007f17fc94ee32241eac9dd1922a",
+      "headSha": "6c9c60dc52a4d3fe535aa85829b3dee3aaaa7cdd",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1185,9 +1029,10 @@
         1088,
         1687,
         1271,
-        1635
+        1707,
+        143
       ],
-      "lastCommitAt": "2026-10-31",
+      "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-10-11",
       "lastMeaningfulCommitSha": "a1157e9aee3fd3c959f9f15767aedb437b7b30d9",
       "notes": "Substantive implementation reviewed at a1157e9aee3fd3c959f9f15767aedb437b7b30d9: fix: retain completed Default rows through final layout evidence. Latest raw history remains separate from meaningful implementation evidence."
@@ -1196,7 +1041,7 @@
       "kind": "github",
       "repository": "SunCherry/agentic-AI_analog_IC_auto-designer",
       "repositoryId": 1338610160,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "bfc0fd5e006c05d13472080fe9a3254eba3321e7",
       "commits": [
@@ -1208,9 +1053,9 @@
         0,
         0,
         0,
-        0,
         15,
         6,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-08",
@@ -1222,11 +1067,10 @@
       "kind": "repository",
       "repository": "https://codeberg.org/arpadbuermen/VACASK",
       "repositoryId": "codeberg:207664",
-      "capturedAt": "2026-10-31T09:36:54.973079Z",
+      "capturedAt": "2026-11-03T07:35:53.986Z",
       "defaultBranch": "main",
       "headSha": "d7b4db43b4534cbe92de4c12e25d33019acd5b01",
       "commits": [
-        39,
         3,
         19,
         2,
@@ -1237,7 +1081,8 @@
         201,
         105,
         130,
-        64
+        64,
+        0
       ],
       "lastCommitAt": "2026-10-29",
       "lastMeaningfulCommitAt": "2026-10-29",
@@ -1248,7 +1093,7 @@
       "kind": "github",
       "repository": "Li-Yueting/SGAnalog",
       "repositoryId": 1399683603,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
       "commits": [
@@ -1262,8 +1107,8 @@
         0,
         0,
         0,
-        0,
-        1
+        1,
+        0
       ],
       "lastCommitAt": "2026-10-01",
       "lastMeaningfulCommitAt": "2026-10-01",
@@ -1274,7 +1119,7 @@
       "kind": "github",
       "repository": "lab-emi/ChipJev",
       "repositoryId": 1386929264,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "6389189d8cc40393eca97e8776638aaba5038b95",
       "commits": [
@@ -1287,9 +1132,9 @@
         0,
         0,
         0,
-        0,
         28,
-        2
+        2,
+        0
       ],
       "lastCommitAt": "2026-10-01",
       "lastMeaningfulCommitAt": "2026-10-01",
@@ -1300,7 +1145,7 @@
       "kind": "github",
       "repository": "shoebNTU/analog-agent",
       "repositoryId": 1261819431,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "25206f03046aefa093104e172cf511f5ad2fb8fe",
       "commits": [
@@ -1310,8 +1155,8 @@
         0,
         0,
         0,
-        0,
         9,
+        0,
         0,
         0,
         0,
@@ -1326,11 +1171,10 @@
       "kind": "github",
       "repository": "Computing-Intelligent-Decision-Team/AnalogGym-Opt",
       "repositoryId": 1222511386,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "10093e3496ef2c7d06494d91d131b0cc5de6c25b",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1341,6 +1185,7 @@
         0,
         0,
         7,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-16",
@@ -1352,7 +1197,7 @@
       "kind": "github",
       "repository": "jonahsaunders/IC-Design-Studio",
       "repositoryId": 1362004644,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "49c79957b4d6f4978127da612e167e5c75cda6b3",
       "commits": [
@@ -1365,9 +1210,9 @@
         0,
         0,
         0,
-        0,
         19,
-        6
+        6,
+        0
       ],
       "lastCommitAt": "2026-10-04",
       "lastMeaningfulCommitAt": "2026-10-02",
@@ -1378,11 +1223,10 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "e0c2b7e47980e5889b78f19938776eeadc33519a",
+      "headSha": "feab81ca22ad61d2de5d23c08cfb7753a300ce38",
       "commits": [
-        0,
         0,
         385,
         642,
@@ -1393,22 +1237,22 @@
         2261,
         2192,
         2942,
-        3825
+        3933,
+        348
       ],
-      "lastCommitAt": "2026-10-31",
-      "lastMeaningfulCommitAt": "2026-10-24",
-      "lastMeaningfulCommitSha": "b7a089985ebd82199950ff35ee1b4086fabfdc9a",
-      "notes": "Meaningful activity manually reviewed: internal HDL variable tracing through .ESAVE, with transient checkpoint/rollback handling; preceding CLI assertion reporting is also integrated. Raw counts include cosmetic, automated and bulk-import commits and do not independently establish freshness."
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "feab81ca22ad61d2de5d23c08cfb7753a300ce38",
+      "notes": "Meaningful November checkpoint corrects coupled XSPICE/HDL output-event rounding with boundary regressions. Existing single-driver real-nettype, connect-module and personal-use-license boundaries remain; raw counts do not establish accuracy or conformance."
     },
     "revolution-eda": {
       "kind": "github",
       "repository": "eskiyerli/revolution-eda",
       "repositoryId": 574462291,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "8b8df289bc945f73716d0b89d053e1919a63c9c6",
+      "headSha": "d4b6a0d90db8c6c70372a82a6fdbacf591870ad4",
       "commits": [
-        16,
         5,
         2,
         4,
@@ -1419,18 +1263,19 @@
         3,
         5,
         23,
-        10
+        18,
+        1
       ],
-      "lastCommitAt": "2026-10-30",
-      "lastMeaningfulCommitAt": "2026-10-09",
-      "lastMeaningfulCommitSha": "fd2e962fb40045a9c7c8d8bdb088ecab0a879e2d",
-      "notes": "Meaningful activity manually reviewed: feat(plugins,build): Harden plugin/licensing boundaries and startup lifecycle. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
+      "lastCommitAt": "2026-11-01",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "1a5fd9fe87fed3de5d5e8529947b036a7082fbd3",
+      "notes": "Meaningful checkpoint covers executable correspondence and bidirectional LVS-schematic/layout cross-probing regressions after the core implementation. Subsequent SPDX/documentation traffic remains raw activity; plugin availability and core-simulator boundaries are unchanged."
     },
     "morphnet": {
       "kind": "github",
       "repository": "das-dias/morphnet",
       "repositoryId": 1351586843,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "63c7868826fe0c2ac7b9112aaa1ff7b6847694f8",
       "commits": [
@@ -1442,10 +1287,10 @@
         0,
         0,
         0,
-        0,
         13,
         9,
-        1
+        1,
+        0
       ],
       "lastCommitAt": "2026-10-14",
       "lastMeaningfulCommitAt": "2026-10-14",
@@ -1456,11 +1301,10 @@
       "kind": "github",
       "repository": "LewisLiuLiuLiu/SerDesSystemCProject",
       "repositoryId": 1102426944,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "052ac49a825bfcdcef2d4d1f56157555df9755b5",
       "commits": [
-        8,
         17,
         58,
         5,
@@ -1471,7 +1315,8 @@
         0,
         0,
         0,
-        35
+        35,
+        0
       ],
       "lastCommitAt": "2026-10-18",
       "lastMeaningfulCommitAt": "2026-10-18",
@@ -1482,11 +1327,10 @@
       "kind": "github",
       "repository": "HrishikeshGawasIIITH/EDA_Agent",
       "repositoryId": 1267234013,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "50a1b67a9caa3ff74cf1f5572226498523ce73a1",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1497,6 +1341,7 @@
         0,
         0,
         2,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-29",
@@ -1508,11 +1353,10 @@
       "kind": "github",
       "repository": "mthudaa/Microelectronic-Block-Generator",
       "repositoryId": 1244743752,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "44e7b8c04a9b6e884f45d4d7d40732c636c1dd32",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1523,7 +1367,8 @@
         39,
         12,
         2,
-        2
+        2,
+        0
       ],
       "lastCommitAt": "2026-10-28",
       "lastMeaningfulCommitAt": "2026-10-28",
@@ -1534,7 +1379,7 @@
       "kind": "github",
       "repository": "Chaoos-404/diagen",
       "repositoryId": 1383327063,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "c59aa5079dc741c8fb00b7c2f3ca96ca1ffd20aa",
       "commits": [
@@ -1547,8 +1392,8 @@
         0,
         0,
         0,
-        0,
         21,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-27",
@@ -1560,7 +1405,7 @@
       "kind": "github",
       "repository": "rpm2003rpm/vagen",
       "repositoryId": 605641263,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "c632252a46965309c31e0d3c1364e79fcaf4f8b5",
       "commits": [
@@ -1573,8 +1418,8 @@
         0,
         0,
         0,
-        0,
         11,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-24",
@@ -1586,16 +1431,16 @@
       "kind": "github",
       "repository": "ChipFlow/vajax",
       "repositoryId": 1106272774,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "2dfc4072cc8a00bef4e5773619dbda3e9a413220",
       "commits": [
-        3,
         486,
         314,
         137,
         118,
         8,
+        0,
         0,
         0,
         0,
@@ -1612,7 +1457,7 @@
       "kind": "github",
       "repository": "house-of-houses/wirewright",
       "repositoryId": 1226513871,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
       "headSha": "40b90b07a9b6ec55bd5d6942b67c2c2badfe7d86",
       "commits": [
@@ -1621,8 +1466,8 @@
         0,
         0,
         0,
-        0,
         33,
+        0,
         0,
         0,
         0,
@@ -1638,11 +1483,10 @@
       "kind": "repository",
       "repository": "https://codeberg.org/gnucap/gnucap",
       "repositoryId": "codeberg:591",
-      "capturedAt": "2026-10-31T09:36:59.711534Z",
+      "capturedAt": "2026-11-03T07:36:00.015Z",
       "defaultBranch": "develop",
       "headSha": "3504b93da546b4f497b26c5334b42f9642d30aee",
       "commits": [
-        4,
         4,
         4,
         2,
@@ -1653,7 +1497,8 @@
         1,
         2,
         4,
-        11
+        11,
+        0
       ],
       "lastCommitAt": "2026-10-29",
       "lastMeaningfulCommitAt": "2026-10-29",
@@ -1665,11 +1510,10 @@
       "kind": "github",
       "repository": "rich-netlist/rnl",
       "repositoryId": 1382051453,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "f3f56aae7777e8916740e36f24b9e3ccc0df3748",
+      "headSha": "83cbd74dc7b3f33cdc357234746226cc5d926a27",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1680,21 +1524,22 @@
         0,
         0,
         9,
-        320
+        328,
+        1
       ],
-      "lastCommitAt": "2026-10-31",
-      "lastMeaningfulCommitAt": "2026-10-30",
-      "lastMeaningfulCommitSha": "dc19b37f5891f1ba2b3c6d67b5b4be658b1566f5"
+      "lastCommitAt": "2026-11-01",
+      "lastMeaningfulCommitAt": "2026-11-01",
+      "lastMeaningfulCommitSha": "83cbd74dc7b3f33cdc357234746226cc5d926a27",
+      "notes": "Meaningful November checkpoint adds registration-point display and browser regressions after native preview-solver service and constraint-satisfaction integrations. Main-branch development is separate from core 0.5.5/viewer 0.5.3 release coverage."
     },
     "cace": {
       "kind": "github",
       "repository": "fossi-foundation/cace",
       "repositoryId": 953893226,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "dedb5e0d30f5c286d36a1511b61fc81795bd24cf",
       "commits": [
-        4,
         1,
         1,
         0,
@@ -1705,6 +1550,7 @@
         1,
         0,
         7,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-24",
@@ -1715,11 +1561,10 @@
       "kind": "github",
       "repository": "stineje/CharLib",
       "repositoryId": 492362726,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "987e90f5286b11c3a548749f93b689a7b8723003",
       "commits": [
-        0,
         48,
         2,
         4,
@@ -1730,6 +1575,7 @@
         53,
         1,
         15,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-22",
@@ -1740,7 +1586,7 @@
       "kind": "github",
       "repository": "aesc-silicon/gdscheck",
       "repositoryId": 1094364375,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "07aed349a6972bcaf70f12e1604b0a7f5a664b8b",
       "commits": [
@@ -1751,11 +1597,11 @@
         0,
         0,
         0,
-        0,
         10,
         8,
         381,
-        48
+        48,
+        0
       ],
       "lastCommitAt": "2026-10-29",
       "lastMeaningfulCommitAt": "2026-10-16",
@@ -1765,11 +1611,10 @@
       "kind": "github",
       "repository": "gdsfactory/gdsfactory",
       "repositoryId": 250169028,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "1bdc764fb283471da3135e12db5f2bd05a94d9cb",
+      "headSha": "91b114056a01a2f52be0ff9ff1247402f897d3ee",
       "commits": [
-        32,
         45,
         46,
         41,
@@ -1780,9 +1625,10 @@
         53,
         37,
         66,
-        26
+        26,
+        7
       ],
-      "lastCommitAt": "2026-10-31",
+      "lastCommitAt": "2026-11-01",
       "lastMeaningfulCommitAt": "2026-10-17",
       "lastMeaningfulCommitSha": "8b6fe0ae8db7eac245a9b67d1fece75fc8d3aa6a"
     },
@@ -1790,11 +1636,10 @@
       "kind": "github",
       "repository": "gdsfactory/gsim",
       "repositoryId": 1137790571,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "9f31460946f5c3f036fb91bc32a2ed1bc38245ce",
       "commits": [
-        0,
         0,
         25,
         35,
@@ -1805,7 +1650,8 @@
         14,
         34,
         35,
-        94
+        94,
+        0
       ],
       "lastCommitAt": "2026-10-30",
       "lastMeaningfulCommitAt": "2026-10-29",
@@ -1815,11 +1661,10 @@
       "kind": "github",
       "repository": "snishizawa/libretto",
       "repositoryId": 415260404,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "4ccaeb17c485c051db8bb326dd84b9ea112e3a7f",
       "commits": [
-        11,
         0,
         0,
         0,
@@ -1829,6 +1674,7 @@
         1,
         0,
         1,
+        0,
         0,
         0
       ],
@@ -1840,11 +1686,10 @@
       "kind": "github",
       "repository": "RTimothyEdwards/netgen",
       "repositoryId": 177686668,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "e310f3049e1f07c02d77aa509742ebc04b24f808",
+      "headSha": "93dcda14d36349d0b0ca63168d3cbbab20fe2ece",
       "commits": [
-        10,
         4,
         1,
         1,
@@ -1855,9 +1700,10 @@
         1,
         0,
         1,
-        3
+        3,
+        1
       ],
-      "lastCommitAt": "2026-10-28",
+      "lastCommitAt": "2026-11-01",
       "lastMeaningfulCommitAt": "2026-10-14",
       "lastMeaningfulCommitSha": "e5a185dcfa16ee6317883f02bfdc8cf10feabd0e"
     },
@@ -1865,11 +1711,10 @@
       "kind": "github",
       "repository": "iic-jku/open-pdks-regression-tests",
       "repositoryId": 1276759971,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "cff25b6f18e15eb0145e5353accb7c86f272c8f6",
+      "headSha": "0837df25019647f8c2b9c4d1410074200d26833a",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -1880,9 +1725,10 @@
         17,
         9,
         4,
-        14
+        14,
+        4
       ],
-      "lastCommitAt": "2026-10-27",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-20",
       "lastMeaningfulCommitSha": "3a97ca55bfbf482400f6b8d35f341b465303fe13"
     },
@@ -1890,11 +1736,10 @@
       "kind": "github",
       "repository": "thliebig/openEMS",
       "repositoryId": 3997670,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
-      "headSha": "d686f1dfbb8900a748eacf1925e091ee32d1995c",
+      "headSha": "5fecbb58d8996a3e6545e7b40584f90b9362e012",
       "commits": [
-        28,
         6,
         7,
         0,
@@ -1905,9 +1750,10 @@
         4,
         7,
         68,
-        47
+        47,
+        2
       ],
-      "lastCommitAt": "2026-10-23",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-20",
       "lastMeaningfulCommitSha": "d9ca3b6a6359c7b04bf862adc59ed54fbd275bd4"
     },
@@ -1915,9 +1761,9 @@
       "kind": "github",
       "repository": "vhdani04/OpenLayout",
       "repositoryId": 1402784147,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "48ecc9ebafa64749de9067a275e30a7c2e3afede",
+      "headSha": "7e4ccaf6b760b705b51b4b10f08b2e2c1a1b8d62",
       "commits": [
         0,
         0,
@@ -1929,10 +1775,10 @@
         0,
         0,
         0,
-        0,
-        96
+        96,
+        2
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-13",
       "lastMeaningfulCommitSha": "e27246513b606f67f59576d1963e3d4bbea4f9a8"
     },
@@ -1940,11 +1786,10 @@
       "kind": "github",
       "repository": "VLSIDA/OpenRAM",
       "repositoryId": 72662753,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "stable",
       "headSha": "2f7b3866418ac1ce17ad959207a1489033d8c577",
       "commits": [
-        0,
         0,
         1,
         0,
@@ -1955,7 +1800,8 @@
         2,
         0,
         0,
-        28
+        28,
+        0
       ],
       "lastCommitAt": "2026-10-27",
       "lastMeaningfulCommitAt": "2026-10-21",
@@ -1966,11 +1812,10 @@
       "kind": "github",
       "repository": "awslabs/palace",
       "repositoryId": 571802298,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "8874e6cf8f3c6111867cb0c01cb7efacd73fd48c",
+      "headSha": "0dd8d015034c0fc1f0cf4c9ff952b533f9cb91d5",
       "commits": [
-        9,
         10,
         14,
         107,
@@ -1981,9 +1826,10 @@
         26,
         23,
         46,
-        67
+        67,
+        1
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "29ad351f916e47e005a43730513f155eeb634e3e"
     },
@@ -1991,7 +1837,7 @@
       "kind": "github",
       "repository": "AlpharomeroJL/reticle",
       "repositoryId": 1286408936,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "67015912942fbc0972c95e0e28a279722f897ba4",
       "commits": [
@@ -2002,9 +1848,9 @@
         0,
         0,
         0,
-        0,
         877,
         89,
+        0,
         0,
         0
       ],
@@ -2016,11 +1862,10 @@
       "kind": "github",
       "repository": "iic-jku/snp2le",
       "repositoryId": 1268588618,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "07a8222d52f25080274168eeed2fe27d064a268c",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -2031,7 +1876,8 @@
         54,
         7,
         7,
-        27
+        27,
+        0
       ],
       "lastCommitAt": "2026-10-18",
       "lastMeaningfulCommitAt": "2026-10-18",
@@ -2041,7 +1887,7 @@
       "kind": "github",
       "repository": "trschell/SuperPEEC",
       "repositoryId": 1336490409,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "c61c703f862fdbf4ff589836762fa6a07bab340a",
       "commits": [
@@ -2053,10 +1899,10 @@
         0,
         0,
         0,
-        0,
         81,
         125,
-        30
+        30,
+        0
       ],
       "lastCommitAt": "2026-10-11",
       "lastMeaningfulCommitAt": "2026-10-11",
@@ -2066,11 +1912,10 @@
       "kind": "github",
       "repository": "vyges-tools/em-ir",
       "repositoryId": 1254717604,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "967737903b9b649adde882ea5d97af6fc10cf919",
+      "headSha": "93833e7f143052fa614f7ad97bfedb6266d371b2",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -2081,9 +1926,10 @@
         24,
         33,
         4,
-        29
+        30,
+        0
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-10-31",
       "lastMeaningfulCommitAt": "2026-10-17",
       "lastMeaningfulCommitSha": "938a8742bb3ab830f9443719ffe5794b9eccc7db"
     },
@@ -2091,11 +1937,10 @@
       "kind": "github",
       "repository": "vyges-tools/lvs",
       "repositoryId": 1264707409,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "6737e89dfe16fb1184f357e3f914213bc75aef4b",
+      "headSha": "327cad5966a88258e2320716e145f80c5036c73f",
       "commits": [
-        0,
         0,
         0,
         0,
@@ -2106,9 +1951,10 @@
         40,
         19,
         4,
-        24
+        25,
+        0
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-10-31",
       "lastMeaningfulCommitAt": "2026-10-16",
       "lastMeaningfulCommitSha": "e5c882dd541a600fce48fc48d0aa721535a16bb7"
     },
@@ -2116,11 +1962,10 @@
       "kind": "github",
       "repository": "wrcad/xictools",
       "repositoryId": 105790172,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "master",
       "headSha": "c1244c23a99118843db48cee9860218befe98753",
       "commits": [
-        3,
         0,
         0,
         0,
@@ -2131,7 +1976,8 @@
         0,
         1,
         0,
-        15
+        15,
+        0
       ],
       "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-07",
@@ -2148,11 +1994,10 @@
       "kind": "repository",
       "repository": "https://codeberg.org/gnucap/gnucap-modelgen-verilog",
       "repositoryId": "codeberg:119338",
-      "capturedAt": "2026-10-31T09:36:59.694570Z",
+      "capturedAt": "2026-11-03T07:36:09.904Z",
       "defaultBranch": "develop",
       "headSha": "37e0b2af90950cc76c3ed3c51c55c1f9fed53ea8",
       "commits": [
-        1,
         7,
         15,
         7,
@@ -2163,7 +2008,8 @@
         1,
         1,
         8,
-        33
+        33,
+        0
       ],
       "lastCommitAt": "2026-10-29",
       "lastMeaningfulCommitAt": "2026-10-29",
@@ -2173,13 +2019,12 @@
     },
     "espice": {
       "kind": "github",
-      "repository": "OpenFAT/EGSpice",
+      "repository": "OpenFAT/ESPice",
       "repositoryId": 1436380592,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "34fdb418af589eb51a51d0c1f835f9d42f36f80f",
+      "headSha": "cf04e569b53c0769f2321f15507792a29bc00a93",
       "commits": [
-        0,
         13,
         60,
         0,
@@ -2190,17 +2035,19 @@
         105,
         109,
         38,
-        69
+        71,
+        3
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "bc0018f23026646bf38d8529fc8fce64a35ae05b"
+      "lastMeaningfulCommitSha": "bc0018f23026646bf38d8529fc8fce64a35ae05b",
+      "notes": "Canonical repository renamed EGSpice to ESPice with numeric identity unchanged. The rename is not a meaningful-activity renewal; the reviewed implementation checkpoint is retained."
     },
     "shapeic": {
       "kind": "github",
       "repository": "ShapeIC/shapeic",
       "repositoryId": 1300256384,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "b5e44f327a9dd2cd7c939bc9549fc46f8d7c04b9",
       "commits": [
@@ -2211,11 +2058,11 @@
         0,
         0,
         0,
-        0,
         21,
         5,
         5,
-        9
+        9,
+        0
       ],
       "lastCommitAt": "2026-10-08",
       "lastMeaningfulCommitAt": "2026-10-08",
@@ -2225,7 +2072,7 @@
       "kind": "github",
       "repository": "themperek/spicebind",
       "repositoryId": 999832494,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
       "headSha": "668b9a6a1b474f7b5181b5caed915e8d0a1505bd",
       "commits": [
@@ -2237,9 +2084,9 @@
         0,
         0,
         0,
-        0,
         2,
         18,
+        0,
         0
       ],
       "lastCommitAt": "2026-09-22",
@@ -2250,9 +2097,9 @@
       "kind": "github",
       "repository": "OpenFAT/VAMS-Conformance-Suite",
       "repositoryId": 1439053326,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "9d74f7374b6f05ab98a86519a8561ea9f58feb98",
+      "headSha": "3dbd63ea68bd684058a7ca162bac537908d5371e",
       "commits": [
         0,
         0,
@@ -2264,10 +2111,10 @@
         0,
         0,
         0,
-        0,
-        19
+        19,
+        6
       ],
-      "lastCommitAt": "2026-10-30",
+      "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-25",
       "lastMeaningfulCommitSha": "044c6cced380ad62bfd43c5ef76400b0f964697a"
     },
@@ -2275,11 +2122,10 @@
       "kind": "github",
       "repository": "OpenFAT/VerA",
       "repositoryId": 1436380055,
-      "capturedAt": "2026-10-31T09:41:36.621Z",
+      "capturedAt": "2026-11-03T07:53:20.046Z",
       "defaultBranch": "main",
-      "headSha": "c3df3498ec42a761f5c70332507fcbee05ad796a",
+      "headSha": "d26fe7f1144d2e0fbcff4a3618adadc2f794454b",
       "commits": [
-        0,
         28,
         151,
         134,
@@ -2290,11 +2136,62 @@
         112,
         89,
         151,
-        203
+        203,
+        9
       ],
-      "lastCommitAt": "2026-10-30",
-      "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "14541a6f966b2e96eca145546b36e4550078dc0f"
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-02",
+      "lastMeaningfulCommitSha": "ed5d6ff4b0962254099be8e4d0f9d63b82d86cdf"
+    },
+    "klayout-tools": {
+      "kind": "github",
+      "repository": "2AMLogic/klayout-tools",
+      "repositoryId": 1315424293,
+      "capturedAt": "2026-11-03T07:54:23.977Z",
+      "defaultBranch": "main",
+      "headSha": "99bcebbf25b149efe6aad6ca7734f37d7e378fd1",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        83,
+        716,
+        707,
+        1209,
+        72
+      ],
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "f94eaa6c00f267e3b58031e6ddaeab0507d2cd9d"
+    },
+    "openpcells": {
+      "kind": "github",
+      "repository": "patrickschulz/openPCells",
+      "repositoryId": 265188333,
+      "capturedAt": "2026-11-03T07:53:20.046Z",
+      "defaultBranch": "master",
+      "headSha": "f5e76846949843ee288644ddce07610646262707",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        8,
+        0,
+        5,
+        125,
+        0
+      ],
+      "lastCommitAt": "2026-10-16",
+      "lastMeaningfulCommitAt": "2026-10-16",
+      "lastMeaningfulCommitSha": "f5e76846949843ee288644ddce07610646262707"
     }
   }
 }

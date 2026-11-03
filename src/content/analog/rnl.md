@@ -1,7 +1,7 @@
 ---
 name: RNL
 summary: Constraint-aware netlist notation and tooling for analog schematics.
-description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and a WebAssembly viewer. Hierarchical browsing exposes subcircuit parameters and alternative library definitions; viewer parameter bindings rebuild the displayed document rather than rewriting electrical values, and the native solver remains a preview."
+description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. The viewer now exposes constraint satisfaction and registration points; a development server can call a local native solver, while browser-side solving and drag-placement editing remain unavailable."
 scope:
   design:
     ai: true
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-03"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -70,6 +70,15 @@ sources:
   - id: review-20261031-preview
     title: CLI explicitly identifies the solver as a preview
     url: https://github.com/rich-netlist/rnl/commit/67929f84743bfb525bef9ee1b04f5fd4d26ee498
+  - id: review-20261103-solve
+    title: "Viewer solve constraints and local native development service"
+    url: https://github.com/rich-netlist/rnl/commit/5e0133e1b75f084ceb1530bf6791fa038272dab0
+  - id: review-20261103-report
+    title: "Solver reports actual constraint satisfaction"
+    url: https://github.com/rich-netlist/rnl/commit/2578f057b5b476d68b15e0d999c1a16ebb6b2289
+  - id: review-20261103-origins
+    title: "Registration-point overlay and browser regressions"
+    url: https://github.com/rich-netlist/rnl/commit/83cbd74dc7b3f33cdc357234746226cc5d926a27
 ---
 
 ### Implementation and scope
@@ -99,3 +108,7 @@ Meaningful activity advances to first-parent integration `810a83d02a24a081bca9f9
 The October 30/31 integrations let the viewer choose among multiple library definitions for an instance and display a subcircuit's parameters with their default, instance or changed origin. A parameter dialog rebuilds the Document with bound values and can carry them when entering a separately stored definition. These are schematic-inspection and display bindings: the drawing retains its written expressions and the operation does not rewrite the netlist's electrical parameters. Source and browser-test changes were reviewed, without reproducing the upstream Rust/WASM suite. [Definition choice](#source-review-20261031-choices) · [Parameters and regression tests](#source-review-20261031-params) · [Retained code](#source-review-20261031-param-code).
 
 The native solver is explicitly labeled a preview; this update does not promote it to a mature placement editor or add Simulation. Existing AI Design and software-development provenance are retained on their earlier evidence. Meaningful activity follows the first-parent parameter integration, not the subsequent version bump. [Solver boundary](#source-review-20261031-preview).
+
+### Selection and current source review
+
+Substantive integrations add per-level constraints, solve reports describing which facts hold, viewer constraint inspection and object registration-point overlays. A web development server started with an explicit local rnl executable can serve preview solves through temporary files; this does not add a WASM solver or enable the public static web viewer to solve on its own. The solver remains a preview. Current main is ahead of the reviewed core 0.5.5/viewer 0.5.3 releases, so these development capabilities are not attributed to those tags. The existing model-hosted authoring workflow retains AI Design; the new constraint checks are deterministic. [Native-service implementation and tests](#source-review-20261103-solve) · [Solve report](#source-review-20261103-report) · [Current viewer implementation/tests](#source-review-20261103-origins).

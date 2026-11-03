@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -66,6 +66,12 @@ sources:
   - id: "review-20261011-2"
     title: "Captured development history"
     url: "https://github.com/aionhw/xezim/commits/main"
+  - id: review-20261103-implementation
+    title: "Resolved-net struct-default and side-effect regressions"
+    url: https://github.com/aionhw/xezim/commit/16a3379ad5404eebcbb8a71f39ffe03cd9746bbb
+  - id: review-20261103-resolver
+    title: "Retain struct-default semantics in resolver code"
+    url: https://github.com/aionhw/xezim/commit/60b49ed9d12ddfb38723e6c39072057bd370adb8
 ---
 
 ### Implementation context
@@ -80,7 +86,7 @@ The 0.11.0 tree includes a Verilog-AMS `wreal` compliance test covering fraction
 
 ### Release boundary
 
-Release 0.11.0 and the subsequent October 5 main-branch implementation were reviewed. Later correctness/performance changes remain marked unreleased in the project notes and are not presented as a new numbered release. UVM and language conformance reports describe tested cases and workloads, not complete IEEE compliance. The xezim-core dependency is not a second activity repository. [0.11.0 release](#source-release-0-11-0); [Current notes](#source-notes-current); [Current implementation update](#source-activity-current).
+Release 0.11.0 and the subsequent October 5 main-branch implementation were reviewed. At that earlier checkpoint, subsequent correctness/performance changes were marked unreleased; the November review below records the later 0.11.4 release. UVM and language conformance reports describe tested cases and workloads, not complete IEEE compliance. The xezim-core dependency is not a second activity repository. [0.11.0 release](#source-release-0-11-0); [Current notes](#source-notes-current); [Current implementation update](#source-activity-current).
 
 [Implementation inspected](#source-implementation).
 
@@ -107,3 +113,7 @@ The reviewed randomization integration jointly solves random object arrays and w
 No new general analog solver or expanded RNM coverage is established by these commits. Existing resolved-real/wreal notes should be retained on their original evidence. This research did not rerun simulator conformance or UVM workloads.
 
 The maintainer’s project-wide construction account reports entirely AI-generated code. It supports AI-built independently of runtime functionality; the reported code percentage has not been independently reproduced. [Primary development account](#source-development-2) · [Primary development account](#source-development-1).
+
+### Selection and current source review
+
+Current main repairs scalarized resolver handling when a returned struct has member defaults or an actual argument has side effects, with dedicated executable regressions. This adds correctness evidence for resolved-net execution without asserting broader RNM coverage or an analog solver. The inspected 0.11.4 release precedes these November changes; earlier 0.11.0-only release wording is historical. SystemVerilog/UVM coverage remains workload-specific. The adequate description, ordinary Verification and separately sourced AI-built maintainer account are retained. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-resolver).

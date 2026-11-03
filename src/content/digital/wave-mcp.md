@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Canonical wave-mcp repository"
@@ -29,6 +29,12 @@ sources:
     title: Official package page
     url: https://pypi.org/project/wave-mcp/
     purpose: official
+  - id: review-20261103-implementation
+    title: "Bit/part-select handling across waveform and tracing tools"
+    url: https://github.com/Tencent/wave-mcp/commit/bb0bfe60d1d68d47e9612e7016f840e4e9696f29
+  - id: review-20261103-time
+    title: "Exact FST timestamp conversion and tests"
+    url: https://github.com/Tencent/wave-mcp/commit/0b8c5fff11c9b4bf1e668787322ec41d08dd9d91
 ---
 
 
@@ -51,3 +57,7 @@ Structured waveform, driver and X-tracing queries serve conventional Verificatio
 ### Current-source review
 
 Reviewed 2026-10-01. Current release adds static-only sessions, source/waveform identity checks, browser views and automatic VCD/FSDB-to-FST preparation. The inspected implementation remains a deterministic analysis toolkit exposed through MCP/CLI, without a packaged substantive model-decision workflow. Verification stays conventional; automatic query preparation or netlist repair is not itself AI. [README](#source-readme); [Trace implementation](#source-implementation).
+
+### Selection and current source review
+
+Release v1.1.1 follows integrated bit/part-select support across waveform queries, analyses, comparisons and tracing, with signedness/range checks and substantial unit/functional regressions. A separate exact-time conversion correction avoids floating-point loss in FST timestamps. This is meaningful technical maintenance of deterministic Verification tools; the generic MCP interface does not establish model-driven diagnostic decisions. The existing description remains adequate and no query-accuracy or production result was independently reproduced. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-time).

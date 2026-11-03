@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Agent-assisted hierarchical schematic editor with connectivity inspection, native simulation-source authoring and SPICE/Spectre/RNL interchange. Recent round-trip fixes preserve project-cell call symbols, PDK terminals, library bodies and document-local identities; hosted simulation and EDA adapters retain separate dependencies, while local headless drawing does not execute simulation."
+description: "Agent-assisted hierarchical schematic editor with connectivity inspection, simulation-source authoring and SPICE/Spectre/RNL interchange. Its hosted ngspice SG13G2 profile adds device/corner and combinational-cell qualification; local headless drawing does not execute simulation, and EDA adapters retain separate service, installation and PDK requirements."
 scope:
   design:
     ai: true
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-03"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -81,6 +81,12 @@ sources:
 - id: review-20261031-tests
   title: Retained interchange regression tests
   url: https://github.com/cascode-ai/analog-canvas/blob/1abf83781d704b9de5b504841bd4d810e5eb40c9/apps/editor/src/features/netlist-export/rnl-round-trip.test.ts
+- id: review-20261103-qualification
+  title: "Integrated SG13G2 device, corner and cell qualification"
+  url: https://github.com/cascode-ai/analog-canvas/commit/9556c9eaf31a40d56df98cd1e4cb8548f8c78470
+- id: review-20261103-contract
+  title: "Current simulation execution and isolation boundaries"
+  url: https://github.com/cascode-ai/analog-canvas/blob/6d6b3d3e8c7718019ac06db6ccb40ca5fb3ccb5d/docs/specs/simulation-execution.md
 ---
 
 ### Workflow and scope
@@ -116,3 +122,7 @@ The coupling change spans typed model data, transactions, clipboard behavior, re
 The October 30 changes extend RNL export/import for project-cell call symbols, PDK property terminals, textual library bodies, no-connect information and the editor's top-cell block. The following fix distinguishes parts belonging to different Documents when ordering generated bodies and call symbols. The implementation and regression cases address structural interchange and symbol/terminal consistency; they do not establish electrical equivalence of imported circuits. [Interchange implementation](#source-review-20261031-rnl) · [Document identity fix](#source-review-20261031-identities) · [Retained regression tests](#source-review-20261031-tests).
 
 Meaningful activity advances to the document-identity correction on canonical main. This is a source-level development review; upstream EDA/simulation tests and release inclusion were not independently reproduced. The existing hosted/local simulation and license boundaries remain applicable.
+
+### Selection and current source review
+
+The maintained main branch integrates an isolated ngspice SG13G2 execution profile, preparation/runtime checks and device, corner, statistics and combinational-cell qualification scripts. The current contract exposes one final SG13G2 environment covering thirteen devices, rather than presenting the earlier intermediate profiles as separate environments. VACASK SG13G2 remains unqualified. These are inspected implementation and upstream regression artifacts; no hosted service or qualification campaign was independently run. Existing model-authored analysis/measurement workflows retain AI Simulation, independently of AI-assisted software development. The new profile itself is conventional simulator execution. [Integrated qualification](#source-review-20261103-qualification) · [Current execution contract](#source-review-20261103-contract).

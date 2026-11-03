@@ -2,7 +2,7 @@
 name: "OpenVAF-Reloaded"
 aliases: []
 summary: "Compiles Verilog-A device models into OSDI shared libraries."
-description: "Verilog-A compiler producing OSDI 0.4 model libraries for compatible circuit simulators, with timestep-bound and batch-compilation correctness fixes. Named-event support does not imply scheduled analog event controls: the reviewed compiler warns that cross, above, timer and absdelta guards do not yet schedule their events."
+description: "Verilog-A compiler whose current development branch emits OSDI 0.5 model libraries for compatible circuit simulators, retaining timestep-bound and batch-cache correctness work. Host compatibility is separate from language coverage; cross, above, timer and absdelta event controls still warn that their events are not scheduled."
 scope:
   simulation:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-03"
 sources:
   - id: "code"
     title: "Canonical public source repository"
@@ -49,6 +49,15 @@ sources:
   - id: review-20261031-concurrency
     title: Unique batch intermediates and atomic final-library replacement
     url: https://github.com/OpenVAF/OpenVAF-Reloaded/commit/83c251f48cea442c9869c0cb6453dcd9e17d7dfd
+  - id: review-20261103-integration
+    title: "Reconcile maintained compiler with upstream OSDI 0.5"
+    url: https://github.com/OpenVAF/OpenVAF-Reloaded/commit/2b5909bccd17b1cdc01a3ebced8ca7b3833c8a5c
+  - id: review-20261103-interface
+    title: "Current OSDI 0.5 header"
+    url: https://github.com/OpenVAF/OpenVAF-Reloaded/blob/2b5909bccd17b1cdc01a3ebced8ca7b3833c8a5c/openvaf/osdi/header/osdi_0_5.h
+  - id: review-20261103-events
+    title: "Retained unscheduled-event lint on rewritten lineage"
+    url: https://github.com/OpenVAF/OpenVAF-Reloaded/commit/fae51c35c1bffee70770403257d4d06bae054269
 ---
 
 ### Scope
@@ -57,7 +66,7 @@ Compiles Verilog-A models into dynamic libraries implementing the OSDI simulator
 
 ### Release boundary
 
-The verified default branch is mob, despite older master wording in the README. The maintained compiler exposes OSDI 0.4; the legacy OSDI 0.3 branch is documented as unmaintained. Simulator compatibility and available OSDI features are separate from compiler generation. [Interface boundary](#source-readme).
+The verified default branch is mob, despite older master wording in the README. The October review established OSDI 0.4 on that earlier lineage; the November source review below supersedes the current-interface claim. The legacy OSDI 0.3 branch was documented as unmaintained. Simulator compatibility and available OSDI features are separate from compiler generation. [Interface boundary](#source-readme).
 
 ### Scope classification
 
@@ -73,4 +82,8 @@ Named-event declaration/trigger/detection and break/continue/return support span
 
 The October 23 lowering change takes the minimum across multiple $bound_step calls instead of allowing the last call to overwrite an earlier tighter bound. Its MIR fixture includes a conditional second call. Separately, the new unscheduled_event lint warns that cross, above, timer and absdelta event expressions are checked but do not participate in scheduling; the guarded body is evaluated on each analog-block evaluation. Retained-state handling and named-event lowering do not supply missing event-time scheduling. This is a material capability limitation, not a new claim of complete event support. [Bound and regression](#source-review-20261031-bounds) · [Diagnostic and fixtures](#source-review-20261031-events).
 
-The October 25 batch-compiler corrections incorporate target/CPU/optimization/codegen settings in cache keys and use unique temporary artifacts with final rename, reducing incorrect cache reuse and concurrent file collisions. Meaningful activity advances to the reviewed first-parent cache-key change. These are canonical development changes; tagged-release inclusion and external simulator behavior were not independently reproduced. Existing AI-development provenance remains supported independently. [Cache key](#source-review-20261031-cache) · [Concurrent output handling](#source-review-20261031-concurrency).
+The October 25 batch-compiler corrections incorporate target/CPU/optimization/codegen settings in cache keys and use unique temporary artifacts with final rename, reducing incorrect cache reuse and concurrent file collisions. At the October review, meaningful activity advanced to that first-parent cache-key change; the November review below records its rewritten replacement. These are canonical development changes; tagged-release inclusion and external simulator behavior were not independently reproduced. Existing AI-development provenance remains supported independently. [Cache key](#source-review-20261031-cache) · [Concurrent output handling](#source-review-20261031-concurrency).
+
+### Selection and current source review
+
+The canonical default remains mob. Its November history was rewritten: the previously reviewed cache-key SHA is absent from the captured first-parent lineage. The replacement checkpoint is the inspected OSDI 0.5 reconciliation, including lowering, limiting-delta handling and diagnostic/integration-test changes; it retains the code-generation cache fix on the new lineage. The current header/descriptor and README establish OSDI 0.5 development output, while older README references to master/mb-experimental describe other lines. Do not infer released host support from that compiler interface or transfer this update to the August v24.0.2mob tag. The unscheduled_event lint and fixtures still warn for cross/above/timer/absdelta. Existing credited named-event/jump implementation remains independent software-development provenance. [Reconciliation](#source-review-20261103-integration) · [Current interface](#source-review-20261103-interface) · [Retained scheduling limitation](#source-review-20261103-events).
