@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-07",
-  "capturedAt": "2026-11-07T04:24:39.888Z",
+  "capturedAt": "2026-11-07T05:12:02.416Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2355,6 +2355,56 @@
       "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-11-03",
       "lastMeaningfulCommitSha": "e40ba7937336824f12f7db870ea36f6f090dd90d"
+    },
+    "bender": {
+      "kind": "github",
+      "repository": "pulp-platform/bender",
+      "repositoryId": 133782498,
+      "capturedAt": "2026-11-07T05:12:02.416Z",
+      "defaultBranch": "master",
+      "headSha": "e80020910fc91fd223dd64a240fd3bd5fb607b9d",
+      "commits": [
+        7,
+        24,
+        10,
+        9,
+        5,
+        2,
+        17,
+        6,
+        5,
+        12,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-10",
+      "lastMeaningfulCommitAt": "2026-09-10",
+      "lastMeaningfulCommitSha": "b407dd65f7e8a8136bd64f47334d50d92af7d679"
+    },
+    "fusesoc": {
+      "kind": "github",
+      "repository": "olofk/fusesoc",
+      "repositoryId": 16964283,
+      "capturedAt": "2026-11-07T05:12:02.416Z",
+      "defaultBranch": "main",
+      "headSha": "e1a21701ad12bcb8136c13617ce7ed569a71c19f",
+      "commits": [
+        14,
+        27,
+        1,
+        0,
+        0,
+        10,
+        5,
+        2,
+        39,
+        5,
+        13,
+        2
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-10-23",
+      "lastMeaningfulCommitSha": "213618ab43b686638865fdf687c59b410da1f28f"
     }
   }
 }
