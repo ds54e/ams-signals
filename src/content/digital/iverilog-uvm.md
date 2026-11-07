@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
   - id: "code"
     title: "Canonical iverilog-uvm repository"
@@ -53,6 +53,12 @@ sources:
   - id: review-20261103-implementation
     title: "Integrated SystemVerilog/UVM correctness train and tests"
     url: https://github.com/dsellerbrock/iverilog-uvm/commit/1d54995b84358de76b3494e8fbce63d4d6b17a96
+  - id: review-20261107-implementation
+    title: "Integrated nested-object constraint handling and regression fixtures"
+    url: https://github.com/dsellerbrock/iverilog-uvm/commit/43abd12b5fc66513f6177d20f4a531c5e12b96ae
+  - id: review-20261107-retained
+    title: "Retained nested-object dynamic-array regression fixture"
+    url: https://github.com/dsellerbrock/iverilog-uvm/blob/43abd12b5fc66513f6177d20f4a531c5e12b96ae/ivtest/ivltests/issue2602_nested_object_dynamic_array2_body.vh
 ---
 
 ### Implementation and scope
@@ -74,3 +80,7 @@ Reviewed 2026-10-05. The elaborator adds two-dimensional dynamic-array randomiza
 ### Selection and current source review
 
 The November 3 first-parent train integrates numeric clocking-input skew initialization, recursive array-pattern defaults, object naming and string-property indexing corrections, plus executable regression fixtures. These are sustained correctness/verification improvements rather than evidence of complete IEEE/UVM compliance. No simulator or production qualification campaign was independently run. The experimental-use warning, exposed vlog95 Design operation and independently attributed AI-built fork extensions remain unchanged. [Implementation and regression evidence](#source-review-20261103-implementation).
+
+### November implementation review
+
+The November 7 integration adds nested rand-object dynamic-array constraint lowering and runtime size/element handling, with paired 2017/2023 regression fixtures checking direct references, foreach constraints, contradictory constraints and null handles. This supports continued technical maintenance, not complete SystemVerilog/UVM compliance. The experimental/tapeout warning, conventional Design/Verification classification and separately attributed AI-built development remain unchanged. No simulator runs were performed. [Implementation and regression evidence](#source-review-20261107-implementation) · [Retained fixture](#source-review-20261107-retained).

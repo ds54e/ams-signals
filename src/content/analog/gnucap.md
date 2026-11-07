@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public C++ source; build dependencies and additional model/language plugins follow the official project documentation.
 addedAt: '2026-10-18'
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-07"
 sources:
 - id: code
   title: Canonical Gnucap Codeberg repository
@@ -38,6 +38,9 @@ sources:
 - id: review-20261031-connect
   title: Connection rules move into the logic plugin
   url: https://codeberg.org/gnucap/gnucap/commit/3504b93da546b4f497b26c5334b42f9642d30aee
+- id: review-20261107-implementation
+  title: "Correct emitted Verilog directives and matching regression outputs"
+  url: https://codeberg.org/gnucap/gnucap/commit/e09ea75d1e0c04c4d861259ebdf125728e9f346b
 ---
 
 ### Implementation and boundaries
@@ -57,3 +60,7 @@ The October 22 implementation adds an interpolation-order argument and Neville-s
 The October 29 logic change moves q_accept calls from tr_review into advance/regress paths, separating acceptance-queue handling from timestep review. The following change moves connection rules into the logic plugin. These source changes extend the previously reviewed interpolation work; they do not establish complete Verilog-AMS execution or general PDK qualification. Behavioral compilation is separately implemented in Modelgen-Verilog, whose generated plugins require a compatible Gnucap tree. [Acceptance handling](#source-review-20261031-accept) · [Connection-rule change](#source-review-20261031-connect).
 
 Canonical Codeberg develop history was recaptured directly. The manually meaningful checkpoint is the acceptance change, not mirror synchronization. No external PDK or circuit simulation was run for this update.
+
+### November implementation review
+
+The maintained develop branch corrects emitted Verilog directive syntax by omitting semicolons after backtick directives and updates corresponding regression outputs. This is language/interchange maintenance, not expanded analog-language conformance. Source and expected outputs were inspected without running the simulator. [Reviewed implementation](#source-review-20261107-implementation).

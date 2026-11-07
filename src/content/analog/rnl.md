@@ -1,7 +1,7 @@
 ---
 name: RNL
 summary: Constraint-aware netlist notation and tooling for analog schematics.
-description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. The viewer now exposes constraint satisfaction and registration points; a development server can call a local native solver, while browser-side solving and drag-placement editing remain unavailable."
+description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. A local browser-based viewer adds native solving and file saving for older Linux systems; browser-only solving and graphical drag-placement editing remain unavailable."
 scope:
   design:
     ai: true
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -79,6 +79,15 @@ sources:
   - id: review-20261103-origins
     title: "Registration-point overlay and browser regressions"
     url: https://github.com/rich-netlist/rnl/commit/83cbd74dc7b3f33cdc357234746226cc5d926a27
+  - id: review-20261107-local
+    title: "Loopback viewer with native solving and bounded file operations"
+    url: https://github.com/rich-netlist/rnl/commit/48686fb22920a14acec60e4ca78d46c4afb7feef
+  - id: review-20261107-guide
+    title: "Local viewer packaging and system requirements"
+    url: https://github.com/rich-netlist/rnl/blob/81d166817d900a72bfbaf4e4f28322df2022c7e3/apps/local/README.md
+  - id: review-20261107-implementation
+    title: "Named-point text attachment implementation and snapshot regressions"
+    url: https://github.com/rich-netlist/rnl/commit/81d166817d900a72bfbaf4e4f28322df2022c7e3
 ---
 
 ### Implementation and scope
@@ -112,3 +121,7 @@ The native solver is explicitly labeled a preview; this update does not promote 
 ### Selection and current source review
 
 Substantive integrations add per-level constraints, solve reports describing which facts hold, viewer constraint inspection and object registration-point overlays. A web development server started with an explicit local rnl executable can serve preview solves through temporary files; this does not add a WASM solver or enable the public static web viewer to solve on its own. The solver remains a preview. Current main is ahead of the reviewed core 0.5.5/viewer 0.5.3 releases, so these development capabilities are not attributed to those tags. The existing model-hosted authoring workflow retains AI Design; the new constraint checks are deterministic. [Native-service implementation and tests](#source-review-20261103-solve) · [Solve report](#source-review-20261103-report) · [Current viewer implementation/tests](#source-review-20261103-origins).
+
+### November implementation review
+
+The local viewer embeds the web interface and serves it over loopback, while its native process performs solving and file operations. Implementation includes session/origin checks, bounded file access and browser/file/solver regressions. Its Linux packaging targets older enterprise distributions; container tests do not establish compatibility with their original kernels, and a local browser retains its own system dependencies. Packaging and release automation were inspected, not independently executed; a release workflow alone does not establish a published package version. The November 6 implementation also adds named-point text attachment with snapshot regressions. [Local viewer](#source-review-20261107-local) · [Packaging boundaries](#source-review-20261107-guide) · [Reviewed implementation](#source-review-20261107-implementation).

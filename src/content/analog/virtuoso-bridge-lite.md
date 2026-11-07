@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
   - id: "code"
     title: "Public repository"
@@ -79,6 +79,9 @@ sources:
   - id: review-20261103-groups
     title: "Checked OA groups and figGroups"
     url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/8842058f712e1270aa96f4524463007f2abbf8a3
+  - id: review-20261107-implementation
+    title: "Bridge reliability corrections and unit regressions"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/e2a69fca2fc8295a35674451a1e0aec2d52b308f
 ---
 ### Implemented interfaces
 
@@ -111,3 +114,7 @@ The Claude-attributed doctor feature implements a user-facing diagnostic subsyst
 ### Selection and current source review
 
 The November 2 integrations add checked OA group/figGroup builders, bounding-box diagnosis/recomputation and Maestro Spectre engine/X-preset configuration, each with unit and opt-in live tests. Explicit engine/preset validation avoids inferring a valid preset from a generic simulator name. The later traffic-statistics commits count only in raw activity; the meaningful checkpoint is the engine implementation. These deterministic operations retain ordinary Simulation/Layout and the separately evidenced AI Design netlist skill. They are development changes beyond the reviewed v1.0.0 tag; no licensed live EDA tests were run for the catalog. [Engine implementation and tests](#source-review-20261103-engine) · [Bounding-box operations](#source-review-20261103-bbox) · [Checked groups](#source-review-20261103-groups).
+
+### November implementation review
+
+Recent reliability changes avoid bridge-generated save dialogs, repaint edited views and preserve process-wide netlister state. Connected-PID inspection uses the authenticated handshake without sending SKILL. Unit tests were inspected; licensed live EDA behavior was not independently reproduced. [Implementation and regression evidence](#source-review-20261107-implementation).

@@ -2,7 +2,7 @@
 name: "VACASK"
 aliases: ["Verilog-A Circuit Analysis Kernel"]
 summary: "Loads compiled Verilog-A models for scripted analog circuit analyses."
-description: "Analog simulator loading compiled Verilog-A models through OSDI for DC, AC, transient, noise and periodic analyses. Spectre-like netlists and control scripting now accept file-driven PWL stimuli and numeric-file reads; optional parallel evaluation supports repeated analyses. SPICE/Spectre import remains experimental, and model compilation requires OpenVAF-Reloaded."
+description: "Analog simulator loading compiled Verilog-A models through OSDI for DC, AC, transient, noise and periodic analyses, with scripted controls and file-driven stimuli. Periodic noise uses a driven-circuit algorithm rather than oscillator phase-noise analysis; SPICE/Spectre import remains experimental, and model compilation requires OpenVAF-Reloaded."
 scope:
   simulation:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public AGPL-3.0 C++ source and prebuilt packages; model compilation, numerical libraries and process-specific models are separate dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-07"
 sources:
   - id: "site"
     title: "Official VACASK overview and distributions"
@@ -47,6 +47,12 @@ sources:
   - id: review-20261031-readfile
     title: "Numeric-file loading through the RPN readfile function"
     url: https://codeberg.org/arpadbuermen/VACASK/commit/d7b4db43b4534cbe92de4c12e25d33019acd5b01
+  - id: review-20261107-pnoise
+    title: "Explicit oscillator phase-noise limitation in PNOISE documentation and code"
+    url: https://codeberg.org/arpadbuermen/VACASK/commit/0727a6061c719387f0e95e91fae27f8f2d375580
+  - id: review-20261107-pss
+    title: "PSS accepted-point timestep bounds passed to transient stepping"
+    url: https://codeberg.org/arpadbuermen/VACASK/commit/7c38094790eb41852b6e52f9771237f194611717
 ---
 
 ### Implementation and limits
@@ -72,3 +78,7 @@ Claude Code is credited with co-developing the ng2vc parameter-parser correction
 The October 22 implementation skips residual and solution point-maximum loops when the configured tolerance references do not consume them. The guard retains the point-global and LTE cases. The maintainer reports output comparisons and timing measurements; those experiments were not independently rerun. [Reviewed implementation change](#source-activity-reviewed-20261022).
 
 Independent voltage/current PWL sources can load waveform values from a file, resolving relative paths from the defining input file before the working directory and reloading changed files during setup. The RPN `readfile(name)` function separately returns a real vector of numeric file contents on evaluation. This supports reusable external stimulus and control data without establishing complete foreign-netlist compatibility. Source and examples were inspected; simulator accuracy and author-reported performance were not rerun. [PWL source implementation](#source-review-20261031-pwl) · [RPN file reader](#source-review-20261031-readfile).
+
+### November implementation review
+
+The November 6 implementation warns that PNOISE with oscillator=1 uses driven-circuit linearization, not oscillator phase-noise analysis; another nonzero oscillator setting suppresses the warning without changing that algorithm. The November 4 correction separately passes timestep bounds from accepted PSS sampling points into transient stepping. Source review does not reproduce numerical accuracy or author-reported performance. [PNOISE limitation](#source-review-20261107-pnoise) · [PSS correction](#source-review-20261107-pss).

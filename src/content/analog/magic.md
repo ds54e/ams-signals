@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-07"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -50,6 +50,9 @@ sources:
   - id: "review-20261022-bench"
     title: "Version-specific IHP extraction regression context"
     url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/README.md"
+  - id: review-20261107-implementation
+    title: "Extraction timestamp, bounding-box and output-stability corrections"
+    url: https://github.com/RTimothyEdwards/magic/commit/48d0ea2aa2f943cc2736650b8c6205cee2e2e076
 ---
 
 ### Scope
@@ -81,3 +84,7 @@ The reviewed implementation adds convex/concave corner calculations and integrat
 Extraction needs review by version, technology deck, hierarchy mode and resistance/coupling options. Issues 557 and 550 were open at the October 22 observation and report sidewall, hierarchy, resistor-network and coupling-capacitance concerns in specified configurations. Those issue reports and the regression suite are not an independent rerun on the latest head, and open status alone does not establish that every reported case is still unfixed. [Reported defects](#source-review-20261022-557); [coupling report](#source-review-20261022-550); [regression context](#source-review-20261022-bench).
 
 This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+
+### November implementation review
+
+The November implementation series corrects extresist endpoints and capacitance, resistor coupling and tee lengths, technology-version-dependent fringehalo handling, and extraction output stability. Earlier issue discussions should not be read as an unchanged description of the current tree. The maintainer reports reproducibility improvements; those experiments were not independently repeated. Existing Layout and AI-assisted development classifications remain unchanged. [Current extraction maintenance](#source-review-20261107-implementation).

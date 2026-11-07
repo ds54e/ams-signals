@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; slang AST generation and downstream simulation/formal tools are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-07"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +25,9 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Initial release of SVA RTL transpiler"
     url: "https://github.com/astrollo/sva-rtl-transpiler/commit/3bd83ca86422159af9ba8b5aa6b9d90bbf3abfe5"
+  - id: review-20261107-implementation
+    title: "FIFO implementation, mutation fixtures and formal checker configurations"
+    url: https://github.com/astrollo/sva-rtl-transpiler/commit/37adefdca9ea2b0ead29a28cdfe0af3b59dc3757
 ---
 
 ### Implemented operations and boundaries
@@ -37,6 +40,6 @@ The translator requires a slang JSON AST. It supports one clock and bounded cons
 
 The exposed operations support Verification. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The meaningful checkpoint is 2026-06-10T16:17:59Z (`3bd83ca86422159af9ba8b5aa6b9d90bbf3abfe5`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+The June 12 update adds a FIFO implementation, generated RTL checkers and immediate assertions, mutation switches and SymbiYosys BMC/cover configurations. This is executable validation work after the initial release, not merely a later documentation change; no solver runs were independently repeated. [Reviewed implementation](#source-review-20261107-implementation).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.

@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -72,6 +72,9 @@ sources:
   - id: review-20261103-resolver
     title: "Retain struct-default semantics in resolver code"
     url: https://github.com/aionhw/xezim/commit/60b49ed9d12ddfb38723e6c39072057bd370adb8
+  - id: review-20261107-implementation
+    title: "Executable library-package and diagnostic-location regressions"
+    url: https://github.com/aionhw/xezim/commit/c64e6b9c2dea5c606fc61debc62a8299f226c5eb
 ---
 
 ### Implementation context
@@ -117,3 +120,7 @@ The maintainer’s project-wide construction account reports entirely AI-generat
 ### Selection and current source review
 
 Current main repairs scalarized resolver handling when a returned struct has member defaults or an actual argument has side effects, with dedicated executable regressions. This adds correctness evidence for resolved-net execution without asserting broader RNM coverage or an analog solver. The inspected 0.11.4 release precedes these November changes; earlier 0.11.0-only release wording is historical. SystemVerilog/UVM coverage remains workload-specific. The adequate description, ordinary Verification and separately sourced AI-built maintainer account are retained. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-resolver).
+
+### November implementation review
+
+New executable regressions distinguish packages in library files from separately compiled package sources and check diagnostic locations. This maintains SystemVerilog verification behavior without establishing a general analog solver or broader RNM support. The upstream regressions were inspected, not executed. [Reviewed regressions](#source-review-20261107-implementation).

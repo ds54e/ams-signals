@@ -1,7 +1,7 @@
 ---
 name: RSpice
 summary: Rust circuit simulator with schematic editing, SPICE netlist execution and waveform analysis through desktop, browser, CLI and Python interfaces.
-description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, cross-domain measurements, HDL tracing and circuit assertions. Its SystemVerilog subset adds packages, imports and single-driver real nettypes; custom resolution functions remain unsupported. The source-available personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
+description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, HDL tracing, circuit assertions and selected LTspice special-function devices. SystemVerilog support remains a subset without custom real-net resolution functions; its personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
 scope:
   design:
     ai: false
@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
 - id: code
   title: Canonical public implementation
@@ -67,6 +67,12 @@ sources:
 - id: review-20261103-timing
   title: "Coupled XSPICE event rounding correction and regressions"
   url: https://github.com/JaimeHW/RSpice/commit/feab81ca22ad61d2de5d23c08cfb7753a300ce38
+- id: review-20261107-implementation
+  title: "LTspice special-function device implementation and transient regression probes"
+  url: https://github.com/JaimeHW/RSpice/commit/eea15a3ef0aa70ab043fa078c5e4807d8b526283
+- id: review-20261107-retained
+  title: "Retained analog behavioral hosts and device boundaries"
+  url: https://github.com/JaimeHW/RSpice/blob/d76b884bb5bde2db76831d9ff919689064ebd4fa/crates/rspice-core-devices/src/device/special_function/mixed.rs
 ---
 
 ### Implementation and boundaries
@@ -96,3 +102,7 @@ Real-nettype nets accept one driver; custom resolution functions and `interconne
 ### Selection and current source review
 
 Continued implementation includes harmonic-balance numerical changes, control-language compatibility work and a coupled XSPICE/HDL event-lattice correction. The reviewed correction prevents rounding a zero-delay code-model output across the instant that scheduled it and updates executable boundary regressions. This supports retention and a new meaningful checkpoint without changing the already adequate description or relaxing its single-driver real-nettype, connect-module and license limits. No RF accuracy, simulator comparison or standards-conformance campaign was independently reproduced. [Timing correction and tests](#source-review-20261103-timing).
+
+### November implementation review
+
+The new LTspice special-function path implements PHASEDET, SAMPLEHOLD, MODULATOR and VARISTOR through analog behavioral hosts, with parameter checks and transient regression probes. Tests include upstream-recorded LTspice reference values, which were not independently reproduced. The implementation explicitly accepts Td without applying a delay for these four devices, and requires exactly one SAMPLEHOLD control mode. This does not establish complete LTspice compatibility. The later corpus-status update marks a PSpice deck accepted/ready without establishing electrical equivalence. [Implementation and regressions](#source-review-20261107-implementation) · [Retained device code](#source-review-20261107-retained).

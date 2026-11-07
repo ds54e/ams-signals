@@ -2,7 +2,7 @@
 name: "KLayout-PEX"
 aliases: ["KPEX"]
 summary: "Connects layout connectivity and process stacks to parasitic extraction and interconnect-model exchange."
-description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Device-aware terminal placement, contact resistance and process-specific well coupling feed PEX25D/RC artifacts; the GPL-3.0-or-later project remains Pre-Alpha, with backend- and technology-specific accuracy limits."
+description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Exclusion markers and model cutouts preserve external coupling while partitioning RC extraction; PEX25D exchange, pre-alpha status and backend-specific accuracy limits remain explicit."
 scope:
   layout:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Python implementation under GPL-3.0-or-later, classified Pre-Alpha by the project. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-24"
+reviewedAt: "2026-11-07"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -107,6 +107,21 @@ sources:
   - id: "review-20261024-status"
     title: "GPL-3.0-or-later license and Pre-Alpha project metadata"
     url: "https://github.com/iic-jku/klayout-pex/blob/9f26477da2df4f9c10a16853bbfde52be60701d9/pyproject.toml"
+  - id: review-20261107-exclusion
+    title: "Capacitance exclusion markers and extraction paths"
+    url: https://github.com/iic-jku/klayout-pex/commit/376f0cc9ff98fcf61e6045cf83e613fdc885144d
+  - id: review-20261107-cutouts
+    title: "Model-cell cutout implementation"
+    url: https://github.com/iic-jku/klayout-pex/commit/753c5951171ac81c9eaaef8701e0c03b488acc7f
+  - id: review-20261107-coupling
+    title: "Preserve external coupling for excluded nets"
+    url: https://github.com/iic-jku/klayout-pex/commit/ea9f61baa7fe360d769be86b7eac98cae7a00743
+  - id: review-20261107-implementation
+    title: "Diagnose missing side-overlap data with regression coverage"
+    url: https://github.com/iic-jku/klayout-pex/commit/ac3ff0c445d74e1fa8147236bd56bad49c12e43f
+  - id: review-20261107-integration
+    title: First-parent integration of missing side-overlap diagnostics and regressions
+    url: https://github.com/iic-jku/klayout-pex/commit/14777b2c46410dc837b53e15c1565e5c68e83ce5
 ---
 
 ### Implementation context
@@ -152,3 +167,7 @@ The reviewed development changes model device contacts as vias and place source/
 GF180 now distinguishes an isolated LVPWELL within DNWELL from an LVPWELL outside DNWELL that belongs to the substrate. The corresponding technology data and metal-over-well regressions connect coupling to the appropriate well nets. This is process-specific electrical connectivity and extraction work, not universal well accuracy validation. [Isolated-well implementation and cases](#source-review-20261024-isolated-wells).
 
 The individual changes are side-branch commits integrated on October 23 UTC. The meaningful activity checkpoint is first-parent merge `43f6bb0989fd6e392a150f90a93f8bead01eb53e`, which includes the diffusion-resistor correction; later version and dependency maintenance are not substituted for this implementation evidence. These are default-branch development updates, with tagged-release inclusion and external extraction tests unverified. The project remains GPL-3.0-or-later and Pre-Alpha; Layout and its existing runtime-AI/development-provenance classification are unchanged. [Integration](#source-review-20261024-integration) · [Project status and license](#source-review-20261024-status).
+
+### November implementation review
+
+Recent extraction work adds exclusion markers, model-cell cutouts and external-coupling preservation while partitioning extracted RC networks. CLI, extractor, netlist and regression changes were inspected. A later diagnostic reports missing side-overlap data rather than implying complete coverage. These implemented mechanisms retain conventional Layout coverage; they do not establish backend-independent extraction accuracy, and no extraction or EDA campaign was reproduced. [Exclusions](#source-review-20261107-exclusion) · [Model cutouts](#source-review-20261107-cutouts) · [External coupling](#source-review-20261107-coupling) · [Diagnostics and regressions](#source-review-20261107-implementation).

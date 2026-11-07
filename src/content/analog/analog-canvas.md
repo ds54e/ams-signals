@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-07"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -87,6 +87,12 @@ sources:
 - id: review-20261103-contract
   title: "Current simulation execution and isolation boundaries"
   url: https://github.com/cascode-ai/analog-canvas/blob/6d6b3d3e8c7718019ac06db6ccb40ca5fb3ccb5d/docs/specs/simulation-execution.md
+- id: review-20261107-implementation
+  title: "Polyline leg-slide and rotation implementation with regressions"
+  url: https://github.com/cascode-ai/analog-canvas/commit/b02d4184ac2ab6ddb810bddb7068ce6b807b3256
+- id: review-20261107-models
+  title: "SG13G2 model defaults, parameter warnings and profile inference"
+  url: https://github.com/cascode-ai/analog-canvas/commit/7ff62c6c22f827d2434c195ad49207fa7151c807
 ---
 
 ### Workflow and scope
@@ -126,3 +132,7 @@ Meaningful activity advances to the document-identity correction on canonical ma
 ### Selection and current source review
 
 The maintained main branch integrates an isolated ngspice SG13G2 execution profile, preparation/runtime checks and device, corner, statistics and combinational-cell qualification scripts. The current contract exposes one final SG13G2 environment covering thirteen devices, rather than presenting the earlier intermediate profiles as separate environments. VACASK SG13G2 remains unqualified. These are inspected implementation and upstream regression artifacts; no hosted service or qualification campaign was independently run. Existing model-authored analysis/measurement workflows retain AI Simulation, independently of AI-assisted software development. The new profile itself is conventional simulator execution. [Integrated qualification](#source-review-20261103-qualification) · [Current execution contract](#source-review-20261103-contract).
+
+### November implementation review
+
+Current source extends SG13G2 model authoring and profile inference and adds tested drafting controls. SG13G2 qualification CI now triggers on profile-specific sources rather than all editor changes; its presence does not prove every subsequent editor revision was electrically qualified. Local headless drawing remains separate from simulation. No EDA runs were reproduced. [Drafting implementation and qualification triggers](#source-review-20261107-implementation) · [Model authoring](#source-review-20261107-models).

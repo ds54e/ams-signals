@@ -17,7 +17,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-07"
 sources:
   - id: "site"
     title: "Official project website"
@@ -54,6 +54,12 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/Arcadia-1/razavi-bench/blob/21bfc57f076643a73dd183f56975001c8b1b9e11/docs/model.html"
+  - id: review-20261107-scores
+    title: Active leaderboard score policy and model configuration notes
+    url: https://github.com/Arcadia-1/razavi-bench/blob/5c650c6338a11e6860735f345c08d6741d741b2d/docs/data/direct_qa/index.json
+  - id: review-20261107-implementation
+    title: Separate reasoning-trace and timing probe implementation and published results
+    url: https://github.com/Arcadia-1/razavi-bench/commit/5c650c6338a11e6860735f345c08d6741d741b2d
 ---
 ### Inputs and modes
 
@@ -67,7 +73,7 @@ All modes use the final answer, reference solution, and shared rubric. Simulator
 
 Published judge scores and answers support inspection and re-grading. They do not replace expert review. Viewing and local evaluation rights should be distinguished from redistribution or training permission. [Release and usage terms](#source-review)
 
-The current published leaderboard uses direct QA over three rollouts of the 50 questions. Its active score uses DeepSeek V4 Pro alone with the Part 1 Q15 correction; older MiniMax M3 judgments remain audit material and are not blended into that score. New result publications include model-specific configuration notes and per-question answers/scores. The September 28 MiMo release is substantive results activity; later website styling, pricing and cache changes do not establish a new benchmark experiment. These are publisher-reported results, not reproduced measurements or evidence that the agentic treatments have an equivalent published leaderboard. [Current result contract](#source-review) · [Reviewed result publication](#source-activity-results)
+The published leaderboard uses direct QA over three rollouts of 50 questions. Active scores use GPT-6 Luna at maximum reasoning effort; earlier judge scores remain audit material. November publications add tool-free answer reruns, Hy4 results, and a separate reasoning-trace/timing probe that does not change the leaderboard. These are publisher-reported results, not reproduced measurements or evidence that the agentic treatments have an equivalent published leaderboard. [Current score policy](#source-review-20261107-scores) · [Separate probe implementation and results](#source-review-20261107-implementation).
 
 ### Repository history boundary
 
