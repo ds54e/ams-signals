@@ -1,0 +1,22 @@
+{
+  "id": "qualcomm-2026-toronto-analog-modeling-internship",
+  "when": {
+    "start": "2026-11-07",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "qualcomm"
+  ],
+  "people": [],
+  "headline": "Observed Qualcomm Toronto internship offers possible SV modeling and AMS validation assignments",
+  "fact": "As observed November 7, Qualcomm advertised a Toronto Analog Design internship for 12 or 16 months beginning in May or June 2027. Possible assignments include SystemVerilog analog behavioral models, AMS co-simulation to validate them, simulation-data peer review and testbench-performance metrics, with analog, digital, firmware and system teams. The application feeds multiple project-specific roles, so these are possible duties rather than completed work or a promise that every intern receives the same assignment. The Event uses the observation date because a reliable first-publication date is unconfirmed; 2027 is the planned placement year.",
+  "sources": [
+    {
+      "title": "Qualcomm employer LinkedIn: FY27 Analog Design Internship, Canada",
+      "url": "https://ca.linkedin.com/jobs/view/fy27-intern-analog-design-internship-canada-12-or-16-months-at-qualcomm-4467871176",
+      "checkedAt": "2026-11-07",
+      "summary": "Employer-attributed full text identifies the Toronto Analog Design team, possible SV/AMS validation and review duties, candidate-pool model and May/June 2027 start. Only mutable relative posting age was available; this check is not evidence of a new November posting."
+    }
+  ]
+}

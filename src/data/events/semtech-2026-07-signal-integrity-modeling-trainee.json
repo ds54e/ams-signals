@@ -1,0 +1,22 @@
+{
+  "id": "semtech-2026-07-signal-integrity-modeling-trainee",
+  "when": {
+    "start": "2026-07-06",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "semtech"
+  ],
+  "people": [],
+  "headline": "Semtech Signal Integrity trainee role includes analog behavioral modeling and mixed-level simulation",
+  "fact": "Semtech posted Digital Design Verification Trainee REQ3462 in Aguascalientes for the Signal Integrity Product Business Unit’s Digital Design group, which develops mixed-signal ICs for data communications and video broadcast. The description allocates 50% of responsibilities to constrained-random digital verification, 10% to analog behavioral modeling and analog/digital mixed-level simulation, and 10% to verification-methodology improvement. SystemVerilog is preferred in the qualifications. This is a training and hiring mandate, not evidence of completed deployment or a specified RNM implementation.",
+  "sources": [
+    {
+      "title": "Semtech Careers: Digital Design Verification Trainee (REQ3462)",
+      "url": "https://semtech.wd1.myworkdayjobs.com/SemtechCareers/job/MEX---Aguascalientes/Digital-Design-Verification-Trainee_REQ3462",
+      "checkedAt": "2026-11-07",
+      "summary": "Official public Workday startDate is July 6, 2026. Full duties identify the Signal Integrity Product team and responsibility percentages; applications remained enabled at this check. This is a different business unit from the existing sensing-IC hiring record."
+    }
+  ]
+}
