@@ -1,0 +1,28 @@
+{
+  "id": "infineon-2009-07-verilog-buck-converter-modeling",
+  "when": {
+    "start": "2009-07",
+    "precision": "month"
+  },
+  "kind": "technical",
+  "companies": [
+    "infineon"
+  ],
+  "people": [],
+  "headline": "Infineon and University of Trieste authors report Verilog HDL buck-converter modeling",
+  "fact": "A PRIME-09 paper by University of Trieste researchers and Infineon Technologies authors Giuseppe Bernacchia and Emanuele Bodano, affiliated with Padova, describes a discrete-time buck-converter model implemented in Verilog HDL. The model combines the switching network, output inductor and capacitor, including parasitic effects. The authors compare simulated electrical waveforms with an experimental prototype in PWM continuous-conduction, discontinuous-conduction and pulse-frequency-modulation modes, and investigate controller behavior during mode transitions.",
+  "sources": [
+    {
+      "title": "Discrete time large-signal model of dc-dc converters for system level simulation of digitally controlled SMPS",
+      "url": "https://www.researchgate.net/publication/224576504_Discrete_time_large-signal_model_of_dc-dc_converters_for_system_level_simulation_of_digitally_controlled_SMPS",
+      "checkedAt": "2026-11-07",
+      "summary": "The author-uploaded original paper identifies the historical University of Trieste and Infineon Technologies, Padova affiliations and describes the Verilog HDL buck-converter model and comparisons with a prototype. ResearchGate labels the publication August 2009 and the author upload January 9, 2017; the Event uses the July 2009 proceedings month recorded by the university bibliography."
+    },
+    {
+      "title": "University of Trieste, Image Processing Laboratory: 2009 publications",
+      "url": "https://ipl.dia.units.it/the-laboratory/publications/42-2009",
+      "checkedAt": "2026-11-07",
+      "summary": "The University of Trieste bibliography lists the paper title and authors in PRIME-09, Cork, pages 60–63, July 2009, establishing the proceedings month used for this Event."
+    }
+  ]
+}

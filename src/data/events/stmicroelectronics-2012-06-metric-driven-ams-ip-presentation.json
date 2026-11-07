@@ -1,0 +1,22 @@
+{
+  "id": "stmicroelectronics-2012-06-metric-driven-ams-ip-presentation",
+  "when": {
+    "start": "2012-06-05",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics"
+  ],
+  "people": [],
+  "headline": "STMicroelectronics presentation covers metric-driven analog/mixed-signal IP verification",
+  "fact": "Cadence’s account of DAC 2012 identifies STMicroelectronics’ Pierluigi Daglio and Marco Carlini as authors of “Metric Driven Verification Approach for Analog/Mixed Signal IPs.” The account dates the presentation at the EDA360 Theater in San Francisco to June 5 at 4 p.m. The account was published on August 27, 2012.",
+  "sources": [
+    {
+      "title": "Mixed Signal Design IP Embraces Metric-Driven Verification Using RNM",
+      "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/mixed-signal-designs-ips-embraces-metric-driven-verification-using-rnm",
+      "checkedAt": "2026-11-07",
+      "summary": "Cadence’s August 27, 2012 article names the STMicroelectronics authors and gives June 5 at 4 p.m. for their DAC presentation. Its general RNM discussion does not establish ST implementation details. Linked historical slides and audio now redirect to the Cadence homepage and were not reviewed."
+    }
+  ]
+}
