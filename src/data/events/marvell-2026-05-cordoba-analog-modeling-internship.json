@@ -1,0 +1,22 @@
+{
+  "id": "marvell-2026-05-cordoba-analog-modeling-internship",
+  "when": {
+    "start": "2026-05-22",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "marvell"
+  ],
+  "people": [],
+  "headline": "Marvell Córdoba internship pairs SystemVerilog analog models with SPICE comparison and co-simulation",
+  "fact": "Marvell posted Analog Modeling & Testing Engineer Intern 2602068 for its Central Engineering team at the Córdoba design center. The training mandate includes modeling analog circuits in SystemVerilog, comparing SV and SPICE simulations, running digital/analog co-simulation and improving analog-IC design flows, alongside Python/firmware-based circuit testing. These are advertised assignments rather than a report of completed work. The named Córdoba modeling program is distinct from the Singapore amplifier-verification internship.",
+  "sources": [
+    {
+      "title": "Marvell Careers: Analog Modeling & Testing Engineer Intern (2602068)",
+      "url": "https://marvell.wd1.myworkdayjobs.com/MarvellCareers/job/Cordoba-Argentina/Analog-Modeling---Testing-Engineer-Intern_2602068",
+      "checkedAt": "2026-11-07",
+      "summary": "Official public Workday startDate is May 22, 2026. The full description names Central Engineering in Córdoba and the SV-to-SPICE comparison, co-simulation and flow-improvement training; applications remained enabled at this check."
+    }
+  ]
+}

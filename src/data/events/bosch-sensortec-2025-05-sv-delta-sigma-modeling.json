@@ -1,0 +1,29 @@
+{
+  "id": "bosch-sensortec-2025-05-sv-delta-sigma-modeling",
+  "when": {
+    "start": "2025-05-16",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "bosch-sensortec"
+  ],
+  "people": [],
+  "headline": "Bosch Sensortec thesis develops a non-ideal SystemVerilog delta-sigma modulator model",
+  "fact": "Elias Väänänen’s University of Oulu thesis reports work conducted at Robert Bosch Oy within Bosch Sensortec to improve discrete-time delta-sigma modulator design and mixed-signal verification. It develops SystemVerilog and Simulink behavioral models with nonlinearity and noise, selecting an impulse-invariant approach after comparison with EEnet modeling. The work reports simulation studies, but explicitly leaves transistor-level performance matching, including SNDR, and incremental reset operation untested. It therefore does not establish silicon correlation or sign-off accuracy. The date is the repository’s public-availability date, following its May 15 issue date.",
+  "sources": [
+    {
+      "title": "University of Oulu: thesis metadata",
+      "url": "https://oulurepo.oulu.fi/handle/10024/56084?show=full",
+      "checkedAt": "2026-11-07",
+      "summary": "Metadata reviewed November 7 gives issue date May 15, 2025 and availability/accession May 16 at 20:09:02 UTC. A later direct check returned HTTP 403. The May 2 foreword is not treated as publication.",
+      "status": "unavailable"
+    },
+    {
+      "title": "Behavioural Modelling of a Discrete-Time Delta-Sigma Modulator Using SystemVerilog and Simulink",
+      "url": "https://oulurepo.oulu.fi/bitstream/handle/10024/56084/nbnfioulu-202505163594.pdf?isAllowed=y&sequence=1",
+      "checkedAt": "2026-11-07",
+      "summary": "Page 6 explicitly locates the work in Robert Bosch Oy’s Bosch Sensortec business unit. Chapters 3–5 describe the HDL modeling and simulation studies; page 67 states that transistor-level performance matching and incremental reset operation were not tested."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2025-08-intern-rnm-verification-report",
+  "when": {
+    "start": "2025-08-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "TI intern reports SV-RNM testbench work during a Bangalore placement",
+  "fact": "Yashaswini Mudda publicly reported completing a two-month Analog Design Verification internship at Texas Instruments in Bangalore. Her account describes SystemVerilog verification and testbench-flow automation, UVM exposure, work involving RC/LC and glitch filters and analog multiplexers, and SV-RNM logic for handling multiple testbench drivers without contention. She names Balaji Ammineni as manager and Mrinav Saxena as mentor. This is a participant’s report of a completed placement, not an independently measured result or company-wide methodology claim; the date is the post’s publication, not a reconstructed internship start or end.",
+  "sources": [
+    {
+      "title": "Yashaswini Mudda: Texas Instruments Analog Design Verification internship report",
+      "url": "https://www.linkedin.com/posts/yashaswinimudda_im-thrilled-to-share-that-ive-recently-activity-7357844373608288259-fQoE",
+      "checkedAt": "2026-11-07",
+      "summary": "Original public post metadata gives August 3, 2025 at 18:46:40 UTC. The author describes the two-month completed internship, SV-RNM multidriver work, UVM and testbench automation, and identifies her manager and mentor. Exact placement dates and the organizational unit are not stated."
+    }
+  ]
+}

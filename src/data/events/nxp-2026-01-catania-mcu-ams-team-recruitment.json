@@ -1,0 +1,35 @@
+{
+  "id": "nxp-2026-01-catania-mcu-ams-team-recruitment",
+  "when": {
+    "start": "2026-01-22",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nxp"
+  ],
+  "people": [],
+  "headline": "NXP recruits for a Catania MCU team and related AMS verification roles",
+  "fact": "Jim Caravella posted a public invitation to join the first phase of a new MCU team using analog/mixed-signal IP, sharing NXP’s Catania MCX recruitment. A related Junior Mixed-Signal Verification Engineer posting assigns SystemVerilog RNM and Verilog-AMS analog models, verification coverage, robustness, test modes and DFT in new full-product teams. An October 2 Catania internship separately names an AMS Verification Team and proposes behavioral models, assertions, debug and coverage; its direct membership in the MCX team is not established. These sources record team-building and hiring, not completed technology deployment or NXP’s first presence in Catania.",
+  "sources": [
+    {
+      "title": "Jim Caravella: Catania MCU team recruitment",
+      "url": "https://www.linkedin.com/posts/jimcaravella_come-join-the-first-phase-of-building-a-new-activity-7419996036330541056-3wc1",
+      "checkedAt": "2026-11-07",
+      "summary": "Original post metadata gives January 22, 2026 at 06:55:11 UTC. The post describes first-phase MCU/AMS-IP team building and shares NXP MCX/Catania recruitment. It does not establish Caravella’s formal title."
+    },
+    {
+      "title": "NXP Careers: Junior Mixed-Signal Verification Engineer (R-10063614)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Junior-Mixed-Signal-Verification-Engineer_R-10063614",
+      "checkedAt": "2026-11-07",
+      "summary": "Reviewed official recruiting text describes Catania MCU team-building and SV-RNM/Verilog-AMS model assignments. Its first posting date is unconfirmed; a later direct endpoint check returned HTTP 403. It does not change the January recruiting-post date.",
+      "status": "unavailable"
+    },
+    {
+      "title": "NXP Careers: Catania AMS verification internship (R-10064672)",
+      "url": "https://nxp.wd3.myworkdayjobs.com/careers/job/Catania/Internship-Student-Analog-Mixed-Signal-verification-F-M_R-10064672",
+      "checkedAt": "2026-11-07",
+      "summary": "Official public Workday startDate is October 2, 2026. The full description names the AMS Verification Team and proposed modeling, assertions, debug and coverage duties, but specifies neither an HDL nor a direct MCX-team affiliation."
+    }
+  ]
+}

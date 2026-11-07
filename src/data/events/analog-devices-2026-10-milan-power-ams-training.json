@@ -1,0 +1,22 @@
+{
+  "id": "analog-devices-2026-10-milan-power-ams-training",
+  "when": {
+    "start": "2026-10-21",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "analog-devices"
+  ],
+  "people": [],
+  "headline": "ADI Milan internship describes power-IC modeling and metric-driven DMS/AMS verification training",
+  "fact": "ADI posted AMS Design Verification Intern R267539 for its High-Performance Power Group in Milan, with a possible master’s thesis. The group designs display, lighting and cloud-power ICs. Advertised training covers verification planning, Verilog-AMS and SystemVerilog analog-block models, AMS simulations, state-machine checks, analog assertions and metric-driven SystemVerilog/UVM environments combining DMS and AMS at IP and top level. This records the current internship posting, not the launch of a new training program or completed student work.",
+  "sources": [
+    {
+      "title": "ADI Careers: AMS Design Verification Intern (R267539)",
+      "url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/Italy-Milan-Assago/AMS-Design-Verification-Intern_R267539",
+      "checkedAt": "2026-11-07",
+      "summary": "Official public Workday startDate is October 21, 2026. The full description names the Milan High-Performance Power Group, application areas and proposed training; applications remained enabled at this check. It does not assign AI-assisted modeling."
+    }
+  ]
+}

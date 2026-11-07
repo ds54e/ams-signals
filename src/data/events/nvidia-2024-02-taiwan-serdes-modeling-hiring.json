@@ -1,0 +1,22 @@
+{
+  "id": "nvidia-2024-02-taiwan-serdes-modeling-hiring",
+  "when": {
+    "start": "2024-02-01",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "nvidia"
+  ],
+  "people": [],
+  "headline": "NVIDIA Taiwan recruitment describes SystemVerilog modeling within its high-speed I/O SerDes group",
+  "fact": "A public NVIDIA recruiting post by Yvonne Chen advertised a Taiwan Senior Mixed-Signal Design Engineer role in the high-speed I/O SerDes group. The role works with analog designers on SystemVerilog models of closed-loop PLLs, receive CTLEs, SAR ADCs and optical components, and with system architects and digital designers on architecture specifications and adaptation algorithms. The post also assigns reusable scripting and silicon bring-up work. It establishes a recruiting mandate, not deployed modeling results; the recruiter is not identified as a technical team lead.",
+  "sources": [
+    {
+      "title": "Yvonne Chen: NVIDIA Taiwan Senior Mixed-Signal Design Engineer recruitment",
+      "url": "https://www.linkedin.com/posts/yvonne-chen-6610949_senior-mixed-signal-design-engineer-activity-7158773119782907904-L4Db",
+      "checkedAt": "2026-11-07",
+      "summary": "Original post metadata gives February 1, 2024 at 10:48:35 UTC. Its full text names the SerDes group, circuit models and cross-functional assignments. This date anchors the public post, not an independently verified first careers publication or current vacancy."
+    }
+  ]
+}

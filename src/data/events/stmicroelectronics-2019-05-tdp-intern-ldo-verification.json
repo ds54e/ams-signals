@@ -1,0 +1,28 @@
+{
+  "id": "stmicroelectronics-2019-05-tdp-intern-ldo-verification",
+  "when": {
+    "start": "2019-05-30",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "stmicroelectronics"
+  ],
+  "people": [],
+  "headline": "STMicroelectronics intern reports SV-UVM LDO verification from its Greater Noida TDP team",
+  "fact": "A paper by Subhranshu Shekhar Padhee and Thapar’s Anil Arora reports LDO functional verification with a self-checking SystemVerilog/UVM testbench, Cadence Incisive and Synopsys VCS, including code, functional and cross coverage. The author biography identifies Padhee as an intern in STMicroelectronics’ Greater Noida Technology Designing Platform team working on analog and mixed-signal IP verification. This records the published internship-related technical work and contemporaneous company affiliation, not a current organization chart or adoption of the later UVM-MS standard.",
+  "sources": [
+    {
+      "title": "Verification of Analog & Mixed Signal IPs Using SV-UVM Methodology — paper",
+      "url": "https://www.ijitee.org/wp-content/uploads/papers/v8i7/G5928058719.pdf",
+      "checkedAt": "2026-11-07",
+      "summary": "The May 2019 paper describes LDO checking and coverage. The page 1543 biography explicitly places Padhee in STMicroelectronics’ Greater Noida TDP internship; Anil Arora’s affiliation is Thapar, not STMicroelectronics."
+    },
+    {
+      "title": "IJITEE: publication record for G5928058719",
+      "url": "https://www.ijitee.org/portfolio-item/G5928058719/",
+      "checkedAt": "2026-11-07",
+      "summary": "The publisher explicitly gives manuscript publication as May 30, 2019. This is the paper date, distinct from a thesis submission/upload date or the internship’s employment period."
+    }
+  ]
+}
