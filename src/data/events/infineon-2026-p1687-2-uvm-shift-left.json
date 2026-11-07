@@ -8,13 +8,13 @@
   "companies": ["infineon"],
   "people": [],
   "headline": "Infineon retargets IEEE P1687.2 test descriptions into SystemVerilog UVM for automotive smart-power shift-left",
-  "fact": "An Infineon Automotive Power paper at ETS 2026 described retargeting IJTAG/IEEE P1687.2 test-case descriptions into top-level SystemVerilog UVM testbenches as a shift-left path for automotive smart-power devices. The reported framework uses a renderer and a lower-level pin-level time-stamp/value transport such as STIL, and the paper presents first device results.",
+  "fact": "An Infineon Automotive Power paper at ETS 2026 describes retargeting IJTAG/IEEE P1687.2 test-case descriptions through a renderer and a pin-level time-stamp/value transport such as STIL into top-level SystemVerilog UVM testbenches for pre-silicon functional verification of automotive smart-power devices. Its SoC DUT combines digital RTL with analog behavioral models, while UVM-compatible agents apply external analog and supply stimuli. The paper illustrates replay of a measured noisy supply waveform and shows a charge-pump voltage (VDD CP) response to supply interruptions followed by an SPI diagnostic readout. These are paper-reported verification results, not measured silicon performance or evidence of wider adoption.",
   "sources": [
     {
       "title": "Shift-Left by applying IEEE P1687.2 to SystemVerilog test-benches for Automotive Smart-Power devices",
       "url": "https://www.researchgate.net/publication/405440166_Shift-Left_by_applying_IEEE_P16872_to_SystemVerilog_test-benches_for_Automotive_Smart_Power_devices",
-      "checkedAt": "2026-09-02",
-      "summary": "Infineon Automotive Power paper describing retargeting IEEE P1687.2/IJTAG test descriptions into top-level SystemVerilog UVM testbenches for smart-power devices."
+      "checkedAt": "2026-11-07",
+      "summary": "Infineon Automotive Power paper: Section III describes digital RTL enriched by analog behavioral models and external analog/supply stimuli applied by UVM-compatible agents; Section II B/Figures 5–6 illustrates noisy-supply waveform replay, and Section V/Figure 8 shows the charge-pump voltage response to supply interruptions followed by an SPI diagnostic readout in the pre-silicon testbench."
     }
   ]
 }

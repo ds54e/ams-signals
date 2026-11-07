@@ -2,7 +2,7 @@
 
 Applies to `events/`, `companies/`, `people/` and their factual views/export, not catalog activity JSON stored beside them.
 
-- For language/circuit scope, exclusions, dates, source handling and canonical entities, use [Product Context](../../PROJECT_CONTEXT.md#bounded-source-grounded-research). Start from the current checked-in corpus and follow the user's authorized scope.
+- For language/circuit scope, company-related selection, exclusions, dates, source handling and canonical entities, use [Product Context](../../PROJECT_CONTEXT.md#bounded-source-grounded-research). Start from the current checked-in corpus and follow the user's authorized scope. Require both a concrete AMS connection and an observable corporate role at the Event date; mere vendor-tool/PDK use, acknowledgments, reposts or a present-day employer do not supply the latter. Apply only the narrow AMS-specific industry standards/ecosystem exception.
 - Keep factual/editorial separation and the ban on unsupported rankings, adoption conclusions or permanent technology tags. Each Event records a dated observable occurrence, its participants and representative sources.
 - Preserve source modality: a company posted a role, a paper reports, a patent describes. Hiring text alone is not deployed practice. Employer changes, acquisitions and standards participation alone do not establish methodology transfer; sharing a posting does not make someone an Event participant.
 - Strengthen an existing milestone when a source supports the same fact. Reposts, regional variants and repeated hiring do not each require a new Event. Review duplicate warnings rather than treating them as automatic deletion instructions.
