@@ -2,8 +2,6 @@
 name: FuseSoC
 description: Manages reusable RTL cores, versioned dependencies, generators and build targets through CAPI metadata. Its configure/build/run commands use Edalize to drive simulation and FPGA synthesis/place-and-route flows, with required tools and device support supplied separately; it orchestrates these flows rather than providing a new simulator or implementation engine.
 scope:
-  design:
-    ai: false
   synthesis:
     ai: false
   verification:
@@ -44,7 +42,7 @@ CAPI core descriptions, dependency resolution, target selection and generators p
 
 ### Scope and dependencies
 
-Design covers reusable source composition and executable generators. Synthesis, Verification and Layout refer to implemented, user-invoked configure/build/run flows through Edalize: the runner actually calls backend operations, the simulation flow invokes the chosen simulator, and the IceStorm graph connects Yosys synthesis to nextpnr placement/routing and bitstream generation. These are explicit project workflows rather than stages inferred from dependency names or emitted file lists. All stages are conventional; this review found no qualifying runtime AI or verified AI-development attribution. Edalize is a dependency, not a separate new catalog entry. [Runner](#source-runner) · [Simulation](#source-sim-flow) · [FPGA flow](#source-fpga-flow).
+Dependency/source composition and invoking external generators do not by themselves establish a Design transformation. Synthesis, Verification and Layout refer to implemented, user-invoked configure/build/run flows through Edalize: the runner actually calls backend operations, the simulation flow invokes the chosen simulator, and the IceStorm graph connects Yosys synthesis to nextpnr placement/routing and bitstream generation. These are explicit project workflows rather than stages inferred from dependency names or emitted file lists. All stages are conventional; this review found no qualifying runtime AI or verified AI-development attribution. Edalize is a dependency, not a separate new catalog entry. [Runner](#source-runner) · [Simulation](#source-sim-flow) · [FPGA flow](#source-fpga-flow).
 
 ### Validation and activity limits
 
