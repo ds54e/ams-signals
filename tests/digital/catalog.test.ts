@@ -145,7 +145,7 @@ test('Digital classification follows user-facing operations rather than internal
     verilator: ['design', 'verification'], calyx: ['design', 'synthesis', 'verification'],
     pono: ['verification'], surfer: ['verification'],
     openroad: ['layout'],
-    slang: ['design', 'verification'],
+    slang: ['design', 'verification'], 'slang-server': ['design', 'verification'], gtkwave: ['verification'],
     'surelog-uhdm': ['design'],
     'sv-elab': ['synthesis'],
     uhdm2rtlil: ['synthesis'],
@@ -511,6 +511,7 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     'vivado-mcp': ['Synthesis', 'Verification', 'Layout'],
     xezim: ['Verification'], pono: ['Verification'],
     circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
+    'slang-server': ['Design', 'Verification'], gtkwave: ['Verification'],
     veryl: ['Design', 'Synthesis', 'Verification'],
     xls: ['Design', 'Synthesis', 'Verification'],
     spade: ['Design', 'Synthesis', 'Verification', 'Layout'],
@@ -566,4 +567,10 @@ test('Digital explicitly curates all-zero windows without treating missing histo
   const point = { kind: 'public-update', lastPublicUpdateAt: '2025-10-01', lastPublicUpdateType: 'paper', lastPublicUpdateSource: 'paper' };
   assert.throws(() => validateActivity([project], { ...value, projects: { [github.id]: point } }), /reviewed signal in the twelve displayed months/);
   assert.equal(activityBand(point as any, value.months, project.data.sources).activeMonths, 0);
+});
+
+
+test('explicitly curated Duck RTL removal leaves neither article nor activity record', () => {
+  assert.ok(!projects.some((project) => project.id === 'duck-rtl'));
+  assert.ok(!('duck-rtl' in snapshot.projects));
 });

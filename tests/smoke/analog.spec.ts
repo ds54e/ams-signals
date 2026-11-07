@@ -4,13 +4,14 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
   ['ngspice', 'klayout-tools', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'gmoverid-skill', 'analogsage', 'klayout',
-    'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s']);
+    'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s', 'verilog-a-sim']);
 
 catalogSearchRegression(fixture, {
   ngspice: ['ngspice', 'analog-design-bench', 'autosizer'],
   Virtuoso: ['virtuoso-agent', 'virtuoso-bridge-lite', 'vcli'],
   Spectre: ['virtuoso-bridge-lite', 'vcli', 'virtuoso-agent'],
-  'Verilog-A': ['evas', 'openvaf-reloaded'],
+  'Verilog-A': ['evas', 'openvaf-reloaded', 'verilog-a-sim'],
+  'verilog-a-sim': ['verilog-a-sim'],
   SKY130: ['analog-design-bench', 'gmoverid-skill'],
   AI: ['analogsage', 'gmoverid-skill'],
   layout: ['klayout', 'magic'],

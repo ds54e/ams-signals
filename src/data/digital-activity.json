@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-07",
-  "capturedAt": "2026-11-07T02:16:21.811Z",
+  "capturedAt": "2026-11-07T04:24:39.888Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1130,31 +1130,6 @@
       "lastCommitAt": "2026-08-27",
       "lastMeaningfulCommitAt": "2026-08-27",
       "lastMeaningfulCommitSha": "29ea8ed56eb5fce838815a0892c05b8162ece500"
-    },
-    "duck-rtl": {
-      "kind": "github",
-      "repository": "oniondas/duck-rtl",
-      "repositoryId": 1293440401,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
-      "defaultBranch": "main",
-      "headSha": "fe9a66a80cdd7a64206d15929ffc3bd956b88dab",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        4,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-07-08",
-      "lastMeaningfulCommitAt": "2026-07-08",
-      "lastMeaningfulCommitSha": "60289f9b7745fa3c8c051f3d51a28a52e0e9336d"
     },
     "nextpnr": {
       "kind": "github",
@@ -2330,6 +2305,56 @@
       "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-10-26",
       "lastMeaningfulCommitSha": "64ef80802d3d189b476636d2a6b17888c03304ee"
+    },
+    "slang-server": {
+      "kind": "github",
+      "repository": "hudson-trading/slang-server",
+      "repositoryId": 1042185084,
+      "capturedAt": "2026-11-07T04:24:38.740Z",
+      "defaultBranch": "main",
+      "headSha": "0541246eb1b9e4c1c986179cd9a9f1f8b5bb8b44",
+      "commits": [
+        46,
+        32,
+        25,
+        15,
+        31,
+        29,
+        21,
+        15,
+        47,
+        24,
+        22,
+        9
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-06",
+      "lastMeaningfulCommitSha": "0541246eb1b9e4c1c986179cd9a9f1f8b5bb8b44"
+    },
+    "gtkwave": {
+      "kind": "github",
+      "repository": "gtkwave/gtkwave",
+      "repositoryId": 222023386,
+      "capturedAt": "2026-11-07T04:24:39.878Z",
+      "defaultBranch": "master",
+      "headSha": "e40ba7937336824f12f7db870ea36f6f090dd90d",
+      "commits": [
+        2,
+        3,
+        6,
+        5,
+        2,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2,
+        2
+      ],
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "e40ba7937336824f12f7db870ea36f6f090dd90d"
     }
   }
 }

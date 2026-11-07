@@ -158,7 +158,7 @@ test('Analog Scope reflects reviewed design, evaluation and layout operations', 
     analogsage: ['design', 'simulation'],
     autosizer: ['design', 'simulation'],
     'klayout-tools': ['design', 'simulation', 'layout'],
-    analogmaster: ['layout'], 'rnl': ['design'],
+    'verilog-a-sim': ['simulation'], 'rnl': ['design'],
     'razavi-bench': ['design', 'simulation'],
     'virtuoso-agent': ['design', 'simulation'],
     'virtuoso-bridge-lite': ['design', 'simulation', 'layout'],
@@ -475,17 +475,25 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     'razavi-bench': ['AI Design', 'Simulation'], evas: ['Simulation'],
     // Model-authored physical decisions and electrical setup count even with conventional engines.
     'ams-io-agent': ['AI Design', 'AI Layout'], 'vibe-analog': ['AI Design', 'AI Simulation'],
-    'agentic-sizing': ['AI Design', 'AI Simulation'], analogmaster: ['Layout'],
+    'agentic-sizing': ['AI Design', 'AI Simulation'], 'verilog-a-sim': ['Simulation'],
     // Reward/candidate ranking alone remains Design, not AI Simulation.
     arcs: ['AI Design', 'Simulation'],
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
     'ngspice-openvaf-enhancements': ['AI Design', 'Simulation'],
-    // AnalogAgent implements model-driven diagnosis of simulator logs and waveform images.
-    analogagent: ['AI Design', 'AI Simulation'],
   };
   for (const [id, labels] of Object.entries(expected)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const scope = analogSchema.parse(frontmatter).scope;
     assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
+  }
+});
+
+
+test('explicitly curated Analog removals leave neither articles nor activity records', async () => {
+  const files = await readdir(new URL('../../src/content/analog/', import.meta.url));
+  const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
+  for (const id of ['analogagent', 'gf180-analog-agent', 'analogmaster', 'wirewright']) {
+    assert.ok(!files.includes(`${id}.md`), id);
+    assert.ok(!(id in activity.projects), id);
   }
 });

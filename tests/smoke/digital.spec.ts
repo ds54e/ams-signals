@@ -4,7 +4,7 @@ import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './ca
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
   ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'ucagent', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
-    'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'peakrdl']);
+    'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'peakrdl', 'slang-server', 'gtkwave']);
 
 catalogSearchRegression(fixture, {
   Veryl: ['veryl'],
@@ -15,7 +15,9 @@ catalogSearchRegression(fixture, {
   cocotb: ['veryl'],
   UVM: ['iverilog-uvm', 'xezim', 'rggen', 'peakrdl'],
   formal: ['pono', 'symbiyosys', 'verifyrtl', 'siliconcompiler'],
-  waveform: ['surfer', 'what', 'vitamin', 'amaranth'],
+  waveform: ['surfer', 'what', 'vitamin', 'amaranth', 'slang-server', 'gtkwave'],
+  'Slang Server': ['slang-server'],
+  GTKWave: ['gtkwave'],
   Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil', 'spade', 'siliconcompiler', 'amaranth'],
   OpenROAD: ['openroad', 'coresmith', 'siliconcompiler'],
   synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl', 'veryl', 'xls', 'siliconcompiler', 'amaranth'],

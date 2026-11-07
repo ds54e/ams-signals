@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-07",
-  "capturedAt": "2026-11-07T02:14:58.765Z",
+  "capturedAt": "2026-11-07T04:24:39.883Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -829,58 +829,6 @@
       "lastMeaningfulCommitAt": "2026-08-28",
       "lastMeaningfulCommitSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab"
     },
-    "analogagent": {
-      "kind": "github",
-      "repository": "TheWind-upBird/Analogagent",
-      "repositoryId": 1261182836,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
-      "defaultBranch": "main",
-      "headSha": "b27ee9c0d11e0e74322e44e1ea45a7abbb1ff11a",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-06-08",
-      "lastMeaningfulCommitAt": "2026-06-06",
-      "lastMeaningfulCommitSha": "cce309bb38eabe829860f85844c66a92907759dd",
-      "notes": "The June 6 initial MVP release implements the multi-agent and self-evolving-memory workflow. The June 8 head only adjusts README wording, so the substantive release remains the meaningful-activity checkpoint."
-    },
-    "analogmaster": {
-      "kind": "github",
-      "repository": "sjjjoaps/AnalogMaster",
-      "repositoryId": 1267424772,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
-      "defaultBranch": "main",
-      "headSha": "092b3b6dd0e90c36cfcd07f5c93f9a4a2d98d2cd",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        4,
-        3,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-07-04",
-      "lastMeaningfulCommitAt": "2026-06-22",
-      "lastMeaningfulCommitSha": "5c6cb29468b672a2476438084a127f434cce6d18",
-      "notes": "Meaningful activity follows the June 22 physical-code release on the captured first-parent chain. The later image-dataset upload remains in raw history but does not renew freshness for the Layout-only scope."
-    },
     "agentic-sizing": {
       "kind": "github",
       "repository": "aprilaihub/agentic-analog-sizing",
@@ -1140,32 +1088,6 @@
       "lastCommitAt": "2026-10-01",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "6389189d8cc40393eca97e8776638aaba5038b95",
-      "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
-    },
-    "gf180-analog-agent": {
-      "kind": "github",
-      "repository": "shoebNTU/analog-agent",
-      "repositoryId": 1261819431,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
-      "defaultBranch": "main",
-      "headSha": "25206f03046aefa093104e172cf511f5ad2fb8fe",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        9,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-06-24",
-      "lastMeaningfulCommitAt": "2026-06-07",
-      "lastMeaningfulCommitSha": "9de96b0ff403ab8e809ced4aa243a47fa29d369b",
       "notes": "Canonical public implementation and meaningful first-parent checkpoint reviewed; raw counts use the actual default branch's committer history in UTC."
     },
     "analoggym-opt": {
@@ -1453,32 +1375,6 @@
       "lastMeaningfulCommitAt": "2026-03-30",
       "lastMeaningfulCommitSha": "5ae5deefa600e037ba8891d2e033b425cdddcd3b",
       "notes": "Meaningful activity manually reviewed: feat: SCCP constant propagation eliminates 73% of PSP103 dead blocks. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
-    },
-    "wirewright": {
-      "kind": "github",
-      "repository": "house-of-houses/wirewright",
-      "repositoryId": 1226513871,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
-      "defaultBranch": "master",
-      "headSha": "40b90b07a9b6ec55bd5d6942b67c2c2badfe7d86",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        33,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-05-03",
-      "lastMeaningfulCommitAt": "2026-05-03",
-      "lastMeaningfulCommitSha": "8b523f2a94103f8eb9e796554ae986d51f7a39ad",
-      "notes": "Meaningful activity manually reviewed: feat(rails): clustered power/ground rails as default; add --rails knob. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
     },
     "gnucap": {
       "kind": "repository",
@@ -2193,6 +2089,31 @@
       "lastCommitAt": "2026-10-16",
       "lastMeaningfulCommitAt": "2026-10-16",
       "lastMeaningfulCommitSha": "f5e76846949843ee288644ddce07610646262707"
+    },
+    "verilog-a-sim": {
+      "kind": "github",
+      "repository": "philippevelha/verilog-a-sim",
+      "repositoryId": 1277361565,
+      "capturedAt": "2026-11-07T04:24:36.718Z",
+      "defaultBranch": "main",
+      "headSha": "f862694e1e5d95c0a691bcfdd67463ad2af58c84",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        32,
+        66,
+        67,
+        147,
+        93,
+        9
+      ],
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "f862694e1e5d95c0a691bcfdd67463ad2af58c84"
     }
   }
 }
