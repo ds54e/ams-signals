@@ -12,7 +12,7 @@
 | Task | Guide |
 | --- | --- |
 | Product intent and research boundaries | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) |
-| Golden Events, Companies, People or factual export | [src/data/AGENTS.md](src/data/AGENTS.md) |
+| Golden Events, Companies, People or factual export | [src/data/AGENTS.md](src/data/AGENTS.md) / [Golden evidence](docs/GOLDEN.md) |
 | Catalog content, activity, implementation, tests or docs | [Analog](src/lib/analog/AGENTS.md) / [Digital](src/lib/digital/AGENTS.md); shared changes use both |
 | Timeline/Events behavior | [docs/TIMELINE.md](docs/TIMELINE.md) |
 | Styling and responsive layout | [docs/VISUAL_SYSTEM.md](docs/VISUAL_SYSTEM.md) |

@@ -7,6 +7,7 @@ Read the guide and sections needed for the task. Each document owns one current 
 | Contributing and local setup | [Contributor entry point](#contributing-and-local-setup) |
 | Product purpose and research boundaries | [Product Context](../PROJECT_CONTEXT.md) |
 | Agent working rules and task routing | [Root guidance](../AGENTS.md) |
+| Golden selection, evidence, hiring, dates and attribution | [Golden evidence contract](GOLDEN.md) |
 | Golden editing and record validation | [Golden guidance](../src/data/AGENTS.md) / [content schema](../src/content.config.ts) |
 | Timeline, Events, Company/Person behavior | [Timeline contract](TIMELINE.md) |
 | Shared catalog curation, data, activity and interaction | [Catalog contract](catalog/CONTRACT.md) |
