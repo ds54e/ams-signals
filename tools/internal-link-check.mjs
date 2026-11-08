@@ -132,6 +132,7 @@ const timelineHtml = await readFile(path.join(outputRoot, 'timeline', 'index.htm
 const eventsIndexHtml = await readFile(path.join(outputRoot, 'events', 'index.html'), 'utf8');
 const timelineInspectorUrls = inspectorEventUrls(timelineHtml, 'Timeline');
 const activeCompanyIds = new Set(events.flatMap((event) => event.companies));
+const activePersonIds = new Set(events.flatMap((event) => event.people));
 
 for (const event of events) {
   const eventPath = `${siteBase}events/${event.id}/`;
@@ -143,7 +144,11 @@ for (const company of companies) {
     requireHref(timelineHtml, `${siteBase}companies/${company.id}/`, 'Timeline');
   }
 }
-for (const person of people) requireHref(timelineHtml, `${siteBase}people/${person.id}/`, 'Timeline');
+for (const person of people) {
+  if (activePersonIds.has(person.id)) {
+    requireHref(timelineHtml, `${siteBase}people/${person.id}/`, 'Timeline');
+  }
+}
 
 for (const event of events) {
   const eventHtml = await readFile(path.join(outputRoot, 'events', event.id, 'index.html'), 'utf8');
@@ -168,8 +173,11 @@ for (const company of companies) {
 
 for (const person of people) {
   const personHtml = await readFile(path.join(outputRoot, 'people', person.id, 'index.html'), 'utf8');
-  const personInspectorUrls = inspectorEventUrls(personHtml, `Person ${person.id}`);
-  for (const event of events.filter((entry) => entry.people.includes(person.id))) {
+  const personEvents = events.filter((entry) => entry.people.includes(person.id));
+  const personInspectorUrls = personEvents.length > 0
+    ? inspectorEventUrls(personHtml, `Person ${person.id}`)
+    : new Set();
+  for (const event of personEvents) {
     requireInspectorEvent(personInspectorUrls, `${siteBase}events/${event.id}/`, `Person ${person.id} inspector data`);
   }
 }

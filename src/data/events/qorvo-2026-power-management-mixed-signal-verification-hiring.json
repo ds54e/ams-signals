@@ -6,7 +6,7 @@
   },
   "kind": "organizational",
   "companies": [
-    "qorvo"
+    "skyworks"
   ],
   "people": [],
   "headline": "Qorvo posts management and senior principal roles for power-management mixed-signal verification",
@@ -23,6 +23,12 @@
       "url": "https://careers.qorvo.com/job/Richardson-Sr-Principal-Mixed-Signal-Verification-Engineer-TX-75081/1404684000/",
       "checkedAt": "2026-09-09",
       "summary": "The official Richardson posting carries the same August 27, 2026 date in its posting metadata. It describes top-level UVM verification and RNM/Verilog-AMS modeling for the same power-management product family, with preferred SV-UDN/EEnet, assertions, and coverage experience."
+    },
+    {
+      "title": "Skyworks Completes Combination with Qorvo",
+      "url": "https://www.qorvo.com/about/news-events/news-releases/2026/skyworks-completes-combination-with-qorvo",
+      "checkedAt": "2026-11-08",
+      "summary": "The official October 5, 2026 completion announcement states that the combined company operates as Skyworks. This source supports current canonical grouping only; the earlier Qorvo hiring Event retains its historical name, ID and date and does not establish methodology transfer."
     }
   ]
 }

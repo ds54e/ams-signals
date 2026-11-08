@@ -34,10 +34,11 @@ const LEGACY_COMPANY_IDS = [
   'maxim-integrated',
   'xilinx',
   'lsi',
+  'qorvo',
 ];
 
 // The canonical groups that replaced those legacy identities.
-const CANONICAL_SUCCESSORS = ['siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom'];
+const CANONICAL_SUCCESSORS = ['siemens-eda', 'nxp', 'renesas', 'analog-devices', 'amd', 'broadcom', 'skyworks'];
 
 // Canonical public display names that are deliberate product naming, not raw source titles.
 const CANONICAL_DISPLAY_NAMES: Record<string, string> = {
@@ -61,6 +62,7 @@ const CANONICAL_DISPLAY_NAMES: Record<string, string> = {
 
 // Historical Event → canonical Company/Person associations whose identity is the contract.
 const CANONICAL_ASSOCIATIONS: Array<[string, { companies: string[]; people: string[] }]> = [
+  ['qorvo-2026-power-management-mixed-signal-verification-hiring', { companies: ['skyworks'], people: [] }],
   ['dialog-semiconductor-2014-selcuk-talay-ams-top-level-dv-lead', { companies: ['renesas'], people: ['selcuk-talay'] }],
   ['dialog-semiconductor-2016-mixed-signal-model-validation', { companies: ['renesas'], people: ['carsten-wegener'] }],
   ['dialog-semiconductor-2020-chip-level-analog-regressions', { companies: ['renesas'], people: [] }],
@@ -144,4 +146,12 @@ test('every Event company reference resolves to a canonical Company', async () =
       assert.ok(companyIds.has(companyId), `${event.id} references unknown Company ${companyId}`);
     }
   }
+});
+
+// Canonical grouping preserves the source-era employer and stable Event identity.
+test('Qorvo hiring keeps historical wording when grouped under Skyworks', async () => {
+  const event = eventById(await buildPayload(), 'qorvo-2026-power-management-mixed-signal-verification-hiring');
+  assert.deepEqual(event.companies, ['skyworks']);
+  assert.match(event.headline, /^Qorvo posts /);
+  assert.match(event.fact, /^Qorvo posted /);
 });
