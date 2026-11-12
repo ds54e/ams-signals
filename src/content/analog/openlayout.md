@@ -59,4 +59,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for correcting ASAP7 diffusion connectivity through trench contacts. The canonical extractor retains the SDT layer and the corresponding source/drain-to-LISD connectivity rules. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for correcting ASAP7 diffusion connectivity through trench contacts. The canonical extractor retains the SDT layer and the corresponding source/drain-to-LISD connectivity rules. This supports AI-ASSISTED. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

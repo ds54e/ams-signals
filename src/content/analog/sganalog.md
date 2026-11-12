@@ -75,4 +75,4 @@ The ngspice harness and open-PDK environment supply conventional electrical eval
 
 ### Development provenance
 
-The credited release contains substantial executable benchmark-pipeline and evaluation code, in addition to harvested circuits, data and paper assets. The provenance label concerns implementation of the benchmark tooling; it does not attribute the upstream shuttle designs or their silicon to AI, or infer that AI implemented every released file. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The credited release contains substantial executable benchmark-pipeline and evaluation code, in addition to harvested circuits, data and paper assets. The provenance label concerns implementation of the benchmark tooling; it does not attribute the upstream shuttle designs or their silicon to AI. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

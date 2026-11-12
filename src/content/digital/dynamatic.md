@@ -101,7 +101,7 @@ Design covers kernel authoring and reusable MLIR/dataflow transformations. Synth
 
 Layout records a limited but implemented user-facing physical evaluation flow. The current `synthesize` CLI passes the selected kernel, output directory and target clock to a script that assembles HDL/IP resources, generates clock constraints, and runs Vivado synthesis, placement, physical optimization and routing, returning both post-synthesis and post-route timing/utilization reports. The device is fixed to Kintex-7 `xc7k160tfbg484-2` in out-of-context mode; this is not a general board/bitstream workflow. The assignment follows actual physical operations and delivered measurements, without requiring configurable devices or implying complete implementation coverage. [User command](#source-commands); [current CLI connection](#source-cli); [physical evaluation implementation](#source-evaluation).
 
-All runtime stage AI booleans are false. The reviewed compiler, optimization and verification sources do not establish meaningful AI-built development provenance.
+All runtime stage AI booleans are false. The reviewed compiler, optimization and verification sources do not establish qualifying AI-assisted development provenance.
 
 ### Development provenance review
 

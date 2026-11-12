@@ -57,4 +57,4 @@ The canonical master branch history was captured in full. The October 3 UTC impl
 
 ### Development provenance
 
-The reviewed changes add importable package setup, a runtime context, hook validation/registry and invocation through GHDL, NVC, ModelSim/Questa, Riviera-PRO and Active-HDL adapters. This is substantial package/runtime integration rather than ordinary CI maintenance or documentation assistance. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The reviewed changes add importable package setup, a runtime context, hook validation/registry and invocation through GHDL, NVC, ModelSim/Questa, Riviera-PRO and Active-HDL adapters. These retained package/runtime hooks support AI-assisted development. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

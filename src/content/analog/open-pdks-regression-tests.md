@@ -67,4 +67,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

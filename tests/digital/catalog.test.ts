@@ -528,13 +528,13 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
 
 test('Digital Scope displays composed AI stages and one provenance label without duplicating a stage', () => {
   const scope = digitalSchema.parse({ ...data(), developmentEvidence: { ...developmentEvidence(), sources: [data().sources[0].id], reviewedAt: data().reviewedAt }, scope: {
-    layout: { ai: true }, aiDevelopment: 'built',
+    layout: { ai: true }, aiDevelopment: 'assisted',
     verification: { ai: false }, synthesis: { ai: true },
   } }).scope;
   const items = scopeItems(scope, scopeStageLabels);
   assert.deepEqual(items.map((x) => [x.id, x.label]), [
     ['synthesis', 'AI Synthesis'], ['verification', 'Verification'],
-    ['layout', 'AI Layout'], ['aiDevelopment', 'AI-BUILT'],
+    ['layout', 'AI Layout'], ['aiDevelopment', 'AI-ASSISTED'],
   ]);
   assert.equal(new Set(items.map((x) => x.id)).size, items.length);
   assert.equal(items.at(-1)!.ai, undefined);

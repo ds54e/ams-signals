@@ -7,7 +7,7 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project."
+  summary: "Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution."
   sources: ["development-audit-implementation", "development-retained-20261018"]
   reviewedAt: '2026-10-18'
 access: "Apache-2.0 public source and PyPI package; requires Python and najaeda, with optional MCP clients for agent use."
@@ -68,6 +68,6 @@ Reviewed 2026-10-05. The repository moved from najaeda to keplertech with the sa
 
 ### Development provenance
 
-The attributed implementation introduces the named project's core modules together, including its own hierarchy/connectivity traversal and source-index/session machinery. These retained executable contributions support AI-assisted development; they do not establish that AI built most of naja-scope or attribute its upstream Naja library to AI. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The attributed implementation introduces the named project's core modules together, including its own hierarchy/connectivity traversal and source-index/session machinery. These retained executable contributions support AI-assisted development without attributing upstream Naja library code to this contribution. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
 
-Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing the MCP structural-query layer, including design loading, navigation, connectivity and cone operations. Current canonical code retains the contribution. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

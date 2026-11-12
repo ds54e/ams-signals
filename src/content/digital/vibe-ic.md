@@ -13,9 +13,9 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "A Codex-signed canonical change implements the required post-global-routing design-repair policy in the physical-flow producer. Current code retains the policy overlay and executable regressions."
+  summary: "Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode."
   sources: ["development-implementation-20261018", "development-retained-20261018"]
-  reviewedAt: '2026-10-18'
+  reviewedAt: "2026-11-12"
 access: "Apache-2.0 public plugin and bundled MCP-EDA tooling. The open path uses pinned open-source EDA tools; FPGA, commercial-EDA, PDK and lab-hardware paths require the corresponding user-provided environments."
 addedAt: "2026-09-26"
 reviewedAt: "2026-10-18"
@@ -46,12 +46,12 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/vibeic/vibe-ic/commit/a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
-  - id: "development-implementation-20261018"
-    title: "AI-credited executable implementation"
-    url: "https://github.com/vibeic/vibe-ic/commit/dbdf01d77b84605b51f0dee35c0b4bbc142833d9"
-  - id: "development-retained-20261018"
-    title: "Retained executable code at the reviewed canonical head"
-    url: "https://github.com/vibeic/vibe-ic/blob/c02ce870ebecd78d4fedec85759f3db83c9595b5/vibe-ic-marketplace/plugins/vibe-ic/programs/execution_backend_producers.py"
+  - id: development-implementation-20261018
+    title: "Codex-credited ensure-only container setup mode"
+    url: https://github.com/vibeic/vibe-ic/commit/daea1d23772c807783ca0457d6ccaf5d87ebd790
+  - id: development-retained-20261018
+    title: "Retained ensure-only validation and image-pull guards"
+    url: https://github.com/vibeic/vibe-ic/blob/c22e34b991b6380c438f88a3ee9f054f97c3a90e/tools/vibeic-eda/restart-eda.sh
 ---
 
 ### Staged flow
@@ -80,4 +80,4 @@ The implementation review preserves functional Scope. Source and regression evid
 
 ### Development provenance
 
-A Codex-signed canonical change implements the required post-global-routing design-repair policy in the physical-flow producer. Current code retains the policy overlay and executable regressions. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

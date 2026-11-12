@@ -86,4 +86,4 @@ Apache-2.0 source is public. The README's 1.4.0 heading, main's 2.53.0 change lo
 
 ### Development provenance
 
-The reviewed change explicitly credits Claude Opus as coauthor of executable noise-grid parsing, sweep execution, parser regressions and validation-harness code. Inspection of the diff and retained main execution path supports AI-assisted development, without establishing that AI built most of the project. This attribution does not change the conventional Simulation Scope. [Credited implementation](#source-activity) · [Retained execution](#source-noise-implementation).
+The reviewed change explicitly credits Claude Opus as coauthor of executable noise-grid parsing, sweep execution, parser regressions and validation-harness code. Inspection of the diff and retained main execution path supports AI-assisted development. This attribution does not change the conventional Simulation Scope. [Credited implementation](#source-activity) · [Retained execution](#source-noise-implementation).

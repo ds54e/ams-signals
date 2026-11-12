@@ -54,4 +54,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for correcting synchronizer-chain recognition through per-stage synchronous-reset multiplexers. The canonical rule engine retains the reset-mux index and chain-walking logic. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for correcting synchronizer-chain recognition through per-stage synchronous-reset multiplexers. The canonical rule engine retains the reset-mux index and chain-walking logic. This supports AI-ASSISTED. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

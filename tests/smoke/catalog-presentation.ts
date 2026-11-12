@@ -14,8 +14,9 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   }));
   expect(items.length).toBeGreaterThan(0);
   for (const item of items) {
+    if (item.development) expect(item.development).toBe('assisted');
     expect(item.classes).toEqual(['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`]);
-    expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-(?:ASSISTED|BUILT)$/);
+    expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-ASSISTED$/);
     expect(item.transform).toBe('none');
     expect(item.renderedText).toBe(item.text);
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);

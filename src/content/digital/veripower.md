@@ -51,4 +51,4 @@ The meaningful checkpoint is `6f764c1295e4eb0e1e05daaaea5637c424172054` (2026-10
 
 ### Development provenance
 
-Claude is credited for implementing duplicate clock-name rejection and structured specification-tool failures. The canonical project retains the executable validation and regression tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing duplicate clock-name rejection and structured specification-tool failures. The canonical project retains the executable validation and regression tests. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

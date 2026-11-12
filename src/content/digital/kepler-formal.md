@@ -71,4 +71,4 @@ The implementation review preserves functional Scope. Source and regression evid
 
 ### Development provenance
 
-Claude is credited for correcting internal-relation certification to use literal substitution rather than SAT assumptions. The canonical project retains the proof implementation and executable regressions. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for correcting internal-relation certification to use literal substitution rather than SAT assumptions. The canonical project retains the proof implementation and executable regressions. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

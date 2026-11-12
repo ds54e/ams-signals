@@ -11,7 +11,7 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project."
+  summary: "Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution."
   sources: ["development-audit-implementation", "development-retained-20261018", "development-audit-extension"]
   reviewedAt: '2026-10-18'
 access: "Public source environment and training stack. Local grading needs Python, Icarus Verilog and Yosys, with SymbiYosys optional; model inference or RL training additionally needs the selected provider or training infrastructure."
@@ -68,4 +68,4 @@ Reviewed 2026-10-01. The evaluated model task is synthesizable RTL implementatio
 
 The initial attributed diff implements the step/reset/state environment and EDA feedback/reward paths, while the later campaign implements training configuration, curriculum, datasets, environment and trainer integration. Their scope spans the project's defining environment and training software. The label does not transfer to OpenEnv, TRL or the external EDA engines. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
 
-Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution; the reviewed evidence does not establish that AI built most of the project. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing the VeriRL environment client and action/observation contracts, with subsequent training infrastructure contributions. Current canonical code retains the contribution. [AI-credited executable implementation](#source-development-audit-implementation) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

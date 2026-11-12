@@ -46,4 +46,4 @@ The September 22 canonical GitLab change prefers a dropped file's path before re
 
 ### Development provenance
 
-Claude is credited for correcting file-watcher paths and translator-plugin configuration in executable Rust code. The canonical project retains the fixes for bare filenames and local translator configuration. This supports AI-assisted development without establishing that AI built most of the project. [Claude-credited file watcher and translator correction](#source-development-implementation-20261018) · [Retained file watcher correction at canonical head](#source-development-retained-20261018).
+Claude is credited for correcting file-watcher paths and translator-plugin configuration in executable Rust code. The canonical project retains the fixes for bare filenames and local translator configuration. This supports AI-assisted development. [Claude-credited file watcher and translator correction](#source-development-implementation-20261018) · [Retained file watcher correction at canonical head](#source-development-retained-20261018).

@@ -70,4 +70,4 @@ Reviewed 2026-10-05. Python-wheel builds resolve missing or incompatible Bison/F
 
 ### Development provenance
 
-Claude is credited for implementing unpacked array-to-array assignments and ternary expansion in AST simplification. The canonical Yosys project retains the implementation and executable tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing unpacked array-to-array assignments and ternary expansion in AST simplification. The canonical Yosys project retains the implementation and executable tests. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

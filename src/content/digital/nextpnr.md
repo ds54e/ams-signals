@@ -59,4 +59,4 @@ Reviewed 2026-10-05. The router stops sink-path reservation at wires marked RESE
 
 ### Development provenance
 
-Claude is credited for correcting RAMB36E1 width-9 parity connections in the Xilinx packer. The canonical project retains the implemented pin connections. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for correcting RAMB36E1 width-9 parity connections in the Xilinx packer. The canonical project retains the implemented pin connections. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

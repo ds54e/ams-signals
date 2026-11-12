@@ -7,11 +7,11 @@ scope:
     ai: false
   verification:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The maintainer attributes the bulk of this fork’s SystemVerilog/UVM implementation to Claude, with human direction and review. The attribution covers the fork’s extensions to Icarus Verilog."
+  summary: "The maintainer credits Claude-assisted implementation of this fork's SystemVerilog/UVM extensions under human direction and review."
   sources: ["development-1", "development-2"]
-  reviewedAt: "2026-10-01"
+  reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-11-07"
@@ -71,7 +71,7 @@ The fork is experimental, has not been endorsed by upstream Icarus and is explic
 
 ### Development provenance review
 
-Reviewed 2026-10-01: **AI-BUILT**. The maintainer explicitly calls this fork largely AI-written and attributes much of its SystemVerilog/UVM implementation to Claude under human direction and review. This characterizes the fork's defining extension effort, without transferring authorship to upstream Icarus or claiming runtime AI. [Current maintainer account](#source-development-1); [historical extension account](#source-development-2).
+Reviewed 2026-10-01: **AI-ASSISTED**. The maintainer credits Claude-assisted implementation of the fork's SystemVerilog/UVM extensions under human direction and review. The attribution concerns these extensions, not upstream Icarus, and does not imply runtime AI. [Current maintainer account](#source-development-1); [historical extension account](#source-development-2).
 
 ### Current activity review
 
@@ -79,8 +79,8 @@ Reviewed 2026-10-05. The elaborator adds two-dimensional dynamic-array randomiza
 
 ### Selection and current source review
 
-The November 3 first-parent train integrates numeric clocking-input skew initialization, recursive array-pattern defaults, object naming and string-property indexing corrections, plus executable regression fixtures. These are sustained correctness/verification improvements rather than evidence of complete IEEE/UVM compliance. No simulator or production qualification campaign was independently run. The experimental-use warning, exposed vlog95 Design operation and independently attributed AI-built fork extensions remain unchanged. [Implementation and regression evidence](#source-review-20261103-implementation).
+The November 3 first-parent train integrates numeric clocking-input skew initialization, recursive array-pattern defaults, object naming and string-property indexing corrections, plus executable regression fixtures. These are sustained correctness/verification improvements rather than evidence of complete IEEE/UVM compliance. No simulator or production qualification campaign was independently run. The experimental-use warning, exposed vlog95 Design operation and independently attributed AI-assisted fork extensions remain unchanged. [Implementation and regression evidence](#source-review-20261103-implementation).
 
 ### November implementation review
 
-The November 7 integration adds nested rand-object dynamic-array constraint lowering and runtime size/element handling, with paired 2017/2023 regression fixtures checking direct references, foreach constraints, contradictory constraints and null handles. This supports continued technical maintenance, not complete SystemVerilog/UVM compliance. The experimental/tapeout warning, conventional Design/Verification classification and separately attributed AI-built development remain unchanged. No simulator runs were performed. [Implementation and regression evidence](#source-review-20261107-implementation) · [Retained fixture](#source-review-20261107-retained).
+The November 7 integration adds nested rand-object dynamic-array constraint lowering and runtime size/element handling, with paired 2017/2023 regression fixtures checking direct references, foreach constraints, contradictory constraints and null handles. This supports continued technical maintenance, not complete SystemVerilog/UVM compliance. The experimental/tapeout warning, conventional Design/Verification classification and separately attributed AI-assisted development remain unchanged. No simulator runs were performed. [Implementation and regression evidence](#source-review-20261107-implementation) · [Retained fixture](#source-review-20261107-retained).

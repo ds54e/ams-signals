@@ -221,7 +221,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expect(item.locator('[data-provenance-panel]')).toBeHidden();
       await expect(item.locator('[data-provenance-toggle]')).toHaveAttribute('aria-expanded', 'false');
     }
-    for (const level of ['assisted', 'built']) {
+    for (const level of ['assisted']) {
       const labeled = ordered.filter((p) => p.scope.aiDevelopment === level);
       await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(labeled.length);
       const project = labeled[0];
@@ -261,7 +261,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     }
   });
 
-  test(`${label} both provenance labels are searchable and remain independent of functional filters`, async ({ page }) => {
+  test(`${label} the AI-ASSISTED label is searchable and remain independent of functional filters`, async ({ page }) => {
     await open(page);
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
@@ -270,7 +270,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
       p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment}` : '',
     ].join(' ').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}]+/gu, ' ');
-    for (const level of ['assisted', 'built']) {
+    for (const level of ['assisted']) {
       const expected = ordered.filter((p) => /\bai\b/.test(publicText(p)) && publicText(p).includes(level));
       for (const query of [`AI-${level.toUpperCase()}`, `ai ${level}`]) {
         await search.fill(query);
@@ -308,7 +308,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await open(page);
     for (const width of [390, 320]) {
       await page.setViewportSize({ width, height: 844 });
-      for (const level of ['assisted', 'built']) {
+      for (const level of ['assisted']) {
         const labeled = ordered.filter((p) => p.scope.aiDevelopment === level);
         await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(labeled.length);
         const project = labeled[0];

@@ -73,4 +73,4 @@ The latest stable release is **0.5.10**, published September 10, while the main-
 
 Design covers Python hardware construction, elaboration and reusable components. Verification covers native simulation, testbenches and waveforms. Synthesis covers configured target synthesis in platform builds. Layout covers generated pin/clock constraints, device-specific placement/routing inputs and programming artifacts. This is substantial platform integration, beyond an incidental invocation of nextpnr or vendor tools; those external tools still supply the physical algorithms.
 
-All runtime stage AI booleans are false. The reviewed sources do not establish qualifying AI-assisted or AI-built implementation.
+All runtime stage AI booleans are false. The reviewed sources do not establish qualifying AI-assisted implementation.

@@ -59,4 +59,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for repairing component-sequence connections without replacing electrical ports. The retained executable sample allows cross-section mismatches while preserving the original port identities for layout export. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for repairing component-sequence connections without replacing electrical ports. The retained executable sample allows cross-section mismatches while preserving the original port identities for layout export. This supports AI-ASSISTED. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

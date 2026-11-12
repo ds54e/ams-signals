@@ -51,4 +51,4 @@ The September 29 implementation correctly treats -v inputs as library files, pre
 
 ### Development provenance
 
-The PR explicitly identifies Claude Code and its inspected implementation adds a normalized branching context, per-arm labels, statement/reference linkage and loop-index handling across schema and extraction. This supports substantial-subsystem implementation provenance, with attribution grounded in the PR and actual integrated diff rather than its branch name. [Attribution](#source-development-audit-attribution) · [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The PR explicitly identifies Claude Code and its inspected implementation adds a normalized branching context, per-arm labels, statement/reference linkage and loop-index handling across schema and extraction. This supports AI-assisted development of these retained modules, with attribution grounded in the PR and actual integrated diff rather than its branch name. [Attribution](#source-development-audit-attribution) · [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

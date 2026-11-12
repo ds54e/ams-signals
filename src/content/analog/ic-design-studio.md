@@ -93,4 +93,4 @@ Development continues separately on experimental: the October 12 commit expands 
 
 ### Development provenance
 
-The inspected commits explicitly attribute implementation to Codex and add the execution, waveform, per-cell identity, verification and physical-flow modules. This supports AI-ASSISTED for a substantial integrated subsystem of the named application; its analog Gaussian-process runtime classification remains independent. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The inspected commits explicitly attribute implementation to Codex and add the execution, waveform, per-cell identity, verification and physical-flow modules. This supports AI-ASSISTED for these retained application modules; its analog Gaussian-process runtime classification remains independent. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

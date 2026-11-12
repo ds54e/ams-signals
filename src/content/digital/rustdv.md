@@ -51,4 +51,4 @@ The meaningful checkpoint is `ac72f6f4e95331e5e542a93d0a1574a6ca72dcb2` (2026-10
 
 ### Development provenance
 
-The maintainer credits Sonnet with corrected simulator code and executable clock tests. The canonical project retains the falling-edge test window and per-test read-only-phase transition. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+The maintainer credits Sonnet with corrected simulator code and executable clock tests. The canonical project retains the falling-edge test window and per-test read-only-phase transition. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

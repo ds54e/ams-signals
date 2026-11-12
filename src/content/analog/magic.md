@@ -86,7 +86,7 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 
 ### Development provenance
 
-The reviewed implementation adds convex/concave corner calculations and integration into the existing extractor, with an optional model scale factor. This qualifies as a substantial extraction feature. The attribution does not establish the electrical calibration of that factor or characterize construction of the original Magic codebase. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The reviewed implementation adds convex/concave corner calculations and integration into the existing extractor, with an optional model scale factor. This retained extraction implementation supports AI-assisted development; it does not establish the electrical calibration of that factor. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
 
 ### Review of exposed operations and limits, October 22, 2026
 

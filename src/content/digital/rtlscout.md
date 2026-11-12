@@ -82,4 +82,4 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 
 ### Development provenance
 
-The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are substantial orchestration and evaluation subsystems in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are executable orchestration and evaluation implementations in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

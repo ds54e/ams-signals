@@ -76,7 +76,7 @@ Verilog-A-to-OSDI compilation enables numerical simulation in a host tool. This 
 
 ### Development provenance
 
-Named-event declaration/trigger/detection and break/continue/return support span syntax, HIR, semantic diagnostics and control-flow lowering, with compiler/OSDI regression fixtures. This is substantial language implementation within OpenVAF-Reloaded; attribution is not borrowed from the separately cataloged ngspice/OpenVAF enhancement repository. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+Named-event declaration/trigger/detection and break/continue/return support span syntax, HIR, semantic diagnostics and control-flow lowering, with compiler/OSDI regression fixtures. This is executable language implementation within OpenVAF-Reloaded; attribution is not borrowed from the separately cataloged ngspice/OpenVAF enhancement repository. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
 
 ### Timestep correctness and actual event boundary
 

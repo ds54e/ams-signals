@@ -10,7 +10,7 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These contributions support assistance; the evidence does not establish AI built most of the combined project."
+  summary: "A Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree."
   sources: ["development-1", "development-2"]
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -78,10 +78,10 @@ The September 30 update adds a bounded trust-region optimizer and preserves the 
 
 ### Development provenance review
 
-**AI-ASSISTED** applies to the credited compiler lowering and OSDI callback enhancements retained in this combined tree. The owner’s Claude Code development account does not establish that AI built most of the project, including the inherited simulator/compiler codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
+**AI-ASSISTED** applies to the credited compiler lowering and OSDI callback enhancements retained in this combined tree. The attribution concerns these enhancements, not the inherited simulator/compiler codebases. [Owner’s development account](#source-development-1); [Compiler and simulator implementation](#source-development-2).
 
 ### Current activity review
 
 Reviewed 2026-10-05. The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF. [Reviewed change](#source-activity-current).
 
-The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These contributions support assistance; the evidence does not establish AI built most of the combined project. [Owner’s development account](#source-development-1) · [Compiler and simulator implementation](#source-development-2).
+The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These credited contributions support AI-assisted development. [Owner’s development account](#source-development-1) · [Compiler and simulator implementation](#source-development-2).

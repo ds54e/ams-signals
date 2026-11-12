@@ -59,4 +59,4 @@ Ngspice and deterministic extraction still produce the numerical evidence. Schem
 
 ### Development provenance
 
-The Cursor-credited desktop change implements Electron IPC, project/model binding, type-specific forms and schematic interchange controls across the desktop. The development label records this substantial subsystem contribution, independently of the coding agents that operate the workbench at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The Cursor-credited desktop change implements Electron IPC, project/model binding, type-specific forms and schematic interchange controls across the desktop. The development label records this executable contribution, independently of the coding agents that operate the workbench at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

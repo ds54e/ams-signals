@@ -71,4 +71,4 @@ Reviewed 2026-10-05. Nonblocking assignments now own their event-control and cou
 
 ### Development provenance
 
-Claude is credited for implemented constant-function unpacked-array handling across elaboration and compile-time evaluation. The canonical project retains the code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implemented constant-function unpacked-array handling across elaboration and compile-time evaluation. The canonical project retains the code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

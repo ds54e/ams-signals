@@ -71,7 +71,7 @@ Canonical Codeberg identity, main branch and complete first-parent committer his
 
 ### Development provenance
 
-Claude Code is credited with co-developing the ng2vc parameter-parser correction. The canonical converter retains comparison-aware assignment splitting after the code moved into the Python package. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude Code is credited with co-developing the ng2vc parameter-parser correction. The canonical converter retains comparison-aware assignment splitting after the code moved into the Python package. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
 
 ### Current implementation and activity
 

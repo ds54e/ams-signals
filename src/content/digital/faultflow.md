@@ -60,4 +60,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for repairing stalled SAT ATPG and multi-bit primary-input handling. The canonical ATPG implementation retains the real-input enumeration and launch/capture constraints. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for repairing stalled SAT ATPG and multi-bit primary-input handling. The canonical ATPG implementation retains the real-input enumeration and launch/capture constraints. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

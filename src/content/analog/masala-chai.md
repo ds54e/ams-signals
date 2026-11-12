@@ -60,4 +60,4 @@ Multimodal agents reconstruct connectivity and netlists, giving AI Design. The V
 
 ### Development provenance
 
-The attributed diff implements executable agent orchestration, stage-specific refinement, judging and conflict handling across the v2 package. It establishes substantial software implementation independently of using LLMs to generate or inspect circuit netlists at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+The attributed diff implements executable agent orchestration, stage-specific refinement, judging and conflict handling across the v2 package. It establishes executable software implementation independently of using LLMs to generate or inspect circuit netlists at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)

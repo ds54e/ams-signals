@@ -51,4 +51,4 @@ The meaningful checkpoint is `a2654bcba727bc8676dde84d230a3d3871f6defc` (2026-10
 
 ### Development provenance
 
-Claude is credited for implementing worker-thread offload and cooperative cancellation for waveform tools. The canonical project retains the server dispatch, cancellation and query checkpoints. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing worker-thread offload and cooperative cancellation for waveform tools. The canonical project retains the server dispatch, cancellation and query checkpoints. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

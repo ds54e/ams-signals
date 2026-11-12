@@ -121,7 +121,7 @@ The October 19 interchange change adds SPICE+RNL and Spectre+RNL exports and an 
 
 ### Development provenance
 
-The coupling change spans typed model data, transactions, clipboard behavior, rendering and electrical export, while the simulation change binds declared cell libraries through the hosted execution contract. The reviewed contribution is broader than the earlier isolated ERC repair; it supports a substantial-subsystem provenance label. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The coupling change spans typed model data, transactions, clipboard behavior, rendering and electrical export, while the simulation change binds declared cell libraries through the hosted execution contract. These credited executable changes remain in the project and support AI-ASSISTED development. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
 
 ### Hierarchical RNL round-trip correctness
 

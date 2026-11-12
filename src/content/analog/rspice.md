@@ -94,7 +94,7 @@ The earlier reviewed checkpoint was `b7a089985ebd82199950ff35ee1b4086fabfdc9a` (
 
 ### Development provenance
 
-The solver-control implementation explicitly credits Claude Opus 5 as coauthor; its actual parser and engine-configuration changes are integrated in canonical history and retained in the current source. This supports AI-ASSISTED for a code contribution, without attributing most of RSpice to AI. Runtime Design and Simulation remain conventional. [Credited implementation](#source-development-solver-implementation) · [Retained configuration](#source-development-solver-retained).
+The solver-control implementation explicitly credits Claude Opus 5 as coauthor; its actual parser and engine-configuration changes are integrated in canonical history and retained in the current source. This supports AI-ASSISTED for the retained code contribution. Runtime Design and Simulation remain conventional. [Credited implementation](#source-development-solver-implementation) · [Retained configuration](#source-development-solver-retained).
 
 ### Assertions and internal HDL traces
 

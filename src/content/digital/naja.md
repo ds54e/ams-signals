@@ -64,7 +64,7 @@ The implementation review preserves functional Scope. Source and regression evid
 
 ### Development provenance
 
-Claude is credited in a canonical implementation change that releases parameter properties before destruction, including Python-wrapper invalidation. Current Naja code retains these cleanup calls. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-activity) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited in a canonical implementation change that releases parameter properties before destruction, including Python-wrapper invalidation. Current Naja code retains these cleanup calls. This supports AI-assisted development. [AI-credited executable implementation](#source-activity) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
 
 
 The canonical repository moved from `najaeda/naja` to `keplertech/naja` with GitHub repository ID 414906187 unchanged. Source links now use that canonical owner; the move does not independently establish new implementation activity.

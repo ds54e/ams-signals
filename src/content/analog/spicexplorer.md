@@ -81,7 +81,7 @@ AI Layout follows the released agent workflow that writes or repairs a parameter
 
 The September 1 EM-verification commit is the reviewed meaningful first-parent change; the later same-day head updates documentation. The EM implementation extracts named nets from GDS, orchestrates the PDK's openEMS workflow and exports a fitted SPICE subcircuit. It is an optional verification lane outside the optimizer loop. Its handling of near-passive fits requires explicit warnings and checking the spliced deck's operating point, so the catalog does not imply guaranteed passivity or independently reproduced results. [Meaningful commit](#source-activity) · [Implementation](#source-em-implementation)
 
-That commit credits Claude Opus and introduces the actual analysis pipeline with configuration and tests. The diff supports AI-ASSISTED for this substantial subsystem, not a whole-project AI-BUILT claim or attribution of the upstream simulators. [Attributed implementation](#source-activity) · [Retained subsystem](#source-em-implementation)
+That commit credits Claude Opus and introduces the actual analysis pipeline with configuration and tests. The diff supports AI-ASSISTED for this subsystem, without attributing upstream simulator code to the contribution. [Attributed implementation](#source-activity) · [Retained subsystem](#source-em-implementation)
 
 ### Current implementation and operating boundaries
 

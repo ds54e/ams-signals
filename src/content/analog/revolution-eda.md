@@ -69,7 +69,7 @@ The earlier reviewed checkpoint was `fd2e962fb40045a9c7c8d8bdb088ecab0a879e2d` (
 
 ### Development provenance
 
-The explicitly Devin-generated implementation adds shared semantic connectivity, typed parameters and inherited net expressions across editor scenes, checks and netlisters. The retained resolver evaluates inherited bindings, resolves group names and diagnoses conflicts; attribution is limited to this substantial subsystem within the existing editor. [Attributed implementation](#source-development-connectivity-implementation) · [Retained resolver](#source-development-connectivity-retained).
+The explicitly Devin-generated implementation adds shared semantic connectivity, typed parameters and inherited net expressions across editor scenes, checks and netlisters. The retained resolver evaluates inherited bindings, resolves group names and diagnoses conflicts; attribution is limited to this resolver within the existing editor. [Attributed implementation](#source-development-connectivity-implementation) · [Retained resolver](#source-development-connectivity-retained).
 
 ### Selection and current source review
 

@@ -77,4 +77,4 @@ The meaningful checkpoint is 6389189d8cc40393eca97e8776638aaba5038b95 (2026-10-0
 
 ### Development provenance
 
-The attributed changes introduce netlist parsing, hierarchy checking, symbols, wired sheets and circuit-specific drawing templates, plus executable family layout/bench integration. These establish substantial implementation contributions beyond demonstration captions or generated circuit examples. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The attributed changes introduce netlist parsing, hierarchy checking, symbols, wired sheets and circuit-specific drawing templates, plus executable family layout/bench integration. These establish executable implementation contributions beyond demonstration captions or generated circuit examples. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

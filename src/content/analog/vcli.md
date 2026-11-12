@@ -106,4 +106,4 @@ The skills require a source checkout and model host; they are excluded from the 
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The credited campaign adds actual Rust OCEAN code generation and setup/run/measurement/sweep/corner commands, with current CLI calls. This is a substantial simulation subsystem, without assigning the whole Rust rewrite to AI. [CLI/simulation campaign](#source-development-1); [Current implementation](#source-development-2).
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited campaign adds actual Rust OCEAN code generation and setup/run/measurement/sweep/corner commands, with current CLI calls. These retained Rust CLI and simulation implementations support AI-assisted development. [CLI/simulation campaign](#source-development-1); [Current implementation](#source-development-2).

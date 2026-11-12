@@ -71,7 +71,7 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
 
 The opt-in PDK-authoritative stack preserves layer elevation, thickness, material and mesh order instead of reconstructing them from generic assumptions. The Palace terminal-port pipeline joins driven-run modal S-parameters with aligned two-dimensional voltage/current matrices; its mode ordering and gauge requirements still apply. [Stack integration](#source-review-20261031-stack) · [Terminal assembly](#source-review-20261031-ports).
 

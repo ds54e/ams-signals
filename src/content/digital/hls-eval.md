@@ -66,4 +66,4 @@ The meaningful checkpoint is af9821608d9ee46a26edd8193b522628b731ac39 (2026-09-2
 
 ### Development provenance
 
-A Claude-credited implementation rejects empty generated C++ and timed-out compile, execution and synthesis results, with executable regression updates. The canonical project retains these checks. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+A Claude-credited implementation rejects empty generated C++ and timed-out compile, execution and synthesis results, with executable regression updates. The canonical project retains these checks. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

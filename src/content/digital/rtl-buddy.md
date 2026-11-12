@@ -62,4 +62,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for repairing SDC clock resolution and unresolved-clock reporting. The canonical Tcl reader retains structured read results and detection of clock commands inside unevaluated script bodies. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for repairing SDC clock resolution and unresolved-clock reporting. The canonical Tcl reader retains structured read results and detection of clock commands inside unevaluated script bodies. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

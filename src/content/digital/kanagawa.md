@@ -80,4 +80,4 @@ Both runtime stage booleans are false. The reviewed type-alias and per-export pa
 
 ### Development provenance
 
-Copilot is credited for implementing per-export SystemVerilog packages and qualified named-type references. The canonical compiler retains the implementation. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-activity-refresh) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Copilot is credited for implementing per-export SystemVerilog packages and qualified named-type references. The canonical compiler retains the implementation. This supports AI-assisted development. [AI-credited executable implementation](#source-activity-refresh) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

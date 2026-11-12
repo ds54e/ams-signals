@@ -40,7 +40,7 @@ Stages record material user-facing coverage, not completeness or strength. Depen
 
 `scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage; the boolean follows [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules for runtime AI and explicit AI benchmark tasks, separating the evaluated model from its grader. Render the ordinary label or its `AI ` prefix, never both.
 
-Optional `scope.aiDevelopment` is `assisted` or `built` with paired evidence under the shared policy. Verified credited executable code, including isolated fixes and test/build/tool/example logic, supports `assisted`; `built` needs primary evidence that AI built most of the project. Verify actor identity, actual code, canonical integration and current retention. Provenance is independent of runtime AI and is not a functional stage. Reject parallel provenance booleans, roles, strength levels and project-wide runtime-AI enums.
+Optional `scope.aiDevelopment` is `assisted` with paired evidence under the shared policy. Verified credited executable code, including isolated fixes and test/build/tool/example logic, supports the single AI-ASSISTED label; contribution size is not classified. Verify actor identity, actual code, canonical integration and current retention. Provenance is independent of runtime AI and is not a functional stage. Reject parallel provenance booleans, roles, strength levels and project-wide runtime-AI enums.
 
 ## Data and ownership
 
@@ -82,7 +82,7 @@ Descriptions normally use two useful sentences, roughly 30–55 words: function,
 
 Sort descending by `lastCommitAt` for repository records or `lastPublicUpdateAt` otherwise, then ascending by NFKC-normalized lowercase trimmed name and slug. Do not mutate authored input. Meaningful dates govern eligibility, not order; counts never rank projects.
 
-One final provenance badge follows functional stages. AI-ASSISTED and AI-BUILT share transparent fill, muted-purple text, a thin light-purple border and geometry; text distinguishes them. Without JavaScript, all rows, metadata, links and provenance explanations remain readable and the filter toolbar stays hidden. Native disclosure buttons require project-specific accessible names, `aria-controls`, `aria-expanded`, keyboard focus and expanded touch targets. Enter/Space/touch toggles an inline row-spanning "Development provenance" panel with explanation and primary links, without modal, storage or navigation side effects.
+One final AI-ASSISTED provenance badge follows functional stages, with transparent fill, muted-purple text and a thin light-purple border. Without JavaScript, all rows, metadata, links and provenance explanations remain readable and the filter toolbar stays hidden. Native disclosure buttons require project-specific accessible names, `aria-controls`, `aria-expanded`, keyboard focus and expanded touch targets. Enter/Space/touch toggles an inline row-spanning "Development provenance" panel with explanation and primary links, without modal, storage or navigation side effects.
 
 ### Search and Scope filtering
 

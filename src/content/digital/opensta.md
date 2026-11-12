@@ -58,4 +58,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for implementing configurable precision in JSON timing reports. The canonical path-report writer retains the report-digits setting for timing and capacitance values. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for implementing configurable precision in JSON timing reports. The canonical path-report writer retains the report-digits setting for timing and capacitance values. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

@@ -69,4 +69,4 @@ The learned generator chooses topology and component values, giving AI Design. S
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The attributed change implements the reward predictor, optimization loop and conditional-flow training/inference, beyond added circuit templates. This is a substantial model/optimization subsystem; broader framework creation is not established. [Model/optimization campaign](#source-development-1); [Current implementation](#source-development-2); [Current training integration](#source-development-3).
+Reviewed 2026-09-07: **AI-ASSISTED**. The attributed change implements the reward predictor, optimization loop and conditional-flow training/inference, beyond added circuit templates. These retained model and optimization implementations support AI-assisted development. [Model/optimization campaign](#source-development-1); [Current implementation](#source-development-2); [Current training integration](#source-development-3).

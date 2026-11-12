@@ -62,4 +62,4 @@ Reviewed October 1, 2026 at `29ea8ed56eb5fce838815a0892c05b8162ece500`. The Augu
 
 ### Development provenance
 
-Claude is credited for adding a Verilator lint gate after arithmetic integration so invalid integrated CPUs halt before formal checks. The canonical project retains the gate and regression code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for adding a Verilator lint gate after arithmetic integration so invalid integrated CPUs halt before formal checks. The canonical project retains the gate and regression code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

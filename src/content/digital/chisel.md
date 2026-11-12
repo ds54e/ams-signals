@@ -65,4 +65,4 @@ Both runtime flags remain false. The Bool diagnostic repair explicitly credits C
 
 ### Development provenance
 
-Claude Code is credited for updating executable Scala domain tests to preserve domains with the new firtool option. The canonical commit and current tests retain the changes. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude Code is credited for updating executable Scala domain tests to preserve domains with the new firtool option. The canonical commit and current tests retain the changes. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

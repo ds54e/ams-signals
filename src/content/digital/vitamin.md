@@ -58,7 +58,7 @@ sources:
 
 ### Implementation context
 
-Sustained Claude co-authorship appears on parser, constant-folding, elaboration and runtime commits. The development history also records the bytecode VM and subsequent language work. These credits and progress records do not establish whole-simulator implementation responsibility; the AI-ASSISTED decision instead rests on the specific package-support campaign described below. [Parser contribution](#source-ai-development); [development history](#source-development-history); [current elaborator/runtime contribution](#source-development-sample).
+Sustained Claude co-authorship appears on parser, constant-folding, elaboration and runtime commits. The development history also records the bytecode VM and subsequent language work. The AI-ASSISTED decision rests on the specific retained package-support campaign described below. [Parser contribution](#source-ai-development); [development history](#source-development-history); [current elaborator/runtime contribution](#source-development-sample).
 
 ### Release boundary
 
@@ -74,7 +74,7 @@ Four-state execution and differential checks are conventional Verification. Deve
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The credited package-support campaign implements shared package storage, import aliases and initialization across elaboration/runtime paths, with differential regressions; current storage fields/tests remain. This identifies a substantial language-support subsystem independently of ambiguous whole-project credits. [Package-storage implementation](#source-development-1); [Package-initialization implementation](#source-development-2); [Current package storage](#source-development-3).
+Reviewed 2026-09-07: **AI-ASSISTED**. The credited package-support campaign implements shared package storage, import aliases and initialization across elaboration/runtime paths, with differential regressions; current storage fields/tests remain. These retained package-support implementations support AI-assisted development. [Package-storage implementation](#source-development-1); [Package-initialization implementation](#source-development-2); [Current package storage](#source-development-3).
 
 ### Current-source review
 

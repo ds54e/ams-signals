@@ -22,7 +22,7 @@
 .scope-simulation, .scope-verification { --category-fill: var(--category-blue-soft); --category-text: var(--category-blue); }
 .scope-synthesis { --category-fill: var(--category-gold-soft); --category-text: var(--category-gold); }
 .scope-layout { --category-fill: var(--category-rust-soft); --category-text: var(--category-rust); }
-.catalog-scope [data-ai-development] { color: var(--category-purple); background: transparent; border: 1px solid var(--provenance-border); padding: 2px 6px; box-shadow: none; margin-top: 4px; }
+.catalog-scope [data-ai-development="assisted"] { color: var(--category-purple); background: transparent; border: 1px solid var(--provenance-border); padding: 2px 6px; box-shadow: none; margin-top: 4px; }
 .catalog-provenance-toggle {
   position: relative;
   display: block;
@@ -66,7 +66,7 @@
   .catalog-search { flex-basis: 100%; }
 }
 @media (forced-colors: active) {
-  .catalog-scope [data-ai-development] { color: CanvasText; background: Canvas; box-shadow: none; }
+  .catalog-scope [data-ai-development="assisted"] { color: CanvasText; background: Canvas; box-shadow: none; }
   .catalog-provenance { border-color: CanvasText; }
   .activity-strip li, .activity-strip li.active { forced-color-adjust: none; color: CanvasText; border: 1px solid CanvasText; background: Canvas; }
   .activity-strip li.active { background: CanvasText; }

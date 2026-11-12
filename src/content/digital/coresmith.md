@@ -13,9 +13,9 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude-credited implementation added interface-contract checking and repair, then integrated it into the per-block RTL flow before testbench generation. The current pipeline calls this conformance stage."
-  sources: ["development-1", "development-2", "implementation"]
-  reviewedAt: "2026-09-07"
+  summary: "Claude-credited implementation added interface-contract checking and integrated it into the per-block RTL flow before testbench generation. The current pipeline retains checking and failure handling; the earlier automatic port-repair path has been removed."
+  sources: ["development-1", "development-2", "development-retained"]
+  reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -64,6 +64,9 @@ sources:
   - id: "review-20261011-4"
     title: "Release v1.0.0"
     url: "https://github.com/facebookexperimental/coresmith/releases/tag/v1.0.0"
+  - id: development-retained
+    title: Retained report-only contract checking and failure handling
+    url: https://github.com/facebookexperimental/coresmith/blob/06dc6d8acc69eae04ea8f9dc8a63a51fe07de1d3/orchestrator/langgraph/contract_conformance.py#L810-L860
 ---
 
 
@@ -85,7 +88,7 @@ Runtime LLMs generate RTL and testbenches, diagnose failures and drive backend s
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-ASSISTED**. The credited implementation adds conformance checking/repair and wires it before testbench generation, with persisted results and fail/park behavior. This is a substantial integration safeguard, distinct from the runtime agents it serves. [Conformance implementation merge](#source-development-1); [Per-block conformance integration](#source-development-2); [Current pipeline integration](#source-implementation).
+Reviewed 2026-09-07: **AI-ASSISTED**. Claude-credited implementation added interface-contract checking and integrated it into the per-block RTL flow before testbench generation. The current pipeline retains checking and failure handling; the earlier automatic port-repair path has been removed. The attribution remains separate from runtime AI functionality. [Conformance implementation merge](#source-development-1); [Per-block conformance integration](#source-development-2); [Retained conformance stage](#source-development-retained).
 
 ### Current-source review
 

@@ -328,7 +328,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           return { label: el.textContent, color: rgb(s.color), fill: rgb(s.backgroundColor) };
         }));
         for (const badge of badges) {
-          // Both provenance badges are transparent; measure their rendered
+          // Provenance badges are transparent; measure their rendered
           // background over the page, including any partially transparent fill.
           const alpha = badge.fill[3] ?? 1;
           const background = badge.fill.slice(0, 3).map((channel, i) => channel * alpha + palette.bg[i] * (1 - alpha));

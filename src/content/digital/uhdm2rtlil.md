@@ -7,7 +7,7 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "The project documents iterative Claude implementation of SystemVerilog-to-RTLIL handlers, with credited executable harness corrections retained in the canonical project. The reviewed evidence does not establish that AI built most of the project."
+  summary: "The project documents iterative Claude implementation of SystemVerilog-to-RTLIL handlers, with credited executable harness corrections retained in the canonical project."
   sources: ["development-implementation-20261018", "development-retained-20261018", "development-1"]
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -66,7 +66,7 @@ UHDM-to-RTLIL compilation and translation-validation campaigns execute conventio
 
 ### Development provenance review
 
-The earlier reviewed implementation supports **AI-ASSISTED**. The initial vibe-coding implementation and maintainer’s iterative Claude handler-development account concern the actual C++ translation core. The account attributes executable frontend development, but does not establish that AI built most of the project. [Current maintainer development account](#source-development-1); [Initial implementation](#source-development-2).
+The earlier reviewed implementation supports **AI-ASSISTED**. The initial vibe-coding implementation and maintainer’s iterative Claude handler-development account concern the actual C++ translation core. The account attributes executable frontend development. [Current maintainer development account](#source-development-1); [Initial implementation](#source-development-2).
 
 ### Current implementation and operating boundaries
 
@@ -74,4 +74,4 @@ The reviewed lowering path handles unpacked-array function arguments/outputs, fu
 
 The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
 
-The project documents iterative Claude implementation of SystemVerilog-to-RTLIL handlers, with credited executable harness corrections retained in the canonical project. The reviewed evidence does not establish that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+The project documents iterative Claude implementation of SystemVerilog-to-RTLIL handlers, with credited executable harness corrections retained in the canonical project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

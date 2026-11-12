@@ -56,4 +56,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude Code is credited with assisting implementation of the VTK-independent field-dump writer. The canonical C++ implementation retains XML escaping, base64 encoding and zlib-compressed array output. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).
+Claude Code is credited with assisting implementation of the VTK-independent field-dump writer. The canonical C++ implementation retains XML escaping, base64 encoding and zlib-compressed array output. This supports AI-ASSISTED. [Credited change](#source-activity) · [Retained implementation](#source-development-retained-20261022).

@@ -58,4 +58,4 @@ The paper's problem total is not presented as the current public dataset count: 
 
 ### Development provenance
 
-Claude is credited for implementing the executable Docker build steps for the benchmark simulation environment. The canonical project retains the EDA-tool and Python-package installation logic. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing the executable Docker build steps for the benchmark simulation environment. The canonical project retains the EDA-tool and Python-package installation logic. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

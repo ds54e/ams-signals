@@ -52,4 +52,4 @@ The meaningful checkpoint is `5ae5deefa600e037ba8891d2e033b425cdddcd3b` (2026-03
 
 ### Development provenance
 
-The original Claude Code co-developed SCCP implementation adds a constant lattice, executable-edge tracking, worklist propagation and PHI filtering, integrated with MIR code generation. Current constant propagation and production code generation retain this optimizer; attribution covers the subsystem rather than the whole simulator or its dependencies. [Attributed implementation](#source-development-sccp-implementation) · [Retained optimizer](#source-development-sccp-retained) · [Production integration](#source-activity).
+The original Claude Code co-developed SCCP implementation adds a constant lattice, executable-edge tracking, worklist propagation and PHI filtering, integrated with MIR code generation. Current constant propagation and production code generation retain this optimizer; attribution concerns this retained optimizer, not its uncredited dependencies. [Attributed implementation](#source-development-sccp-implementation) · [Retained optimizer](#source-development-sccp-retained) · [Production integration](#source-activity).

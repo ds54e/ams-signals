@@ -11,9 +11,9 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude and Codex are credited on merged actuator-progress and post-route repair-policy code, including executable regression tests. Those contributions remain in the canonical repository; they establish assistance without proving AI built most of the project."
-  sources: ["development-claude", "development-codex", "development-retained"]
-  reviewedAt: '2026-10-18'
+  summary: "Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode."
+  sources: ["development-codex", "development-retained"]
+  reviewedAt: "2026-11-12"
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
 reviewedAt: '2026-10-23'
@@ -52,15 +52,12 @@ sources:
 - id: "review-20261011-1"
   title: "Reviewed implementation integration"
   url: "https://github.com/vibeic/vibe-ic/commit/a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
-- id: "development-claude"
-  title: "Claude-credited actuator progress repair"
-  url: "https://github.com/vibeic/vibe-ic/commit/14744d00ab3e2ef25b2d223e10ad98e000cb2e7e"
-- id: "development-codex"
-  title: "Codex-authored post-GRT policy and regression tests"
-  url: "https://github.com/vibeic/vibe-ic/commit/dbdf01d77b84605b51f0dee35c0b4bbc142833d9"
-- id: "development-retained"
-  title: "Retained execution producer and repair policy"
-  url: "https://github.com/vibeic/vibe-ic/blob/c02ce870ebecd78d4fedec85759f3db83c9595b5/vibe-ic-marketplace/plugins/vibe-ic/programs/execution_backend_producers.py"
+- id: development-codex
+  title: "Codex-credited ensure-only container setup mode"
+  url: https://github.com/vibeic/vibe-ic/commit/daea1d23772c807783ca0457d6ccaf5d87ebd790
+- id: development-retained
+  title: "Retained ensure-only validation and image-pull guards"
+  url: https://github.com/vibeic/vibe-ic/blob/c22e34b991b6380c438f88a3ee9f054f97c3a90e/tools/vibeic-eda/restart-eda.sh
 - id: website
   title: Official project website and documentation
   url: https://vibeic.ai
@@ -81,7 +78,7 @@ The September 29 first-parent integration adds layout-netlist identity checks, a
 
 ### Development provenance
 
-Claude Code runtime skills and an AI-native product description do not establish who implemented the software. The separate credited actuator and repair-policy contributions support AI-assisted development; model-facing interfaces and activity counts are not the attribution basis. [Project description](#source-readme)
+Claude Code runtime skills and an AI-native product description do not establish who implemented the software. The separately credited container-setup helper supports AI-assisted development; model-facing interfaces and activity counts are not the attribution basis. [Project description](#source-readme)
 
 ### Current implementation and operating boundaries
 
@@ -89,4 +86,4 @@ The default physical flow retains completed rows and their inputs through final 
 
 The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
 
-Claude and Codex are credited on merged actuator-progress and post-route repair-policy code, including executable regression tests. Those contributions remain in the canonical repository; they establish assistance without proving AI built most of the project. [Claude-credited actuator progress repair](#source-development-claude) · [Codex-authored post-GRT policy and regression tests](#source-development-codex) · [Retained execution producer and repair policy](#source-development-retained).
+Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode. [Credited helper implementation](#source-development-codex) · [Retained guards](#source-development-retained).

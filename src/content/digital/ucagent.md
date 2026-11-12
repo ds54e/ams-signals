@@ -79,7 +79,7 @@ The newest reviewed meaningful first-parent change is parallel task MCP-port sel
 
 ### Development provenance
 
-Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
 
 
 ### November 12, 2026 implementation review

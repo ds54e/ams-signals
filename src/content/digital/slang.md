@@ -73,7 +73,7 @@ Reviewed 2026-10-05. Python bindings add checked conversion from scope-bearing s
 
 ### Development provenance
 
-Claude is credited for correcting parseGuess to handle member keywords that do not parse as members, avoiding a null dereference. The canonical project retains the parser correction and tests. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for correcting parseGuess to handle member keywords that do not parse as members, avoiding a null dereference. The canonical project retains the parser correction and tests. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
 
 ### Review of exposed operations and limits, October 22, 2026
 

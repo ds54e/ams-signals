@@ -8,7 +8,7 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is co-credited for implementing the release workflow guard that checks a tag against the crate version. The canonical workflow retains this executable build check; the evidence does not attribute most of the engine to AI."
+  summary: "Claude is co-credited for implementing the release workflow guard that checks a tag against the crate version. The canonical workflow retains this executable build check."
   sources: [development-code-20261022, development-retained-20261022]
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; network or supported DEF/LEF inputs, load currents and reviewed current-limit data are required."
@@ -59,4 +59,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for implementing the release workflow guard that checks a tag against the crate version. The canonical workflow retains this executable build check; the evidence does not attribute most of the engine to AI. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for implementing the release workflow guard that checks a tag against the crate version. The canonical workflow retains this executable build check. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

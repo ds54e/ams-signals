@@ -6,9 +6,9 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is credited for correcting the executable tagged-union formatting assertion. The canonical test suite retains the corrected expected value and assertion syntax."
+  summary: "Claude is credited for correcting the executable packed tagged-union formatting test, including its expected binary value and assertion syntax. The canonical suite retains this correction."
   sources: ["development-implementation-20261018", "development-retained-20261018"]
-  reviewedAt: '2026-10-18'
+  reviewedAt: "2026-11-12"
 access: Public tests and runner infrastructure; tool installations and third-party integration dependencies are configured separately.
 addedAt: '2026-10-18'
 reviewedAt: '2026-10-23'
@@ -29,12 +29,12 @@ sources:
 - id: implementation-2
   title: 'Released implementation: tests/chapter-7/arrays/associative/assignment.sv'
   url: https://github.com/chipsalliance/sv-tests/blob/3b80a0fa421d111652832f16a85137fc658d213b/tests/chapter-7/arrays/associative/assignment.sv
-- id: "development-implementation-20261018"
-  title: "AI-credited executable implementation"
-  url: "https://github.com/chipsalliance/sv-tests/commit/261ab4519eee9069fcc1b1e1e482465c0624f40c"
-- id: "development-retained-20261018"
-  title: "Retained executable code at the reviewed canonical head"
-  url: "https://github.com/chipsalliance/sv-tests/blob/3b80a0fa421d111652832f16a85137fc658d213b/tests/chapter-7/unions/tagged/basic.sv"
+- id: development-implementation-20261018
+  title: "Claude-credited packed tagged-union regression correction"
+  url: https://github.com/chipsalliance/sv-tests/commit/b469a315998d8475a301d6ac7100bfae607acec2
+- id: development-retained-20261018
+  title: "Retained packed tagged-union binary oracle"
+  url: https://github.com/chipsalliance/sv-tests/blob/3e4e9e6744e8d747a492adc171444f054fa882a2/tests/chapter-7/unions/tagged/packed.sv
 - id: website
   title: Official project website and documentation
   url: https://chipsalliance.github.io/sv-tests-results/
@@ -51,4 +51,4 @@ The meaningful checkpoint is `c527acc461be115da8aa1a50f9756942c4a8b366` (2026-07
 
 ### Development provenance
 
-Claude is credited for correcting the executable tagged-union formatting assertion. The canonical test suite retains the corrected expected value and assertion syntax. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for correcting the executable packed tagged-union formatting test, including its expected binary value and assertion syntax. The canonical suite retains this correction. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

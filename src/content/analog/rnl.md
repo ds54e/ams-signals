@@ -7,7 +7,7 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "A Claude-coauthored change to the public EDA symbol and style packages includes executable viewer, WASM and CLI regression tests retained on the default branch. This supports assisted development of that change, not AI authorship of the entire project."
+  summary: "A Claude-coauthored change to the public EDA symbol and style packages includes executable viewer, WASM and CLI regression tests retained on the default branch."
   sources: ["development-implementation", "development-retained"]
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."

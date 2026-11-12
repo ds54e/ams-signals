@@ -70,4 +70,4 @@ The reviewed September 8 commit changes actual placement/routing and device-cell
 
 ### Development provenance
 
-The reviewed changes implement geometric shaping and routing support in executable Python, including constraints and verification paths. These are substantial implemented design-flow components; their attribution is independent of running the project through Claude Code. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The reviewed changes implement geometric shaping and routing support in executable Python, including constraints and verification paths. These are implemented design-flow components; their attribution is independent of running the project through Claude Code. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)

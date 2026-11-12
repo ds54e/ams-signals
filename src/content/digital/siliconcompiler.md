@@ -104,6 +104,6 @@ All runtime stage AI booleans are false. Accepting a machine-learning model as a
 
 ### Development provenance review
 
-The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. These credited retained executable controls qualify as AI-assisted development without attributing most of SiliconCompiler to AI. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).
+The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. These credited retained executable controls support AI-assisted development. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).
 
-Claude is credited for correcting executable Python tests for Yosys v0.70 tool manifests and synthesis warning counts. The canonical project retains the test logic. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for correcting executable Python tests for Yosys v0.70 tool manifests and synthesis warning counts. The canonical project retains the test logic. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

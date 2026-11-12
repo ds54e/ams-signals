@@ -54,4 +54,4 @@ The September 23 merge corrects spacing for nested member selects inside explici
 
 ### Development provenance
 
-The maintainer credits Gemini-generated changes in executable C++ container tests, then human review and refinement. The canonical project retains the corrected allocation-capacity assertions. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+The maintainer credits Gemini-generated changes in executable C++ container tests, then human review and refinement. The canonical project retains the corrected allocation-capacity assertions. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

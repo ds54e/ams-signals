@@ -455,8 +455,8 @@ test('Scope rendering separates stage inference from development provenance and 
     { id: 'aiDevelopment', label: 'AI-ASSISTED', aiDevelopment: 'assisted' },
   ]);
   assert.deepEqual(scope, before);
-  const conventional = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: { simulation: { ai: false }, aiDevelopment: 'built' } }).scope;
-  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-BUILT']);
+  const conventional = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: { simulation: { ai: false }, aiDevelopment: 'assisted' } }).scope;
+  assert.deepEqual(scopeItems(conventional, scopeStageLabels).map((x) => x.label), ['Simulation', 'AI-ASSISTED']);
 });
 
 test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, generic tools and provenance', async () => {

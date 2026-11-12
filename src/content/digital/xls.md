@@ -94,4 +94,4 @@ Reviewed 2026-10-05. CloneModule preserves references to type definitions owned 
 
 ### Development provenance
 
-Gemini is credited for implemented block-level MLIR operations and translation logic. The canonical XLS project retains the operations and round-trip translation code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Gemini is credited for implemented block-level MLIR operations and translation logic. The canonical XLS project retains the operations and round-trip translation code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

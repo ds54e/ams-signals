@@ -5,11 +5,11 @@ description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verificat
 scope:
   verification:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The maintainer reports building the simulator with entirely AI-generated code through iterative coding, testing and correction. Current canonical code retains credited implementation contributions; the project-wide account is a maintainer report, not an independently reproduced code percentage."
+  summary: "The maintainer credits AI-assisted implementation of the SystemVerilog simulator through iterative coding, testing and correction."
   sources: ["development-2", "development-1"]
-  reviewedAt: '2026-10-18'
+  reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
 reviewedAt: "2026-11-12"
@@ -106,11 +106,11 @@ Release 0.11.0 and the subsequent October 5 main-branch implementation were revi
 
 SystemVerilog execution, UVM, randomization, coverage, timing checks and RNM-oriented net semantics remain Verification capabilities. Internal bytecode/native compilation and elaboration serve verification, not a separate Design or Synthesis stage. [Reviewed source](#source-readme).
 
-SystemVerilog execution is conventional Verification. The maintainer’s project-wide AI construction account supports AI-built provenance independently of conventional Verification. [AI/stage evidence](#source-readme).
+SystemVerilog execution is conventional Verification. The maintainer’s development account supports AI-assisted provenance independently of conventional Verification. [AI/stage evidence](#source-readme).
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-BUILT**. The repository frames AI-assisted core-EDA construction as its premise, and the maintainer’s construction account describes agent-written parser, elaboration and event-driven/four-state simulator work. The maintainer additionally reports entirely AI-generated project code; this project-wide primary account supports AI-built, without independently reproducing a code percentage. [Project premise](#source-development-1); [Maintainer account](#source-development-2).
+Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer credits AI-assisted parser, elaboration and event-driven/four-state simulator implementation. These are development contributions, independently of runtime Verification behavior. [Project premise](#source-development-1); [Maintainer account](#source-development-2).
 
 ### Power-aware and post-release verification
 
@@ -124,11 +124,9 @@ The reviewed randomization integration jointly solves random object arrays and w
 
 No new general analog solver or expanded RNM coverage is established by these commits. Existing resolved-real/wreal notes should be retained on their original evidence. This research did not rerun simulator conformance or UVM workloads.
 
-The maintainer’s project-wide construction account reports entirely AI-generated code. It supports AI-built independently of runtime functionality; the reported code percentage has not been independently reproduced. [Primary development account](#source-development-2) · [Primary development account](#source-development-1).
-
 ### Selection and current source review
 
-Current main repairs scalarized resolver handling when a returned struct has member defaults or an actual argument has side effects, with dedicated executable regressions. This adds correctness evidence for resolved-net execution without asserting broader RNM coverage or an analog solver. The inspected 0.11.4 release precedes these November changes; earlier 0.11.0-only release wording is historical. SystemVerilog/UVM coverage remains workload-specific. The adequate description, ordinary Verification and separately sourced AI-built maintainer account are retained. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-resolver).
+Current main repairs scalarized resolver handling when a returned struct has member defaults or an actual argument has side effects, with dedicated executable regressions. This adds correctness evidence for resolved-net execution without asserting broader RNM coverage or an analog solver. The inspected 0.11.4 release precedes these November changes; earlier 0.11.0-only release wording is historical. SystemVerilog/UVM coverage remains workload-specific. The adequate description, ordinary Verification and separately sourced AI-assisted maintainer account are retained. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-resolver).
 
 ### November implementation review
 

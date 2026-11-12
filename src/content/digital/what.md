@@ -5,11 +5,11 @@ description: "Browser HDL debugger linking SystemVerilog hierarchy and source-le
 scope:
   verification:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The maintainer reports using AI to implement the application’s main code, including its architecture, interface and functional logic. Building the HDL and waveform viewer was an explicit AI-programming experiment."
+  summary: "The maintainer credits AI-assisted development of the HDL and waveform application, including its interface and functional logic."
   sources: ["readme"]
-  reviewedAt: "2026-09-07"
+  reviewedAt: "2026-11-12"
 access: "Public browser frontend, Rust server and Surelog-based HDL extraction backend. Source navigation uses generated KDB data and waveform inspection uses existing FST artifacts."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -32,7 +32,7 @@ sources:
 
 ### Implementation context
 
-The author explicitly credits AI with the principal architecture and implementation; this is development evidence rather than a claim about an agent runtime. [Reviewed source](#source-readme).
+The author credits AI-assisted implementation of the application interface and functional logic; this is development evidence rather than a claim about an agent runtime. [Reviewed source](#source-readme).
 
 ### Release boundary
 
@@ -44,12 +44,12 @@ Browser debug functionality is implemented; AI authorship does not establish ind
 
 Source navigation and FST waveform interaction are the central debug product. The extraction backend enables inspection rather than RTL design generation. [Reviewed source](#source-readme).
 
-HDL/waveform inspection is conventional Verification. The author credits AI with the principal architecture and implementation, justifying AI-built provenance without a runtime AI stage. [AI/stage evidence](#source-readme).
+HDL/waveform inspection is conventional Verification. The author credits AI-assisted implementation of the application interface and functional logic, independently of runtime AI. [AI/stage evidence](#source-readme).
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-BUILT**. The maintainer explicitly attributes the main code, architecture, UI and functional logic to AI generation as the project’s creation method. The account covers the application as a whole. [Maintainer creation account](#source-readme).
+Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer credits AI-assisted implementation of the application interface and functional logic. [Maintainer creation account](#source-readme).
 
 ### Current-source review
 
-Reviewed 2026-10-01. Reopened the maintainer creation account and waveform handler at the unchanged canonical head. Source/waveform navigation and stored sessions remain conventional debugging operations; the explicit application-wide AI implementation account supports AI-built provenance without implying runtime AI or source-code generation. [Maintainer account](#source-readme); [Waveform handler](#source-implementation).
+Reviewed 2026-10-01. Reopened the maintainer creation account and waveform handler at the unchanged canonical head. Source/waveform navigation and stored sessions remain conventional debugging operations; the maintainer’s implementation account supports AI-assisted provenance without implying runtime AI or source-code generation. [Maintainer account](#source-readme); [Waveform handler](#source-implementation).

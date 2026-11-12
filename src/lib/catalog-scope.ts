@@ -4,7 +4,7 @@ export const stageScopeSchema = z.object({
   ai: z.boolean(),
 }).strict();
 
-export const aiDevelopmentSchema = z.enum(['assisted', 'built']);
+export const aiDevelopmentSchema = z.literal('assisted');
 export type AiDevelopment = z.infer<typeof aiDevelopmentSchema>;
 export const developmentEvidenceSchema = z.object({
   summary: z.string().trim().min(1).max(420).refine(
@@ -56,7 +56,7 @@ export function scopeItems<T extends string>(scope: Scope<T>, labels: Record<T, 
     });
   }
   if (scope.aiDevelopment) items.push({
-    id: 'aiDevelopment', label: scope.aiDevelopment === 'assisted' ? 'AI-ASSISTED' : 'AI-BUILT',
+    id: 'aiDevelopment', label: 'AI-ASSISTED',
     aiDevelopment: scope.aiDevelopment,
   });
   return items;

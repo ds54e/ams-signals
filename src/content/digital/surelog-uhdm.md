@@ -7,7 +7,7 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Integrated September changes explicitly credit Claude Code across a substantial frontend-correctness campaign: preprocessing, instance parameter resolution and multidimensional default-pattern expansion. The attribution concerns these improvements to the existing Surelog/UHDM stack."
+  summary: "Integrated September changes explicitly credit Claude Code across a frontend-correctness campaign: preprocessing, instance parameter resolution and multidimensional default-pattern expansion. The attribution concerns these improvements to the existing Surelog/UHDM stack."
   sources: ["development-preprocessor", "development-parameters", "development-arrays"]
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
@@ -60,7 +60,7 @@ The September 29 change preserves packed dimensions when evaluating anonymous lo
 
 ### Development provenance review
 
-Reviewed 2026-10-01: **AI-ASSISTED**. A cross-cutting September frontend-correctness campaign explicitly credits Claude Code in integrated implementation changes. Reviewed diffs modify preprocessing grammar and macro/include handling, preserve instance-specific complex parameter overrides, and recursively expand multidimensional parameter defaults with corresponding UHDM integration and regression fixtures. These paths remain present in the reviewed head. Assessed together, this is a substantial implemented campaign across distinct frontend operations rather than an isolated credited fix. It does not attribute creation of the complete Surelog/UHDM stack to AI or establish runtime AI. [Preprocessing changes](#source-development-preprocessor); [parameter resolution](#source-development-parameters); [array-default implementation](#source-development-arrays).
+Reviewed 2026-10-01: **AI-ASSISTED**. A cross-cutting September frontend-correctness campaign explicitly credits Claude Code in integrated implementation changes. Reviewed diffs modify preprocessing grammar and macro/include handling, preserve instance-specific complex parameter overrides, and recursively expand multidimensional parameter defaults with corresponding UHDM integration and regression fixtures. These paths remain present in the reviewed head. These retained executable corrections support AI-assisted development, independently of runtime AI. [Preprocessing changes](#source-development-preprocessor); [parameter resolution](#source-development-parameters); [array-default implementation](#source-development-arrays).
 
 Reported Caliptra, CVA6 and regression outcomes are upstream evidence, not catalog-reproduced experiments. The badge concerns the attributable implementation contribution; it does not assert that every recent change or upstream UHDM feature was AI-written.
 

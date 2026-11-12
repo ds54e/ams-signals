@@ -51,4 +51,4 @@ The meaningful checkpoint is `514b289d9648c3185bb544b9e73ffb3fd8e2bf8d` (2026-09
 
 ### Development provenance
 
-Claude is credited for implementing the ABC optimization decorator and executable regression. The canonical Spire project retains the optimization logic after its package rename. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+Claude is credited for implementing the ABC optimization decorator and executable regression. The canonical Spire project retains the optimization logic after its package rename. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).

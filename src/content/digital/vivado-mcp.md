@@ -9,11 +9,11 @@ scope:
     ai: false
   layout:
     ai: false
-  aiDevelopment: built
+  aiDevelopment: assisted
 developmentEvidence:
-  summary: "The maintainer reports creating this MCP server through conversations with Claude, including persistent Vivado sessions and tool commands. The account describes implementation of the server itself."
+  summary: "The maintainer credits Claude-assisted development of the MCP server, including persistent Vivado sessions and tool commands."
   sources: ["readme", "development-2"]
-  reviewedAt: "2026-09-07"
+  reviewedAt: "2026-11-12"
 access: "Public Python MCP server; requires Python 3.10+ and an installed AMD/Xilinx Vivado environment. The project documents testing with Vivado 2023.2+."
 addedAt: "2026-09-05"
 reviewedAt: "2026-10-18"
@@ -51,12 +51,12 @@ Available Vivado commands are infrastructure, not demonstrated autonomous FPGA d
 
 Persistent Vivado commands directly expose synthesis and implementation; XSim exposes behavioral and netlist simulation for Verification. Raw Tcl access alone does not establish RTL design generation. [Reviewed source](#source-readme).
 
-The server exposes conventional synthesis, XSim and implementation commands. The author states that the server was built through Claude conversations, justifying AI-built; the transport does not itself make these AI stages. [AI/stage evidence](#source-readme).
+The server exposes conventional synthesis, XSim and implementation commands. The author states that the server was built through Claude conversations, justifying AI-assisted; the transport does not itself make these AI stages. [AI/stage evidence](#source-readme).
 
 ### Development provenance review
 
-Reviewed 2026-09-07: **AI-BUILT**. The maintainer explicitly says the server was created through Claude conversations, with concrete process/session, command and report implementation. This is a creation account spanning the server’s defining code. [Creation account](#source-readme); [Session implementation](#source-development-2).
+Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer explicitly says the server was created through Claude conversations, with concrete process/session, command and report implementation. The account identifies the server’s session and command implementation. [Creation account](#source-readme); [Session implementation](#source-development-2).
 
 ### Current-source review
 
-Reviewed 2026-10-01. Reopened the unchanged README and persistent-session implementation. Typed synthesis, implementation and XSim tools are implemented, but no substantive packaged model decision workflow was established beyond external-client command access. All three functional stages remain conventional; the explicit Claude creation account continues to support separate AI-built provenance. [README](#source-readme); [Session implementation](#source-implementation).
+Reviewed 2026-10-01. Reopened the unchanged README and persistent-session implementation. Typed synthesis, implementation and XSim tools are implemented, but no substantive packaged model decision workflow was established beyond external-client command access. All three functional stages remain conventional; the explicit Claude creation account continues to support separate AI-assisted provenance. [README](#source-readme); [Session implementation](#source-implementation).

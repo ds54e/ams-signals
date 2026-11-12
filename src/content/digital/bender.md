@@ -47,7 +47,7 @@ Source pickling and renaming are user-facing Design transformations. Emitting sc
 
 ### Development provenance
 
-The June change explicitly credits Claude Opus as code coauthor and adds executable parse-error handling and regression tests. The reviewed master code retains the source-rewrite refusal and script safeguards, although later maintenance changes their surrounding implementation. This supports AI-ASSISTED for a bounded contribution, not AI-BUILT or runtime AI in any functional stage. [Attributed code change](#source-parse-safety) · [Retained pickler](#source-pickle) · [Retained script handling](#source-script).
+The June change explicitly credits Claude Opus as code coauthor and adds executable parse-error handling and regression tests. The reviewed master code retains the source-rewrite refusal and script safeguards, although later maintenance changes their surrounding implementation. This supports AI-ASSISTED for the attributed contribution, not runtime AI in any functional stage. [Attributed code change](#source-parse-safety) · [Retained pickler](#source-pickle) · [Retained script handling](#source-script).
 
 ### Reviewed activity
 

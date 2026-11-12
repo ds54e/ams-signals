@@ -63,4 +63,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Copilot is co-credited on the integrated sequential-correlation repair. The canonical transition-system implementation retains polarity-aware initialization handling when replacing latch variables. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Copilot is co-credited on the integrated sequential-correlation repair. The canonical transition-system implementation retains polarity-aware initialization handling when replacing latch variables. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

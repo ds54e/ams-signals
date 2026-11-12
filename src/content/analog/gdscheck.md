@@ -59,4 +59,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for correcting edge-piece classification at polygon walls. The canonical Rust implementation retains separate tolerances for labels and edge midpoints, with an executable regression. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for correcting edge-piece classification at polygon walls. The canonical Rust implementation retains separate tolerances for labels and edge midpoints, with an executable regression. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

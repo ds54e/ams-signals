@@ -87,4 +87,4 @@ The October 19 development-branch change resolves SystemVerilog interface and mo
 
 ### Development provenance
 
-A Claude-credited correction changes the executable nox release backport tool to find consumed newsfragments from the release branch fork point. The correction remains in current code. This supports AI-assisted development without establishing that AI built most of the project. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+A Claude-credited correction changes the executable nox release backport tool to find consumed newsfragments from the release branch fork point. The correction remains in current code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
