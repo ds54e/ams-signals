@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -46,6 +46,15 @@ sources:
   - id: "review-20261011-2"
     title: "Packed-member VPI"
     url: "https://github.com/verilator/verilator/commit/56223ce8dd2a8212e442a58244b30717ebd0e0c5"
+  - id: review-20261112-activity
+    title: "Guarded-transition FSM coverage extraction correction"
+    url: https://github.com/verilator/verilator/commit/2894829fed934a15b01620d44cc5daeb72768c60
+  - id: review-20261112-implementation
+    title: "FSM target-state and transition extraction"
+    url: https://github.com/verilator/verilator/blob/2894829fed934a15b01620d44cc5daeb72768c60/src/V3FsmDetect.cpp
+  - id: review-20261112-tests
+    title: "Guarded one-block and explicitly marked FSM regressions"
+    url: https://github.com/verilator/verilator/blob/2894829fed934a15b01620d44cc5daeb72768c60/test_regress/t/t_cover_fsm_transition_shapes_multi.v
 ---
 
 ### Implementation and scope
@@ -65,3 +74,8 @@ The reviewed source establishes conventional compiler/simulator operations. The 
 The randomization runtime gains a Windows solver subprocess/pipe path. VPI can access packed-struct/union members. Separate fixes cover whole-unpacked-array NBAs in suspendable/forked processes, intra-assignment timing and SVA consequents. [Windows SMT pipe](#source-review-20261011-1) · [Packed-member VPI](#source-review-20261011-2)
 
 Reviewed commits are on the captured development branch. Do not describe every change as belonging to an already released stable version, or infer full UVM support from isolated improvements. Underlying simulation and solver execution remain conventional.
+
+
+### November 12, 2026 implementation review
+
+The November 11 implementation extracts constant FSM targets guarded by nested conditional branches when omitted assignments hold the current state, carrying that condition through state collection and arc emission. Regressions add guarded one-block machines and explicitly marked non-enum machines with guarded-only targets. Supported-shape limits remain explicit; this is not complete FSM extraction. The tests were inspected rather than run. Existing scope and development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [FSM target-state and transition extraction](#source-review-20261112-implementation) · [Guarded one-block and explicitly marked FSM regressions](#source-review-20261112-tests).

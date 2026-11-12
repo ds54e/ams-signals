@@ -1,7 +1,7 @@
 ---
 name: RNL
 summary: Constraint-aware netlist notation and tooling for analog schematics.
-description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. A local browser-based viewer adds native solving and file saving for older Linux systems; browser-only solving and graphical drag-placement editing remain unavailable."
+description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. Native solving supports a versioned external-solver protocol and checked writeback; browser-only solving and graphical drag-placement editing remain unavailable."
 scope:
   design:
     ai: true
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-20"
 access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-12"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -88,6 +88,15 @@ sources:
   - id: review-20261107-implementation
     title: "Named-point text attachment implementation and snapshot regressions"
     url: https://github.com/rich-netlist/rnl/commit/81d166817d900a72bfbaf4e4f28322df2022c7e3
+  - id: review-20261112-activity
+    title: "Versioned independent solver protocol and checked external writeback"
+    url: https://github.com/rich-netlist/rnl/commit/865b829559119c1138e488e4bd1abf6bea680a48
+  - id: review-20261112-implementation
+    title: "External solver execution and checked writeback"
+    url: https://github.com/rich-netlist/rnl/blob/865b829559119c1138e488e4bd1abf6bea680a48/crates/rnl-cli/src/external_solver.rs
+  - id: review-20261112-tests
+    title: "Solver protocol failure and writeback regressions"
+    url: https://github.com/rich-netlist/rnl/blob/865b829559119c1138e488e4bd1abf6bea680a48/crates/rnl-cli/tests/solver_protocol.rs
 ---
 
 ### Implementation and scope
@@ -125,3 +134,8 @@ Substantive integrations add per-level constraints, solve reports describing whi
 ### November implementation review
 
 The local viewer embeds the web interface and serves it over loopback, while its native process performs solving and file operations. Implementation includes session/origin checks, bounded file access and browser/file/solver regressions. Its Linux packaging targets older enterprise distributions; container tests do not establish compatibility with their original kernels, and a local browser retains its own system dependencies. Packaging and release automation were inspected, not independently executed; a release workflow alone does not establish a published package version. The November 6 implementation also adds named-point text attachment with snapshot regressions. [Local viewer](#source-review-20261107-local) · [Packaging boundaries](#source-review-20261107-guide) · [Reviewed implementation](#source-review-20261107-implementation).
+
+
+### November 12, 2026 implementation review
+
+The November 12 native implementation introduces an independent rnl-solver executable, versioned lossless JSON protocol and checked external-solver writeback. It rejects stale input, invalid pin identities, nonfinite geometry, malformed or oversized results and timeouts; later-level failures discard earlier in-memory writebacks. These deterministic schematic operations are not IC Layout or electrical Simulation, and absent third-party solver reports remain unknown rather than successful. Existing AI Design derives from separately reviewed authoring operations, not this solver protocol. Tagged-release inclusion was not verified. [Integrated activity](#source-review-20261112-activity). [External solver execution and checked writeback](#source-review-20261112-implementation) · [Solver protocol failure and writeback regressions](#source-review-20261112-tests).

@@ -2,7 +2,7 @@
 name: "KLayout-PEX"
 aliases: ["KPEX"]
 summary: "Connects layout connectivity and process stacks to parasitic extraction and interconnect-model exchange."
-description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Exclusion markers and model cutouts preserve external coupling while partitioning RC extraction; PEX25D exchange, pre-alpha status and backend-specific accuracy limits remain explicit."
+description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Exclusion markers and model cutouts preserve external coupling while partitioning RC extraction; PEX25D exchange and project-declared Beta status retain backend-specific accuracy limits."
 scope:
   layout:
     ai: false
@@ -11,9 +11,9 @@ developmentEvidence:
   summary: "Claude-credited development reworked device-terminal attachment to extracted resistor networks and implemented RC/LVS identity consistency checking. The netlist-checking module remains in the current extraction flow."
   sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
   reviewedAt: "2026-10-12"
-access: "Public Python implementation under GPL-3.0-or-later, classified Pre-Alpha by the project. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
+access: "Public Python implementation under GPL-3.0-or-later, classified Beta by the project since version 0.9.0. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
 addedAt: "2026-09-07"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-12"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -122,6 +122,15 @@ sources:
   - id: review-20261107-integration
     title: First-parent integration of missing side-overlap diagnostics and regressions
     url: https://github.com/iic-jku/klayout-pex/commit/14777b2c46410dc837b53e15c1565e5c68e83ce5
+  - id: review-20261112-activity
+    title: "Sidewall accounting correction and Magic backend version enforcement"
+    url: https://github.com/iic-jku/klayout-pex/commit/4f31c972a1140035bdd9603261d45b571ca120af
+  - id: review-20261112-status
+    title: "Project-declared Beta status in version 0.9.0"
+    url: https://github.com/iic-jku/klayout-pex/commit/8010a414112d636f09badeea9b9cb6f879093408
+  - id: review-20261112-geometry-tests
+    title: "Analytical sidewall, rotation and clamp-boundary regressions"
+    url: https://github.com/iic-jku/klayout-pex/blob/4f31c972a1140035bdd9603261d45b571ca120af/tests/rcx25/sidewall_and_fringe_extractor_test.py
 ---
 
 ### Implementation context
@@ -166,8 +175,13 @@ The reviewed development changes model device contacts as vias and place source/
 
 GF180 now distinguishes an isolated LVPWELL within DNWELL from an LVPWELL outside DNWELL that belongs to the substrate. The corresponding technology data and metal-over-well regressions connect coupling to the appropriate well nets. This is process-specific electrical connectivity and extraction work, not universal well accuracy validation. [Isolated-well implementation and cases](#source-review-20261024-isolated-wells).
 
-The individual changes are side-branch commits integrated on October 23 UTC. The meaningful activity checkpoint is first-parent merge `43f6bb0989fd6e392a150f90a93f8bead01eb53e`, which includes the diffusion-resistor correction; later version and dependency maintenance are not substituted for this implementation evidence. These are default-branch development updates, with tagged-release inclusion and external extraction tests unverified. The project remains GPL-3.0-or-later and Pre-Alpha; Layout and its existing runtime-AI/development-provenance classification are unchanged. [Integration](#source-review-20261024-integration) · [Project status and license](#source-review-20261024-status).
+The individual changes are side-branch commits integrated on October 23 UTC. The meaningful activity checkpoint is first-parent merge `43f6bb0989fd6e392a150f90a93f8bead01eb53e`, which includes the diffusion-resistor correction; later version and dependency maintenance are not substituted for this implementation evidence. These are default-branch development updates, with tagged-release inclusion and external extraction tests unverified. At that review the project was GPL-3.0-or-later and Pre-Alpha; Layout and its existing runtime-AI/development-provenance classification are unchanged. [Integration](#source-review-20261024-integration) · [Project status and license](#source-review-20261024-status).
 
 ### November implementation review
 
 Recent extraction work adds exclusion markers, model-cell cutouts and external-coupling preservation while partitioning extracted RC networks. CLI, extractor, netlist and regression changes were inspected. A later diagnostic reports missing side-overlap data rather than implying complete coverage. These implemented mechanisms retain conventional Layout coverage; they do not establish backend-independent extraction accuracy, and no extraction or EDA campaign was reproduced. [Exclusions](#source-review-20261107-exclusion) · [Model cutouts](#source-review-20261107-cutouts) · [External coupling](#source-review-20261107-coupling) · [Diagnostics and regressions](#source-review-20261107-implementation).
+
+
+### November 12, 2026 implementation review
+
+The November 11 first-parent integration corrects duplicate halving in directed-edge sidewall capacitance accounting and enforces a minimum Magic backend version, with explicit overrides. Analytical geometry and process fixtures cover the correction, but do not establish calibrated accuracy or signoff readiness. The subsequent 0.9.0 metadata declares Beta rather than Pre-Alpha; that status change is not substituted for implementation freshness. Layout and existing AI-development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Project-declared Beta status in version 0.9.0](#source-review-20261112-status) · [Analytical sidewall, rotation and clamp-boundary regressions](#source-review-20261112-geometry-tests).

@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation and releases; native and external test backends have documented compiler and simulator requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-12"
 sources:
   - id: "official"
     title: "Official Veryl website"
@@ -74,6 +74,15 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/veryl-lang/veryl/commit/c61b9cbab12dd530b8497b065adb0655f9656da6"
+  - id: review-20261112-activity
+    title: "First-parent integration of interface-array call and slice corrections"
+    url: https://github.com/veryl-lang/veryl/commit/c839d68384a55adc250391d87e8829a69ea33bb4
+  - id: review-20261112-implementation
+    title: "Interface-array function and selected-shape lowering"
+    url: https://github.com/veryl-lang/veryl/blob/c839d68384a55adc250391d87e8829a69ea33bb4/crates/analyzer/src/conv/context.rs
+  - id: review-20261112-tests
+    title: "Native interface-array function and slice simulation regressions"
+    url: https://github.com/veryl-lang/veryl/blob/c839d68384a55adc250391d87e8829a69ea33bb4/crates/simulator/src/tests/simulation.rs
 ---
 
 ### Implementation context
@@ -107,3 +116,8 @@ Reviewed 2026-10-01: **AI-ASSISTED**. The maintainer explicitly describes Claude
 The implemented $define namespace emits SystemVerilog macro references, with analyzer/emitter fixtures. Its first-parent integration is distinct from the author branch's commit. Native-simulator and AOT fixes remain targeted correctness evidence rather than additional design stages. [Reviewed implementation integration](#source-review-20261011-1)
 
 The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+
+### November 12, 2026 implementation review
+
+The November 12 first-parent merge integrates interface-array function-call and slice-connection corrections. It distinguishes shared function locals from instance members, replicates nested bodies and call indices correctly and computes selected array shapes. Native simulator regressions exercise arguments, returns, output arguments, nested arrays and slices across configurations. This is analyzer/simulator correctness work, not independently reproduced emitted-SystemVerilog conformance or a numbered-release claim. Existing conventional Design, Synthesis and Verification remain unchanged. [Integrated activity](#source-review-20261112-activity). [Interface-array function and selected-shape lowering](#source-review-20261112-implementation) · [Native interface-array function and slice simulation regressions](#source-review-20261112-tests).

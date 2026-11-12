@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -75,6 +75,15 @@ sources:
   - id: review-20261107-implementation
     title: "Executable library-package and diagnostic-location regressions"
     url: https://github.com/aionhw/xezim/commit/c64e6b9c2dea5c606fc61debc62a8299f226c5eb
+  - id: review-20261112-activity
+    title: "Immediate-child wait-fork semantics and scheduling regressions"
+    url: https://github.com/aionhw/xezim/commit/185750167c60f4f10eab2abdfa520dd7ca6cbb27
+  - id: review-20261112-implementation
+    title: "Separate adopted descendants from immediate fork children"
+    url: https://github.com/aionhw/xezim/commit/826b3a7db997f42378f6f213291420552453a936
+  - id: review-20261112-tests
+    title: "Immediate-child wait-fork scheduling regressions"
+    url: https://github.com/aionhw/xezim/blob/185750167c60f4f10eab2abdfa520dd7ca6cbb27/tests/scheduling/wait_fork_immediate_children.rs
 ---
 
 ### Implementation context
@@ -124,3 +133,8 @@ Current main repairs scalarized resolver handling when a returned struct has mem
 ### November implementation review
 
 New executable regressions distinguish packages in library files from separately compiled package sources and check diagnostic locations. This maintains SystemVerilog verification behavior without establishing a general analog solver or broader RNM support. The upstream regressions were inspected, not executed. [Reviewed regressions](#source-review-20261107-implementation).
+
+
+### November 12, 2026 implementation review
+
+The November 12 implementation distinguishes adopted descendants from immediate fork children so wait fork waits only for immediate children while disable fork can still reach inherited descendants. The following test checkpoint adds joined/join_none, descendant, task and disable-fork coverage, plus a DPI exported-task timing case. That DPI case uses standard-derived expected timing because the reference simulator rejects the timing-control form; cross-simulator reproduction is not claimed. Conventional Verification and existing development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Separate adopted descendants from immediate fork children](#source-review-20261112-implementation) · [Immediate-child wait-fork scheduling regressions](#source-review-20261112-tests).

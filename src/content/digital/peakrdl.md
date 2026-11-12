@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Public Python CLI and exporter packages; individual exporters and community plugins have their own installation and support boundaries."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-12"
 sources:
   - id: "documentation"
     title: "Official PeakRDL introduction and supported outputs"
@@ -43,6 +43,12 @@ sources:
   - id: "activity-refresh"
     title: "Correct example field names for SystemRDL compatibility"
     url: "https://github.com/SystemRDL/PeakRDL/commit/613d16d4a1768f70b41056bc6141f8a02cb193f8"
+  - id: review-20261112-compatibility
+    title: Python 3.13 regression-test matrix and test-tool maintenance
+    url: https://github.com/SystemRDL/PeakRDL/commit/82b9e022447d63b7aacbeefbe5217eb8c0ea10ea
+  - id: review-20261112-retained
+    title: Retained built-distribution regression workflow
+    url: https://github.com/SystemRDL/PeakRDL/blob/80e9bacf87b75fc54a9f811956e973c11589228a/.github/workflows/build.yml
 ---
 
 ### Implementation context
@@ -60,3 +66,8 @@ Root **v1.5.0** was published October 3, 2025 with argument-file expansion and `
 ### Scope and development provenance
 
 Design covers generated CSR RTL; Verification covers UVM register models. Synthesizable output alone does not establish Synthesis. The reviewed model transformations are conventional. Root documentation and reachable history do not establish qualifying AI-assisted implementation, and no attribution is borrowed from community plugins; no development label is assigned. [Reviewed guide](#source-readme).
+
+
+### November 12, 2026 compatibility review
+
+The November 16, 2025 first-parent maintenance commit extends the built-distribution regression matrix to Python 3.13. The retained workflow installs both PeakRDL distributions and executes the pytest suite. This compatibility-validation improvement, rather than later community listings or cosmetic documentation edits, is the meaningful-activity checkpoint. No generator feature, new release or independently reproduced test result is claimed. Canonical main, the older distribution-rework branch and root releases showed no later qualifying implementation; component histories are not aggregated. This checkpoint meets the current rolling-year rule but expires after November 16, 2026 unless further meaningful activity is established. [Compatibility change](#source-review-20261112-compatibility) · [Retained regression workflow](#source-review-20261112-retained).

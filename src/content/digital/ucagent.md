@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-22'
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical UCAgent repository"
@@ -43,6 +43,15 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/XS-MLVP/UCAgent/blob/1c7473085ad7f4d891604065b868fdcdb05d0cc3/examples/MiniWorkflow/my_tools.py
+  - id: review-20261112-activity
+    title: "Signed-metadata UVD waveform and workspace integration"
+    url: https://github.com/XS-MLVP/UCAgent/commit/c5276ca94c95595c2d646c134acc0b2eb71db1b5
+  - id: review-20261112-implementation
+    title: "UVD workspace-contained waveform launcher"
+    url: https://github.com/XS-MLVP/UCAgent/blob/c5276ca94c95595c2d646c134acc0b2eb71db1b5/ucagent/scripts/uvd/launch_uvd.py
+  - id: review-20261112-tests
+    title: "Launcher safety, waveform restoration and shutdown regressions"
+    url: https://github.com/XS-MLVP/UCAgent/blob/c5276ca94c95595c2d646c134acc0b2eb71db1b5/tests/test_launch_uvd.py
 ---
 
 
@@ -71,3 +80,8 @@ The newest reviewed meaningful first-parent change is parallel task MCP-port sel
 ### Development provenance
 
 Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks. This supports AI-ASSISTED; it does not establish that AI built most of the project. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+
+
+### November 12, 2026 implementation review
+
+The November 11 update implements UVD waveform launching from signed metadata, checks workspace-contained databases and restores selected signals and native-tick cursor/window state. Tests cover missing signals, escaped symlinks, Tcl failures and viewer shutdown. UVD/UVS, UVD_HOME, Xvfb and related runtimes remain separate requirements; real-tool tests skip without them and were not reproduced here. This conventional supporting viewer does not independently establish AI operation or additional Synthesis/Layout stages; existing AI Verification remains unchanged. [Integrated activity](#source-review-20261112-activity). [UVD workspace-contained waveform launcher](#source-review-20261112-implementation) · [Launcher safety, waveform restoration and shutdown regressions](#source-review-20261112-tests).

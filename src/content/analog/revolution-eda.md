@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: Public Python/Qt core; process libraries and optional commercial plugins are separate dependencies.
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-12"
 sources:
 - id: code
   title: Canonical public implementation
@@ -48,6 +48,15 @@ sources:
 - id: review-20261103-tests
   title: "Extracted correspondence and cross-probing tests"
   url: https://github.com/eskiyerli/revolution-eda/commit/1a5fd9fe87fed3de5d5e8529947b036a7082fbd3
+- id: review-20261112-activity
+  title: "VACASK model-library and hierarchical current-save correctness"
+  url: https://github.com/eskiyerli/revolution-eda/commit/33f5b0329b3ad842f59e82bc75e124e1933fa698
+- id: review-20261112-implementation
+  title: "VACASK include and current-target formatting"
+  url: https://github.com/eskiyerli/revolution-eda/blob/33f5b0329b3ad842f59e82bc75e124e1933fa698/revedaEditor/netlisting/vacaskFormat.py
+- id: review-20261112-tests
+  title: "Executable VACASK formatter regressions"
+  url: https://github.com/eskiyerli/revolution-eda/blob/33f5b0329b3ad842f59e82bc75e124e1933fa698/revedaEditor/tests/test_vacaskFormat.py
 ---
 
 ### Implementation and boundaries
@@ -65,3 +74,8 @@ The explicitly Devin-generated implementation adds shared semantic connectivity,
 ### Selection and current source review
 
 The maintained core stamps/persists layout-instance correspondence in LVS-extracted schematics and implements bidirectional cross-probing using that identity, with executable Qt regression coverage. The inspected core methods require the counterpart view to be open; optional plugin/menu wiring is not assumed. This material navigation/inspection capability supports the revised description and existing Design/Layout, not an integrated electrical solver or public-core AI inference. Later SPDX/documentation work is separate from the reviewed test checkpoint. Release v1.0.0 predates this development work. [Core implementation](#source-review-20261103-probe) · [Regression tests](#source-review-20261103-tests).
+
+
+### November 12, 2026 implementation review
+
+The November 9 implementation tracks section-specific and unsectioned library includes separately and resolves quoted, vector and hierarchical current targets when generating VACASK input. Formatter regressions accompany the changes, alongside canceled-wire undo/redo and edit-in-place ghost-net fixes. Saveable currents remain constrained by the variables exposed by each VACASK device or subcircuit. Netlist formatting does not add Simulation; existing Design, Layout and provenance boundaries remain unchanged. [Integrated activity](#source-review-20261112-activity). [VACASK include and current-target formatting](#source-review-20261112-implementation) · [Executable VACASK formatter regressions](#source-review-20261112-tests).

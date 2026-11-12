@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical slang repository"
@@ -48,6 +48,15 @@ sources:
   - id: "review-20261022-tidy"
     title: "Current slang-tidy configuration and checks"
     url: "https://github.com/MikePopoloski/slang/blob/3b351a52b15755b896d3b0144ae0432547d86618/tools/tidy/README.md"
+  - id: review-20261112-activity
+    title: "Constant-case unevaluated-branch diagnostic correctness"
+    url: https://github.com/MikePopoloski/slang/commit/0d49773adefee549c5fab7fac6485faa98112e1c
+  - id: review-20261112-implementation
+    title: "Known-branch matching and unevaluated case bodies"
+    url: https://github.com/MikePopoloski/slang/blob/0d49773adefee549c5fab7fac6485faa98112e1c/source/ast/statements/ConditionalStatements.cpp
+  - id: review-20261112-tests
+    title: "Positive and negative constant-case semantic regressions"
+    url: https://github.com/MikePopoloski/slang/blob/0d49773adefee549c5fab7fac6485faa98112e1c/tests/unittests/ast/StatementTests.cpp
 ---
 
 ### Implementation and scope
@@ -71,3 +80,8 @@ Claude is credited for correcting parseGuess to handle member keywords that do n
 slang-tidy supplies configurable static checks in addition to the frontend. Assertion parsing and elaboration are distinct from lowering to an executable property model or proving that model. Existing Design/Verification stages are retained without inferring a formal solver. [Static-analysis tool](#source-review-20261022-tidy).
 
 This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+
+
+### November 12, 2026 implementation review
+
+The November 11 correction binds case expressions before marking known unselected bodies as unevaluated and shares constant matching with known-branch selection. Positive and negative tests cover grouped cases, casez, inside ranges, type cases and unknown preceding items while retaining selected-branch diagnostics. This is frontend semantic and diagnostic correctness, not a simulator or new synthesis capability. Existing scope and provenance remain unchanged; upstream tests were inspected, not rerun. [Integrated activity](#source-review-20261112-activity). [Known-branch matching and unevaluated case bodies](#source-review-20261112-implementation) · [Positive and negative constant-case semantic regressions](#source-review-20261112-tests).

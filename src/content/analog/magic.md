@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-12"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -53,6 +53,15 @@ sources:
   - id: review-20261107-implementation
     title: "Extraction timestamp, bounding-box and output-stability corrections"
     url: https://github.com/RTimothyEdwards/magic/commit/48d0ea2aa2f943cc2736650b8c6205cee2e2e076
+  - id: review-20261112-activity
+    title: "Internal resistor-node elimination and configurable path pruning"
+    url: https://github.com/RTimothyEdwards/magic/commit/0d182b60425199266ebd13527de114d7be207e3d
+  - id: review-20261112-implementation
+    title: "Star-mesh resistor-network reduction"
+    url: https://github.com/RTimothyEdwards/magic/blob/0d182b60425199266ebd13527de114d7be207e3d/resis/ResSimple.c
+  - id: review-20261112-limits
+    title: "User-facing extresist pruning controls and limits"
+    url: https://github.com/RTimothyEdwards/magic/blob/0d182b60425199266ebd13527de114d7be207e3d/doc/html/extresist.html
 ---
 
 ### Scope
@@ -88,3 +97,8 @@ This was a static source and documentation review. External EDA, numerical-accur
 ### November implementation review
 
 The November implementation series corrects extresist endpoints and capacitance, resistor coupling and tee lengths, technology-version-dependent fringehalo handling, and extraction output stability. Earlier issue discussions should not be read as an unchanged description of the current tree. The maintainer reports reproducibility improvements; those experiments were not independently repeated. Existing Layout and AI-assisted development classifications remain unchanged. [Current extraction maintenance](#source-review-20261107-implementation).
+
+
+### November 12, 2026 implementation review
+
+Version 8.3.698 adds star-mesh elimination of internal resistor nodes while retaining terminal and port nodes, and exposes extresist prune with a default threshold of 0.01 and zero to disable it. Exact network reduction and optional approximate path pruning are distinct; neither establishes arbitrary RC or frequency-response preservation. The source and operating limits were inspected, not executed, and the commit adds no regression files. Conventional Layout and existing development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Star-mesh resistor-network reduction](#source-review-20261112-implementation) · [User-facing extresist pruning controls and limits](#source-review-20261112-limits).

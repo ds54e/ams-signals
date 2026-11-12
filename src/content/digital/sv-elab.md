@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical sv-elab repository"
@@ -45,6 +45,12 @@ sources:
   - id: "review-20261022-sva"
     title: "Current concurrent-assertion lowering subset"
     url: "https://github.com/povik/sv-elab/blob/3e152133b9c22b7883a6a03d483ed35e8c74aba5/src/yosys_plugin/sva.cc"
+  - id: review-20261112-activity
+    title: "Tested FORMAL preprocessing mode for downstream formal consumers"
+    url: https://github.com/povik/sv-elab/commit/adce24f69c19a82e99923053d9f90d8899b04440
+  - id: review-20261112-tests
+    title: "Formal and synthesis preprocessor-define regression"
+    url: https://github.com/povik/sv-elab/blob/adce24f69c19a82e99923053d9f90d8899b04440/tests/various/formal_define.ys
 ---
 
 ### Implementation and scope
@@ -68,3 +74,8 @@ Reviewed 2026-10-05. The Yosys backend suppresses an unused-width warning after 
 The historical yosys-slang identity is already represented by this entry. Current SVA lowering handles selected clocked simple assertion forms, disable-iff and assert/assume/cover flavors, but rejects unsupported property shapes and simple-sequence repetition. This is a frontend transformation boundary, not full SVA semantics or a proof engine, so no separate duplicate or Verification stage is added. [Lowering implementation](#source-review-20261022-sva).
 
 This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+
+
+### November 12, 2026 implementation review
+
+The November 10 --formal option defines FORMAL=1 instead of the implicit SYNTHESIS=1. The regression checks default behavior, formal mode and interaction with --no-synthesis-define, and is registered in both supported build systems. This is frontend compatibility for downstream formal consumers, not a proof engine or complete SVA semantics. Conventional Synthesis and the existing AI-assisted development classification remain unchanged. [Integrated activity](#source-review-20261112-activity). [Formal and synthesis preprocessor-define regression](#source-review-20261112-tests).

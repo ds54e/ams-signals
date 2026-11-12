@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-07",
-  "capturedAt": "2026-11-07T05:12:02.416Z",
+  "reviewedAt": "2026-11-12",
+  "capturedAt": "2026-11-12T10:06:57.690Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -346,9 +346,9 @@
       "kind": "github",
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "master",
-      "headSha": "89a2c9fe97f1b3488e576bf0cbfe574fef6cad05",
+      "headSha": "62affeb02b95df96a69c36ee5a7c3d6dc8878554",
       "commits": [
         38,
         24,
@@ -361,11 +361,11 @@
         24,
         43,
         98,
-        22
+        48
       ],
-      "lastCommitAt": "2026-11-05",
-      "lastMeaningfulCommitAt": "2026-10-03",
-      "lastMeaningfulCommitSha": "6965da187d9c3b5aa2fa2ee23f19c228f90ef74a"
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "0d49773adefee549c5fab7fac6485faa98112e1c"
     },
     "spec2cov": {
       "kind": "github",
@@ -447,9 +447,9 @@
       "kind": "github",
       "repository": "povik/sv-elab",
       "repositoryId": 752277444,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "master",
-      "headSha": "0facdbd5e00861c0f8417174b5ec37ccc0dd09e1",
+      "headSha": "ea8879f3825e4844435632e8748ebd750098938c",
       "commits": [
         5,
         5,
@@ -462,11 +462,11 @@
         39,
         9,
         38,
-        1
+        16
       ],
-      "lastCommitAt": "2026-11-04",
-      "lastMeaningfulCommitAt": "2026-10-02",
-      "lastMeaningfulCommitSha": "1582cc2d5bd199949669a1440a4c8947d713f842"
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "adce24f69c19a82e99923053d9f90d8899b04440"
     },
     "symbiyosys": {
       "kind": "github",
@@ -497,9 +497,9 @@
       "kind": "github",
       "repository": "XS-MLVP/UCAgent",
       "repositoryId": 991007916,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "main",
-      "headSha": "5bf52fdc960ffdde5b24c569572c6a8f7cc4b248",
+      "headSha": "c5276ca94c95595c2d646c134acc0b2eb71db1b5",
       "commits": [
         50,
         130,
@@ -512,11 +512,11 @@
         117,
         37,
         43,
-        16
+        26
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "ac007684b2c6b1b4b7a1ca6e3090fef174d459fa"
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "c5276ca94c95595c2d646c134acc0b2eb71db1b5"
     },
     "uhdm2rtlil": {
       "kind": "github",
@@ -597,9 +597,9 @@
       "kind": "github",
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "master",
-      "headSha": "9d9dd1c890b39b72494afb0ce89a6ccaf8590087",
+      "headSha": "12ce86083c624fff9e699481fb769e220f1db8ba",
       "commits": [
         130,
         106,
@@ -612,11 +612,11 @@
         178,
         285,
         386,
-        96
+        222
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-10",
-      "lastMeaningfulCommitSha": "56223ce8dd2a8212e442a58244b30717ebd0e0c5"
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "2894829fed934a15b01620d44cc5daeb72768c60"
     },
     "vitamin": {
       "kind": "github",
@@ -722,9 +722,9 @@
       "kind": "github",
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "main",
-      "headSha": "8caeee318f9f667ca2bd4e7aed2f1f43f88e1755",
+      "headSha": "2c21aa3bbd2edf58b4d422829090cc5239ac6c26",
       "commits": [
         0,
         0,
@@ -737,11 +737,11 @@
         509,
         160,
         995,
-        286
+        682
       ],
-      "lastCommitAt": "2026-11-07",
-      "lastMeaningfulCommitAt": "2026-11-07",
-      "lastMeaningfulCommitSha": "c64e6b9c2dea5c606fc61debc62a8299f226c5eb"
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "185750167c60f4f10eab2abdfa520dd7ca6cbb27"
     },
     "yosys": {
       "kind": "github",
@@ -772,9 +772,9 @@
       "kind": "github",
       "repository": "veryl-lang/veryl",
       "repositoryId": 575770340,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "master",
-      "headSha": "9209c6e1d0b34b41d2f0ee760354fb71c3169797",
+      "headSha": "c839d68384a55adc250391d87e8829a69ea33bb4",
       "commits": [
         33,
         47,
@@ -787,11 +787,11 @@
         155,
         131,
         123,
-        29
+        44
       ],
-      "lastCommitAt": "2026-11-07",
-      "lastMeaningfulCommitAt": "2026-10-07",
-      "lastMeaningfulCommitSha": "c61b9cbab12dd530b8497b065adb0655f9656da6"
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "c839d68384a55adc250391d87e8829a69ea33bb4"
     },
     "xls": {
       "kind": "github",
@@ -973,7 +973,7 @@
       "kind": "github",
       "repository": "SystemRDL/PeakRDL",
       "repositoryId": 253298685,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-12T10:06:57.690Z",
       "defaultBranch": "main",
       "headSha": "80e9bacf87b75fc54a9f811956e973c11589228a",
       "commits": [
@@ -991,8 +991,8 @@
         0
       ],
       "lastCommitAt": "2026-10-26",
-      "lastMeaningfulCommitAt": "2025-11-10",
-      "lastMeaningfulCommitSha": "613d16d4a1768f70b41056bc6141f8a02cb193f8"
+      "lastMeaningfulCommitAt": "2025-11-16",
+      "lastMeaningfulCommitSha": "82b9e022447d63b7aacbeefbe5217eb8c0ea10ea"
     },
     "pyucis": {
       "kind": "public-update",

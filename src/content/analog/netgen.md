@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C/Tcl implementation; Tcl and process-specific LVS setup files are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-12"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -30,6 +30,12 @@ sources:
     title: Official project website and documentation
     url: https://opencircuitdesign.com/netgen/
     purpose: official
+  - id: review-20261112-activity
+    title: "Mixed-language netlist case matching and bus-delimiter correction"
+    url: https://github.com/RTimothyEdwards/netgen/commit/9f31fb288e85e7d2a5fa01c74e2dcc960925dd88
+  - id: review-20261112-implementation
+    title: "Verilog parser matching and source bus delimiters"
+    url: https://github.com/RTimothyEdwards/netgen/blob/9f31fb288e85e7d2a5fa01c74e2dcc960925dd88/base/verilog.c
 ---
 
 ### Implemented operations and boundaries
@@ -45,3 +51,8 @@ The exposed operations support Layout. The reviewed operations are conventional;
 The meaningful checkpoint is 2026-10-14T15:51:49Z (`e5a185dcfa16ee6317883f02bfdc8cf10feabd0e`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+
+
+### November 12, 2026 implementation review
+
+The November 7 update replaces an inconsistent exact-name matcher with the configured match function for SPICE-derived naming and recognizes both square and angle bus delimiters while preserving their source convention. This is substantive mixed-netlist correctness maintenance, not a new stage. The maintainer retains a more-general-delimiter-handling limitation; the patch has no new regression tests. Investigation assistance alone is not treated as unambiguous AI code attribution. [Integrated activity](#source-review-20261112-activity). [Verilog parser matching and source bus delimiters](#source-review-20261112-implementation).

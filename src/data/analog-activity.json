@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-07",
-  "capturedAt": "2026-11-07T05:12:03.934Z",
+  "reviewedAt": "2026-11-12",
+  "capturedAt": "2026-11-12T09:55:58.821Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -619,9 +619,9 @@
       "kind": "github",
       "repository": "RTimothyEdwards/magic",
       "repositoryId": 177686465,
-      "capturedAt": "2026-11-07T02:09:52.216Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "master",
-      "headSha": "48d0ea2aa2f943cc2736650b8c6205cee2e2e076",
+      "headSha": "8d37ad4cb49a839eb3e32016f1c06e9bca20d8ef",
       "commits": [
         20,
         33,
@@ -634,12 +634,12 @@
         7,
         4,
         22,
-        9
+        16
       ],
-      "lastCommitAt": "2026-11-05",
-      "lastMeaningfulCommitAt": "2026-11-05",
-      "lastMeaningfulCommitSha": "48d0ea2aa2f943cc2736650b8c6205cee2e2e076",
-      "notes": "Reviewed implementation/validation at 48d0ea2aa2f943cc2736650b8c6205cee2e2e076. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "0d182b60425199266ebd13527de114d7be207e3d",
+      "notes": "Substantive implementation evidence reviewed November 12, 2026: Internal resistor-node elimination and configurable path pruning. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "align": {
       "kind": "github",
@@ -678,9 +678,9 @@
       "kind": "github",
       "repository": "iic-jku/klayout-pex",
       "repositoryId": 897408519,
-      "capturedAt": "2026-11-07T02:10:13.238Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "main",
-      "headSha": "04c2bca57378663f8c2165a41fb7b2f4909c60a9",
+      "headSha": "1b923ea54d8d9b1028de1043afd654c9e1838049",
       "commits": [
         5,
         4,
@@ -693,12 +693,12 @@
         18,
         42,
         123,
-        81
+        106
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "14777b2c46410dc837b53e15c1565e5c68e83ce5",
-      "notes": "Reviewed implementation/validation at 14777b2c46410dc837b53e15c1565e5c68e83ce5. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "4f31c972a1140035bdd9603261d45b571ca120af",
+      "notes": "Substantive implementation and regression evidence reviewed November 12, 2026: Sidewall accounting correction and Magic backend version enforcement. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "pyopus": {
       "kind": "repository",
@@ -1035,8 +1035,8 @@
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "0727a6061c719387f0e95e91fae27f8f2d375580",
-      "lastMeaningfulCommitSource": "review-20261107-pnoise",
-      "notes": "Reviewed implementation/validation at 0727a6061c719387f0e95e91fae27f8f2d375580. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "notes": "Reviewed implementation/validation at 0727a6061c719387f0e95e91fae27f8f2d375580. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity.",
+      "lastMeaningfulCommitSource": "review-20261107-pnoise"
     },
     "sganalog": {
       "kind": "github",
@@ -1146,9 +1146,9 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
-      "capturedAt": "2026-11-07T02:10:13.238Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "main",
-      "headSha": "d76b884bb5bde2db76831d9ff919689064ebd4fa",
+      "headSha": "37014c3fd64b676750e2db5e782acfa53dd42d60",
       "commits": [
         0,
         385,
@@ -1161,20 +1161,20 @@
         2192,
         2942,
         3933,
-        473
+        1351
       ],
-      "lastCommitAt": "2026-11-07",
-      "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "eea15a3ef0aa70ab043fa078c5e4807d8b526283",
-      "notes": "Reviewed implementation/validation at eea15a3ef0aa70ab043fa078c5e4807d8b526283. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "37014c3fd64b676750e2db5e782acfa53dd42d60",
+      "notes": "Substantive implementation and regression evidence reviewed November 12, 2026: Preserve mixed-signal converter crossing times across rollback. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "revolution-eda": {
       "kind": "github",
       "repository": "eskiyerli/revolution-eda",
       "repositoryId": 574462291,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "master",
-      "headSha": "d4b6a0d90db8c6c70372a82a6fdbacf591870ad4",
+      "headSha": "33f5b0329b3ad842f59e82bc75e124e1933fa698",
       "commits": [
         5,
         2,
@@ -1187,12 +1187,12 @@
         5,
         23,
         18,
-        1
+        3
       ],
-      "lastCommitAt": "2026-11-01",
-      "lastMeaningfulCommitAt": "2026-10-30",
-      "lastMeaningfulCommitSha": "1a5fd9fe87fed3de5d5e8529947b036a7082fbd3",
-      "notes": "Meaningful checkpoint covers executable correspondence and bidirectional LVS-schematic/layout cross-probing regressions after the core implementation. Subsequent SPDX/documentation traffic remains raw activity; plugin availability and core-simulator boundaries are unchanged."
+      "lastCommitAt": "2026-11-09",
+      "lastMeaningfulCommitAt": "2026-11-09",
+      "lastMeaningfulCommitSha": "33f5b0329b3ad842f59e82bc75e124e1933fa698",
+      "notes": "Substantive implementation and regression evidence reviewed November 12, 2026: VACASK model-library and hierarchical current-save correctness. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "morphnet": {
       "kind": "github",
@@ -1407,9 +1407,9 @@
       "kind": "github",
       "repository": "rich-netlist/rnl",
       "repositoryId": 1382051453,
-      "capturedAt": "2026-11-07T02:10:22.312Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "main",
-      "headSha": "81d166817d900a72bfbaf4e4f28322df2022c7e3",
+      "headSha": "6c18b9baa0bb1b08801167742c347ac8aafd056c",
       "commits": [
         0,
         0,
@@ -1422,12 +1422,12 @@
         0,
         9,
         328,
-        8
+        133
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "81d166817d900a72bfbaf4e4f28322df2022c7e3",
-      "notes": "Reviewed implementation/validation at 81d166817d900a72bfbaf4e4f28322df2022c7e3. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "865b829559119c1138e488e4bd1abf6bea680a48",
+      "notes": "Substantive implementation and regression evidence reviewed November 12, 2026: Versioned independent solver protocol and checked external writeback. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "cace": {
       "kind": "github",
@@ -1583,9 +1583,9 @@
       "kind": "github",
       "repository": "RTimothyEdwards/netgen",
       "repositoryId": 177686668,
-      "capturedAt": "2026-11-03T07:53:20.046Z",
+      "capturedAt": "2026-11-12T09:55:58.821Z",
       "defaultBranch": "master",
-      "headSha": "93dcda14d36349d0b0ca63168d3cbbab20fe2ece",
+      "headSha": "9f31fb288e85e7d2a5fa01c74e2dcc960925dd88",
       "commits": [
         4,
         1,
@@ -1598,11 +1598,12 @@
         0,
         1,
         3,
-        1
+        2
       ],
-      "lastCommitAt": "2026-11-01",
-      "lastMeaningfulCommitAt": "2026-10-14",
-      "lastMeaningfulCommitSha": "e5a185dcfa16ee6317883f02bfdc8cf10feabd0e"
+      "lastCommitAt": "2026-11-07",
+      "lastMeaningfulCommitAt": "2026-11-07",
+      "lastMeaningfulCommitSha": "9f31fb288e85e7d2a5fa01c74e2dcc960925dd88",
+      "notes": "Substantive implementation evidence reviewed November 12, 2026: Mixed-language netlist case matching and bus-delimiter correction. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
     },
     "open-pdks-regression-tests": {
       "kind": "github",

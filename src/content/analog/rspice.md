@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-12"
 sources:
 - id: code
   title: Canonical public implementation
@@ -73,6 +73,15 @@ sources:
 - id: review-20261107-retained
   title: "Retained analog behavioral hosts and device boundaries"
   url: https://github.com/JaimeHW/RSpice/blob/d76b884bb5bde2db76831d9ff919689064ebd4fa/crates/rspice-core-devices/src/device/special_function/mixed.rs
+- id: review-20261112-activity
+  title: "Preserve mixed-signal converter crossing times across rollback"
+  url: https://github.com/JaimeHW/RSpice/commit/37014c3fd64b676750e2db5e782acfa53dd42d60
+- id: review-20261112-implementation
+  title: "Coupled mixed-signal crossing and event ledger"
+  url: https://github.com/JaimeHW/RSpice/blob/37014c3fd64b676750e2db5e782acfa53dd42d60/crates/rspice-core/src/xspice/verilog/mixed.rs
+- id: review-20261112-tests
+  title: "Converter edge, delayed transition and unknown-band regressions"
+  url: https://github.com/JaimeHW/RSpice/blob/37014c3fd64b676750e2db5e782acfa53dd42d60/crates/rspice-core/tests/tri_family_events.rs
 ---
 
 ### Implementation and boundaries
@@ -106,3 +115,8 @@ Continued implementation includes harmonic-balance numerical changes, control-la
 ### November implementation review
 
 The new LTspice special-function path implements PHASEDET, SAMPLEHOLD, MODULATOR and VARISTOR through analog behavioral hosts, with parameter checks and transient regression probes. Tests include upstream-recorded LTspice reference values, which were not independently reproduced. The implementation explicitly accepts Td without applying a delay for these four devices, and requires exactly one SAMPLEHOLD control mode. This does not establish complete LTspice compatibility. The later corpus-status update marks a PSpice deck accepted/ready without establishing electrical equivalence. [Implementation and regressions](#source-review-20261107-implementation) · [Retained device code](#source-review-20261107-retained).
+
+
+### November 12, 2026 implementation review
+
+The November 12 correction preserves located converter crossings across rollback and schedules converter events at the crossing plus delay instead of a rounded landing sample. XSPICE bridges, the event ledger and participating coupled HDL paths are covered by regressions for repeated converter edges, delayed register transitions and unknown-band crossings on long timesteps. These are source-inspected tests, not independently reproduced measurements or general SystemVerilog conformance. Existing scope, provenance and commercial-access restrictions remain unchanged. [Integrated activity](#source-review-20261112-activity). [Coupled mixed-signal crossing and event ledger](#source-review-20261112-implementation) · [Converter edge, delayed transition and unknown-band regressions](#source-review-20261112-tests).
