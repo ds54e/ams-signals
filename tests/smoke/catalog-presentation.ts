@@ -50,9 +50,9 @@ type ActivityRecord = {
   repository?: string; defaultBranch?: string; commits?: number[];
 };
 
-export async function expectActivityBands(rows: Locator, activitySelector: string, snapshot: {
-  months: string[]; reviewedAt: string; projects: Record<string, ActivityRecord>;
-}, forcedColors = false) {
+type ActivitySnapshot = { months: string[]; reviewedAt: string; projects: Record<string, ActivityRecord> };
+
+async function assertActivityBands(rows: Locator, activitySelector: string, snapshot: ActivitySnapshot, forcedColors: boolean, checkData: boolean) {
   const dateFormat = new Intl.DateTimeFormat('en-US', {
     month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
   });
@@ -87,45 +87,51 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
       }),
     };
   }), activitySelector);
+  expect(rendered.map((item) => item.id).sort(), 'every catalog activity row is checked')
+    .toEqual(Object.keys(snapshot.projects).sort());
   for (const item of rendered) {
     const record = snapshot.projects[item.id];
     const repositoryBacked = record.kind === 'github' || record.kind === 'repository';
     const unfetched = record.kind === 'unfetched';
     const date = unfetched ? '' : repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
-    expect(item.kind).toBe(record.kind);
-    expect(item.dateTag).toBe(unfetched ? 'SPAN' : 'TIME');
-    expect(item.date).toBe(date || null);
-    expect(item.dateText).toBe(unfetched ? 'Activity not fetched' : dateFormat.format(new Date(`${date}T00:00:00Z`)));
-    expect(item.dateRendered).toBe(item.dateText);
-    if (!unfetched) expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
+    if (checkData) {
+      expect(item.kind).toBe(record.kind);
+      expect(item.dateTag).toBe(unfetched ? 'SPAN' : 'TIME');
+      expect(item.date).toBe(date || null);
+      expect(item.dateText).toBe(unfetched ? 'Activity not fetched' : dateFormat.format(new Date(`${date}T00:00:00Z`)));
+      expect(item.dateRendered).toBe(item.dateText);
+      if (!unfetched) expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
+    }
     expect(item.dateTransform).toBe('none');
     expect(item.weight).toBe(400);
     expect(item.dateLine).toBe(item.dateRendered);
-    expect(item.text).toBe(item.dateText);
-    expect(item.text).not.toMatch(/\/12|months/);
-    for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
-    expect(item.links).toBe(0);
     const signalLabel = { paper: 'paper publication', release: 'release', 'public-update': 'public update' }[record.lastPublicUpdateType ?? ''];
-    if (repositoryBacked) {
-      expect(item.text).not.toContain(record.repository!);
-      expect(item.label).toContain(record.repository!);
-      expect(item.label).toContain(`default branch ${record.defaultBranch}`);
-    } else if (unfetched) {
-      expect(item.provenance).toContain(`Activity not fetched for ${record.repository}; last attempt `);
-      expect(item.label).toContain(item.provenance);
-    } else {
-      expect(item.provenance).toMatch(new RegExp(`^${signalLabel}: .+`));
-      expect(item.label).toContain(item.provenance);
+    if (checkData) {
+      expect(item.text).toBe(item.dateText);
+      expect(item.text).not.toMatch(/\/12|months/);
+      for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
+      expect(item.links).toBe(0);
+      if (repositoryBacked) {
+        expect(item.text).not.toContain(record.repository!);
+        expect(item.label).toContain(record.repository!);
+        expect(item.label).toContain(`default branch ${record.defaultBranch}`);
+      } else if (unfetched) {
+        expect(item.provenance).toContain(`Activity not fetched for ${record.repository}; last attempt `);
+        expect(item.label).toContain(item.provenance);
+      } else {
+        expect(item.provenance).toMatch(new RegExp(`^${signalLabel}: .+`));
+        expect(item.label).toContain(item.provenance);
+      }
+      const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
+      expect(item.label).toContain(`${activeMonths} months with reviewed public activity`);
+      expect(item.months).toHaveLength(12);
+      expect(item.label).toContain(`${monthLabels[0]}–${monthLabels[11]} (oldest to newest)`);
+      expect(item.label).not.toMatch(/newest (?:to oldest|(?:on|at) the left)|newest-left/i);
+      expect(item.months.map((month) => month.month)).toEqual(snapshot.months);
+      expect(new Set(item.months.map((month) => month.month)).size).toBe(12);
+      expect(item.months[0].month).toBe(snapshot.months[0]);
+      expect(item.months[11].month).toBe(snapshot.reviewedAt.slice(0, 7));
     }
-    const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
-    expect(item.label).toContain(`${activeMonths} months with reviewed public activity`);
-    expect(item.months).toHaveLength(12);
-    expect(item.label).toContain(`${monthLabels[0]}–${monthLabels[11]} (oldest to newest)`);
-    expect(item.label).not.toMatch(/newest (?:to oldest|(?:on|at) the left)|newest-left/i);
-    expect(item.months.map((month) => month.month)).toEqual(snapshot.months);
-    expect(new Set(item.months.map((month) => month.month)).size).toBe(12);
-    expect(item.months[0].month).toBe(snapshot.months[0]);
-    expect(item.months[11].month).toBe(snapshot.reviewedAt.slice(0, 7));
     expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
     expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
     expect(item.dateBottom).toBeLessThan(item.stripTop!);
@@ -134,43 +140,63 @@ export async function expectActivityBands(rows: Locator, activitySelector: strin
     expect(item.stripWidth).toBeCloseTo(94, 1);
     expect(item.stripWidth).toBeLessThanOrEqual(item.activityWidth);
     expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
-    // One structural assertion retains every cell's exact metadata and dimensions
-    // without recording a separate Playwright trace step for each scalar field.
-    expect(item.months.map(({ month, active, signal, count, source, title, accessible, width, height, borderWidth, opacity }) => ({
-      month, active, signal, count, source, title, accessible, width, height, borderWidth, opacity,
-    })), item.id!).toEqual(snapshot.months.map((month, index) => {
-      const count = record.commits?.[index];
-      const active = !unfetched && (repositoryBacked ? count! > 0 : month === date.slice(0, 7));
-      const title = unfetched ? `${monthLabels[index]} — activity not fetched`
-        : `${monthLabels[index]} · ${repositoryBacked ? `${count} default-branch commits` : active ? signalLabel : 'no reviewed public activity signal'}`;
-      return { month, active, signal: unfetched ? 'unfetched' : repositoryBacked ? 'repository' : record.lastPublicUpdateType,
-        count: repositoryBacked ? String(count) : undefined,
-        source: !repositoryBacked && active ? record.lastPublicUpdateSource : undefined,
-        title, accessible: title, width: 6, height: 8, borderWidth: forcedColors ? 1 : 0, opacity: '1' };
-    }));
-    for (let index = 0; index < 12; index++) {
-      const bucket = item.months[index];
-      if (!repositoryBacked) expect(bucket.title).not.toContain('commits');
-      expect(bucket.accessibleWidth).toBeLessThanOrEqual(1); expect(bucket.accessibleHeight).toBeLessThanOrEqual(1);
-      expect(bucket.width).toBeCloseTo(item.months[0].width, 1);
-      expect(bucket.height).toBe(item.months[0].height);
-      // Narrow vertical ticks retain a compact recent-activity pattern.
-      expect(bucket.height / bucket.width).toBeGreaterThan(1);
-      expect(bucket.fill).not.toBe('rgba(0, 0, 0, 0)');
-      if (index) {
-        const previous = item.months[index - 1];
-        const gap = bucket.left - previous.left - previous.width;
-        expect(gap).toBeCloseTo(2, 1);
-      }
+    if (checkData) {
+      // One structural assertion retains every cell's exact metadata
+      // without recording a separate Playwright trace step for each scalar field.
+      expect(item.months.map(({ month, active, signal, count, source, title, accessible }) => ({
+        month, active, signal, count, source, title, accessible,
+      })), item.id!).toEqual(snapshot.months.map((month, index) => {
+        const count = record.commits?.[index];
+        const active = !unfetched && (repositoryBacked ? count! > 0 : month === date.slice(0, 7));
+        const title = unfetched ? `${monthLabels[index]} — activity not fetched`
+          : `${monthLabels[index]} · ${repositoryBacked ? `${count} default-branch commits` : active ? signalLabel : 'no reviewed public activity signal'}`;
+        return { month, active, signal: unfetched ? 'unfetched' : repositoryBacked ? 'repository' : record.lastPublicUpdateType,
+          count: repositoryBacked ? String(count) : undefined,
+          source: !repositoryBacked && active ? record.lastPublicUpdateSource : undefined,
+          title, accessible: title };
+      }));
+      if (!repositoryBacked) expect(item.months.map((bucket) => bucket.title.includes('commits')), item.id!)
+        .toEqual(snapshot.months.map(() => false));
     }
+    expect(item.months.map(({ width, height, borderWidth, opacity }) => ({ width, height, borderWidth, opacity })), `${item.id}: tick dimensions`)
+      .toEqual(Array.from({ length: 12 }, () => ({ width: 6, height: 8, borderWidth: forcedColors ? 1 : 0, opacity: '1' })));
+    // Compare the complete twelve-month result in one assertion per row. Thousands
+    // of per-cell Playwright trace steps can otherwise consume the test deadline
+    // before its scroll checks. Keep every predicate and the original precision-1
+    // toBeCloseTo tolerance (< 0.05); do not sample rows or relax geometry.
+    expect(item.months.map((bucket, index) => ({
+      month: bucket.month,
+      accessibleWidth: bucket.accessibleWidth <= 1,
+      accessibleHeight: bucket.accessibleHeight <= 1,
+      equalWidth: Math.abs(bucket.width - item.months[0].width) < 0.05,
+      equalHeight: Object.is(bucket.height, item.months[0].height),
+      verticalTick: bucket.height / bucket.width > 1,
+      opaque: bucket.fill !== 'rgba(0, 0, 0, 0)',
+      gap: index === 0 || Math.abs(bucket.left - item.months[index - 1].left - item.months[index - 1].width - 2) < 0.05,
+    })), `${item.id}: activity tick geometry`).toEqual(snapshot.months.map((month) => ({
+      month, accessibleWidth: true, accessibleHeight: true,
+      equalWidth: true, equalHeight: true, verticalTick: true, opaque: true, gap: true,
+    })));
   }
   const inactive = rendered.flatMap((row) => row.months).filter((month) => !month.active);
   const activeFills = new Set(rendered.flatMap((row) => row.months).filter((month) => month.active).map((month) => month.fill));
-  for (const month of inactive) expect(activeFills.has(month.fill)).toBe(false);
+  expect(inactive.map((month) => activeFills.has(month.fill)), 'inactive activity colors differ from active colors')
+    .toEqual(inactive.map(() => false));
   // Every active month has the same visual weight, irrespective of raw commit volume.
   const active = rendered.flatMap((row) => row.months).filter((month) => month.active);
   expect(active.length).toBeGreaterThan(0);
   expect(new Set(active.map((month) => `${month.fill}/${month.opacity}/${month.height}`)).size).toBe(1);
+}
+
+// Full actual-DOM wiring runs with JavaScript enabled and disabled.
+export async function expectActivityBands(rows: Locator, activitySelector: string, snapshot: ActivitySnapshot, forcedColors = false) {
+  await assertActivityBands(rows, activitySelector, snapshot, forcedColors, true);
+}
+
+// Viewport/forced-color cases retain every row and tick's physical checks, while
+// actual month/count/source DOM wiring is owned by the normal and no-JS cases.
+export async function expectActivityGeometry(rows: Locator, activitySelector: string, snapshot: ActivitySnapshot, forcedColors = false) {
+  await assertActivityBands(rows, activitySelector, snapshot, forcedColors, false);
 }
 
 export async function expectTitleAndIndexGeometry(rows: Locator, width: number) {

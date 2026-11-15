@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { catalogFixture, catalogIndexTests, catalogSearchRegression } from './catalog-index';
+import { installBrowserErrorGuards } from './release-helpers.mjs';
+
+installBrowserErrorGuards(test);
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },

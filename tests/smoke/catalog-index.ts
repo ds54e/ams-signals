@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { expectScopeLabels, expectActivityBands, expectTitleAndIndexGeometry, expectCompleteDescriptions } from './catalog-presentation';
+import { expectScopeLabels, expectActivityBands, expectActivityGeometry, expectTitleAndIndexGeometry, expectCompleteDescriptions } from './catalog-presentation';
 import { basePath } from './release-helpers.mjs';
 import { isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
@@ -410,7 +410,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     test(`${label} compact index fits ${width}px without overflow or overlapping content`, async ({ page }, info) => {
       await page.setViewportSize({ width, height }); await open(page); await noOverflow(page);
       await expectTitleAndIndexGeometry(rows(page), width);
-      await expectActivityBands(rows(page), `.catalog-activity`, activity);
+      await expectActivityGeometry(rows(page), `.catalog-activity`, activity);
       await expect(page.locator('.catalog-columns')).toHaveCount(0);
       const toolbar = page.locator('[data-catalog-filters]');
       const geometry = await toolbar.evaluate((el) => {
@@ -484,6 +484,6 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} Scope and binary activity remain distinct in forced colors`, async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active' }); await open(page);
     await expectScopeLabels(page.locator(`.catalog-scope`), true);
-    await expectActivityBands(rows(page), `.catalog-activity`, activity, true);
+    await expectActivityGeometry(rows(page), `.catalog-activity`, activity, true);
   });
 }

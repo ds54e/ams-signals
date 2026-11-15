@@ -8,10 +8,12 @@ Production is `https://ams-signals.com/`. GitHub Pages uses the manual-only [Dep
 2. Confirm that exact main SHA's **Deterministic checks** and **Chromium smoke tests** both succeeded. Success for another revision is insufficient.
 3. Read the current Pages source, custom domain, HTTPS state and Actions Variables. Production uses GitHub Actions with `SITE=https://ams-signals.com` and `BASE_URL=/`. Missing variables select the workflow fallback `https://ds54e.github.io/ams-signals/`; do not silently change settings to match this document.
 4. Dispatch **Deploy GitHub Pages (manual)** on main. Verify the run's actual `head_sha` matches the validated revision and both artifact build and deployment succeed. If main moved, reconcile and validate the intended revision before publishing.
-5. Run the deployed-site suite with the production settings:
+5. Run the delivery-only deployed-site suite. Supply the full prior production SHA (not a guessed parent), expected deployed SHA, and successful manual deployment run ID. The config checks checkout/build inputs and the successful exact-SHA main deployment via read-only `gh run view`; it never deploys or starts a local server. It does not prove the served SHA by itself, so inspect the run and changed-page results together:
 
    ```bash
-   SITE=https://ams-signals.com BASE_URL=/ PLAYWRIGHT_BASE_URL=https://ams-signals.com/ npx playwright test
+   SITE=https://ams-signals.com BASE_URL=/ PLAYWRIGHT_BASE_URL=https://ams-signals.com/ \
+   LIVE_EXPECTED_SHA=<full-deployed-sha> LIVE_PREVIOUS_SHA=<prior-production-sha> \
+   LIVE_DEPLOY_RUN_ID=<successful-manual-run-id> npm run test:live
    ```
 
 6. Inspect HTTPS, Home, Timeline, Events, Analog, Digital, Event-to-source navigation, `/export.json` and narrow-screen display. Verify indexing and analytics markup below. Report the deployed SHA, CI/deploy run URLs, local/live results and any unperformed confirmation separately.
@@ -35,3 +37,5 @@ Provider-side ingestion is a separate check when requested: make a normal browse
 ## Recovery
 
 Validate the intended revision through the same local and exact-SHA CI gates, then redeploy it under user authorization. Keep the current target/settings intact unless a domain/DNS change is separately authorized. Do not force-push main or invent an automatic rollback path.
+
+The full browser regression suite remains a blocking exact-SHA CI gate. `test:live` is not a substitute for it. Live checks cover delivery, major surfaces, changed/deleted Golden routes derived from the prior production SHA, indexing, analytics markup, representative interaction and narrow layouts. Keep the prior SHA even when releases skip commits. Failures are not retried automatically; report transient HTTP/provider failures separately without declaring a pass. For existing local Google Chrome, explicitly use `LIVE_CHROME=1`; no browser is installed by this command.

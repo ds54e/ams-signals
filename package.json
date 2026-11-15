@@ -23,7 +23,8 @@
     "validate:digital": "node tools/validate-digital.mjs",
     "test:digital": "node --test tests/digital/*.test.ts",
     "refresh:digital-activity": "node tools/refresh-digital-activity.mjs",
-    "test:build": "node --test tests/build/*.test.mjs"
+    "test:build": "node --test tests/build/*.test.mjs",
+    "test:live": "playwright test --config playwright.live.config.mjs"
   },
   "dependencies": {
     "astro": "7.2.9"
