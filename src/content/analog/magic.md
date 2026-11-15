@@ -8,12 +8,12 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "The maintainer explicitly credits Claude with implementing optional corner-fringe capacitance extraction. The patch adds extraction geometry calculations, coupling/substrate corrections and command controls retained in Magic."
-  sources: ["development-audit-implementation", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  summary: "The maintainer credits Claude Opus 5.5 with implementing same-name label connectivity for getnode and select net, while taking responsibility for the specified behavior. The canonical head retains the connectivity implementation."
+  sources: ["review-20261115-activity", "review-20261115-retained", "review-20261115-modes"]
+  reviewedAt: "2026-11-15"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-15"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -62,6 +62,30 @@ sources:
   - id: review-20261112-limits
     title: "User-facing extresist pruning controls and limits"
     url: https://github.com/RTimothyEdwards/magic/blob/0d182b60425199266ebd13527de114d7be207e3d/doc/html/extresist.html
+  - id: review-20261115-activity
+    title: "Maintainer-attributed same-name connectivity behavior change"
+    url: https://github.com/RTimothyEdwards/magic/commit/4ec40d2c1314b7a4c675ca14453ac51b1376bda7
+  - id: review-20261115-retained
+    title: "Virtual-connectivity implementation retained at the reviewed head"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/database/DBconnect.c
+  - id: review-20261115-modes
+    title: "Retained extraction-option to connectivity-mode mapping"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/extract/ExtMain.c
+  - id: review-20261115-select
+    title: "Current name-connectivity modes, LEF exception and substrate limits"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/doc/html/select.html
+  - id: review-20261115-getnode
+    title: "Current getnode aliases and top-cell port stopping behavior"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/doc/html/getnode.html
+  - id: review-20261115-resistance
+    title: "Resistance extraction retains physical-only connectivity"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/resis/ResMain.c
+  - id: review-20261115-split
+    title: "Maintainer-attributed netmenu split-tile correctness repair"
+    url: https://github.com/RTimothyEdwards/magic/commit/f790f2f1ec35f422cd9512cd2570be3f6e87020d
+  - id: review-20261115-split-retained
+    title: "Retained side-aware netmenu tile handling and erasure"
+    url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/netmenu/NMwiring.c
 ---
 
 ### Scope
@@ -102,3 +126,11 @@ The November implementation series corrects extresist endpoints and capacitance,
 ### November 12, 2026 implementation review
 
 Version 8.3.698 adds star-mesh elimination of internal resistor nodes while retaining terminal and port nodes, and exposes extresist prune with a default threshold of 0.01 and zero to disable it. Exact network reduction and optional approximate path pruning are distinct; neither establishes arbitrary RC or frequency-response preservation. The source and operating limits were inspected, not executed, and the commit adds no regression files. Conventional Layout and existing development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Star-mesh resistor-network reduction](#source-review-20261112-implementation) · [User-facing extresist pruning controls and limits](#source-review-20261112-limits).
+
+### November 15, 2026 connectivity and provenance review
+
+The November 13 change (version 8.3.701) aligns getnode and select net with extraction's same-name label policy. Shared virtual-connectivity code first traces drawn material, then expands to otherwise disconnected labeled areas in the same cell instance and reports name-only connections. With extract do unique, ordinary cells use drawn connections; notopports permits same-name top-cell ports; extract no unique permits same-name labels within any cell. LEF abstract views retain name connections regardless of this setting. [Integrated behavior change](#source-review-20261115-activity); [retained connectivity engine](#source-review-20261115-retained); [mode mapping](#source-review-20261115-modes); [user-facing modes](#source-review-20261115-select).
+
+This does not make every extraction operation follow virtual connections. Undrawn substrate connections are not traced, and resistance extraction explicitly uses physical-only connectivity because its network grows from a physical starting point. getnode stops at a top-cell port name unless alias reporting is enabled; alias on returns a per-node list beginning with the canonical name. These are behavior and output changes relevant to existing scripts, not a new layout stage or runtime AI. [Substrate limits](#source-review-20261115-select); [resistance extraction boundary](#source-review-20261115-resistance); [getnode output contract](#source-review-20261115-getnode).
+
+The maintainer explicitly states that Claude Opus 5.5 did the coding while he specified the behavior and accepts responsibility for it. The current master head `b3d80234a93bbe3fea95f64ea96a338bd81e398c` retains that code. The preceding November 12 netmenu repair separately credits Claude for using the searched side of split tiles in connectivity/verification and preserving the triangle side when erasing. Both changes support the existing AI-ASSISTED label without attributing all Magic code to AI. Neither commit adds regression files; source inspection is not an independent execution or proof of extraction equivalence. The meaningful first-parent checkpoint is the November 13 connectivity change rather than the later revision housekeeping. [Maintainer attribution](#source-review-20261115-activity); [retained code](#source-review-20261115-retained); [split-tile repair](#source-review-20261115-split); [retained netmenu implementation](#source-review-20261115-split-retained).

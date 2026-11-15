@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; each architecture requires its documented device database and build dependencies."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical nextpnr repository"
@@ -39,6 +39,24 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/YosysHQ/nextpnr/blob/e677d5c37378daf4e3f1a28145e5cdd086cf091f/himbaechel/uarch/xilinx/pack.cc"
+  - id: "activity-20261115"
+    title: "Disable fast pip delays before final Himbachel timing reports"
+    url: "https://github.com/YosysHQ/nextpnr/commit/5e2718b6364e189e414c35b8eef3db4d5e3c0773"
+  - id: "router1-20261115"
+    title: "Router1 restores full pip delays before timing analysis"
+    url: "https://github.com/YosysHQ/nextpnr/blob/5e2718b6364e189e414c35b8eef3db4d5e3c0773/common/route/router1.cc"
+  - id: "router2-20261115"
+    title: "Router2 restores full pip delays before timing analysis"
+    url: "https://github.com/YosysHQ/nextpnr/blob/5e2718b6364e189e414c35b8eef3db4d5e3c0773/common/route/router2.cc"
+  - id: "delay-20261115"
+    title: "Himbachel pip delay resistance and capacitance calculation"
+    url: "https://github.com/YosysHQ/nextpnr/blob/5e2718b6364e189e414c35b8eef3db4d5e3c0773/himbaechel/arch.h"
+  - id: "retained-20261115"
+    title: "Retained AI-credited width-9 RAM parity connections"
+    url: "https://github.com/YosysHQ/nextpnr/blob/5e2718b6364e189e414c35b8eef3db4d5e3c0773/himbaechel/uarch/xilinx/pack.cc"
+  - id: "release-20261115"
+    title: "nextpnr 0.11.1 stable release"
+    url: "https://github.com/YosysHQ/nextpnr/releases/tag/nextpnr-0.11.1"
 ---
 
 ### Implementation context
@@ -60,3 +78,11 @@ Reviewed 2026-10-05. The router stops sink-path reservation at wires marked RESE
 ### Development provenance
 
 Claude is credited for correcting RAMB36E1 width-9 parity connections in the Xilinx packer. The canonical project retains the implemented pin connections. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### November 15 review
+
+The canonical `main` head is `5e2718b6364e189e414c35b8eef3db4d5e3c0773` (November 12 UTC). Four first-parent commits reconnect to the saved November 4 head. The latest change disables Himbächel fast pip-delay mode before final timing analysis in both routers, restoring the resistance/capacitance contribution omitted by that mode. This is conventional Layout timing correctness, with no new stage or runtime AI involvement. The reviewed change modifies both router implementations and adds no dedicated regression test; upstream tests were not executed. [Reviewed change](#source-activity-20261115); [Router1](#source-router1-20261115); [Router2](#source-router2-20261115); [delay calculation](#source-delay-20261115).
+
+The latest verified stable release is nextpnr-0.11.1 (August 11). Its tag is an ancestor of the reviewed head; the four new commits follow the tag and are development changes rather than verified capabilities of that stable release. [Stable release](#source-release-20261115); [development change](#source-activity-20261115).
+
+The earlier Claude-credited width-9 RAMB36E1 parity repair is integrated into canonical history, and the current Xilinx packer retains both implemented parity-pin connections. This supports the existing AI-assisted development label independently of conventional Layout algorithms. The original commit reports hardware and fork-regression results; this review does not independently reproduce them or attribute the fork's test to canonical nextpnr. [Credited repair](#source-development-implementation-20261018); [retained connections](#source-retained-20261115).

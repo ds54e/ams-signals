@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-12",
-  "capturedAt": "2026-11-12T10:06:57.690Z",
+  "reviewedAt": "2026-11-15",
+  "capturedAt": "2026-11-15T06:46:22.461Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -21,9 +21,9 @@
       "kind": "github",
       "repository": "llvm/circt",
       "repositoryId": 245072514,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T03:56:19Z",
       "defaultBranch": "main",
-      "headSha": "fcd8507a3c876ba0c9f3d435310023173f2a7434",
+      "headSha": "a992b81c553304bf2b190102d41856942de334a3",
       "commits": [
         118,
         173,
@@ -36,19 +36,19 @@
         101,
         67,
         144,
-        52
+        112
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "6af3f452dc1c1c573f5f67e4c63055b37eda11c0"
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "32b75af8cbd913e098791362548d4ba62a2783b9"
     },
     "cocotb": {
       "kind": "github",
       "repository": "cocotb/cocotb",
       "repositoryId": 10651005,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T03:28:53Z",
       "defaultBranch": "master",
-      "headSha": "b157f58675912af1c600a147d1062eb5582659ae",
+      "headSha": "c25699e8209edebf1e2b009698c759c62d6bca92",
       "commits": [
         37,
         38,
@@ -61,11 +61,11 @@
         34,
         34,
         90,
-        14
+        26
       ],
-      "lastCommitAt": "2026-11-05",
-      "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "29cb070b39acbdc7b7a827324527c02524bb7c33"
+      "lastCommitAt": "2026-11-14",
+      "lastMeaningfulCommitAt": "2026-11-09",
+      "lastMeaningfulCommitSha": "eb4127b0a03b8754e53c98b64ae3178f1621888f"
     },
     "coresmith": {
       "kind": "github",
@@ -146,9 +146,9 @@
       "kind": "github",
       "repository": "steveicarus/iverilog",
       "repositoryId": 16267,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T06:46:22.461Z",
       "defaultBranch": "master",
-      "headSha": "257f08d2d6b55e73d60ccb68702a86670ff70a8f",
+      "headSha": "e77e9ef21b8e747692bf2ffd97dbd91a5c52a100",
       "commits": [
         6,
         29,
@@ -161,11 +161,11 @@
         63,
         89,
         243,
-        30
+        94
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-04",
-      "lastMeaningfulCommitSha": "467d830d2435d28d63ecdfc011c5bf150f15f206"
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "e77e9ef21b8e747692bf2ffd97dbd91a5c52a100"
     },
     "iverilog-uvm": {
       "kind": "github",
@@ -221,9 +221,9 @@
       "kind": "github",
       "repository": "The-OpenROAD-Project/OpenROAD",
       "repositoryId": 218110222,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T05:01:46.063Z",
       "defaultBranch": "master",
-      "headSha": "887d6c59d1c3a327a342b79d0154f17624417379",
+      "headSha": "51fef07fed8a1c8934417dc7b65cab99d5d5e36b",
       "commits": [
         167,
         139,
@@ -236,11 +236,11 @@
         145,
         211,
         318,
-        48
+        125
       ],
-      "lastCommitAt": "2026-11-07",
-      "lastMeaningfulCommitAt": "2026-10-24",
-      "lastMeaningfulCommitSha": "ca012aeab485a964fb7a3dedaf6f5fb5ca89974d"
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "51fef07fed8a1c8934417dc7b65cab99d5d5e36b"
     },
     "openroad-mcp": {
       "kind": "github",
@@ -346,9 +346,9 @@
       "kind": "github",
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-15T03:56:19Z",
       "defaultBranch": "master",
-      "headSha": "62affeb02b95df96a69c36ee5a7c3d6dc8878554",
+      "headSha": "2664c559c78c150e8b144c8be2cfc1871a66304f",
       "commits": [
         38,
         24,
@@ -361,11 +361,11 @@
         24,
         43,
         98,
-        48
+        56
       ],
-      "lastCommitAt": "2026-11-11",
-      "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "0d49773adefee549c5fab7fac6485faa98112e1c"
+      "lastCommitAt": "2026-11-14",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "6d677aecd5ad4febec25f0c2632caec42ea6d361"
     },
     "spec2cov": {
       "kind": "github",
@@ -396,9 +396,9 @@
       "kind": "github",
       "repository": "chipsalliance/Surelog",
       "repositoryId": 218417034,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T06:46:22.461Z",
       "defaultBranch": "master",
-      "headSha": "84bc612985be1e205c0795b4e56c625680dc23f9",
+      "headSha": "00bdd1d1925ac7565f422be77c07e5667c99aae8",
       "commits": [
         0,
         0,
@@ -411,11 +411,11 @@
         22,
         37,
         29,
-        19
+        32
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-09",
-      "lastMeaningfulCommitSha": "6db44ea2048c8ab9c702e389c2897f7e2318ccc5"
+      "lastCommitAt": "2026-11-14",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "00bdd1d1925ac7565f422be77c07e5667c99aae8"
     },
     "surfer": {
       "kind": "repository",
@@ -597,9 +597,9 @@
       "kind": "github",
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-15T03:56:19Z",
       "defaultBranch": "master",
-      "headSha": "12ce86083c624fff9e699481fb769e220f1db8ba",
+      "headSha": "81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308",
       "commits": [
         130,
         106,
@@ -612,11 +612,11 @@
         178,
         285,
         386,
-        222
+        281
       ],
-      "lastCommitAt": "2026-11-12",
-      "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "2894829fed934a15b01620d44cc5daeb72768c60"
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "9ed03126f55c7f2295f81dd9415c75d0527e8423"
     },
     "vitamin": {
       "kind": "github",
@@ -722,9 +722,9 @@
       "kind": "github",
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-15T04:49:39.477Z",
       "defaultBranch": "main",
-      "headSha": "2c21aa3bbd2edf58b4d422829090cc5239ac6c26",
+      "headSha": "dd55f104e29dbe18b4e9680798a6c8081da6eac5",
       "commits": [
         0,
         0,
@@ -737,19 +737,19 @@
         509,
         160,
         995,
-        682
+        849
       ],
-      "lastCommitAt": "2026-11-12",
-      "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "185750167c60f4f10eab2abdfa520dd7ca6cbb27"
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "863f4afc4b6cb4579fa14e0b9da2109fa6789b79"
     },
     "yosys": {
       "kind": "github",
       "repository": "YosysHQ/yosys",
       "repositoryId": 7454197,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T04:49:39.477Z",
       "defaultBranch": "main",
-      "headSha": "5e740962d0c7b8c21b6701fe7a70a5e7ebe28661",
+      "headSha": "e419c4eef77f953212f2dbc6af88d4eaef177084",
       "commits": [
         35,
         58,
@@ -762,11 +762,11 @@
         47,
         60,
         83,
-        18
+        33
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-03",
-      "lastMeaningfulCommitSha": "0e8336b4e2659efb40c2b8751c7619f69c358137"
+      "lastCommitAt": "2026-11-13",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "098e46a36e52c4ee8e2c90315e9450b2b54d2db8"
     },
     "veryl": {
       "kind": "github",
@@ -898,7 +898,7 @@
       "kind": "github",
       "repository": "amaranth-lang/amaranth",
       "repositoryId": 236501540,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-15T05:30:13Z",
       "defaultBranch": "main",
       "headSha": "90449f1e6d5abdfb8cac7519ac7b34d83a9f42b7",
       "commits": [
@@ -1135,9 +1135,9 @@
       "kind": "github",
       "repository": "YosysHQ/nextpnr",
       "repositoryId": 143147942,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T05:30:13Z",
       "defaultBranch": "main",
-      "headSha": "937c770c2a619ebc842755436b566095e7500b8f",
+      "headSha": "5e2718b6364e189e414c35b8eef3db4d5e3c0773",
       "commits": [
         7,
         11,
@@ -1150,19 +1150,19 @@
         34,
         20,
         45,
-        3
+        7
       ],
-      "lastCommitAt": "2026-11-04",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "6f71bc280b17805ee7687cad6dfdcdcb504d01d1"
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "5e2718b6364e189e414c35b8eef3db4d5e3c0773"
     },
     "chisel": {
       "kind": "github",
       "repository": "chipsalliance/chisel",
       "repositoryId": 34695562,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-15T05:30:13Z",
       "defaultBranch": "main",
-      "headSha": "7897c13578becae192a47bb9818f17dc006a7264",
+      "headSha": "2a75ff9465fd5bcc258f9e90fff5b80dfae3218d",
       "commits": [
         25,
         50,
@@ -1175,11 +1175,11 @@
         18,
         16,
         27,
-        9
+        12
       ],
-      "lastCommitAt": "2026-11-05",
-      "lastMeaningfulCommitAt": "2026-10-01",
-      "lastMeaningfulCommitSha": "8de081e1fa7d9c0d6131841e2409c8cfe0490183"
+      "lastCommitAt": "2026-11-13",
+      "lastMeaningfulCommitAt": "2026-11-13",
+      "lastMeaningfulCommitSha": "2a75ff9465fd5bcc258f9e90fff5b80dfae3218d"
     },
     "calyx": {
       "kind": "github",
@@ -2405,6 +2405,131 @@
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "213618ab43b686638865fdf687c59b410da1f28f"
+    },
+    "spinalhdl": {
+      "kind": "github",
+      "repository": "SpinalHDL/SpinalHDL",
+      "repositoryId": 29812153,
+      "capturedAt": "2026-11-15T03:28:53Z",
+      "defaultBranch": "dev",
+      "headSha": "de72faf6062206a89b445e5cc07e32ed982712c8",
+      "commits": [
+        7,
+        7,
+        7,
+        8,
+        8,
+        14,
+        8,
+        2,
+        11,
+        7,
+        4,
+        0
+      ],
+      "lastCommitAt": "2026-10-22",
+      "lastMeaningfulCommitAt": "2026-10-22",
+      "lastMeaningfulCommitSha": "de72faf6062206a89b445e5cc07e32ed982712c8"
+    },
+    "pyrtl": {
+      "kind": "github",
+      "repository": "UCSBarchlab/PyRTL",
+      "repositoryId": 17123539,
+      "capturedAt": "2026-11-15T04:10:50Z",
+      "defaultBranch": "development",
+      "headSha": "9c4fd68fc69649a9ba9dc72d3b1511707d98d7d3",
+      "commits": [
+        0,
+        0,
+        0,
+        3,
+        2,
+        5,
+        12,
+        23,
+        6,
+        1,
+        4,
+        1
+      ],
+      "lastCommitAt": "2026-11-04",
+      "lastMeaningfulCommitAt": "2026-09-30",
+      "lastMeaningfulCommitSha": "46b1078c0c89db25d9cbe51fd07b4337cfec9f43"
+    },
+    "hardcaml": {
+      "kind": "github",
+      "repository": "janestreet/hardcaml",
+      "repositoryId": 134593997,
+      "capturedAt": "2026-11-15T04:31:14Z",
+      "defaultBranch": "master",
+      "headSha": "d9da179ea12228a0e3f7c1358fedec2ab8971f73",
+      "commits": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "d9da179ea12228a0e3f7c1358fedec2ab8971f73"
+    },
+    "clash": {
+      "kind": "github",
+      "repository": "clash-lang/clash-compiler",
+      "repositoryId": 11172497,
+      "capturedAt": "2026-11-15T04:31:14Z",
+      "defaultBranch": "master",
+      "headSha": "920973dbb208b14f875eff730dbcf739fad22870",
+      "commits": [
+        6,
+        2,
+        14,
+        5,
+        31,
+        20,
+        7,
+        13,
+        22,
+        27,
+        25,
+        17
+      ],
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-10-27",
+      "lastMeaningfulCommitSha": "94fd741bce962733cf590cfd16c9206c33c5b2fe"
+    },
+    "mockturtle": {
+      "kind": "github",
+      "repository": "lsils/mockturtle",
+      "repositoryId": 131001448,
+      "capturedAt": "2026-11-15T04:31:14Z",
+      "defaultBranch": "master",
+      "headSha": "a3f817de4005ee6ae12b4dd1ffcf4a4f910691d7",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        4,
+        4,
+        0,
+        8,
+        5,
+        3,
+        5
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-06",
+      "lastMeaningfulCommitSha": "894832fdd9cc8daf5aa551e94a32881d48e05eab"
     }
   }
 }

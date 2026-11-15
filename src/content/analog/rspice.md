@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-15"
 sources:
 - id: code
   title: Canonical public implementation
@@ -82,6 +82,18 @@ sources:
 - id: review-20261112-tests
   title: "Converter edge, delayed transition and unknown-band regressions"
   url: https://github.com/JaimeHW/RSpice/blob/37014c3fd64b676750e2db5e782acfa53dd42d60/crates/rspice-core/tests/tri_family_events.rs
+- id: review-20261115-event-orbit
+  title: PSTB consumes a retained event-shooting orbit
+  url: https://github.com/JaimeHW/RSpice/commit/5c083739910060cd16d6add540fc2921b4aa35ea
+- id: review-20261115-activity
+  title: Refuse unsupported state-controlled switch crossings in PSTB
+  url: https://github.com/JaimeHW/RSpice/commit/1aeee91db676d6f34dc2315f19ab9068a3edd7c3
+- id: review-20261115-implementation
+  title: Retained periodic-stability analysis and carrier restrictions
+  url: https://github.com/JaimeHW/RSpice/blob/1aeee91db676d6f34dc2315f19ab9068a3edd7c3/crates/rspice-core/src/engine/pstb.rs
+- id: review-20261115-tests
+  title: Switched-RL stability and unsupported-crossing regressions
+  url: https://github.com/JaimeHW/RSpice/blob/1aeee91db676d6f34dc2315f19ab9068a3edd7c3/crates/rspice-core/tests/periodic/pss_shooting.rs
 ---
 
 ### Implementation and boundaries
@@ -120,3 +132,9 @@ The new LTspice special-function path implements PHASEDET, SAMPLEHOLD, MODULATOR
 ### November 12, 2026 implementation review
 
 The November 12 correction preserves located converter crossings across rollback and schedules converter events at the crossing plus delay instead of a rounded landing sample. XSPICE bridges, the event ledger and participating coupled HDL paths are covered by regressions for repeated converter edges, delayed register transitions and unknown-band crossings on long timesteps. These are source-inspected tests, not independently reproduced measurements or general SystemVerilog conformance. Existing scope, provenance and commercial-access restrictions remain unchanged. [Integrated activity](#source-review-20261112-activity). [Coupled mixed-signal crossing and event ledger](#source-review-20261112-implementation) · [Converter edge, delayed transition and unknown-band regressions](#source-review-20261112-tests).
+
+### Periodic-stability implementation
+
+Current main extends `.PSTB` Floquet stability analysis to retained driven orbits solved by event shooting, using an inductor loop probe and reducing algebraic or dependent coordinates before reading the multipliers. The switched-RL regression checks one multiplier against `exp(-0.75)` and full probe participation. This is upstream executable evidence, not an independently reproduced stability result. [Event-orbit implementation](#source-review-20261115-event-orbit) · [Retained analysis](#source-review-20261115-implementation) · [Regressions](#source-review-20261115-tests).
+
+PSTB explicitly refuses an event orbit crossing an ideal switch controlled by circuit state when the discrete map lacks the required switching-time sensitivity correction (saltation), and names the switch. PSS can still report that orbit. Harmonic-balance carriers remain unsupported by this PSTB entry point. These are default-branch development changes, with no tagged-release inclusion or general accuracy/conformance result established. The existing Design/Simulation scope, separately sourced AI-development provenance and personal-use restrictions remain unchanged. [Integrated refusal and test](#source-review-20261115-activity) · [Carrier boundary](#source-review-20261115-implementation).

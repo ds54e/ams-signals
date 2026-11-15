@@ -7,9 +7,14 @@ scope:
     ai: false
   verification:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude Opus 5.5 is co-credited for correcting coverage state after assertion action blocks and adding executable regressions. The canonical head retains the V3Coverage.cpp correction and tests."
+  sources: ["review-20261115-activity", "review-20261115-retained", "review-20261115-tests"]
+  reviewedAt: "2026-11-15"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -55,6 +60,15 @@ sources:
   - id: review-20261112-tests
     title: "Guarded one-block and explicitly marked FSM regressions"
     url: https://github.com/verilator/verilator/blob/2894829fed934a15b01620d44cc5daeb72768c60/test_regress/t/t_cover_fsm_transition_shapes_multi.v
+  - id: review-20261115-activity
+    title: "AI-coauthored assertion-action-block coverage correction and regressions"
+    url: https://github.com/verilator/verilator/commit/9ed03126f55c7f2295f81dd9415c75d0527e8423
+  - id: review-20261115-retained
+    title: "Coverage state restoration retained at the reviewed default-branch head"
+    url: https://github.com/verilator/verilator/blob/81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308/src/V3Coverage.cpp
+  - id: review-20261115-tests
+    title: "Retained assertion-action-block executable coverage regressions"
+    url: https://github.com/verilator/verilator/blob/81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308/test_regress/t/t_cover_line.v
 ---
 
 ### Implementation and scope
@@ -67,7 +81,7 @@ The JSON format is evolving, and performance/language compatibility depend on th
 
 ### Development provenance
 
-The reviewed source establishes conventional compiler/simulator operations. The inspected canonical history and primary project materials did not establish an attributable AI implementation contribution retained in current code; this does not establish exclusively human development. [Project implementation](#source-readme).
+The November 15 assertion-action-block repair and executable regressions explicitly credit Claude Opus 5.5 as coauthor using an Anthropic address. Both remain in the canonical default-branch head, supporting AI-ASSISTED for this bounded contribution. The compiler/simulator operations remain conventional; software-development attribution does not establish runtime AI. [Attributed implementation and tests](#source-review-20261115-activity); [retained coverage visitor](#source-review-20261115-retained); [retained regression](#source-review-20261115-tests).
 
 ### Current implementation and operating boundaries
 
@@ -78,4 +92,11 @@ Reviewed commits are on the captured development branch. Do not describe every c
 
 ### November 12, 2026 implementation review
 
-The November 11 implementation extracts constant FSM targets guarded by nested conditional branches when omitted assignments hold the current state, carrying that condition through state collection and arc emission. Regressions add guarded one-block machines and explicitly marked non-enum machines with guarded-only targets. Supported-shape limits remain explicit; this is not complete FSM extraction. The tests were inspected rather than run. Existing scope and development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [FSM target-state and transition extraction](#source-review-20261112-implementation) · [Guarded one-block and explicitly marked FSM regressions](#source-review-20261112-tests).
+The November 11 implementation extracts constant FSM targets guarded by nested conditional branches when omitted assignments hold the current state, carrying that condition through state collection and arc emission. Regressions add guarded one-block machines and explicitly marked non-enum machines with guarded-only targets. Supported-shape limits remain explicit; this is not complete FSM extraction. The tests were inspected rather than run. Functional scope remains unchanged. [Integrated activity](#source-review-20261112-activity). [FSM target-state and transition extraction](#source-review-20261112-implementation) · [Guarded one-block and explicitly marked FSM regressions](#source-review-20261112-tests).
+
+
+### November 15, 2026 implementation review
+
+The coverage visitor saves and restores its state around each assertion/cover node, so a terminating task in an assertion action block no longer disables coverage of subsequent statements outside that assertion. Executable regressions exercise $error followed by if/else and $stop/$fatal in case items followed by assignments; updated expected outputs cover line, branch, LCOV and trace output. This corrects coverage instrumentation, not the execution semantics of failed assertions or all coverage defects. [Integrated repair and expected outputs](#source-review-20261115-activity); [retained implementation](#source-review-20261115-retained); [executable cases](#source-review-20261115-tests).
+
+The reviewed master head is `81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308`; its later commentary-only change is ordering history, while the November 15 repair is the meaningful checkpoint on that first-parent chain. Default-branch integration is not a stable-release claim. Source and regression inspection did not include an upstream test run.

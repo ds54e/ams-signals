@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under BSD-3-Clause; build dependencies and process-stack inputs remain project- and technology-specific."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-24"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"
@@ -64,6 +64,27 @@ sources:
   - id: "review-20261024-license"
     title: "OpenROAD BSD 3-Clause license"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/ca012aeab485a964fb7a3dedaf6f5fb5ca89974d/LICENSE"
+  - id: "review-20261115-integration"
+    title: "Integrated block-shape reader, PEX evaluator and spatial index"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/51fef07fed8a1c8934417dc7b65cab99d5d5e36b"
+  - id: "review-20261115-evaluator"
+    title: "Current PEX table evaluator"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/pex/src/Evaluator.cpp"
+  - id: "review-20261115-index"
+    title: "Current per-layer spatial index"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/pex/src/Index.cpp"
+  - id: "review-20261115-evaluator-tests"
+    title: "PEX radius and contribution-attribution regressions"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/pex/test/cpp/TestEvaluator.cpp"
+  - id: "review-20261115-index-tests"
+    title: "Spatial-index comparisons with brute-force queries"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/pex/test/cpp/TestIndex.cpp"
+  - id: "review-20261115-pex-status"
+    title: "Current PEX implementation status and unfinished pipeline"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/pex/README.md"
+  - id: "review-20261115-block-shapes"
+    title: "Shared routed-block geometry reader"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/fsv/src/BlockShapes.cpp"
 ---
 
 ### Implementation context
@@ -84,7 +105,7 @@ Placement, clock trees, routing and backend timing are conventional Layout algor
 
 The October 24 default-branch integrations add `add_field_solver_nets`: it reads target nets and nearby geometry from the routed OpenDB design, including wires, vias and pins, into a floating-random-walk electrostatic capacitance solve. A window/halo bounds neighbouring geometry; outside-window leakage is reported rather than used as an automatic acceptance rule. This is a new extraction operation, not merely documentation for a planned database reader. [Reader implementation](#source-review-20261024-fsv-nets) · [Pinned operations and limits](#source-review-20261024-fsv-readme).
 
-The following integration adds three routed SKY130HD GCD net regressions, covering a short net, jogs/vias and a die-edge input pin, with window/leakage checks. The meaningful activity checkpoint is the first-parent merge `ca012aeab485a964fb7a3dedaf6f5fb5ca89974d` on October 24 UTC. [Regression changes](#source-review-20261024-fsv-gcd) · [Integrated checkpoint](#source-activity-current).
+The following integration adds three routed SKY130HD GCD net regressions, covering a short net, jogs/vias and a die-edge input pin, with window/leakage checks. At the October 24 review, the meaningful activity checkpoint was first-parent merge `ca012aeab485a964fb7a3dedaf6f5fb5ca89974d` (October 24 UTC); the November 15 integration below supersedes it. [Regression changes](#source-review-20261024-fsv-gcd) · [Integrated checkpoint](#source-activity-current).
 
 Design geometry is Manhattan-only. The reviewed ITF reader supports conformal dielectric shells with `THICKNESS = 0` and no `BW_T`; leakage is diagnostic, not signoff qualification. Upstream timing measurements depend on their specific routed designs, tolerances and thread count and are not generalized here. These are reviewed development commits; tagged-release inclusion and independent solver/EDA execution were not verified. Conventional Layout and the existing development-provenance label remain unchanged. [Limits](#source-review-20261024-fsv-readme) · [BSD-3-Clause](#source-review-20261024-license).
 
@@ -97,3 +118,9 @@ Claude is credited for correcting the web viewer shutdown to wait for its Tcl ev
 UPF code evaluates power domains and implements isolation and level-shifter strategies in the physical design database. These exposed implementation operations remain Layout; they do not add Verification or prove all power states, retention behavior or operating modes. STA, extraction and power-grid analyses remain distinct backend operations. [Implementation](#source-review-20261022-upf); [commands](#source-review-20261022-upf-doc).
 
 This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Development-provenance labels are preserved.
+
+### Reviewed extraction development, November 15, 2026
+
+The November 15 first-parent integration moves the table-based PEX evaluator into the library, adds a per-layer spatial index and shares routed-block shape reading with the field solver. The evaluator emits capacitance contributions attributed to conductor boxes. Retained tests compare radius-limited and all-box evaluation, and compare index queries against brute-force intersection scans with one and four construction threads. These executable changes support the new meaningful checkpoint, rather than the intervening documentation/agent-skill edits. [Integration](#source-review-20261115-integration) · [Evaluator](#source-review-20261115-evaluator) · [Index](#source-review-20261115-index) · [Shared geometry](#source-review-20261115-block-shapes) · [Evaluator tests](#source-review-20261115-evaluator-tests) · [Index tests](#source-review-20261115-index-tests).
+
+The new 2.5D extractor remains under development: its current status documents no commands yet, with end-to-end block-index integration, segmentation and ODB/SPEF output still ahead. Library components and upstream tests do not establish a completed extraction flow or signoff accuracy. This review concerns canonical master source, without verifying tagged-release inclusion or executing EDA/tests. The existing public description, Layout classification and development-provenance evidence remain applicable. [Current status and limits](#source-review-20261115-pex-status).

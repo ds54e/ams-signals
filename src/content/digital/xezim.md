@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -84,6 +84,21 @@ sources:
   - id: review-20261112-tests
     title: "Immediate-child wait-fork scheduling regressions"
     url: https://github.com/aionhw/xezim/blob/185750167c60f4f10eab2abdfa520dd7ca6cbb27/tests/scheduling/wait_fork_immediate_children.rs
+  - id: review-20261115-implementation
+    title: Combine same-time dumpvars selections with per-call depths
+    url: https://github.com/aionhw/xezim/commit/5f80ad357d4a234abd8c4876d1b6153898ab2369
+  - id: review-20261115-activity
+    title: Repeated dumpvars selection regressions
+    url: https://github.com/aionhw/xezim/commit/863f4afc4b6cb4579fa14e0b9da2109fa6789b79
+  - id: review-20261115-retained
+    title: Retained dumpvars start-time and checkpoint handling
+    url: https://github.com/aionhw/xezim/blob/dd55f104e29dbe18b4e9680798a6c8081da6eac5/src/compiler/simulator/system_tasks.rs
+  - id: review-20261115-tests
+    title: Waveform selections across blocks, depths and whole-design calls
+    url: https://github.com/aionhw/xezim/blob/dd55f104e29dbe18b4e9680798a6c8081da6eac5/tests/gates/dumpvars_repeated_calls.rs
+  - id: review-20261115-release
+    title: xezim 0.11.6 release preceding the reviewed waveform changes
+    url: https://github.com/aionhw/xezim/releases/tag/0.11.6
 ---
 
 ### Implementation context
@@ -136,3 +151,9 @@ New executable regressions distinguish packages in library files from separately
 ### November 12, 2026 implementation review
 
 The November 12 implementation distinguishes adopted descendants from immediate fork children so wait fork waits only for immediate children while disable fork can still reach inherited descendants. The following test checkpoint adds joined/join_none, descendant, task and disable-fork coverage, plus a DPI exported-task timing case. That DPI case uses standard-derived expected timing because the reference simulator rejects the timing-control form; cross-simulator reproduction is not claimed. Conventional Verification and existing development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Separate adopted descendants from immediate fork children](#source-review-20261112-implementation) · [Immediate-child wait-fork scheduling regressions](#source-review-20261112-tests).
+
+### Waveform-selection correctness
+
+The waveform path now combines every `$dumpvars` selection made at the time dumping starts, preserving each call's own depth and deduplicating selected signals. Regressions cover repeated calls in one block, calls in separate blocks at that same time, independent depth limits and an argument-free whole-design selection. Calls at later simulation times remain checkpoints of the running dump. [Implementation](#source-review-20261115-implementation) · [Retained handling](#source-review-20261115-retained) · [Regression checkpoint](#source-review-20261115-activity) · [Executable cases](#source-review-20261115-tests).
+
+The canonical 0.11.6 release precedes these November 14 development commits; its publication does not establish inclusion of these fixes. The later tip only synchronizes a core revision and is not promoted to the meaningful checkpoint. This review inspected source and tests without running conformance workloads. Conventional Verification, the existing AI-development evidence and the real-number-modeling/analog-solver boundary remain unchanged. [Release boundary](#source-review-20261115-release) · [Integrated waveform correction](#source-review-20261115-implementation).

@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public Python package and documentation; network data, measurement hardware and external circuit simulators are separate inputs or tools."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "documentation"
     title: "Official scikit-rf documentation"
@@ -59,6 +59,30 @@ sources:
   - id: "development-retained"
     title: "Retained MDIF continuation-line parser"
     url: "https://github.com/scikit-rf/scikit-rf/blob/05f8486420fe94a91d983c685948e78f95296ffa/skrf/io/mdif.py"
+  - id: "activity-20261115"
+    title: "Fix frequency-axis broadcasting in transmission-line propagation"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/d2291518c7b6a1ed82337b2a0247f8366d551a90"
+  - id: "tline-20261115"
+    title: "Frequency-axis alignment and analytic regression cases"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/d2291518c7b6a1ed82337b2a0247f8366d551a90/skrf/tests/test_tlineFunctions.py"
+  - id: "autofit-20261115"
+    title: "Limit the intermediate adding and skimming loop"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/b62708c858e92118db21de0c351f1d5ffaab76bd"
+  - id: "retained-20261115"
+    title: "Current MDIF continuation-line folding implementation"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/d2291518c7b6a1ed82337b2a0247f8366d551a90/skrf/io/mdif.py"
+  - id: "dependencies-20261115"
+    title: "Python requirements and optional instrument dependencies"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/d2291518c7b6a1ed82337b2a0247f8366d551a90/pyproject.toml"
+  - id: "release-20261115"
+    title: "scikit-rf v2.2.0 stable release"
+    url: "https://github.com/scikit-rf/scikit-rf/releases/tag/v2.2.0"
+  - id: "release-fitting-20261115"
+    title: "Parametric vector fitting in the v2.2.0 source tree"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/05f8486420fe94a91d983c685948e78f95296ffa/skrf/vectorFitting.py"
+  - id: "release-tests-20261115"
+    title: "v2.2.0 parametric fitting and serialization tests"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/05f8486420fe94a91d983c685948e78f95296ffa/skrf/tests/test_vectorfitting_parametric.py"
 ---
 
 ### Implementation context
@@ -79,10 +103,18 @@ Simulation covers network/electrical evaluation and RF model preparation. These 
 
 The bounded provenance review inspected credited parser/array fixes, plotting, tests and diagnostic edits. The plotting addition wraps existing error calculations; the retained Claude-credited parser correction repairs continuation lines and supports AI-assisted development without a minimum subsystem-size requirement. [Parser change](#source-assistance-fix); [plotting change](#source-assistance-plot).
 
-### Current activity review
+### October activity review
 
 Reviewed 2026-10-05. The Cobalt VNA module adds an implemented SCPI instrument interface and tests. This extends RF measurement integration; no new custom-IC Design stage or runtime AI is inferred. [Reviewed change](#source-activity-current).
 
 ### Development provenance
 
 Claude Opus 4.7 is credited on the MDIF parser repair that folds tab-prefixed continuation lines before parsing. The merged implementation remains in the canonical project. [Bounded Claude-attributed MDIF parser correction](#source-assistance-fix) · [Retained MDIF continuation-line parser](#source-development-retained).
+
+### Current implementation and release boundary
+
+The November 13 master revision aligns per-frequency voltage, current and impedance arrays with the frequency axis of two-dimensional electrical lengths. Regressions include a closed-form quarter-wavelength reference and preserved scalar/one-dimensional broadcasting. A separate vector-fitting repair limits the intermediate adding/skimming loop and warns when its iteration budget is exhausted; it does not guarantee convergence or bound every fitting step. [Propagation repair](#source-activity-20261115); [regressions](#source-tline-20261115); [fitting repair and test](#source-autofit-20261115).
+
+The latest verified stable release is v2.2.0 (October 18); the November repairs follow its tag. The stable source also implements parametric vector fitting over supplied network responses, with model-error and serialization tests. This numerical macromodeling remains conventional Simulation. Python 3.10 or newer, NumPy, SciPy and pandas are required; instrument access additionally uses optional VISA dependencies and separate hardware. [Stable release](#source-release-20261115); [stable fitting implementation](#source-release-fitting-20261115); [stable tests](#source-release-tests-20261115); [dependencies](#source-dependencies-20261115).
+
+The credited MDIF parser repair remains integrated and retains tab-prefixed continuation-line folding in current master, supporting the existing AI-assisted development label. [Credited repair](#source-assistance-fix); [current retained implementation](#source-retained-20261115).

@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical Icarus Verilog repository"
@@ -51,6 +51,30 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/steveicarus/iverilog/blob/ad0260be5bb384e13ef68eef6881d62bbf16df93/elab_expr.cc"
+  - id: "activity-review-20261115"
+    title: "Preserve dispatch to overrides of empty virtual methods"
+    url: "https://github.com/steveicarus/iverilog/commit/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100"
+  - id: "implementation-review-20261115"
+    title: "Retained virtual-call elaboration repair"
+    url: "https://github.com/steveicarus/iverilog/blob/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100/elaborate.cc"
+  - id: "tests-review-20261115"
+    title: "Empty virtual-function and task dispatch regression"
+    url: "https://github.com/steveicarus/iverilog/blob/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100/ivtest/ivltests/br_gh1786.v"
+  - id: "test-targets-review-20261115"
+    title: "VVP regression configuration and unsupported class translation"
+    url: "https://github.com/steveicarus/iverilog/blob/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100/ivtest/vvp_tests/br_gh1786.json"
+  - id: "classes-review-20261115"
+    title: "Integrated parameterized-class implementation and regressions"
+    url: "https://github.com/steveicarus/iverilog/commit/24116138a7b460c9dcbea1145f6ad68f27b5f178"
+  - id: "class-implementation-review-20261115"
+    title: "Retained class specialization and parameter binding"
+    url: "https://github.com/steveicarus/iverilog/blob/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100/elab_scope.cc"
+  - id: "class-limits-review-20261115"
+    title: "Class parameters still require default values"
+    url: "https://github.com/steveicarus/iverilog/blob/e77e9ef21b8e747692bf2ffd97dbd91a5c52a100/pform.cc"
+  - id: "release-review-20261115"
+    title: "Published stable Icarus Verilog 13.0"
+    url: "https://github.com/steveicarus/iverilog/releases/tag/v13_0"
 ---
 
 ### Implementation and scope
@@ -72,3 +96,11 @@ Reviewed 2026-10-05. Nonblocking assignments now own their event-control and cou
 ### Development provenance
 
 Claude is credited for implemented constant-function unpacked-array handling across elaboration and compile-time evaluation. The canonical project retains the code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Current development and release boundary
+
+The November 15 default-branch merge adds parameterized classes with value and type parameters, positional/named overrides and specialization reuse. Its regressions cover value, type and string parameters, inheritance and rejected declarations. Class parameters without defaults remain unsupported. These are additions to the SystemVerilog subset, not complete language support or class translation through vlog95. [Integrated implementation and regressions](#source-classes-review-20261115) · [Retained specialization implementation](#source-class-implementation-review-20261115) · [Default-value limit](#source-class-limits-review-20261115) · [Translation test boundary](#source-test-targets-review-20261115).
+
+The subsequent merge preserves calls to empty virtual methods so a base-class handle can dispatch to a derived override. The regression exercises virtual functions, tasks, an intermediate empty override and an empty nonvirtual method. This implementation repair is the meaningful first-parent checkpoint at `e77e9ef21b8e747692bf2ffd97dbd91a5c52a100`. [Integrated repair](#source-activity-review-20261115) · [Retained code](#source-implementation-review-20261115) · [Regression](#source-tests-review-20261115).
+
+Stable 13.0 was published on March 2; the reviewed November master changes are separate development work and are not attributed to that release. Existing Design, Verification and development-provenance classifications remain supported. Review was static: source, regression fixtures and release metadata were inspected without compiling or running upstream code. [Stable release](#source-release-review-20261115).

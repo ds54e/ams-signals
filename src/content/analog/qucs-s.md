@@ -2,15 +2,15 @@
 name: "Qucs-S"
 aliases: []
 summary: "Combines schematic editing, simulator setup and result visualization in a multi-backend circuit GUI."
-description: "Qt GUI for schematic capture, circuit-analysis setup and result visualization using ngspice, Xyce, SpiceOpus or Qucsator backends. Component libraries and plotting keep circuit editing and simulation in one application, with available analyses and device support depending on the selected engine."
+description: "Qt GUI for schematic capture, circuit-analysis setup and result visualization using ngspice, Xyce, SpiceOpus or Qucsator backends. Current-branch net-name overlays and a Net Properties display help relate schematics to generated node names; available analyses and device support depend on the selected engine."
 scope:
   design:
     ai: false
   simulation:
     ai: false
-access: "Public source and desktop packages; circuit analyses require the selected simulation backend and appropriate device models."
+access: "GPL-2.0-or-later source and desktop packages; the Qt GUI requires the selected external simulation backend and appropriate device models for circuit analyses. Net-name overlays are reviewed current-branch work beyond stable 26.1.1."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "site"
     title: "Official Qucs-S overview and stable download channel"
@@ -41,6 +41,15 @@ sources:
   - id: "activity-refresh"
     title: "Replace digital simulator wrapper scripts with QProcess, September 14, 2026"
     url: "https://github.com/ra3xdh/qucs_s/commit/e0c0e154edb4f8403d53c5c5601c2ee133c9e970"
+  - id: "net-name-integration"
+    title: "November 13 integration of net-name overlays and Net Properties display"
+    url: "https://github.com/ra3xdh/qucs_s/commit/941b4b2a2774d5db581dfb3538c0b4f83165dcfc"
+  - id: "net-name-implementation"
+    title: "Retained net-name computation and drawing with GPL-2.0-or-later source header"
+    url: "https://github.com/ra3xdh/qucs_s/blob/941b4b2a2774d5db581dfb3538c0b4f83165dcfc/qucs/schematic.cpp"
+  - id: "license"
+    title: "Qucs-S GNU General Public License version 2 text"
+    url: "https://github.com/ra3xdh/qucs_s/blob/941b4b2a2774d5db581dfb3538c0b4f83165dcfc/COPYING"
 ---
 
 ### Implementation context
@@ -53,7 +62,11 @@ Stable 26.1.1 was published April 26, 2026. At the October 1 review, `continuous
 
 The September 1 implementation, merged September 4, applies structural checks on save while retaining full validation before simulation. This avoids demanding simulation blocks when editing subcircuits. It is later development/prerelease behavior beyond the stable release. [Implementation diff](#source-validation-change); [meaningful merge](#source-activity).
 
-Later `current` merges add Monte Carlo parameter variation and validation, then replace HDL simulator shell/batch wrappers with QProcess stages and configurable Icarus/GHDL executables. The September 14 execution change is the latest reviewed meaningful implementation; these changes are development-branch behavior beyond stable 26.1.1. [Monte Carlo implementation](#source-monte-carlo); [simulation execution](#source-activity-refresh).
+Later `current` merges add Monte Carlo parameter variation and validation, then replace HDL simulator shell/batch wrappers with QProcess stages and configurable Icarus/GHDL executables. These changes are development-branch behavior beyond stable 26.1.1. [Monte Carlo implementation](#source-monte-carlo); [simulation execution](#source-activity-refresh).
+
+The November 15 review reconfirmed 26.1.1 as the latest stable release and inspected the November 13 `current` integration. It computes names for connected nets, draws overlays for otherwise unlabeled nets and exposes the corresponding name in Net Properties. This is implemented schematic inspection, not a new simulation engine or electrical-correctness guarantee, and is not claimed as shipped in 26.1.1. The November 13 integration is the new meaningful-activity checkpoint. [Integrated diff](#source-net-name-integration) · [Retained implementation](#source-net-name-implementation) · [Stable release](#source-release)
+
+The checked source header grants GPL version 2 or later; the repository includes the GPL version 2 text. Backend executables and circuit/device models remain separate dependencies. [Source header](#source-net-name-implementation) · [License text](#source-license)
 
 ### Scope and development provenance
 

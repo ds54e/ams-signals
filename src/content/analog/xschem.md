@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -58,6 +58,21 @@ sources:
   - id: "development-smith-retained"
     title: "Retained Smith expression and plotting implementation"
     url: https://github.com/StefanSchippers/xschem/blob/7a4a73b70cca12d248b1d25e65c3c93e463cde40/src/draw.c
+  - id: "activity-review-20261115"
+    title: "Netlisting hierarchy and stop-attribute repair"
+    url: "https://github.com/StefanSchippers/xschem/commit/beb7bcba4519ea92e1268f3feef36f043d51f50f"
+  - id: "implementation-review-20261115"
+    title: "Current SPICE hierarchy and stop-attribute implementation"
+    url: "https://github.com/StefanSchippers/xschem/blob/beb7bcba4519ea92e1268f3feef36f043d51f50f/src/spice_netlist.c"
+  - id: "tests-review-20261115"
+    title: "Existing multi-format netlisting regression driver"
+    url: "https://github.com/StefanSchippers/xschem/blob/beb7bcba4519ea92e1268f3feef36f043d51f50f/tests/netlisting.tcl"
+  - id: "readme-review-20261115"
+    title: "Current author-maintained exact-mirror notice"
+    url: "https://github.com/StefanSchippers/xschem/blob/beb7bcba4519ea92e1268f3feef36f043d51f50f/README.md"
+  - id: "smith-review-20261115"
+    title: "Current retained Smith plotting and complex-expression code"
+    url: "https://github.com/StefanSchippers/xschem/blob/beb7bcba4519ea92e1268f3feef36f043d51f50f/src/draw.c"
 ---
 
 ### Scope
@@ -80,8 +95,14 @@ Schematic/netlist editing is conventional Design; simulator launch and back-anno
 
 The merged Smith-chart path plots complex data in the reflection-coefficient plane. For impedance inputs, imp() maps Z to (Z−Z0)/(Z+Z0), with a per-graph reference impedance and frequency cursors. Source, operating documentation and smoke/geometry/cursor regression scripts were inspected. [Smith-chart integration](#source-review-20261011-1) · [Drawing/complex-data implementation](#source-review-20261011-2)
 
-No new numerical solver or AI stage is established. The plot uses a fixed reflection-coefficient window with clipping; zoom/pan and active-device values outside it have documented limits. Z0 conversion is not automatic renormalization of already stored S-parameter data. Tests were inspected, not executed. A disabled preserve-undo branch is not a released feature.
+No new numerical solver or AI stage is established. The plot uses a fixed reflection-coefficient window with clipping; zoom/pan and active-device values outside it have documented limits. Z0 conversion is not automatic renormalization of already stored S-parameter data. Tests were inspected, not executed. No tagged release was verified for the newly reviewed netlisting repair. [Current development change](#source-activity-review-20261115).
 
 ### Development provenance
 
 The merged Smith-chart PR explicitly discloses that opencode implemented the feature. Its retained complex-expression evaluation, impedance-to-reflection conversion, grid/trace plotting and cursor interaction establish substantial feature implementation; tests, manuals and the general AI contribution policy are not the attribution basis. [Author disclosure](#source-development-smith-disclosure) · [Retained plotting implementation](#source-development-smith-retained).
+
+### Current default-branch maintenance
+
+The November 14 repair loads additional symbols before incrementing the schematic hierarchy level and suppresses additional-symbol loading for stopped SPICE, Spectre and Verilog blocks. The reviewed diff also corrects call ordering in the VHDL and tEDAx netlisters. This maintains schematic/netlist correctness within existing Design and Simulation coverage; it supplies no numerical solver or runtime AI. [Reviewed repair](#source-activity-review-20261115) · [Retained SPICE implementation](#source-implementation-review-20261115).
+
+The existing regression driver exercises SPICE, Verilog, VHDL and tEDAx netlisting; the repair adds no targeted test. The Smith-chart implementation and its expression regressions remain present. Tests were read, not run, and the new repair is treated as master-branch development. The current README still identifies GitHub and Codeberg as exact mirrors; only GitHub history is captured. [Netlisting tests](#source-tests-review-20261115) · [Retained Smith code](#source-smith-review-20261115) · [Mirror notice](#source-readme-review-20261115).

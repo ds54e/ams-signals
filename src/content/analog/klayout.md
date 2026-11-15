@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-15"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -41,6 +41,18 @@ sources:
   - id: "review-20261022-lvs"
     title: "Current MOS-device combining correctness fix"
     url: "https://github.com/KLayout/klayout/commit/7eb9a25b42242a97e61300ad3a1486e10937abf5"
+  - id: "activity-review-20261115"
+    title: "Merged Emscripten memory-sampling build fix"
+    url: "https://github.com/KLayout/klayout/commit/573d74859a60454d78309a148dedc8cfbff484ae"
+  - id: "implementation-review-20261115"
+    title: "Retained Emscripten memory-sampling branch"
+    url: "https://github.com/KLayout/klayout/blob/53911acd6dfaa113c188d11d20b2ae290aa60a6b/src/tl/tl/tlTimer.cc"
+  - id: "release-review-20261115"
+    title: "Published stable KLayout 0.30.13"
+    url: "https://github.com/KLayout/klayout/releases/tag/v0.30.13"
+  - id: "tests-review-20261115"
+    title: "Reviewed utility-library test project"
+    url: "https://github.com/KLayout/klayout/blob/53911acd6dfaa113c188d11d20b2ae290aa60a6b/src/tl/unit_tests/unit_tests.pro"
 ---
 
 ### Scope
@@ -69,4 +81,10 @@ GLM 5.3 is credited on a merged global-net cluster repair that redirects every a
 
 DRC/LVS and process-dependent connectivity checks are established capabilities, not new stages. The October 18 reviewed merge repairs MOS-device combination and includes regression changes; this is correctness maintenance rather than evidence of foundry qualification. [Current correctness change](#source-review-20261022-lvs).
 
-This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. The development-provenance classification is retained.
+
+### Current development and release boundary
+
+The November 14 default-branch merge adds an Emscripten branch to the memory sampler, returning zero where resident-set querying is unavailable. This is build compatibility maintenance within the existing Layout tool, with no new layout or AI capability. The subsequent dependency bump is counted as repository history but is not the meaningful checkpoint. [Merged fix](#source-activity-review-20261115) · [Retained implementation](#source-implementation-review-20261115).
+
+The published stable release is 0.30.13, whose tag points to the saved pre-suffix head; this repair follows that release. The patch adds no regression test, and the utility-library test project has no dedicated Timer suite. Source and test configuration were inspected without building or executing upstream tests. [Stable release](#source-release-review-20261115) · [Test project](#source-tests-review-20261115).

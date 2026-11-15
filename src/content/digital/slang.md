@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical slang repository"
@@ -57,6 +57,18 @@ sources:
   - id: review-20261112-tests
     title: "Positive and negative constant-case semantic regressions"
     url: https://github.com/MikePopoloski/slang/blob/0d49773adefee549c5fab7fac6485faa98112e1c/tests/unittests/ast/StatementTests.cpp
+  - id: review-20261115-activity
+    title: "Restrict new expressions to LRM-permitted contexts"
+    url: https://github.com/MikePopoloski/slang/commit/6d677aecd5ad4febec25f0c2632caec42ea6d361
+  - id: review-20261115-retained
+    title: "Retained context-sensitive new-expression parsing"
+    url: https://github.com/MikePopoloski/slang/blob/2664c559c78c150e8b144c8be2cfc1871a66304f/source/parsing/Parser_expressions.cpp
+  - id: review-20261115-ast-tests
+    title: "Positive and negative new-expression compilation regressions"
+    url: https://github.com/MikePopoloski/slang/blob/2664c559c78c150e8b144c8be2cfc1871a66304f/tests/unittests/ast/ClassTests.cpp
+  - id: review-20261115-parser-tests
+    title: "Misplaced-new parser diagnostics and constructor-call regressions"
+    url: https://github.com/MikePopoloski/slang/blob/2664c559c78c150e8b144c8be2cfc1871a66304f/tests/unittests/parsing/ExpressionParsingTests.cpp
 ---
 
 ### Implementation and scope
@@ -85,3 +97,11 @@ This was a static source and documentation review. External EDA, numerical-accur
 ### November 12, 2026 implementation review
 
 The November 11 correction binds case expressions before marking known unselected bodies as unevaluated and shares constant matching with known-branch selection. Positive and negative tests cover grouped cases, casez, inside ranges, type cases and unknown preceding items while retaining selected-branch diagnostics. This is frontend semantic and diagnostic correctness, not a simulator or new synthesis capability. Existing scope and provenance remain unchanged; upstream tests were inspected, not rerun. [Integrated activity](#source-review-20261112-activity). [Known-branch matching and unevaluated case bodies](#source-review-20261112-implementation) · [Positive and negative constant-case semantic regressions](#source-review-20261112-tests).
+
+### November 15, 2026 new-expression placement review
+
+The November 14 correction diagnoses class construction, dynamic-array allocation and shallow-copy new expressions outside the LRM contexts implemented by the parser. AllowNew applies only to the immediate expression: variable initializers (including for-loop variable declarations) and the right-hand side of an outermost blocking assignment statement can allow it, while nested expressions do not inherit permission. super.new constructor calls retain separate placement checks. [Integrated parser and declaration changes](#source-review-20261115-activity); [retained expression parser](#source-review-20261115-retained).
+
+The compilation regression expects 13 MisplacedNew diagnostics across return expressions, a default argument, nonblocking assignments, conditional/parenthesized expressions, assignment patterns, a nested assignment and a call argument. It also includes accepted variable initializers, blocking assignments, scoped construction, shallow copies, dynamic-array initialization, for-loop variable initialization and a valid derived-class super.new call. The parser regression expects 13 MisplacedNew diagnostics plus one InvalidSuperNew, including for-loop assignment and delayed-assignment cases; earlier tests are adjusted to use legal contexts. [Compilation cases](#source-review-20261115-ast-tests); [parser cases](#source-review-20261115-parser-tests); [complete diff](#source-review-20261115-activity).
+
+The repair and regressions remain at master head `2664c559c78c150e8b144c8be2cfc1871a66304f` and the reviewed commit is on its first-parent chain. This is frontend syntax/diagnostic correctness, not new simulation, synthesis or runtime-AI coverage, and it supplies no new AI implementation attribution. Existing Design/Verification and the separately evidenced AI-ASSISTED label remain unchanged. Tests were inspected, not executed; integration does not establish a released version or comprehensive LRM conformance.

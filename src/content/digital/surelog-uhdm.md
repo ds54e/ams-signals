@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical Surelog + UHDM repository"
@@ -48,6 +48,27 @@ sources:
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
     url: "https://github.com/chipsalliance/Surelog/commit/6db44ea2048c8ab9c702e389c2897f7e2318ccc5"
+  - id: "activity-review-20261115"
+    title: "Preserve signed implicit-type subroutine port ranges"
+    url: "https://github.com/chipsalliance/Surelog/commit/00bdd1d1925ac7565f422be77c07e5667c99aae8"
+  - id: "implementation-review-20261115"
+    title: "Retained subroutine-port and case-pattern compilation"
+    url: "https://github.com/chipsalliance/Surelog/blob/00bdd1d1925ac7565f422be77c07e5667c99aae8/src/DesignCompile/CompileStmt.cpp"
+  - id: "tests-review-20261115"
+    title: "Signed packed-range and scalar subroutine-port regression input"
+    url: "https://github.com/chipsalliance/Surelog/blob/00bdd1d1925ac7565f422be77c07e5667c99aae8/tests/TfPortSignedImplicit/dut.sv"
+  - id: "test-config-review-20261115"
+    title: "Regression requests AST and elaborated UHDM output"
+    url: "https://github.com/chipsalliance/Surelog/blob/00bdd1d1925ac7565f422be77c07e5667c99aae8/tests/TfPortSignedImplicit/TfPortSignedImplicit.sl"
+  - id: "patterns-review-20261115"
+    title: "Integrated tagged-union and guarded-pattern representation"
+    url: "https://github.com/chipsalliance/Surelog/commit/67a4dc5b6de903fd8b65ae47ef7dcc4d61699de5"
+  - id: "pattern-tests-review-20261115"
+    title: "Tagged-union matches, guards and pattern-variable regression input"
+    url: "https://github.com/chipsalliance/Surelog/blob/00bdd1d1925ac7565f422be77c07e5667c99aae8/tests/TaggedUnionMatches/dut.sv"
+  - id: "release-review-20261115"
+    title: "Published Surelog v1.87 release"
+    url: "https://github.com/chipsalliance/Surelog/releases/tag/v1.87"
 ---
 
 ### Implementation and scope
@@ -69,3 +90,11 @@ Reported Caliptra, CVA6 and regression outcomes are upstream evidence, not catal
 The reviewed elaboration changes resolve cross-file $unit constants, packed widths on grouped typed ports and non-ANSI function initializers. Matching cases establish targeted frontend corrections, not complete SystemVerilog compatibility. [Reviewed implementation integration](#source-review-20261011-1)
 
 The review preserves existing Scope and development-provenance classifications. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+### Current development and release boundary
+
+The November 14 default-branch repair preserves the packed range and signedness of non-ANSI subroutine ports such as `input signed [7:0] a`, and represents `input signed b` as a signed scalar. Previously, the leading signing keyword bypassed typespec construction. The matching input and checked-in expected UHDM output cover the two declarations; the regression configuration requests parsing, AST output and UHDM elaboration, rather than downstream simulation. This retained repair is the meaningful first-parent checkpoint at `00bdd1d1925ac7565f422be77c07e5667c99aae8`. [Integrated repair and expected output](#source-activity-review-20261115) · [Retained implementation](#source-implementation-review-20261115) · [Regression input](#source-tests-review-20261115) · [Test configuration](#source-test-config-review-20261115).
+
+The November 13 integration also represents tagged unions, wildcard/named patterns and guarded matches in UHDM, retaining conditional branches and case-pattern items that were previously dropped. Its fixture covers conditional, if and case matches with `&&&` guards and pattern variables. This is frontend representation work for consumers, not evidence that Surelog itself simulates or synthesizes these constructs. [Integrated representation changes](#source-patterns-review-20261115) · [Retained regression input](#source-pattern-tests-review-20261115).
+
+The latest published release reviewed is v1.87 from August 24; these November master changes are not attributed to it. Conventional Design and the existing AI-ASSISTED provenance are retained, without attributing these new changes to AI or adding UHDM repository counts. Source, expected outputs and release metadata were inspected without executing upstream code or reproducing conformance results. [Published release](#source-release-review-20261115).

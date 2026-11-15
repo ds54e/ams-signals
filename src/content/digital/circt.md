@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical CIRCT repository"
@@ -50,6 +50,15 @@ sources:
   - id: "activity-tip"
     title: "Simulation-dialect tagged variant type"
     url: "https://github.com/llvm/circt/commit/6af3f452dc1c1c573f5f67e4c63055b37eda11c0"
+  - id: review-20261115-activity
+    title: "Match Firtool verification-flavor C API declaration and enum mapping"
+    url: https://github.com/llvm/circt/commit/32b75af8cbd913e098791362548d4ba62a2783b9
+  - id: review-20261115-retained
+    title: "Retained C-to-C++ verification-flavor enum conversion"
+    url: https://github.com/llvm/circt/blob/a992b81c553304bf2b190102d41856942de334a3/lib/CAPI/Firtool/Firtool.cpp
+  - id: review-20261115-declaration
+    title: "Public C verification-flavor enum and setter declaration"
+    url: https://github.com/llvm/circt/blob/a992b81c553304bf2b190102d41856942de334a3/include/circt-c/Firtool/Firtool.h
 ---
 
 ### Implementation context
@@ -75,3 +84,9 @@ Reviewed 2026-10-01: **AI-ASSISTED**. Explicit Assisted-by attribution accompani
 Reviewed 2026-10-05. ExportVerilog no longer prefixes aliased, enum or union types with an invalid logic keyword, with emitted-Verilog regressions. This is compiler-output correctness, independent of the retained historical development badge. [Reviewed change](#source-activity-current).
 
 The later Sim dialect change implements a tagged variant type, including parsing, printing, alternative-name validation and type-walker regressions. This is reusable simulation IR infrastructure; it does not establish runtime AI. [Current implementation checkpoint](#source-activity-tip).
+
+### November 15, 2026 C API review
+
+The November 14 repair makes circtFirtoolOptionsSetVerificationFlavor accept the declared CirctFirtoolVerificationFlavor C enum instead of the internal C++ enum. An explicit switch maps None, IfElseFatal, Immediate and SVA to firrtl::VerificationFlavor before calling the existing option setter. This repairs the API definition/declaration mismatch; it does not implement a new verification engine or change the catalog's functional stages. [Integrated correction](#source-review-20261115-activity); [retained implementation](#source-review-20261115-retained); [public enum and declaration](#source-review-20261115-declaration).
+
+The commit changes only lib/CAPI/Firtool/Firtool.cpp and adds no tests; its message says that no current caller used the mismatched setter. The reviewed main head `a992b81c553304bf2b190102d41856942de334a3` retains the correction, with the November 14 commit on its first-parent chain as the meaningful checkpoint. No C/C++ build or runtime experiment was performed, and default-branch integration is not a release claim. The existing AI-ASSISTED label rests on the separately attributed ESI scheduler, not this enum repair. [Change scope and maintainer explanation](#source-review-20261115-activity).

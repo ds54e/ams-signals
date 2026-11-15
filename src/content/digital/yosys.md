@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical Yosys repository"
@@ -48,6 +48,21 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/YosysHQ/yosys/blob/af9f71e510e87efec84d9798d8c692378e09f7db/frontends/ast/simplify.cc"
+  - id: review-20261115-activity
+    title: Integrated Verific SVA diagnostics and clock/disable handling
+    url: https://github.com/YosysHQ/yosys/commit/098e46a36e52c4ee8e2c90315e9450b2b54d2db8
+  - id: review-20261115-implementation
+    title: Retained checks for unsupported eventually forms
+    url: https://github.com/YosysHQ/yosys/blob/e419c4eef77f953212f2dbc6af88d4eaef177084/frontends/verific/verificsva.cc
+  - id: review-20261115-tests
+    title: Accepted and rejected eventually-property import regressions
+    url: https://github.com/YosysHQ/yosys/blob/e419c4eef77f953212f2dbc6af88d4eaef177084/tests/verific/sva_eventually.ys
+  - id: review-20261115-gating-tests
+    title: Clock-enable and disable-condition import regressions
+    url: https://github.com/YosysHQ/yosys/blob/e419c4eef77f953212f2dbc6af88d4eaef177084/tests/verific/sva_muxing.ys
+  - id: review-20261115-release
+    title: Yosys 0.71 release containing the reviewed SVA integration
+    url: https://github.com/YosysHQ/yosys/releases/tag/v0.71
 ---
 
 ### Implementation context
@@ -71,3 +86,9 @@ Reviewed 2026-10-05. Python-wheel builds resolve missing or incompatible Bison/F
 ### Development provenance
 
 Claude is credited for implementing unpacked array-to-array assignments and ternary expansion in AST simplification. The canonical Yosys project retains the implementation and executable tests. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Verific assertion-import correctness
+
+The integrated Verific frontend correction explicitly diagnoses unsupported `eventually` cover forms and rejects bounded `eventually` assertions rather than importing them as unbounded ones. It also repairs clock-enable and disable-condition handling for tested property forms. Executable import scripts distinguish accepted assertions from unsupported cover/bounded forms, exercise gated assertions and retain an explicit warning for an unsupported outer disable on a clocked property. These changes concern the optional Verific path; they do not establish equivalent coverage in the native or sv-elab/slang frontend. [Integrated implementation](#source-review-20261115-activity) · [Retained checks](#source-review-20261115-implementation) · [Eventually regressions](#source-review-20261115-tests) · [Gating regressions](#source-review-20261115-gating-tests).
+
+The reviewed merge is an ancestor of the canonical v0.71 release commit, so this correction is included in that release; later default-branch changes are separate development activity. The regressions were source-inspected, not run with Verific or proof engines. The existing synthesis/verification description, conventional runtime stages and separately evidenced AI-development provenance remain adequate. [Release](#source-review-20261115-release) · [Reviewed integration](#source-review-20261115-activity).

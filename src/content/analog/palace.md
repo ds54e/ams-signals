@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C++ implementation; its MPI/MFEM/libCEED-based build or supported packaged environment and prepared meshes are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-15"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -30,6 +30,21 @@ sources:
     title: Official project website and documentation
     url: https://awslabs.github.io/palace/
     purpose: official
+  - id: "activity-20261115"
+    title: "Match saved and PROM frequencies to sample frequencies"
+    url: "https://github.com/awslabs/palace/commit/6e185f2413d6c4c8c16e0953f0be345342a95e95"
+  - id: "config-20261115"
+    title: "Nearest-sample matching before frequency index scans"
+    url: "https://github.com/awslabs/palace/blob/6e185f2413d6c4c8c16e0953f0be345342a95e95/palace/utils/configfile.cpp"
+  - id: "tests-20261115"
+    title: "Rounding regression for saved and PROM frequencies"
+    url: "https://github.com/awslabs/palace/blob/6e185f2413d6c4c8c16e0953f0be345342a95e95/test/unit/test-config.cpp"
+  - id: "requirements-20261115"
+    title: "Current compiler, MPI and optional GPU requirements"
+    url: "https://github.com/awslabs/palace/blob/6e185f2413d6c4c8c16e0953f0be345342a95e95/README.md"
+  - id: "release-20261115"
+    title: "Palace v0.19.0 stable release"
+    url: "https://github.com/awslabs/palace/releases/tag/v0.19.0"
 ---
 
 ### Implemented operations and boundaries
@@ -42,6 +57,12 @@ The solver exposes driven, eigenmode, transient, electrostatic and magnetostatic
 
 The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The meaningful checkpoint is 2026-10-21T19:09:06Z (`29ad351f916e47e005a43730513f155eeb634e3e`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+The earlier reviewed checkpoint was 2026-10-21T19:09:06Z (`29ad351f916e47e005a43730513f155eeb634e3e`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.
+
+### Current implementation and release boundary
+
+The November 13 main revision matches saved and PROM frequencies to the nearest sampled frequency before exact index scans. This prevents driven sweeps from aborting when overlapping sample ranges differ only by floating-point rounding. The regression uses adjacent representable values and checks both saved and PROM indices. This is conventional Simulation maintenance. [Repair](#source-activity-20261115); [implementation](#source-config-20261115); [regression](#source-tests-20261115).
+
+The latest verified stable release is v0.19.0, published November 3; the reviewed repair follows that tag. Current source requires CMake 3.27 or newer, a C++20 compiler, MPI and BLAS/LAPACK; GPU execution additionally requires CUDA or ROCm. The finite-element dependencies and prepared-mesh/convergence requirements remain. This static review did not build Palace, acquire its dependencies or run its numerical tests. [Stable release](#source-release-20261115); [requirements](#source-requirements-20261115).
