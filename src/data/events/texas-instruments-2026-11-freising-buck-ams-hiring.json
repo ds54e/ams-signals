@@ -1,0 +1,22 @@
+{
+  "id": "texas-instruments-2026-11-freising-buck-ams-hiring",
+  "when": {
+    "start": "2026-11-12",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "texas-instruments"
+  ],
+  "people": [],
+  "headline": "Texas Instruments recruits AMS verification engineers for Freising low-voltage buck converters",
+  "fact": "Texas Instruments posted Design Verification Engineer requisition 25020204 for its SR-LVB product line in Freising, covering low-voltage buck converters and controllers. Assigned work includes UVM-based AMS/DMS pre-silicon verification, system-use-case simulations, Verilog-AMS and WREAL behavioral models, and closed-loop simulations combining analog models with RTL or gate-level designs and SDF timing. The role also contributes verification plans, testbenches and design-for-verification reviews. TI classifies it as Campus recruitment, not an internship. This is a hiring mandate, not evidence of completed verification results or a newly deployed methodology.",
+  "sources": [
+    {
+      "title": "Texas Instruments: Design Verification Engineer m/w/d (25020204)",
+      "url": "https://careers.ti.com/en/sites/CX/job/25020204",
+      "checkedAt": "2026-11-15",
+      "summary": "The official public Oracle recruitment API gives ExternalPostedStartDate November 12, 2026 and RequisitionType Campus. The full description identifies Freising SR-LVB products and assigned UVM AMS/DMS, VerilogAMS/WREAL modeling and RTL/Gates+SDF closed-loop verification work."
+    }
+  ]
+}

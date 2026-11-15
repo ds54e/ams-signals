@@ -1,0 +1,28 @@
+{
+  "id": "apple-2026-11-ams-dv-leadership-ai-hiring",
+  "when": {
+    "start": "2026-11-03",
+    "precision": "day"
+  },
+  "kind": "organizational",
+  "companies": [
+    "apple"
+  ],
+  "people": [],
+  "headline": "Apple seeks AMS verification leadership with AI-assisted test and coverage workflows",
+  "fact": "Apple posted Design Verification Senior Manager role 200692916 in Austin, Cupertino and San Diego for verification leadership across SerDes, DDR interfaces, PLLs and data converters. The role assigns organizational structure, verification strategy, risk reporting and hiring, with AI-assisted test generation, coverage analysis, triage and debug acceleration among its stated responsibilities. This records a management hiring mandate across an AMS portfolio, not completed AI deployment, measured productivity gains or a demonstrated company-wide methodology. Regional listings are grouped as one role.",
+  "sources": [
+    {
+      "title": "Design Verification Senior Manager — Austin, role 200692916-0157",
+      "url": "https://jobs.apple.com/en-ua/details/200692916-0157/design-verification-senior-manager?team=HRDWR",
+      "checkedAt": "2026-11-15",
+      "summary": "Official Apple posting dated November 3, 2026. Its description assigns AMS DV organizational leadership and AI-assisted test generation, coverage analysis, triage and debug; these are requested responsibilities rather than reported results."
+    },
+    {
+      "title": "Apple US careers — location variants of role 200692916",
+      "url": "https://jobs.apple.com/en-ca/search?location=united-states-USA&page=36",
+      "checkedAt": "2026-11-15",
+      "summary": "Official Apple search listing shows the Austin, Cupertino and San Diego variants of the same senior-manager role, all dated November 3, 2026; the variants are not separate Events."
+    }
+  ]
+}

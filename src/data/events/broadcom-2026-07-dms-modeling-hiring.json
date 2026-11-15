@@ -5,16 +5,25 @@
     "precision": "day"
   },
   "kind": "organizational",
-  "companies": ["broadcom"],
+  "companies": [
+    "broadcom"
+  ],
   "people": [],
   "headline": "Broadcom lists DMS modeling for touch, wireless-power, health-sensing, and satellite analog front ends",
-  "fact": "Broadcom posted an Analog/Mixed Signal Verilog Modeling Design Engineer role for touch-controller, wireless-power, health-sensing, and satellite analog front ends. The description calls for SystemVerilog DMS models, UDT/UDR nettypes including wreal or EEnet, model-versus-schematic verification, and experience using Cursor or chipAgents to generate analog SystemVerilog models and testbenches.",
+  "fact": "Broadcom posted an Analog/Mixed Signal Verilog Modeling Design Engineer role for touch-controller, wireless-power, health-sensing, and satellite analog front ends. The description calls for SystemVerilog DMS models, UDT/UDR nettypes including wreal or EEnet, model-versus-schematic verification, and experience using Cursor or chipAgents to generate analog SystemVerilog models and testbenches. A separate Irvine posting, R027420 dated November 5, assigns gathering circuit-design data, creating netlists and AI-generated real-number models, and testing those models. Unlike the earlier experience requirement, these are listed duties; the postings do not establish a shared team, the same product scope, or completed deployment.",
   "sources": [
     {
       "title": "Analog/Mixed Signal Verilog Modeling Design Engineer",
       "url": "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/USA-CA-Irvine-Alton-Parkway-Bldg-1/Analog-Mixed-Signal-Verilog-Modeling-Design-Engineer_R024672",
       "checkedAt": "2026-08-30",
       "summary": "Official Broadcom role dated July 7, 2026, for product-scoped DMS modeling, nettypes, schematic correlation, and AI-assisted generation experience."
+    },
+    {
+      "title": "R&D Engineer, IC Design — R027420",
+      "url": "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/USA-CA-Irvine-Alton-Parkway-Bldg-2/R-D-Engineer--IC-Design_R027420",
+      "checkedAt": "2026-11-15",
+      "status": "available",
+      "summary": "Official Workday posting and public job data give November 5, 2026 as the posting start date. Assigned duties include circuit-data collection, netlists, AI-generated RNM, model tests and automation. The source does not specify the earlier role’s products or establish that the roles share a team."
     }
   ]
 }
