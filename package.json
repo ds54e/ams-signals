@@ -27,7 +27,7 @@
     "test:live": "playwright test --config playwright.live.config.mjs"
   },
   "dependencies": {
-    "astro": "7.2.9"
+    "astro": "7.4.12"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1"
