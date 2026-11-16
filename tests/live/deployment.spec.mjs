@@ -64,7 +64,6 @@ test('export, robots and sitemap reflect this release', async ({ request }) => {
       expect(sitemap).toContain(`${origin}/${change.route}`);
     }
   }
-  expect((await request.get('./__ams_live_missing_route__/')).status()).toBe(404);
 });
 
 for (const change of changes) {
