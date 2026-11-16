@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-15",
-  "capturedAt": "2026-11-15T06:46:22.461Z",
+  "reviewedAt": "2026-11-16",
+  "capturedAt": "2026-11-16T15:00:16.603Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2530,6 +2530,137 @@
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "894832fdd9cc8daf5aa551e94a32881d48e05eab"
+    },
+    "dvicode": {
+      "kind": "github",
+      "repository": "hexkDotCom/dvicode",
+      "repositoryId": 1424797388,
+      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "defaultBranch": "main",
+      "headSha": "c55f9a70cf507a1e165559de71babf91dae3308e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        261,
+        3
+      ],
+      "lastCommitAt": "2026-11-10",
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "9747a89d45a89080ed20778d608ed26e46433375"
+    },
+    "marlin": {
+      "kind": "github",
+      "repository": "ethanuppal/marlin",
+      "repositoryId": 912564904,
+      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "defaultBranch": "main",
+      "headSha": "e656080aeade503786d89dd5526fc5c11e6a63a9",
+      "commits": [
+        5,
+        0,
+        8,
+        1,
+        0,
+        23,
+        0,
+        0,
+        0,
+        22,
+        10,
+        0
+      ],
+      "lastCommitAt": "2026-10-03",
+      "lastMeaningfulCommitAt": "2026-10-02",
+      "lastMeaningfulCommitSha": "3ff44aeabfa7d1bfa518925018167b45ec668bba"
+    },
+    "sparkle": {
+      "kind": "github",
+      "repository": "Verilean/sparkle",
+      "repositoryId": 1135339607,
+      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "defaultBranch": "main",
+      "headSha": "6c29b9b8b4bed436afcc0a3f23a6335bfbc751a1",
+      "commits": [
+        0,
+        32,
+        26,
+        42,
+        9,
+        8,
+        29,
+        26,
+        16,
+        1,
+        0,
+        4
+      ],
+      "lastCommitAt": "2026-11-09",
+      "lastMeaningfulCommitAt": "2026-11-09",
+      "lastMeaningfulCommitSha": "3134cdd1b94b905509aebbaf7cff594400d8c44b"
+    },
+    "wavepeek": {
+      "kind": "github",
+      "repository": "kleverhq/wavepeek",
+      "repositoryId": 1146435912,
+      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "defaultBranch": "main",
+      "headSha": "a4451a222e2971404cce574d89fcfb991b160521",
+      "commits": [
+        0,
+        4,
+        121,
+        236,
+        3,
+        116,
+        29,
+        13,
+        13,
+        2,
+        9,
+        8
+      ],
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "c5db17bb852bae9dd2a44563512268a100253e90"
+    },
+    "xlsynth": {
+      "kind": "github",
+      "repository": "xlsynth/xlsynth-crate",
+      "repositoryId": 807700270,
+      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "defaultBranch": "main",
+      "headSha": "b0193894a5e09629b65d67cea2e2b210e74d91c6",
+      "commits": [
+        34,
+        91,
+        63,
+        44,
+        66,
+        63,
+        41,
+        17,
+        25,
+        38,
+        73,
+        103
+      ],
+      "lastCommitAt": "2026-11-14",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "b0193894a5e09629b65d67cea2e2b210e74d91c6"
+    },
+    "pyvsc": {
+      "kind": "public-update",
+      "lastPublicUpdateAt": "2026-11-03",
+      "lastPublicUpdateSource": "release",
+      "lastPublicUpdateType": "release"
     }
   }
 }
