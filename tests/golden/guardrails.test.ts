@@ -165,3 +165,18 @@ test('Golden fact lint rejects inference wording in a factual Event', async () =
     assert.match(rejected.stderr, /inference-like wording/i);
   });
 });
+
+test('Golden CLI accepts one through five sources and rejects zero or six', async () => {
+  await withFixture(async ({ root, eventPath, event }) => {
+    for (const count of [0, 1, 3, 4, 5, 6]) {
+      const sources = Array.from({ length: count }, (_, index) => ({ ...event.sources[0], url: `https://example.org/source-${index}` }));
+      await writeJson(eventPath, { ...event, sources });
+      const result = run(validateScript, root);
+      if (count >= 1 && count <= 5) assert.equal(result.status, 0, result.stderr);
+      else {
+        assert.notEqual(result.status, 0);
+        assert.match(result.stderr, /sources must contain 1-5 entries/);
+      }
+    }
+  });
+});

@@ -10,7 +10,7 @@
   ],
   "people": [],
   "headline": "Infineon lists internships and graduate roles for AMS model verification",
-  "fact": "Infineon posted Graduate - Analog Mixed-Signal Design Verification Engineer role HRC1763746 with an official September 9, 2026 date. It assigns Verilog-AMS/SystemVerilog model generation and maintenance, testbenches, nominal/corner simulation, fault injection and regressions. Related Andover and Shanghai internships observed October 5 cover behavioral models, AMS IP/SoC environments, RTL/model integration and model-quality checks. January/summer 2027 are planned employment starts. The official graduate date is the earliest verified publication among these grouped roles; the internships' first publication dates remain unconfirmed. These are hiring requirements, not deployed practices.",
+  "fact": "Infineon posted Graduate - Analog Mixed-Signal Design Verification Engineer role HRC1763746 with an official September 9, 2026 date. It assigns Verilog-AMS/SystemVerilog model generation and maintenance, testbenches, nominal/corner simulation, fault injection and regressions. Related Andover and Shanghai internships observed October 5 cover behavioral models, AMS IP/SoC environments, RTL/model integration and model-quality checks. An Austin Intern-Analog Design role posted November 5 adds mixed-signal testbenches and SystemVerilog/UVM constrained-random verification for multiphase buck controllers, integrated power stages and voltage regulators. January/summer 2027 are planned employment starts. The official graduate date is the earliest verified publication among these grouped roles; the Andover/Shanghai internships' first publication dates remain unconfirmed. These are hiring requirements, not deployed practices.",
   "sources": [
     {
       "title": "Infineon: Andover AMS design-verification internship — employer LinkedIn posting",
@@ -29,6 +29,12 @@
       "url": "https://jobs.infineon.com/careers/job/563808971876168",
       "checkedAt": "2026-10-25",
       "summary": "Official JobPosting datePosted is September 9, 2026 at 13:22:14. Full graduate duties include Verilog-AMS/SystemVerilog models, fault injection, corners and regressions. This earlier verified publication corrects the grouped Event's October observation-date basis; 2027 employment starts are separate."
+    },
+    {
+      "title": "Infineon Careers: Intern-Analog Design, Austin",
+      "url": "https://infineon.eightfold.ai/careers/job/563808972303150",
+      "checkedAt": "2026-11-15",
+      "summary": "Official JobPosting metadata dates this Austin role to November 5, 2026. Assigned work includes mixed-signal testbenches for digital multiphase buck controllers, integrated power stages and voltage regulators, with reusable SystemVerilog/UVM constrained-random testbenches. These are advertised responsibilities, not evidence of deployed practice."
     }
   ]
 }

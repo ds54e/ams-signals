@@ -46,7 +46,7 @@ for (const { name, data } of events) {
   if (!isValidWhen(data.when)) errors.push(`${name}: when must use valid calendar dates matching precision, with end not before start.`);
   if (!allowedKinds.has(data.kind)) errors.push(`${name}: unsupported kind ${data.kind}.`);
   if (!allowedPrecision.has(data.when?.precision)) errors.push(`${name}: invalid date precision.`);
-  if (!Array.isArray(data.sources) || data.sources.length < 1 || data.sources.length > 3) errors.push(`${name}: sources must contain 1-3 entries.`);
+  if (!Array.isArray(data.sources) || data.sources.length < 1 || data.sources.length > 5) errors.push(`${name}: sources must contain 1-5 entries.`);
   for (const id of data.companies ?? []) if (!companyIds.has(id)) errors.push(`${name}: unknown company id ${id}.`);
   for (const id of data.people ?? []) if (!peopleIds.has(id)) errors.push(`${name}: unknown person id ${id}.`);
   if (data.affiliationChange) {

@@ -43,7 +43,7 @@ const events = defineCollection({
     people: z.array(z.string().min(1)),
     headline: z.string().min(1).max(160),
     fact: z.string().min(1).max(1000),
-    sources: z.array(sourceSchema).min(1).max(3),
+    sources: z.array(sourceSchema).min(1).max(5),
     affiliationChange: affiliationChangeSchema.optional(),
   }).strict(),
 });

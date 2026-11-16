@@ -1,0 +1,22 @@
+{
+  "id": "synopsys-2026-11-custom-compiler-agentic-ai-demo",
+  "when": {
+    "start": "2026-11-03",
+    "precision": "day"
+  },
+  "kind": "technical",
+  "companies": [
+    "synopsys"
+  ],
+  "people": [],
+  "headline": "A-SSCC lists Synopsys Custom Compiler agentic AI demonstration for AMS design",
+  "fact": "The A-SSCC 2026 industry-demo program lists a November 3 presentation by Synopsys engineer Chun-Ming (Jimmy) Wang on its Custom Compiler Agentic AI platform. The abstract describes agents planning design actions, operating schematic, simulation and layout tools, evaluating results and iterating against checks within an AMS design workflow. This records the scheduled demonstration and its advertised scope, not a verified product release, customer adoption or measured productivity improvement.",
+  "sources": [
+    {
+      "title": "A-SSCC 2026 Industry Demo program",
+      "url": "https://a-sscc2026.org/public/industry-demo",
+      "checkedAt": "2026-11-16",
+      "summary": "Official program gives the November 3 Synopsys session, speaker affiliation and schematic/simulation/layout agent workflow. The abstract advertises demonstrations; it does not provide measured outcomes or confirm a product release."
+    }
+  ]
+}
