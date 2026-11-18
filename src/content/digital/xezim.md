@@ -1,7 +1,7 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
-description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with constrained randomization, coverage, DPI/VPI, SDF timing and optional native compilation. It also supports a UPF power-aware simulation subset and resolved real-number nets, including tested Verilog-AMS `wreal`, without a general analog solver."
+description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with randomization, coverage, DPI/VPI, SDF timing and optional native compilation. Main-branch corrections cover modport prototypes, real comparisons, struct writes and waveform aliases; existing UPF and resolved-real/wreal support remain subsets, not full IEEE conformance or a general analog solver."
 scope:
   verification:
     ai: false

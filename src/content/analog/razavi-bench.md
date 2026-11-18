@@ -2,7 +2,7 @@
 name: "Razavi-Bench"
 aliases: ["Razavi Bench"]
 summary: "Benchmarks reasoning about analog circuit diagrams through direct QA, agentic answers, and an experimental simulator-assisted mode."
-description: "Benchmarks LLM answers to 50 analog-circuit questions through direct QA, workspace-agent and experimental ngspice-assisted modes. Reference solutions and a shared rubric grade explanations about MOS devices, feedback and oscillators; the published leaderboard reports direct-QA results rather than circuit-performance closure."
+description: "Benchmarks LLM answers to 50 analog-circuit questions through direct QA, workspace-agent and experimental ngspice-assisted modes. Harbor workspace exports omit task titles and source-article figure numbers while keeping reference answers in a separate verifier; the published leaderboard grades direct-QA explanations rather than circuit-performance closure."
 scope:
   design:
     ai: true

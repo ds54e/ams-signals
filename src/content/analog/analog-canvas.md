@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Agent-assisted hierarchical schematic editor with connectivity inspection, simulation-source authoring and SPICE/Spectre/RNL interchange. Its hosted ngspice SG13G2 profile adds device/corner and combinational-cell qualification; local headless drawing does not execute simulation, and EDA adapters retain separate service, installation and PDK requirements."
+description: "Agent-assisted hierarchical schematic editor with simulation-source authoring and SPICE/Spectre/RNL interchange, including routed-wire and net-label preservation with partial-drawing recovery. Its hosted ngspice SG13G2 profile supports device/corner and combinational-cell qualification; local headless drawing does not simulate, and EDA adapters require separate services, installations and PDKs."
 scope:
   design:
     ai: true
