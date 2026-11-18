@@ -60,6 +60,15 @@ sources:
   - id: review-20261107-implementation
     title: Separate reasoning-trace and timing probe implementation and published results
     url: https://github.com/Arcadia-1/razavi-bench/commit/5c650c6338a11e6860735f345c08d6741d741b2d
+  - id: review-20261118-inputs
+    title: "Harbor exporter removes task titles and source-article figure numbers"
+    url: https://github.com/Arcadia-1/razavi-bench/commit/4820fe4ff4ea9d7de20c762a2c3461873f0fa44e
+  - id: review-20261118-tests
+    title: "All-task export input-boundary regression tests"
+    url: https://github.com/Arcadia-1/razavi-bench/blob/4820fe4ff4ea9d7de20c762a2c3461873f0fa44e/tests/test_harbor_export.py
+  - id: review-20261118-contract
+    title: "Agent workspace and separate verifier contract"
+    url: https://github.com/Arcadia-1/razavi-bench/blob/4820fe4ff4ea9d7de20c762a2c3461873f0fa44e/agentic/README.md
 ---
 ### Inputs and modes
 
@@ -92,3 +101,9 @@ Reviewed 2026-10-05. A standalone direct-QA runner connects benchmark questions 
 ### Development provenance
 
 The reviewed patch implements the model-results view and its data/navigation/pricing integration, not only visual styling. Attribution concerns this user-facing results subsystem; the benchmark's questions, released model answers and scoring methodology are not attributed to AI by this evidence. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+
+### Workspace input-boundary review
+
+Source review: November 18, 2026. Existing activity captures are unchanged.
+
+The Harbor exporter now supplies the question prompt without the task title or source-article figure numbers, and renames figures sequentially in the agent workspace. Regression tests check all task exports; reference answers and the grading rubric remain in the separate verifier. This tightens the documented input boundary, but does not establish a newly reproduced agentic score or eliminate every possible source of benchmark contamination. Upstream tests were inspected, not executed; the existing direct-QA leaderboard and simulator-treatment boundaries remain applicable. [Exporter change](#source-review-20261118-inputs) · [Regression cases](#source-review-20261118-tests) · [Workspace/verifier contract](#source-review-20261118-contract).

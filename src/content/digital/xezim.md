@@ -99,6 +99,24 @@ sources:
   - id: review-20261115-release
     title: xezim 0.11.6 release preceding the reviewed waveform changes
     url: https://github.com/aionhw/xezim/releases/tag/0.11.6
+  - id: review-20261118-modport-core
+    title: "Merged parser support for modport task and function prototypes"
+    url: https://github.com/aionhw/xezim-core/pull/241
+  - id: review-20261118-modport-tests
+    title: "Merged modport method-prototype regression tests"
+    url: https://github.com/aionhw/xezim/pull/1238
+  - id: review-20261118-real-core
+    title: "Merged real relational operand conversion before unknown-bit checks"
+    url: https://github.com/aionhw/xezim-core/pull/242
+  - id: review-20261118-real-tests
+    title: "Merged real relational operator regressions with unknown bits"
+    url: https://github.com/aionhw/xezim/pull/1244
+  - id: review-20261118-struct
+    title: "Merged registered-cell writes for struct concatenation leaves"
+    url: https://github.com/aionhw/xezim/pull/1236
+  - id: review-20261118-waveform
+    title: "Merged exclusion of qualified parameter aliases from waveform scopes"
+    url: https://github.com/aionhw/xezim/pull/1214
 ---
 
 ### Implementation context
@@ -157,3 +175,11 @@ The November 12 implementation distinguishes adopted descendants from immediate 
 The waveform path now combines every `$dumpvars` selection made at the time dumping starts, preserving each call's own depth and deduplicating selected signals. Regressions cover repeated calls in one block, calls in separate blocks at that same time, independent depth limits and an argument-free whole-design selection. Calls at later simulation times remain checkpoints of the running dump. [Implementation](#source-review-20261115-implementation) · [Retained handling](#source-review-20261115-retained) · [Regression checkpoint](#source-review-20261115-activity) · [Executable cases](#source-review-20261115-tests).
 
 The canonical 0.11.6 release precedes these November 14 development commits; its publication does not establish inclusion of these fixes. The later tip only synchronizes a core revision and is not promoted to the meaningful checkpoint. This review inspected source and tests without running conformance workloads. Conventional Verification, the existing AI-development evidence and the real-number-modeling/analog-solver boundary remain unchanged. [Release boundary](#source-review-20261115-release) · [Integrated waveform correction](#source-review-20261115-implementation).
+
+### Integrated language and waveform corrections
+
+Source review: November 18, 2026. Existing activity captures are unchanged.
+
+Six pull requests merged on November 17, 2026 UTC cover four related correctness areas: modport task/function prototype parsing and its regression tests; real relational operand conversion before unknown-bit checks and its tests; registered-cell writes for struct concatenation leaves; and exclusion of package-, `$unit`- and class-qualified parameter aliases from waveform scopes. The paired core and simulator changes are one implementation/test story per behavior, not six independent capabilities. [Modport parser](#source-review-20261118-modport-core) · [Modport tests](#source-review-20261118-modport-tests) · [Real comparison implementation](#source-review-20261118-real-core) · [Real comparison tests](#source-review-20261118-real-tests) · [Struct writes](#source-review-20261118-struct) · [Waveform aliases](#source-review-20261118-waveform).
+
+The prototype parser still rejects default arguments and does not establish interface-signature matching. The real-comparison correction retains integral X/Z behavior; continuous/nonblocking struct-concatenation assignments and other alias forms remain separate boundaries. These merged changes do not establish full IEEE conformance, release inclusion, broader RNM support or a general analog solver. Upstream regressions were inspected, not executed. Conventional Verification, existing AI-development evidence and the single canonical activity repository remain unchanged.

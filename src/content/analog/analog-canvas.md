@@ -93,6 +93,12 @@ sources:
 - id: review-20261107-models
   title: "SG13G2 model defaults, parameter warnings and profile inference"
   url: https://github.com/cascode-ai/analog-canvas/commit/7ff62c6c22f827d2434c195ad49207fa7151c807
+- id: review-20261118-rnl
+  title: "Mode-routed RNL wires, labels and partial-drawing recovery"
+  url: https://github.com/cascode-ai/analog-canvas/commit/feaa2279a62b43729871634eb32c4001cb181ed0
+- id: review-20261118-tests
+  title: "Executable agent-import routing, labels and recovery regressions"
+  url: https://github.com/cascode-ai/analog-canvas/blob/feaa2279a62b43729871634eb32c4001cb181ed0/apps/editor/src/features/netlist-export/rnl-agent-import.test.ts
 ---
 
 ### Workflow and scope
@@ -136,3 +142,9 @@ The maintained main branch integrates an isolated ngspice SG13G2 execution profi
 ### November implementation review
 
 Current source extends SG13G2 model authoring and profile inference and adds tested drafting controls. SG13G2 qualification CI now triggers on profile-specific sources rather than all editor changes; its presence does not prove every subsequent editor revision was electrically qualified. Local headless drawing remains separate from simulation. No EDA runs were reproduced. [Drafting implementation and qualification triggers](#source-review-20261107-implementation) · [Model authoring](#source-review-20261107-models).
+
+### RNL routing and partial-drawing recovery
+
+Source review: November 18, 2026. Existing activity captures are unchanged.
+
+RNL imports now preserve the runtime-generated wire path for mode-routed wires and retain placed net labels with their connections. A wire attached to a different net is omitted individually, with source-location diagnostics, rather than causing the entire drawing to be discarded. Executable regression cases cover routing, labels and partial-drawing recovery. These are inspected structural-interchange artifacts, not independently reproduced electrical equivalence or simulation results. Existing stage, development-provenance and hosted/local execution boundaries remain unchanged. [Implementation](#source-review-20261118-rnl) · [Regression cases](#source-review-20261118-tests).
