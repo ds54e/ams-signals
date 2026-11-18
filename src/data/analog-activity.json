@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-16",
-  "capturedAt": "2026-11-16T15:00:16.603Z",
+  "reviewedAt": "2026-11-18",
+  "capturedAt": "2026-11-18T00:28:19.572Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -171,7 +171,7 @@
       "lastCommitAt": "2026-04-10",
       "lastMeaningfulCommitAt": "2026-03-27",
       "lastMeaningfulCommitSha": "c4d2689d224ebf4b3dea77c310c64be58fe1f560",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean\u00b1std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "autosizer": {
       "kind": "github",
@@ -385,9 +385,9 @@
       "kind": "github",
       "repository": "Arcadia-1/razavi-bench",
       "repositoryId": 1279793112,
-      "capturedAt": "2026-11-07T02:09:52.216Z",
+      "capturedAt": "2026-11-18T00:28:19.572Z",
       "defaultBranch": "main",
-      "headSha": "5c650c6338a11e6860735f345c08d6741d741b2d",
+      "headSha": "30e6a5e3657f9f7db2992c94d9bd88186e0fbd31",
       "commits": [
         0,
         0,
@@ -400,9 +400,9 @@
         0,
         73,
         37,
-        15
+        42
       ],
-      "lastCommitAt": "2026-11-05",
+      "lastCommitAt": "2026-11-10",
       "lastMeaningfulCommitAt": "2026-11-05",
       "lastMeaningfulCommitSha": "5c650c6338a11e6860735f345c08d6741d741b2d",
       "notes": "The reviewed November 5 head implements a separate reasoning-trace/timing probe and publishes its results. Active leaderboard scoring is independently documented in the project notes; no upstream model run or reported measurement was reproduced."
@@ -937,9 +937,9 @@
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
-      "capturedAt": "2026-11-07T02:10:13.238Z",
+      "capturedAt": "2026-11-18T00:28:19.572Z",
       "defaultBranch": "main",
-      "headSha": "267e044779fdff64c1eda6e441b70d680a474e18",
+      "headSha": "ab2b0eabc4ff6be8eb25b5aee949683e9c321e12",
       "commits": [
         0,
         0,
@@ -952,9 +952,9 @@
         668,
         642,
         364,
-        49
+        275
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "b02d4184ac2ab6ddb810bddb7068ce6b807b3256",
       "notes": "Reviewed implementation/validation at b02d4184ac2ab6ddb810bddb7068ce6b807b3256. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."

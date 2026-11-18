@@ -17,7 +17,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-18"
 sources:
   - id: "site"
     title: "Official project website"
@@ -104,6 +104,6 @@ The reviewed patch implements the model-results view and its data/navigation/pri
 
 ### Workspace input-boundary review
 
-Source review: November 18, 2026. Existing activity captures are unchanged.
+Source review and targeted activity capture: November 18, 2026. Earlier meaningful-activity checkpoints are retained separately from the newer implementation evidence below.
 
 The Harbor exporter now supplies the question prompt without the task title or source-article figure numbers, and renames figures sequentially in the agent workspace. Regression tests check all task exports; reference answers and the grading rubric remain in the separate verifier. This tightens the documented input boundary, but does not establish a newly reproduced agentic score or eliminate every possible source of benchmark contamination. Upstream tests were inspected, not executed; the existing direct-QA leaderboard and simulator-treatment boundaries remain applicable. [Exporter change](#source-review-20261118-inputs) · [Regression cases](#source-review-20261118-tests) · [Workspace/verifier contract](#source-review-20261118-contract).

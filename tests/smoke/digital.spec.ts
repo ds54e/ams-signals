@@ -7,7 +7,7 @@ installBrowserErrorGuards(test);
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
   ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'ucagent', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
-    'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'peakrdl', 'slang-server', 'gtkwave']);
+    'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'slang-server', 'gtkwave']);
 
 catalogSearchRegression(fixture, {
   Veryl: ['veryl'],
@@ -16,7 +16,7 @@ catalogSearchRegression(fixture, {
   RTL: ['veryl', 'spade', 'kanagawa', 'dynamatic'],
   simulator: ['verilator', 'icarus-verilog', 'veryl', 'amaranth'],
   cocotb: ['veryl'],
-  UVM: ['iverilog-uvm', 'xezim', 'rggen', 'peakrdl'],
+  UVM: ['iverilog-uvm', 'xezim', 'rggen'],
   formal: ['pono', 'symbiyosys', 'verifyrtl', 'siliconcompiler'],
   waveform: ['surfer', 'what', 'vitamin', 'amaranth', 'slang-server', 'gtkwave'],
   'Slang Server': ['slang-server'],
@@ -37,11 +37,10 @@ catalogSearchRegression(fixture, {
   dataflow: ['dynamatic'],
   AI: ['sentinel-dv', 'ucagent'],
   RgGen: ['rggen'],
-  register: ['rggen', 'peakrdl'],
-  CSR: ['rggen', 'peakrdl'],
-  RAL: ['rggen', 'peakrdl'],
-  SystemRDL: ['rggen', 'peakrdl'],
-  PeakRDL: ['peakrdl'],
+  register: ['rggen'],
+  CSR: ['rggen'],
+  RAL: ['rggen'],
+  SystemRDL: ['rggen'],
   PyUCIS: ['pyucis'],
   UCIS: ['pyucis'],
   coverage: ['pyucis'],
@@ -104,4 +103,11 @@ test('reviewed GitHub and GitLab histories share compact binary activity bands',
   await expect(surfer.locator('.activity-summary')).toHaveCount(0);
   // The compact activity display never exposes the raw repository URL.
   expect(await surfer.innerText()).not.toContain('gitlab.com');
+});
+
+// PeakRDL was explicitly removed after canonical activity/release review.
+test('Digital excludes the removed PeakRDL listing', async ({ page }) => {
+  await page.goto('./digital/');
+  await expect(fixture.row(page, 'peakrdl')).toHaveCount(0);
+  expect(fixture.activity.projects).not.toHaveProperty('peakrdl');
 });

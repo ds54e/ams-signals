@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-18"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -178,7 +178,7 @@ The canonical 0.11.6 release precedes these November 14 development commits; its
 
 ### Integrated language and waveform corrections
 
-Source review: November 18, 2026. Existing activity captures are unchanged.
+Source review and targeted activity capture: November 18, 2026. Earlier meaningful-activity checkpoints are retained separately from the newer implementation evidence below.
 
 Six pull requests merged on November 17, 2026 UTC cover four related correctness areas: modport task/function prototype parsing and its regression tests; real relational operand conversion before unknown-bit checks and its tests; registered-cell writes for struct concatenation leaves; and exclusion of package-, `$unit`- and class-qualified parameter aliases from waveform scopes. The paired core and simulator changes are one implementation/test story per behavior, not six independent capabilities. [Modport parser](#source-review-20261118-modport-core) · [Modport tests](#source-review-20261118-modport-tests) · [Real comparison implementation](#source-review-20261118-real-core) · [Real comparison tests](#source-review-20261118-real-tests) · [Struct writes](#source-review-20261118-struct) · [Waveform aliases](#source-review-20261118-waveform).
 

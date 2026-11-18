@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
 addedAt: '2026-10-01'
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-18"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -145,6 +145,6 @@ Current source extends SG13G2 model authoring and profile inference and adds tes
 
 ### RNL routing and partial-drawing recovery
 
-Source review: November 18, 2026. Existing activity captures are unchanged.
+Source review and targeted activity capture: November 18, 2026. Earlier meaningful-activity checkpoints are retained separately from the newer implementation evidence below.
 
 RNL imports now preserve the runtime-generated wire path for mode-routed wires and retain placed net labels with their connections. A wire attached to a different net is omitted individually, with source-location diagnostics, rather than causing the entire drawing to be discarded. Executable regression cases cover routing, labels and partial-drawing recovery. These are inspected structural-interchange artifacts, not independently reproduced electrical equivalence or simulation results. Existing stage, development-provenance and hosted/local execution boundaries remain unchanged. [Implementation](#source-review-20261118-rnl) · [Regression cases](#source-review-20261118-tests).
