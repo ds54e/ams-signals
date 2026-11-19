@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "BSD-3-Clause Python/C++ source and versioned releases; requires a supported external HDL simulator and compatible Python/native build setup. The 2.1 pytest plugin is opt-in and its API is experimental."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: '2026-11-19'
 sources:
   - id: "code"
     title: "Canonical cocotb repository"
@@ -70,6 +70,9 @@ sources:
   - id: "license"
     title: "cocotb BSD three-clause license"
     url: "https://github.com/cocotb/cocotb/blob/c25699e8209edebf1e2b009698c759c62d6bca92/LICENSE"
+  - id: review-20261119-activity
+    title: "VPI interface reference bounds and get_actual API change"
+    url: https://github.com/cocotb/cocotb/commit/75c83c237377b9eaf4c817f8d6e0543322822b9b
 ---
 
 ### Implementation and scope
@@ -101,3 +104,7 @@ The repository license is BSD-3-Clause. External simulators retain their own ins
 ### Development provenance
 
 A Claude-credited correction changes the executable nox release backport tool to find consumed newsfragments from the release branch fork point. The correction remains in current code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### November 19, 2026 review
+
+The November 19 development-branch fix distinguishes an interface-array reference's index range from that of the concrete object to avoid selecting the wrong element when port ranges differ. It also replaces `get_concrete_path()` with `get_actual()`, which returns the concrete object. This is not attributed to the existing 2.1.0 release. [Implementation and regression](#source-review-20261119-activity).

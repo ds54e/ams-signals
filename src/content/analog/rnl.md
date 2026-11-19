@@ -1,7 +1,7 @@
 ---
 name: RNL
 summary: Constraint-aware netlist notation and tooling for analog schematics.
-description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists, with Rust check, solve and render tools and native/WASM viewers. Native solving supports a versioned external-solver protocol and checked writeback; browser-only solving and graphical drag-placement editing remain unavailable."
+description: "Constraint-aware schematic notation embedded in SPICE/Spectre netlists. Rust tools and the browser viewer solve placement and routing constraints; browser solves use WebAssembly, not an electrical simulator. The 0.6 series reads RNL 0.4; older 0.2/0.3 files need the legacy viewer or conversion with core 0.5.7."
 scope:
   design:
     ai: true
@@ -10,9 +10,9 @@ developmentEvidence:
   summary: "A Claude-coauthored change to the public EDA symbol and style packages includes executable viewer, WASM and CLI regression tests retained on the default branch."
   sources: ["development-implementation", "development-retained"]
   reviewedAt: "2026-10-20"
-access: "Public Rust, WASM and web-viewer code. The solver is native-only; the viewer does not provide a graphical drag-placement editor. MIT covers the implementation, while specifications, data and fonts have separate licenses."
+access: "Public Rust, WASM and web-viewer code. The browser viewer loads a separate solver for schematic solving. MIT covers the implementation; specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-11-12"
+reviewedAt: '2026-11-19'
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -97,11 +97,20 @@ sources:
   - id: review-20261112-tests
     title: "Solver protocol failure and writeback regressions"
     url: https://github.com/rich-netlist/rnl/blob/865b829559119c1138e488e4bd1abf6bea680a48/crates/rnl-cli/tests/solver_protocol.rs
+  - id: review-20261119-core
+    title: "RNL Core 0.6.0 release and migration limits"
+    url: https://github.com/rich-netlist/rnl/releases/tag/core-v0.6.0
+  - id: review-20261119-viewer
+    title: "RNL Viewer 0.6.0 browser solver and release boundaries"
+    url: https://github.com/rich-netlist/rnl/releases/tag/viewer-v0.6.0
+  - id: review-20261119-activity
+    title: "Core 0.6.0 restricts parsing and writing to RNL 0.4"
+    url: https://github.com/rich-netlist/rnl/commit/67d68f18e0bfc0496f43aaef213b3d7afc9ef7d8
 ---
 
 ### Implementation and scope
 
-RNL embeds placement, wiring and semantic constraints in SPICE or Spectre comments so the electrical netlist remains readable by its usual tools. The native Rust CLI checks constraints, renders schematics, solves placement and writes the result. The WASM runtime supports the viewer, but does not contain the solver. The viewer's interaction is not a general drag-placement editor. This is schematic Design, not physical IC Layout or electrical Simulation. [Project and implementation](#source-readme)
+RNL embeds placement, wiring and semantic constraints in SPICE or Spectre comments so the electrical netlist remains readable by its usual tools. The native Rust CLI checks constraints, renders schematics, solves placement and writes the result. From Viewer 0.6.0 the browser can solve via a separate WASM Worker. The viewer's interaction is not a general drag-placement editor. This is schematic Design, not physical IC Layout or electrical Simulation. [Project and implementation](#source-readme)
 
 The released agent-authoring workflow asks a model to choose and revise circuit-aware constraints using implemented commands, supporting AI Design. Conventional checking and solving alone would not establish AI involvement. [Agent skill](#source-agent-skill) · [Project workflow](#source-readme)
 
@@ -117,7 +126,7 @@ The October 20 first-parent change splits EDA symbols and visual style into sepa
 
 The October 24 integrations add per-file parse-format interfaces and make each included file default to its own detected format. A `.scs` file, or a file declaring `simulator lang=spectre` within its first 50 lines, defaults to Spectre; other files default to SPICE. `--dialect` selects the main file only, while an explicit per-file format can override include detection. Mixed-file name resolution follows each format's rules, and automatic inclusion conservatively rejects a library that would change an existing binding. This is parse/display behavior, not a guarantee that an electrical simulator accepts a mixed-dialect deck. [Format interface](#source-review-20261024-formats) · [Integrated defaults and conflict checks](#source-review-20261024-defaults).
 
-The viewer adds a format menu for each file and include, preserving edits while rebuilding. Desktop overrides persist in settings; the web viewer persists choices for server-served files by address, while local-file choices last only for the open page. These controls do not add a browser-side solver or a general graphical placement editor. [Viewer implementation](#source-review-20261024-viewer).
+The viewer adds a format menu for each file and include, preserving edits while rebuilding. Desktop overrides persist in settings; the web viewer persists choices for server-served files by address, while local-file choices last only for the open page. These October controls did not themselves add solving or graphical placement editing. [Viewer implementation](#source-review-20261024-viewer).
 
 Meaningful activity advances to first-parent integration `810a83d02a24a081bca9f9e588ef4b61ee2217a0` on October 24 UTC, following the format-interface and viewer merges. This source review did not independently execute Rust/WASM/viewer tests or verify tagged-release inclusion. Existing AI Design and AI-assisted development labels are preserved; the new parsing controls do not themselves establish new AI participation. Code remains MIT; specification/documentation is CC-BY-4.0, libraries/tests/examples are CC0-1.0, and bundled font metrics use OFL-1.1. [Integration](#source-review-20261024-integration) · [License mapping](#source-review-20261024-readme).
 
@@ -125,11 +134,11 @@ Meaningful activity advances to first-parent integration `810a83d02a24a081bca9f9
 
 The October 30/31 integrations let the viewer choose among multiple library definitions for an instance and display a subcircuit's parameters with their default, instance or changed origin. A parameter dialog rebuilds the Document with bound values and can carry them when entering a separately stored definition. These are schematic-inspection and display bindings: the drawing retains its written expressions and the operation does not rewrite the netlist's electrical parameters. Source and browser-test changes were reviewed, without reproducing the upstream Rust/WASM suite. [Definition choice](#source-review-20261031-choices) · [Parameters and regression tests](#source-review-20261031-params) · [Retained code](#source-review-20261031-param-code).
 
-The native solver is explicitly labeled a preview; this update does not promote it to a mature placement editor or add Simulation. Existing AI Design and software-development provenance are retained on their earlier evidence. Meaningful activity follows the first-parent parameter integration, not the subsequent version bump. [Solver boundary](#source-review-20261031-preview).
+At that review the native solver was labeled a preview; this update does not promote it to a mature placement editor or add Simulation. Existing AI Design and software-development provenance are retained on their earlier evidence. Meaningful activity follows the first-parent parameter integration, not the subsequent version bump. [Solver boundary](#source-review-20261031-preview).
 
 ### Selection and current source review
 
-Substantive integrations add per-level constraints, solve reports describing which facts hold, viewer constraint inspection and object registration-point overlays. A web development server started with an explicit local rnl executable can serve preview solves through temporary files; this does not add a WASM solver or enable the public static web viewer to solve on its own. The solver remains a preview. Current main is ahead of the reviewed core 0.5.5/viewer 0.5.3 releases, so these development capabilities are not attributed to those tags. The existing model-hosted authoring workflow retains AI Design; the new constraint checks are deterministic. [Native-service implementation and tests](#source-review-20261103-solve) · [Solve report](#source-review-20261103-report) · [Current viewer implementation/tests](#source-review-20261103-origins).
+Substantive integrations add per-level constraints, solve reports describing which facts hold, viewer constraint inspection and object registration-point overlays. A web development server started with an explicit local rnl executable can serve preview solves through temporary files; this was the native-backed implementation before the separately reviewed browser solver. At the November 3 review, main was ahead of the then-reviewed core 0.5.5/viewer 0.5.3 releases, so these development capabilities are not attributed to those tags. The existing model-hosted authoring workflow retains AI Design; the new constraint checks are deterministic. [Native-service implementation and tests](#source-review-20261103-solve) · [Solve report](#source-review-20261103-report) · [Current viewer implementation/tests](#source-review-20261103-origins).
 
 ### November implementation review
 
@@ -139,3 +148,7 @@ The local viewer embeds the web interface and serves it over loopback, while its
 ### November 12, 2026 implementation review
 
 The November 12 native implementation introduces an independent rnl-solver executable, versioned lossless JSON protocol and checked external-solver writeback. It rejects stale input, invalid pin identities, nonfinite geometry, malformed or oversized results and timeouts; later-level failures discard earlier in-memory writebacks. These deterministic schematic operations are not IC Layout or electrical Simulation, and absent third-party solver reports remain unknown rather than successful. Existing AI Design derives from separately reviewed authoring operations, not this solver protocol. Tagged-release inclusion was not verified. [Integrated activity](#source-review-20261112-activity). [External solver execution and checked writeback](#source-review-20261112-implementation) · [Solver protocol failure and writeback regressions](#source-review-20261112-tests).
+
+### November 19, 2026 review
+
+Core and Viewer 0.6.0 were reviewed. The Viewer loads a WASM Worker on first solve for placement and routing, with progress and cancellation. Solving on file open previews the result without changing the input. This is schematic Design, not physical IC Layout or SPICE simulation. Core 0.6 reads and writes RNL 0.4 only; the last legacy-compatible CLI, core 0.5.7, converts 0.2/0.3 files with `rnl upgrade`, while the frozen legacy web viewer can still display them. [Core](#source-review-20261119-core) · [Viewer](#source-review-20261119-viewer) · [Language implementation](#source-review-20261119-activity).

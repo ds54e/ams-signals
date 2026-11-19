@@ -1,7 +1,7 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
-description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with randomization, coverage, DPI/VPI, SDF timing and optional native compilation. Main-branch corrections cover modport prototypes, real comparisons, struct writes and waveform aliases; existing UPF and resolved-real/wreal support remain subsets, not full IEEE conformance or a general analog solver."
+description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with randomization, coverage, DPI/VPI, SDF timing and optional native compilation. Recent main-branch fixes include real-valued user-defined nettype input resolution; UPF and resolved-real/wreal support remain subsets, not general analog simulation."
 scope:
   verification:
     ai: false
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-18"
+reviewedAt: '2026-11-19'
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -117,6 +117,12 @@ sources:
   - id: review-20261118-waveform
     title: "Merged exclusion of qualified parameter aliases from waveform scopes"
     url: https://github.com/aionhw/xezim/pull/1214
+  - id: review-20261119-real-udn-core
+    title: "Elaboration fix for real-valued user-defined nettype input ports"
+    url: https://github.com/aionhw/xezim-core/commit/4f851d2ea5b56915f844b10cb772235e415dcdc9
+  - id: review-20261119-activity
+    title: "Simulator regressions for user-defined nettype input resolution"
+    url: https://github.com/aionhw/xezim/commit/eebbca22bf79adcb1b8b35b0f036b4e6eb01e083
 ---
 
 ### Implementation context
@@ -183,3 +189,7 @@ Source review and targeted activity capture: November 18, 2026. Earlier meaningf
 Six pull requests merged on November 17, 2026 UTC cover four related correctness areas: modport task/function prototype parsing and its regression tests; real relational operand conversion before unknown-bit checks and its tests; registered-cell writes for struct concatenation leaves; and exclusion of package-, `$unit`- and class-qualified parameter aliases from waveform scopes. The paired core and simulator changes are one implementation/test story per behavior, not six independent capabilities. [Modport parser](#source-review-20261118-modport-core) · [Modport tests](#source-review-20261118-modport-tests) · [Real comparison implementation](#source-review-20261118-real-core) · [Real comparison tests](#source-review-20261118-real-tests) · [Struct writes](#source-review-20261118-struct) · [Waveform aliases](#source-review-20261118-waveform).
 
 The prototype parser still rejects default arguments and does not establish interface-signature matching. The real-comparison correction retains integral X/Z behavior; continuous/nonblocking struct-concatenation assignments and other alias forms remain separate boundaries. These merged changes do not establish full IEEE conformance, release inclusion, broader RNM support or a general analog solver. Upstream regressions were inspected, not executed. Conventional Verification, existing AI-development evidence and the single canonical activity repository remain unchanged.
+
+### November 19, 2026 review
+
+The reviewed simulator regression covers real-valued source expressions including variables, literals, package and struct members passed to a user-defined nettype input. These source-to-sink assignments keep a separately resolved input net unless both ends are compatible nets of the same user-defined nettype. The implementation lives in xezim-core; only xezim itself counts for the activity series. This fixes RNM elaboration semantics and does not add an analog solver or establish tagged release inclusion. [Core implementation](#source-review-20261119-real-udn-core) · [Simulator regression](#source-review-20261119-activity).

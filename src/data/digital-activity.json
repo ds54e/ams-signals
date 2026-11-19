@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-18",
-  "capturedAt": "2026-11-18T00:28:15.942Z",
+  "reviewedAt": "2026-11-19",
+  "capturedAt": "2026-11-19T23:03:09.211Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -21,9 +21,9 @@
       "kind": "github",
       "repository": "llvm/circt",
       "repositoryId": 245072514,
-      "capturedAt": "2026-11-15T03:56:19Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "a992b81c553304bf2b190102d41856942de334a3",
+      "headSha": "b4d2c4442fda29e6a986b23f5470519c011f4e2f",
       "commits": [
         118,
         173,
@@ -36,9 +36,9 @@
         101,
         67,
         144,
-        112
+        150
       ],
-      "lastCommitAt": "2026-11-15",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "32b75af8cbd913e098791362548d4ba62a2783b9"
     },
@@ -46,9 +46,9 @@
       "kind": "github",
       "repository": "cocotb/cocotb",
       "repositoryId": 10651005,
-      "capturedAt": "2026-11-15T03:28:53Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "c25699e8209edebf1e2b009698c759c62d6bca92",
+      "headSha": "75c83c237377b9eaf4c817f8d6e0543322822b9b",
       "commits": [
         37,
         38,
@@ -61,17 +61,17 @@
         34,
         34,
         90,
-        26
+        39
       ],
-      "lastCommitAt": "2026-11-14",
-      "lastMeaningfulCommitAt": "2026-11-09",
-      "lastMeaningfulCommitSha": "eb4127b0a03b8754e53c98b64ae3178f1621888f"
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "75c83c237377b9eaf4c817f8d6e0543322822b9b"
     },
     "coresmith": {
       "kind": "github",
       "repository": "facebookexperimental/coresmith",
       "repositoryId": 1209923313,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "7dfd8b3db6b69d80e6934c09bfed6569d59d4e86",
       "commits": [
@@ -96,7 +96,7 @@
       "kind": "github",
       "repository": "hkust-zhiyao/DR_RTL",
       "repositoryId": 1221463263,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
       "commits": [
@@ -121,7 +121,7 @@
       "kind": "github",
       "repository": "YosysHQ/eqy",
       "repositoryId": 283186543,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "33015166c47398dff1ac72a699f4212891bb0618",
       "commits": [
@@ -146,9 +146,9 @@
       "kind": "github",
       "repository": "steveicarus/iverilog",
       "repositoryId": 16267,
-      "capturedAt": "2026-11-15T06:46:22.461Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "e77e9ef21b8e747692bf2ffd97dbd91a5c52a100",
+      "headSha": "c717fc33e4c98f2088ac50935ad71b00408ce3bf",
       "commits": [
         6,
         29,
@@ -161,9 +161,9 @@
         63,
         89,
         243,
-        94
+        139
       ],
-      "lastCommitAt": "2026-11-15",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-15",
       "lastMeaningfulCommitSha": "e77e9ef21b8e747692bf2ffd97dbd91a5c52a100"
     },
@@ -171,9 +171,9 @@
       "kind": "github",
       "repository": "dsellerbrock/iverilog-uvm",
       "repositoryId": 1208674106,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "43abd12b5fc66513f6177d20f4a531c5e12b96ae",
+      "headSha": "cac9bbf29b9de3479abb97d2f100356fdfbbaa94",
       "commits": [
         6,
         29,
@@ -186,9 +186,9 @@
         97,
         139,
         183,
-        39
+        121
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-07",
       "lastMeaningfulCommitSha": "43abd12b5fc66513f6177d20f4a531c5e12b96ae"
     },
@@ -196,7 +196,7 @@
       "kind": "github",
       "repository": "simra-tech/OpenADA",
       "repositoryId": 1299322393,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "ff9415e24fe6407820ca23147e3cf42625dd69b7",
       "commits": [
@@ -221,9 +221,9 @@
       "kind": "github",
       "repository": "The-OpenROAD-Project/OpenROAD",
       "repositoryId": 218110222,
-      "capturedAt": "2026-11-15T05:01:46.063Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "51fef07fed8a1c8934417dc7b65cab99d5d5e36b",
+      "headSha": "b9f770e608e25100bf55ba41a99158fd5102db86",
       "commits": [
         167,
         139,
@@ -236,19 +236,19 @@
         145,
         211,
         318,
-        125
+        186
       ],
-      "lastCommitAt": "2026-11-15",
-      "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "51fef07fed8a1c8934417dc7b65cab99d5d5e36b"
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "4543b6b65b4285823b4f20953dd4a8999f6c3126"
     },
     "openroad-mcp": {
       "kind": "github",
       "repository": "The-OpenROAD-Project/OpenROAD-MCP",
       "repositoryId": 1022718791,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "48eea5fdbb62aadfbc5ab504a8065e2355a15571",
+      "headSha": "ad685f19a4c20127b7d473ee66d730dbef14c90d",
       "commits": [
         9,
         0,
@@ -261,9 +261,9 @@
         16,
         15,
         21,
-        1
+        12
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-09-29",
       "lastMeaningfulCommitSha": "0e0d4bfe35c3ecb84c86fd443615363fd661e84e"
     },
@@ -271,9 +271,9 @@
       "kind": "github",
       "repository": "stanford-centaur/pono",
       "repositoryId": 206835806,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "96ec847e487a0fe71ee1938d01073289a8b783a4",
+      "headSha": "2bdce7576b871dde7732ed8ee89424ec99d096fb",
       "commits": [
         0,
         12,
@@ -286,9 +286,9 @@
         13,
         71,
         1,
-        5
+        15
       ],
-      "lastCommitAt": "2026-11-05",
+      "lastCommitAt": "2026-11-10",
       "lastMeaningfulCommitAt": "2026-10-06",
       "lastMeaningfulCommitSha": "fe3f751590262d12e420ea810af7d22eb74020c5"
     },
@@ -296,9 +296,9 @@
       "kind": "github",
       "repository": "neveltyc/RTLDebugDBKit",
       "repositoryId": 1332097020,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "0feb1ff87d53cfe831679cf4e63c16bf5a24a2bd",
+      "headSha": "3b62e10cf0cbefb11fbef9845a31997270a8bd65",
       "commits": [
         0,
         0,
@@ -311,9 +311,9 @@
         116,
         4,
         1,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-10",
+      "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-09-29",
       "lastMeaningfulCommitSha": "7c5d46d4bd15ceee3f9073cbb3568a09d1100cfa"
     },
@@ -321,7 +321,7 @@
       "kind": "github",
       "repository": "kiranreddi/sentinel-dv",
       "repositoryId": 1141861890,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "0915256a8eda99ad2a5a5a2529d658e1bba8b6cc",
       "commits": [
@@ -346,9 +346,9 @@
       "kind": "github",
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
-      "capturedAt": "2026-11-15T03:56:19Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "2664c559c78c150e8b144c8be2cfc1871a66304f",
+      "headSha": "6dc71eb7eb9cc3d12c11505bb62417aad3db53ab",
       "commits": [
         38,
         24,
@@ -361,9 +361,9 @@
         24,
         43,
         98,
-        56
+        123
       ],
-      "lastCommitAt": "2026-11-14",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "6d677aecd5ad4febec25f0c2632caec42ea6d361"
     },
@@ -371,7 +371,7 @@
       "kind": "github",
       "repository": "advent-lab/Spec2Cov",
       "repositoryId": 1018287185,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "98ddc836668c81d116e0bb9a7faf8f56b2c58cdb",
       "commits": [
@@ -396,9 +396,9 @@
       "kind": "github",
       "repository": "chipsalliance/Surelog",
       "repositoryId": 218417034,
-      "capturedAt": "2026-11-15T06:46:22.461Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "00bdd1d1925ac7565f422be77c07e5667c99aae8",
+      "headSha": "847c9e308f1f547c99e16b44c4f09cc82a2322ba",
       "commits": [
         0,
         0,
@@ -411,9 +411,9 @@
         22,
         37,
         29,
-        32
+        43
       ],
-      "lastCommitAt": "2026-11-14",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "00bdd1d1925ac7565f422be77c07e5667c99aae8"
     },
@@ -421,9 +421,9 @@
       "kind": "repository",
       "repository": "https://gitlab.com/surfer-project/surfer",
       "repositoryId": "42073614",
-      "capturedAt": "2026-11-07T02:08:25.990Z",
+      "capturedAt": "2026-11-19T23:01:24.664Z",
       "defaultBranch": "main",
-      "headSha": "11bb2e3b966a95190cdb75c36899cccb5889d385",
+      "headSha": "c2d17a6457bba6204143f3c6f7fd3c58cf893837",
       "commits": [
         99,
         35,
@@ -436,9 +436,9 @@
         17,
         12,
         3,
-        3
+        6
       ],
-      "lastCommitAt": "2026-11-03",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-22",
       "lastMeaningfulCommitSha": "c9db19e7ebba3a7c25c6bb0466cfacd8cf7180e2",
       "lastMeaningfulCommitSource": "activity"
@@ -447,9 +447,9 @@
       "kind": "github",
       "repository": "povik/sv-elab",
       "repositoryId": 752277444,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "ea8879f3825e4844435632e8748ebd750098938c",
+      "headSha": "fc131711d4e88035f5af0a28fa25b6c7fae2380e",
       "commits": [
         5,
         5,
@@ -462,9 +462,9 @@
         39,
         9,
         38,
-        16
+        30
       ],
-      "lastCommitAt": "2026-11-11",
+      "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-11-10",
       "lastMeaningfulCommitSha": "adce24f69c19a82e99923053d9f90d8899b04440"
     },
@@ -472,9 +472,9 @@
       "kind": "github",
       "repository": "YosysHQ/sby",
       "repositoryId": 79726807,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "79fc9eddca5e33a28cc2f2cd19c9825efd9a7255",
+      "headSha": "b21f778333efc1e7c33fe22b56d43f87e4f759d4",
       "commits": [
         0,
         2,
@@ -487,9 +487,9 @@
         2,
         0,
         2,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-15",
+      "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-07-07",
       "lastMeaningfulCommitSha": "6e3dc04d9279da257b29e336edf3b599cccd4907"
     },
@@ -497,9 +497,9 @@
       "kind": "github",
       "repository": "XS-MLVP/UCAgent",
       "repositoryId": 991007916,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "c5276ca94c95595c2d646c134acc0b2eb71db1b5",
+      "headSha": "819e430af5887e949c0e194c4ae06843fe365f1a",
       "commits": [
         50,
         130,
@@ -512,9 +512,9 @@
         117,
         37,
         43,
-        26
+        41
       ],
-      "lastCommitAt": "2026-11-11",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-11",
       "lastMeaningfulCommitSha": "c5276ca94c95595c2d646c134acc0b2eb71db1b5"
     },
@@ -547,9 +547,9 @@
       "kind": "github",
       "repository": "chipsalliance/verible",
       "repositoryId": 220114000,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "085eef056c31aacd7e16545051f8047b69c2d45b",
+      "headSha": "5a46a151634ca141e92b3f44a5b0d97faef22037",
       "commits": [
         6,
         0,
@@ -562,9 +562,9 @@
         30,
         34,
         1,
-        0
+        3
       ],
-      "lastCommitAt": "2026-10-29",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-09-23",
       "lastMeaningfulCommitSha": "0f26265133bda3ade669bc36fc71a6e1f39ad809"
     },
@@ -572,7 +572,7 @@
       "kind": "github",
       "repository": "nimishadeepak10/verify-rtl",
       "repositoryId": 1247751215,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "8fd067ea3fd2e4a975fe11ca7032d8c80b4d258f",
       "commits": [
@@ -597,9 +597,9 @@
       "kind": "github",
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
-      "capturedAt": "2026-11-15T03:56:19Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308",
+      "headSha": "915f808e0c8664a46c4b8dfe077d8a315fec48aa",
       "commits": [
         130,
         106,
@@ -612,9 +612,9 @@
         178,
         285,
         386,
-        281
+        332
       ],
-      "lastCommitAt": "2026-11-15",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-15",
       "lastMeaningfulCommitSha": "9ed03126f55c7f2295f81dd9415c75d0527e8423"
     },
@@ -622,9 +622,9 @@
       "kind": "github",
       "repository": "tjddnr0912/vitamin-rtl-simulator",
       "repositoryId": 1283466457,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "cfc17636720e887e816a3cdb64dbfe915f8eb98c",
+      "headSha": "bcd5afec7e8bbfb1e814413b8a8f13fb09565a68",
       "commits": [
         0,
         0,
@@ -637,9 +637,9 @@
         344,
         312,
         118,
-        16
+        61
       ],
-      "lastCommitAt": "2026-11-05",
+      "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "9f8a970bdaa0f965f3cab7dd3ff4badee04ad4bc"
     },
@@ -647,7 +647,7 @@
       "kind": "github",
       "repository": "coreyhahn/vivado_mcp",
       "repositoryId": 1136914229,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "bfe6ce2a9f97f3732ae7602ee40447b7e64902f7",
       "commits": [
@@ -672,9 +672,9 @@
       "kind": "github",
       "repository": "Tencent/wave-mcp",
       "repositoryId": 1313770200,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "961498b2dac2f5b2a6fc32231d9ac9c134ff3da9",
+      "headSha": "04afe72ca02fdca0301350a8ea218cc54d389c91",
       "commits": [
         0,
         0,
@@ -687,9 +687,9 @@
         44,
         51,
         5,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-22",
+      "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-10-22",
       "lastMeaningfulCommitSha": "bb0bfe60d1d68d47e9612e7016f840e4e9696f29"
     },
@@ -697,7 +697,7 @@
       "kind": "github",
       "repository": "rain91508-cmd/what",
       "repositoryId": 1178921350,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "e176ca3e0b981031ca2e47da368d8c84df21f4ab",
       "commits": [
@@ -722,9 +722,9 @@
       "kind": "github",
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
-      "capturedAt": "2026-11-18T00:28:15.942Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "f9736050f0dec9171c060d1628f6d8ab7a623b91",
+      "headSha": "082607936d912b7617718bc314dda37c8a9dc2ea",
       "commits": [
         0,
         0,
@@ -737,19 +737,19 @@
         509,
         160,
         995,
-        1018
+        1223
       ],
-      "lastCommitAt": "2026-11-17",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "863f4afc4b6cb4579fa14e0b9da2109fa6789b79"
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "eebbca22bf79adcb1b8b35b0f036b4e6eb01e083"
     },
     "yosys": {
       "kind": "github",
       "repository": "YosysHQ/yosys",
       "repositoryId": 7454197,
-      "capturedAt": "2026-11-15T04:49:39.477Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "e419c4eef77f953212f2dbc6af88d4eaef177084",
+      "headSha": "d9358f38c4b320eb4aaa17b70193c76f59d293d4",
       "commits": [
         35,
         58,
@@ -762,9 +762,9 @@
         47,
         60,
         83,
-        33
+        42
       ],
-      "lastCommitAt": "2026-11-13",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "098e46a36e52c4ee8e2c90315e9450b2b54d2db8"
     },
@@ -772,9 +772,9 @@
       "kind": "github",
       "repository": "veryl-lang/veryl",
       "repositoryId": 575770340,
-      "capturedAt": "2026-11-12T10:06:57.690Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "c839d68384a55adc250391d87e8829a69ea33bb4",
+      "headSha": "409e3ff023442d05917a7cb51e4b097e8364a3fb",
       "commits": [
         33,
         47,
@@ -787,9 +787,9 @@
         155,
         131,
         123,
-        44
+        57
       ],
-      "lastCommitAt": "2026-11-12",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "c839d68384a55adc250391d87e8829a69ea33bb4"
     },
@@ -797,9 +797,9 @@
       "kind": "github",
       "repository": "google/xls",
       "repositoryId": 262163993,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "436a78567709b0825df1af0fb45bb2c8140be2a2",
+      "headSha": "806b0782cad066b914fc3b6f1011494dc2cc9bdc",
       "commits": [
         133,
         136,
@@ -812,9 +812,9 @@
         170,
         143,
         155,
-        32
+        207
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "17f5c7a22148462b26c294eb61106689d2f5e548"
     },
@@ -822,9 +822,9 @@
       "kind": "repository",
       "repository": "https://codeberg.org/spade-lang/spade",
       "repositoryId": "codeberg:2600806",
-      "capturedAt": "2026-11-07T02:08:30.788Z",
+      "capturedAt": "2026-11-19T23:01:30.142Z",
       "defaultBranch": "main",
-      "headSha": "2a6beb420f16280219519b0fd28180680d149f56",
+      "headSha": "99aa7c86a52caf3931cce91aa20a6491cda4f3a7",
       "commits": [
         24,
         49,
@@ -837,9 +837,9 @@
         28,
         51,
         52,
-        8
+        17
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-18",
       "lastMeaningfulCommitSha": "14016f476f6868881b045611fe06cff54665bcb4",
       "lastMeaningfulCommitSource": "activity-reviewed-20261022"
@@ -848,9 +848,9 @@
       "kind": "github",
       "repository": "microsoft/kanagawa",
       "repositoryId": 1054333720,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "52edf131ed033ee81360657cf5924045bdee7caa",
+      "headSha": "051b6e53c77c70d4345863842b35e7db489dd990",
       "commits": [
         4,
         0,
@@ -863,9 +863,9 @@
         5,
         9,
         3,
-        2
+        3
       ],
-      "lastCommitAt": "2026-11-03",
+      "lastCommitAt": "2026-11-11",
       "lastMeaningfulCommitAt": "2026-09-19",
       "lastMeaningfulCommitSha": "a092594c061122572fc895ac8a98d61e356ca52b"
     },
@@ -873,9 +873,9 @@
       "kind": "github",
       "repository": "siliconcompiler/siliconcompiler",
       "repositoryId": 320398696,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "41ab2ada15bb656f80e1cdd7a6ede656c640d809",
+      "headSha": "1099d324557ff7ceba7a9a546d15bc39b82c27ae",
       "commits": [
         81,
         91,
@@ -888,9 +888,9 @@
         132,
         132,
         133,
-        28
+        90
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-01",
       "lastMeaningfulCommitSha": "33c80f6558823e8c6d20d5ca2ee3969f9502dcbd"
     },
@@ -898,7 +898,7 @@
       "kind": "github",
       "repository": "amaranth-lang/amaranth",
       "repositoryId": 236501540,
-      "capturedAt": "2026-11-15T05:30:13Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "90449f1e6d5abdfb8cac7519ac7b34d83a9f42b7",
       "commits": [
@@ -923,9 +923,9 @@
       "kind": "github",
       "repository": "EPFL-LAP/dynamatic",
       "repositoryId": 571607607,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "59b5814ef882e43b64431a57d388fbb3c95eda6c",
+      "headSha": "eae25de8e680b8c23c65312ad51d3f9827224468",
       "commits": [
         35,
         30,
@@ -938,9 +938,9 @@
         12,
         6,
         50,
-        23
+        34
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "f0323e259969b73e010e2d0c7315e85b6cc4db79"
     },
@@ -948,7 +948,7 @@
       "kind": "github",
       "repository": "rggen/rggen",
       "repositoryId": 180550709,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "2b0b8fe5b006b92fb2630f414c123bfb09ee6de9",
       "commits": [
@@ -985,9 +985,9 @@
       "kind": "github",
       "repository": "pyuvm/pyuvm",
       "repositoryId": 334507633,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "ba4e8ba46c6e68e337b64cac2fbf41ebd6f6bf6b",
+      "headSha": "e44bf8f17223f99eb2241fa0a59eb11a2d9a8229",
       "commits": [
         18,
         3,
@@ -1000,9 +1000,9 @@
         20,
         12,
         10,
-        2
+        6
       ],
-      "lastCommitAt": "2026-11-03",
+      "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-08-31",
       "lastMeaningfulCommitSha": "f8355f3590142c26309eedc141fd7856552feaf7"
     },
@@ -1010,7 +1010,7 @@
       "kind": "github",
       "repository": "huawei-csl/rtlscout",
       "repositoryId": 1258007831,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "1fc8afeb887e33294f452766a70056fc2966066a",
       "commits": [
@@ -1035,9 +1035,9 @@
       "kind": "github",
       "repository": "keplertech/naja-scope",
       "repositoryId": 1267562469,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "6fe40738deb78b9acc85aac69550c98696a63d3e",
+      "headSha": "662fe417ace4e1d897e325d369d98743bd24ce18",
       "commits": [
         0,
         0,
@@ -1050,9 +1050,9 @@
         3,
         11,
         6,
-        3
+        11
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-30",
       "lastMeaningfulCommitSha": "f9cbf1a0cf74ebffb2ef2860f75f3cb447c7380f"
     },
@@ -1060,9 +1060,9 @@
       "kind": "github",
       "repository": "keplertech/kepler-formal",
       "repositoryId": 1014846239,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "879c8539062f996ed6164338c5ae4a61e1f59987",
+      "headSha": "38a26b8daac08f581c79a154d3eb817432248d48",
       "commits": [
         9,
         17,
@@ -1075,9 +1075,9 @@
         17,
         26,
         19,
-        6
+        10
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-06",
       "lastMeaningfulCommitSha": "ea09c2a7917496e5c1db596c79f3fef308a827b5"
     },
@@ -1085,7 +1085,7 @@
       "kind": "github",
       "repository": "UMN-ZhaoLab/LACE",
       "repositoryId": 1283268509,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "29ea8ed56eb5fce838815a0892c05b8162ece500",
       "commits": [
@@ -1110,9 +1110,9 @@
       "kind": "github",
       "repository": "YosysHQ/nextpnr",
       "repositoryId": 143147942,
-      "capturedAt": "2026-11-15T05:30:13Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "5e2718b6364e189e414c35b8eef3db4d5e3c0773",
+      "headSha": "60c30d6c2961d718793ba3726588403c82f80a62",
       "commits": [
         7,
         11,
@@ -1125,9 +1125,9 @@
         34,
         20,
         45,
-        7
+        33
       ],
-      "lastCommitAt": "2026-11-12",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "5e2718b6364e189e414c35b8eef3db4d5e3c0773"
     },
@@ -1135,9 +1135,9 @@
       "kind": "github",
       "repository": "chipsalliance/chisel",
       "repositoryId": 34695562,
-      "capturedAt": "2026-11-15T05:30:13Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "2a75ff9465fd5bcc258f9e90fff5b80dfae3218d",
+      "headSha": "e95009474df71a0fe95e29a7c04b7cbd80fc426d",
       "commits": [
         25,
         50,
@@ -1150,9 +1150,9 @@
         18,
         16,
         27,
-        12
+        21
       ],
-      "lastCommitAt": "2026-11-13",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-13",
       "lastMeaningfulCommitSha": "2a75ff9465fd5bcc258f9e90fff5b80dfae3218d"
     },
@@ -1160,9 +1160,9 @@
       "kind": "github",
       "repository": "calyxir/calyx",
       "repositoryId": 195173710,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "88cc724c60f36dfcde112b7e8e555b307c09053a",
+      "headSha": "e1bca4bf6779ccc98b5099f9a2284ca3b0bef637",
       "commits": [
         7,
         12,
@@ -1175,9 +1175,9 @@
         1,
         0,
         2,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-26",
+      "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-07-30",
       "lastMeaningfulCommitSha": "a7c9f131abda9edb5d22934b159e9f0f543ab793"
     },
@@ -1185,7 +1185,7 @@
       "kind": "github",
       "repository": "SupreethRao99/veriRL",
       "repositoryId": 1193814346,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "8977306667df7fa449b9e84798fcbed8fac02fff",
       "commits": [
@@ -1210,7 +1210,7 @@
       "kind": "github",
       "repository": "weiber2002/ICRTL-Benchmark",
       "repositoryId": 1136838099,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "d87c7cfe58ae4af79a4aecf13720b0c6f73df7ae",
       "commits": [
@@ -1235,9 +1235,9 @@
       "kind": "github",
       "repository": "vibeic/vibe-ic",
       "repositoryId": 1268128556,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "484e527c63bd06c85b3bc8604b317a969e741af5",
+      "headSha": "7932caa0d09c95ec6918477e4705fb6dd5f36faa",
       "commits": [
         0,
         0,
@@ -1250,9 +1250,9 @@
         1687,
         1271,
         1707,
-        565
+        1177
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-11",
       "lastMeaningfulCommitSha": "a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
     },
@@ -1260,7 +1260,7 @@
       "kind": "github",
       "repository": "NVlabs/ACE-RTL",
       "repositoryId": 1304488811,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "94754d796350d42502c9a32639a20d86f50e9678",
       "commits": [
@@ -1285,7 +1285,7 @@
       "kind": "github",
       "repository": "NVlabs/cvdp_benchmark",
       "repositoryId": 999725324,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "8e894cf74414ab1eaea1e2b4e80a02f123df07b6",
       "commits": [
@@ -1310,7 +1310,7 @@
       "kind": "github",
       "repository": "hkust-zhiyao/RTL-BenchMT",
       "repositoryId": 1227239457,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "4a773170f80b80a216a6ecb6b5948f53684eee22",
       "commits": [
@@ -1335,7 +1335,7 @@
       "kind": "github",
       "repository": "HPAI-BSC/TuRTLe",
       "repositoryId": 951227741,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "6a32467e79d7a6cfbf3a6c579c24f20662475101",
       "commits": [
@@ -1360,9 +1360,9 @@
       "kind": "github",
       "repository": "VUnit/vunit",
       "repositoryId": 26829379,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "3fff9e52c7ba7aa1b2753c1783f146238b361493",
+      "headSha": "5d6ff35471fcd9e1441aadbc4717358c6b558984",
       "commits": [
         0,
         18,
@@ -1375,9 +1375,9 @@
         2,
         24,
         46,
-        1
+        2
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-10-03",
       "lastMeaningfulCommitSha": "145e8c85dc6988ae61c7ad2ed5be29707f05a209"
     },
@@ -1385,9 +1385,9 @@
       "kind": "github",
       "repository": "keplertech/naja",
       "repositoryId": 414906187,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "5efb17430699422208f2bd902fbcf1d82d5dcdb9",
+      "headSha": "f1db5dd29cea5343c036d2c4413d6ccbdfd40557",
       "commits": [
         4,
         11,
@@ -1400,9 +1400,9 @@
         12,
         25,
         61,
-        10
+        31
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "545ebd99803d301bdb46b4f326998945df83aa28"
     },
@@ -1410,9 +1410,9 @@
       "kind": "github",
       "repository": "lazyverilog/LazyVerilog",
       "repositoryId": 981271202,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "0c7177d36e134a6aa76889d65c992d0842cc1d55",
+      "headSha": "906e44e443d86a567568ce8b5e52c058d4f70490",
       "commits": [
         0,
         0,
@@ -1425,9 +1425,9 @@
         59,
         182,
         194,
-        10
+        12
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "b92801a05c653cc6df1ad5d6005a62c36375b471"
     },
@@ -1435,7 +1435,7 @@
       "kind": "github",
       "repository": "aditigupta96/EquivSVA",
       "repositoryId": 1369242885,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "71b93e6c62b81fadac87d2e6e097cf005bf1ce99",
       "commits": [
@@ -1460,9 +1460,9 @@
       "kind": "github",
       "repository": "sharc-lab/hls-eval",
       "repositoryId": 935063789,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "5fb3649738feb2622ba574321031f81c9d2e200c",
+      "headSha": "e31f731db6cf3cac2e1072ff13d6b889677b710d",
       "commits": [
         0,
         0,
@@ -1475,9 +1475,9 @@
         2,
         17,
         4,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-19",
+      "lastCommitAt": "2026-11-14",
       "lastMeaningfulCommitAt": "2026-09-21",
       "lastMeaningfulCommitSha": "af9821608d9ee46a26edd8193b522628b731ac39"
     },
@@ -1485,9 +1485,9 @@
       "kind": "github",
       "repository": "intel/rohd",
       "repositoryId": 409325108,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "01b2a7e3afee940fab91e0d6537f7d5ef75a90a5",
+      "headSha": "7925b6731eb766a1419bcdf33aed9d5768aee489",
       "commits": [
         2,
         4,
@@ -1500,9 +1500,9 @@
         11,
         11,
         25,
-        12
+        23
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-17",
       "lastMeaningfulCommitSha": "a2b439e8dccfa2e260862184c99f2a2484c26e20"
     },
@@ -1510,7 +1510,7 @@
       "kind": "github",
       "repository": "rustdv/rustdv",
       "repositoryId": 1293686643,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "a58a422392be3ce467338a441045efec6ff192d3",
       "commits": [
@@ -1535,9 +1535,9 @@
       "kind": "github",
       "repository": "Dragon-Git/uvm_bridge",
       "repositoryId": 813642194,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "9f7897054236650352317d3720bc40cf8ea45d26",
+      "headSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22",
       "commits": [
         2,
         0,
@@ -1550,9 +1550,9 @@
         4,
         14,
         19,
-        0
+        5
       ],
-      "lastCommitAt": "2026-10-20",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-16",
       "lastMeaningfulCommitSha": "2ac3b4656f6cab28b7bcc9781b64e7c89c3a6dca"
     },
@@ -1560,9 +1560,9 @@
       "kind": "github",
       "repository": "cyril0124/verilua",
       "repositoryId": 710117372,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "1b9ea345fc852a75a5d8c0dc547d4b2d5d40fcb6",
+      "headSha": "4685beb39ef7bdde734e6d08ffe4b61f93c0b98e",
       "commits": [
         72,
         66,
@@ -1575,9 +1575,9 @@
         84,
         30,
         19,
-        7
+        35
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-15",
       "lastMeaningfulCommitSha": "ea0c6ec5500f271ca401c4e9486a732561beed22"
     },
@@ -1585,9 +1585,9 @@
       "kind": "github",
       "repository": "chipweaver/veripower",
       "repositoryId": 1265949784,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "1326b316b7d06147dc726efc0de9d35bfffec8e3",
+      "headSha": "bb24efe1b7692cdd743e4adb03b7f7bf296baa89",
       "commits": [
         0,
         0,
@@ -1600,9 +1600,9 @@
         95,
         104,
         14,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-19",
+      "lastCommitAt": "2026-11-12",
       "lastMeaningfulCommitAt": "2026-10-12",
       "lastMeaningfulCommitSha": "6f764c1295e4eb0e1e05daaaea5637c424172054"
     },
@@ -1610,7 +1610,7 @@
       "kind": "github",
       "repository": "gokeshenzhen/TraceWeave",
       "repositoryId": 1168662293,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "a2654bcba727bc8676dde84d230a3d3871f6defc",
       "commits": [
@@ -1635,9 +1635,9 @@
       "kind": "github",
       "repository": "boldaxolotl/booley",
       "repositoryId": 1338341322,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "ba0610d7c2f0bf122d2b184884ec80857a4c168e",
+      "headSha": "dd7167c56dba6af6c41653d0169dc98053c88321",
       "commits": [
         0,
         0,
@@ -1650,9 +1650,9 @@
         163,
         431,
         490,
-        117
+        787
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-16",
       "lastMeaningfulCommitSha": "c28daf4fc6f74fdee44592284aa2b410ff6752b8"
     },
@@ -1660,7 +1660,7 @@
       "kind": "github",
       "repository": "huawei-csl/spire-hdl",
       "repositoryId": 1160086382,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "9e0cd85a24632edf588805410ef8d272d419d5a1",
       "commits": [
@@ -1685,7 +1685,7 @@
       "kind": "github",
       "repository": "xyjoey/Veri-Sure",
       "repositoryId": 1137509108,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "6e92285a08f8010bb9461613f1c9752e80f60eb2",
       "commits": [
@@ -1710,9 +1710,9 @@
       "kind": "github",
       "repository": "chipsalliance/sv-tests",
       "repositoryId": 201299456,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "619a640433f0b054b2984afd18f4cc9de34a8a6c",
+      "headSha": "9558c8c251fdd158a7e26f9c871a7a70f5f50a36",
       "commits": [
         55,
         73,
@@ -1725,9 +1725,9 @@
         6,
         0,
         35,
-        24
+        54
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-07-02",
       "lastMeaningfulCommitSha": "c527acc461be115da8aa1a50f9756942c4a8b366"
     },
@@ -1735,7 +1735,7 @@
       "kind": "github",
       "repository": "zachjs/sv2v",
       "repositoryId": 169686321,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "493a88f930802da68f592c192ec86991eaf95c49",
       "commits": [
@@ -1760,9 +1760,9 @@
       "kind": "github",
       "repository": "berkeley-abc/abc",
       "repositoryId": 124750053,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "0d3399a4d62f6fe56851206f480e7328ff2f3748",
+      "headSha": "4f928c689ff6f1eedec245efc03897f4d2098bcf",
       "commits": [
         51,
         15,
@@ -1775,9 +1775,9 @@
         17,
         22,
         93,
-        8
+        29
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b"
     },
@@ -1785,7 +1785,7 @@
       "kind": "github",
       "repository": "hkust-zhiyao/AssertLLM2",
       "repositoryId": 1247663174,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "9c481ca98fa0a78f248fcf2022127ab80f1e02df",
       "commits": [
@@ -1810,7 +1810,7 @@
       "kind": "github",
       "repository": "AsFigo/cnstlint",
       "repositoryId": 1337743826,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "0b1c68328b520ce527589992ae2e6b7b496b9045",
       "commits": [
@@ -1835,7 +1835,7 @@
       "kind": "github",
       "repository": "wyt2000/CodeV-SVA",
       "repositoryId": 1117348754,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "wave2sva",
       "headSha": "80a9585b761d3a08f2f2b7ca7150e1a48f21aa28",
       "commits": [
@@ -1860,9 +1860,9 @@
       "kind": "github",
       "repository": "diffblue/hw-cbmc",
       "repositoryId": 89927379,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "73ce9d656b33ec9c7a5a9eac3d90e744739541fd",
+      "headSha": "90729a2405e3f425fc36c0ce5021d46a6f20fa90",
       "commits": [
         108,
         52,
@@ -1875,9 +1875,9 @@
         52,
         74,
         115,
-        13
+        34
       ],
-      "lastCommitAt": "2026-11-03",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "f8a2deeec151e7e11daabdad6e71547b2412cde0"
     },
@@ -1885,7 +1885,7 @@
       "kind": "github",
       "repository": "ranaumarnadeem/faultflow",
       "repositoryId": 1240593238,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "c734ee464d69a4b97c1278d4c1f5d81ecef6d813",
       "commits": [
@@ -1910,7 +1910,7 @@
       "kind": "github",
       "repository": "AsFigo/fcovlint",
       "repositoryId": 1326059926,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "9be9f9e4573094b5b8fedd2b51fbd7e48d127f0d",
       "commits": [
@@ -1935,9 +1935,9 @@
       "kind": "github",
       "repository": "Ayoubbelguellaoui/CDC",
       "repositoryId": 1356241022,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "4101730f63ccd687354ad6316566c9e77b5f1f80",
+      "headSha": "2dd20e23e5931c0a22b6b61900f345578c389c70",
       "commits": [
         0,
         0,
@@ -1950,9 +1950,9 @@
         3,
         29,
         27,
-        0
+        1
       ],
-      "lastCommitAt": "2026-10-31",
+      "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-10-25",
       "lastMeaningfulCommitSha": "7a4ebe6124551662ea663b2e2ae625e40a2f07ee"
     },
@@ -1960,7 +1960,7 @@
       "kind": "github",
       "repository": "ajayasai/OpenCollate",
       "repositoryId": 1352320126,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "1d6b4ba2e1b379fc0fc6f19a49fea17c82c7713a",
       "commits": [
@@ -1985,9 +1985,9 @@
       "kind": "github",
       "repository": "parallaxsw/OpenSTA",
       "repositoryId": 649415806,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "c0e900ae3c0ba1676f4888f5238bca0e10b736c7",
+      "headSha": "d8448379114c6e4738f7a6074480dca10434460c",
       "commits": [
         27,
         24,
@@ -2000,9 +2000,9 @@
         7,
         30,
         80,
-        11
+        87
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "f7100b9276667aa5e51d6b7b152e457595991751"
     },
@@ -2010,9 +2010,9 @@
       "kind": "github",
       "repository": "ranaumarnadeem/OpenTestability",
       "repositoryId": 1001650656,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "33d633ac40323bbf520cb4b8720d8e4249146843",
+      "headSha": "11e80fb8d61db1244cf37156b7fa48fc951d79f8",
       "commits": [
         3,
         10,
@@ -2025,9 +2025,9 @@
         3,
         3,
         13,
-        4
+        11
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-09-30",
       "lastMeaningfulCommitSha": "4c6cb8d6098b8c34668fd094373a8088f8d2ce2b"
     },
@@ -2035,7 +2035,7 @@
       "kind": "github",
       "repository": "OpenTimer/OpenTimer",
       "repositoryId": 39079545,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "cd0565fc7a720368e75751c717be92d76350ee8d",
       "commits": [
@@ -2060,9 +2060,9 @@
       "kind": "github",
       "repository": "gipsyh/rIC3",
       "repositoryId": 598150682,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
-      "headSha": "068db05c5db6c56519b6f4de0ac2a374704aab91",
+      "headSha": "6bcb9fe1950c06d8eaebebecd2c2bfac93352eaf",
       "commits": [
         7,
         9,
@@ -2075,9 +2075,9 @@
         0,
         32,
         18,
-        2
+        12
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-15",
       "lastMeaningfulCommitSha": "8c6df1b7a8c217e157215e05348a7a04b5d2fbb2"
     },
@@ -2085,7 +2085,7 @@
       "kind": "github",
       "repository": "RAMA-L7/rta-constraint-intelligence",
       "repositoryId": 1325458139,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "1f3e02379e5bfbc5a8709808438d031fcd40c260",
       "commits": [
@@ -2110,9 +2110,9 @@
       "kind": "github",
       "repository": "rtl-buddy/rtl-buddy-cdc",
       "repositoryId": 1232698117,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "16bb74272b79a799e0fb6c53e6d3204bda6cb620",
+      "headSha": "3916c663e9d2ff6310782067060d7667866b622c",
       "commits": [
         0,
         0,
@@ -2125,9 +2125,9 @@
         14,
         8,
         11,
-        0
+        48
       ],
-      "lastCommitAt": "2026-10-31",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-28",
       "lastMeaningfulCommitSha": "df996d55af0e8b824183d03d531426b8601af429"
     },
@@ -2135,9 +2135,9 @@
       "kind": "github",
       "repository": "rtl-buddy/rtl_buddy",
       "repositoryId": 1211146986,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "fff93bec76255136f1db6cf251c8983a9945ad56",
+      "headSha": "b6fcc98241626864d35cf948d86dd90e1700910e",
       "commits": [
         0,
         0,
@@ -2150,9 +2150,9 @@
         70,
         96,
         110,
-        7
+        18
       ],
-      "lastCommitAt": "2026-11-04",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "7ef509c029fbf15b483684223492393d12ded066"
     },
@@ -2160,7 +2160,7 @@
       "kind": "github",
       "repository": "astrollo/sva-rtl-transpiler",
       "repositoryId": 1260078639,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "446dde6afe8f67ec7aee36a2c7e730a1b591127c",
       "commits": [
@@ -2185,7 +2185,7 @@
       "kind": "github",
       "repository": "AsFigo/svalint",
       "repositoryId": 872368317,
-      "capturedAt": "2026-11-03T07:50:19.713Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "f794fa4b1e30bd4f7f8b70bc1097a01ad177fbfb",
       "commits": [
@@ -2210,9 +2210,9 @@
       "kind": "github",
       "repository": "PSSTools/pssc",
       "repositoryId": 575021060,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "e831848cea6ecdc873639adcbe36f9b0c2dd6806",
+      "headSha": "6dfac17d82065324a013bb7dbeff5fb0f3a38ba8",
       "commits": [
         0,
         0,
@@ -2225,9 +2225,9 @@
         7,
         21,
         105,
-        13
+        14
       ],
-      "lastCommitAt": "2026-11-07",
+      "lastCommitAt": "2026-11-10",
       "lastMeaningfulCommitAt": "2026-11-01",
       "lastMeaningfulCommitSha": "f37708c43250ee229e39ab1798a5d72cea04a249"
     },
@@ -2235,7 +2235,7 @@
       "kind": "github",
       "repository": "PSSTools/pssparser",
       "repositoryId": 236354504,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "45695ee0ce44ab96cfdaf677e128539d2e34e070",
       "commits": [
@@ -2260,7 +2260,7 @@
       "kind": "github",
       "repository": "librelane/librelane",
       "repositoryId": 968608922,
-      "capturedAt": "2026-11-07T02:16:21.811Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "8494d4fea0ddd9bee12ea5e42a38b59438c2b128",
       "commits": [
@@ -2285,9 +2285,9 @@
       "kind": "github",
       "repository": "hudson-trading/slang-server",
       "repositoryId": 1042185084,
-      "capturedAt": "2026-11-07T04:24:38.740Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "0541246eb1b9e4c1c986179cd9a9f1f8b5bb8b44",
+      "headSha": "4349e86487d3766b77f156a01fbc695e4854007f",
       "commits": [
         46,
         32,
@@ -2300,9 +2300,9 @@
         47,
         24,
         22,
-        9
+        30
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "0541246eb1b9e4c1c986179cd9a9f1f8b5bb8b44"
     },
@@ -2310,7 +2310,7 @@
       "kind": "github",
       "repository": "gtkwave/gtkwave",
       "repositoryId": 222023386,
-      "capturedAt": "2026-11-07T04:24:39.878Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "e40ba7937336824f12f7db870ea36f6f090dd90d",
       "commits": [
@@ -2335,7 +2335,7 @@
       "kind": "github",
       "repository": "pulp-platform/bender",
       "repositoryId": 133782498,
-      "capturedAt": "2026-11-07T05:12:02.416Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "e80020910fc91fd223dd64a240fd3bd5fb607b9d",
       "commits": [
@@ -2360,9 +2360,9 @@
       "kind": "github",
       "repository": "olofk/fusesoc",
       "repositoryId": 16964283,
-      "capturedAt": "2026-11-07T05:12:02.416Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "e1a21701ad12bcb8136c13617ce7ed569a71c19f",
+      "headSha": "7b7fa28c58d2825412080c62606e422022933fb8",
       "commits": [
         14,
         27,
@@ -2375,9 +2375,9 @@
         39,
         5,
         13,
-        2
+        5
       ],
-      "lastCommitAt": "2026-11-06",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "213618ab43b686638865fdf687c59b410da1f28f"
     },
@@ -2385,9 +2385,9 @@
       "kind": "github",
       "repository": "SpinalHDL/SpinalHDL",
       "repositoryId": 29812153,
-      "capturedAt": "2026-11-15T03:28:53Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "dev",
-      "headSha": "de72faf6062206a89b445e5cc07e32ed982712c8",
+      "headSha": "ed0054f659e11ac8635a60caf568baa41f3f9c0f",
       "commits": [
         7,
         7,
@@ -2400,9 +2400,9 @@
         11,
         7,
         4,
-        0
+        4
       ],
-      "lastCommitAt": "2026-10-22",
+      "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-22",
       "lastMeaningfulCommitSha": "de72faf6062206a89b445e5cc07e32ed982712c8"
     },
@@ -2410,7 +2410,7 @@
       "kind": "github",
       "repository": "UCSBarchlab/PyRTL",
       "repositoryId": 17123539,
-      "capturedAt": "2026-11-15T04:10:50Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "development",
       "headSha": "9c4fd68fc69649a9ba9dc72d3b1511707d98d7d3",
       "commits": [
@@ -2435,7 +2435,7 @@
       "kind": "github",
       "repository": "janestreet/hardcaml",
       "repositoryId": 134593997,
-      "capturedAt": "2026-11-15T04:31:14Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "d9da179ea12228a0e3f7c1358fedec2ab8971f73",
       "commits": [
@@ -2460,7 +2460,7 @@
       "kind": "github",
       "repository": "clash-lang/clash-compiler",
       "repositoryId": 11172497,
-      "capturedAt": "2026-11-15T04:31:14Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "920973dbb208b14f875eff730dbcf739fad22870",
       "commits": [
@@ -2485,7 +2485,7 @@
       "kind": "github",
       "repository": "lsils/mockturtle",
       "repositoryId": 131001448,
-      "capturedAt": "2026-11-15T04:31:14Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "master",
       "headSha": "a3f817de4005ee6ae12b4dd1ffcf4a4f910691d7",
       "commits": [
@@ -2510,7 +2510,7 @@
       "kind": "github",
       "repository": "hexkDotCom/dvicode",
       "repositoryId": 1424797388,
-      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "c55f9a70cf507a1e165559de71babf91dae3308e",
       "commits": [
@@ -2535,7 +2535,7 @@
       "kind": "github",
       "repository": "ethanuppal/marlin",
       "repositoryId": 912564904,
-      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "e656080aeade503786d89dd5526fc5c11e6a63a9",
       "commits": [
@@ -2560,7 +2560,7 @@
       "kind": "github",
       "repository": "Verilean/sparkle",
       "repositoryId": 1135339607,
-      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "6c29b9b8b4bed436afcc0a3f23a6335bfbc751a1",
       "commits": [
@@ -2585,7 +2585,7 @@
       "kind": "github",
       "repository": "kleverhq/wavepeek",
       "repositoryId": 1146435912,
-      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
       "headSha": "a4451a222e2971404cce574d89fcfb991b160521",
       "commits": [
@@ -2610,9 +2610,9 @@
       "kind": "github",
       "repository": "xlsynth/xlsynth-crate",
       "repositoryId": 807700270,
-      "capturedAt": "2026-11-16T15:00:16.603Z",
+      "capturedAt": "2026-11-19T23:03:09.211Z",
       "defaultBranch": "main",
-      "headSha": "b0193894a5e09629b65d67cea2e2b210e74d91c6",
+      "headSha": "bfa5e7f74d53129795202df44359b0d800980362",
       "commits": [
         34,
         91,
@@ -2625,9 +2625,9 @@
         25,
         38,
         73,
-        103
+        104
       ],
-      "lastCommitAt": "2026-11-14",
+      "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "b0193894a5e09629b65d67cea2e2b210e74d91c6"
     },

@@ -1,7 +1,7 @@
 ---
 name: "OpenROAD"
 aliases: []
-description: "Physical-design engine for floorplanning, placement, clock-tree synthesis, timing, routing and UPF isolation/level-shifter insertion over OpenDB. An experimental floating-random-walk field solver reads routed net geometry for capacitance extraction; Manhattan and dielectric-model limits remain, and upstream regressions do not establish signoff accuracy."
+description: "Physical-design engine for floorplanning, placement, clock-tree synthesis, timing, routing and UPF isolation and level shifting over OpenDB. Its separate experimental 2.5D extractor builds routed RC parasitics in OpenDB and exports SPEF; this does not replace OpenRCX or establish signoff accuracy."
 scope:
   layout:
     ai: false
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under BSD-3-Clause; build dependencies and process-stack inputs remain project- and technology-specific."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: '2026-11-19'
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"
@@ -85,6 +85,12 @@ sources:
   - id: "review-20261115-block-shapes"
     title: "Shared routed-block geometry reader"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/51fef07fed8a1c8934417dc7b65cab99d5d5e36b/src/fsv/src/BlockShapes.cpp"
+  - id: review-20261119-activity
+    title: "Merged experimental extract_pex integration"
+    url: https://github.com/The-OpenROAD-Project/OpenROAD/commit/4543b6b65b4285823b4f20953dd4a8999f6c3126
+  - id: review-20261119-extract
+    title: "Routed RC extraction, OpenDB and SPEF implementation and validation"
+    url: https://github.com/The-OpenROAD-Project/OpenROAD/pull/12299
 ---
 
 ### Implementation context
@@ -123,4 +129,8 @@ This was a static source and documentation review. External EDA, numerical-accur
 
 The November 15 first-parent integration moves the table-based PEX evaluator into the library, adds a per-layer spatial index and shares routed-block shape reading with the field solver. The evaluator emits capacitance contributions attributed to conductor boxes. Retained tests compare radius-limited and all-box evaluation, and compare index queries against brute-force intersection scans with one and four construction threads. These executable changes support the new meaningful checkpoint, rather than the intervening documentation/agent-skill edits. [Integration](#source-review-20261115-integration) · [Evaluator](#source-review-20261115-evaluator) · [Index](#source-review-20261115-index) · [Shared geometry](#source-review-20261115-block-shapes) · [Evaluator tests](#source-review-20261115-evaluator-tests) · [Index tests](#source-review-20261115-index-tests).
 
-The new 2.5D extractor remains under development: its current status documents no commands yet, with end-to-end block-index integration, segmentation and ODB/SPEF output still ahead. Library components and upstream tests do not establish a completed extraction flow or signoff accuracy. This review concerns canonical master source, without verifying tagged-release inclusion or executing EDA/tests. The existing public description, Layout classification and development-provenance evidence remain applicable. [Current status and limits](#source-review-20261115-pex-status).
+At that checkpoint the new 2.5D extractor had no commands and end-to-end integration was unfinished; the November 19 update below records the later command and export. Library components and upstream tests do not establish a completed extraction flow or signoff accuracy. This review concerns canonical master source, without verifying tagged-release inclusion or executing EDA/tests. The existing public description, Layout classification and development-provenance evidence remain applicable. [Current status and limits](#source-review-20261115-pex-status).
+
+### November 19, 2026 review
+
+The November 19 merge adds the experimental `extract_pex` command in Tcl and Python. It applies an interconnect model to routed signal nets, builds wire/via resistances and grounded/coupling capacitances in ODB, and can write SPEF. This PEX flow is separate from the floating-random-walk field solver and leaves existing OpenRCX untouched. Its ITF/model limits and upstream tests do not establish signoff equivalence. [Default-branch integration](#source-review-20261119-activity) · [Implementation and reported validation](#source-review-20261119-extract).

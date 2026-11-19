@@ -1,6 +1,6 @@
 ---
 name: Crescendo
-description: Analog sizing optimizer integrated with Cadence Maestro and Spectre or ALPS measurement flows. It supports several search algorithms, corner constraints and checkpointed runs; live use needs the licensed EDA environment and PDK, while bundled demonstrations are not independent circuit-validation results.
+description: "Analog sizing optimizer for Cadence Maestro with Spectre or ALPS. It supports corner constraints, checkpointed runs, generation-batched evaluation and a three-objective Pareto view; selected candidates can be saved as Virtuoso schematic views. Live optimization requires licensed EDA and a PDK."
 scope:
   design:
     ai: false
@@ -9,7 +9,7 @@ scope:
   aiDevelopment: assisted
 access: Public source; live optimization requires Cadence/Maestro/Ocean, a supported simulator, PDK and licenses.
 addedAt: '2026-11-16'
-reviewedAt: '2026-11-16'
+reviewedAt: '2026-11-19'
 sources:
 - id: code
   title: Canonical public implementation
@@ -19,10 +19,10 @@ sources:
   title: Reviewed workflow and access boundaries
   url: https://github.com/chloeyntu-byte/crescendo/blob/1df82d03762eb1c2c631b2e0f62d0413e9277680/README.md
 - id: activity
-  title: Reviewed first-parent integration of substantive implementation
-  url: https://github.com/chloeyntu-byte/crescendo/commit/1df82d03762eb1c2c631b2e0f62d0413e9277680
+  title: "1.4.5 changelog, Pareto implementation and schematic saving"
+  url: https://github.com/chloeyntu-byte/crescendo/commit/cb4c9e6ad5cf647dfef3b220718a186c08ec48b2
 - id: implementation
-  title: Reviewed implementation and validation change
+  title: Reviewed native-log scoping, timing diagnostics and checkpoint implementation
   url: https://github.com/chloeyntu-byte/crescendo/commit/1df82d03762eb1c2c631b2e0f62d0413e9277680
 - id: retained
   title: Current implementation at review
@@ -47,3 +47,7 @@ Canonical default-branch history was checked, including first-parent integration
 ### Development provenance
 
 The credited Claude identity, executable diff, canonical integration and retained implementation were checked together. This is development assistance, separate from runtime stage classification. [Attributed change](#source-implementation) · [Current code](#source-retained).
+
+### November 19, 2026 review
+
+The November 18 version 1.4.5 source includes a three-objective 3D Pareto viewer and saves selected points as separate Virtuoso schematic views. Generation batching defaults on for new runs without an explicit engine setting; explicit serial configuration remains supported. Bundled demonstrations do not establish live electrical accuracy. [Version and implementation](#source-activity).
