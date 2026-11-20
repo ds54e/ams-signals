@@ -63,7 +63,7 @@ Catalog Search is about 328px and Scope select 160px; the 12px normal-weight res
 
 ## Category labels and palette
 
-`.category-label` owns natural-case system-sans 11px/500, 1.4 line height, zero tracking, square corners and 3px by 7px padding. Catalog and Event labels share geometry and typography. Functional classes map `--category-fill` and `--category-text`; Each functional stage uses the same plain label and stage color regardless of the internal AI classification. Timeline legends remain lighter and retain category shapes.
+`.category-label` owns natural-case system-sans 11px/500, 1.4 line height, zero tracking, square corners and 3px by 7px padding. Catalog and Event labels share geometry and typography. Functional classes map `--category-fill` and `--category-text`. Each functional stage uses the same plain label and stage color regardless of the internal AI classification. Timeline legends remain lighter and retain category shapes.
 
 `foundation.css` owns the five category families; `--technical` aliases blue and `--organizational` aliases rust for labels. Catalog/Event labels use these shared tokens. Timeline glyphs and legends use the shared fixed fills described below. This is visual consistency, not a merger of Golden kinds and catalog Scope.
 

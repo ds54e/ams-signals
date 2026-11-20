@@ -28,7 +28,7 @@ One deterministic `/export.json` projects validated Company, People and Golden E
 
 ## Independent catalogs
 
-Analog and Digital describe public technical projects separately from the Golden corpus. Domain selects the catalog; Scope describes meaningful user-facing design-stage coverage. Runtime AI involvement and software-development provenance are independent and do not measure quality, maturity, confidence or capability strength.
+Analog and Digital describe public technical projects separately from the Golden corpus. Domain selects the catalog; Scope describes meaningful user-facing design-stage coverage. Scope labels and filters represent functional stages, not runtime AI. Catalog search matches the displayed project name, description and labels. Runtime AI classification is recorded separately from the public AI-ASSISTED development badge and does not measure quality, maturity, confidence or capability strength.
 
 Entries require public implementation code, a canonical Code link and reviewed meaningful public activity. Papers, datasets and demonstrations may support an implementation but cannot replace it. Projects may require licensed EDA, PDKs, hardware or model access. Keep current metadata, primary sources, implementation/classification reasoning and limitations together in each project's frontmatter and Markdown notes; captures belong in activity JSON.
 

@@ -461,32 +461,31 @@ test('Scope rendering keeps functional labels plain and development provenance d
 
 test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, generic tools and provenance', async () => {
   const expected = {
-    openpcells: ['Layout'], ngspice: ['Simulation'], klayout: ['Layout'],
-    analogsage: ['AI Design', 'Simulation'], autosizer: ['AI Design', 'Simulation'],
-    'klayout-tools': ['AI Design', 'Simulation', 'AI Layout'],
-    'masala-chai': ['AI Design', 'AI Simulation'],
-    'evo-ldo-bench': ['AI Design', 'AI Simulation'],
-    'virtuoso-agent': ['AI Design', 'AI Simulation'],
-    'virtuoso-bridge-lite': ['AI Design', 'Simulation', 'Layout'], vcli: ['AI Design', 'Simulation', 'Layout'],
-    'gmoverid-skill': ['AI Design', 'AI Simulation'], rnl: ['AI Design'],
-    'behavioral-veriloga-eval': ['AI Design', 'AI Simulation'],
+    openpcells: [['layout', false]], ngspice: [['simulation', false]], klayout: [['layout', false]],
+    analogsage: [['design', true], ['simulation', false]], autosizer: [['design', true], ['simulation', false]],
+    'klayout-tools': [['design', true], ['simulation', false], ['layout', true]],
+    'masala-chai': [['design', true], ['simulation', true]],
+    'evo-ldo-bench': [['design', true], ['simulation', true]],
+    'virtuoso-agent': [['design', true], ['simulation', true]],
+    'virtuoso-bridge-lite': [['design', true], ['simulation', false], ['layout', false]], vcli: [['design', true], ['simulation', false], ['layout', false]],
+    'gmoverid-skill': [['design', true], ['simulation', true]], rnl: [['design', true]],
+    'behavioral-veriloga-eval': [['design', true], ['simulation', true]],
     // Benchmark purpose qualifies the tested stage, not every supporting tool.
-    'analog-design-bench': ['AI Design', 'Simulation'], loadbench: ['AI Design', 'Simulation'],
-    'razavi-bench': ['AI Design', 'Simulation'], evas: ['Simulation'],
+    'analog-design-bench': [['design', true], ['simulation', false]], loadbench: [['design', true], ['simulation', false]],
+    'razavi-bench': [['design', true], ['simulation', false]], evas: [['simulation', false]],
     // Model-authored physical decisions and electrical setup count even with conventional engines.
-    'ams-io-agent': ['AI Design', 'AI Layout'], 'vibe-analog': ['AI Design', 'AI Simulation'],
-    'agentic-sizing': ['AI Design', 'AI Simulation'], 'verilog-a-sim': ['Simulation'],
+    'ams-io-agent': [['design', true], ['layout', true]], 'vibe-analog': [['design', true], ['simulation', true]],
+    'agentic-sizing': [['design', true], ['simulation', true]], 'verilog-a-sim': [['simulation', false]],
     // Reward/candidate ranking alone remains Design, not AI Simulation.
-    arcs: ['AI Design', 'Simulation'],
+    arcs: [['design', true], ['simulation', false]],
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
-    'ngspice-openvaf-enhancements': ['AI Design', 'Simulation'],
+    'ngspice-openvaf-enhancements': [['design', true], ['simulation', false]],
   };
-  for (const [id, classifications] of Object.entries(expected)) {
+  for (const [id, expectedStages] of Object.entries(expected)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const scope = analogSchema.parse(frontmatter).scope;
     const stages = scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment');
-    assert.deepEqual(stages.map((x) => x.label), classifications.map((label) => label.replace(/^AI /, '')), id);
-    assert.deepEqual(stages.map((x) => x.ai), classifications.map((label) => label.startsWith('AI ')), id);
+    assert.deepEqual(stages.map(({ id, ai }) => [id, ai]), expectedStages, id);
   }
 });
 

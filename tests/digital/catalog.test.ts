@@ -497,34 +497,33 @@ test('GitHub and GitLab render genuine counts oldest-first with equal binary mon
 
 test('Digital AI stages follow implemented decisions rather than MCP or project-wide AI labels', () => {
   const expected = {
-    'dr-rtl': ['AI Design', 'Synthesis', 'Verification'],
-    coresmith: ['AI Design', 'AI Synthesis', 'AI Verification', 'AI Layout'],
-    'icrtl-benchmark': ['AI Design', 'Synthesis', 'Verification'],
-    'cvdp-benchmark': ['AI Design', 'AI Verification'], 'ace-rtl': ['AI Design', 'AI Verification'],
-    'rtl-benchmt': ['AI Design', 'Verification'], turtle: ['AI Design', 'Synthesis', 'Verification', 'Layout'],
-    'naja-scope': ['AI Verification'],
-    'rtlscout': ['AI Design', 'Synthesis', 'AI Verification'],
-    lace: ['AI Design', 'AI Verification'],
-    ucagent: ['AI Verification'], spec2cov: ['AI Verification'], verifyrtl: ['AI Verification'],
-    'wave-mcp': ['Verification'], 'sentinel-dv': ['AI Verification'], 'openroad-mcp': ['Synthesis', 'Layout'],
-    openada: ['AI Synthesis', 'AI Verification', 'AI Layout'],
-    'vivado-mcp': ['Synthesis', 'Verification', 'Layout'],
-    xezim: ['Verification'], pono: ['Verification'],
-    circt: ['Design', 'Synthesis', 'Verification'], surfer: ['Verification'],
-    'slang-server': ['Design', 'Verification'], gtkwave: ['Verification'],
-    veryl: ['Design', 'Synthesis', 'Verification'],
-    xls: ['Design', 'Synthesis', 'Verification'],
-    spade: ['Design', 'Synthesis', 'Verification', 'Layout'],
-    kanagawa: ['Design', 'Synthesis'],
-    siliconcompiler: ['Synthesis', 'Verification', 'Layout'],
-    amaranth: ['Design', 'Synthesis', 'Verification', 'Layout'],
-    dynamatic: ['Design', 'Synthesis', 'Verification', 'Layout'],
+    'dr-rtl': [['design', true], ['synthesis', false], ['verification', false]],
+    coresmith: [['design', true], ['synthesis', true], ['verification', true], ['layout', true]],
+    'icrtl-benchmark': [['design', true], ['synthesis', false], ['verification', false]],
+    'cvdp-benchmark': [['design', true], ['verification', true]], 'ace-rtl': [['design', true], ['verification', true]],
+    'rtl-benchmt': [['design', true], ['verification', false]], turtle: [['design', true], ['synthesis', false], ['verification', false], ['layout', false]],
+    'naja-scope': [['verification', true]],
+    'rtlscout': [['design', true], ['synthesis', false], ['verification', true]],
+    lace: [['design', true], ['verification', true]],
+    ucagent: [['verification', true]], spec2cov: [['verification', true]], verifyrtl: [['verification', true]],
+    'wave-mcp': [['verification', false]], 'sentinel-dv': [['verification', true]], 'openroad-mcp': [['synthesis', false], ['layout', false]],
+    openada: [['synthesis', true], ['verification', true], ['layout', true]],
+    'vivado-mcp': [['synthesis', false], ['verification', false], ['layout', false]],
+    xezim: [['verification', false]], pono: [['verification', false]],
+    circt: [['design', false], ['synthesis', false], ['verification', false]], surfer: [['verification', false]],
+    'slang-server': [['design', false], ['verification', false]], gtkwave: [['verification', false]],
+    veryl: [['design', false], ['synthesis', false], ['verification', false]],
+    xls: [['design', false], ['synthesis', false], ['verification', false]],
+    spade: [['design', false], ['synthesis', false], ['verification', false], ['layout', false]],
+    kanagawa: [['design', false], ['synthesis', false]],
+    siliconcompiler: [['synthesis', false], ['verification', false], ['layout', false]],
+    amaranth: [['design', false], ['synthesis', false], ['verification', false], ['layout', false]],
+    dynamatic: [['design', false], ['synthesis', false], ['verification', false], ['layout', false]],
   };
-  for (const [id, classifications] of Object.entries(expected)) {
+  for (const [id, expectedStages] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;
     const stages = scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment');
-    assert.deepEqual(stages.map((x) => x.label), classifications.map((label) => label.replace(/^AI /, '')), id);
-    assert.deepEqual(stages.map((x) => x.ai), classifications.map((label) => label.startsWith('AI ')), id);
+    assert.deepEqual(stages.map(({ id, ai }) => [id, ai]), expectedStages, id);
   }
 });
 

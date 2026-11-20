@@ -12,7 +12,7 @@ AMS Signals helps engineers explore public analog and mixed-signal (AMS) verific
 - **[Analog](https://ams-signals.com/analog/)** and **[Digital](https://ams-signals.com/digital/)** list projects with descriptions, primary links, design-stage Scope and reviewed public activity. Use Search and the Scope filter to find projects, then follow Website, Paper, Code or Results links where available.
 - **GitHub** in the site navigation opens this repository.
 
-Catalog development-provenance badges describe publicly evidenced AI contributions to building the software. Select a badge to read its explanation and sources. These labels are separate from AI used in a project's design workflow; the [provenance policy](docs/AI_DEVELOPMENT.md) explains the criteria.
+Scope uses plain functional labels such as Design or Verification. Project descriptions explain where AI is used in the workflow. A separate **AI-ASSISTED** badge credits evidenced AI contributions to building the software; select it to see the explanation and sources. See the [provenance policy](docs/AI_DEVELOPMENT.md).
 
 Public evidence establishes what was disclosed, not company-wide maturity or private capability. Missing public activity does not prove inactivity. See the [research boundaries](PROJECT_CONTEXT.md#bounded-source-grounded-research) for how evidence is interpreted.
 

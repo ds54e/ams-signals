@@ -17,9 +17,7 @@ Stages appear in this order:
 
 A simulator's internal parser or read-only debug database does not establish Design. Assess reusable frontend/design APIs separately from synthesis-oriented lowering. Testbench/assertion generation is Verification, not DUT Design. Synthesis timing alone is not Layout; clock-tree synthesis is Layout rather than logic Synthesis.
 
-A stage's AI boolean identifies material model-driven generation, decisions/search, prediction, interpretation, diagnosis or control in that stage. A released model-hosted agent skill qualifies when it specifies substantive stage decisions and connects them to implemented operations; a generic MCP/CLI/API, agent-readable instructions or a model client alone does not. Optional implemented paths count, with their setup and limits stated in the description and notes.
-
-For a released benchmark explicitly evaluating AI methods, the stage's internal AI boolean also identifies the stage performed by the evaluated model. The public description must identify the benchmark role; this classification does not claim that its grader contains AI. Require a concrete stage-specific task contract or evaluation method, not merely a dataset usable by AI, generated corpus, planned model integration or incidental use in another project's benchmark.
+Use the [shared stage and AI classification rules](../catalog/CONTRACT.md#scope-and-ai-classification) with these domain-specific distinctions:
 
 RTL repair using timing feedback can make Design AI-backed while fixed synthesis and equivalence checking stay conventional. Model-generated testbenches/assertions, coverage decisions and failure diagnosis can make Verification AI-backed. Backend agents adapting synthesis/layout scripts can justify AI in those stages; conventional synthesis, simulation or layout after model-generated RTL alone does not. Software-development provenance follows the separate [shared policy](../AI_DEVELOPMENT.md) and cannot set a stage's AI boolean.
 

@@ -38,9 +38,13 @@ Keep implementation, classification, selection, limitations and release reasonin
 
 Stages record material user-facing coverage, not completeness or strength. Dependencies, incidental adapters and plans add no stages; absence is not a claim of inability.
 
-`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage; the boolean follows [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules for runtime AI and explicit AI benchmark tasks, separating the evaluated model from its grader. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
+`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage under the domain-specific [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
 
 Optional `scope.aiDevelopment` is `assisted` with paired evidence under the shared policy. Verified credited executable code, including isolated fixes and test/build/tool/example logic, supports the single AI-ASSISTED label; contribution size is not classified. Verify actor identity, actual code, canonical integration and current retention. Provenance is independent of runtime AI and is not a functional stage. Reject parallel provenance booleans, roles, strength levels and project-wide runtime-AI enums.
+
+A stage's AI boolean identifies material model-driven generation, decisions/search, prediction, interpretation, diagnosis or control in that stage. A released model-hosted agent skill qualifies when it specifies substantive stage decisions and connects them to implemented operations; a generic MCP/CLI/API, agent-readable instructions or a model client alone does not. Optional implemented paths count, with their setup and limits stated in the description and notes.
+
+For a released benchmark explicitly evaluating AI methods, the stage's internal AI boolean also identifies the stage performed by the evaluated model. The public description must identify the benchmark role; this classification does not claim that its grader contains AI. Require a concrete stage-specific task contract or evaluation method, not merely a dataset usable by AI, generated corpus, planned model integration or incidental use in another project's benchmark.
 
 ## Data and ownership
 
