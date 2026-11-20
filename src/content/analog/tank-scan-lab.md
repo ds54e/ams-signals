@@ -9,6 +9,10 @@ access: Public source; live measurement needs Cadence, Spectre and the relevant 
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-16'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://rf-fieldwork.pages.dev/tank/?lang=en"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/chloeyntu-byte/tank-scan-lab

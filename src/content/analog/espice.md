@@ -9,6 +9,10 @@ access: Public Apache-2.0 source in the ESPice repository. Source builds require
 addedAt: '2026-10-31'
 reviewedAt: '2026-11-03'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://scouren.github.io/ESpice/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/OpenFAT/ESPice

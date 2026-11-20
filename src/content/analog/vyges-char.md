@@ -8,6 +8,10 @@ access: Public Rust source; cell characterization needs ngspice, models and netl
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-16'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://docs.vyges.com/engines/reference/vyges-char.html"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/vyges-tools/char

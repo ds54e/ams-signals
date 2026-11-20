@@ -18,6 +18,10 @@ access: "MIT project source; .NET 10/Avalonia desktop application and CLI. Bundl
 addedAt: "2026-11-15"
 reviewedAt: "2026-11-15"
 sources:
+  - id: "official"
+    title: "Official project website"
+    url: "https://potatobeanradio.github.io/circuitRF/"
+    purpose: "official"
   - id: "code"
     title: "Canonical circuitRF repository"
     url: "https://github.com/potatobeanradio/circuitRF"

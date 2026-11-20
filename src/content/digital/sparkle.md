@@ -10,6 +10,10 @@ access: Public Lean source; the Lean toolchain and optional simulator dependenci
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-16'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://verilean.github.io/sparkle/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/Verilean/sparkle

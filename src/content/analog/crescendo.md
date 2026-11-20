@@ -11,6 +11,10 @@ access: Public source; live optimization requires Cadence/Maestro/Ocean, a suppo
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-19'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://rf-fieldwork.pages.dev/crescendo/?lang=en"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/chloeyntu-byte/crescendo

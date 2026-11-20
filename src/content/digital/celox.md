@@ -14,6 +14,10 @@ access: "Public Rust and TypeScript source under Apache-2.0 or MIT. The Veryl te
 addedAt: "2026-11-20"
 reviewedAt: "2026-11-20"
 sources:
+  - id: "official"
+    title: "Official project website"
+    url: "https://celox-sim.github.io/celox/"
+    purpose: "official"
   - id: "code"
     title: "Canonical public Celox implementation and project guide"
     url: "https://github.com/celox-sim/celox"

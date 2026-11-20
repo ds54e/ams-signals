@@ -9,6 +9,10 @@ access: Public BSD-3-Clause C++/Python source; requires libngspice, a C++17 tool
 addedAt: '2026-10-31'
 reviewedAt: '2026-10-31'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://themperek.github.io/spicebind/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/themperek/spicebind

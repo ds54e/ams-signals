@@ -12,6 +12,10 @@ access: "GPL-3.0 Python source; package metadata requires Python >=3.10,<4 plus 
 addedAt: "2026-11-15"
 reviewedAt: "2026-11-15"
 sources:
+  - id: "official"
+    title: "Official project website"
+    url: "https://spicelib.readthedocs.io/en/stable/"
+    purpose: "official"
   - id: "code"
     title: "Canonical spicelib repository"
     url: "https://github.com/nunobrum/spicelib"

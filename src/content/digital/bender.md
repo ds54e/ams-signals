@@ -13,6 +13,10 @@ access: Public Rust implementation with a C++ Slang bridge enabled by the defaul
 addedAt: '2026-11-07'
 reviewedAt: '2026-11-07'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://pulp-platform.github.io/bender/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/pulp-platform/bender

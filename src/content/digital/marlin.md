@@ -8,6 +8,10 @@ access: Public Rust source; supported Verilator, Rust/C++ build tools and macOS 
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-16'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://ethanuppal.com/marlin/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/ethanuppal/marlin

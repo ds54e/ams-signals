@@ -13,6 +13,10 @@ access: Public Apache-2.0 Rust source with separate cellkit/LUT resources. Examp
 addedAt: '2026-10-31'
 reviewedAt: '2026-10-31'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://shapeic.readthedocs.io/en/latest/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/ShapeIC/shapeic

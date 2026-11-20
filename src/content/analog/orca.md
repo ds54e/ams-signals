@@ -11,6 +11,10 @@ access: "Apache-2.0 source; Python 3.11–3.13 with gdsfactory, KLayout and gds2
 addedAt: "2026-11-15"
 reviewedAt: "2026-11-15"
 sources:
+  - id: "official"
+    title: "Official project website"
+    url: "https://di-passionate.github.io/ORCA/"
+    purpose: "official"
   - id: "code"
     title: "Canonical ORCA repository"
     url: "https://github.com/DI-PASSIONATE/ORCA"

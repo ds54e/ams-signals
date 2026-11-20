@@ -18,6 +18,10 @@ access: "Public source under RSpice Personal Use License v1.1. Commercial evalua
 addedAt: '2026-10-18'
 reviewedAt: "2026-11-15"
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://rspice.app/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/JaimeHW/RSpice

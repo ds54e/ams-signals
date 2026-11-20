@@ -9,6 +9,10 @@ access: Public Apache-2.0 C++/Python source with ANTLR dependencies and packaged
 addedAt: '2026-10-31'
 reviewedAt: '2026-10-31'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://psstools.github.io/pssparser/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/PSSTools/pssparser

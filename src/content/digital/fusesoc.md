@@ -12,6 +12,10 @@ access: Public Python implementation. Core libraries, generators, Edalize backen
 addedAt: '2026-11-07'
 reviewedAt: '2026-11-07'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://fusesoc.readthedocs.io/en/stable/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/olofk/fusesoc

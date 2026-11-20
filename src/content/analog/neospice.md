@@ -8,6 +8,10 @@ access: Public source; a supported C++ toolchain and optional Python dependencie
 addedAt: '2026-11-16'
 reviewedAt: '2026-11-16'
 sources:
+- id: "official"
+  title: "Official project website"
+  url: "https://razorback16.github.io/neospice/"
+  purpose: "official"
 - id: code
   title: Canonical public implementation
   url: https://github.com/razorback16/neospice
