@@ -1,7 +1,7 @@
 ---
 name: AnalogSAGE
 summary: Analog topology and sizing agents with grounded memory and public circuit adapters.
-description: Uses LLM agents for topology selection, refinement and transistor sizing in SKY130 op-amps, LDOs and bandgap references. Retrieved knowledge, accumulated experience and Bayesian/genetic search guide circuit proposals, while released adapters and testbenches execute ngspice measurements; the configured model and PDK remain external dependencies.
+description: Uses LLM-based AI agents for topology selection, refinement and transistor sizing in SKY130 op-amps, LDOs and bandgap references. Retrieved knowledge, accumulated experience and Bayesian/genetic search guide circuit proposals, while released adapters and testbenches execute ngspice measurements; the configured model and PDK remain external dependencies.
 scope:
   design:
     ai: true

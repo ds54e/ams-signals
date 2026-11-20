@@ -1,7 +1,7 @@
 ---
 name: "Sentinel DV"
 aliases: []
-description: "Read-only verification-evidence server with packaged agent skills for regression triage, causal failure analysis and coverage planning. Models query bounded UVM, assertion, coverage and waveform evidence indexed in DuckDB; replay and run requests produce reviewable commands rather than executing simulations or editing RTL."
+description: "Read-only verification-evidence server with packaged skills for AI agents performing regression triage, causal failure analysis and coverage planning. Models query bounded UVM, assertion, coverage and waveform evidence indexed in DuckDB; replay and run requests produce reviewable commands rather than executing simulations or editing RTL."
 scope:
   verification:
     ai: true

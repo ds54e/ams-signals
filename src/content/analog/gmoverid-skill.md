@@ -1,7 +1,7 @@
 ---
 name: "gmoverid-skill"
 summary: "Agent-usable device characterization and gm/ID sizing tools."
-description: "Agent skills and Python tools for gm/ID transistor sizing and characterization. The agent selects topology and sizing trade-offs, then visually checks characterization plots for physical or extraction problems; conventional lookup tables and ngspice scripts supply device data, sizing quantities and SKY130 PVT/Monte Carlo results."
+description: "Combines AI agent skills with Python tools for gm/ID transistor sizing and characterization. The agent selects topology and sizing trade-offs, then visually checks characterization plots for physical or extraction problems; conventional lookup tables and ngspice scripts supply device data, sizing quantities and SKY130 PVT/Monte Carlo results."
 scope:
   design:
     ai: true
