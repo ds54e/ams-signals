@@ -16,7 +16,8 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   for (const item of items) {
     if (item.development) expect(item.development).toBe('assisted');
     expect(item.classes).toEqual(['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`]);
-    expect(item.text).toMatch(/^(?:AI )?(?:Design|Simulation|Synthesis|Verification|Layout)$|^AI-ASSISTED$/);
+    if (item.development) expect(item.text).toBe('AI-ASSISTED');
+    else expect(item.text).toMatch(/^(?:Design|Simulation|Synthesis|Verification|Layout)$/);
     expect(item.transform).toBe('none');
     expect(item.renderedText).toBe(item.text);
     expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
@@ -35,7 +36,7 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
     expect(item.color).not.toBe(item.fill);
     if (forcedColors) expect(item.outline).toBe('solid');
   }
-  // AI-prefixed and conventional variants use the same stage color, while
+  // AI-backed and conventional stages use the same stage color, while
   // development provenance has its own category; strength is not represented.
   const palette = (item: typeof items[number]) => item.development && !forcedColors ? item.color : item.fill;
   for (const id of new Set(items.map((item) => item.id))) {

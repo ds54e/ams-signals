@@ -442,15 +442,15 @@ test('generic point-signal rendering retains out-of-window evidence without clam
   }
 });
 
-test('Scope rendering separates stage inference from development provenance and fixes display order', () => {
+test('Scope rendering keeps functional labels plain and development provenance distinct', () => {
   const scope = analogSchema.parse({ ...valid(), developmentEvidence: developmentEvidence(), scope: {
     aiDevelopment: 'assisted', layout: { ai: false },
     simulation: { ai: true }, design: { ai: true },
   } }).scope;
   const before = structuredClone(scope);
   assert.deepEqual(scopeItems(scope, scopeStageLabels), [
-    { id: 'design', label: 'AI Design', ai: true },
-    { id: 'simulation', label: 'AI Simulation', ai: true },
+    { id: 'design', label: 'Design', ai: true },
+    { id: 'simulation', label: 'Simulation', ai: true },
     { id: 'layout', label: 'Layout', ai: false },
     { id: 'aiDevelopment', label: 'AI-ASSISTED', aiDevelopment: 'assisted' },
   ]);
@@ -481,10 +481,12 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
     'ngspice-openvaf-enhancements': ['AI Design', 'Simulation'],
   };
-  for (const [id, labels] of Object.entries(expected)) {
+  for (const [id, classifications] of Object.entries(expected)) {
     const { frontmatter } = parseFrontmatter(await readFile(new URL(`../../src/content/analog/${id}.md`, import.meta.url), 'utf8'));
     const scope = analogSchema.parse(frontmatter).scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
+    const stages = scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment');
+    assert.deepEqual(stages.map((x) => x.label), classifications.map((label) => label.replace(/^AI /, '')), id);
+    assert.deepEqual(stages.map((x) => x.ai), classifications.map((label) => label.startsWith('AI ')), id);
   }
 });
 

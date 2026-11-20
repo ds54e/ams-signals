@@ -520,24 +520,26 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     amaranth: ['Design', 'Synthesis', 'Verification', 'Layout'],
     dynamatic: ['Design', 'Synthesis', 'Verification', 'Layout'],
   };
-  for (const [id, labels] of Object.entries(expected)) {
+  for (const [id, classifications] of Object.entries(expected)) {
     const scope = projects.find((p) => p.id === id)!.data.scope;
-    assert.deepEqual(scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment').map((x) => x.label), labels, id);
+    const stages = scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment');
+    assert.deepEqual(stages.map((x) => x.label), classifications.map((label) => label.replace(/^AI /, '')), id);
+    assert.deepEqual(stages.map((x) => x.ai), classifications.map((label) => label.startsWith('AI ')), id);
   }
 });
 
-test('Digital Scope displays composed AI stages and one provenance label without duplicating a stage', () => {
+test('Digital Scope displays plain stages and one provenance label without duplicating a stage', () => {
   const scope = digitalSchema.parse({ ...data(), developmentEvidence: { ...developmentEvidence(), sources: [data().sources[0].id], reviewedAt: data().reviewedAt }, scope: {
     layout: { ai: true }, aiDevelopment: 'assisted',
     verification: { ai: false }, synthesis: { ai: true },
   } }).scope;
   const items = scopeItems(scope, scopeStageLabels);
   assert.deepEqual(items.map((x) => [x.id, x.label]), [
-    ['synthesis', 'AI Synthesis'], ['verification', 'Verification'],
-    ['layout', 'AI Layout'], ['aiDevelopment', 'AI-ASSISTED'],
+    ['synthesis', 'Synthesis'], ['verification', 'Verification'],
+    ['layout', 'Layout'], ['aiDevelopment', 'AI-ASSISTED'],
   ]);
   assert.equal(new Set(items.map((x) => x.id)).size, items.length);
-  assert.equal(items.at(-1)!.ai, undefined);
+  assert.deepEqual(items.map((item) => item.ai), [true, false, true, undefined]);
 });
 
 

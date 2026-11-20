@@ -38,7 +38,7 @@ Keep implementation, classification, selection, limitations and release reasonin
 
 Stages record material user-facing coverage, not completeness or strength. Dependencies, incidental adapters and plans add no stages; absence is not a claim of inability.
 
-`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage; the boolean follows [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules for runtime AI and explicit AI benchmark tasks, separating the evaluated model from its grader. Render the ordinary label or its `AI ` prefix, never both.
+`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage; the boolean follows [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules for runtime AI and explicit AI benchmark tasks, separating the evaluated model from its grader. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
 
 Optional `scope.aiDevelopment` is `assisted` with paired evidence under the shared policy. Verified credited executable code, including isolated fixes and test/build/tool/example logic, supports the single AI-ASSISTED label; contribution size is not classified. Verify actor identity, actual code, canonical integration and current retention. Provenance is independent of runtime AI and is not a functional stage. Reject parallel provenance booleans, roles, strength levels and project-wide runtime-AI enums.
 
@@ -88,7 +88,7 @@ One final AI-ASSISTED provenance badge follows functional stages, with transpare
 
 Search only public name, description and rendered stage/provenance labels, excluding aliases, private notes, source URLs and accessible evidence explanations. Disclosure state must not affect matches. Normalize NFKC, English case, punctuation/symbol separators and whitespace; require all terms. One/two-character terms match whole words, longer terms match substrings.
 
-The native selector offers All scopes and ordered domain stages, matching stage presence independently of AI prefixes. Search AND stage selection only hide rows, preserving activity order. Apply on input after IME composition and on selection changes. Enter does not navigate or submit a query string. Reconcile restored controls on `pageshow`; no URL/history manager, storage or runtime fetching.
+The native selector offers All scopes and ordered domain stages, matching stage presence independently of internal AI classification. Search AND stage selection only hide rows, preserving activity order. Apply on input after IME composition and on selection changes. Enter does not navigate or submit a query string. Reconcile restored controls on `pageshow`; no URL/history manager, storage or runtime fetching.
 
 Show `N projects` unfiltered or `N of TOTAL projects` for any nonempty search/narrowed stage, even if all match. Announce counts politely. Zero results shows only `No projects match.` below controls; clearing controls restores all rows. Catalog filters remain independent from Timeline/Events.
 

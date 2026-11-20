@@ -109,7 +109,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
     const publicText = (p: any) => [p.name, p.description,
-      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
+      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([, name]) => name),
       p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment.toUpperCase()}` : '',
     ].join(' ');
     const aiProjects = ordered.filter((p) => /\bAI\b/i.test(publicText(p))).map((p) => p.id);
@@ -122,10 +122,10 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(row(page, nonAiProject.id)).toBeHidden();
 
     await search.fill('AI Design');
-    const combinedWords = await visibleIds();
+    const combinedWords = ordered.filter((p) => aiProjects.includes(p.id) && /design/i.test(publicText(p))).map((p) => p.id);
     expect(combinedWords.length).toBeGreaterThan(0);
-    expect(combinedWords.every((id) => aiProjects.includes(id))).toBe(true);
-    await search.fill('AI DESIGN'); // Match the rendered uppercase badge text too.
+    await expect.poll(visibleIds).toEqual(combinedWords);
+    await search.fill('AI DESIGN');
     await expect.poll(visibleIds).toEqual(combinedWords);
     await search.fill('ＡＩ　 ｄｅｓｉｇｎ');
     await expect.poll(visibleIds).toEqual(combinedWords);
@@ -146,7 +146,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(page.getByText('No projects match.', { exact: true })).toBeHidden();
   });
 
-  test(`${label} Scope matches each stage with either AI label and combines with Search using AND`, async ({ page }) => {
+  test(`${label} Scope matches each stage independently of AI classification and combines with Search using AND`, async ({ page }) => {
     await open(page);
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
     const search = page.getByRole('searchbox', { name: 'Search projects' });
@@ -189,7 +189,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
   });
 
-  test(`${label} Scope labels preserve stage presence, AI composition and category order`, async ({ page }) => {
+  test(`${label} Scope labels stay plain for every stage and preserve separate AI provenance`, async ({ page }) => {
     await open(page);
     for (const p of projects) {
       const scope = row(page, p.id).getByRole('list', { name: `${p.name} Scope`, exact: true });
@@ -198,7 +198,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       })));
       const expected: { stage: string; ai: string | null; text: string }[] = Object.entries(scopeStageLabels).filter(([stage]) => p.scope[stage]).map(([stage, label]) => {
         const { ai } = p.scope[stage];
-        return { stage, ai: String(ai), text: `${ai ? 'AI ' : ''}${label}` };
+        return { stage, ai: String(ai), text: label };
       });
       if (p.scope.aiDevelopment) expected.push({ stage: 'aiDevelopment', ai: null, text: `AI-${p.scope.aiDevelopment.toUpperCase()}` });
       expect(cells).toEqual(expected);
@@ -267,7 +267,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
     const publicText = (p: any) => [p.name, p.description,
-      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([id, name]) => `${p.scope[id].ai ? 'AI ' : ''}${name}`),
+      ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([, name]) => name),
       p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment}` : '',
     ].join(' ').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}]+/gu, ' ');
     for (const level of ['assisted']) {
