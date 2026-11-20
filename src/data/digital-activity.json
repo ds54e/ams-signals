@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-19",
-  "capturedAt": "2026-11-19T23:03:09.211Z",
+  "reviewedAt": "2026-11-20",
+  "capturedAt": "2026-11-20T00:02:18.911Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2636,6 +2636,31 @@
       "lastPublicUpdateAt": "2026-11-03",
       "lastPublicUpdateSource": "release",
       "lastPublicUpdateType": "release"
+    },
+    "celox": {
+      "kind": "github",
+      "repository": "celox-sim/celox",
+      "repositoryId": 1169247221,
+      "capturedAt": "2026-11-20T00:02:18.911Z",
+      "defaultBranch": "master",
+      "headSha": "0c7f46bd9c25f71161f41ddd6f82d40a845c39f8",
+      "commits": [
+        0,
+        0,
+        80,
+        352,
+        217,
+        80,
+        60,
+        100,
+        182,
+        128,
+        866,
+        806
+      ],
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "0c7f46bd9c25f71161f41ddd6f82d40a845c39f8"
     }
   }
 }
