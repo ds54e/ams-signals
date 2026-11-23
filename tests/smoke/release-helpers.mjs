@@ -5,7 +5,7 @@
 //   release-matrix.spec.mjs      global Activity Matrix bands, bundles, packing, marking
 //   release-navigation.spec.mjs  cross-surface URL/state, inspector selection, context Timelines
 //
-// Geometry, ordering and export projection for the same product behaviour are owned by the
+// Geometry and ordering for the same product behaviour are owned by the
 // Node contracts in tests/golden/. These helpers exist only for what needs a browser.
 
 import { expect } from '@playwright/test';

@@ -2,7 +2,6 @@ import { expect, test } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync } from 'node:fs';
 import { installBrowserErrorGuards, expectExplorerReady } from '../smoke/release-helpers.mjs';
-import { buildExportPayload } from '../../src/lib/export.ts';
 import { ANALYTICS_BEACON_SRC, ANALYTICS_SITE_TOKEN } from '../../src/lib/analytics.mjs';
 
 installBrowserErrorGuards(test);
@@ -40,10 +39,9 @@ for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
   });
 }
 
-test('export, robots and sitemap reflect this release', async ({ request }) => {
+test('retired export returns 404 and robots and sitemap reflect this release', async ({ request }) => {
   const get = async (route) => { const r = await request.get(`./${route}`); expect(r.status(), route).toBe(200); return r; };
-  const payload = await (await get('export.json')).json();
-  expect(payload).toEqual(buildExportPayload({ companies: companies.map((data) => ({ id: data.id, data })), people: people.map((data) => ({ id: data.id, data })), events: events.map((data) => ({ id: data.id, data })), publicOrigin: origin, basePath: '/' }));
+  expect((await request.get('./export.json', { maxRedirects: 0 })).status()).toBe(404);
   const robots = await (await get('robots.txt')).text();
   expect(robots).toContain(`Sitemap: ${origin}/sitemap.xml`);
   expect(robots).toContain('Allow: /');
@@ -52,24 +50,15 @@ test('export, robots and sitemap reflect this release', async ({ request }) => {
   for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) expect(sitemap).toContain(`<loc>${origin}/${route}</loc>`);
   expect(sitemap).not.toContain('export.json');
   for (const change of changes) {
-    const entries = payload[change.kind];
-    expect(Array.isArray(entries), change.kind).toBe(true);
-    const found = entries.find((e) => e.id === change.id);
-    if (change.status === 'D') {
-      expect(found, change.id).toBeUndefined();
-      expect(sitemap).not.toContain(`${origin}/${change.route}`);
-    } else if (change.kind === 'events') {
-      expect(found, change.id).toBeDefined();
-      expect(found.headline).toBe(change.record.headline);
-      expect(sitemap).toContain(`${origin}/${change.route}`);
-    }
+    if (change.status === 'D') expect(sitemap).not.toContain(`${origin}/${change.route}`);
+    else if (change.kind === 'events') expect(sitemap).toContain(`${origin}/${change.route}`);
   }
 });
 
 for (const change of changes) {
   test(`release change ${change.status} /${change.route}`, async ({ page, request }) => {
     if (change.status === 'D') {
-      expect((await request.get(`./${change.route}`)).status()).toBe(404);
+      expect((await request.get(`./${change.route}`, { maxRedirects: 0 })).status()).toBe(404);
       return;
     }
     expect((await page.goto(`./${change.route}`))?.status()).toBe(200);

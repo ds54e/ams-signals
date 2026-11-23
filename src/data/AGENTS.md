@@ -1,6 +1,6 @@
 # Golden factual corpus
 
-Applies to `events/`, `companies/`, `people/` and their factual views/export, not catalog activity JSON stored beside them.
+Applies to `events/`, `companies/`, `people/` and their factual views, not catalog activity JSON stored beside them.
 
 - For qualifying activity, corporate evidence, hiring modality, date substitutes, source handling and historical attribution, use the [Golden evidence contract](../../docs/GOLDEN.md). Start from the checked-in corpus and follow the user's authorized scope.
 - Keep factual/editorial separation and the ban on unsupported rankings, adoption conclusions or permanent technology tags. Each Event records a dated observable occurrence, its participants and representative sources.

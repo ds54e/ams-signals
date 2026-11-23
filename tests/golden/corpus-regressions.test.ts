@@ -1,10 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { buildExportPayload, type ExportPayload } from '../../src/lib/export.ts';
 import { loadGoldenCorpus } from './corpus.ts';
-
-const BASE_PATH = '/ams-signals/';
-const PUBLIC_ORIGIN = 'https://ds54e.github.io';
 
 /**
  * Durable canonicalization regressions only.
@@ -15,13 +11,17 @@ const PUBLIC_ORIGIN = 'https://ds54e.github.io';
  * receipts for a historical research wave, so they stay valid as the corpus grows.
  */
 
-const buildPayload = async (): Promise<ExportPayload> => {
-  const corpus = await loadGoldenCorpus();
-  return buildExportPayload({ ...corpus, publicOrigin: PUBLIC_ORIGIN, basePath: BASE_PATH });
+const loadRecords = async () => {
+  const { companies, people, events } = await loadGoldenCorpus();
+  return {
+    companies: companies.map(({ data }) => data),
+    people: people.map(({ data }) => data),
+    events: events.map(({ data }) => data),
+  };
 };
 
-const eventById = (payload: ExportPayload, id: string) => {
-  const event = payload.events.find((candidate) => candidate.id === id);
+const eventById = (corpus: Awaited<ReturnType<typeof loadRecords>>, id: string) => {
+  const event = corpus.events.find((candidate) => candidate.id === id);
   assert.ok(event, `${id} must exist in the factual corpus`);
   return event;
 };
@@ -85,9 +85,9 @@ const CANONICAL_ASSOCIATIONS: Array<[string, { companies: string[]; people: stri
 const REJECTED_EVENT_IDS = ['sitime-2026-07-renesas-timing-acquisition'];
 
 test('retired legacy Company IDs stay absent from canonical records and Event references', async () => {
-  const payload = await buildPayload();
-  const companyIds = new Set(payload.companies.map(({ id }) => id));
-  const referencedCompanyIds = new Set(payload.events.flatMap(({ companies }) => companies));
+  const corpus = await loadRecords();
+  const companyIds = new Set(corpus.companies.map(({ id }) => id));
+  const referencedCompanyIds = new Set(corpus.events.flatMap(({ companies }) => companies));
 
   for (const legacyId of LEGACY_COMPANY_IDS) {
     assert.equal(companyIds.has(legacyId), false, `${legacyId} must not be a canonical Company`);
@@ -100,18 +100,18 @@ test('retired legacy Company IDs stay absent from canonical records and Event re
 });
 
 test('canonical public Company display names stay intentional', async () => {
-  const payload = await buildPayload();
-  const byId = new Map(payload.companies.map(({ id, name }) => [id, name]));
+  const corpus = await loadRecords();
+  const byId = new Map(corpus.companies.map(({ id, name }) => [id, name]));
 
   for (const [id, name] of Object.entries(CANONICAL_DISPLAY_NAMES)) {
     assert.equal(byId.get(id), name, `${id} must keep its canonical public display name`);
   }
 });
 
-test('retired unreferenced Company records stay out of the factual export', async () => {
-  const payload = await buildPayload();
-  const companyIds = new Set(payload.companies.map(({ id }) => id));
-  const referencedCompanyIds = new Set(payload.events.flatMap(({ companies }) => companies));
+test('retired unreferenced Company records stay out of the Golden corpus', async () => {
+  const corpus = await loadRecords();
+  const companyIds = new Set(corpus.companies.map(({ id }) => id));
+  const referencedCompanyIds = new Set(corpus.events.flatMap(({ companies }) => companies));
   for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
     // A supported new Event can restore a canonical group; an empty record cannot.
     assert.ok(!companyIds.has(id) || referencedCompanyIds.has(id), `${id} must not remain as an empty Company record`);
@@ -119,18 +119,18 @@ test('retired unreferenced Company records stay out of the factual export', asyn
 });
 
 test('historical predecessor Events keep their canonical successor associations', async () => {
-  const payload = await buildPayload();
+  const corpus = await loadRecords();
 
   for (const [id, association] of CANONICAL_ASSOCIATIONS) {
-    const event = eventById(payload, id);
+    const event = eventById(corpus, id);
     assert.deepEqual(event.companies, association.companies, `${id} company association`);
     assert.deepEqual(event.people, association.people, `${id} person association`);
   }
 });
 
 test('knowing rejected Event identities stay out of the factual corpus', async () => {
-  const payload = await buildPayload();
-  const ids = new Set(payload.events.map(({ id }) => id));
+  const corpus = await loadRecords();
+  const ids = new Set(corpus.events.map(({ id }) => id));
 
   for (const rejectedId of REJECTED_EVENT_IDS) {
     assert.equal(ids.has(rejectedId), false, `${rejectedId} must not be published as a factual Event`);
@@ -138,10 +138,10 @@ test('knowing rejected Event identities stay out of the factual corpus', async (
 });
 
 test('every Event company reference resolves to a canonical Company', async () => {
-  const payload = await buildPayload();
-  const companyIds = new Set(payload.companies.map(({ id }) => id));
+  const corpus = await loadRecords();
+  const companyIds = new Set(corpus.companies.map(({ id }) => id));
 
-  for (const event of payload.events) {
+  for (const event of corpus.events) {
     for (const companyId of event.companies) {
       assert.ok(companyIds.has(companyId), `${event.id} references unknown Company ${companyId}`);
     }
@@ -150,7 +150,7 @@ test('every Event company reference resolves to a canonical Company', async () =
 
 // Canonical grouping preserves the source-era employer and stable Event identity.
 test('Qorvo hiring keeps historical wording when grouped under Skyworks', async () => {
-  const event = eventById(await buildPayload(), 'qorvo-2026-power-management-mixed-signal-verification-hiring');
+  const event = eventById(await loadRecords(), 'qorvo-2026-power-management-mixed-signal-verification-hiring');
   assert.deepEqual(event.companies, ['skyworks']);
   assert.match(event.headline, /^Qorvo posts /);
   assert.match(event.fact, /^Qorvo posted /);

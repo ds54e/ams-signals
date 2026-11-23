@@ -49,6 +49,13 @@ for (const siteBase of ['/', '/a+b/']) {
   });
 }
 
+test('the retired JSON export is rejected even if absent from the sitemap', async (t) => {
+  const f = await fixture(t, '/');
+  await f.write('dist/export.json', '{}');
+  const result = await auditIndexing(f.options);
+  assert.deepEqual(result.errors, ['retired export.json was generated']);
+});
+
 test('an unsupported built page cannot be hidden with noindex', async (t) => {
   const f = await fixture(t, '/');
   await f.page('articles/', f.html('articles/', 'noindex, follow'));

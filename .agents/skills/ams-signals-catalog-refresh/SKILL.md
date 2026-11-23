@@ -28,4 +28,4 @@ A failed existing capture, changed identity, expired eligibility or inconsistent
 
 ## Finish
 
-Review the complete JSON and source diff, run the applicable [verification](../../../docs/TESTING.md), and leave the requested reviewable change. Report snapshot/capture dates, refreshed domains, substantive source changes, retained manual records, checks and any unresolved access/eligibility issue. Preserve Golden data, unrelated catalog metadata and `/export.json`. A refresh does not authorize merge, deployment, external model/EDA experiments or account configuration changes.
+Review the complete JSON and source diff, run the applicable [verification](../../../docs/TESTING.md), and leave the requested reviewable change. Report snapshot/capture dates, refreshed domains, substantive source changes, retained manual records, checks and any unresolved access/eligibility issue. Preserve Golden data and unrelated catalog metadata. A refresh does not authorize merge, deployment, external model/EDA experiments or account configuration changes.

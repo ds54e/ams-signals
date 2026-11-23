@@ -62,11 +62,6 @@ test('People-only Events remain in the unfiltered corpus and obey narrowed Compa
   const companyName = companies.find(({ id }) => id === companyId).data.name;
   expect(people.some(({ id }) => id === personId)).toBe(true);
 
-  const payload = await (await page.request.get('./export.json')).json();
-  expect(payload.events.find(({ id }) => id === independent.id)).toEqual(
-    expect.objectContaining({ companies: [], people: independent.people }),
-  );
-
   await page.goto('./timeline/');
   await expectExplorerReady(page);
   const personRow = page.locator(
@@ -123,14 +118,19 @@ test('explicit Search and Company Focus discovery preserve complete matching Eve
 });
 
 test('singleton Companies and People are browse-suppressed but deliberately discoverable', async ({ page }) => {
-  const payload = await (await page.request.get('./export.json')).json();
-  const companyTotals = new Map(payload.companies.map((company) => [
+  const source = await loadGoldenCorpus();
+  const corpus = {
+    companies: source.companies.map(({ data }) => data),
+    people: source.people.map(({ data }) => data),
+    events: source.events.map(({ data }) => data),
+  };
+  const companyTotals = new Map(corpus.companies.map((company) => [
     company.id,
-    payload.events.filter((event) => event.companies.includes(company.id)).length,
+    corpus.events.filter((event) => event.companies.includes(company.id)).length,
   ]));
-  const peopleTotals = new Map(payload.people.map((person) => [
+  const peopleTotals = new Map(corpus.people.map((person) => [
     person.id,
-    payload.events.filter((event) => event.people.includes(person.id)).length,
+    corpus.events.filter((event) => event.people.includes(person.id)).length,
   ]));
   // Singleton derivation semantics are owned by the Node contract layer. The browser
   // integration picks its own deterministic fixtures from whatever the corpus supplies.
@@ -145,11 +145,11 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   expect(singletonCompanyIds.length, 'the corpus must supply a singleton Company fixture').toBeGreaterThan(0);
   expect(singletonPersonIds.length, 'the corpus must supply a singleton Person fixture').toBeGreaterThan(0);
 
-  const singletonCompany = payload.companies.find(({ id }) => id === singletonCompanyIds[0]);
+  const singletonCompany = corpus.companies.find(({ id }) => id === singletonCompanyIds[0]);
   // The narrowed-Company-filter contract needs a singleton Person whose Event names a Company.
-  const singletonPerson = payload.people.find(({ id }) => (
+  const singletonPerson = corpus.people.find(({ id }) => (
     singletonPersonIds.includes(id)
-    && payload.events.some((event) => event.people.includes(id) && event.companies.length > 0)
+    && corpus.events.some((event) => event.people.includes(id) && event.companies.length > 0)
   ));
   expect(
     singletonPerson,
@@ -157,8 +157,8 @@ test('singleton Companies and People are browse-suppressed but deliberately disc
   ).toBeTruthy();
   expect(companyTotals.get(singletonCompany.id)).toBe(1);
   expect(peopleTotals.get(singletonPerson.id)).toBe(1);
-  const companyEvent = payload.events.find((event) => event.companies.includes(singletonCompany.id));
-  const personEvent = payload.events.find((event) => event.people.includes(singletonPerson.id));
+  const companyEvent = corpus.events.find((event) => event.companies.includes(singletonCompany.id));
+  const personEvent = corpus.events.find((event) => event.people.includes(singletonPerson.id));
   const personEventCompanyId = personEvent.companies[0];
   expect(personEventCompanyId, `${singletonPerson.id} must name a Company`).toBeTruthy();
 

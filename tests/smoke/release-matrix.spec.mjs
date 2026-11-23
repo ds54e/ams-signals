@@ -39,7 +39,6 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
   )));
   const originalOrder = await rowKeys();
   const fullCorpus = await page.locator('[data-events-json]').textContent();
-  const exportBefore = await (await page.request.get('./export.json')).text();
 
   for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568], [760, 844], [761, 844]]) {
     await page.setViewportSize({ width, height });
@@ -112,7 +111,6 @@ test('Matrix row window measures variable rows across resize and full-corpus fil
   await expectMatrixRowWindow(page, 25);
   expect(await rowKeys()).toEqual(originalOrder);
   expect(await page.locator('[data-events-json]').textContent()).toBe(fullCorpus);
-  expect(await (await page.request.get('./export.json')).text()).toBe(exportBefore);
 });
 
 for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844 }]]) {
@@ -349,7 +347,7 @@ test('Event bundles retain direct Event interaction and reduce cleanly under fil
 });
 
 test('recent-activity row ordering and alphabetical Company picker stay filter-stable', async ({ page }) => {
-  const payload = await (await page.request.get('./export.json')).json();
+  const { companies } = await loadGoldenCorpus();
   await page.goto('./timeline/');
   await expectExplorerReady(page);
   const viewerEvents = await page.locator('[data-events-json]').evaluate((node) => (
@@ -377,7 +375,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
     || left.id.localeCompare(right.id, 'en')
     || left.entityType.localeCompare(right.entityType, 'en')
   );
-  const expectedCompanies = payload.companies.map((company) => {
+  const expectedCompanies = companies.map(({ data: company }) => {
     const linked = viewerEvents.filter((event) => event.companies.includes(company.id)).sort((left, right) => (
       startTimestamp(right.when.start) - startTimestamp(left.when.start) || left.id.localeCompare(right.id, 'en')
     ));

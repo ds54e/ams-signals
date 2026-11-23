@@ -16,7 +16,7 @@ Scope uses plain functional labels such as Design or Verification. Project descr
 
 Public evidence establishes what was disclosed, not company-wide maturity or private capability. Missing public activity does not prove inactivity. See the [research boundaries](PROJECT_CONTEXT.md#bounded-source-grounded-research) for how evidence is interpreted.
 
-The [factual export](https://ams-signals.com/export.json) contains the Golden Event, Company and People records and their sources. The Analog and Digital catalogs are separate from that corpus and export. [Repository documentation](docs/README.md) includes contributor setup and the detailed contracts.
+The Golden Event, Company and People records and their sources are available through the site pages and the repository data. The Analog and Digital catalogs are separate from that corpus. [Repository documentation](docs/README.md) includes contributor setup and the detailed contracts.
 
 ## Reuse policy
 

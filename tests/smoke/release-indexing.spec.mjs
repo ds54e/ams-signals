@@ -27,7 +27,7 @@ test('robots.txt permits crawling and advertises the sitemap', async ({ page }) 
   expect(robots).not.toMatch(/^Disallow:\s*\S/m);
 });
 
-test('sitemap.xml advertises public HTML routes and excludes export', async ({ page }) => {
+test('sitemap.xml advertises public HTML routes and excludes retired routes', async ({ page }) => {
   const response = await page.request.get('./sitemap.xml');
   expect(response.status()).toBe(200);
 
@@ -40,9 +40,9 @@ test('sitemap.xml advertises public HTML routes and excludes export', async ({ p
   expect(sitemap).not.toContain('export.json');
 });
 
-test('unsupported editorial routes return 404', async ({ page }) => {
+test('unsupported and retired routes return 404', async ({ page }) => {
   const routes = [
-    'articles/',
+    'export.json', 'articles/',
     ...[
       'apple-rnm-modeling-verification-operations', 'uvm-ms-2011-to-2025',
       'ams-nettypes-interoperability', 'rnm-model-validation', 'pll-metamorphic-testing',
@@ -52,14 +52,13 @@ test('unsupported editorial routes return 404', async ({ page }) => {
     'analysis/', 'analysis/from-behavioral-models-to-managed-verification-assets/',
   ];
   for (const route of routes) {
-    const response = await page.request.get(`./${route}`);
+    const response = await page.request.get(`./${route}`, { maxRedirects: 0 });
     expect(response.status(), route).toBe(404);
   }
 });
 
 test('retired empty Company routes stay absent unless factual Events restore the group', async ({ page }) => {
   const sitemap = await (await page.request.get('./sitemap.xml')).text();
-  const payload = await (await page.request.get('./export.json')).json();
   for (const id of ['tcs', 'microsoft', 'impinj', 'thine-electronics', 'omnivision']) {
     const restored = companies.some((company) => company.id === id);
     expect(!restored || events.some((event) => event.companies.includes(id)), id).toBe(true);
@@ -68,7 +67,6 @@ test('retired empty Company routes stay absent unless factual Events restore the
     expect(response.status(), route).toBe(restored ? 200 : 404);
     expect(response.headers(), route).not.toHaveProperty('location');
     expect(sitemap.includes(`<loc>${publicOrigin}${basePath}${route}</loc>`), route).toBe(restored);
-    expect(payload.companies.some((company) => company.id === id), route).toBe(restored);
   }
 });
 

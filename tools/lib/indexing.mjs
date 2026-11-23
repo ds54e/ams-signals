@@ -30,6 +30,8 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
     return { errors, stats: null };
   }
 
+  expect(!(await exists(path.join(outputRoot, 'export.json'))), 'retired export.json was generated');
+
   const [events, companies, people] = await Promise.all([
     readRecords(path.join(projectRoot, 'src/data/events')),
     readRecords(path.join(projectRoot, 'src/data/companies')),

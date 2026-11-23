@@ -3,7 +3,7 @@
 ## Working boundaries
 
 - Follow the user's requested scope. Continue authorized implementation, local checks and fixes through completion; do not ask again for an action already authorized in the session.
-- Keep the Golden factual corpus and independent Analog/Digital catalogs separate. Catalog work must preserve Golden semantics, viewer state and `/export.json`.
+- Keep the Golden factual corpus and independent Analog/Digital catalogs separate. Catalog work must preserve Golden semantics and viewer state.
 - Use the existing Astro/static-data/CSS/vanilla JS architecture. Add a backend, framework or runtime AI integration only for a concrete unmet requirement.
 - Preserve unrelated work and source-grounded content. Merge, publication and external account/domain settings require the corresponding user authorization.
 
@@ -12,7 +12,7 @@
 | Task | Guide |
 | --- | --- |
 | Product intent and research boundaries | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) |
-| Golden Events, Companies, People or factual export | [src/data/AGENTS.md](src/data/AGENTS.md) / [Golden evidence](docs/GOLDEN.md) |
+| Golden Events, Companies and People | [src/data/AGENTS.md](src/data/AGENTS.md) / [Golden evidence](docs/GOLDEN.md) |
 | Catalog content, activity, implementation, tests or docs | [Analog](src/lib/analog/AGENTS.md) / [Digital](src/lib/digital/AGENTS.md); shared changes use both |
 | Timeline/Events behavior | [docs/TIMELINE.md](docs/TIMELINE.md) |
 | Styling and responsive layout | [docs/VISUAL_SYSTEM.md](docs/VISUAL_SYSTEM.md) |

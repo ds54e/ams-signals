@@ -4,7 +4,7 @@ Applies only to the independent Analog and Digital catalogs. [Analog](../analog/
 
 ## Curation and boundaries
 
-The catalogs describe evolving public implementations, their user-facing design-flow coverage, primary evidence and reviewed activity. They are a current landscape, not an exhaustive archive or ranking. Keep them independent of Golden Timeline/Events, Company/Person records, viewer state and `/export.json`; do not force catalog projects into Golden Events.
+The catalogs describe evolving public implementations, their user-facing design-flow coverage, primary evidence and reviewed activity. They are a current landscape, not an exhaustive archive or ranking. Keep them independent of Golden Timeline/Events, Company/Person records and viewer state; do not force catalog projects into Golden Events.
 
 Domain selects the catalog. Cross-catalog membership is separately curated. Vibe-IC remains the explicit exception: independently reviewed domain workflows share one canonical repository identity, not independent activity evidence. This does not authorize other duplicate entries.
 

@@ -12,7 +12,7 @@ Events is the complete chronological textual record within the selected Golden s
 
 The global Matrix uses one deterministic full-corpus recent-public-record ordering: latest three years, then latest five years, then latest record and lifetime count. Company/Person labels use restrained, distinct treatments without giving either entity type an ordering advantage. Filtering may hide marks and empty rows but does not reorder survivors or derive new geometry from the filtered subset.
 
-Ordinary browsing shows entities linked to at least two full-corpus Golden Events. This is a density rule for minimal trajectories, not a quality, confidence, importance, maturity or capability judgment. A nonempty Search or narrowed Company filter reveals matching singleton entities in their immutable full-corpus order. Their evidence always remains in Events, Company/Person/Event pages and the factual export, subject to the existing explicit export exclusions.
+Ordinary browsing shows entities linked to at least two full-corpus Golden Events. This is a density rule for minimal trajectories, not a quality, confidence, importance, maturity or capability judgment. A nonempty Search or narrowed Company filter reveals matching singleton entities in their immutable full-corpus order. Their evidence always remains in Events and Company/Person/Event pages.
 
 ## Time projection and bundles
 

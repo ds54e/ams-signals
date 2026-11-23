@@ -1,5 +1,5 @@
 // Browser contracts for the public surfaces themselves: Timeline, Events, Event detail,
-// Company and Person pages and /export.json — rendered structure, terminology,
+// Company and Person pages — rendered structure, terminology,
 // responsive chrome layout, and surface overlay and stacking behaviour.
 //
 // Discovery controls live in release-discovery.spec.mjs, Activity Matrix geometry in
@@ -21,17 +21,6 @@ import {
 } from './release-helpers.mjs';
 
 installBrowserErrorGuards(test);
-
-// Structural pathname check used in place of `new RegExp(...basePath...)`. basePath is a
-// resolved BASE_URL and may legitimately contain regex metacharacters (e.g. '/a+b/'), so it
-// must never be interpolated into a RegExp; plain string/URL operations avoid that entirely.
-function expectSingleSegmentPath(pathname, prefix) {
-  expect(pathname.startsWith(prefix)).toBe(true);
-  expect(pathname.endsWith('/')).toBe(true);
-  const slug = pathname.slice(prefix.length, -1);
-  expect(slug).not.toBe('');
-  expect(slug).not.toContain('/');
-}
 
 test('Timeline is the temporal view with filters and one Evidence Inspector', async ({ page }) => {
   await page.goto('./timeline/');
@@ -82,39 +71,6 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
     .map((anchor) => anchor.getAttribute('href'))
     .filter((href) => href?.startsWith('/')));
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
-});
-
-test('canonical JSON export endpoint serves the factual corpus', async ({ page }) => {
-  const response = await page.request.get('./export.json');
-  expect(response.status()).toBe(200);
-  expect(response.headers()['content-type']).toContain('application/json');
-
-  // Payload construction, ordering, exclusions and source normalization are owned by
-  // tests/golden/export-contract.test.ts. This only proves the built endpoint is wired to it.
-  const payload = await response.json();
-  expect(Object.keys(payload)).toEqual(['schemaVersion', 'project', 'companies', 'people', 'events']);
-  expect(payload.schemaVersion).toBe(1);
-  expect(Array.isArray(payload.companies)).toBe(true);
-  expect(Array.isArray(payload.people)).toBe(true);
-  expect(Array.isArray(payload.events)).toBe(true);
-  expect(payload.companies.length).toBeGreaterThan(0);
-  expect(payload.events.length).toBeGreaterThan(0);
-
-  const sample = payload.events[0];
-  expect(sample).toEqual(expect.objectContaining({
-    id: expect.any(String),
-    kind: expect.stringMatching(/^(technical|organizational)$/),
-    sources: expect.any(Array),
-  }));
-  expect(sample.recordUrl).toBe(`${publicOrigin}${basePath}events/${sample.id}/`);
-  // Independent shape check: verified via URL parsing plus plain string operations rather than
-  // the exact template above or a regex, and rather than a scheme hardcoded to https — the
-  // deployment resolver's documented, tested contract (src/lib/site-deployment.mjs) accepts
-  // both http and https public origins.
-  const recordUrl = new URL(sample.recordUrl);
-  expect(['http:', 'https:']).toContain(recordUrl.protocol);
-  expect(recordUrl.host.length).toBeGreaterThan(0);
-  expectSingleSegmentPath(recordUrl.pathname, `${basePath}events/`);
 });
 
 test('Events is the chronological textual view without a Timeline or inspector', async ({ page }) => {
@@ -208,7 +164,7 @@ test('Event detail is a centered factual document with Evidence and no editorial
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('aria-current', 'page');
 });
 
-test('Lunlun is a normal two-Event viewer trajectory that remains outside the factual export', async ({ page }) => {
+test('Lunlun remains a normal two-Event viewer trajectory', async ({ page }) => {
   const events = [
     {
       id: 'lunlun-2024-initial-real-time-representation',
@@ -326,9 +282,6 @@ test('Lunlun is a normal two-Event viewer trajectory that remains outside the fa
     for (const term of forbiddenPublicTerms) await expect(page.locator('body')).not.toContainText(term);
   }
 
-  const payload = await (await page.request.get('./export.json')).json();
-  expect(payload.people.map(({ id }) => id)).not.toContain('lunlun');
-  for (const event of events) expect(payload.events.map(({ id }) => id)).not.toContain(event.id);
 });
 
 test('retired empty Companies gain Timeline links only when factual Events restore the group', async ({ page }) => {
