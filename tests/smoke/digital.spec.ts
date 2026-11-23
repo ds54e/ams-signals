@@ -112,3 +112,17 @@ test('Digital excludes the removed PeakRDL listing', async ({ page }) => {
   await expect(fixture.row(page, 'peakrdl')).toHaveCount(0);
   expect(fixture.activity.projects).not.toHaveProperty('peakrdl');
 });
+
+test('a predecessor name finds only the current entry and respects Scope', async ({ page }) => {
+  await page.goto('./digital/');
+  const search = page.getByRole('searchbox', { name: 'Search projects' });
+  const scope = page.getByRole('combobox', { name: 'Scope', exact: true });
+  const visibleRows = page.locator('[data-catalog-project]:visible');
+  await search.fill('Ｓｐｅｃ２Ｃｏｖ');
+  await expect(visibleRows).toHaveCount(1);
+  await expect(visibleRows.getByRole('heading', { name: 'CovAgent', exact: true })).toHaveCount(1);
+  await scope.selectOption('layout');
+  await expect(visibleRows).toHaveCount(0);
+  await scope.selectOption('verification');
+  await expect(visibleRows).toHaveCount(1);
+});

@@ -94,7 +94,7 @@ One final AI-ASSISTED provenance badge follows functional stages, with transpare
 
 ### Search and Scope filtering
 
-Search only public name, description and rendered stage/provenance labels, excluding aliases, private notes, source URLs and accessible evidence explanations. Disclosure state must not affect matches. Normalize NFKC, English case, punctuation/symbol separators and whitespace; require all terms. One/two-character terms match whole words, longer terms match substrings.
+Search the public name, authored aliases, description and rendered stage/provenance labels. Match aliases without displaying duplicate entries or replacing the canonical name. Exclude private notes, source URLs and accessible evidence explanations. Disclosure state must not affect matches. Normalize NFKC, English case, punctuation/symbol separators and whitespace; require all terms. One/two-character terms match whole words, longer terms match substrings.
 
 The native selector offers All scopes and ordered domain stages, matching stage presence independently of internal AI classification. Search AND stage selection only hide rows, preserving activity order. Apply on input after IME composition and on selection changes. Enter does not navigate or submit a query string. Reconcile restored controls on `pageshow`; no URL/history manager, storage or runtime fetching.
 

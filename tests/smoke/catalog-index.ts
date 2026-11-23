@@ -104,11 +104,11 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(await catalog.locator('ol, ul').evaluateAll((nodes) => nodes.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   });
 
-  test(`${label} Search uses visible project text with Unicode normalization`, async ({ page }) => {
+  test(`${label} Search uses public project text and aliases with Unicode normalization`, async ({ page }) => {
     await open(page);
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
-    const publicText = (p: any) => [p.name, p.description,
+    const publicText = (p: any) => [p.name, ...(p.aliases ?? []), p.description,
       ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([, name]) => name),
       p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment.toUpperCase()}` : '',
     ].join(' ');
@@ -131,7 +131,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect.poll(visibleIds).toEqual(combinedWords);
     await search.press('Enter'); expect(new URL(page.url()).search).toBe('');
 
-    // Name and description are searchable; hidden evidence are not.
+    // Names and descriptions are searchable; hidden evidence is not.
     const target = ordered.find((p) => p.id === (domain === 'analog' ? 'ngspice' : 'surfer'))!;
     await search.fill(target.name); await expect(row(page, target.id)).toBeVisible();
     const word = domain === 'analog' ? 'device-model' : 'transaction';
@@ -266,7 +266,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
-    const publicText = (p: any) => [p.name, p.description,
+    const publicText = (p: any) => [p.name, ...(p.aliases ?? []), p.description,
       ...Object.entries(scopeStageLabels).filter(([id]) => p.scope[id]).map(([, name]) => name),
       p.scope.aiDevelopment ? `AI-${p.scope.aiDevelopment}` : '',
     ].join(' ').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}]+/gu, ' ');

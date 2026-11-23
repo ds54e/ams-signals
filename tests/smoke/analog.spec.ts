@@ -31,6 +31,20 @@ catalogSearchRegression(fixture, {
   Xyce: ['xyce', 'qucs-s'],
 });
 
+test('Analog search matches authored aliases without changing the displayed names', async ({ page }) => {
+  await page.goto('./analog/');
+  const search = page.getByRole('searchbox', { name: 'Search projects' });
+  for (const [query, project, name] of [
+    ['ＫＰＥＸ', 'klayout-pex', 'KLayout-PEX'],
+    ['skrf', 'scikit-rf', 'scikit-rf'],
+  ]) {
+    await search.fill(query);
+    const row = fixture.row(page, project);
+    await expect(row).toBeVisible();
+    await expect(row.getByRole('heading', { name, exact: true })).toHaveCount(1);
+  }
+});
+
 test('ngspice maps its reviewed release to its month without fabricated repository history', async ({ page }) => {
   await page.goto('./analog/');
   const signalLabels: Record<string, string> = { paper: 'paper publication', release: 'release', 'public-update': 'public update' };

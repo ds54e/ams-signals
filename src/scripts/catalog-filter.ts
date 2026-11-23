@@ -1,4 +1,4 @@
-// Read only the public name, description and Scope labels already in the DOM.
+// Read only catalog names, authored aliases, descriptions and Scope labels in the DOM.
 // No extra content index, URL state, storage, or EventExplorer dependency.
 function normalize(value: string) {
   return value.normalize('NFKC').toLocaleLowerCase('en')
@@ -13,8 +13,9 @@ export function enhanceCatalog(catalog: HTMLElement) {
   const empty = catalog.querySelector<HTMLElement>('[data-catalog-empty]')!;
   const list = catalog.querySelector<HTMLOListElement>('.catalog-list')!;
   const projects = [...list.querySelectorAll<HTMLElement>('[data-catalog-project]')].map((row) => {
-    const text = normalize([...row.querySelectorAll('h2, .catalog-description, [data-scope-label]')]
-      .map((node) => node.textContent).join(' '));
+    const labels = [...row.querySelectorAll('h2, .catalog-description, [data-scope-label]')]
+      .map((node) => node.textContent);
+    const text = normalize([...labels, row.dataset.catalogAliases ?? ''].join(' '));
     return { row, text, words: new Set(text.split(' ')),
       stages: new Set([...row.querySelectorAll<HTMLElement>('[data-scope-item]')].map((item) => item.dataset.scopeItem)) };
   });

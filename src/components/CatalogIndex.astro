@@ -14,6 +14,7 @@ interface Props {
   projects: readonly {
     id: string;
     name: string;
+    aliases: readonly string[];
     description: string;
     scope: ReturnType<typeof scopeItems>;
     developmentEvidence?: DevelopmentEvidence;
@@ -43,7 +44,7 @@ const windowLabel = `${monthLabel(months[0])}–${monthLabel(months[11])} (oldes
     </form>
     <p class="catalog-empty index-meta" data-catalog-empty hidden>No projects match.</p>
     <ol class="catalog-list index-list" id="catalog:projects" aria-label="Projects">
-      {projects.map((project) => <li class="catalog-project index-row" data-catalog-project={project.id}>
+      {projects.map((project) => <li class="catalog-project index-row" data-catalog-project={project.id} data-catalog-aliases={project.aliases.length ? project.aliases.join(' ') : undefined}>
         <article class="catalog-row" aria-labelledby={`${project.id}--name`}>
           <div class="catalog-rail">
             <div class="catalog-activity" data-activity-kind={project.activity.kind}>
