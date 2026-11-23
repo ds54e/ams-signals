@@ -471,11 +471,11 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     'gmoverid-skill': [['design', true], ['simulation', true]], rnl: [['design', true]],
     'behavioral-veriloga-eval': [['design', true], ['simulation', true]],
     // Benchmark purpose qualifies the tested stage, not every supporting tool.
-    'analog-design-bench': [['design', true], ['simulation', false]], loadbench: [['design', true], ['simulation', false]],
+    'analog-design-bench': [['design', true], ['simulation', false]],
     'razavi-bench': [['design', true], ['simulation', false]], evas: [['simulation', false]],
     // Model-authored physical decisions and electrical setup count even with conventional engines.
     chipjev: [['design', true], ['simulation', false], ['layout', true]], 'vibe-analog': [['design', true], ['simulation', true]],
-    'agentic-sizing': [['design', true], ['simulation', true]], 'verilog-a-sim': [['simulation', false]],
+    'verilog-a-sim': [['simulation', false]],
     // Reward/candidate ranking alone remains Design, not AI Simulation.
     'analoggym-opt': [['design', true], ['simulation', false]],
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.

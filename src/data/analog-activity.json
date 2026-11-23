@@ -277,32 +277,6 @@
       "lastMeaningfulCommitSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
       "notes": "Substantive implementation/task/result activity reviewed at 8feb841f3684898d7aa44225b62e16263a501e3c: Reorganize Sky130 examples. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
-    "loadbench": {
-      "kind": "github",
-      "repository": "FilipeAz/LOADBench-Scripts",
-      "repositoryId": 1318272617,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "03cc45620afbbbee19652d83d625f26f3368d951",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        5,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-08-03",
-      "lastMeaningfulCommitAt": "2026-08-03",
-      "lastMeaningfulCommitSha": "dfb0582658fcdeef77aee73462ac6300c3cf6f41",
-      "notes": "Substantive implementation/task/result activity reviewed at dfb0582658fcdeef77aee73462ac6300c3cf6f41: Added circuit generation coverage script. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
     "masala-chai": {
       "kind": "github",
       "repository": "jitendra-bhandari/Masala-CHAI",
@@ -777,32 +751,6 @@
       "lastMeaningfulCommitAt": "2026-08-28",
       "lastMeaningfulCommitSha": "3e129ede58b4d21509dad682e56b9d573cefe8ab"
     },
-    "agentic-sizing": {
-      "kind": "github",
-      "repository": "aprilaihub/agentic-analog-sizing",
-      "repositoryId": 1313088510,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "d4b59e00bb54029e952b5a38d519ab34665dcc02",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        13,
-        2,
-        1,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-22",
-      "lastMeaningfulCommitAt": "2026-07-27",
-      "lastMeaningfulCommitSha": "83e0621ad58da5195634a2cbc0e3764de0c5150c",
-      "notes": "The September 22 head only updates licensing. The July 27 public research-artifact update is the latest reviewed substantive project change before the mechanical activity refresh."
-    },
     "vibe-analog": {
       "kind": "github",
       "repository": "DeconBear/vibe-analog",
@@ -985,32 +933,6 @@
       "lastMeaningfulCommitSha": "0727a6061c719387f0e95e91fae27f8f2d375580",
       "notes": "Reviewed implementation/validation at 0727a6061c719387f0e95e91fae27f8f2d375580. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity.",
       "lastMeaningfulCommitSource": "review-20261107-pnoise"
-    },
-    "sganalog": {
-      "kind": "github",
-      "repository": "Li-Yueting/SGAnalog",
-      "repositoryId": 1399683603,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0
-      ],
-      "lastCommitAt": "2026-10-01",
-      "lastMeaningfulCommitAt": "2026-10-01",
-      "lastMeaningfulCommitSha": "ebd7e694b79cbe8475c42bd41cf4620c5d537a0f",
-      "notes": "Initial public implementation includes schematic/netlist data, model transcription and graph grading, a fixed-topology sizing/simulation harness, and a digest-pinned open-PDK environment. The arXiv paper was submitted October 2; the activity band records the repository commit date."
     },
     "chipjev": {
       "kind": "github",
@@ -1245,32 +1167,6 @@
       "lastMeaningfulCommitAt": "2026-10-28",
       "lastMeaningfulCommitSha": "44e7b8c04a9b6e884f45d4d7d40732c636c1dd32",
       "notes": "Canonical first-parent history rewrote the previous c09fd766 checkpoint to 64487f52. Reviewed replacement 44e7b8c implements agent tool dispatch, PDK profiles and connectivity validation; author-produced circuit results were not independently reproduced."
-    },
-    "diagen": {
-      "kind": "github",
-      "repository": "Chaoos-404/diagen",
-      "repositoryId": 1383327063,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "c59aa5079dc741c8fb00b7c2f3ca96ca1ffd20aa",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        21,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-27",
-      "lastMeaningfulCommitAt": "2026-09-27",
-      "lastMeaningfulCommitSha": "790df92d6635fea92259fb8489a42f5014822e65",
-      "notes": "Meaningful activity manually reviewed: Engine: pins of one net that meet need no wire. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
     },
     "vagen": {
       "kind": "github",

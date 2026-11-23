@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-23",
-  "capturedAt": "2026-11-23T04:31:47.402Z",
+  "capturedAt": "2026-11-23T05:23:15.490Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -366,31 +366,6 @@
       "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "6d677aecd5ad4febec25f0c2632caec42ea6d361"
-    },
-    "spec2cov": {
-      "kind": "github",
-      "repository": "advent-lab/Spec2Cov",
-      "repositoryId": 1018287185,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "98ddc836668c81d116e0bb9a7faf8f56b2c58cdb",
-      "commits": [
-        2,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-01-20",
-      "lastMeaningfulCommitAt": "2026-01-20",
-      "lastMeaningfulCommitSha": "98ddc836668c81d116e0bb9a7faf8f56b2c58cdb"
     },
     "surelog-uhdm": {
       "kind": "github",
@@ -1156,31 +1131,6 @@
       "lastMeaningfulCommitAt": "2026-07-30",
       "lastMeaningfulCommitSha": "a7c9f131abda9edb5d22934b159e9f0f543ab793"
     },
-    "verirl": {
-      "kind": "github",
-      "repository": "SupreethRao99/veriRL",
-      "repositoryId": 1193814346,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "8977306667df7fa449b9e84798fcbed8fac02fff",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        73,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-04-26",
-      "lastMeaningfulCommitAt": "2026-04-26",
-      "lastMeaningfulCommitSha": "1fd9b16ba44ddf27b52a8f9156975cbae6387610"
-    },
     "icrtl-benchmark": {
       "kind": "github",
       "repository": "weiber2002/ICRTL-Benchmark",
@@ -1230,31 +1180,6 @@
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-10-11",
       "lastMeaningfulCommitSha": "a1157e9aee3fd3c959f9f15767aedb437b7b30d9"
-    },
-    "ace-rtl": {
-      "kind": "github",
-      "repository": "NVlabs/ACE-RTL",
-      "repositoryId": 1304488811,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "94754d796350d42502c9a32639a20d86f50e9678",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        13,
-        0,
-        1,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-20",
-      "lastMeaningfulCommitAt": "2026-07-21",
-      "lastMeaningfulCommitSha": "65a990605dd354f228fb5c536bb32a42c180e18f"
     },
     "cvdp-benchmark": {
       "kind": "github",
@@ -1330,31 +1255,6 @@
       "lastCommitAt": "2026-07-22",
       "lastMeaningfulCommitAt": "2026-02-10",
       "lastMeaningfulCommitSha": "3f4d7fc179ea0ef73acf055ca7872539bbc9dba3"
-    },
-    "vunit": {
-      "kind": "github",
-      "repository": "VUnit/vunit",
-      "repositoryId": 26829379,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "master",
-      "headSha": "5d6ff35471fcd9e1441aadbc4717358c6b558984",
-      "commits": [
-        0,
-        18,
-        13,
-        13,
-        9,
-        1,
-        0,
-        0,
-        2,
-        24,
-        46,
-        2
-      ],
-      "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-10-03",
-      "lastMeaningfulCommitSha": "145e8c85dc6988ae61c7ad2ed5be29707f05a209"
     },
     "naja": {
       "kind": "github",
@@ -2786,6 +2686,56 @@
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
       "lastMeaningfulCommitSha": "903c39a65d029427807f160938d1600a041cb6e8"
+    },
+    "covagent": {
+      "kind": "github",
+      "repository": "advent-lab/CovAgent",
+      "repositoryId": 1310276970,
+      "capturedAt": "2026-11-23T05:23:15.490Z",
+      "defaultBranch": "main",
+      "headSha": "2f6a93189d04ca5d59957fa7be89722aaf39c5af",
+      "commits": [
+        1,
+        3,
+        32,
+        4,
+        2,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-25",
+      "lastMeaningfulCommitAt": "2026-07-21",
+      "lastMeaningfulCommitSha": "16a43fa58069e0bf9b609fa027269b619f16f9db"
+    },
+    "ruststa": {
+      "kind": "github",
+      "repository": "lab-emi/RustSTA",
+      "repositoryId": 1421447783,
+      "capturedAt": "2026-11-23T05:23:15.490Z",
+      "defaultBranch": "main",
+      "headSha": "d919d7aeec36dc2bc107dfa2664d8fe939c06e1e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        56
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "4f2d2ec652a8bf55b2fbf8c28e7ff1cc260d0a4d"
     }
   }
 }

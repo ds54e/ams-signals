@@ -500,12 +500,12 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     'dr-rtl': [['design', true], ['synthesis', false], ['verification', false]],
     coresmith: [['design', true], ['synthesis', true], ['verification', true], ['layout', true]],
     'icrtl-benchmark': [['design', true], ['synthesis', false], ['verification', false]],
-    'cvdp-benchmark': [['design', true], ['verification', true]], 'ace-rtl': [['design', true], ['verification', true]],
+    'cvdp-benchmark': [['design', true], ['verification', true]],
     'rtl-benchmt': [['design', true], ['verification', false]], turtle: [['design', true], ['synthesis', false], ['verification', false], ['layout', false]],
     'naja-scope': [['verification', true]],
     'rtlscout': [['design', true], ['synthesis', false], ['verification', true]],
     lace: [['design', true], ['verification', true]],
-    ucagent: [['verification', true]], spec2cov: [['verification', true]], verifyrtl: [['verification', true]],
+    ucagent: [['verification', true]], covagent: [['verification', true]], ruststa: [['layout', false]], verifyrtl: [['verification', true]],
     'wave-mcp': [['verification', false]], 'sentinel-dv': [['verification', true]], 'openroad-mcp': [['synthesis', false], ['layout', false]],
     openada: [['synthesis', true], ['verification', true], ['layout', true]],
     ovip: [['verification', false]], dvsim: [['verification', false]],
@@ -526,6 +526,18 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     const stages = scopeItems(scope, scopeStageLabels).filter((x) => x.id !== 'aiDevelopment');
     assert.deepEqual(stages.map(({ id, ai }) => [id, ai]), expectedStages, id);
   }
+});
+
+test('CovAgent replaces its predecessor without inheriting the old repository activity record', () => {
+  const successor = projects.find(({ id }) => id === 'covagent');
+  assert.ok(successor);
+  assert.ok(successor.data.aliases.includes('Spec2Cov'));
+  assert.equal(successor.data.sources.find(({ purpose }) => purpose === 'code')?.url, 'https://github.com/advent-lab/CovAgent');
+  assert.ok(!projects.some(({ id }) => id === 'spec2cov'));
+  assert.ok(!Object.hasOwn(snapshot.projects, 'spec2cov'));
+  const record = snapshot.projects.covagent;
+  assert.equal(record.kind, 'github');
+  if (record.kind === 'github') assert.equal(record.repository, 'advent-lab/CovAgent');
 });
 
 test('Digital Scope displays plain stages and one provenance label without duplicating a stage', () => {
