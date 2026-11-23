@@ -22,6 +22,8 @@ Run only the requested command(s), not both by default. They use Git and GitHub 
 
 For non-GitHub monthly records, inspect the canonical host directly, pin identity/branch/head/capture time and recapture complete first-parent UTC buckets. Do not borrow mirrors or silently shift old buckets to a new month. On month rollover, coordinate a complete internally consistent candidate snapshot, including manual captures; inspect the existing validator/refresh entry conditions rather than patching production JSON blindly. Point evidence retains its actual reviewed event date/type/source, with no synthetic commits.
 
+Before month rollover, identify existing records whose only visible signal will fall out of the twelve-month band. Check canonical upstream first. Pending pull requests and documentation-only changes can inform a retention decision, but must not create a new activity bucket or advance meaningful activity. If a record no longer qualifies, curate the article and activity record together before retrying the refresh.
+
 A failed existing capture, changed identity, expired eligibility or inconsistent window is not a successful refresh. Preserve the checked-in snapshot, record the exact blocker and resolve reviewable issues within the request. A failed new GitHub capture may register as `unfetched`, visibly without synthetic activity; retry it before claiming reviewed freshness. Do not weaken validation or relabel stale evidence as fresh. A curation decision such as removing an expired project must be explicit in the review, not a hidden consequence of the refresh script.
 
 ## Finish

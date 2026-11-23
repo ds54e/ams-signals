@@ -20,11 +20,15 @@ Select projects showing either sustained substantive development/maintenance acr
 
 An initial burst, commit counts, stars, repository age and latest push dates alone are insufficient. Assess the substance of changes, including merges and bot-authored work. Cosmetic edits, traffic statistics and automatic version bumps alone do not renew eligibility.
 
+Record concrete technical changes from separate periods when using them as evidence of sustained development. For low-cadence tools, distinguish a stable, still useful implementation with real maintenance from an abandoned prototype. If the evidence is too short or equivocal, keep the candidate out until the next review instead of inferring abandonment or inventing a minimum age.
+
 ### Retention and removal
 
 Apply the same criteria to new and existing entries; historical interest alone does not retain a one-off release. An old review checkpoint is a reason to recheck, not proof of subsequent inactivity.
 
 Before exclusion, check the canonical development location, active branches, substantive releases and migrations. Resolve inaccessible or withdrawn code before retaining it; failed access is not inactivity. A quiet stable branch or recent repository creation is not the project's full history. Development-branch work may support selection, but is not integrated/released capability or default-branch activity.
+
+Give every listing a distinct job in the workflow. Separate a wrapper, companion, or dependency only when its independently usable operation fills a different need; otherwise reference it from the existing listing. When a maintainer migrates a project, prefer one canonical listing and do not count the predecessor’s history twice.
 
 Keep concise selection/retention reasoning with existing project sources and notes; explain removals in the curation change. Remove entries and matching activity records explicitly, not through automatic filtering or weakened freshness gates. Add no status taxonomy, score or separate research inventory.
 
@@ -50,7 +54,7 @@ For a released benchmark explicitly evaluating AI methods, the stage's internal 
 
 Each domain owns its collection, schema, activity JSON, loader and page. Shared presentation uses `src/components/CatalogIndex.astro`, `src/styles/catalog.css` and `src/scripts/catalog-filter.ts`; shared activity-window/sort helpers preserve domain validation differences.
 
-Keep stable project filenames/IDs. Frontmatter owns metadata, Scope, sources and review dates; Markdown notes own reasoning and are not rendered on the index. Source IDs are unique stable slugs with public, non-placeholder, credential-free HTTP(S) URLs and at most one quick-link purpose each (`official`, `paper`, `code`, `results`). External URLs belong in frontmatter; body prose uses validated `#source-ID` links. Domain schemas/guides own exact fields and limits; unknown fields fail validation.
+Keep stable project filenames/IDs. Frontmatter owns metadata, Scope, sources and review dates; Markdown notes own reasoning and are not rendered on the index. Source IDs are unique stable slugs with public, non-placeholder, credential-free HTTP(S) URLs and at most one quick-link purpose each (`official`, `paper`, `code`, `results`). Use Website for a verified project or maintainer site or official documentation, when it helps readers get started; keep Code on the canonical implementation. Do not duplicate the Code link under Website. External URLs belong in frontmatter; body prose uses validated `#source-ID` links. Domain schemas/guides own exact fields and limits; unknown fields fail validation.
 
 ## Reviewed public activity
 
