@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-11-15"
 access: "Public C/Tcl implementation; technology files supply process-specific layout and extraction rules."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: '2026-11-23'
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -86,6 +86,9 @@ sources:
   - id: review-20261115-split-retained
     title: "Retained side-aware netmenu tile handling and erasure"
     url: https://github.com/RTimothyEdwards/magic/blob/b3d80234a93bbe3fea95f64ea96a338bd81e398c/netmenu/NMwiring.c
+  - id: review-20261123
+    title: "Overlap extraction clipping corrections"
+    url: "https://github.com/RTimothyEdwards/magic/commit/1d42dfcdf6cd91df7a59198477324c2ca78ba439"
 ---
 
 ### Scope
@@ -134,3 +137,7 @@ The November 13 change (version 8.3.701) aligns getnode and select net with extr
 This does not make every extraction operation follow virtual connections. Undrawn substrate connections are not traced, and resistance extraction explicitly uses physical-only connectivity because its network grows from a physical starting point. getnode stops at a top-cell port name unless alias reporting is enabled; alias on returns a per-node list beginning with the canonical name. These are behavior and output changes relevant to existing scripts, not a new layout stage or runtime AI. [Substrate limits](#source-review-20261115-select); [resistance extraction boundary](#source-review-20261115-resistance); [getnode output contract](#source-review-20261115-getnode).
 
 The maintainer explicitly states that Claude Opus 5.5 did the coding while he specified the behavior and accepts responsibility for it. The current master head `b3d80234a93bbe3fea95f64ea96a338bd81e398c` retains that code. The preceding November 12 netmenu repair separately credits Claude for using the searched side of split tiles in connectivity/verification and preserving the triangle side when erasing. Both changes support the existing AI-ASSISTED label without attributing all Magic code to AI. Neither commit adds regression files; source inspection is not an independent execution or proof of extraction equivalence. The meaningful first-parent checkpoint is the November 13 connectivity change rather than the later revision housekeeping. [Maintainer attribution](#source-review-20261115-activity); [retained code](#source-review-20261115-retained); [split-tile repair](#source-review-20261115-split); [retained netmenu implementation](#source-review-20261115-split-retained).
+
+### November 23 source review
+
+The maintainer applied credited patches to extraction, including overlap-area handling for rectangular and split-tile geometry. The catalog makes no quantitative extraction-accuracy claim. [Reviewed implementation](#source-review-20261123).

@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-11-19'
+reviewedAt: '2026-11-23'
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -123,6 +123,9 @@ sources:
   - id: review-20261119-activity
     title: "Simulator regressions for user-defined nettype input resolution"
     url: https://github.com/aionhw/xezim/commit/eebbca22bf79adcb1b8b35b0f036b4e6eb01e083
+  - id: review-20261123
+    title: "Interpreter implementation changes exercised on DDR workloads"
+    url: "https://github.com/aionhw/xezim/commit/2c343a352d2f31779d71131ec9fcfb135e8296f1"
 ---
 
 ### Implementation context
@@ -193,3 +196,7 @@ The prototype parser still rejects default arguments and does not establish inte
 ### November 19, 2026 review
 
 The reviewed simulator regression covers real-valued source expressions including variables, literals, package and struct members passed to a user-defined nettype input. These source-to-sink assignments keep a separately resolved input net unless both ends are compatible nets of the same user-defined nettype. The implementation lives in xezim-core; only xezim itself counts for the activity series. This fixes RNM elaboration semantics and does not add an analog solver or establish tagged release inclusion. [Core implementation](#source-review-20261119-real-udn-core) · [Simulator regression](#source-review-20261119-activity).
+
+### November 23 source review
+
+The interpreter changes reference lookup, integer-expression fast paths and short-circuit evaluation. These upstream changes do not establish broader SystemVerilog conformance or independently measured performance. [Reviewed implementation](#source-review-20261123).

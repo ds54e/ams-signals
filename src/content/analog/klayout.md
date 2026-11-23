@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public implementation and binary packages; technology-specific verification uses supplied rule decks."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: '2026-11-23'
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -53,6 +53,9 @@ sources:
   - id: "tests-review-20261115"
     title: "Reviewed utility-library test project"
     url: "https://github.com/KLayout/klayout/blob/53911acd6dfaa113c188d11d20b2ae290aa60a6b/src/tl/unit_tests/unit_tests.pro"
+  - id: review-20261123
+    title: "Merged clipped-DRC hierarchy correction"
+    url: "https://github.com/KLayout/klayout/commit/cc261172b8fbeb7eb9c7eadea31cc5ca47a0f430"
 ---
 
 ### Scope
@@ -88,3 +91,7 @@ This was a static source and documentation review. External EDA, numerical-accur
 The November 14 default-branch merge adds an Emscripten branch to the memory sampler, returning zero where resident-set querying is unavailable. This is build compatibility maintenance within the existing Layout tool, with no new layout or AI capability. The subsequent dependency bump is counted as repository history but is not the meaningful checkpoint. [Merged fix](#source-activity-review-20261115) · [Retained implementation](#source-implementation-review-20261115).
 
 The published stable release is 0.30.13, whose tag points to the saved pre-suffix head; this repair follows that release. The patch adds no regression test, and the utility-library test project has no dedicated Timer suite. Source and test configuration were inspected without building or executing upstream tests. [Stable release](#source-release-review-20261115) · [Test project](#source-tests-review-20261115).
+
+### November 23 source review
+
+The clipped DRC path adjusts hierarchical result back-annotation and can skip empty cells in its remapping. This is a default-branch correction, not a new layout claim. [Reviewed implementation](#source-review-20261123).

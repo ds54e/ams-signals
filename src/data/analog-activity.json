@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-19",
-  "capturedAt": "2026-11-19T23:05:25.745Z",
+  "reviewedAt": "2026-11-23",
+  "capturedAt": "2026-11-23T03:31:49.760Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -541,9 +541,9 @@
       "kind": "github",
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "f3b51b3b2e1701eba6c96c8820dd56a19b40244a",
+      "headSha": "f36d748b25c2892bd2ad7629c016984a08441e1f",
       "commits": [
         4,
         19,
@@ -556,9 +556,9 @@
         38,
         106,
         115,
-        26
+        27
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-21",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "beb7bcba4519ea92e1268f3feef36f043d51f50f",
       "notes": "Netlisting loads additional symbols before descending hierarchy and respects stop attributes. Reviewed default-branch development; no release assignment or new numerical solver is established."
@@ -593,9 +593,9 @@
       "kind": "github",
       "repository": "KLayout/klayout",
       "repositoryId": 81722454,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "53911acd6dfaa113c188d11d20b2ae290aa60a6b",
+      "headSha": "b98a9e65bca8d75e1d30dc71cb5b82d6b09f6823",
       "commits": [
         11,
         0,
@@ -608,20 +608,20 @@
         23,
         1,
         32,
-        16
+        31
       ],
-      "lastCommitAt": "2026-11-14",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "573d74859a60454d78309a148dedc8cfbff484ae",
-      "notes": "Emscripten build compatibility: the memory sampler returns zero where resident-set querying is unavailable. The later dependency bump is not the meaningful checkpoint."
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "cc261172b8fbeb7eb9c7eadea31cc5ca47a0f430",
+      "notes": "The clipped DRC path adjusts hierarchical result back-annotation and can skip empty cells in its remapping. This is a default-branch correction, not a new layout claim."
     },
     "magic": {
       "kind": "github",
       "repository": "RTimothyEdwards/magic",
       "repositoryId": 177686465,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "cc0360b3a4c3ca4b3c81ab69379be630c5d6df87",
+      "headSha": "1d42dfcdf6cd91df7a59198477324c2ca78ba439",
       "commits": [
         20,
         33,
@@ -634,12 +634,12 @@
         7,
         4,
         22,
-        39
+        47
       ],
-      "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "4ec40d2c1314b7a4c675ca14453ac51b1376bda7",
-      "notes": "Reviewed November 15, 2026: same-name virtual connectivity aligns getnode/select net with extraction options; implicit substrate is not traced and resistance extraction remains physical-only. Claude coding and maintainer behavior responsibility are explicit. Retained implementation inspected, not executed. Monthly counts extend the prior immutable head through verified first-parent UTC metadata; later revision housekeeping is not the meaningful checkpoint."
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "1d42dfcdf6cd91df7a59198477324c2ca78ba439",
+      "notes": "The maintainer applied credited patches to extraction, including overlap-area handling for rectangular and split-tile geometry. The catalog makes no quantitative extraction-accuracy claim."
     },
     "align": {
       "kind": "github",
@@ -1146,9 +1146,9 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "main",
-      "headSha": "1f38fafca2dc8546f3402d3e1fe9f54b5356adcd",
+      "headSha": "3ea2b0fd1068e5e9376a1d6af94ed8c00db3c6ed",
       "commits": [
         0,
         385,
@@ -1161,12 +1161,12 @@
         2192,
         2942,
         3933,
-        3744
+        4659
       ],
-      "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "1aeee91db676d6f34dc2315f19ab9068a3edd7c3",
-      "notes": "Reviewed event-orbit PSTB support and explicit refusal of unsupported state-controlled switch crossings, with switched-RL regressions. These are source-inspected default-branch changes, not independently reproduced results or verified tagged-release coverage; scope, provenance and license restrictions remain unchanged."
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "e2dd8f1102f2f87bd4056d8b80baf731000c685c",
+      "notes": "The deck editor now pulls supported model and instance parameter completions from the simulator tables. Completion is limited by those tables; the update is not evidence of wider SPICE or Verilog-A compatibility."
     },
     "revolution-eda": {
       "kind": "github",

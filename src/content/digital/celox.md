@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-20"
 access: "Public Rust and TypeScript source under Apache-2.0 or MIT. The Veryl test workflow uses the Celox npm and Vite packages; the native CLI is available via Cargo, and the VPI workflow additionally needs cocotb."
 addedAt: "2026-11-20"
-reviewedAt: "2026-11-20"
+reviewedAt: '2026-11-23'
 sources:
   - id: "official"
     title: "Official project website"
@@ -34,6 +34,9 @@ sources:
   - id: "development-retained"
     title: "Retained clock/reset option plumbing on reviewed master"
     url: "https://github.com/celox-sim/celox/blob/0c7f46bd9c25f71161f41ddd6f82d40a845c39f8/packages/celox/src/napi-helpers.ts#L482-L488"
+  - id: review-20261123
+    title: "Event-keyed state-update scheduling"
+    url: "https://github.com/celox-sim/celox/commit/c6ba61f671aa694725853f88ba48bd3130f46b62"
 ---
 
 ### Implementation and scope
@@ -47,3 +50,7 @@ The November 2, 2026 v0.13.0 release records executable SystemVerilog and VPI fi
 ### Development provenance
 
 A credited Claude Opus contribution added executable clock/reset option plumbing and reset-polarity handling, including TypeScript tests. The credited commit is an ancestor of the reviewed canonical revision, where the option plumbing remains present. This is development provenance, not AI-driven simulation. [Credited implementation](#source-development-implementation) · [Retained source](#source-development-retained)
+
+### November 23 source review
+
+The native simulator groups state updates by event and distinguishes transition, sample and publish work. This is an internal simulation change after v0.13.0, not added HDL coverage or an independently measured speedup. [Reviewed implementation](#source-review-20261123).

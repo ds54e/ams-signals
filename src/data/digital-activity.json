@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-20",
-  "capturedAt": "2026-11-20T00:02:18.911Z",
+  "reviewedAt": "2026-11-23",
+  "capturedAt": "2026-11-23T03:31:49.760Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -21,9 +21,9 @@
       "kind": "github",
       "repository": "llvm/circt",
       "repositoryId": 245072514,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "main",
-      "headSha": "b4d2c4442fda29e6a986b23f5470519c011f4e2f",
+      "headSha": "d6143d5f3129b120764ae03c2abffb68bc3e8c63",
       "commits": [
         118,
         173,
@@ -36,9 +36,9 @@
         101,
         67,
         144,
-        150
+        156
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "32b75af8cbd913e098791362548d4ba62a2783b9"
     },
@@ -221,9 +221,9 @@
       "kind": "github",
       "repository": "The-OpenROAD-Project/OpenROAD",
       "repositoryId": 218110222,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "b9f770e608e25100bf55ba41a99158fd5102db86",
+      "headSha": "7b26270095b3c710bdbac50d09af1767e2265572",
       "commits": [
         167,
         139,
@@ -236,9 +236,9 @@
         145,
         211,
         318,
-        186
+        201
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-19",
       "lastMeaningfulCommitSha": "4543b6b65b4285823b4f20953dd4a8999f6c3126"
     },
@@ -346,9 +346,9 @@
       "kind": "github",
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "6dc71eb7eb9cc3d12c11505bb62417aad3db53ab",
+      "headSha": "87e38f8cc678c3d0a21a437b479e262c134b6bbe",
       "commits": [
         38,
         24,
@@ -361,9 +361,9 @@
         24,
         43,
         98,
-        123
+        220
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "6d677aecd5ad4febec25f0c2632caec42ea6d361"
     },
@@ -597,9 +597,9 @@
       "kind": "github",
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "915f808e0c8664a46c4b8dfe077d8a315fec48aa",
+      "headSha": "a53cbcd6f79aa609d39a049ea1c6b7072fe0a7e1",
       "commits": [
         130,
         106,
@@ -612,9 +612,9 @@
         178,
         285,
         386,
-        332
+        359
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-15",
       "lastMeaningfulCommitSha": "9ed03126f55c7f2295f81dd9415c75d0527e8423"
     },
@@ -722,9 +722,9 @@
       "kind": "github",
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "main",
-      "headSha": "082607936d912b7617718bc314dda37c8a9dc2ea",
+      "headSha": "2c343a352d2f31779d71131ec9fcfb135e8296f1",
       "commits": [
         0,
         0,
@@ -737,19 +737,19 @@
         509,
         160,
         995,
-        1223
+        1458
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-18",
-      "lastMeaningfulCommitSha": "eebbca22bf79adcb1b8b35b0f036b4e6eb01e083"
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "2c343a352d2f31779d71131ec9fcfb135e8296f1"
     },
     "yosys": {
       "kind": "github",
       "repository": "YosysHQ/yosys",
       "repositoryId": 7454197,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "main",
-      "headSha": "d9358f38c4b320eb4aaa17b70193c76f59d293d4",
+      "headSha": "11d972c2011064339498e292ad22e4a74f557f34",
       "commits": [
         35,
         58,
@@ -762,9 +762,9 @@
         47,
         60,
         83,
-        42
+        46
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "098e46a36e52c4ee8e2c90315e9450b2b54d2db8"
     },
@@ -772,9 +772,9 @@
       "kind": "github",
       "repository": "veryl-lang/veryl",
       "repositoryId": 575770340,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "409e3ff023442d05917a7cb51e4b097e8364a3fb",
+      "headSha": "7fb66f40f7bbbf6ea3503bf9b335b128bc3a174c",
       "commits": [
         33,
         47,
@@ -787,9 +787,9 @@
         155,
         131,
         123,
-        57
+        67
       ],
-      "lastCommitAt": "2026-11-19",
+      "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "c839d68384a55adc250391d87e8829a69ea33bb4"
     },
@@ -2010,9 +2010,9 @@
       "kind": "github",
       "repository": "ranaumarnadeem/OpenTestability",
       "repositoryId": 1001650656,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "main",
-      "headSha": "11e80fb8d61db1244cf37156b7fa48fc951d79f8",
+      "headSha": "2cf9b17dba28d3cd62d7119f8895fbc8e9334e28",
       "commits": [
         3,
         10,
@@ -2025,11 +2025,11 @@
         3,
         3,
         13,
-        11
+        14
       ],
-      "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "4c6cb8d6098b8c34668fd094373a8088f8d2ce2b"
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "daaff8459896ac69d5ea29678923a3703e2f5272"
     },
     "opentimer": {
       "kind": "github",
@@ -2641,9 +2641,9 @@
       "kind": "github",
       "repository": "celox-sim/celox",
       "repositoryId": 1169247221,
-      "capturedAt": "2026-11-20T00:02:18.911Z",
+      "capturedAt": "2026-11-23T03:31:49.760Z",
       "defaultBranch": "master",
-      "headSha": "0c7f46bd9c25f71161f41ddd6f82d40a845c39f8",
+      "headSha": "608562de74ccd547763a197b1a71ff141e1dcd6c",
       "commits": [
         0,
         0,
@@ -2656,11 +2656,61 @@
         182,
         128,
         866,
-        806
+        854
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "0c7f46bd9c25f71161f41ddd6f82d40a845c39f8"
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "c6ba61f671aa694725853f88ba48bd3130f46b62"
+    },
+    "autombist": {
+      "kind": "github",
+      "repository": "ranaumarnadeem/autoMBIST",
+      "repositoryId": 1218718070,
+      "capturedAt": "2026-11-23T03:29:00.545Z",
+      "defaultBranch": "main",
+      "headSha": "032deb05e7a33e7507c5aae6f38bb2a9372c5b5b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        30,
+        3,
+        4,
+        65,
+        10,
+        7,
+        13,
+        11
+      ],
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "032deb05e7a33e7507c5aae6f38bb2a9372c5b5b"
+    },
+    "warptap": {
+      "kind": "github",
+      "repository": "ranaumarnadeem/warptap",
+      "repositoryId": 1338823605,
+      "capturedAt": "2026-11-23T03:29:00.545Z",
+      "defaultBranch": "main",
+      "headSha": "1f455e7d8734788339e1ef9cd47cad80f116ce7c",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        12,
+        135,
+        4,
+        28
+      ],
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "e2bd3613413b9c2b3517442d7462fbb109cf7079"
     }
   }
 }

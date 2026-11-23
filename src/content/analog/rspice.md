@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-15"
+reviewedAt: '2026-11-23'
 sources:
 - id: "official"
   title: "Official project website"
@@ -98,6 +98,9 @@ sources:
 - id: review-20261115-tests
   title: Switched-RL stability and unsupported-crossing regressions
   url: https://github.com/JaimeHW/RSpice/blob/1aeee91db676d6f34dc2315f19ab9068a3edd7c3/crates/rspice-core/tests/periodic/pss_shooting.rs
+- id: review-20261123
+  title: "SPICE deck editor parameter completion"
+  url: "https://github.com/JaimeHW/RSpice/commit/e2dd8f1102f2f87bd4056d8b80baf731000c685c"
 ---
 
 ### Implementation and boundaries
@@ -142,3 +145,7 @@ The November 12 correction preserves located converter crossings across rollback
 Current main extends `.PSTB` Floquet stability analysis to retained driven orbits solved by event shooting, using an inductor loop probe and reducing algebraic or dependent coordinates before reading the multipliers. The switched-RL regression checks one multiplier against `exp(-0.75)` and full probe participation. This is upstream executable evidence, not an independently reproduced stability result. [Event-orbit implementation](#source-review-20261115-event-orbit) · [Retained analysis](#source-review-20261115-implementation) · [Regressions](#source-review-20261115-tests).
 
 PSTB explicitly refuses an event orbit crossing an ideal switch controlled by circuit state when the discrete map lacks the required switching-time sensitivity correction (saltation), and names the switch. PSS can still report that orbit. Harmonic-balance carriers remain unsupported by this PSTB entry point. These are default-branch development changes, with no tagged-release inclusion or general accuracy/conformance result established. The existing Design/Simulation scope, separately sourced AI-development provenance and personal-use restrictions remain unchanged. [Integrated refusal and test](#source-review-20261115-activity) · [Carrier boundary](#source-review-20261115-implementation).
+
+### November 23 source review
+
+The deck editor now pulls supported model and instance parameter completions from the simulator tables. Completion is limited by those tables; the update is not evidence of wider SPICE or Verilog-A compatibility. [Reviewed implementation](#source-review-20261123).
