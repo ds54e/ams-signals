@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-23",
-  "capturedAt": "2026-11-23T03:31:49.760Z",
+  "capturedAt": "2026-11-23T04:31:47.402Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -642,31 +642,6 @@
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "9f8a970bdaa0f965f3cab7dd3ff4badee04ad4bc"
-    },
-    "vivado-mcp": {
-      "kind": "github",
-      "repository": "coreyhahn/vivado_mcp",
-      "repositoryId": 1136914229,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "master",
-      "headSha": "bfe6ce2a9f97f3732ae7602ee40447b7e64902f7",
-      "commits": [
-        0,
-        3,
-        2,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-02-05",
-      "lastMeaningfulCommitAt": "2026-02-05",
-      "lastMeaningfulCommitSha": "bfe6ce2a9f97f3732ae7602ee40447b7e64902f7"
     },
     "wave-mcp": {
       "kind": "github",
@@ -2156,31 +2131,6 @@
       "lastMeaningfulCommitAt": "2026-10-21",
       "lastMeaningfulCommitSha": "7ef509c029fbf15b483684223492393d12ded066"
     },
-    "sva-rtl-transpiler": {
-      "kind": "github",
-      "repository": "astrollo/sva-rtl-transpiler",
-      "repositoryId": 1260078639,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "446dde6afe8f67ec7aee36a2c7e730a1b591127c",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        4,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-06-12",
-      "lastMeaningfulCommitAt": "2026-06-12",
-      "lastMeaningfulCommitSha": "37adefdca9ea2b0ead29a28cdfe0af3b59dc3757"
-    },
     "svalint": {
       "kind": "github",
       "repository": "AsFigo/svalint",
@@ -2711,6 +2661,131 @@
       "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-21",
       "lastMeaningfulCommitSha": "e2bd3613413b9c2b3517442d7462fbb109cf7079"
+    },
+    "dvsim": {
+      "kind": "github",
+      "repository": "lowRISC/dvsim",
+      "repositoryId": 1024979748,
+      "capturedAt": "2026-11-23T04:31:47.402Z",
+      "defaultBranch": "master",
+      "headSha": "68dd2724785c9c302a5bd85263e392604e16d47c",
+      "commits": [
+        13,
+        10,
+        52,
+        73,
+        132,
+        93,
+        14,
+        5,
+        18,
+        11,
+        14,
+        18
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "e4a6b7129e4db1b0afe5e6f7318c3d57fed883fe"
+    },
+    "omnibus": {
+      "kind": "github",
+      "repository": "antmicro/omnibus",
+      "repositoryId": 1448068462,
+      "capturedAt": "2026-11-23T04:31:47.402Z",
+      "defaultBranch": "main",
+      "headSha": "f7799168d896950c9b3d5ed8c0cfc9aa79bb6e62",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        9,
+        11,
+        9,
+        16
+      ],
+      "lastCommitAt": "2026-11-18",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "8fac62a7be51cf20806d91fe7cb1f33c6a0f690f"
+    },
+    "open-eda-file-tools": {
+      "kind": "github",
+      "repository": "smprather/open-eda-file-tools",
+      "repositoryId": 1235171914,
+      "capturedAt": "2026-11-23T04:31:47.402Z",
+      "defaultBranch": "main",
+      "headSha": "1289d2298752e55638dd17b65fe84a93ba9897cb",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        40,
+        0,
+        2,
+        0,
+        27,
+        78
+      ],
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "c93723815679e0ff4c83614645a0ac13d020e456"
+    },
+    "ovip": {
+      "kind": "github",
+      "repository": "idanzaguri/ovip",
+      "repositoryId": 1255421823,
+      "capturedAt": "2026-11-23T04:31:47.402Z",
+      "defaultBranch": "main",
+      "headSha": "e1e18903bf874e032e4054d6a6a39f7cafac506b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        0,
+        4,
+        6,
+        1
+      ],
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "e1e18903bf874e032e4054d6a6a39f7cafac506b"
+    },
+    "topwrap": {
+      "kind": "github",
+      "repository": "antmicro/topwrap",
+      "repositoryId": 338308378,
+      "capturedAt": "2026-11-23T04:31:47.402Z",
+      "defaultBranch": "main",
+      "headSha": "eab71c08030e57e325dcbaab4215744e241bf8ea",
+      "commits": [
+        6,
+        0,
+        0,
+        5,
+        11,
+        45,
+        18,
+        88,
+        69,
+        64,
+        42,
+        53
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "903c39a65d029427807f160938d1600a041cb6e8"
     }
   }
 }

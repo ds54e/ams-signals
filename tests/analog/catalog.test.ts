@@ -474,10 +474,10 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
     'analog-design-bench': [['design', true], ['simulation', false]], loadbench: [['design', true], ['simulation', false]],
     'razavi-bench': [['design', true], ['simulation', false]], evas: [['simulation', false]],
     // Model-authored physical decisions and electrical setup count even with conventional engines.
-    'ams-io-agent': [['design', true], ['layout', true]], 'vibe-analog': [['design', true], ['simulation', true]],
+    chipjev: [['design', true], ['simulation', false], ['layout', true]], 'vibe-analog': [['design', true], ['simulation', true]],
     'agentic-sizing': [['design', true], ['simulation', true]], 'verilog-a-sim': [['simulation', false]],
     // Reward/candidate ranking alone remains Design, not AI Simulation.
-    arcs: [['design', true], ['simulation', false]],
+    'analoggym-opt': [['design', true], ['simulation', false]],
     // The enhancement tree now implements GP-guided sizing; its SPICE solver is conventional.
     'ngspice-openvaf-enhancements': [['design', true], ['simulation', false]],
   };
@@ -493,7 +493,7 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
 test('explicitly curated Analog removals leave neither articles nor activity records', async () => {
   const files = await readdir(new URL('../../src/content/analog/', import.meta.url));
   const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
-  for (const id of ['analogagent', 'gf180-analog-agent', 'analogmaster', 'wirewright']) {
+  for (const id of ['analogagent', 'gf180-analog-agent', 'analogmaster', 'wirewright', 'ams-io-agent', 'arcs']) {
     assert.ok(!files.includes(`${id}.md`), id);
     assert.ok(!(id in activity.projects), id);
   }

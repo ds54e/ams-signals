@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-23",
-  "capturedAt": "2026-11-23T03:31:49.760Z",
+  "capturedAt": "2026-11-23T04:32:05.131Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -17,32 +17,6 @@
     "2026-11"
   ],
   "projects": {
-    "ams-io-agent": {
-      "kind": "github",
-      "repository": "Arcadia-1/AMS-IO-Agent",
-      "repositoryId": 1095857754,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "046a2e3edccd76322ab3e47c4dd9a5a1eded1e8a",
-      "commits": [
-        13,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2025-12-25",
-      "lastMeaningfulCommitAt": "2025-12-25",
-      "lastMeaningfulCommitSha": "00e666131ad99320d5c47f3281da4d9956ef9e30",
-      "notes": "Substantive implementation/task/result activity reviewed at 00e666131ad99320d5c47f3281da4d9956ef9e30: Update configuration to disable logging and modify test cases. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
     "analog-design-bench": {
       "kind": "github",
       "repository": "Arcadia-1/analog-design-bench",
@@ -146,32 +120,6 @@
       "lastMeaningfulCommitAt": "2026-05-06",
       "lastMeaningfulCommitSha": "7c7d89d8a4cf4c7aeae190b93b5bf6740df734be",
       "notes": "Substantive implementation/task/result activity reviewed at 7c7d89d8a4cf4c7aeae190b93b5bf6740df734be: Refactor preprocessing pipeline and evaluation metrics. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
-    "arcs": {
-      "kind": "github",
-      "repository": "tusharpathaknyu/ARCS",
-      "repositoryId": 1161198916,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "b14a1f2afcced3d3a339ecb4d0927be4305c426d",
-      "commits": [
-        0,
-        0,
-        20,
-        123,
-        6,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-04-10",
-      "lastMeaningfulCommitAt": "2026-03-27",
-      "lastMeaningfulCommitSha": "c4d2689d224ebf4b3dea77c310c64be58fe1f560",
-      "notes": "Substantive implementation/task/result activity reviewed at c4d2689d224ebf4b3dea77c310c64be58fe1f560: Multi-seed evaluation: 5 seeds with mean±std for all autoregressive results. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
     "autosizer": {
       "kind": "github",
@@ -2598,6 +2546,81 @@
       "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-11-02",
       "lastMeaningfulCommitSha": "8437189cfef1d52070712dc66804a85e65aca18b"
+    },
+    "actsim": {
+      "kind": "github",
+      "repository": "rmanohar/actsim",
+      "repositoryId": 282709160,
+      "defaultBranch": "master",
+      "headSha": "0eb0dcb0c22d997766c5f49cd4f34226876f3a44",
+      "commits": [
+        0,
+        0,
+        2,
+        0,
+        1,
+        4,
+        2,
+        11,
+        7,
+        2,
+        8,
+        3
+      ],
+      "lastCommitAt": "2026-11-05",
+      "capturedAt": "2026-11-23T04:32:05.131Z",
+      "lastMeaningfulCommitAt": "2026-11-05",
+      "lastMeaningfulCommitSha": "0eb0dcb0c22d997766c5f49cd4f34226876f3a44"
+    },
+    "gds2palace": {
+      "kind": "github",
+      "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2",
+      "repositoryId": 1073603194,
+      "defaultBranch": "main",
+      "headSha": "e841e0b2caadb6cd6e7034f4cc3ee235437e3070",
+      "commits": [
+        16,
+        10,
+        2,
+        19,
+        10,
+        2,
+        2,
+        8,
+        2,
+        14,
+        24,
+        26
+      ],
+      "lastCommitAt": "2026-11-22",
+      "capturedAt": "2026-11-23T04:32:05.131Z",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "2e26c45d928d506667393ae6b84faa53fff63891"
+    },
+    "paramrf": {
+      "kind": "github",
+      "repository": "gvcallen/paramrf",
+      "repositoryId": 992436422,
+      "defaultBranch": "main",
+      "headSha": "bce28fa07350c0e82915a936b8a49947b853e1ef",
+      "commits": [
+        20,
+        47,
+        98,
+        206,
+        132,
+        183,
+        39,
+        39,
+        35,
+        102,
+        60,
+        30
+      ],
+      "lastCommitAt": "2026-11-13",
+      "capturedAt": "2026-11-23T04:32:05.131Z",
+      "lastMeaningfulCommitAt": "2026-11-13",
+      "lastMeaningfulCommitSha": "bce28fa07350c0e82915a936b8a49947b853e1ef"
     }
   }
 }

@@ -508,7 +508,8 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     ucagent: [['verification', true]], spec2cov: [['verification', true]], verifyrtl: [['verification', true]],
     'wave-mcp': [['verification', false]], 'sentinel-dv': [['verification', true]], 'openroad-mcp': [['synthesis', false], ['layout', false]],
     openada: [['synthesis', true], ['verification', true], ['layout', true]],
-    'vivado-mcp': [['synthesis', false], ['verification', false], ['layout', false]],
+    ovip: [['verification', false]], dvsim: [['verification', false]],
+    'open-eda-file-tools': [['verification', false], ['layout', false]],
     xezim: [['verification', false]], pono: [['verification', false]],
     circt: [['design', false], ['synthesis', false], ['verification', false]], surfer: [['verification', false]],
     'slang-server': [['design', false], ['verification', false]], gtkwave: [['verification', false]],
@@ -571,7 +572,9 @@ test('Digital explicitly curates all-zero windows without treating missing histo
 });
 
 
-test('explicitly curated Duck RTL removal leaves neither article nor activity record', () => {
-  assert.ok(!projects.some((project) => project.id === 'duck-rtl'));
-  assert.ok(!('duck-rtl' in snapshot.projects));
+test('explicitly curated Digital removals leave neither articles nor activity records', () => {
+  for (const id of ['duck-rtl', 'sva-rtl-transpiler', 'vivado-mcp']) {
+    assert.ok(!projects.some((project) => project.id === id), id);
+    assert.ok(!(id in snapshot.projects), id);
+  }
 });
