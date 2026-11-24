@@ -28,6 +28,9 @@ sources:
   - id: earlier
     title: "Earlier optimizer starting-point implementation"
     url: "https://github.com/DI-PASSIONATE/COBRA/pull/69"
+  - id: dc-pin-override
+    title: "Reviewed VACASK DC-pin override implementation"
+    url: "https://github.com/DI-PASSIONATE/COBRA/blob/2b24532f2666b9c5a6030521c4997f8c93b9235a/src/cobra/spice_sim/vector_fit.py"
 ---
 
 ### Scope and evidence
@@ -35,3 +38,5 @@ sources:
 The optimization loop consumes learned S-parameters as numerical predictions that materially drive response evaluation and design trials. The circuit solver, vector fitting and fixed-EM retuning are numerical operations; the learned path does not make those engines model-driven. Unlike ORCA, COBRA optimizes a circuit from supplied component models rather than generating or training those models from geometry scans. No Layout label or development attribution is borrowed.
 
 The reviewed source includes retuning and a DC-pin override with tests after v3.2.0. Neither the objective nor an upstream EM rerun establishes fabricated-circuit or out-of-domain accuracy. [Earlier optimizer work](#source-earlier) · [Version](#source-release) · [Retuning](#source-retune) · [DC-pin integration](#source-activity).
+
+The reviewed VACASK vector-fitting path enables `force_dc_pin` by default. When an input includes a 0 Hz point, it can reinstate a DC pin that snp2le skipped because of a below-band passivity excursion; the subsequent singular-operating-point check still applies. Check the final model's passivity and low-frequency behavior when interpreting its DC resistance. [DC-pin override](#source-dc-pin-override).

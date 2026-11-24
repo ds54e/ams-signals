@@ -58,6 +58,12 @@ sources:
   - id: pdkmaster
     title: "Related process-rule description and layout construction"
     url: "https://gitlab.com/Chips4Makers/PDKMaster"
+  - id: pex-mode-connectivity
+    title: "Full-RC versus C-coupled PEX connectivity check"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/0df1f31677ef97df62da86543fb277dff18e6f6b/scripts/check_pex_modes.py"
+  - id: pex-shared-missing-port
+    title: "Documented GF180 PEX false passes"
+    url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3e2f87f46bb9d8be6f5e3763fc5ec574ff312c71/gf180mcuD/KNOWN_ISSUES.md"
 ---
 
 ### Implemented operations and boundaries
@@ -65,6 +71,10 @@ sources:
 The regression separates KNOWN_FAILS, EXPECTED_FAILS and KNOWN_FALSE_PASSES, and distinguishes tool findings from execution breakdowns. SKY130 has a self-contained PEX bench and runnable KLayout LVS. Upstream reports 56 passes and 23 known failures across 79 cases on the 2026-10-22 IIC-OSIC-TOOLS nightly image with the revised wrapper; this is not full SKY130 DRC/LVS coverage or foundry signoff. [SKY130 regression settings](#source-sky130-lvs) · [Upstream run](#source-sky130-lvs-run). Pinned extraction results and deck arithmetic are not independent silicon calibration.
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2); [Source 3](#source-implementation-3); [Source 4](#source-implementation-4); [Source 5](#source-implementation-5); [Source 6](#source-implementation-6).
+
+The PEX mode comparison contracts resistor-connected nodes and compares device-terminal reachability to external ports between C-coupled and full-RC outputs. Missing or stale C-coupled reference netlists can skip the comparison with exit code zero. A shared missing gate port is a documented GF180 false pass; this is not full internal-net equivalence or R/C-value validation. [Connectivity check](#source-pex-mode-connectivity) · [Known issues](#source-pex-shared-missing-port).
+
+PDKMaster describes technology objects and generates circuits or geometry; this project executes regressions against selected PDK/tool combinations. Neither substitutes for the other. [Technology and layout construction](#source-pdkmaster).
 
 ### Scope and activity review
 
@@ -77,5 +87,3 @@ Review was static: public implementation and published tests/documentation were 
 ### Development provenance
 
 Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
-
-PDKMaster describes technology objects and generates circuits or geometry; this project executes regressions against selected PDK/tool combinations. Neither substitutes for the other. [Technology and layout construction](#source-pdkmaster).
