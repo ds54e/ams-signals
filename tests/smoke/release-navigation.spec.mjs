@@ -20,7 +20,7 @@ import {
 
 installBrowserErrorGuards(test);
 
-test('selecting a Timeline mark updates the Evidence Inspector', { tag: '@core' }, async ({ page }) => {
+test('selecting a Timeline mark updates the Evidence Inspector', { tag: '@core-golden' }, async ({ page }) => {
   const eventId = 'renesas-2023-automated-pll-model-testbench';
   await page.goto('./timeline/?q=PLL');
   await expectExplorerReady(page);
@@ -62,7 +62,7 @@ test('global Timeline Event sets remain subsets of the complete Events record', 
   }
 });
 
-test('Timeline and Events navigation preserves shared state without carrying hidden filters', { tag: '@core' }, async ({ page }) => {
+test('Timeline and Events navigation preserves shared state without carrying hidden filters', { tag: '@core-golden' }, async ({ page }) => {
   await page.goto('./events/?q=PLL&kind=organizational&companies=apple&view=people');
   await expectExplorerReady(page, 'events');
   expect(queryState(page.url())).toEqual({

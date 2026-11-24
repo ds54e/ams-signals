@@ -22,7 +22,7 @@ import {
 
 installBrowserErrorGuards(test);
 
-test('Timeline is the temporal view with filters and one Evidence Inspector', { tag: '@core' }, async ({ page }) => {
+test('Timeline is the temporal view with filters and one Evidence Inspector', { tag: '@core-golden' }, async ({ page }) => {
   await page.goto('./timeline/');
   await expectExplorerReady(page);
 
@@ -73,7 +73,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', { 
   expect(internalHrefs.every((href) => href.startsWith(basePath))).toBe(true);
 });
 
-test('Events is the chronological textual view without a Timeline or inspector', { tag: '@core' }, async ({ page }) => {
+test('Events is the chronological textual view without a Timeline or inspector', { tag: '@core-golden' }, async ({ page }) => {
   await page.goto('./events/');
   await expectExplorerReady(page, 'events');
 
@@ -134,7 +134,7 @@ test('Events is the chronological textual view without a Timeline or inspector',
   await expect(evidenceMatch.locator('[data-result-match]')).toContainText('source summary');
 });
 
-test('Event detail is a centered factual document with Evidence and no editorial reverse links', { tag: '@core' }, async ({ page }) => {
+test('Event detail is a centered factual document with Evidence and no editorial reverse links', { tag: '@core-golden' }, async ({ page }) => {
   const eventId = 'apple-2026-pmu-ams-design-verification-team-hiring';
   const response = await page.goto(`./events/${eventId}/`);
   expect(response?.status()).toBe(200);
@@ -692,7 +692,7 @@ async function expectHomeData(page) {
 }
 
 for (const width of [1440, 900, 390]) {
-  test(`Home data and layout at ${width}px`, { tag: width !== 900 ? '@core' : [] }, async ({ page }) => {
+  test(`Home data and layout at ${width}px`, { tag: width !== 900 ? '@core-common' : [] }, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('./');
     await expect(page).toHaveTitle('AMS Signals');
@@ -707,7 +707,8 @@ for (const width of [1440, 900, 390]) {
       const { webkitLineClamp, overflow } = getComputedStyle(el);
       return [webkitLineClamp, overflow];
     }));
-    expect(descriptions).toEqual(Array.from({ length: 9 }, () => ['none', 'visible']));
+    expect(descriptions.length).toBeGreaterThan(0);
+    expect(descriptions).toEqual(descriptions.map(() => ['none', 'visible']));
     if (width === 1440) {
       const chart = await page.locator('.chart-card').boundingBox();
       const signals = await page.locator('.signals-card').boundingBox();

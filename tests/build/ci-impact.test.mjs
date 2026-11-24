@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { coreOnlyForBase, isContentOnly } from '../../tools/ci-impact.mjs';
+import { coreAreasForBase, contentAreas } from '../../tools/ci-impact.mjs';
 
 const data = [
   'src/content/analog/ngspice.md',
@@ -15,8 +15,10 @@ const data = [
 ];
 
 test('only known factual data and catalog records qualify for core regression', () => {
-  assert.equal(isContentOnly(data), true);
-  assert.equal(isContentOnly([]), false);
+  assert.deepEqual(contentAreas(data), ['analog', 'digital', 'golden', 'lab']);
+  assert.deepEqual(contentAreas([data[0], data[6], data[8]]), ['analog', 'lab']);
+  assert.deepEqual(contentAreas([data[3], data[4]]), ['golden']);
+  assert.equal(contentAreas([]), null);
   for (const path of [
     'src/content.config.ts', 'src/content/analog/AGENTS.md',
     'src/content/analog/subdir/example.md', 'src/data/events/README.md',
@@ -24,19 +26,19 @@ test('only known factual data and catalog records qualify for core regression', 
     'package-lock.json', '.github/workflows/ci.yml', 'docs/TESTING.md',
     'tests/smoke/catalog-index.ts', 'public/example.json', 'tools/ci-impact.mjs',
   ]) {
-    assert.equal(isContentOnly([...data, path]), false, path);
+    assert.equal(contentAreas([...data, path]), null, path);
   }
 });
 
 test('empty history, missing base, invalid base and diff failure select full regression', () => {
   const base = 'a'.repeat(40);
-  assert.equal(coreOnlyForBase(base, () => data.join('\0') + '\0'), true);
-  assert.equal(coreOnlyForBase(base, () => ''), false);
-  assert.equal(coreOnlyForBase(base, () => data[0]), false);
-  assert.equal(coreOnlyForBase(base, () => { throw new Error('shallow history'); }), false);
-  assert.equal(coreOnlyForBase('0'.repeat(40)), false);
-  assert.equal(coreOnlyForBase(undefined), false);
-  assert.equal(coreOnlyForBase('--help'), false);
+  assert.deepEqual(coreAreasForBase(base, () => data.join('\0') + '\0'), ['analog', 'digital', 'golden', 'lab']);
+  assert.equal(coreAreasForBase(base, () => ''), null);
+  assert.equal(coreAreasForBase(base, () => data[0]), null);
+  assert.equal(coreAreasForBase(base, () => { throw new Error('shallow history'); }), null);
+  assert.equal(coreAreasForBase('0'.repeat(40)), null);
+  assert.equal(coreAreasForBase(undefined), null);
+  assert.equal(coreAreasForBase('--help'), null);
 });
 
 test('diff is NUL-delimited and renames are checked as additions and deletions', () => {
@@ -46,5 +48,5 @@ test('diff is NUL-delimited and renames are checked as additions and deletions',
     assert.deepEqual(args, ['diff', '--name-only', '--no-renames', '-z', base, 'HEAD']);
     return 'src/content/analog/old.md\0src/pages/new.astro\0';
   };
-  assert.equal(coreOnlyForBase(base, diff), false);
+  assert.equal(coreAreasForBase(base, diff), null);
 });

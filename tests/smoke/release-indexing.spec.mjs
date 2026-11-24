@@ -14,7 +14,7 @@ const records = async (collection) => {
 };
 const [events, companies, people] = await Promise.all(['events', 'companies', 'people'].map(records));
 
-test('indexing endpoints are served from the configured base', { tag: '@core' }, async ({ request }) => {
+test('indexing endpoints are served from the configured base', { tag: '@core-common' }, async ({ request }) => {
   const [robots, sitemap] = await Promise.all([request.get('./robots.txt'), request.get('./sitemap.xml')]);
   expect(robots.status()).toBe(200);
   expect(await robots.text()).toContain(`Sitemap: ${publicOrigin}${basePath}sitemap.xml`);
@@ -22,7 +22,7 @@ test('indexing endpoints are served from the configured base', { tag: '@core' },
   expect(await sitemap.text()).toContain('<urlset');
 });
 
-test('unsupported and retired routes return 404', { tag: '@core' }, async ({ request }) => {
+test('unsupported and retired routes return 404', { tag: '@core-common' }, async ({ request }) => {
   const routes = [
     'export.json', 'articles/',
     ...[

@@ -25,6 +25,7 @@ concurrency:
 env:
   SITE: https://ds54e.github.io
   BASE_URL: /ams-signals
+  ASTRO_TELEMETRY_DISABLED: 1
 
 jobs:
   prepare:
@@ -73,7 +74,20 @@ jobs:
 
       - name: Deterministic checks and fallback build
         if: ${{ !inputs.release }}
-        run: npm run check
+        env:
+          CORE_ONLY: ${{ steps.scope.outputs.core_only }}
+        run: |
+          if [ "$CORE_ONLY" = true ]; then
+            # Installation writes to the browser cache, not the build tree.
+            # Both checks must succeed before testing the audited preview.
+            bash tools/install-ci-chromium.sh &
+            chromium=$!
+            check_status=0
+            npm run check || check_status=$?
+            wait "$chromium"
+            exit "$check_status"
+          fi
+          npm run check
 
       - name: Build fallback preview for release regression
         if: ${{ inputs.release }}
@@ -81,9 +95,11 @@ jobs:
 
       - name: Core Chromium smoke tests
         if: steps.scope.outputs.core_only == 'true'
+        env:
+          CORE_GREP: ${{ steps.scope.outputs.core_grep }}
         run: |
-          bash tools/install-ci-chromium.sh
-          npx playwright test --grep '@core'
+          test -n "$CORE_GREP"
+          npx playwright test --grep "$CORE_GREP"
 
       - name: Retain core browser failure evidence
         if: failure() && steps.scope.outputs.core_only == 'true'

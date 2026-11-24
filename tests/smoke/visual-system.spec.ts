@@ -62,15 +62,30 @@ async function indexStyles(page: Page) {
   });
 }
 
-for (const viewport of viewports) {
-  test(`shared index hierarchy and functional widths at ${viewport.width}px`, async ({ page }) => {
-    await page.setViewportSize(viewport);
+test('shared index hierarchy and functional widths across breakpoints', async ({ context }) => {
+  // Each route renders one document; these assertions exercise actual CSS
+  // breakpoints, not navigation. Reuse each document instead of starting a
+  // new page and reloading all four surfaces at every width.
+  const pages = new Map<string, Page>();
+  for (const surface of [...indexes, 'timeline']) {
+    const page = await context.newPage();
+    await page.setViewportSize(viewports[0]);
+    await open(page, surface);
+    pages.set(surface, page);
+  }
+  for (const viewport of viewports) await test.step(`${viewport.width}px`, async () => {
+    const resize = async (surface: string) => {
+      const page = pages.get(surface)!;
+      await page.setViewportSize(viewport);
+      await page.evaluate(() => document.fonts.ready);
+      return page;
+    };
     const reports = [];
     const edges = [];
     const counts = [];
     const controlAlignment = [];
     for (const surface of indexes) {
-      await open(page, surface);
+      const page = await resize(surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
       await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
@@ -129,7 +144,7 @@ for (const viewport of viewports) {
       expect(reports[2].copyWidth).toBe(1040);
     }
 
-    await open(page, 'timeline');
+    const page = await resize('timeline');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
     expect(await page.locator('.page-shell').evaluate((el) => getComputedStyle(el).maxWidth)).toBe('none');
     await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
@@ -139,7 +154,7 @@ for (const viewport of viewports) {
     for (const edge of edges) expect(edge).toEqual({ x: timelineBox.x, width: timelineBox.width });
     expect(timelineSearch.x).toBe(timelineBox.x);
   });
-}
+});
 
 // Headless Chromium normally hides scrollbars, masking route-height shifts.
 const scrollbarTest = test.extend({ launchOptions: { ignoreDefaultArgs: ['--hide-scrollbars'] } });

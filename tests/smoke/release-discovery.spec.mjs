@@ -288,7 +288,7 @@ test('Company picker is readable, searchable, and independently clearable', asyn
   expect(new URL(page.url()).search).toBe('');
 });
 
-test('Timeline always shows both Signal types while Events retains kind filtering', { tag: '@core' }, async ({ page }) => {
+test('Timeline always shows both Signal types while Events retains kind filtering', { tag: '@core-golden' }, async ({ page }) => {
   await page.goto('./timeline/');
   await expectExplorerReady(page);
 
