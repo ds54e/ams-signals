@@ -369,11 +369,16 @@ test('Events toolbar is flat and retains search and Signal type controls', async
 for (const mode of ['light', 'dark', 'forced'] as const) {
   test(`Description surfaces preserve compact rails, white context and responsive padding in ${mode} mode`, async ({ page }) => {
     await page.emulateMedia(mode === 'forced' ? { forcedColors: 'active' } : { colorScheme: mode });
-    for (const width of [320, 400, 401, 760, 761, 960, 1440]) {
-      await page.setViewportSize({ width, height: 900 });
-      let copyStart: number | undefined;
-      for (const surface of indexes) {
-        await open(page, surface);
+    const widths = [320, 400, 401, 760, 761, 960, 1440];
+    const copyStarts = new Map<number, number>();
+    // These are CSS/layout assertions, not navigation assertions. Open each
+    // surface once and measure every breakpoint on the actual resized page.
+    for (const surface of indexes) {
+      await page.setViewportSize({ width: widths[0], height: 900 });
+      await open(page, surface);
+      for (const width of widths) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.evaluate(() => document.fonts.ready);
         const geometry = await page.evaluate(() => {
           const body = document.querySelector('.result-body, .catalog-overview')!;
           const rail = document.querySelector('.result-date, .catalog-rail')!;
@@ -405,8 +410,8 @@ for (const mode of ['light', 'dark', 'forced'] as const) {
         expect(contrast(geometry.summary, geometry.fill.match(/[\d.]+/g)!.map(Number))).toBeGreaterThanOrEqual(4.5);
         if (width > 760) {
           expect(geometry.rail).toBe(120); expect(geometry.gap).toBe(0);
-          if (copyStart !== undefined) expect(geometry.copyX).toBe(copyStart);
-          copyStart = geometry.copyX;
+          if (copyStarts.has(width)) expect(geometry.copyX, `${surface} at ${width}px`).toBe(copyStarts.get(width));
+          else copyStarts.set(width, geometry.copyX);
         } else expect(surface === 'events' ? geometry.bodyBelow : geometry.railBelow).toBe(true);
       }
     }

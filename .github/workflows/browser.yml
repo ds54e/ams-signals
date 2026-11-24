@@ -40,7 +40,15 @@ jobs:
         run: npm run build
 
       - name: Install Chromium headless shell
-        run: npx playwright install --with-deps --only-shell chromium
+        # The hosted Ubuntu image already has Chromium's shared libraries.
+        # Install OS dependencies only if an actual browser launch fails.
+        run: |
+          npx playwright install --only-shell chromium
+          probe='import { chromium } from "@playwright/test"; const browser = await chromium.launch(); await browser.close();'
+          if ! node --input-type=module -e "$probe"; then
+            npx playwright install-deps chromium
+            node --input-type=module -e "$probe"
+          fi
 
       - name: Chromium smoke tests
         env:

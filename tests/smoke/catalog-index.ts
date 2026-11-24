@@ -30,13 +30,25 @@ export function catalogSearchRegression(fixture: Awaited<ReturnType<typeof catal
     for (const [query, ids] of Object.entries(queries)) {
       await test.step(query, async () => {
         await search.fill(query);
-        for (const id of ids) await expect(fixture.row(page, id)).toBeVisible();
-        const count = await fixture.rows(page).filter({ visible: true }).count();
-        expect(count).toBeGreaterThanOrEqual(ids.length);
-        expect(count).toBeLessThan(fixture.projects.length);
-        await expect(page.getByRole('status')).toHaveText(`${count} of ${fixture.projects.length} projects`);
-        // Filtering a later row into first position must not restore a top rule.
-        await expect(fixture.rows(page).filter({ visible: true }).first()).toHaveCSS('border-top-width', '0px');
+        // Read the same rendered rows in one browser round trip per query.
+        // Keep every authored query and every expected project ID.
+        await expect.poll(async () => {
+          const snapshot = await fixture.rows(page).filter({ visible: true }).evaluateAll((nodes, attribute) => ({
+            ids: nodes.map((node) => node.getAttribute(attribute)),
+            firstRule: nodes.length ? getComputedStyle(nodes[0]).borderTopWidth : null,
+          }), fixture.attribute);
+          const count = snapshot.ids.length;
+          const status = (await page.getByRole('status').textContent())?.replace(/\s+/g, ' ').trim();
+          return {
+            missing: ids.filter((id) => !snapshot.ids.includes(id)),
+            validCount: count >= ids.length && count < fixture.projects.length,
+            statusMatches: status === `${count} of ${fixture.projects.length} projects`,
+            // Filtering a later row into first position must not restore a top rule.
+            firstRule: snapshot.firstRule,
+          };
+        }, { message: `${fixture.domain}: ${query}` }).toEqual({
+          missing: [], validCount: true, statusMatches: true, firstRule: '0px',
+        });
       });
     }
   });
@@ -222,12 +234,28 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} provenance badges disclose specific evidence with keyboard state and working source links`, async ({ page }, info) => {
     await open(page);
     const originalUrl = page.url();
-    for (const project of ordered.filter((p) => p.scope.aiDevelopment)) {
-      const item = row(page, project.id);
-      await expect(item.locator('[data-ai-development]')).toHaveCount(1);
-      await expect(item.locator('[data-provenance-panel]')).toBeHidden();
-      await expect(item.locator('[data-provenance-toggle]')).toHaveAttribute('aria-expanded', 'false');
-    }
+    // Verify all evidence rows, not only the representative interactive row.
+    const expectedIds = ordered.filter((p) => p.scope.aiDevelopment).map((p) => p.id);
+    await expect.poll(() => rows(page).evaluateAll((nodes, ids) => {
+      const expected = new Set(ids);
+      return nodes.filter((node) => expected.has(node.getAttribute('data-catalog-project'))).map((node) => {
+        const panels = node.querySelectorAll('[data-provenance-panel]');
+        const panel = panels[0];
+        const toggles = node.querySelectorAll('[data-provenance-toggle]');
+        const visible = panel && getComputedStyle(panel).visibility === 'visible'
+          && panel.getBoundingClientRect().width > 0 && panel.getBoundingClientRect().height > 0;
+        return {
+          id: node.getAttribute('data-catalog-project'),
+          badges: node.querySelectorAll('[data-ai-development]').length,
+          panels: panels.length,
+          visible: Boolean(visible),
+          toggles: toggles.length,
+          expanded: toggles[0]?.getAttribute('aria-expanded'),
+        };
+      });
+    }, expectedIds), { message: `${label}: all provenance rows start collapsed` }).toEqual(
+      expectedIds.map((id) => ({ id, badges: 1, panels: 1, visible: false, toggles: 1, expanded: 'false' })),
+    );
     for (const level of ['assisted']) {
       const labeled = ordered.filter((p) => p.scope.aiDevelopment === level);
       await expect(page.locator(`[data-ai-development="${level}"]`)).toHaveCount(labeled.length);
