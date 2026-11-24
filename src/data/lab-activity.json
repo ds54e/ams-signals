@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T10:04:27.276Z",
+  "capturedAt": "2026-11-24T11:03:53.616Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1241,6 +1241,131 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "1e78a058d84823a8b363b3f5fafc0a6528ecc345"
+    },
+    "crucible": {
+      "kind": "github",
+      "repository": "anlaco/Crucible",
+      "repositoryId": 1321350536,
+      "capturedAt": "2026-11-24T11:03:53.616Z",
+      "defaultBranch": "main",
+      "headSha": "bb110c8c669e98cf93876f6b87def24f30b0c4f6",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        21,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-24",
+      "lastMeaningfulCommitAt": "2026-09-24",
+      "lastMeaningfulCommitSha": "ebbf9f29605286fe2d7fb5547b8a71772b37b603"
+    },
+    "diode-pcb": {
+      "kind": "github",
+      "repository": "diodeinc/pcb",
+      "repositoryId": 921766884,
+      "capturedAt": "2026-11-24T11:03:53.616Z",
+      "defaultBranch": "main",
+      "headSha": "b42f83af58e8674385fe7da35960e20b8b526b33",
+      "commits": [
+        83,
+        117,
+        125,
+        160,
+        114,
+        110,
+        72,
+        98,
+        220,
+        254,
+        255,
+        92
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "b42f83af58e8674385fe7da35960e20b8b526b33"
+    },
+    "hsync": {
+      "kind": "github",
+      "repository": "HalfSweet/HSync",
+      "repositoryId": 1413189190,
+      "capturedAt": "2026-11-24T11:03:53.616Z",
+      "defaultBranch": "main",
+      "headSha": "afd04c732a7e6fe439da2429b57dfe83b65dc003",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        609,
+        12
+      ],
+      "lastCommitAt": "2026-11-07",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "06c20b5db9f3df5076899985b562b0bced1c2256"
+    },
+    "packetry": {
+      "kind": "github",
+      "repository": "greatscottgadgets/packetry",
+      "repositoryId": 465013704,
+      "capturedAt": "2026-11-24T11:03:53.616Z",
+      "defaultBranch": "main",
+      "headSha": "f63dc4a893e9f33649372229d36c8297e6c004d5",
+      "commits": [
+        4,
+        3,
+        0,
+        1,
+        1,
+        1,
+        1,
+        5,
+        3,
+        0,
+        0,
+        4
+      ],
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-08-12",
+      "lastMeaningfulCommitSha": "75eb7a7fd833b51449b3acf6a3c3379606b06580"
+    },
+    "stabilizer": {
+      "kind": "github",
+      "repository": "quartiq/stabilizer",
+      "repositoryId": 174817691,
+      "capturedAt": "2026-11-24T11:03:53.616Z",
+      "defaultBranch": "main",
+      "headSha": "5d7a40dc960a01bd93f0bbd6a86850f5f6265e45",
+      "commits": [
+        0,
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-08",
+      "lastMeaningfulCommitAt": "2026-04-07",
+      "lastMeaningfulCommitSha": "12183c8ac5e25c92e5ac468877d65d438e066a0b"
     }
   }
 }

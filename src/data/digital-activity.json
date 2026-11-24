@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T10:04:13.333Z",
+  "capturedAt": "2026-11-24T11:01:31.176Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2861,6 +2861,56 @@
       "lastCommitAt": "2026-09-28",
       "lastMeaningfulCommitAt": "2026-09-28",
       "lastMeaningfulCommitSha": "856c5832b2b5f2dfbeac58a6e4961ecc0550e4df"
+    },
+    "eqmap": {
+      "kind": "github",
+      "repository": "cornell-zhang/eqmap",
+      "repositoryId": 873909989,
+      "capturedAt": "2026-11-24T11:01:31.176Z",
+      "defaultBranch": "main",
+      "headSha": "d3144c45d3441530cd8d240c5fc6ea6645b8a2fb",
+      "commits": [
+        7,
+        4,
+        13,
+        6,
+        5,
+        5,
+        4,
+        6,
+        5,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-28",
+      "lastMeaningfulCommitAt": "2026-08-28",
+      "lastMeaningfulCommitSha": "d3144c45d3441530cd8d240c5fc6ea6645b8a2fb"
+    },
+    "topstitch": {
+      "kind": "github",
+      "repository": "xlsynth/topstitch",
+      "repositoryId": 853079031,
+      "capturedAt": "2026-11-24T11:01:31.176Z",
+      "defaultBranch": "main",
+      "headSha": "a72f116898165eb617ff21bebc21ad4b4d7b4845",
+      "commits": [
+        2,
+        8,
+        13,
+        2,
+        2,
+        2,
+        0,
+        3,
+        3,
+        0,
+        3,
+        10
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "a72f116898165eb617ff21bebc21ad4b4d7b4845"
     }
   }
 }
