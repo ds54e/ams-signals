@@ -27,6 +27,9 @@ sources:
   - id: capture-workflow
     title: "Reviewed capture and export workflow"
     url: "https://github.com/enjoy-digital/litescope/blob/b28dcccea1009fa983684cabd55e61e4082d53a1/README.md"
+  - id: litex-platform
+    title: "Related LiteX FPGA SoC builder"
+    url: "https://github.com/enjoy-digital/litex"
 ---
 
 ## Scope and limits
@@ -36,3 +39,5 @@ The upload fix accounts for samples in FIFO paths. With RLE, storage words do no
 [Reviewed upstream implementation](#source-implementation).
 
 The reviewed core, driver and CLI acquire, decode and export traces. Viewing or interpreting the exported traces with another tool is not a separate LiteScope Analysis capability. [Capture workflow](#source-capture-workflow).
+
+LiteX supplies the SoC and FPGA flow; LiteScope supplies the separately usable triggered trace-capture workflow. The two entries do not count the same operation as bench acquisition. [SoC builder](#source-litex-platform).

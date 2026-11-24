@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T07:48:44.026Z",
+  "capturedAt": "2026-11-24T08:04:03.986Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2836,6 +2836,31 @@
       "lastCommitAt": "2026-10-07",
       "lastMeaningfulCommitAt": "2026-10-07",
       "lastMeaningfulCommitSha": "594a752042ad2879683601bfa0fd339e6f328301"
+    },
+    "litex": {
+      "kind": "github",
+      "repository": "enjoy-digital/litex",
+      "repositoryId": 45734719,
+      "capturedAt": "2026-11-24T07:59:09.283Z",
+      "defaultBranch": "master",
+      "headSha": "afed66238638fac1d1e13c3edd6568cdccea5356",
+      "commits": [
+        29,
+        15,
+        18,
+        81,
+        116,
+        248,
+        159,
+        50,
+        7,
+        82,
+        58,
+        74
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "6438a25a060bd691b082da4c845ad26885f4059e"
     }
   }
 }
