@@ -38,6 +38,8 @@ Each release spec registers `installBrowserErrorGuards(test)` at module scope. `
 
 Use Playwright's request fixture for HTTP-only checks so they do not start Chromium. Browser DOM, layout, keyboard and no-JavaScript checks stay in Chromium. When validating every catalog row, capture one browser snapshot for that assertion and compare it against the source in Node. Use retryable Playwright assertions for interactions and synchronous Node assertions for scalar checks on an already captured snapshot. Keep the row ID in snapshot diagnostics; do not replace full-catalog checks with a sample.
 
+Browser visual assertions run normally. For manual visual review, set `SMOKE_VISUAL_EVIDENCE=1` when running smoke tests to capture reference PNGs at selected intermediate states. These PNGs are not compared against baselines, so regular CI does not generate them. Failure traces and screenshots remain automatic.
+
 The CI job installs dependencies once, verifies the separate root-domain shape, then runs the full Chromium suite against the audited fallback build without rebuilding it. On failure it retains available browser traces and screenshots from `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
 
 ## Local, production-shaped and live checks

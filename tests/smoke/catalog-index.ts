@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
 import { expectScopeLabels, expectActivityBands, expectActivityGeometry, expectTitleAndIndexGeometry, expectCompleteDescriptions } from './catalog-presentation';
-import { basePath } from './release-helpers.mjs';
+import { captureSmokeEvidence, basePath } from './release-helpers.mjs';
 import { isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
@@ -254,7 +254,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       await expect(page).toHaveURL(originalUrl);
       await noOverflow(page);
       await item.scrollIntoViewIfNeeded();
-      await page.screenshot({ path: info.outputPath(`${domain}-${level}-evidence-keyboard.png`) });
+      await captureSmokeEvidence(page, info, `${domain}-${level}-evidence-keyboard.png`);
       await button.press('Space');
       await expect(button).toHaveAttribute('aria-expanded', 'false');
       await expect(panel).toBeHidden();
@@ -337,7 +337,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
         expect(bounds.targetHeight).toBeGreaterThanOrEqual(24);
         await noOverflow(page);
         await item.evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
-        await page.screenshot({ path: info.outputPath(`${domain}-${level}-evidence-touch-${width}.png`) });
+        await captureSmokeEvidence(page, info, `${domain}-${level}-evidence-touch-${width}.png`);
         await button.tap(); await expect(button).toHaveAttribute('aria-expanded', 'false');
         await expect(panel).toBeHidden();
       }
@@ -441,14 +441,14 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
         expect(geometry.scope.right).toBeLessThan(geometry.count.left);
         expect(geometry.count.left - geometry.scope.right).toBeCloseTo(12, 1);
       }
-      await page.screenshot({ path: info.outputPath(`${domain}-index-${width}.png`) });
+      await captureSmokeEvidence(page, info, `${domain}-index-${width}.png`);
       if (width < 1024) {
         await page.getByRole('searchbox', { name: 'Search projects' }).fill('AI');
         await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('design');
         await noOverflow(page);
         await expect(page.getByRole('status')).toHaveText(`${await rows(page).filter({ visible: true }).count()} of ${projects.length} projects`);
         await expect(page.getByRole('status')).toBeInViewport();
-        await page.screenshot({ path: info.outputPath(`${domain}-filtered-${width}.png`) });
+        await captureSmokeEvidence(page, info, `${domain}-filtered-${width}.png`);
         await page.getByRole('searchbox', { name: 'Search projects' }).fill('');
         await page.getByRole('combobox', { name: 'Scope', exact: true }).selectOption('');
       }
@@ -456,7 +456,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
       for (const id of selected) {
         await row(page, id).evaluate((el) => el.scrollIntoView({ behavior: 'instant' }));
         await noOverflow(page);
-        await page.screenshot({ path: info.outputPath(`${domain}-row-${width}-${id}.png`) });
+        await captureSmokeEvidence(page, info, `${domain}-row-${width}-${id}.png`);
       }
     });
   }

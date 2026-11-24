@@ -10,6 +10,7 @@ import { expect, test } from '@playwright/test';
 import { buildActivityMatrixGeometry } from '../../src/lib/activityMatrix.ts';
 import { loadGoldenCorpus } from '../golden/corpus.ts';
 import {
+  captureSmokeEvidence,
   basePath,
   ensureScrollableStickyCandidate,
   expectExplorerReady,
@@ -133,9 +134,9 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
         await input();
         await scroller.evaluate((node) => node.testScrollEnded);
       };
-      const topScreenshot = testInfo.outputPath(`timeline-${label}-top.png`);
-      await page.screenshot({ path: topScreenshot, fullPage: true });
-      await testInfo.attach(`timeline-${label}-top`, { path: topScreenshot, contentType: 'image/png' });
+      await captureSmokeEvidence(page, testInfo, `timeline-${label}-top.png`, {
+        fullPage: true, attachment: `timeline-${label}-top`,
+      });
       await scroller.focus();
       await nativeScroll(() => scroller.press('PageDown'));
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
@@ -179,9 +180,9 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       await expect(shell).not.toHaveAttribute('data-more-rows');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').opacity)).toBe('0');
       expect((await page.locator('.activity-matrix-axis-viewport').boundingBox()).y).toBe(heading.y);
-      const bottomScreenshot = testInfo.outputPath(`timeline-${label}-bottom.png`);
-      await page.screenshot({ path: bottomScreenshot, fullPage: true });
-      await testInfo.attach(`timeline-${label}-bottom`, { path: bottomScreenshot, contentType: 'image/png' });
+      await captureSmokeEvidence(page, testInfo, `timeline-${label}-bottom.png`, {
+        fullPage: true, attachment: `timeline-${label}-bottom`,
+      });
       await nativeScroll(() => scroller.press('Home'));
       await expect(shell).toHaveAttribute('data-more-rows', '');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').pointerEvents)).toBe('none');

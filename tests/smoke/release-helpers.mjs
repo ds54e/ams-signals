@@ -61,6 +61,15 @@ export function getBrowserErrors(page) {
   return browserErrors.get(page) ?? [];
 }
 
+// These reference images are not visual diff assertions. Capture them only
+// when requested; the Playwright failure screenshot and trace stay automatic.
+export async function captureSmokeEvidence(page, info, filename, { fullPage = false, attachment } = {}) {
+  if (process.env.SMOKE_VISUAL_EVIDENCE !== '1') return;
+  const path = info.outputPath(filename);
+  await page.screenshot({ path, fullPage });
+  if (attachment) await info.attach(attachment, { path, contentType: 'image/png' });
+}
+
 export async function expectExplorerReady(page, surface = 'timeline') {
   const explorer = page.locator('[data-event-explorer-root]');
   await expect(explorer, `event explorer root initialized on ${page.url()}`)

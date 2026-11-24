@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { installBrowserErrorGuards } from './release-helpers.mjs';
+import { captureSmokeEvidence, installBrowserErrorGuards } from './release-helpers.mjs';
 
 installBrowserErrorGuards(test);
 
@@ -127,7 +127,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           expect(await mark.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
           await expect(mark.locator('.timeline-glyph')).toHaveCSS('box-shadow', selectionShadow(colorScheme));
           await expect(page.locator('[data-detail-title]')).toBeVisible();
-          await page.screenshot({ path: info.outputPath(`timeline-${route.replaceAll('/', '-') || 'global'}-${viewport.width}-${colorScheme}-${kind}.png`) });
+          await captureSmokeEvidence(page, info, `timeline-${route.replaceAll('/', '-') || 'global'}-${viewport.width}-${colorScheme}-${kind}.png`);
 
           const other = page.locator(`[data-event-mark]:visible:not([data-event-id="${id}"])`).first();
           if (await other.count()) {
@@ -193,7 +193,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await dense.locator('[data-event-mark]').first().click();
       await expect(dense.locator('.is-active').first()).toHaveAttribute('aria-pressed', 'true');
       await page.mouse.move(0, 0);
-      await page.screenshot({ path: info.outputPath(`dense-${width}-${colorScheme}.png`) });
+      await captureSmokeEvidence(page, info, `dense-${width}-${colorScheme}.png`);
 
       for (const route of ['timeline/', 'companies/apple/', 'people/toshi-kawashima/']) {
         await page.goto(`./${route}`);
@@ -228,7 +228,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const mark = marks.nth(candidateIndex);
           await mark.click(); await page.mouse.move(0, 0);
           await expect(mark.locator('.timeline-glyph')).toHaveCSS('box-shadow', selectionShadow(colorScheme));
-          await page.screenshot({ path: info.outputPath(`edge-${route.replaceAll('/', '-') || 'global'}-${width}-${colorScheme}-${edge}.png`) });
+          await captureSmokeEvidence(page, info, `edge-${route.replaceAll('/', '-') || 'global'}-${width}-${colorScheme}-${edge}.png`);
         }
       }
     }
@@ -290,11 +290,11 @@ for (const colorScheme of ['light', 'dark'] as const) {
           await page.locator('[data-company-options] input[value="renesas"]').check();
           await page.locator('[data-company-picker] summary').click();
           await stripeCheck();
-          await page.screenshot({ path: info.outputPath(`filtered-sticky-${viewport.width}-${colorScheme}.png`) });
+          await captureSmokeEvidence(page, info, `filtered-sticky-${viewport.width}-${colorScheme}.png`);
           await page.goto('./timeline/');
           expect(await rows.evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-entity-id') ?? el.getAttribute('data-lane-id')))).toEqual(originalOrder);
         }
-        await page.screenshot({ path: info.outputPath(`palette-${route.replaceAll('/', '-')}-${viewport.width}-${colorScheme}.png`), fullPage: true });
+        await captureSmokeEvidence(page, info, `palette-${route.replaceAll('/', '-')}-${viewport.width}-${colorScheme}.png`, { fullPage: true });
       }
     });
   }
