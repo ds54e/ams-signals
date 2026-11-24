@@ -8,7 +8,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on serializing CMSIS-DAP requests for a supported micro:bit probe."
-  sources: [activity]
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "MIT or Apache-2.0; supported hardware depends on target and probe."
 addedAt: "2026-11-24"
@@ -31,6 +31,9 @@ sources:
   - id: embedded-test
     title: "Target-side embedded-test harness"
     url: "https://github.com/probe-rs/embedded-test"
+  - id: development-retained
+    title: "Retained CMSIS-DAP micro:bit compatibility logic"
+    url: "https://github.com/probe-rs/probe-rs/blob/569e0d0db7f700f1d70fee31e326dc9ac85d8143/probe-rs/src/probe/cmsisdap/tools.rs"
 ---
 
 ## Scope and limits

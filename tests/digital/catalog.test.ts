@@ -90,8 +90,8 @@ test('Digital preserves domain membership and rejects obsolete role/AI fields', 
   const analogIds = new Set((await readdir(new URL('../../src/content/analog/', import.meta.url)))
     .filter((file) => file.endsWith('.md')).map((file) => file.slice(0, -3)));
   // The independently reviewed analog and digital tracks share one project identity.
-  // Keep this exception exact: no other cross-catalog duplicates are admitted.
-  assert.deepEqual(projects.filter((p) => analogIds.has(p.id)).map((p) => p.id).sort(), ['vibe-ic']);
+  // Keep the reviewed exceptions exact: no other cross-catalog duplicates are admitted.
+  assert.deepEqual(projects.filter((p) => analogIds.has(p.id)).map((p) => p.id).sort(), ['openada', 'vibe-ic']);
   const analogVibe = parseFrontmatter(await readFile(new URL('../../src/content/analog/vibe-ic.md', import.meta.url), 'utf8')).frontmatter;
   const digitalVibe = projects.find((p) => p.id === 'vibe-ic')!;
   assert.deepEqual(stages(analogVibe.scope), ['design', 'simulation', 'layout']);
@@ -99,6 +99,16 @@ test('Digital preserves domain membership and rejects obsolete role/AI fields', 
   assert.notEqual(analogVibe.description, digitalVibe.data.description);
   assert.equal(analogVibe.sources.find((source: { purpose?: string }) => source.purpose === 'code').url,
     digitalVibe.data.sources.find((source) => source.purpose === 'code')!.url);
+  const analogOpenada = parseFrontmatter(await readFile(new URL('../../src/content/analog/openada.md', import.meta.url), 'utf8')).frontmatter;
+  const digitalOpenada = projects.find((p) => p.id === 'openada')!;
+  assert.deepEqual(stages(analogOpenada.scope), ['design', 'simulation', 'layout']);
+  assert.deepEqual(stages(digitalOpenada.data.scope), ['synthesis', 'verification', 'layout']);
+  assert.notEqual(analogOpenada.description, digitalOpenada.data.description);
+  assert.equal(analogOpenada.sources.find((source: { purpose?: string }) => source.purpose === 'code').url,
+    digitalOpenada.data.sources.find((source) => source.purpose === 'code')!.url);
+  const analogSnapshot = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
+  assert.equal(analogSnapshot.projects.openada.repositoryId, snapshot.projects.openada.repositoryId);
+  assert.equal(analogSnapshot.projects.openada.repository, snapshot.projects.openada.repository);
   for (const p of projects) {
     for (const field of ['roles', 'ai', 'aiBuilt']) assert.ok(!(field in p.data));
   }
@@ -505,7 +515,9 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     'naja-scope': [['verification', true]],
     'rtlscout': [['design', true], ['synthesis', false], ['verification', true]],
     lace: [['design', true], ['verification', true]],
-    ucagent: [['verification', true]], covagent: [['verification', true]], ruststa: [['layout', false]], verifyrtl: [['verification', true]],
+    // DesignWithPPA changes RTL through the model while mapped synthesis stays deterministic.
+    ucagent: [['design', true], ['synthesis', false], ['verification', true]],
+    covagent: [['verification', true]], ruststa: [['layout', false]], verifyrtl: [['verification', true]],
     'wave-mcp': [['verification', false]], 'sentinel-dv': [['verification', true]], 'openroad-mcp': [['synthesis', false], ['layout', false]],
     openada: [['synthesis', true], ['verification', true], ['layout', true]],
     ovip: [['verification', false]], dvsim: [['verification', false]],

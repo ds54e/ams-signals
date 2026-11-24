@@ -8,7 +8,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on abstract-class validation and the regression covering unsupported Tango command reads."
-  sources: [activity]
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "BSD-3-Clause; compatible control-system services and device drivers are separate."
 addedAt: "2026-11-24"
@@ -25,6 +25,9 @@ sources:
   - id: activity
     title: "Reviewed implementation or canonical integration"
     url: "https://github.com/bluesky/ophyd-async/commit/e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee"
+  - id: development-retained
+    title: "Retained unsupported Tango command-read regression"
+    url: "https://github.com/bluesky/ophyd-async/blob/e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee/tests/system_tests/tango/core/test_tango_transport.py"
 ---
 
 ## Scope and limits

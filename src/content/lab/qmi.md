@@ -8,8 +8,8 @@ scope:
   test: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is credited on the Signal Hound BB60C change that includes executable mock-transport unit tests."
-  sources: [activity]
+  summary: "Claude is co-credited for the executable mock-transport unit tests added with the Signal Hound BB60C driver. This attribution does not establish AI authorship of the complete driver."
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "MIT; some instrument drivers require separate vendor DLLs or SDKs."
 addedAt: "2026-11-24"
@@ -25,6 +25,9 @@ sources:
   - id: task-execution
     title: "Published task lifecycle and periodic execution"
     url: "https://github.com/QuTech-Delft/QMI/blob/d3ecd5c01609528fabbc6801996fd1eb562c38ff/qmi/core/task.py"
+  - id: development-retained
+    title: "Retained BB60C mock-transport tests"
+    url: "https://github.com/QuTech-Delft/QMI/blob/d3ecd5c01609528fabbc6801996fd1eb562c38ff/tests/instruments/signal_hound/test_bb60c.py"
 ---
 
 ## Scope and limits

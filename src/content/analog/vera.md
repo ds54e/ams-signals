@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public Apache-2.0 Zig source; device builds require the pinned Zig development toolchain. OSDI output needs an OSDI 0.4 host and cannot carry every native device-contract feature.
 addedAt: '2026-10-31'
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-24"
 sources:
 - id: "official"
   title: "Official project website"
@@ -15,32 +15,32 @@ sources:
   purpose: "official"
 - id: code
   title: Canonical public implementation
-  url: https://github.com/OpenFAT/VerA
+  url: https://github.com/Scouren/VerA
   purpose: code
 - id: readme
   title: Reviewed project workflow and boundaries
-  url: https://github.com/OpenFAT/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/README.md
+  url: https://github.com/Scouren/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/README.md
 - id: activity
   title: Reviewed substantive first-parent implementation
-  url: https://github.com/OpenFAT/VerA/commit/14541a6f966b2e96eca145546b36e4550078dc0f
+  url: https://github.com/Scouren/VerA/commit/14541a6f966b2e96eca145546b36e4550078dc0f
 - id: contract
   title: Native device/host contract
-  url: https://github.com/OpenFAT/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/lib/contract.zig
+  url: https://github.com/Scouren/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/lib/contract.zig
 - id: osdi
   title: OSDI boundary checks
-  url: https://github.com/OpenFAT/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/src/codegen/osdi.zig
+  url: https://github.com/Scouren/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/src/codegen/osdi.zig
 - id: changelog
   title: Version-specific implementation and test account
-  url: https://github.com/OpenFAT/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/CHANGELOG.md
+  url: https://github.com/Scouren/VerA/blob/c3df3498ec42a761f5c70332507fcbee05ad796a/CHANGELOG.md
 - id: review-20261103-implementation
   title: "Elaboration, folding and preprocessing implementation/tests"
-  url: https://github.com/OpenFAT/VerA/commit/ed5d6ff4b0962254099be8e4d0f9d63b82d86cdf
+  url: https://github.com/Scouren/VerA/commit/ed5d6ff4b0962254099be8e4d0f9d63b82d86cdf
 - id: review-20261103-release
   title: "VerA v0.23.0 release"
-  url: https://github.com/OpenFAT/VerA/releases/tag/v0.23.0
+  url: https://github.com/Scouren/VerA/releases/tag/v0.23.0
 - id: review-20261103-changelog
   title: "Version-specific conformance and performance account"
-  url: https://github.com/OpenFAT/VerA/blob/d26fe7f1144d2e0fbcff4a3618adadc2f794454b/CHANGELOG.md
+  url: https://github.com/Scouren/VerA/blob/d26fe7f1144d2e0fbcff4a3618adadc2f794454b/CHANGELOG.md
 ---
 
 ### Compiler, runner and host boundary

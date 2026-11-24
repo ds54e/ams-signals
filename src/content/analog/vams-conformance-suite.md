@@ -7,24 +7,24 @@ scope:
     ai: false
 access: Public C harness, Python adapters and HDL/SPICE fixtures; external tools and pinned submodules must be installed separately. Imported VerA and ESPice fixture trees are identified as Apache-2.0; upstream submodules retain their own terms.
 addedAt: '2026-10-31'
-reviewedAt: '2026-10-31'
+reviewedAt: "2026-11-24"
 sources:
 - id: code
   title: Canonical public implementation
-  url: https://github.com/OpenFAT/VAMS-Conformance-Suite
+  url: https://github.com/Scouren/Conformance-Suite
   purpose: code
 - id: readme
   title: Reviewed project workflow and boundaries
-  url: https://github.com/OpenFAT/VAMS-Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/README.md
+  url: https://github.com/Scouren/Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/README.md
 - id: activity
   title: Reviewed substantive first-parent implementation
-  url: https://github.com/OpenFAT/VAMS-Conformance-Suite/commit/044c6cced380ad62bfd43c5ef76400b0f964697a
+  url: https://github.com/Scouren/Conformance-Suite/commit/044c6cced380ad62bfd43c5ef76400b0f964697a
 - id: harness
   title: Tool-independent verdict harness
-  url: https://github.com/OpenFAT/VAMS-Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/harness/conform.c
+  url: https://github.com/Scouren/Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/harness/conform.c
 - id: oracles
   title: Numerical netlist output checker
-  url: https://github.com/OpenFAT/VAMS-Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/tools/rawcheck.py
+  url: https://github.com/Scouren/Conformance-Suite/blob/9d74f7374b6f05ab98a86519a8561ea9f58feb98/tools/rawcheck.py
 ---
 
 ### Executable verification infrastructure

@@ -4,7 +4,7 @@ aliases: []
 description: "Experiment control and shot queue for the labscript suite. It loads compiled HDF5 shots, coordinates compatible hardware workers for timed execution and permits manual device control between runs; supported devices, synchronization and sample recording depend on the configured hardware and drivers."
 scope: {"control": {"ai": false}, "test": {"ai": false}, "aiDevelopment": "assisted"}
 developmentEvidence:
-  summary: "Claude authored the idle-state restoration after a completed shot. The canonical queue manager retains the status update at the end of shot processing."
+  summary: "Claude is co-credited for the idle-state restoration after a completed shot. The canonical queue manager retains the status update at the end of shot processing."
   sources: [credited, retained]
   reviewedAt: "2026-11-24"
 access: "Public Python application; requires a configured labscript suite installation and compatible hardware workers."
@@ -45,4 +45,4 @@ BLACS is the execution GUI and coordinator, not the experiment compiler, a gener
 
 June post-run handling and October queue/abort and status corrections are substantive changes across different periods. The source review does not establish deployed timing accuracy on a particular device set. [June handling](#source-earlier) · [Queue correction](#source-queue) · [Run status](#source-activity).
 
-Claude authored the queue state restoration that landed in the reviewed October change. This is development provenance, not AI-based experiment sequencing. [Credited diff](#source-credited) · [Retained queue manager](#source-retained).
+Claude is co-credited for the queue state restoration that landed in the reviewed October change. This is development provenance, not AI-based experiment sequencing. [Credited diff](#source-credited) · [Retained queue manager](#source-retained).

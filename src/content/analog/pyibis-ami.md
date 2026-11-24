@@ -8,11 +8,11 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on IBIS I-V table handling for discontinuities and the associated regression coverage."
-  sources: [implementation]
-  reviewedAt: "2026-11-24"
+  sources: ["implementation", "development-20261124-retained"]
+  reviewedAt: '2026-11-24'
 access: "BSD-2-Clause; external compiled AMI models have their own licenses and compatibility constraints."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: '2026-11-24'
 sources:
   - id: code
     title: "Canonical implementation"
@@ -27,6 +27,9 @@ sources:
   - id: release
     title: "Public v10.1.0"
     url: "https://github.com/capn-freako/PyAMI/releases/tag/v10.1.0"
+  - id: development-20261124-retained
+    title: "Credited executable contribution retained at the current head"
+    url: https://github.com/capn-freako/PyAMI/blob/34cd1603132407d310f05c4e082e1fce5dae78d9/src/pyibisami/ibis/iv.py
 ---
 
 ## Scope and limits
@@ -36,3 +39,5 @@ The v10.1.0 code handles selected rail-relative and discontinuous I-V tables. Mi
 [Reviewed upstream implementation](#source-implementation).
 
 Additional context: [Public v10.1.0](#source-release).
+
+Current-head review confirms that the credited repeated-voltage and I-V warning handling remains in the canonical implementation. This model-data processing contribution supports software-development provenance without adding runtime AI. [Retained implementation](#source-development-20261124-retained).

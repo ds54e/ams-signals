@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-09-07"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical OpenADA repository"
@@ -68,6 +68,8 @@ Experimental oscillator/testbench profiles are bounded. The reverted knowledge-g
 ### Scope classification
 
 The released synthesis skill interprets mapping/inference evidence and chooses controlled experiments; the RTL-review skill diagnoses lint and structural results; the layout skill selects and reviews geometry increments and repairs from DRC/LVS evidence. These substantive model-hosted workflows connect to implemented operations and establish AI Synthesis, AI Verification and AI Layout. The driver/kernel verdicts remain conventional. [Synthesis skill](#source-synthesis-skill); [RTL review](#source-rtl-skill); [Layout skill](#source-layout-skill); [Mapped synthesis](#source-synthesis-implementation).
+
+OpenADA also has a separately reviewed Analog entry for circuit interpretation, SPICE characterization and custom-layout review. The Digital entry retains its distinct RTL, mapped-synthesis and physical-check workflows. Both use the same canonical implementation and repository activity; they do not represent two independent projects. [Implemented operations](#source-readme).
 
 ### Development provenance review
 

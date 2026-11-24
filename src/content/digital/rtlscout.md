@@ -12,11 +12,11 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude-credited development implemented the OpenCode execution backend and the sandboxed advisory/authoritative evaluation split. The current orchestration retains backend execution, evaluation storage and post-run rescoring."
-  sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  sources: ["development-audit-implementation", "development-audit-extension", "development-retained-eval"]
+  reviewedAt: "2026-11-24"
 access: "BSD-3-Clause-Clear public source; Docker/devcontainer toolchain is provided and real agent runs require a supported LLM provider."
 addedAt: "2026-09-14"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical RTLScout repository"
@@ -54,8 +54,11 @@ sources:
     title: "Reviewed coordinated implementation extension"
     url: "https://github.com/huawei-csl/rtlscout/commit/aac5ea21346bf6e563ba6e5761f5c8cae4775ea9"
   - id: "development-audit-retained"
-    title: "Retained implementation at the reviewed repository head"
-    url: "https://github.com/huawei-csl/rtlscout/blob/1c88113fb1111837349adee2a9aa9bcea541e06d/core/opencode_backend.py"
+    title: "Retained OpenCode implementation after the package-directory move"
+    url: "https://github.com/huawei-csl/rtlscout/blob/1fc8afeb887e33294f452766a70056fc2966066a/rtlscout/opencode_backend.py"
+  - id: "development-retained-eval"
+    title: "Retained advisory evaluation and authoritative rescoring contract"
+    url: "https://github.com/huawei-csl/rtlscout/blob/1fc8afeb887e33294f452766a70056fc2966066a/rtlscout/eval_store.py"
 ---
 
 ### Agent loop
@@ -82,4 +85,4 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 
 ### Development provenance
 
-The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are executable orchestration and evaluation implementations in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are executable orchestration and evaluation implementations in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. The current package retains the backend and advisory-evaluation storage after moving them from `core/` into `rtlscout/`. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained backend](#source-development-audit-retained) · [Retained evaluation contract](#source-development-retained-eval).

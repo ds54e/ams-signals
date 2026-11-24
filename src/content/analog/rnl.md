@@ -7,12 +7,12 @@ scope:
     ai: true
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "A Claude-coauthored change to the public EDA symbol and style packages includes executable viewer, WASM and CLI regression tests retained on the default branch."
+  summary: "A Claude-coauthored package split added executable viewer, WASM and CLI tests. The current library-publication test retains its package-path assertion; older assertions for the optional EDA packages were superseded by the language 0.4 transition."
   sources: ["development-implementation", "development-retained"]
-  reviewedAt: "2026-10-20"
+  reviewedAt: '2026-11-24'
 access: "Public Rust, WASM and web-viewer code. The browser viewer loads a separate solver for schematic solving. MIT covers the implementation; specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: '2026-11-19'
+reviewedAt: "2026-11-24"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -32,7 +32,7 @@ sources:
     url: https://github.com/rich-netlist/rnl/commit/f18d7409fa32ea80b9a48d62f955bd1f474de52c
   - id: development-retained
     title: Retained executable viewer tests at the reviewed head
-    url: https://github.com/rich-netlist/rnl/blob/28315964f57b28079c7e411c3adb1775e2f8cc3a/apps/web/library.test.mjs
+    url: https://github.com/rich-netlist/rnl/blob/2c724ae021ee16e18360ace5751c59e6ce2e654e/apps/web/library.test.mjs
   - id: viewer-release
     title: Public viewer v0.1.2 release
     url: https://github.com/rich-netlist/rnl/releases/tag/viewer-v0.1.2
@@ -152,3 +152,5 @@ The November 12 native implementation introduces an independent rnl-solver execu
 ### November 19, 2026 review
 
 Core and Viewer 0.6.0 were reviewed. The Viewer loads a WASM Worker on first solve for placement and routing, with progress and cancellation. Solving on file open previews the result without changing the input. This is schematic Design, not physical IC Layout or SPICE simulation. Core 0.6 reads and writes RNL 0.4 only; the last legacy-compatible CLI, core 0.5.7, converts 0.2/0.3 files with `rnl upgrade`, while the frozen legacy web viewer can still display them. [Core](#source-review-20261119-core) · [Viewer](#source-review-20261119-viewer) · [Language implementation](#source-review-20261119-activity).
+
+The November 24 retention review distinguishes the surviving executable package-path assertion from superseded optional-package expectations. The retained contribution supports AI-ASSISTED under the same isolated-test standard used elsewhere; it does not claim that every historical test or package still ships. [Credited package/test change](#source-development-implementation) · [Current library-publication test](#source-development-retained).

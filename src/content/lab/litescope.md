@@ -8,7 +8,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the capture-upload sample accounting repair and associated software regressions."
-  sources: [implementation]
+  sources: [implementation, development-retained]
   reviewedAt: "2026-11-24"
 access: "BSD-2-Clause; integration requires compatible LiteX gateware and a target FPGA."
 addedAt: "2026-11-24"
@@ -30,6 +30,9 @@ sources:
   - id: litex-platform
     title: "Related LiteX FPGA SoC builder"
     url: "https://github.com/enjoy-digital/litex"
+  - id: development-retained
+    title: "Retained complete capture-upload handling"
+    url: "https://github.com/enjoy-digital/litescope/blob/b28dcccea1009fa983684cabd55e61e4082d53a1/litescope/software/driver/analyzer.py"
 ---
 
 ## Scope and limits

@@ -1,10 +1,10 @@
 ---
 name: "SuperPEEC"
 aliases: []
-summary: "PEEC electromagnetic solver for voxelized conductors, dielectrics, traces and bond-wire assemblies described in TOML."
-description: "PEEC electromagnetic solver for voxelized conductors, dielectrics, traces and bond-wire assemblies described in TOML. It computes frequency-dependent network and port quantities for interconnect and passive structures, with discretization, solver tolerances and backend selection governing numerical cost and accuracy."
+summary: "PEEC extractor for frequency-dependent parasitic impedance of voxelized interconnects and passive structures."
+description: "Extracts frequency-dependent parasitic impedance from TOML-defined conductor and dielectric geometry using a PEEC formulation. Port definitions, voxel discretization and solver settings control its R/L/Z results, with CPU and GPU backends available for interconnect and passive-structure analysis."
 scope:
-  simulation:
+  layout:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python/native implementation; numerical packages and the selected CPU/GPU backend are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -38,13 +38,13 @@ sources:
 
 ### Implemented operations and boundaries
 
-The CLI reads declarative geometry and frequency/solver controls. It is a PEEC numerical engine rather than a general direct-GDS extractor. Reported example performance and accuracy remain author results, and were not independently reproduced.
+The CLI reads declarative geometry and frequency/solver controls. Its dedicated geometry-to-port-impedance workflow supports parasitic extraction; it does not require a direct GDS importer. Reported example performance and accuracy remain author results, and were not independently reproduced.
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2).
 
 ### Scope and activity review
 
-The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
+The primary operation is dedicated parasitic extraction, supporting Layout under the same boundary as FasterCap and fasterhenry. Exported currents and frequency-dependent port quantities are outputs of that extraction workflow; no independently exposed general scattering/field-analysis workflow was established. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
 The meaningful checkpoint is 2026-10-11T01:32:58Z (`2c7b6bea053d5c8451f1469614e484c4d4d63b31`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 

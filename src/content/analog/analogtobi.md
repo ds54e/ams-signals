@@ -1,13 +1,15 @@
 ---
 name: "AnalogToBi"
 summary: "Circuit-type-conditioned generation of device-net graphs."
-description: "Generates transistor-level circuit topologies from circuit-type tokens with a grammar-constrained language model. Device-net bipartite graphs encode component connections, and structural validity and novelty checks assess the generated topologies without measuring electrical performance."
+description: "Generates transistor-level circuit topologies from circuit-type tokens with a grammar-constrained language model. Device-net graphs undergo structural checks, while a separate released testbench flow converts supported categories to Spectre and measures electrical performance using configured models and simulator access."
 scope:
   design:
     ai: true
-access: "Python/PyTorch, the released topology data and trained generator/classifier weights."
+  simulation:
+    ai: false
+access: "Python/PyTorch, released topology data and trained weights support generation. Electrical evaluation additionally requires Cadence Spectre, a license server and the configured GPDK045 model file."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "paper"
     title: "AnalogToBi: Device-Level Analog Circuit Topology Generation via Bipartite Graph and Grammar Guided Decoding"
@@ -19,28 +21,30 @@ sources:
     purpose: "code"
   - id: "gpt-inference-grammar-py"
     title: "Grammar-masked topology generation"
-    url: "https://github.com/Seungmin0825/AnalogToBi/blob/e2033e9e5347dd0b702d24a8809de0c0f5470f87/GPT_Inference_Grammar.py"
+    url: "https://github.com/Seungmin0825/AnalogToBi/blob/89446afdcbe4c5601c83855b61e8bbfffebf81d7/GENERATE.py"
   - id: "erc-py"
     title: "Electrical-rule connectivity checks"
-    url: "https://github.com/Seungmin0825/AnalogToBi/blob/e2033e9e5347dd0b702d24a8809de0c0f5470f87/ERC.py"
+    url: "https://github.com/Seungmin0825/AnalogToBi/blob/89446afdcbe4c5601c83855b61e8bbfffebf81d7/CORE_ERC.py"
   - id: "metric-novelty-py"
     title: "Topology novelty evaluation"
-    url: "https://github.com/Seungmin0825/AnalogToBi/blob/e2033e9e5347dd0b702d24a8809de0c0f5470f87/METRIC_Novelty.py"
+    url: "https://github.com/Seungmin0825/AnalogToBi/blob/89446afdcbe4c5601c83855b61e8bbfffebf81d7/METRIC_Novelty.py"
   - id: "meaningful-implementation"
     title: "Reviewed substantive implementation or technical maintenance"
     url: "https://github.com/Seungmin0825/AnalogToBi/commit/7c7d89d8a4cf4c7aeae190b93b5bf6740df734be"
+  - id: simulation-opamp
+    title: "Released amplifier testbench and electrical measurements"
+    url: https://github.com/Seungmin0825/AnalogToBi/blob/89446afdcbe4c5601c83855b61e8bbfffebf81d7/SPICE_translation/run_tb_opamp.py
+  - id: simulation-runner
+    title: "Spectre execution, model configuration and waveform parsing"
+    url: https://github.com/Seungmin0825/AnalogToBi/blob/89446afdcbe4c5601c83855b61e8bbfffebf81d7/SPICE_translation/tb_common.py
 ---
 
-### Scope
+### Generation and structural checks
 
-The authors' repository releases generator training, grammar-masked inference, circuit-type classification and graph metrics. Decoding alternates devices and nets while enforcing pin-use and connectivity constraints. The paper explicitly identifies this repository. [Generation](#source-gpt-inference-grammar-py) · [Paper](#source-paper)
+The trained language model generates device-net bipartite graphs with grammar constraints. Connectivity/ERC and novelty checks assess the resulting topology; their scores remain separate from electrical-performance success. These learned generation operations support AI Design. [Generator](#source-gpt-inference-grammar-py) · [Connectivity checks](#source-erc-py) · [Novelty](#source-metric-novelty-py).
 
-### Evaluation boundary
+### Released electrical evaluation
 
-ERC and novelty checks assess generated graph structure. They do not measure gain, bandwidth or power. The paper also discusses selected SPICE case studies, but the captured generation path does not expose simulation or numerical sizing in its loop, so those columns remain blank. Reported validity/novelty rates are not electrical-performance success rates. [ERC](#source-erc-py) · [Novelty](#source-metric-novelty-py)
+The current SPICE_translation flow supplies category-specific testbenches and a shared Spectre runner. The reviewed amplifier implementation writes operating-point and AC decks and extracts gain, bandwidth, gain-bandwidth and power from simulator results. This independently executable conventional evaluation path adds Simulation; it does not establish that all generated circuits meet specifications or that sizing is part of the learned generation loop. [Amplifier evaluation](#source-simulation-opamp) · [Runner and model dependencies](#source-simulation-runner).
 
-### Scope classification
-
-Grammar-guided device/net graph generation is the deliverable. Electrical-rule checks validate connectivity; they do not establish simulated performance or physical layout. [Reviewed source](#source-gpt-inference-grammar-py).
-
-The trained language model generates a device-net bipartite representation with grammar constraints. Learned topology generation is the central AI Design operation. [AI/stage evidence](#source-gpt-inference-grammar-py).
+The runner expects configured Spectre, a Cadence license server and GPDK045 models. Review covered the public implementation and source history; licensed simulations and reported model performance were not independently reproduced. [Implementation activity](#source-meaningful-implementation).

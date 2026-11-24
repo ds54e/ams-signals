@@ -1,7 +1,7 @@
 ---
 name: Analog Canvas
 summary: Agent-editable hierarchical schematic workbench with native simulation-source authoring.
-description: "Agent-assisted hierarchical schematic editor with simulation-source authoring and SPICE/Spectre/RNL interchange, including routed-wire and net-label preservation with partial-drawing recovery. Its hosted ngspice SG13G2 profile supports device/corner and combinational-cell qualification; local headless drawing does not simulate, and EDA adapters require separate services, installations and PDKs."
+description: "Agent-guided hierarchical schematic editor with native testbench authoring and SPICE/Spectre/RNL interchange. SKY130/ngspice experiments run locally in the browser; hosted SG13G2/VACASK execution is restricted to the project team, while exported testbenches can use separately configured simulators and PDKs."
 scope:
   design:
     ai: true
@@ -12,9 +12,9 @@ developmentEvidence:
   summary: "Claude-credited implementation added hosted standard-cell simulation binding and integrated coupled-inductor support across editing, persistence, rendering and netlist export. The current edit engine retains the coupling transaction implementation."
   sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
   reviewedAt: "2026-10-12"
-access: "Public AGPL-3.0 source. Local headless drawing requires Node.js/pnpm and configured agent access; hosted simulation and Aether/Virtuoso adapters need their separately documented services, EDA installations and PDKs."
+access: "Public AGPL-3.0 source. Browser SKY130/ngspice execution needs no simulation server account; hosted execution is team-restricted. Local headless authoring and external EDA adapters have separate Node.js, service, simulator and PDK requirements."
 addedAt: '2026-10-01'
-reviewedAt: "2026-11-18"
+reviewedAt: "2026-11-24"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -22,13 +22,13 @@ sources:
   purpose: code
 - id: readme
   title: Reviewed capabilities and local/desktop limits
-  url: https://github.com/cascode-ai/analog-canvas/blob/2e2cc4487ea15d8d233539254bb370d9cacaeb78/README.md
+  url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/README.md
 - id: skill
   title: Released schematic-authoring agent skill
-  url: https://github.com/cascode-ai/analog-canvas/blob/a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9/docs/agent/repo-skill/SKILL.md
+  url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/docs/agent/workflow.md
 - id: simulation
   title: Model-authored analyses and measurement workflow
-  url: https://github.com/cascode-ai/analog-canvas/blob/a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9/docs/agent/shared/simulation.md
+  url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/docs/agent/shared/simulation.md
 - id: simulation-tools
   title: Implemented simulation authoring tools
   url: https://github.com/cascode-ai/analog-canvas/blob/a2473f0e2d51433a9f8747c26d5a7f4a4ac483e9/apps/mcp-server/src/simulation-authoring-tools.ts
@@ -99,52 +99,30 @@ sources:
 - id: review-20261118-tests
   title: "Executable agent-import routing, labels and recovery regressions"
   url: https://github.com/cascode-ai/analog-canvas/blob/feaa2279a62b43729871634eb32c4001cb181ed0/apps/editor/src/features/netlist-export/rnl-agent-import.test.ts
+- id: review-20261124-execution
+  title: "Current browser and hosted simulation access boundaries"
+  url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/docs/user/analog-simulation.md
+- id: review-20261124-browser
+  title: "Implemented browser ngspice execution and waveform routing"
+  url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/apps/editor/src/features/simulation/browser-ngspice/browser-ngspice-executor.ts
 ---
 
-### Workflow and scope
+### Authoring and stage boundaries
 
-The released circuit skill directs the model to read, generate, place and refine schematics through typed editing operations, establishing AI Design rather than merely an agent-compatible API. Its shared simulation workflow separately directs agents to author native analyses, saved signals and measurement logic, supported by implemented simulation-authoring tools; this establishes AI Simulation. Schematic symbol placement is not physical IC Layout. [Circuit skill](#source-skill) · [Simulation workflow](#source-simulation) · [Implementation](#source-simulation-tools)
+The released agent workflow directs models to inspect, generate and refine circuit schematics through typed editing operations. Its simulation guidance separately directs models to author native analyses, saved signals and measurements. These substantive workflows support AI Design and AI Simulation; schematic symbol placement does not establish physical IC Layout. [Authoring workflow](#source-skill) · [Simulation workflow](#source-simulation) · [Authoring tools](#source-simulation-tools).
 
-### Access and evidence limits
+### Browser, hosted and headless execution
 
-The README describes hosted ngspice/SKY130 execution; the current shared simulation guidance also describes VACASK-native profiles and distinguishes them from historical ngspice runs. Select the service's actual advertised profile rather than assuming the backend from the README. Local headless drawing is an agent-authoring path distinct from the offline Windows preview. Neither local drawing nor the offline preview starts the hosted simulation service; the preview also excludes agent services. No EDA runs were reproduced for this review. [Reviewed capabilities](#source-readme) · [Engine boundary](#source-simulation)
+The current public browser path executes ngspice with SKY130 models locally, without a simulation server account. Its implemented worker/executor routes testbench requests and waveforms. Hosted environments, including SG13G2/VACASK, are restricted to project-team accounts. Older hosted-profile qualification evidence does not establish public access to those environments. [Current access contract](#source-review-20261124-execution) · [Browser executor](#source-review-20261124-browser).
 
-The reviewed October 1 correctness changes cover device-parameter ERC, ngspice name collisions, DUT port order and structural netlist errors. Their implementation and tests establish substantive activity, rather than the later package-release commit. [Meaningful activity](#source-activity)
+Local headless drawing is a distinct authoring path: it edits persistent projects and exports netlist/drawing artifacts, and its reviewed interface does not perform simulation. Aether and Virtuoso adapters require their separately configured services, installations and PDK mappings. Browser-local execution should not be confused with that headless authoring mode. No simulator, hosted service or electrical-qualification campaign was independently run for this review. [Headless implementation](#source-review-20261011-1) · [EDA adapters](#source-review-20261011-2) · [Headless limits](#source-review-20261011-3).
 
-### Current implementation and operating boundaries
+### Implemented interchange and connectivity
 
-The local workspace runs the same editor Agent host against persistent Project files, can emit netlist and formal SVG artifacts and compare a drawing with a reference netlist. It does not run simulation. Modular eda/ tools add offline export and single/serial-batch import adapters for Aether and Virtuoso Bridge, with explicit target dependencies and native readback boundaries. [Headless implementation](#source-review-20261011-1) · [EDA adapters](#source-review-20261011-2) · [Local-mode limits](#source-review-20261011-3)
+Hierarchical cell binding checks ports and supplies before netlist extraction; it remains schematic Design coverage. RNL import/export preserves project-cell hierarchy, terminal mappings and circuit identities. The later routing changes preserve mode-generated wire paths and net labels, and reject an individually misconnected wire with diagnostics while retaining the remaining drawing. The reviewed regression cases establish structural-interchange behavior, not electrical equivalence. [Cell binding](#source-cell-bound-flip-flops) · [Hierarchical interchange](#source-review-20261031-rnl) · [Routed imports](#source-review-20261118-rnl) · [Regression cases](#source-review-20261118-tests).
 
-Local mode is documented as an internal, evolving tool and refuses simulation, Gallery and browser-measured export operations. Native database readback is not electrical equivalence. Aether/Virtuoso imports need separately installed EDA, licensed runtimes where applicable, PDKs and process maps.
+### Development provenance and activity
 
-### Schematic connectivity and cell implementations
+Claude-credited executable changes added hosted cell-library binding and integrated coupled-inductor editing, transactions and netlist export. The current edit engine retains the coupling transaction, supporting AI-ASSISTED independently of runtime AI stages. [Credited implementation](#source-development-audit-implementation) · [Coupling implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained).
 
-The October 14 implementation lets D flip-flop variants call a transistor-level Cell of the same Project while keeping their library symbols, extending the existing logic-gate path. The planner matches signal pins by name, validates supply pins or global supplies, rejects incompatible interfaces and restores the ideal body when the binding is cleared. Netlist extraction emits the child subcircuit call in the Cell's pin order; regression fixtures cover binding, export, clearing and rename protection. Flip-flops accept project Cells rather than reviewed external standard-cell targets. This is schematic Design coverage. [Binding and extraction](#source-cell-bound-flip-flops)
-
-Selecting a wire, pin or single component highlights its logical connections, including physically separate wires joined by a shared net name. Selection labels reuse the exporter's net naming, with a draft-analysis fallback when complete extraction is unavailable. These are structural inspection aids, not electrical simulation or proof of circuit equivalence. [Connectivity implementation and tests](#source-selection-connectivity) · [Net-name implementation and tests](#source-export-net-names)
-
-The October 19 interchange change adds SPICE+RNL and Spectre+RNL exports and an RNL import path. Its tests check consistent port permutation across the annotated netlist and editor representation. The RNL runtime is loaded separately by the application; this does not imply every user must install it separately. These are schematic Design operations and do not turn local headless drawing into simulation. [RNL interchange](#source-rnl-interchange)
-
-### Development provenance
-
-The coupling change spans typed model data, transactions, clipboard behavior, rendering and electrical export, while the simulation change binds declared cell libraries through the hosted execution contract. These credited executable changes remain in the project and support AI-ASSISTED development. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
-
-### Hierarchical RNL round-trip correctness
-
-The October 30 changes extend RNL export/import for project-cell call symbols, PDK property terminals, textual library bodies, no-connect information and the editor's top-cell block. The following fix distinguishes parts belonging to different Documents when ordering generated bodies and call symbols. The implementation and regression cases address structural interchange and symbol/terminal consistency; they do not establish electrical equivalence of imported circuits. [Interchange implementation](#source-review-20261031-rnl) · [Document identity fix](#source-review-20261031-identities) · [Retained regression tests](#source-review-20261031-tests).
-
-Meaningful activity advances to the document-identity correction on canonical main. This is a source-level development review; upstream EDA/simulation tests and release inclusion were not independently reproduced. The existing hosted/local simulation and license boundaries remain applicable.
-
-### Selection and current source review
-
-The maintained main branch integrates an isolated ngspice SG13G2 execution profile, preparation/runtime checks and device, corner, statistics and combinational-cell qualification scripts. The current contract exposes one final SG13G2 environment covering thirteen devices, rather than presenting the earlier intermediate profiles as separate environments. VACASK SG13G2 remains unqualified. These are inspected implementation and upstream regression artifacts; no hosted service or qualification campaign was independently run. Existing model-authored analysis/measurement workflows retain AI Simulation, independently of AI-assisted software development. The new profile itself is conventional simulator execution. [Integrated qualification](#source-review-20261103-qualification) · [Current execution contract](#source-review-20261103-contract).
-
-### November implementation review
-
-Current source extends SG13G2 model authoring and profile inference and adds tested drafting controls. SG13G2 qualification CI now triggers on profile-specific sources rather than all editor changes; its presence does not prove every subsequent editor revision was electrically qualified. Local headless drawing remains separate from simulation. No EDA runs were reproduced. [Drafting implementation and qualification triggers](#source-review-20261107-implementation) · [Model authoring](#source-review-20261107-models).
-
-### RNL routing and partial-drawing recovery
-
-Source review and targeted activity capture: November 18, 2026. Earlier meaningful-activity checkpoints are retained separately from the newer implementation evidence below.
-
-RNL imports now preserve the runtime-generated wire path for mode-routed wires and retain placed net labels with their connections. A wire attached to a different net is omitted individually, with source-location diagnostics, rather than causing the entire drawing to be discarded. Executable regression cases cover routing, labels and partial-drawing recovery. These are inspected structural-interchange artifacts, not independently reproduced electrical equivalence or simulation results. Existing stage, development-provenance and hosted/local execution boundaries remain unchanged. [Implementation](#source-review-20261118-rnl) · [Regression cases](#source-review-20261118-tests).
+Source review on November 24, 2026 checked current capabilities and canonical history. The activity snapshot remains separate; current-head access corrections do not silently replace the recorded meaningful checkpoint. Historical SG13G2 qualification and RNL implementation sources remain evidence of their specific reviewed revisions. [Recorded implementation activity](#source-activity) · [Historical qualification](#source-review-20261103-qualification).

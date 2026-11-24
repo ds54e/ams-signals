@@ -10,10 +10,10 @@ scope:
 developmentEvidence:
   summary: "Claude- and Cursor-credited development implemented VAMS-2023 named events and jump statements across compiler representation, validation and lowering. The current lowering code retains these language-support paths."
   sources: ["development-audit-implementation", "development-audit-extension", "development-audit-retained"]
-  reviewedAt: "2026-10-12"
+  reviewedAt: "2026-11-24"
 access: "Public Rust/LLVM compiler; generated libraries require a simulator implementing the matching OSDI interface."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public source repository"
@@ -30,13 +30,13 @@ sources:
     url: "https://github.com/OpenVAF/OpenVAF-Reloaded/blob/fdf2522b70f42793f64b1c72f0195c96dea0cc19/openvaf/osdi/header/osdi_0_4.h"
   - id: "development-audit-implementation"
     title: "Reviewed AI-attributed implementation"
-    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/commit/ca099d237471a99623ab4b97d899928b317f3e34"
+    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/commit/bee5a0cc1c5ca67160d7bd1a2de5cd4db42372c0"
   - id: "development-audit-extension"
     title: "Reviewed coordinated implementation extension"
-    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/commit/ef6436dc4e73b5f97a23cfc40546701bfc287961"
+    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/commit/52bd3e04563152ec910d1d81332e66c1a236579a"
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
-    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/blob/fdf2522b70f42793f64b1c72f0195c96dea0cc19/openvaf/hir_lower/src/stmt.rs"
+    url: "https://github.com/OpenVAF/OpenVAF-Reloaded/blob/2b5909bccd17b1cdc01a3ebced8ca7b3833c8a5c/openvaf/hir_lower/src/stmt.rs"
   - id: review-20261031-bounds
     title: Minimum of multiple timestep bounds with conditional regression
     url: https://github.com/OpenVAF/OpenVAF-Reloaded/commit/008babf9855f9e79a1e759b51e1b92451564b6c2
@@ -92,3 +92,7 @@ The October 25 batch-compiler corrections incorporate target/CPU/optimization/co
 The canonical default remains mob. Its November history was rewritten: the previously reviewed cache-key SHA is absent from the captured first-parent lineage. The replacement checkpoint is the inspected OSDI 0.5 reconciliation, including lowering, limiting-delta handling and diagnostic/integration-test changes; it retains the code-generation cache fix on the new lineage. The current header/descriptor and README establish OSDI 0.5 development output, while older README references to master/mb-experimental describe other lines. Do not infer released host support from that compiler interface or transfer this update to the August v24.0.2mob tag. The unscheduled_event lint and fixtures still warn for cross/above/timer/absdelta. Existing credited named-event/jump implementation remains independent software-development provenance. [Reconciliation](#source-review-20261103-integration) · [Current interface](#source-review-20261103-interface) · [Retained scheduling limitation](#source-review-20261103-events).
 
 VA-Models supplies model implementations and compatibility notes. The compiler supplies the OSDI artifact path, not device calibration or guaranteed support for every example. [Model sources and examples](#source-va-models-corpus).
+
+### Development evidence after history rewriting
+
+The named-event and jump-statement sources now point to their credited replacements on the current mob lineage. Both replacements are ancestors of the reviewed head, and the current lowering file retains the executable paths. Earlier commit IDs becoming non-ancestors did not remove the implementation or its attribution. [Named events](#source-development-audit-implementation) · [Jump statements](#source-development-audit-extension) · [Current lowering](#source-development-audit-retained).

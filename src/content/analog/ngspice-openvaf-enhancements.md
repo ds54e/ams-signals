@@ -11,11 +11,11 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "A Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree."
-  sources: ["development-1", "development-2"]
-  reviewedAt: '2026-10-18'
+  sources: ["development-1", "development-2", "development-20261124-retained"]
+  reviewedAt: '2026-11-24'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: '2026-11-24'
 sources:
   - id: "code"
     title: "Canonical Ngspice + OpenVAF Enhancements repository"
@@ -52,6 +52,9 @@ sources:
   - id: "activity-current"
     title: "Verilog-A diagnostics and numeric-cast corrections"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd"
+  - id: development-20261124-retained
+    title: "Credited executable contribution retained at the current head"
+    url: https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/OpenVAF-master-20260610/openvaf/hir_def/src/item_tree/lower.rs
 ---
 
 ### Scope
@@ -85,3 +88,5 @@ The September 30 update adds a bounded trust-region optimizer and preserves the 
 Reviewed 2026-10-05. The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF. [Reviewed change](#source-activity-current).
 
 The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These credited contributions support AI-assisted development. [Owner’s development account](#source-development-1) · [Compiler and simulator implementation](#source-development-2).
+
+Current-head review confirms that the credited discipline-attribute evaluation remains in the canonical compiler. This compiler contribution is software-development provenance, separate from runtime circuit-optimization classification. [Retained implementation](#source-development-20261124-retained).

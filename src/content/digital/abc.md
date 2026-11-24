@@ -9,12 +9,12 @@ scope:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude is co-credited for correcting Booth-multiplier result widths in executable bit-blasting code. The canonical implementation retains the product-width truncation before result extension."
+  summary: "Claude is co-credited for correcting Booth-multiplier result widths in executable bit-blasting code. The current matrix-reduction path retains the product-width bound before result extension after a later refactor."
   sources: [development-code-20261022, development-retained-20261022]
-  reviewedAt: '2026-10-22'
+  reviewedAt: '2026-11-24'
 access: "Public C/C++ implementation; a supported compiler/build environment and appropriate logic-model inputs are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: '2026-11-24'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -34,7 +34,7 @@ sources:
     url: https://github.com/berkeley-abc/abc/commit/aac431579195bb077258e3bdcc853a84067646b0
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
-    url: https://github.com/berkeley-abc/abc/blob/fba0adf4ccca0be59ddc6e77a85eb0cc64e04a8b/src/base/wlc/wlcBlast.c
+    url: https://github.com/berkeley-abc/abc/blob/bd23a971519f70b1a8dbb8d0a2c0574eeb69af69/src/base/wlc/wlcBlast.c
   - id: website
     title: Official project website and documentation
     url: https://people.eecs.berkeley.edu/~alanmi/abc/
@@ -57,4 +57,4 @@ Review was static: public implementation and published tests/documentation were 
 
 ### Development provenance
 
-Claude is co-credited for correcting Booth-multiplier result widths in executable bit-blasting code. The canonical implementation retains the product-width truncation before result extension. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+Claude is co-credited for correcting Booth-multiplier result widths in executable bit-blasting code. The original change truncated the reduced vector; the current implementation passes the product width into matrix reduction and bounds the returned vector before extension. This retained behavior supports AI-ASSISTED without attributing the later refactor to the original contributor. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).

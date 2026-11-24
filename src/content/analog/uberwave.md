@@ -6,9 +6,14 @@ description: "Open-source waveform viewer for inspecting large ngspice analog si
 scope:
   simulation:
     ai: false
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "The canonical GitLab commit explicitly credits GLM-5.3 via OpenCode for multi-source sessions, source-bound panes, measurements and browser support. The current session implementation retains the credited source identity and lifecycle behavior."
+  sources: [development-20261124-code, development-20261124-retained]
+  reviewedAt: '2026-11-24'
 access: "Public C++20 source with a GPLv2 license file and separate third-party terms. WP5 Alpha 1 provides Windows x64 and browser bundles; Linux builds from source."
 addedAt: "2026-10-26"
-reviewedAt: "2026-10-26"
+reviewedAt: '2026-11-24'
 sources:
   - id: "site"
     title: "Official NLnet project introduction"
@@ -45,6 +50,12 @@ sources:
   - id: "license"
     title: "License text shipped with WP5 Alpha 1"
     url: "https://gitlab.symbioticeda.com/Juan_25/uberwave/-/blob/53480275199affda8d86dba6a60110dc37bb3b5a/LICENSE"
+  - id: development-20261124-code
+    title: "Explicit AI attribution with executable multi-source viewer changes"
+    url: https://gitlab.symbioticeda.com/Juan_25/uberwave/-/commit/c37f94eed3476237b7c8db86584355c21cef255d
+  - id: development-20261124-retained
+    title: "Current canonical session implementation retains source-bound behavior"
+    url: https://gitlab.symbioticeda.com/Juan_25/uberwave/-/blob/b6d23971e025eb64e9b65e46fdd2c8c0ec8036c2/wp5-viewer/session/Session.cpp
 ---
 
 ### Analog / Mixed-Signal Waveform Visualization
@@ -64,3 +75,7 @@ Progressive preview displays partial data while an existing file is converted. I
 The latest published release at review is WP5 Alpha 1, dated October 22, 2026. It follows the September WP5 preview and the July 17 WP4 v1.1 Windows demonstrator, which superseded the broken WP4 v1.0 build. The alpha supplies Windows 10/11 x64 and WebAssembly bundles and Linux source-build instructions. Upstream reports Ubuntu verification; current Windows instructions use MinGW, with MSVC unvalidated. Browser operation requires WebGL2 and cross-origin isolation, and large Spectre-folder browser memory use is not yet validated. Docking/custom layouts, mixed-signal acceptance, automated rise/fall and waveform-frequency measurements, and the demo/user review remain pending. [Latest release](#source-release) · [Earlier demonstrator](#source-wp4-release) · [Build guide](#source-building).
 
 The repository ships GNU GPL version 2 license text and separately documents third-party terms. This review inspected source and release metadata without executing the viewer, its tests or its bundled binaries. The activity strip uses the October 22 evaluation release as one reviewed public signal, not synthetic monthly commit history or the catalog addition date. [License file](#source-license) · [Project status](#source-readme) · [Dated release](#source-release).
+
+### Development-provenance review
+
+The canonical GitLab commit explicitly credits GLM-5.3 via OpenCode for multi-source sessions, source-bound panes, measurements and browser support. The current session implementation retains the credited source identity and lifecycle behavior. The credited commit is an ancestor of current canonical main and its session code remains present after integration. This supports AI-ASSISTED software development without making waveform viewing a runtime AI operation. The separate public-update activity record is unchanged. [Attributed implementation](#source-development-20261124-code) · [Retained session code](#source-development-20261124-retained).

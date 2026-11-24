@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the byte-range extraction implementation and its tests."
-  sources: [activity]
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "LGPL-3.0-only; reader coverage is specific to TDMS measurement files."
 addedAt: "2026-11-24"
@@ -27,6 +27,9 @@ sources:
   - id: sigmf-python
     title: "Related reader and validator for stored RF/IQ recordings"
     url: "https://github.com/sigmf/sigmf-python"
+  - id: development-retained
+    title: "Retained byte-range extraction API"
+    url: "https://github.com/adamreeve/npTDMS/blob/939f32a4bb37cc7404eab4255a305ed54ca98f1d/nptdms/tdms.py"
 ---
 
 ## Scope and limits

@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on changes to executable piecewise-linear stimulus export."
-  sources: [implementation]
+  sources: [implementation, development-retained]
   reviewedAt: "2026-11-24"
 access: "BSD-3-Clause; some third-party waveform fixtures have separate notices."
 addedAt: "2026-11-24"
@@ -27,6 +27,9 @@ sources:
   - id: implementation
     title: "Specific implementation reviewed"
     url: "https://github.com/scottprahl/RigolWFM/commit/b4847a8482e3a44d5ed04a23d0b632b6f950dec6"
+  - id: development-retained
+    title: "Retained piecewise-linear waveform export"
+    url: "https://github.com/scottprahl/RigolWFM/blob/9e6f993103f773f81df409fc65c2cc359d7bd249/RigolWFM/wfm.py"
 ---
 
 ## Scope and limits

@@ -8,11 +8,11 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Copilot is credited on the executable GUI refresh, not on the solver or the separate noise contribution work."
-  sources: [ai-change]
-  reviewedAt: "2026-11-24"
+  sources: ["ai-change", "development-20261124-retained"]
+  reviewedAt: '2026-11-24'
 access: "GPL-3.0-or-later; network data, fixtures and calibrated measurements remain separate inputs."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: '2026-11-24'
 sources:
   - id: code
     title: "Canonical implementation"
@@ -30,6 +30,9 @@ sources:
   - id: release
     title: "Public v1.6.0"
     url: "https://github.com/Nubis-Communications/SignalIntegrity/releases/tag/v1.6.0"
+  - id: development-20261124-retained
+    title: "Credited executable contribution retained at the current head"
+    url: https://github.com/Nubis-Communications/SignalIntegrity/blob/a0cfb37ebf318cab38a9738db6c0dca710fbd16d/SignalIntegrity/App/DevicePicker.py
 ---
 
 ## Scope and limits
@@ -39,3 +42,5 @@ The reviewed v1.6.0 work exposes noise-source contributions. Linear propagation 
 [Reviewed upstream implementation](#source-implementation).
 
 Additional context: [Public v1.6.0](#source-release).
+
+Current-head review confirms that the credited theme-change binding and UpdateStyle method remain in DevicePicker. This executable GUI contribution supports software-development provenance without attributing AI to the numerical solver. [Retained implementation](#source-development-20261124-retained).

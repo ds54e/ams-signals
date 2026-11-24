@@ -7,8 +7,8 @@ scope:
   acquisition: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Cursor is credited on Python compatibility and executable code changes, not on the separate AWG frequency calculation repair."
-  sources: [ai-change]
+  summary: "Cursor is co-credited for Python compatibility changes, including the retained wrapper that runs pylint with one worker on Python 3.15. This credit is separate from the AWG frequency calculation repair."
+  sources: [ai-change, development-retained]
   reviewedAt: "2026-11-24"
 access: "Apache-2.0; supported models require a compatible VISA backend and instrument firmware."
 addedAt: "2026-11-24"
@@ -28,6 +28,9 @@ sources:
   - id: ai-change
     title: "Credited executable implementation change"
     url: "https://github.com/tektronix/tm_devices/commit/61af41a2c49560c6363c5d32d63aafa30189517e"
+  - id: development-retained
+    title: "Retained Python 3.15 pylint execution wrapper"
+    url: "https://github.com/tektronix/tm_devices/blob/eb4969cd15795999b9184e679b1b65d847ac8e01/scripts/run_pylint.py"
 ---
 
 ## Scope and limits

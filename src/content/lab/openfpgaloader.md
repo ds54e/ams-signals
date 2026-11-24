@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the Gowin compressed-bitstream parser correction."
-  sources: [implementation]
+  sources: [implementation, development-retained]
   reviewedAt: "2026-11-24"
 access: "Apache-2.0; supported cables, target hardware and bitstreams are separate."
 addedAt: "2026-11-24"
@@ -27,6 +27,9 @@ sources:
   - id: implementation
     title: "Specific implementation reviewed"
     url: "https://github.com/trabucayre/openFPGALoader/commit/ac8eab2abad8f7e8cb4d5b1e4e2c16d0b874531f"
+  - id: development-retained
+    title: "Retained Gowin zero-key parser correction"
+    url: "https://github.com/trabucayre/openFPGALoader/blob/3c52ab1487ff759e1a3790346455ec7e92ba8c44/src/fsparser.cpp"
 ---
 
 ## Scope and limits

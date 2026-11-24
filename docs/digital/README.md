@@ -13,9 +13,11 @@ Stages appear in this order:
 | `design` | Design | RTL generation/editing/repair and user-facing design representation or IR transformations |
 | `synthesis` | Synthesis | Logic synthesis, technology mapping, synthesis-driven optimization and actual synthesis/PPA loops |
 | `verification` | Verification | RTL/gate simulation, testbenches, formal/model/equivalence checking, coverage, debug and waveform inspection |
-| `layout` | Layout | Floorplanning, placement, CTS, routing, backend timing/closure and implementation flows |
+| `layout` | Layout | Floorplanning, placement, CTS, routing, physical geometry/connectivity inspection, backend timing/closure and implementation flows |
 
 A simulator's internal parser or read-only debug database does not establish Design. Assess reusable frontend/design APIs separately from synthesis-oriented lowering. Testbench/assertion generation and software register test layers are Verification, not DUT Design. An implemented virtual-target or HDL co-simulation workflow is Verification; physical DUT access and bench acquisition are not. Synthesis timing alone is not Layout; clock-tree synthesis and backend static-timing analysis are Layout rather than logic Synthesis.
+
+Read-only SDC lint, constraint reference resolution and consistency diagnostics are Verification when they do not compute timing or analyze a physical design. A tool does not gain Layout solely because its output is consumed before STA. Inspection of implemented geometry, hierarchy, routed shapes and physical connectivity in GDS or DEF is Layout even when it does not place cells or calculate timing; distinguish that operation from constraint-only diagnostics.
 
 Use the [shared stage and AI classification rules](../catalog/CONTRACT.md#scope-and-ai-classification) with these domain-specific distinctions:
 

@@ -4,7 +4,6 @@ aliases: ["KiCad automation"]
 description: "Batch automation for producing KiCad board manufacturing, assembly and review outputs. It generates artifacts such as fabrication files, BOMs and documentation from versioned configuration, supporting repeatable evaluation-board and fixture releases."
 scope:
   board: { ai: false }
-  test: { ai: false }
 access: "AGPL-3.0; requires KiCad, with separate terms for optional tools."
 addedAt: "2026-11-24"
 reviewedAt: "2026-11-24"
@@ -30,4 +29,4 @@ Pin KiCad and output options. Generated output does not by itself verify electri
 
 The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
 
-Board & Fixture describes the manufacturing and assembly outputs; Test Automation describes explicitly configured automated preflight checks, not the existence of an export script. [PCB preflight](#source-board-preflight).
+Board & Fixture describes the manufacturing and assembly outputs, including their configured ERC/DRC preflight checks. Those checks validate board design artifacts; they are not a separate instrument or DUT test procedure. [PCB preflight](#source-board-preflight).

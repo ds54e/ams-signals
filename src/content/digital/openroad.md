@@ -9,10 +9,10 @@ scope:
 developmentEvidence:
   summary: "Claude is credited for correcting the web viewer shutdown to wait for its Tcl evaluation before interpreter teardown. The canonical project retains the synchronization code."
   sources: ["development-implementation-20261018", "development-retained-20261018"]
-  reviewedAt: '2026-10-18'
+  reviewedAt: '2026-11-24'
 access: "Public source under BSD-3-Clause; build dependencies and process-stack inputs remain project- and technology-specific."
 addedAt: "2026-09-05"
-reviewedAt: '2026-11-19'
+reviewedAt: '2026-11-24'
 sources:
   - id: "code"
     title: "Canonical OpenROAD repository"
@@ -44,8 +44,8 @@ sources:
     title: "AI-credited executable implementation"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/commit/33da610b4d812a0e085328cd0812b67ac1964ab8"
   - id: "development-retained-20261018"
-    title: "Retained executable code at the reviewed canonical head"
-    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/3cc34a657d42b68f18fffb26235e9598e33f7899/src/web/src/web_serve.cpp"
+    title: "Retained shutdown synchronization after the web source-directory move"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/e5b41ea79ae8b284b481788b7a1af16e69502468/openroad/web/src/web_serve.cpp"
   - id: "review-20261022-upf"
     title: "Current UPF implementation and insertion logic"
     url: "https://github.com/The-OpenROAD-Project/OpenROAD/blob/cee41731fae55adbdf73912d05a1114ee3c5cfb4/src/upf/src/upf.cpp"

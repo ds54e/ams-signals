@@ -9,11 +9,11 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Copilot-credited implementation introduced module-scoped services for waveform capture, netlist output and inspection, with registry and lifecycle integration. The merged API and current registry/waveform implementations retain this substantial extension to ROHD."
-  sources: ["development-audit-services", "development-audit-retained-registry", "development-audit-retained-waveform"]
-  reviewedAt: "2026-10-18"
+  sources: ["development-audit-services", "development-services-integration", "development-audit-retained-registry"]
+  reviewedAt: "2026-11-24"
 access: Public Dart implementation; external simulators and synthesis tools are separate integrations.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-23'
+reviewedAt: '2026-11-24'
 sources:
 - id: code
   title: Canonical public implementation
@@ -34,12 +34,15 @@ sources:
 - id: "development-audit-services"
   title: "Copilot-attributed module services implementation"
   url: https://github.com/intel/rohd/commit/e35954abe7c81c4cd0a6042fbb67fbef0c14d06f
+- id: "development-services-integration"
+  title: "Merged module-services API and integration account"
+  url: https://github.com/intel/rohd/pull/673
 - id: "development-audit-retained-registry"
   title: "Current module service registry"
-  url: https://github.com/intel/rohd/blob/f992f80e5d6c4705b73f9deb05fab243965ab60e/lib/src/diagnostics/module_services.dart
+  url: https://github.com/intel/rohd/blob/03088a2d3edcdbd76c991b72697ecaf754a4825e/lib/src/diagnostics/module_services.dart
 - id: "development-audit-retained-waveform"
   title: "Current waveform service implementation"
-  url: https://github.com/intel/rohd/blob/f992f80e5d6c4705b73f9deb05fab243965ab60e/lib/src/diagnostics/waveform_service.dart
+  url: https://github.com/intel/rohd/blob/03088a2d3edcdbd76c991b72697ecaf754a4825e/lib/src/diagnostics/waveform_service.dart
 - id: website
   title: Official project website and documentation
   url: https://intel.github.io/rohd-website/
@@ -56,4 +59,4 @@ The meaningful checkpoint is `a2b439e8dccfa2e260862184c99f2a2484c26e20` (2026-10
 
 ### Development provenance
 
-The original Copilot-credited module-services contribution implements a reusable service registry and artifact contracts, with module-build registration, netlist output and waveform lifecycle integration. The retained registry and waveform services support substantial extension of the existing framework; reused simulator and output internals are not attributed as new AI construction. [Attributed implementation](#source-development-audit-services) · [Retained registry](#source-development-audit-retained-registry) · [Retained waveform service](#source-development-audit-retained-waveform).
+The original Copilot-credited module-services contribution implements a reusable service registry and artifact contracts, with module-build registration, netlist output and waveform lifecycle integration. The associated PR was merged through a different integration commit, which is an ancestor of the reviewed canonical head; the originally credited branch commit alone is not the integration proof. The current registry and waveform services retain the contributed behavior, without attributing reused simulator internals as new AI construction. [Attributed implementation](#source-development-audit-services) · [Merged API](#source-development-services-integration) · [Retained registry](#source-development-audit-retained-registry) · [Retained waveform service](#source-development-audit-retained-waveform).

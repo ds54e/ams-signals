@@ -18,7 +18,7 @@ async function load(domain: string) {
 const lab = await load('lab');
 const snapshot = JSON.parse(await readFile(new URL('../../src/data/lab-activity.json', import.meta.url), 'utf8'));
 
-test('catalogs list each canonical implementation once except the reviewed Vibe-IC pair', async () => {
+test('catalogs list each canonical implementation once except the reviewed domain pairs', async () => {
   validateCatalog(lab);
   const domains = { analog: await load('analog'), digital: await load('digital'), lab };
   const byCode = new Map<string, string[]>();
@@ -32,8 +32,9 @@ test('catalogs list each canonical implementation once except the reviewed Vibe-
       byCode.set(key, instances);
     }
   }
-  assert.deepEqual([...byCode.values()].filter((instances) => instances.length > 1),
-    [['analog/vibe-ic', 'digital/vibe-ic']]);
+  assert.deepEqual([...byCode.values()].filter((instances) => instances.length > 1)
+    .map((instances) => instances.sort()).sort((a, b) => a[0].localeCompare(b[0])),
+    [['analog/openada', 'digital/openada'], ['analog/vibe-ic', 'digital/vibe-ic']]);
   assert.equal(Object.keys(validateActivity(lab, snapshot).projects).length, lab.length);
 });
 

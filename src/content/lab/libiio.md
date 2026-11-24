@@ -8,7 +8,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "The Zephyr ADC scale calculation and formatting repair carries an explicit AI assistance credit."
-  sources: [activity]
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "MIT, LGPL and GPL apply to different components; check the selected build."
 addedAt: "2026-11-24"
@@ -25,6 +25,9 @@ sources:
   - id: activity
     title: "Reviewed implementation or canonical integration"
     url: "https://github.com/analogdevicesinc/libiio/commit/30d16e7c9549d1181d71e3c91232a8f7c2c629dd"
+  - id: development-retained
+    title: "Retained Zephyr ADC scale calculation"
+    url: "https://github.com/analogdevicesinc/libiio/blob/081fd1380feb6fbfae106ef189a90a37b3fb3939/zephyr/drivers/iio_device/io_channels.c"
 ---
 
 ## Scope and limits

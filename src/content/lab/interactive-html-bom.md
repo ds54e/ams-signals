@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "The merged change for case-normalized DNP and variant fields credits Claude in its commit and changes the assembly filter logic."
-  sources: [activity]
+  sources: [activity, development-retained]
   reviewedAt: "2026-11-24"
 access: "MIT plugin; requires design input from a supported workflow."
 addedAt: "2026-11-24"
@@ -20,6 +20,9 @@ sources:
   - id: activity
     title: "Reviewed implementation or test change"
     url: "https://github.com/openscopeproject/InteractiveHtmlBom/commit/30ce006dcf42d6b280fa6c87219a8104d0ca8d70"
+  - id: development-retained
+    title: "Retained case-normalized assembly filtering"
+    url: "https://github.com/openscopeproject/InteractiveHtmlBom/blob/363d5df487cb7d9ed34d2e4b3288683835f00dce/InteractiveHtmlBom/core/ibom.py"
 ---
 
 ## Scope and limits

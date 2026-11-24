@@ -1,7 +1,7 @@
 ---
 name: "G-DiffPS"
 summary: "Graph-conditioned RF phase-shifter synthesis."
-description: "Selects among six RF phase-shifter topologies and predicts component values with a graph-conditioned flow policy, using analytic circuit priors and ngspice feedback to meet phase, loss and matching targets."
+description: "Selects among six RF phase-shifter topologies and predicts component values with a graph-conditioned flow policy. Analytic circuit priors and ngspice evaluations guide training and candidate checking against phase, loss and matching targets; deployed predictions depend on the trained policy and covered specification range."
 scope:
   design:
     ai: true

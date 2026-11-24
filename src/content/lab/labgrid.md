@@ -8,7 +8,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the Sunxi USB loader driver and its accompanying test code."
-  sources: [ai-change]
+  sources: [ai-change, development-retained]
   reviewedAt: "2026-11-24"
 access: "LGPL-2.1-or-later; requires drivers and access to configured fixtures."
 addedAt: "2026-11-24"
@@ -31,6 +31,9 @@ sources:
   - id: ai-change
     title: "Credited executable implementation change"
     url: "https://github.com/labgrid-project/labgrid/commit/5f6de3485b2581db2fb390298edcf50bc7c4ace0"
+  - id: development-retained
+    title: "Retained Sunxi USB loader implementation"
+    url: "https://github.com/labgrid-project/labgrid/blob/a556a0d016bd5eb8728e26d8bdb41cf952c151aa/labgrid/driver/usbloader.py"
 ---
 
 ## Scope and limits

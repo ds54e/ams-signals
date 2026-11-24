@@ -495,7 +495,7 @@
     },
     "uhdm2rtlil": {
       "kind": "github",
-      "repository": "alainmarcel/uhdm2rtlil",
+      "repository": "chipsalliance/uhdm2rtlil",
       "repositoryId": 1004725581,
       "capturedAt": "2026-11-07T02:16:21.811Z",
       "defaultBranch": "main",

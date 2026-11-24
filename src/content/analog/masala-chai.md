@@ -1,7 +1,7 @@
 ---
 name: "Masala-CHAI"
 summary: "Schematic-image reconstruction into SPICE netlists."
-description: "Reconstructs SPICE netlists from schematic images using component detection and multimodal connectivity reasoning, with a V2 agent loop that revises candidates from judge feedback and optional ngspice simulation."
+description: "Reconstructs SPICE netlists from schematic images using component detection and multimodal connectivity reasoning. Its V2 agent loop revises candidates from judge feedback and can author analysis directives and use ngspice results to diagnose them, with model endpoints and simulator setup supplied separately."
 scope:
   design:
     ai: true
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Python, object-detection weights and multimodal LLM access; install ngspice for actual simulation feedback."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "paper"
     title: "Masala-CHAI: A Large-Scale SPICE Netlist Dataset for Analog Circuits by Harnessing AI"

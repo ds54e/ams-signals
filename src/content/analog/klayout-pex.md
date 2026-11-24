@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Python implementation under GPL-3.0-or-later, classified Beta by the project since version 0.9.0. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
 addedAt: "2026-09-07"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-24"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
@@ -21,65 +21,65 @@ sources:
     purpose: "official"
   - id: "code"
     title: "Canonical iic-jku repository"
-    url: "https://github.com/iic-jku/klayout-pex"
+    url: "https://github.com/iic-jku/kpex"
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed main revision"
-    url: "https://github.com/iic-jku/klayout-pex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/README.md"
+    url: "https://github.com/iic-jku/kpex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/README.md"
   - id: "extraction-cli"
     title: "Extraction dispatch and layout-to-PEX25D generation"
-    url: "https://github.com/iic-jku/klayout-pex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/kpex_cli.py"
+    url: "https://github.com/iic-jku/kpex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/kpex_cli.py"
   - id: "layout-builder"
     title: "PEX25D builder from layout connectivity and process-stack information"
-    url: "https://github.com/iic-jku/klayout-pex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/klayout/pex25d_builder.py"
+    url: "https://github.com/iic-jku/kpex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/klayout/pex25d_builder.py"
   - id: "exchange-cli"
     title: "Standalone PEX25D validation, conversion, resolution and export"
-    url: "https://github.com/iic-jku/klayout-pex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/pex25d/pex25d_cli.py"
+    url: "https://github.com/iic-jku/kpex/blob/93d50dd2265b8d954cab1e8e60b2348848cee7d7/klayout_pex/pex25d/pex25d_cli.py"
   - id: "release"
     title: "KPEX v0.5.3, September 30, 2026"
-    url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.5.3"
+    url: "https://github.com/iic-jku/kpex/releases/tag/v0.5.3"
   - id: "activity"
     title: "PEX25D API/CLI implementation merged August 28, 2026"
-    url: "https://github.com/iic-jku/klayout-pex/commit/0b6cf1ff25fcf7eb794c52999b2c850448144457"
+    url: "https://github.com/iic-jku/kpex/commit/0b6cf1ff25fcf7eb794c52999b2c850448144457"
   - id: "activity-refresh"
     title: "Previously reviewed meaningful implementation update"
-    url: "https://github.com/iic-jku/klayout-pex/commit/2633399296cb80b935598d6dbc93abdcad658a74"
+    url: "https://github.com/iic-jku/kpex/commit/2633399296cb80b935598d6dbc93abdcad658a74"
   - id: "current-readme"
     title: "Current engine and installation overview"
-    url: "https://github.com/iic-jku/klayout-pex/blob/a575c97c332fed89aa42cc376315e404f75876da/README.md"
+    url: "https://github.com/iic-jku/kpex/blob/a575c97c332fed89aa42cc376315e404f75876da/README.md"
   - id: "activity-current"
     title: "Substrate and well capacitance extraction with regression coverage"
-    url: "https://github.com/iic-jku/klayout-pex/commit/dbfebf4a47582801df912f6288f240b3ac65d623"
+    url: "https://github.com/iic-jku/kpex/commit/dbfebf4a47582801df912f6288f240b3ac65d623"
   - id: "release-current"
     title: "KPEX v0.6.1 stable release, October 2, 2026 UTC"
-    url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.6.1"
+    url: "https://github.com/iic-jku/kpex/releases/tag/v0.6.1"
   - id: "review-20261011-1"
     title: "Distributed-capacitance integration"
-    url: "https://github.com/iic-jku/klayout-pex/commit/0938f4a3e29c4eaeb8fd7f8ac1c45b0fc051dfb4"
+    url: "https://github.com/iic-jku/kpex/commit/0938f4a3e29c4eaeb8fd7f8ac1c45b0fc051dfb4"
   - id: "review-20261011-2"
     title: "Distributor implementation"
-    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/capacitance_distributor.py"
+    url: "https://github.com/iic-jku/kpex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/capacitance_distributor.py"
   - id: "review-20261011-3"
     title: "MIM terminal regression"
-    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/tests/pex25d/pex25d_mim_cap_terminals_test.py"
+    url: "https://github.com/iic-jku/kpex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/tests/pex25d/pex25d_mim_cap_terminals_test.py"
   - id: "review-20261011-4"
     title: "MIM dielectric checkpoint"
-    url: "https://github.com/iic-jku/klayout-pex/commit/78570a9e6cf38f938685194f4ebb6db91a1521c7"
+    url: "https://github.com/iic-jku/kpex/commit/78570a9e6cf38f938685194f4ebb6db91a1521c7"
   - id: "review-20261011-5"
     title: "Release v0.6.5"
-    url: "https://github.com/iic-jku/klayout-pex/releases/tag/v0.6.5"
+    url: "https://github.com/iic-jku/kpex/releases/tag/v0.6.5"
   - id: "development-audit-implementation"
     title: "Reviewed AI-attributed implementation"
-    url: "https://github.com/iic-jku/klayout-pex/commit/fa847742905944dfc18a481efdad77055bc543fd"
+    url: "https://github.com/iic-jku/kpex/commit/fa847742905944dfc18a481efdad77055bc543fd"
   - id: "development-audit-extension"
     title: "Reviewed coordinated implementation extension"
-    url: "https://github.com/iic-jku/klayout-pex/commit/175f7d2a1d06e77c4bf61774ab11242139a18aa5"
+    url: "https://github.com/iic-jku/kpex/commit/175f7d2a1d06e77c4bf61774ab11242139a18aa5"
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
-    url: "https://github.com/iic-jku/klayout-pex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/netlist_checks.py"
+    url: "https://github.com/iic-jku/kpex/blob/b858237bdcdfcc002f69b8b6c244e541546d8127/klayout_pex/rcx25/netlist_checks.py"
   - id: "review-20261022-generator"
     title: "Current IHP technology generator"
-    url: "https://github.com/iic-jku/klayout-pex/blob/d3582837761b045ef330ce84737984114fe240e3/scripts/gen_tech_pb/ihp_sg13.py"
+    url: "https://github.com/iic-jku/kpex/blob/d3582837761b045ef330ce84737984114fe240e3/scripts/gen_tech_pb/ihp_sg13.py"
   - id: "review-20261022-cmos5l"
     title: "Version-specific SG13CMOS5L extraction bench"
     url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13cmos5l/pex_bench/README.md"
@@ -94,43 +94,43 @@ sources:
     url: "https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/README.md"
   - id: "review-20261024-device-contacts"
     title: "Device contacts as vias and source/drain terminal placement"
-    url: "https://github.com/iic-jku/klayout-pex/commit/5532a30100075a7925a6bd338ec035f3f83d8d28"
+    url: "https://github.com/iic-jku/kpex/commit/5532a30100075a7925a6bd338ec035f3f83d8d28"
   - id: "review-20261024-diffusion-resistance"
     title: "SKY130 diffusion-resistor terminals and contact resistance"
-    url: "https://github.com/iic-jku/klayout-pex/commit/b9e160bfa8dea19f406ed8e9ff9d4884667c5c31"
+    url: "https://github.com/iic-jku/kpex/commit/b9e160bfa8dea19f406ed8e9ff9d4884667c5c31"
   - id: "review-20261024-isolated-wells"
     title: "GF180 isolated p-well and deep-nwell coupling"
-    url: "https://github.com/iic-jku/klayout-pex/commit/4799f2e31c13e7435d88e07a57edaac357f77a69"
+    url: "https://github.com/iic-jku/kpex/commit/4799f2e31c13e7435d88e07a57edaac357f77a69"
   - id: "review-20261024-integration"
     title: "First-parent integration including diffusion-resistor contact corrections"
-    url: "https://github.com/iic-jku/klayout-pex/commit/43f6bb0989fd6e392a150f90a93f8bead01eb53e"
+    url: "https://github.com/iic-jku/kpex/commit/43f6bb0989fd6e392a150f90a93f8bead01eb53e"
   - id: "review-20261024-status"
     title: "GPL-3.0-or-later license and Pre-Alpha project metadata"
-    url: "https://github.com/iic-jku/klayout-pex/blob/9f26477da2df4f9c10a16853bbfde52be60701d9/pyproject.toml"
+    url: "https://github.com/iic-jku/kpex/blob/9f26477da2df4f9c10a16853bbfde52be60701d9/pyproject.toml"
   - id: review-20261107-exclusion
     title: "Capacitance exclusion markers and extraction paths"
-    url: https://github.com/iic-jku/klayout-pex/commit/376f0cc9ff98fcf61e6045cf83e613fdc885144d
+    url: https://github.com/iic-jku/kpex/commit/376f0cc9ff98fcf61e6045cf83e613fdc885144d
   - id: review-20261107-cutouts
     title: "Model-cell cutout implementation"
-    url: https://github.com/iic-jku/klayout-pex/commit/753c5951171ac81c9eaaef8701e0c03b488acc7f
+    url: https://github.com/iic-jku/kpex/commit/753c5951171ac81c9eaaef8701e0c03b488acc7f
   - id: review-20261107-coupling
     title: "Preserve external coupling for excluded nets"
-    url: https://github.com/iic-jku/klayout-pex/commit/ea9f61baa7fe360d769be86b7eac98cae7a00743
+    url: https://github.com/iic-jku/kpex/commit/ea9f61baa7fe360d769be86b7eac98cae7a00743
   - id: review-20261107-implementation
     title: "Diagnose missing side-overlap data with regression coverage"
-    url: https://github.com/iic-jku/klayout-pex/commit/ac3ff0c445d74e1fa8147236bd56bad49c12e43f
+    url: https://github.com/iic-jku/kpex/commit/ac3ff0c445d74e1fa8147236bd56bad49c12e43f
   - id: review-20261107-integration
     title: First-parent integration of missing side-overlap diagnostics and regressions
-    url: https://github.com/iic-jku/klayout-pex/commit/14777b2c46410dc837b53e15c1565e5c68e83ce5
+    url: https://github.com/iic-jku/kpex/commit/14777b2c46410dc837b53e15c1565e5c68e83ce5
   - id: review-20261112-activity
     title: "Sidewall accounting correction and Magic backend version enforcement"
-    url: https://github.com/iic-jku/klayout-pex/commit/4f31c972a1140035bdd9603261d45b571ca120af
+    url: https://github.com/iic-jku/kpex/commit/4f31c972a1140035bdd9603261d45b571ca120af
   - id: review-20261112-status
     title: "Project-declared Beta status in version 0.9.0"
-    url: https://github.com/iic-jku/klayout-pex/commit/8010a414112d636f09badeea9b9cb6f879093408
+    url: https://github.com/iic-jku/kpex/commit/8010a414112d636f09badeea9b9cb6f879093408
   - id: review-20261112-geometry-tests
     title: "Analytical sidewall, rotation and clamp-boundary regressions"
-    url: https://github.com/iic-jku/klayout-pex/blob/4f31c972a1140035bdd9603261d45b571ca120af/tests/rcx25/sidewall_and_fringe_extractor_test.py
+    url: https://github.com/iic-jku/kpex/blob/4f31c972a1140035bdd9603261d45b571ca120af/tests/rcx25/sidewall_and_fringe_extractor_test.py
 ---
 
 ### Implementation context

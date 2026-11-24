@@ -9,48 +9,53 @@ scope:
 developmentEvidence:
   summary: "The project documents iterative Claude implementation of SystemVerilog-to-RTLIL handlers, with credited executable harness corrections retained in the canonical project."
   sources: ["development-implementation-20261018", "development-retained-20261018", "development-1"]
-  reviewedAt: '2026-10-18'
+  reviewedAt: '2026-11-24'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
+  - id: "former-location"
+    title: "Former repository URL now identifies a fork of the transferred upstream"
+    url: "https://github.com/alainmarcel/uhdm2rtlil"
   - id: "code"
     title: "Canonical uhdm2rtlil repository"
-    url: "https://github.com/alainmarcel/uhdm2rtlil"
+    url: "https://github.com/chipsalliance/uhdm2rtlil"
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed revision"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/README.md"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/README.md"
   - id: "implementation"
     title: "Reviewed implementation: src/frontends/uhdm/uhdm2rtlil.cpp"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/src/frontends/uhdm/uhdm2rtlil.cpp"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/src/frontends/uhdm/uhdm2rtlil.cpp"
   - id: "activity"
     title: "Merge pull request #697 from alainmarcel/nonzero_lsb_range"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/e591c178fc1479931d41be5abf2d046e81320c6b"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/e591c178fc1479931d41be5abf2d046e81320c6b"
   - id: "development-1"
     title: "Maintainer account of AI-assisted frontend implementation"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/README.md"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/blob/254630189f33a046fe416779b02118d6a6b164d7/README.md"
   - id: "development-2"
     title: "Initial implementation"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/0088173202e17de056690375880593dff157681a"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/0088173202e17de056690375880593dff157681a"
   - id: "activity-refresh"
     title: "Correct generated co-simulation configuration wrappers"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/254630189f33a046fe416779b02118d6a6b164d7"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/254630189f33a046fe416779b02118d6a6b164d7"
   - id: "activity-current"
     title: "Mixed-array field writes preserve process-owned element temporaries"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/42b1c3b0324c1e676ccb657aecfc7b35ecf9dda8"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/42b1c3b0324c1e676ccb657aecfc7b35ecf9dda8"
   - id: "review-20261011-1"
     title: "Reviewed implementation integration"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/cae3a36517cae5bc47f0f551fcf158d665e71d49"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/cae3a36517cae5bc47f0f551fcf158d665e71d49"
   - id: "development-implementation-20261018"
     title: "AI-credited executable implementation"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/commit/881f366a4a5671cce25270abc1f87127f016c9f8"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/commit/881f366a4a5671cce25270abc1f87127f016c9f8"
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
-    url: "https://github.com/alainmarcel/uhdm2rtlil/blob/52374ad92ba012675e3c586ee4d94bc8c06e69da/test/core_sweep.py"
+    url: "https://github.com/chipsalliance/uhdm2rtlil/blob/a990fdda52344e57096319197901969d52bb209d/test/core_sweep.py"
 ---
 
 ### Implementation context
+
+Canonical development now lives under CHIPS Alliance. The former personal-account URL now resolves to a fork; the catalog follows the transferred upstream repository and preserves its earlier activity history. [Canonical source](#source-code); [Former location](#source-former-location).
 
 The frontend registers `read_sv` for in-process Surelog elaboration and `read_uhdm` for an existing database. It translates elaborated modules, processes, expressions and other supported constructs into Yosys RTLIL; Yosys then supplies optimization and mapping. The maintainer documents Claude-driven implementation of the translation handlers. Reported comparison campaigns validate exercised constructs and do not establish complete SystemVerilog support. [Usage and development account](#source-readme); [translation implementation](#source-implementation).
 

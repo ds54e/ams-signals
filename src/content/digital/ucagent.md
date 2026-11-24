@@ -1,8 +1,12 @@
 ---
 name: "UCAgent"
 aliases: []
-description: "Hardware unit-test agent that analyzes DUTs, generates tests and refines them from execution and coverage feedback. Direct model backends and MCP-connected coding agents share configurable stages and checkers, with optional formal and coverage workflows; heuristic, model and human review remain distinct quality gates."
+description: "Agent framework for hardware unit tests, coverage-driven verification and optional RTL development workflows. Its installable DesignWithPPA plugin generates or repairs Verilog/Chisel modules, checks them against shared Python reference tests, and iterates from fixed Yosys/OpenSTA pre-layout PPA measurements; model decisions, measurements and acceptance gates remain distinct."
 scope:
+  design:
+    ai: true
+  synthesis:
+    ai: false
   verification:
     ai: true
   aiDevelopment: assisted
@@ -10,9 +14,9 @@ developmentEvidence:
   summary: "Copilot is co-credited for implementing workspace-bound path checks in the MiniWorkflow word-count example. The canonical executable example retains absolute-path rejection and real-path containment checks."
   sources: [development-code-20261022, development-retained-20261022]
   reviewedAt: '2026-10-22'
-access: "Public source implementation; tool and environment requirements are documented by the project."
+access: "Public implementation with direct model and external coding-agent backends. The optional DesignWithPPA plugin has separate installation and needs picker, Yosys, OpenSTA and a selected Liberty library; Chisel mode additionally needs its documented JDK/Mill toolchain."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-12"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical UCAgent repository"
@@ -20,10 +24,28 @@ sources:
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed revision"
-    url: "https://github.com/XS-MLVP/UCAgent/blob/ac007684b2c6b1b4b7a1ca6e3090fef174d459fa/README.en.md"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/README.en.md"
   - id: "implementation"
-    title: "Reviewed implementation: ucagent/abackend/blank.py"
+    title: "Implemented model and tool-calling backend"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/ucagent/abackend/langchain/agent.py"
+  - id: "blank-backend"
+    title: "Optional backend that disables local model work"
     url: "https://github.com/XS-MLVP/UCAgent/blob/ac007684b2c6b1b4b7a1ca6e3090fef174d459fa/ucagent/abackend/blank.py"
+  - id: "design-plugin"
+    title: "Installable DesignWithPPA plugin and requirements"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/plugins/DesignWithPPA/README.md"
+  - id: "design-plugin-registration"
+    title: "Registered design workflows, skills, tools and checkers"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/plugins/DesignWithPPA/src/design_with_ppa/plugin.py"
+  - id: "design-workflow"
+    title: "Unit RTL generation, regression and optimization workflow"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/plugins/DesignWithPPA/src/design_with_ppa/workflows/unit-design-tdd.yaml"
+  - id: "ppa-decisions"
+    title: "Agent decisions for bounded RTL optimization candidates"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/plugins/DesignWithPPA/src/design_with_ppa/skills/ppa-iteration-analysis/SKILL.md"
+  - id: "ppa-backend"
+    title: "Fixed Yosys mapping and OpenSTA pre-layout measurements"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/7607e05b287c9349c394534f75bdfeddd01ed02a/plugins/DesignWithPPA/src/design_with_ppa/ppa/backends/yosys_opensta.py"
   - id: "activity"
     title: "Add blank backend for model-free master mode"
     url: "https://github.com/XS-MLVP/UCAgent/commit/fd1d77f73e9d7d55d31eacedb75af445a6bb589b"
@@ -67,15 +89,17 @@ Public examples and checkers define specific execution contracts; their existenc
 
 ### Scope classification
 
-DUT analysis, generated tests, execution checkers and coverage closure are verification. MCP collaboration and code-agent backends do not independently establish DUT generation. [Reviewed source](#source-readme).
+DUT analysis, generated tests, execution checkers and coverage closure establish Verification. The separately installable DesignWithPPA plugin adds registered workflows that generate or repair Verilog/Chisel DUT source, validate it against shared Python reference tests, and iterate over measured PPA candidates; this implemented source-editing loop establishes AI Design. [Reviewed source](#source-readme); [Plugin registration](#source-design-plugin-registration); [Design workflow](#source-design-workflow).
+
+The plugin invokes Yosys synthesis, Liberty mapping and pre-layout OpenSTA timing/power analysis. Its model chooses bounded RTL changes while the synthesis and measurement recipes remain fixed, so Synthesis is conventional. These unplaced-netlist estimates do not establish physical placement/routing or a separate backend Layout workflow. Rejected or functionally failing candidates are kept distinct from accepted improvements. [PPA decisions](#source-ppa-decisions); [PPA backend](#source-ppa-backend); [Plugin setup](#source-design-plugin).
 
 Implemented model backends analyze DUTs, generate tests and choose verification actions with checker/coverage feedback. This justifies AI Verification beyond the optional MCP transport. [AI/stage evidence](#source-readme).
 
 ### Current-source review
 
-Reviewed 2026-10-01. The current README documents direct model and external coding-agent modes, plus optional formal and coverage workflows. Default Python stage checking is heuristic; optional LLM and human checking does not establish arbitrary-DUT correctness. The blank backend remains a model-free coordination option rather than evidence that all modes lack inference. [README](#source-readme); [Blank backend](#source-implementation).
+Reviewed 2026-11-24. The README and model backend document direct model and external coding-agent modes, plus optional formal and coverage workflows. Default Python stage checking is heuristic; optional LLM and human checking does not establish arbitrary-DUT correctness. The blank backend remains a model-free coordination option rather than evidence that all modes lack inference. [README](#source-readme); [Model backend](#source-implementation); [Blank backend](#source-blank-backend).
 
-The newest reviewed meaningful first-parent change is parallel task MCP-port selection and regression tests (2026-09-30 UTC). [Reviewed commit](#source-activity-review).
+An earlier reviewed meaningful first-parent change added parallel task MCP-port selection and regression tests (2026-09-30 UTC). [Reviewed commit](#source-activity-review).
 
 ### Development provenance
 
