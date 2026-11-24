@@ -1,0 +1,64 @@
+name: Chromium regression
+
+on:
+  workflow_call:
+    inputs:
+      core_only:
+        description: Run only the tagged core tests for a content-only change.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Use the same fallback target in CI and before a Pages deployment.
+env:
+  SITE: https://ds54e.github.io
+  BASE_URL: /ams-signals
+
+jobs:
+  chromium:
+    name: Chromium (shard ${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(inputs.core_only && '[1]' || '[1,2,3,4]') }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build fallback preview
+        run: npm run build
+
+      - name: Install Chromium headless shell
+        run: npx playwright install --with-deps --only-shell chromium
+
+      - name: Chromium smoke tests
+        env:
+          CORE_ONLY: ${{ inputs.core_only }}
+          SHARD: ${{ matrix.shard }}
+        run: |
+          if [ "$CORE_ONLY" = true ]; then
+            npx playwright test --grep '@core'
+          else
+            npx playwright test --shard="$SHARD/4"
+          fi
+
+      - name: Retain browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-failure-evidence-${{ matrix.shard }}
+          path: test-results/
+          if-no-files-found: ignore
+          include-hidden-files: false
+          retention-days: 7

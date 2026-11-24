@@ -14,7 +14,7 @@ const records = async (collection) => {
 };
 const [events, companies, people] = await Promise.all(['events', 'companies', 'people'].map(records));
 
-test('robots.txt permits crawling and advertises the sitemap', async ({ request }) => {
+test('robots.txt permits crawling and advertises the sitemap', { tag: '@core' }, async ({ request }) => {
   const response = await request.get('./robots.txt');
   expect(response.status()).toBe(200);
 
@@ -25,7 +25,7 @@ test('robots.txt permits crawling and advertises the sitemap', async ({ request 
   expect(robots).not.toMatch(/^Disallow:\s*\S/m);
 });
 
-test('sitemap.xml advertises public HTML routes and excludes retired routes', async ({ request }) => {
+test('sitemap.xml advertises public HTML routes and excludes retired routes', { tag: '@core' }, async ({ request }) => {
   const response = await request.get('./sitemap.xml');
   expect(response.status()).toBe(200);
 
@@ -38,7 +38,7 @@ test('sitemap.xml advertises public HTML routes and excludes retired routes', as
   expect(sitemap).not.toContain('export.json');
 });
 
-test('unsupported and retired routes return 404', async ({ request }) => {
+test('unsupported and retired routes return 404', { tag: '@core' }, async ({ request }) => {
   const routes = [
     'export.json', 'articles/',
     ...[

@@ -48,7 +48,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   const open = (page: Page) => page.goto(`./${domain}/`);
   const noOverflow = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 
-  test(`${label} starts with one sparse, activity-ordered project index`, async ({ page }) => {
+  test(`${label} starts with one sparse, activity-ordered project index`, { tag: '@core' }, async ({ page }) => {
     expect((await open(page))!.ok()).toBe(true);
     const nav = page.getByRole('navigation', { name: 'Primary' });
     await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
@@ -104,7 +104,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     expect(await catalog.locator('ol, ul').evaluateAll((nodes) => nodes.every((el) => getComputedStyle(el).listStyleType === 'none'))).toBe(true);
   });
 
-  test(`${label} Search uses public project text and aliases with Unicode normalization`, async ({ page }) => {
+  test(`${label} Search uses public project text and aliases with Unicode normalization`, { tag: '@core' }, async ({ page }) => {
     await open(page);
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     const visibleIds = () => rows(page).filter({ visible: true }).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-catalog-project')));
@@ -146,7 +146,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(page.getByText('No projects match.', { exact: true })).toBeHidden();
   });
 
-  test(`${label} Scope matches each stage independently of AI classification and combines with Search using AND`, async ({ page }) => {
+  test(`${label} Scope matches each stage independently of AI classification and combines with Search using AND`, { tag: '@core' }, async ({ page }) => {
     await open(page);
     const filter = page.getByRole('combobox', { name: 'Scope', exact: true });
     const search = page.getByRole('searchbox', { name: 'Search projects' });
@@ -189,7 +189,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expect(rows(page).filter({ visible: true })).toHaveCount(projects.length);
   });
 
-  test(`${label} Scope labels stay plain for every stage and preserve separate AI provenance`, async ({ page }) => {
+  test(`${label} Scope labels stay plain for every stage and preserve separate AI provenance`, { tag: '@core' }, async ({ page }) => {
     await open(page);
     const scopes = await rows(page).getByRole('list').filter({ has: page.locator('[data-scope-item]') }).evaluateAll((lists) =>
       lists.map((list) => ({
@@ -215,7 +215,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
     await expectScopeLabels(page.locator(`.catalog-scope`));
   });
 
-  test(`${label} every row preserves twelve month/value pairs from oldest left to newest right`, async ({ page }) => {
+  test(`${label} every row preserves twelve month/value pairs from oldest left to newest right`, { tag: '@core' }, async ({ page }) => {
     await open(page); await expectActivityBands(rows(page), `.catalog-activity`, activity);
   });
 
@@ -419,7 +419,7 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   });
 
   for (const [width, height] of [[1440, 900], [1280, 800], [1024, 768], [390, 844], [320, 568]]) {
-    test(`${label} compact index fits ${width}px without overflow or overlapping content`, async ({ page }, info) => {
+    test(`${label} compact index fits ${width}px without overflow or overlapping content`, { tag: width === 390 ? '@core' : [] }, async ({ page }, info) => {
       await page.setViewportSize({ width, height }); await open(page); await noOverflow(page);
       await expectTitleAndIndexGeometry(rows(page), width);
       await expectActivityGeometry(rows(page), `.catalog-activity`, activity);

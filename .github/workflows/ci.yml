@@ -2,8 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'ci/**']
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * 0'
 
 permissions:
   contents: read
@@ -14,8 +17,24 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  impact:
+    name: Classify change
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      core_only: ${{ steps.scope.outputs.core_only }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - name: Determine regression scope
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: node tools/ci-impact.mjs "$BASE_SHA" >> "$GITHUB_OUTPUT"
+
   validate:
-    name: Validate and test
+    name: Deterministic validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,22 +56,26 @@ jobs:
           BASE_URL: /
         run: npm run build && npm run check:internal-links
 
-      # Leave the audited fallback build in dist for Chromium.
+      # Audit the fallback build independently of the browser jobs.
       - name: Deterministic checks
         run: npm run check
 
-      - name: Install Chromium headless shell
-        run: npx playwright install --with-deps --only-shell chromium
+  browser:
+    needs: impact
+    uses: ./.github/workflows/browser.yml
+    with:
+      core_only: ${{ needs.impact.outputs.core_only == 'true' }}
 
-      - name: Chromium smoke tests
-        run: npx playwright test
-
-      - name: Retain browser failure evidence
-        if: failure()
-        uses: actions/upload-artifact@v7
-        with:
-          name: browser-failure-evidence
-          path: test-results/
-          if-no-files-found: ignore
-          include-hidden-files: false
-          retention-days: 7
+  gate:
+    name: Validate and test
+    if: ${{ always() }}
+    needs: [impact, validate, browser]
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Require every validation job
+        env:
+          IMPACT: ${{ needs.impact.result }}
+          STATIC: ${{ needs.validate.result }}
+          BROWSER: ${{ needs.browser.result }}
+        run: test "$IMPACT" = success && test "$STATIC" = success && test "$BROWSER" = success

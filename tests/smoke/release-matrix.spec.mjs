@@ -476,7 +476,7 @@ test('recent-activity row ordering and alphabetical Company picker stay filter-s
   expect(visiblePeople).toEqual(expectedPeople.map(({ id }) => id).filter((id) => visiblePeople.includes(id)));
 });
 
-test('global Activity Matrix renders the validated geometry without visual bundle overlaps', async ({ page }) => {
+test('global Activity Matrix renders the validated geometry without visual bundle overlaps', { tag: '@core' }, async ({ page }) => {
   const corpus = await loadGoldenCorpus();
   const geometry = buildActivityMatrixGeometry(corpus.events, corpus.companies, corpus.people);
   await page.setViewportSize({ width: 1440, height: 1000 });

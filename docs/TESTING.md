@@ -8,7 +8,7 @@ For code or published-content changes, `npm run check` is the deterministic gate
 
 Viewer/navigation/release changes also use `npm run test:smoke`, which builds and tests a local preview by default. Catalog presentation changes use the relevant browser coverage and visual checks. Targeted checks are useful while iterating; do not repeatedly run unrelated suites after every small edit or replace a required final gate with a narrow test.
 
-Documentation/guidance-only changes require whitespace, Markdown parsing, local link/anchor and instruction-consistency checks, plus confirmation that application/content/configuration inputs are unchanged. No full build/browser run is needed for those changes alone. This exception does not bypass the CI job. Report what ran, what did not and any access limitation separately from a test failure.
+Documentation/guidance-only changes require whitespace, Markdown parsing, local link/anchor and instruction-consistency checks, plus confirmation that application/content/configuration inputs are unchanged. No full build/browser run is needed for those changes alone. This exception does not bypass CI. Report what ran, what did not and any access limitation separately from a test failure.
 
 ## Deterministic versus browser contracts
 
@@ -38,11 +38,19 @@ Each release spec registers `installBrowserErrorGuards(test)` at module scope. `
 
 Use Playwright's request fixture for HTTP-only checks so they do not start Chromium. Browser DOM, layout, keyboard and no-JavaScript checks stay in Chromium. When validating every catalog row, capture one browser snapshot for that assertion and compare it against the source in Node. Use retryable Playwright assertions for interactions and synchronous Node assertions for scalar checks on an already captured snapshot. Keep the row ID in snapshot diagnostics; do not replace full-catalog checks with a sample.
 
-Browser visual assertions run normally. For manual visual review, set `SMOKE_VISUAL_EVIDENCE=1` when running smoke tests to capture reference PNGs at selected intermediate states. These PNGs are not compared against baselines, so regular CI does not generate them. Failure traces and screenshots remain automatic.
+Browser visual assertions run in the full regression. For manual visual review, set `SMOKE_VISUAL_EVIDENCE=1` when running smoke tests to capture reference PNGs at selected intermediate states. These PNGs are not compared against baselines, so regular CI does not generate them. Failure traces and screenshots remain automatic.
 
 Timeline visual coverage runs every global width in light and dark. Entity lanes run at desktop and narrow widths in both themes. The global filter/clear/restore journey runs at desktop and mobile widths; the other widths still check sticky paint and stripes. Keyboard, click/hover, forced colors and native scrolling remain blocking. Run SMOKE_FULL_TIMELINE_MATRIX=1 npm run test:smoke when investigating interactions at additional combinations; this restores the full desktop/mobile, surface and theme matrix. CI traces keep DOM and network context without the screenshot filmstrip; the standalone failure image is retained.
 
-The CI job installs dependencies once, verifies the separate root-domain shape, then runs the full Chromium suite against the audited fallback build without rebuilding it. On failure it retains available browser traces and screenshots from `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
+## Continuous integration and release regression
+
+Every CI run validates the separate root-domain shape and runs the complete deterministic gate against the fallback build. In parallel, Chromium tests use a fresh fallback build at the same revision. The `Validate and test` job requires all upstream jobs to succeed.
+
+For changes exclusively to known Golden JSON records, catalog Markdown records or activity snapshots, [the change classifier](../tools/ci-impact.mjs) selects the core browser tests (explicit `@core` tags). Keep full-corpus rendering, representative search/filter behavior, Home, Timeline/Events/Inspector navigation, responsive catalog access and basic served-route checks in this subset. Other changes, missing history, empty diffs, scheduled runs and manual runs use the entire suite. Renames check both paths; do not infer content-only status from a missing or truncated diff. The classifier has Node contract tests.
+
+The [shared Chromium workflow](../.github/workflows/browser.yml) runs the full suite in four parallel shards with independent previews and unique failure artifacts; the core subset uses one shard. All existing browser assertions remain in the full suite. Both are blocking in their selected CI scope. Every manual Pages deployment also requires all full-regression shards on its exact revision before publication. A successful core run is not a successful full regression.
+
+Browser failure traces and screenshots remain short-lived artifacts. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy. The `ci/**` branch pattern allows CI experiments without publishing or changing main.
 
 ## Local, production-shaped and live checks
 
@@ -54,4 +62,4 @@ For test/CI refactors, use temporary representative faults to show the intended 
 
 ## Delivery-only verification
 
-`npm run test:live` uses `playwright.live.config.mjs` and `tests/live/`, outside the full CI smoke test directory. It requires explicit production URL/settings, expected and previous production SHAs, and a successful exact-SHA manual deploy run. It does not rebuild, publish, launch a preview server, or retry failed tests. The previous production SHA drives changed/deleted Golden route checks; the complete deterministic and browser contracts remain mandatory CI gates. Use this smaller suite only after publication, not as a substitute for local or CI regression coverage. See RELEASING.md for the invocation and evidence requirements.
+`npm run test:live` uses `playwright.live.config.mjs` and `tests/live/`, outside the full CI smoke test directory. It requires explicit production URL/settings, expected and previous production SHAs, and a successful exact-SHA manual deploy run. It does not rebuild, publish, launch a preview server, or retry failed tests. The previous production SHA drives changed/deleted Golden route checks; the complete deterministic and browser contracts remain mandatory release gates. Use this smaller suite only after publication, not as a substitute for local or CI regression coverage. See RELEASING.md for the invocation and evidence requirements.

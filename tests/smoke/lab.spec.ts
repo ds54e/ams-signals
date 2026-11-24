@@ -14,7 +14,7 @@ catalogSearchRegression(fixture, {
 });
 
 for (const width of [1440, 390, 320]) {
-  test(`Lab navigation, anchors, activity and filtering work at ${width}px`, async ({ page }) => {
+  test(`Lab navigation, anchors, activity and filtering work at ${width}px`, { tag: width !== 320 ? '@core' : [] }, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('./');
     const recent = page.locator('[data-updated-projects="lab"] a');

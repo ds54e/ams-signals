@@ -47,9 +47,15 @@ jobs:
         with:
           path: dist
 
+  browser:
+    # Full regression on this exact revision, even if its normal CI was content-only.
+    uses: ./.github/workflows/browser.yml
+    permissions:
+      contents: read
+
   deploy:
     name: Deploy Pages artifact
-    needs: build
+    needs: [build, browser]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment:
