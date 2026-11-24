@@ -24,7 +24,7 @@ In addition to the shared meaningful-activity freshness requirement, an Analog e
 
 ## Data and implementation map
 
-`src/content/analog/` is the Analog collection; `src/lib/analog/` owns its schema, catalog and activity logic; `src/pages/analog/` prepares the page; `src/data/analog-activity.json` owns volatile captures. Presentation remains shared with Digital.
+`src/content/analog/` is the Analog collection; `src/lib/analog/` owns its schema, catalog and activity logic; `src/pages/analog/` prepares the page; `src/data/analog-activity.json` owns volatile captures. Presentation is shared with Digital and Lab.
 
 Analog additionally supports an internal `summary`, optional `targets`/`notice` and bounded internal catalog-update records. These are distinct from the public description. Project Markdown notes retain implementation, classification, source and limitation reasoning; frontmatter alone is not the whole decision record.
 

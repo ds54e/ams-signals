@@ -28,6 +28,9 @@ sources:
   - id: convergence
     title: "Algebraic and mesh convergence boundaries"
     url: "https://github.com/iic-jku/FasterCap/blob/171f2462fc33b1e67e8d02227c7d141fe95ee3ee/doc/automatic-convergence.md"
+  - id: rl-extraction
+    title: "Related PEEC resistance and inductance extraction"
+    url: "https://github.com/2AMLogic/fasterhenry"
 ---
 
 ## Scope and limits
@@ -39,3 +42,5 @@ Version 6.4.0 improves boundary handling and numerical checks. Small residuals d
 Additional context: [Original FasterCap implementation](#source-lineage); [IIC-JKU FasterCap v6.4.0](#source-release); [Algebraic and mesh convergence boundaries](#source-convergence).
 
 Layout covers dedicated extraction of geometry-derived capacitance; use as an external extraction solver does not establish a circuit simulation stage.
+
+The neighboring fasterhenry tool extracts R/L from conductor geometry rather than an electrostatic capacitance matrix. Their similar names do not imply shared implementation or validation. [R/L extraction](#source-rl-extraction).

@@ -27,7 +27,7 @@ In addition to the shared meaningful-activity freshness requirement, a Digital e
 
 ## Data and implementation map
 
-`src/content/digital/` is the Digital collection; `src/lib/digital/` owns its schema, catalog and activity logic; `src/pages/digital/` prepares the page; `src/data/digital-activity.json` owns volatile captures. Presentation remains shared with Analog.
+`src/content/digital/` is the Digital collection; `src/lib/digital/` owns its schema, catalog and activity logic; `src/pages/digital/` prepares the page; `src/data/digital-activity.json` owns volatile captures. Presentation is shared with Analog and Lab.
 
 Digital uses one English single-paragraph public `description`; review cannot precede addition. Do not import Analog's internal `summary`, `targets` or `notice` fields. Project Markdown notes retain implementation, classification, source and limitation reasoning; frontmatter alone is not the whole decision record.
 

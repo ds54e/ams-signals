@@ -25,6 +25,12 @@ sources:
   - id: pyftdi
     title: "Related FTDI transport for device access"
     url: "https://github.com/eblot/pyftdi"
+  - id: rdl-frontend
+    title: "Related SystemRDL compiler frontend"
+    url: "https://github.com/SystemRDL/systemrdl-compiler"
+  - id: regblock-exporter
+    title: "Related SystemVerilog register-block exporter"
+    url: "https://github.com/SystemRDL/PeakRDL-regblock"
 ---
 
 ## Scope and limits
@@ -36,3 +42,5 @@ Version 4.0.0 adds explicit write paths without implicit reads. The initial stat
 Additional context: [Public v4.0.0](#source-release); [Related FTDI transport for device access](#source-pyftdi).
 
 The generated artifact is an access and test layer, not register RTL. Digital Verification is the primary workflow even when generated callbacks are connected to a real board; the transport implementation remains a separate Lab concern.
+
+The compiler frontend builds an elaborated register map; the RTL exporter generates SystemVerilog hardware. This project generates Python access and test layers and should not inherit those scopes. [Compiler frontend](#source-rdl-frontend) · [RTL exporter](#source-regblock-exporter).

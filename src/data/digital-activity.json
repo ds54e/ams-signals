@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T06:50:55.278Z",
+  "capturedAt": "2026-11-24T07:48:44.026Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2811,6 +2811,31 @@
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-18",
       "lastMeaningfulCommitSha": "5345b6bd6d377ec263c9bc5d0441d1a08fcf6142"
+    },
+    "systemrdl-compiler": {
+      "kind": "github",
+      "repository": "SystemRDL/systemrdl-compiler",
+      "repositoryId": 124714696,
+      "capturedAt": "2026-11-24T07:48:44.026Z",
+      "defaultBranch": "main",
+      "headSha": "61e326f94741cf6f991c86d1174e49819ae1d9d2",
+      "commits": [
+        0,
+        1,
+        6,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        15,
+        0
+      ],
+      "lastCommitAt": "2026-10-07",
+      "lastMeaningfulCommitAt": "2026-10-07",
+      "lastMeaningfulCommitSha": "594a752042ad2879683601bfa0fd339e6f328301"
     }
   }
 }

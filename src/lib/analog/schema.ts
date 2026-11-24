@@ -96,7 +96,8 @@ export function validateCatalog(
   return parsed;
 }
 
-const githubRepository = text.regex(/^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\/[a-zA-Z0-9_.-]+$/)
+// Lcapy retains a verified legacy GitHub owner spelling with a trailing hyphen.
+const githubRepository = text.regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/[a-z0-9_.-]+|mph-\/lcapy)$/i)
   .refine((value) => !['.', '..'].includes(value.split('/')[1]), 'Use an explicit owner/repository');
 const branch = text.refine((value) => !/^[./-]|[/.]$|\.\.|@\{|[\s~^:?*\[\\\x00-\x1f\x7f]|\/\//u.test(value)
   && !value.split('/').some((part) => part.startsWith('.') || part.endsWith('.lock')) && value !== '@', 'Invalid default branch');

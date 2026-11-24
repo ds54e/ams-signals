@@ -138,6 +138,26 @@ test('Analog domain membership, baseline scopes and moved provenance validate as
   assert.equal(new URL(code.url).hostname, 'sourceforge.net');
 });
 
+test('Analog accepts Lcapy’s verified legacy GitHub owner and still requires matching evidence', () => {
+  const state = snapshot();
+  const repository = 'mph-/lcapy';
+  const lastMeaningfulCommitSha = 'b'.repeat(40);
+  const activity = { ...state.projects.sample, repository, repositoryId: 19219468, lastMeaningfulCommitSha };
+  const value = { ...state, projects: { sample: activity } };
+  const item = entry();
+  const project = { ...item, data: { ...item.data, sources: [
+    { ...item.data.sources[0], url: `https://github.com/${repository}` },
+    { id: 'activity', title: 'Reviewed implementation', url: `https://github.com/${repository}/commit/${lastMeaningfulCommitSha}` },
+  ] } };
+  const reviewed = validateActivity([project], value).projects.sample;
+  assert.equal(reviewed.kind, 'github');
+  assert.equal(reviewed.repository, repository);
+  assert.throws(() => validateActivity([item], value), /primary repository must match/);
+  for (const invalid of ['owner-/lcapy', 'mph-/different', 'mph-/..', '-mph/lcapy']) {
+    assert.equal(activitySchema.safeParse({ ...state, projects: { sample: { ...activity, repository: invalid } } }).success, false);
+  }
+});
+
 test('optional pinned activity evidence preserves transferred identity and requires its source', () => {
   const s = snapshot();
   const record = { ...s.projects.sample, repositoryId: 123, lastMeaningfulCommitSha: 'b'.repeat(40) };

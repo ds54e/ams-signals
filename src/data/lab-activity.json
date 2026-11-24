@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T06:51:05.757Z",
+  "capturedAt": "2026-11-24T07:48:51.550Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1116,6 +1116,56 @@
       "lastCommitAt": "2026-10-23",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "e9bd916631807ce09c91caf15e1916c9579db367"
+    },
+    "blacs": {
+      "kind": "github",
+      "repository": "labscript-suite/blacs",
+      "repositoryId": 253142443,
+      "capturedAt": "2026-11-24T07:48:51.550Z",
+      "defaultBranch": "master",
+      "headSha": "e7bfb89d8fab3c491c3d83b2da2397d53046d604",
+      "commits": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        47,
+        3
+      ],
+      "lastCommitAt": "2026-11-09",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "44e1a6101dc39b3131f8b653cf969c69a8658c66"
+    },
+    "sigmf-python": {
+      "kind": "github",
+      "repository": "sigmf/sigmf-python",
+      "repositoryId": 585193047,
+      "capturedAt": "2026-11-24T07:48:51.550Z",
+      "defaultBranch": "main",
+      "headSha": "87b809f871fa51750fbf25456077d0b17dfa8da0",
+      "commits": [
+        1,
+        12,
+        0,
+        2,
+        3,
+        5,
+        1,
+        0,
+        2,
+        1,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-10-19",
+      "lastMeaningfulCommitAt": "2026-10-19",
+      "lastMeaningfulCommitSha": "9cdefc8421c1f133403a691717dbd69c8725a532"
     }
   }
 }
