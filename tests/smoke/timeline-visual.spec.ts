@@ -5,6 +5,29 @@ installBrowserErrorGuards(test);
 
 const selectionShadow = (_scheme: 'light' | 'dark') => 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(60, 101, 164) 0px 0px 0px 4px';
 
+// The global Matrix, company lane, and person lane share glyphs but have
+// different scroll geometry. Keep each surface in both palettes and at
+// desktop/mobile widths without rerunning the same interaction on every
+// permutation. The full Cartesian matrix remains available for visual review.
+const fullMatrix = process.env.SMOKE_FULL_TIMELINE_MATRIX === '1';
+const globalTimeline = 'timeline/';
+const appleTimeline = 'companies/apple/';
+const renesasTimeline = 'companies/renesas/';
+const personTimeline = 'people/toshi-kawashima/';
+const entityPair = (company: string) => [company, personTimeline];
+
+function glyphRoutes(width: number, scheme: 'light' | 'dark') {
+  if (fullMatrix || width === 1440) return [globalTimeline, appleTimeline, renesasTimeline, personTimeline];
+  if (width === 390) return [globalTimeline, scheme === 'light' ? appleTimeline : renesasTimeline];
+  return [globalTimeline, personTimeline];
+}
+
+function layoutRoutes(width: number, company: string) {
+  return fullMatrix || width === 1440 || width === 320
+    ? [globalTimeline, ...entityPair(company)]
+    : [globalTimeline];
+}
+
 for (const colorScheme of ['light', 'dark'] as const) {
   test(`Events use compact, distinct semantic badges in ${colorScheme} mode`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
@@ -47,7 +70,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
       const shapes = new Map<string, string>();
       const colors = new Map<string, string>();
-      for (const route of ['timeline/', 'companies/apple/', 'companies/renesas/', 'people/toshi-kawashima/']) {
+      for (const route of glyphRoutes(viewport.width, colorScheme)) {
         await page.goto(`./${route}`);
         await page.mouse.move(0, 0);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
@@ -95,13 +118,11 @@ for (const colorScheme of ['light', 'dark'] as const) {
         }
         for (const kind of ['technical', 'organizational']) {
           const legend = page.locator(`.legend-mark.event-kind-${kind}`);
-          await expect(legend).toHaveCSS('background-color', colors.get(kind)!);
-          await expect(legend).toHaveCSS('border-radius', shapes.get(kind)!);
-          await expect(legend).toHaveCSS('width', '9px');
-          await expect(legend).toHaveCSS('height', '9px');
-          await expect(legend).toHaveCSS('border-width', '0px');
-          await expect(legend).toHaveCSS('outline-style', 'none');
-          await expect(legend).toHaveCSS('box-shadow', 'none');
+          await expect.poll(() => legend.evaluate((el) => {
+            const { backgroundColor, borderRadius, width, height, borderWidth, outlineStyle, boxShadow } = getComputedStyle(el);
+            return [backgroundColor, borderRadius, width, height, borderWidth, outlineStyle, boxShadow];
+          }), { message: route + ': ' + kind + ' legend style' })
+            .toEqual([colors.get(kind), shapes.get(kind), '9px', '9px', '0px', 'none', 'none']);
         }
         for (const kind of ['technical', 'organizational']) {
           const candidates = page.locator(`[data-event-mark].event-kind-${kind}:visible`);
@@ -115,10 +136,13 @@ for (const colorScheme of ['light', 'dark'] as const) {
           }
           await mark.click();
           await expect(mark).toHaveAttribute('aria-pressed', 'true');
-          for (const active of await linked.all()) {
-            await expect(active.locator('.timeline-glyph')).toHaveCSS('box-shadow', selectionShadow(colorScheme));
-            await expect(active.locator('.timeline-glyph')).toHaveCSS('transform', 'none');
-          }
+          await expect.poll(() => linked.evaluateAll((nodes) => nodes.map((el) => {
+            const { boxShadow, transform } = getComputedStyle(el.querySelector('.timeline-glyph')!);
+            return { pressed: el.getAttribute('aria-pressed'), boxShadow, transform };
+          })), { message: route + ': all linked glyphs selected for ' + id })
+            .toEqual(Array.from({ length: await linked.count() }, () => ({
+              pressed: 'true', boxShadow: selectionShadow(colorScheme), transform: 'none',
+            })));
           await mark.hover();
           await expect(mark.locator('.timeline-glyph')).toHaveCSS('box-shadow', selectionShadow(colorScheme));
           expect((await mark.locator('.timeline-glyph').boundingBox())!.width).toBeCloseTo(9, 1);
@@ -195,7 +219,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await page.mouse.move(0, 0);
       await captureSmokeEvidence(page, info, `dense-${width}-${colorScheme}.png`);
 
-      for (const route of ['timeline/', 'companies/apple/', 'people/toshi-kawashima/']) {
+      for (const route of layoutRoutes(width, appleTimeline)) {
         await page.goto(`./${route}`);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
         const marks = page.locator('[data-event-mark]:visible');
@@ -240,7 +264,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
     test(`Timeline opaque stripes, hover and sticky labels survive discovery at ${viewport.width}px in ${colorScheme}`, async ({ page }, info) => {
       await page.setViewportSize(viewport);
       await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
-      for (const route of ['timeline/', 'companies/renesas/', 'people/toshi-kawashima/']) {
+      for (const route of layoutRoutes(viewport.width, renesasTimeline)) {
         await page.goto(`./${route}`);
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
         const rows = page.locator('.activity-matrix-row:visible, .timeline-lane:visible');
@@ -280,8 +304,13 @@ for (const colorScheme of ['light', 'dark'] as const) {
           const top = document.elementFromPoint(box.right - 4, box.y + box.height / 2);
           return top === el || el.contains(top);
         })).toBe(true);
-        if (route === 'timeline/') {
+        if (route === globalTimeline) {
           await expect(page.locator('.activity-matrix-shell')).toHaveCSS('overflow', 'visible');
+        }
+        // Re-run the filter/clear/restore sequence on desktop and touch widths,
+        // not at each intermediate viewport. Basic sticky/stripe checks above
+        // still cover every global viewport in both palettes.
+        if (route === globalTimeline && (fullMatrix || viewport.width === 1440 || viewport.width === 390)) {
           await page.locator('[data-search]').fill('UVM');
           await stripeCheck();
           await page.locator('[data-search]').fill('');

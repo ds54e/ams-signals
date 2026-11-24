@@ -40,6 +40,8 @@ Use Playwright's request fixture for HTTP-only checks so they do not start Chrom
 
 Browser visual assertions run normally. For manual visual review, set `SMOKE_VISUAL_EVIDENCE=1` when running smoke tests to capture reference PNGs at selected intermediate states. These PNGs are not compared against baselines, so regular CI does not generate them. Failure traces and screenshots remain automatic.
 
+Timeline visual coverage runs every global width in light and dark. Entity lanes run at desktop and narrow widths in both themes. The global filter/clear/restore journey runs at desktop and mobile widths; the other widths still check sticky paint and stripes. Keyboard, click/hover, forced colors and native scrolling remain blocking. Run SMOKE_FULL_TIMELINE_MATRIX=1 npm run test:smoke when investigating interactions at additional combinations; this restores the full desktop/mobile, surface and theme matrix. CI traces keep DOM and network context without the screenshot filmstrip; the standalone failure image is retained.
+
 The CI job installs dependencies once, verifies the separate root-domain shape, then runs the full Chromium suite against the audited fallback build without rebuilding it. On failure it retains available browser traces and screenshots from `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
 
 ## Local, production-shaped and live checks

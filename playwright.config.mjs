@@ -24,7 +24,9 @@ export default defineConfig({
   reporter: isCI ? 'line' : 'list',
   use: {
     baseURL,
-    trace: 'retain-on-failure',
+    // Record DOM/network and a standalone failure image, not a redundant
+    // screenshot filmstrip for every CI session.
+    trace: isCI ? { mode: 'retain-on-failure', screenshots: false } : 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: isCI ? 'off' : 'retain-on-failure',
   },
