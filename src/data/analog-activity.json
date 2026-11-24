@@ -1089,32 +1089,6 @@
       "lastMeaningfulCommitSha": "3095b58badecf22a1ec0f64d0a7206881cea5e96",
       "notes": "Substantive implementation and regression evidence reviewed 2026-10-31; project Markdown records exact changes and limits. Latest commits and raw counts remain independent of meaningful activity."
     },
-    "eda-agent": {
-      "kind": "github",
-      "repository": "HrishikeshGawasIIITH/EDA_Agent",
-      "repositoryId": 1267234013,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "50a1b67a9caa3ff74cf1f5572226498523ce73a1",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        0,
-        2,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-29",
-      "lastMeaningfulCommitAt": "2026-06-13",
-      "lastMeaningfulCommitSha": "9f72d5ebc1cd48cefb03ff5b2673b7adec30515d",
-      "notes": "Meaningful activity manually reviewed: some bug fixes in tb creation. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
-    },
     "microelectronic-block-generator": {
       "kind": "github",
       "repository": "mthudaa/Microelectronic-Block-Generator",
@@ -2138,31 +2112,6 @@
       "lastCommitAt": "2026-11-15",
       "lastMeaningfulCommitAt": "2026-11-15",
       "lastMeaningfulCommitSha": "473306ff327d73669856bf12ff83deeec22fea9f"
-    },
-    "analog-mcp": {
-      "kind": "github",
-      "repository": "SiliCAD/Analog_MCP",
-      "repositoryId": 1289955012,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "606ac2eba83233d8834ce9fa8eb889c5145c7611",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        51,
-        73,
-        27,
-        5,
-        0
-      ],
-      "lastCommitAt": "2026-10-25",
-      "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "606ac2eba83233d8834ce9fa8eb889c5145c7611"
     },
     "crescendo": {
       "kind": "github",

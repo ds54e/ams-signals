@@ -1,7 +1,7 @@
 ---
 name: "OpenADA"
 aliases: []
-description: "Agent skills and local EDA drivers for evidence-backed RTL review, Liberty-mapped synthesis, timing analysis and incremental layout checks. Hosted models diagnose results and select controlled experiments through implemented CLI operations; Yosys, Verilator, OpenSTA, KLayout and Netgen retain responsibility for execution and engineering verdicts."
+description: "Agent skills and local EDA drivers for RTL diagnostics, Liberty-mapped synthesis and checks of custom digital layouts. Hosted models interpret tool evidence and select experiments; native tools perform execution, while synthesis-stage timing uses ideal interconnect and does not establish routed timing or complete physical implementation."
 scope:
   synthesis:
     ai: true
@@ -29,7 +29,7 @@ sources:
     title: "Reviewed implementation: src/openada/engines/klayout_engine.py"
     url: "https://github.com/simra-tech/OpenADA/blob/ff9415e24fe6407820ca23147e3cf42625dd69b7/src/openada/engines/klayout_engine.py"
   - id: "activity"
-    title: "Merge bet2/tbplan-ir: testbench-plan IR (closed schema, deterministic compiler w/ DUT sealing, comparator implementing the 12 ratified pll2 meta-rows, execution runner w/ per-condition receipts, CLI + conformance) integrated with osc-primitives main; all seven signed semantic receipts regenerated via the native workflow; 107 domain + 40 osc + 50 semantic-coverage tests pass, release verifier 279 rows zero gaps"
+    title: "Integrated typed testbench-plan compiler and execution validation"
     url: "https://github.com/simra-tech/OpenADA/commit/3bd838c0f1db15e6d38c26d43ece68402e841005"
   - id: "development-1"
     title: "Experiment implementation"
@@ -52,29 +52,20 @@ sources:
   - id: "synthesis-implementation"
     title: "Mapped synthesis and evidence implementation"
     url: "https://github.com/simra-tech/OpenADA/blob/ff9415e24fe6407820ca23147e3cf42625dd69b7/src/openada/engines/yosys.py"
+  - id: "workflow-boundaries"
+    title: "Digital workflow maturity and unavailable physical operations"
+    url: "https://github.com/simra-tech/OpenADA/blob/ff9415e24fe6407820ca23147e3cf42625dd69b7/docs/ENGINEERING_SKILLS.md"
 ---
 
 
-### Implementation context
+### Implemented workflow and scope
 
-Agent skills consume implemented local CLI operations and structured results. The normative MCP binding remains future work. [Reviewed source](#source-readme).
+The synthesis skill interprets mapping and inference results and chooses controlled experiments; the RTL-review skill diagnoses lint and structural results. The Yosys driver performs actual Liberty mapping, validates the emitted netlist and preserves its input lineage. These independently usable digital operations justify retaining this entry alongside the same repository's Analog workflows. Both entries share one canonical identity and repository history. [Synthesis skill](#source-synthesis-skill); [RTL review](#source-rtl-skill); [Mapped implementation](#source-synthesis-implementation).
 
-### Release boundary
+Layout covers the model-guided review and repair of small custom-digital geometry increments, using KLayout/Netgen checks. The skill explicitly includes custom digital cells and hard-macro interfaces. This is separate from the ideal-interconnect synthesis-stage timing operation; neither that timing result nor tool discovery establishes an implemented standard-cell place-and-route flow. [Layout workflow](#source-layout-skill); [KLayout implementation](#source-implementation); [Workflow boundaries](#source-workflow-boundaries).
 
-Experimental oscillator/testbench profiles are bounded. The reverted knowledge-graph spike and planned remote/MCP adapters are not counted as implemented scope. [Public update](#source-activity).
+The stage AI flags refer to these packaged model-hosted decisions. Native tools still execute the operations and determine their engineering results. Local CLI integration is implemented; remote execution and a normative MCP binding remain future work. Experimental oscillator and testbench profiles are bounded, and the reverted knowledge-graph spike is not included as capability. [Implemented preview](#source-readme); [Typed testbench implementation](#source-activity).
 
-[Implementation inspected](#source-implementation).
+### Development provenance and validation limits
 
-### Scope classification
-
-The released synthesis skill interprets mapping/inference evidence and chooses controlled experiments; the RTL-review skill diagnoses lint and structural results; the layout skill selects and reviews geometry increments and repairs from DRC/LVS evidence. These substantive model-hosted workflows connect to implemented operations and establish AI Synthesis, AI Verification and AI Layout. The driver/kernel verdicts remain conventional. [Synthesis skill](#source-synthesis-skill); [RTL review](#source-rtl-skill); [Layout skill](#source-layout-skill); [Mapped synthesis](#source-synthesis-implementation).
-
-OpenADA also has a separately reviewed Analog entry for circuit interpretation, SPICE characterization and custom-layout review. The Digital entry retains its distinct RTL, mapped-synthesis and physical-check workflows. Both use the same canonical implementation and repository activity; they do not represent two independent projects. [Implemented operations](#source-readme).
-
-### Development provenance review
-
-Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer explicitly credits Codex implementation of the experiment operation and conformance campaign. Inspected code supplies substantial orchestration/artifact validation and receipt verification, retained as current modules. [Experiment implementation](#source-development-1); [Conformance campaign](#source-development-2); [Current experiment operation](#source-development-3).
-
-### Current-source review
-
-Reviewed 2026-10-01. The AI prefixes refer to the packaged host-agent skills, not to the transport or an embedded model inside deterministic drivers. Local CLI integration is implemented; the normative MCP binding is still future work. Ideal-interconnect timing and bounded physical checks are not comprehensive signoff. [README](#source-readme); [Layout implementation](#source-implementation).
+The maintainer explicitly credits Codex for the experiment operation and conformance campaign. The retained code supplies orchestration, artifact validation and execution-record verification, supporting AI-ASSISTED independently of runtime classification. Source and test logic were inspected; no external EDA or model campaign was rerun for this catalog review. [Credited experiment](#source-development-1); [Credited conformance work](#source-development-2); [Retained operation](#source-development-3).

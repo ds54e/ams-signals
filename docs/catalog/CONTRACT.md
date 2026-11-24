@@ -24,6 +24,8 @@ Cross-catalog membership is separately curated for substantial, independently us
 
 Require reviewed public implementation supporting the claimed contribution and a canonical repository or source distribution linked as `code`. Papers, READMEs, datasets, demonstrations and recorded outputs cannot replace code. Licensed EDA, PDKs, hardware or model access may be needed; neither an open-source license nor a fully open reproducible toolchain is required.
 
+Public code and recent activity establish eligibility, not an automatic reason for a separate listing. Identify the reusable engineering operation, its usable entry point and the material choice it adds alongside retained projects. A narrow specialist can justify a listing; a generic transport, packaging layer, incidental example or unfinished scaffold needs more than proximity to an EDA or measurement tool. Distinct research tasks, evaluation methods and reusable verification assets can provide that value when their execution and limits are inspectable.
+
 Require verified meaningful public activity within the preceding calendar year, inclusively; February 29 clamps to February 28. All three domain guides require a reviewed signal in the twelve displayed calendar months. These necessary freshness conditions neither establish selection nor guarantee a year of retention.
 
 Select projects showing either sustained substantive development/maintenance across their history or active recent implementation and validation. Inspect distinct feature additions, correctness fixes, verification improvements, compatibility work and technical results. New projects can qualify through substantive iteration; low-frequency technical maintenance can qualify without a minimum project age, fixed cadence or additional day-count threshold.
@@ -39,6 +41,8 @@ Apply the same criteria to new and existing entries; historical interest alone d
 Before exclusion, check the canonical development location, active branches, substantive releases and migrations. Resolve inaccessible or withdrawn code before retaining it; failed access is not inactivity. A quiet stable branch or recent repository creation is not the project's full history. Development-branch work may support selection, but is not integrated/released capability or default-branch activity.
 
 Give every listing a distinct job in the workflow. Separate a wrapper, companion, or dependency only when its independently usable operation fills a different need; otherwise reference it from the existing listing. When a maintainer migrates a project, prefer one canonical listing and do not count the predecessor’s history twice.
+
+Review overlapping alternatives together and consolidate entries whose additional discovery value is limited to a small adapter or companion operation. Keep useful related-source references and explain the relationship, without attributing the removed project's functions, provenance or activity to the retained project. Multiple implementations of the same broad task may remain when they offer a meaningful difference in inputs, supported environments, methods or engineering outputs. Do not use project size, popularity, AI attribution or a deletion quota as a substitute for that assessment.
 
 Keep concise selection/retention reasoning with existing project sources and notes; explain removals in the curation change. Remove entries and matching activity records explicitly, not through automatic filtering or weakened freshness gates. Add no status taxonomy, score or separate research inventory.
 

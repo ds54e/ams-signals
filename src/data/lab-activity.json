@@ -492,31 +492,6 @@
       "lastMeaningfulCommitAt": "2026-10-26",
       "lastMeaningfulCommitSha": "a5b56ab857115e44e59f240f99207b305f77c459"
     },
-    "pyvisa-py": {
-      "kind": "github",
-      "repository": "pyvisa/pyvisa-py",
-      "repositoryId": 23625378,
-      "capturedAt": "2026-11-24T05:48:48.931Z",
-      "defaultBranch": "main",
-      "headSha": "aeff64fa1a8bfea0e66492ca2cd8de4f1b9f4274",
-      "commits": [
-        8,
-        3,
-        3,
-        10,
-        4,
-        4,
-        10,
-        5,
-        20,
-        12,
-        18,
-        3
-      ],
-      "lastCommitAt": "2026-11-17",
-      "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "fa7320dc6b81d2b8dd7c6c9734908cae33641b83"
-    },
     "pyvisa-sim": {
       "kind": "github",
       "repository": "pyvisa/pyvisa-sim",
@@ -566,31 +541,6 @@
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
       "lastMeaningfulCommitSha": "d960763a10645c5117aacd791424f67d68b5f544"
-    },
-    "ophyd-async": {
-      "kind": "github",
-      "repository": "bluesky/ophyd-async",
-      "repositoryId": 682088136,
-      "capturedAt": "2026-11-24T05:48:48.931Z",
-      "defaultBranch": "main",
-      "headSha": "e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee",
-      "commits": [
-        12,
-        8,
-        12,
-        15,
-        10,
-        6,
-        19,
-        44,
-        14,
-        11,
-        20,
-        9
-      ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee"
     },
     "jumperlos": {
       "kind": "github",
@@ -1217,31 +1167,6 @@
       "lastMeaningfulCommitAt": "2026-11-20",
       "lastMeaningfulCommitSha": "c22ade78ec94c66ec70ac64466ba0cb55f1ceb80"
     },
-    "labscript": {
-      "kind": "github",
-      "repository": "labscript-suite/labscript",
-      "repositoryId": 253142452,
-      "capturedAt": "2026-11-24T10:04:27.276Z",
-      "defaultBranch": "master",
-      "headSha": "607cfaecd58869b876d19cf30c52566a4f490cc6",
-      "commits": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        13,
-        0
-      ],
-      "lastCommitAt": "2026-10-30",
-      "lastMeaningfulCommitAt": "2026-10-30",
-      "lastMeaningfulCommitSha": "607cfaecd58869b876d19cf30c52566a4f490cc6"
-    },
     "librecal": {
       "kind": "github",
       "repository": "jankae/LibreCAL",
@@ -1316,31 +1241,6 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "1e78a058d84823a8b363b3f5fafc0a6528ecc345"
-    },
-    "phase-noise-data-processor-lib": {
-      "kind": "github",
-      "repository": "lrd512/phase-noise-data-processor-lib",
-      "repositoryId": 926683271,
-      "capturedAt": "2026-11-24T10:04:27.276Z",
-      "defaultBranch": "main",
-      "headSha": "ab9ef4b81fcb92e121478978da1657b4e718b66b",
-      "commits": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-02-16",
-      "lastMeaningfulCommitAt": "2026-02-16",
-      "lastMeaningfulCommitSha": "ab9ef4b81fcb92e121478978da1657b4e718b66b"
     }
   }
 }

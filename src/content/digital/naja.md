@@ -1,7 +1,7 @@
 ---
 name: "Naja"
 aliases: ["najaeda"]
-description: "C++ and Python EDA framework for elaborating RTL, inspecting hierarchy and connectivity, and editing structural netlists. Its netlist CLI applies dead-logic elimination, constant propagation and primitive optimizations, with Verilog/SNL interchange and beta VHDL loading; companion tools provide formal checking and agent interfaces."
+description: "C++ and Python EDA framework for elaborating RTL, inspecting hierarchy and connectivity, and editing structural netlists. Its netlist CLI applies dead-logic elimination, constant propagation and primitive optimizations, with Verilog/SNL interchange and beta VHDL loading."
 scope:
   design:
     ai: false
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public Apache-2.0 source and najaeda Python wheels; source builds require the documented frontend and native-library dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-24"
 sources:
   - id: "site"
     title: "Official najaeda Python API documentation"
@@ -42,6 +42,15 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/keplertech/naja/blob/217a85474042f6c5a38e1b6217427ea94f10e51e/src/nl/netlist/snl/SNLParameter.cpp"
+  - id: "companion-scope"
+    title: "naja-scope MCP adapter and installation"
+    url: "https://github.com/keplertech/naja-scope/blob/6e8a92009ac3c2b73ec948d05202dd8166d6e046/README.md"
+  - id: "companion-scope-cone"
+    title: "naja-scope bounded summaries of native Naja logic cones"
+    url: "https://github.com/keplertech/naja-scope/blob/6e8a92009ac3c2b73ec948d05202dd8166d6e046/src/naja_scope/cone.py"
+  - id: "companion-scope-benchmark"
+    title: "Separate naja-scope agent comparison harness and reporting limits"
+    url: "https://github.com/keplertech/naja-scope/blob/6e8a92009ac3c2b73ec948d05202dd8166d6e046/benchmarks/README.md"
 ---
 
 ### Implementation and scope
@@ -49,6 +58,10 @@ sources:
 The reusable SNL representation and Python/C++ APIs support direct netlist edits, distinct from read-only simulator internals. The CLI runs dead-logic elimination, constant propagation and primitive reductions before export. Those user-facing transformations establish Design and bounded Synthesis coverage; this is not a complete technology-mapping or physical implementation flow. [Framework architecture](#source-readme); [implemented CLI](#source-implementation).
 
 VHDL loading is beta. Formal equivalence belongs to Kepler-Formal, and model-hosted inspection belongs to naja-scope; their verification and AI classifications are not inherited by this conventional core framework. The separate credited code contribution supports AI-assisted development. [Frontend and companion boundaries](#source-readme).
+
+### Related agent interface
+
+naja-scope provides a separately installed MCP interface to Naja's elaborated design. Its logic-cone path uses native Naja traversal and adds bounded, source-linked summaries for external assistants. It remains a useful companion reference, rather than a second listing for the same core structural-analysis choice. Its CVA6 agent-comparison harness has its own task contract and preliminary-result limits; neither those model experiments nor the companion's development history are attributed to Naja. [Adapter](#source-companion-scope) · [Native-cone adapter](#source-companion-scope-cone) · [Separate benchmark](#source-companion-scope-benchmark).
 
 ### Reviewed public activity
 

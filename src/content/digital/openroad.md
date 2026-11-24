@@ -91,11 +91,21 @@ sources:
   - id: review-20261119-extract
     title: "Routed RC extraction, OpenDB and SPEF implementation and validation"
     url: https://github.com/The-OpenROAD-Project/OpenROAD/pull/12299
+  - id: "companion-mcp"
+    title: "OpenROAD-MCP installation and separate session interface"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/0f76198bbf3955deb7b77a0c0d58dcaf750adc47/README.md"
+  - id: "companion-mcp-flow"
+    title: "OpenROAD-MCP tracked ORFS targets and run-specific metrics"
+    url: "https://github.com/The-OpenROAD-Project/OpenROAD-MCP/blob/0f76198bbf3955deb7b77a0c0d58dcaf750adc47/typescript/src/tools/flow_run.ts"
 ---
 
 ### Implementation context
 
 OpenROAD supplies floorplanning, placement, clock-tree synthesis, routing, extraction and timing-driven repair over an OpenDB design database. Its Tcl interface imports LEF, DEF and netlists and writes implementation data; Python exposes a documented subset. OpenROAD-flow-scripts and agent wrappers remain separate consumers. [Project overview](#source-readme); [API boundary](#source-api).
+
+### Related execution interface
+
+OpenROAD-MCP connects external assistants to persistent OpenROAD sessions and tracked OpenROAD-flow-scripts jobs, with target/override validation and current-run metric collection. It is retained as an installation and integration reference for this toolchain, rather than a separate engine choice. Its ORFS synthesis orchestration, agent clients, development attribution and repository activity are not inherited by the OpenROAD entry. [Companion setup](#source-companion-mcp) · [ORFS execution adapter](#source-companion-mcp-flow).
 
 ### Release boundary
 

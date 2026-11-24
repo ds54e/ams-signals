@@ -1,7 +1,7 @@
 ---
 name: "Vibe-IC"
 aliases: ["vibe-ic"]
-description: "Claude Code plugin and MCP-EDA flow that turns natural-language or document specifications into RTL and drives simulation/formal, synthesis/STA, FPGA prototyping and OpenROAD/KLayout/Netgen physical implementation under deterministic compliance gates. Agent skills generate and repair artifacts while tool-produced evidence remains authoritative."
+description: "Claude Code plugin for generating and repairing RTL, running simulation and formal checks, and coordinating synthesis and physical implementation. Model-guided stage skills invoke conventional EDA tools and preserve their artifacts; use requires a configured container, toolchain and PDK, and passing project gates does not establish foundry signoff."
 scope:
   design:
     ai: true
@@ -68,15 +68,11 @@ The agent authors and repairs RTL, testbenches and properties and makes stage-sp
 
 The repository also contains Analog A1-A9 and mixed-signal tracks. The separately reviewed Analog entry covers its sizing, testbench, simulation and physical-implementation operations. Vibe-IC is an explicit cross-catalog exception: each entry describes only its domain-specific workflow, and shared repository activity is not a second independent project signal. [Reviewed source](#source-readme)
 
-### Current-source review
-
-Reviewed 2026-10-01. Reopened the current staged-flow guide and release implementation. Agent skills still make RTL, stimulus/property, synthesis-diagnostic and physical-remediation decisions, supporting AI on all four stages. Current native-signoff evidence preservation is an artifact-integrity improvement, not independent verification that every supported technology or commercial path achieves signoff. [Stage contract](#source-agent-guide); [README](#source-readme).
-
-### Current implementation and operating boundaries
+### Implementation and operating boundaries
 
 The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
 
-The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+The artifact checks do not independently verify every supported technology or commercial flow. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun. [Stage contract](#source-agent-guide); [Setup and reported results](#source-readme).
 
 ### Development provenance
 

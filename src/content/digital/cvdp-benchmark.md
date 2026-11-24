@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public benchmark framework and dataset; Docker and model access are required for the documented workflows. Commercial rows require licensed EDA. The full public dataset omits reference solutions."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical CVDP Benchmark repository"
@@ -42,11 +42,21 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/NVlabs/cvdp_benchmark/blob/8e894cf74414ab1eaea1e2b4e80a02f123df07b6/docker/Dockerfile.sim"
+  - id: "related-benchmt"
+    title: "RTL-BenchMT revised benchmark prompts and released artifact boundary"
+    url: "https://github.com/hkust-zhiyao/RTL-BenchMT/blob/4a773170f80b80a216a6ecb6b5948f53684eee22/README.md"
+  - id: "related-benchmt-evaluator"
+    title: "Separate RTL-BenchMT original-versus-revised prompt evaluator"
+    url: "https://github.com/hkust-zhiyao/RTL-BenchMT/blob/4a773170f80b80a216a6ecb6b5948f53684eee22/eval/evaluate.py"
 ---
 
 ### Benchmark and implementation
 
 CVDP offers non-agentic prompt-based and agentic repository tasks. The reviewed runner selects these modes, invokes models and task harnesses, and produces reports. The v1.1.0 documentation adds a dedicated open-source simulation image and heavyweight repository-context agent workflows. [Reviewed README](#source-readme); [Runner](#source-implementation).
+
+### Related corpus corrections
+
+RTL-BenchMT publishes ambiguity analyses, revised prompts and an original-versus-revised evaluation CLI for CVDP subsets and other RTL benchmarks. It is retained as a related corpus-quality resource: the published comparison grader and maintenance outputs do not establish release of the complete SpecIR-guided agentic maintenance workflow. These are separate artifacts, not changes assumed to be integrated into canonical CVDP; their capabilities, AI roles and repository history are not merged into this entry. [Released artifacts](#source-related-benchmt) · [Comparison evaluator](#source-related-benchmt-evaluator).
 
 ### Scope classification
 

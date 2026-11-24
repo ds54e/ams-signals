@@ -1,7 +1,7 @@
 ---
 name: "BLACS"
-aliases: []
-description: "Experiment control and shot queue for the labscript suite. It loads compiled HDF5 shots, coordinates compatible hardware workers for timed execution and permits manual device control between runs; supported devices, synchronization and sample recording depend on the configured hardware and drivers."
+aliases: ["labscript suite"]
+description: "Experiment control and shot queue for hardware-timed labscript-suite setups. It coordinates compatible hardware workers to execute compiled HDF5 shots and provides manual instrument control; creating the shot files requires the separate labscript compiler and device definitions."
 scope: {"control": {"ai": false}, "test": {"ai": false}, "aiDevelopment": "assisted"}
 developmentEvidence:
   summary: "Claude is co-credited for the idle-state restoration after a completed shot. The canonical queue manager retains the status update at the end of shot processing."
@@ -25,6 +25,9 @@ sources:
   - id: compiler
     title: "Related labscript experiment compiler"
     url: "https://github.com/labscript-suite/labscript"
+  - id: compiler-implementation
+    title: "Companion compiler writes device instructions and shot metadata"
+    url: "https://github.com/labscript-suite/labscript/blob/607cfaecd58869b876d19cf30c52566a4f490cc6/labscript/labscript.py"
   - id: queue
     title: "Queue and abort behavior change"
     url: "https://github.com/labscript-suite/blacs/commit/9b543b070b99c5f185f616e9d6365ac0ac7a2f24"
@@ -42,6 +45,8 @@ sources:
 ### Scope and evidence
 
 BLACS is the execution GUI and coordinator, not the experiment compiler, a generic driver SDK or independent post-processing. Control covers device programming and manual operations; Test Automation covers the shot queue, abort behavior and run coordination. Device-specific sampling does not by itself give the coordinator a separate Acquisition scope. This entry records BLACS activity only; labscript is linked as the companion compiler. [Shot management](#source-website) · [Compiler](#source-compiler).
+
+The related labscript compiler writes the HDF5 device instructions and shot metadata consumed by this workflow. Use it to construct a sequence, and BLACS to queue and execute the resulting shot with compatible workers. Compiler capabilities, development credits and repository activity are separate from this BLACS entry. [Compiler implementation](#source-compiler-implementation).
 
 June post-run handling and October queue/abort and status corrections are substantive changes across different periods. The source review does not establish deployed timing accuracy on a particular device set. [June handling](#source-earlier) · [Queue correction](#source-queue) · [Run status](#source-activity).
 

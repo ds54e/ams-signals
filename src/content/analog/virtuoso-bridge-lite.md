@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Public repository"
@@ -82,6 +82,24 @@ sources:
   - id: review-20261107-implementation
     title: "Bridge reliability corrections and unit regressions"
     url: https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/e2a69fca2fc8295a35674451a1e0aec2d52b308f
+  - id: review-20261124-schematic
+    title: "Structured schematic reading with connectivity and parameter evidence"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/672b451416b1ef3cc560db4196365075e94c8d4e/src/virtuoso_bridge/virtuoso/schematic/reader.py
+  - id: review-20261124-maestro
+    title: "Typed Maestro operations for setup, jobs, histories and results"
+    url: https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/672b451416b1ef3cc560db4196365075e94c8d4e/src/virtuoso_bridge/virtuoso/maestro/ops.py
+  - id: related-eda-agent
+    title: "Related EDA Agent: retrieval-grounded Python generation over this bridge"
+    url: https://github.com/HrishikeshGawasIIITH/EDA_Agent/blob/50a1b67a9caa3ff74cf1f5572226498523ce73a1/eda_agent/agent.py
+  - id: related-eda-agent-benchmark
+    title: "Related EDA Agent grounding and operation-round-trip benchmark"
+    url: https://github.com/HrishikeshGawasIIITH/EDA_Agent/blob/50a1b67a9caa3ff74cf1f5572226498523ce73a1/tools/benchmark_roundtrips.py
+  - id: related-analog-mcp
+    title: "Separate Analog_MCP command transport for Virtuoso and Eldo"
+    url: https://github.com/SiliCAD/Analog_MCP/blob/606ac2eba83233d8834ce9fa8eb889c5145c7611/src/server.py
+  - id: related-analog-mcp-eldo
+    title: "Analog_MCP Eldo batch and interactive execution client"
+    url: https://github.com/SiliCAD/Analog_MCP/blob/606ac2eba83233d8834ce9fa8eb889c5145c7611/src/clients/eldo_client.py
 ---
 ### Implemented interfaces
 
@@ -118,3 +136,11 @@ The November 2 integrations add checked OA group/figGroup builders, bounding-box
 ### November implementation review
 
 Recent reliability changes avoid bridge-generated save dialogs, repaint edited views and preserve process-wide netlister state. Connected-PID inspection uses the authenticated handshake without sending SKILL. Unit tests were inspected; licensed live EDA behavior was not independently reproduced. [Implementation and regression evidence](#source-review-20261107-implementation).
+
+### Catalog consolidation and related integrations
+
+The bridge remains a separate listing because it provides reusable, structured circuit/database operations, Maestro setup and result handling, and persistent session/job behavior. These interfaces give applications more than arbitrary remote command transport. The current schematic reader and Maestro facade retain those operations. [Structured schematic API](#source-review-20261124-schematic) · [Maestro operations](#source-review-20261124-maestro).
+
+EDA Agent is a related application over this bridge: it retrieves API/design context, generates Python, executes it and retries errors. Its round-trip benchmark measures grounding and operator execution. It is recorded here as a companion instead of a separate catalog entry; its model-driven behavior is not a capability or provenance claim for the bridge. [EDA Agent implementation](#source-related-eda-agent) · [Operator benchmark](#source-related-eda-agent-benchmark).
+
+Analog_MCP is a separate alternative integration, not a component of this repository. It exposes Virtuoso SKILL/shell transport, Eldo batch/interactive execution and waveform plotting. Those implemented adapter operations remain discoverable as related sources, while their additional catalog value does not justify a separate entry in this review. This consolidation does not add Eldo or Calibre support, runtime AI, development attribution or repository activity to virtuoso-bridge-lite. [Analog_MCP interfaces](#source-related-analog-mcp) · [Eldo execution](#source-related-analog-mcp-eldo).

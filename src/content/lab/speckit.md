@@ -23,8 +23,21 @@ sources:
   - id: plan
     title: "Spectral planning implementation on main"
     url: "https://github.com/mdovale/SpecKit/commit/18c837dd6d8e6a793aa41e88d4a47fc926c2d2da"
+  - id: related-cpp
+    title: "Separate C++ PhaseNoiseDataProcessorLib implementation"
+    url: "https://github.com/lrd512/phase-noise-data-processor-lib"
+  - id: related-cpp-processing
+    title: "Separate C++ file reader, multiband spectra and calibration conversion"
+    url: "https://github.com/lrd512/phase-noise-data-processor-lib/blob/ab9ef4b81fcb92e121478978da1657b4e718b66b/PhaseNoiseDataProcessorLib/PhaseNoiseDataProcessorLib.cpp"
+  - id: related-cpp-integration
+    title: "Separate C++ measurement example with capture-device stubs"
+    url: "https://github.com/lrd512/phase-noise-data-processor-lib/blob/ab9ef4b81fcb92e121478978da1657b4e718b66b/Examples/real_time_measurement.cpp"
 ---
 
 ### Scope and evidence
 
 SpecKit estimates spectra from existing samples, rather than acquiring data or calculating the time-domain stability metrics provided by AllanTools. Earlier numerical estimator fixes and later analysis code establish more than an initial publication. The verified PyPI 1.0.3 wheel does not include the reviewed main-branch spectral plan, PSD confidence interval or single-length risk APIs. [Earlier work](#source-earlier) · [Distribution](#source-release) · [Planning code](#source-plan) · [Risk estimator](#source-activity).
+
+PhaseNoiseDataProcessorLib is a separate C++ implementation worth examining when integrating multiband spectral or cross-correlation processing into native measurement software. Its own API also converts spectra using supplied calibration levels. Its binary reader does not reject short records, and its real-time example leaves capture-device hooks unimplemented, so input validation and device integration require application work. These are properties of that related project, not SpecKit features or validation. [C++ source](#source-related-cpp) · [Processing implementation](#source-related-cpp-processing) · [Device-integration example](#source-related-cpp-integration).
+
+SpecKit's Scope, provenance and activity are based only on its own repository. This reference adds neither a live acquisition path nor the C++ project's dBc calibration conversion to SpecKit.

@@ -1,7 +1,7 @@
 ---
-name: "RTLDebugDBKit + RTLTracer"
+name: "RTLDebugDBKit"
 aliases: []
-description: "Elaborates SystemVerilog into an instance-level SQLite dependency database for static RTL debug. The companion RTLTracer follows signals, drivers, fan-in, fan-out and bit-level paths through that data; stored relations describe design structure rather than runtime waveform values."
+description: "Elaborates SystemVerilog into an instance-level SQLite database for static RTL debug. Its schema links hierarchy, connections, source statements, control conditions and dependencies, with explicit analysis gaps and mapping precision for downstream queries; it records design structure rather than simulation values."
 scope:
   verification:
     ai: false
@@ -12,10 +12,10 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
-    title: "Canonical RTLDebugDBKit + RTLTracer repository"
+    title: "Canonical RTLDebugDBKit repository"
     url: "https://github.com/neveltyc/RTLDebugDBKit"
     purpose: "code"
   - id: "readme"
@@ -28,8 +28,14 @@ sources:
     title: "Correct VCS library loading and report duplicate source definitions"
     url: "https://github.com/neveltyc/RTLDebugDBKit/commit/7c5d46d4bd15ceee3f9073cbb3568a09d1100cfa"
   - id: "rtltracer"
-    title: "RTLTracer database consumer"
-    url: "https://github.com/neveltyc/RTLTracer"
+    title: "Separate RTLTracer database consumer and schema compatibility"
+    url: "https://github.com/neveltyc/RTLTracer/blob/2f5d4c905fd54dd8d6bd12f0024fa924b7695679/README.md"
+  - id: "review-20261124-schema"
+    title: "Current extractor schema, public views and analysis boundaries"
+    url: "https://github.com/neveltyc/RTLDebugDBKit/blob/3b62e10cf0cbefb11fbef9845a31997270a8bd65/README.md"
+  - id: "review-20261124-extractor"
+    title: "Current SystemVerilog-to-database extraction entry point"
+    url: "https://github.com/neveltyc/RTLDebugDBKit/blob/3b62e10cf0cbefb11fbef9845a31997270a8bd65/src/main.cpp"
   - id: "development-audit-attribution"
     title: "Maintainer PR with explicit Claude Code attribution and implementation scope"
     url: "https://github.com/neveltyc/RTLDebugDBKit/pull/30"
@@ -43,11 +49,13 @@ sources:
 
 ### Implementation and scope
 
-Slang elaboration exports instance-level hierarchy, connections, source statements, control conditions and static dependencies into SQLite. RTLTracer is a separate downstream query consumer. These are conventional Verification/debug operations; the database is a read-only structural record, not generated RTL or a runtime waveform store. [Reviewed schema and overview](#source-readme); [consumer](#source-rtltracer).
+Slang elaboration exports instance-level hierarchy, connections, source statements, control conditions and static dependencies into SQLite. The extractor and its public schema are the independently useful operation retained here: consumers can query stable views and inspect recorded analysis gaps without embedding a SystemVerilog frontend. These are conventional Verification/debug operations; the database is a structural record, not generated RTL or a runtime waveform store. [Current schema](#source-review-20261124-schema) · [Extractor](#source-review-20261124-extractor).
+
+RTLTracer is a separately installed downstream CLI for drivers, loads and bit-level path queries over this database. Its query operations and repository history are not attributed to RTLDebugDBKit; matching schema versions are required. [Companion consumer](#source-rtltracer).
 
 ### Reviewed activity and limits
 
-The September 29 implementation correctly treats -v inputs as library files, preserves source-definition precedence and reports duplicate source definitions. VCS-compatible parsing and single-compilation-unit support improve acceptance of existing RTL without changing the schema's static semantics. Database analysis can be complete, partial or hierarchy-only; successful export alone does not remove recorded analysis gaps. Only RTLDebugDBKit history supplies activity for this combined entry. [Reviewed change](#source-activity); [current loading implementation](#source-implementation).
+The September 29 implementation correctly treats -v inputs as library files, preserves source-definition precedence and reports duplicate source definitions. VCS-compatible parsing and single-compilation-unit support improve acceptance of existing RTL without changing the schema's static semantics. Database analysis can be complete, partial or hierarchy-only; successful export alone does not remove recorded analysis gaps. Only RTLDebugDBKit history supplies activity for this entry. [Reviewed change](#source-activity); [reviewed loading implementation](#source-implementation).
 
 ### Development provenance
 

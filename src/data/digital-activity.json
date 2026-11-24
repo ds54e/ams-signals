@@ -242,31 +242,6 @@
       "lastMeaningfulCommitAt": "2026-11-19",
       "lastMeaningfulCommitSha": "4543b6b65b4285823b4f20953dd4a8999f6c3126"
     },
-    "openroad-mcp": {
-      "kind": "github",
-      "repository": "The-OpenROAD-Project/OpenROAD-MCP",
-      "repositoryId": 1022718791,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "ad685f19a4c20127b7d473ee66d730dbef14c90d",
-      "commits": [
-        9,
-        0,
-        1,
-        27,
-        8,
-        11,
-        23,
-        20,
-        16,
-        15,
-        21,
-        12
-      ],
-      "lastCommitAt": "2026-11-17",
-      "lastMeaningfulCommitAt": "2026-09-29",
-      "lastMeaningfulCommitSha": "0e0d4bfe35c3ecb84c86fd443615363fd661e84e"
-    },
     "pono": {
       "kind": "github",
       "repository": "stanford-centaur/pono",
@@ -981,31 +956,6 @@
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "9bb5683747dafc8722b680140070ace3c5ffceab"
     },
-    "naja-scope": {
-      "kind": "github",
-      "repository": "keplertech/naja-scope",
-      "repositoryId": 1267562469,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "662fe417ace4e1d897e325d369d98743bd24ce18",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        49,
-        13,
-        3,
-        11,
-        6,
-        11
-      ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "f9cbf1a0cf74ebffb2ef2860f75f3cb447c7380f"
-    },
     "kepler-formal": {
       "kind": "github",
       "repository": "keplertech/kepler-formal",
@@ -1205,31 +1155,6 @@
       "lastCommitAt": "2026-06-08",
       "lastMeaningfulCommitAt": "2026-06-08",
       "lastMeaningfulCommitSha": "657184d386b55a5253544d90e1ea1d48051db9ae"
-    },
-    "rtl-benchmt": {
-      "kind": "github",
-      "repository": "hkust-zhiyao/RTL-BenchMT",
-      "repositoryId": 1227239457,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "4a773170f80b80a216a6ecb6b5948f53684eee22",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-03",
-      "lastMeaningfulCommitAt": "2026-09-03",
-      "lastMeaningfulCommitSha": "4a773170f80b80a216a6ecb6b5948f53684eee22"
     },
     "turtle": {
       "kind": "github",
