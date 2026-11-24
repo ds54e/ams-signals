@@ -3,7 +3,6 @@ name: "tm_data_types"
 aliases: ["tm data types"]
 description: "Python data types and file readers and writers for Tektronix WFM and CSV waveforms. Analog and digital FastFrame data and waveform metadata support offline inspection, conversion and reuse of acquired traces."
 scope:
-  acquisition: { ai: false }
   analysis: { ai: false }
 access: "Apache-2.0; format coverage depends on the saved waveform type."
 addedAt: "2026-11-24"
@@ -32,3 +31,5 @@ Version 0.6.0 includes fixed-length string and parallel I/O repairs. Generic TEK
 [Reviewed upstream implementation](#source-activity).
 
 Additional context: [Model label in the reviewed CSV writer](#source-csv-header).
+
+Scope is Analysis: readers, writers and waveform objects handle saved data. They are not the instrument I/O path used to acquire the waveform.

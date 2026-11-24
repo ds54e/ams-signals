@@ -3,7 +3,6 @@ name: "PyVISA-sim"
 aliases: []
 description: "VISA simulation backend for developing and testing Python instrument drivers. YAML definitions supply dialogues, stateful properties, byte responses and error registers so command handling can be exercised without access to the physical instrument."
 scope:
-  control: { ai: false }
   test: { ai: false }
 access: "MIT; runs without a physical instrument."
 addedAt: "2026-11-24"
@@ -27,3 +26,5 @@ sources:
 The reviewed main branch rejects unknown resources more explicitly, but not every invalid-session path uses the same exception convention. Virtual responses do not model aperture, settling or real instrument noise.
 
 [Reviewed upstream implementation](#source-activity).
+
+Test Automation covers simulated command fixtures for driver regressions. The backend responds to instrument commands without setting a physical instrument, unlike the real VISA backends.

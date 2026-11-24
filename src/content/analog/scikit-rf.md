@@ -111,7 +111,7 @@ Later master changes add one-port passivity assessment with regression tests and
 
 ### Scope and development provenance
 
-Simulation covers network/electrical evaluation and RF model preparation. These numerical fitting and analysis operations do not establish runtime AI or an additional custom-IC Design stage.
+Simulation covers network and electrical evaluation and RF model preparation. Using measured data for calibration or modeling does not make this a bench acquisition platform. Numerical fitting and analysis do not establish runtime AI or an additional custom-IC Design stage.
 
 The bounded provenance review inspected credited parser/array fixes, plotting, tests and diagnostic edits. The plotting addition wraps existing error calculations; the retained Claude-credited parser correction repairs continuation lines and supports AI-assisted development without a minimum subsystem-size requirement. [Parser change](#source-assistance-fix); [plotting change](#source-assistance-plot).
 

@@ -3,7 +3,6 @@ name: "npTDMS"
 aliases: []
 description: "Reads and writes LabVIEW TDMS measurement data with NumPy. Lazy reads, channel metadata, DAQmx scaling and raw timestamps make recorded bench data accessible to Python, including selective reads from larger recordings."
 scope:
-  acquisition: { ai: false }
   analysis: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
@@ -32,3 +31,5 @@ sources:
 Version 1.14.0 supports byte-range extraction. Channel ranges alone do not contain all higher-level properties; preserve file and group metadata where required for units or scale. Timestamp representation is not instrument timing accuracy.
 
 [Reviewed upstream implementation](#source-activity).
+
+Scope is Analysis: TDMS decoding, scaling and partial reads operate on saved records. Streaming a file from disk is distinct from instrument acquisition.

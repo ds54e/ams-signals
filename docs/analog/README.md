@@ -12,7 +12,7 @@ Stages appear in this order:
 | `simulation` | Simulation | SPICE/Verilog-A/behavioral execution, electrical evaluation/measurement, simulator feedback and relevant learned performance estimation |
 | `layout` | Layout | Layout generation/editing, placement/routing, physical implementation and associated DRC/LVS/PEX or orchestration |
 
-Optimization is Design. Classify tool integration by its exposed operations, not a separate stage. Schematic drawing is Design rather than IC layout. A simulator, or a compiler delivering executable device models, materially serves Simulation. Hierarchy annotation used only to produce layout belongs to that Layout process, not an independent Design capability.
+Optimization is Design. Classify tool integration by its exposed operations, not a separate stage. Schematic drawing is Design rather than IC layout. A simulator, or a compiler delivering executable device models, materially serves Simulation. RF network modeling, characterization and electrical evaluation remain Simulation when they use measured inputs; a lab instrument or acquisition driver is a different primary workflow. Dedicated parasitic extraction belongs to Layout, whereas consuming geometry for a general field simulation is not itself layout implementation. Hierarchy annotation used only to produce layout belongs to that Layout process, not an independent Design capability.
 
 Use the [shared stage and AI classification rules](../catalog/CONTRACT.md#scope-and-ai-classification) with these domain-specific distinctions:
 

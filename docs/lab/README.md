@@ -8,11 +8,13 @@ Classify by the primary operation and inputs/outputs. A network or EM field solv
 
 | Scope | Meaning |
 | --- | --- |
-| Board & Fixture (`board`) | Evaluation boards, fixtures, calibration hardware and fabrication/assembly outputs |
-| Control (`control`) | Instrument, DUT, power or thermal control |
-| Acquisition (`acquisition`) | Capturing measured values, traces or timestamps |
-| Analysis (`analysis`) | Waveform, stability, jitter, STDF and wafer-map analysis |
-| Test Automation (`test`) | Test plans, resource coordination, verdicts, results and repeatable checks |
+| Board & Fixture (`board`) | Evaluation board or fixture designs, calibration hardware, and concrete fabrication or assembly outputs |
+| Control (`control`) | Configuration, stimulation, programming or control of an instrument, DUT, fixture, power or thermal system |
+| Acquisition (`acquisition`) | Capturing or retrieving values, traces or timestamps through an active instrument, DUT or live data path |
+| Analysis (`analysis`) | Inspecting, interpreting, decoding or converting recorded measurements as a distinct operation |
+| Test Automation (`test`) | Executable measurement/test procedures, fixture scheduling, test cases, verdicts or results |
+
+Reading a saved TDMS or WFM file is Analysis, not Acquisition. Export or decompression that only exposes a live capture is part of Acquisition, not a second Analysis workflow. Issuing flash, reset or switch commands is Control; allowing calls from a script does not make the tool a test runner. An implemented test harness, virtual instrument for driver regression, or reservation and coordination of shared fixtures can qualify as Test Automation. Listing support for a target board does not make an SDK a source of board designs.
 
 Use the [strict Lab schema](../../src/lib/lab/schema.ts). Require at least one functional stage. Each stage records runtime AI separately from evidence-backed AI-ASSISTED development. Keep descriptions concise, in English, and distinguish public source from hardware, calibration, instrument specifications and third-party dependencies. Put limits and references in article notes; do not imply that simulation, source inspection or a synthetic check demonstrates hardware accuracy.
 

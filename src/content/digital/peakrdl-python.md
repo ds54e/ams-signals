@@ -34,3 +34,5 @@ Version 4.0.0 adds explicit write paths without implicit reads. The initial stat
 [Reviewed upstream implementation](#source-activity).
 
 Additional context: [Public v4.0.0](#source-release); [Related FTDI transport for device access](#source-pyftdi).
+
+The generated artifact is an access and test layer, not register RTL. Digital Verification is the primary workflow even when generated callbacks are connected to a real board; the transport implementation remains a separate Lab concern.

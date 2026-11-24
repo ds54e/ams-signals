@@ -31,3 +31,5 @@ The reviewed v1.17.1 external-control code can opt into selected host-clock over
 [Reviewed upstream implementation](#source-activity).
 
 Additional context: [Public v1.17.1](#source-release).
+
+Digital Verification follows the virtual target, firmware execution and HDL co-simulation. Integration with external test orchestration is useful but is not physical board measurement or a second catalog listing.

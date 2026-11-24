@@ -27,4 +27,4 @@ sources:
 
 ### Implemented operations and review
 
-The Yale documentation links a three-inverter example mixing digital simulation, a production-rule-derived device netlist and a SPICE black box. The October implementation adds mixed-signal watch/break facilities; the November array correction has three regression fixtures. This is ACT-centric co-simulation, not general SystemVerilog or RNM support. The published example was reviewed but not rerun. [Implementation](#source-activity) · [Reviewed evidence](#source-evidence).
+The Yale documentation links a three-inverter example mixing digital simulation, a production-rule-derived device netlist and a SPICE black box. The October implementation adds mixed-signal watch/break facilities; the November array correction has three regression fixtures. Analog Simulation is supported by the implemented electrical interface to Xyce, not simply by the description of asynchronous digital primitives. This is ACT-centric co-simulation, not general SystemVerilog or RNM support. The published example was reviewed but not rerun. [Implementation](#source-activity) · [Reviewed evidence](#source-evidence).

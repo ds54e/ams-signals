@@ -1,7 +1,7 @@
 ---
 name: "QMI"
 aliases: []
-description: "Quantum Measurement Infrastructure provides Python services and RPC-based drivers for monitoring and controlling laboratory instruments. It supports distributed experiment applications that need to issue instrument commands and acquire traces without embedding the transport details in each client."
+description: "Quantum Measurement Infrastructure provides Python services and RPC-based drivers for monitoring and controlling laboratory instruments. It supports distributed measurement applications that issue commands, acquire traces and run managed measurement tasks without embedding transport details in each client."
 scope:
   control: { ai: false }
   acquisition: { ai: false }
@@ -22,6 +22,9 @@ sources:
   - id: activity
     title: "Reviewed implementation or canonical integration"
     url: "https://github.com/QuTech-Delft/QMI/commit/14d079df902bc19880e67e006fb5312e89bc10ab"
+  - id: task-execution
+    title: "Published task lifecycle and periodic execution"
+    url: "https://github.com/QuTech-Delft/QMI/blob/d3ecd5c01609528fabbc6801996fd1eb562c38ff/qmi/core/task.py"
 ---
 
 ## Scope and limits
@@ -29,3 +32,5 @@ sources:
 The BB60C driver adds frequency, bandwidth and trace operations; mock transport checks are not measured instrument performance. Check the tested driver, firmware and library version for each instrument.
 
 [Reviewed upstream implementation](#source-activity).
+
+Managed tasks and periodic loop policies support repeatable experiment execution; RPC reachability alone would not support the Test Automation scope. [Task lifecycle](#source-task-execution).

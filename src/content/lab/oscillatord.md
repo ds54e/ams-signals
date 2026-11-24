@@ -5,7 +5,6 @@ description: "GNSS oscillator discipline and monitoring daemon for supported tim
 scope:
   control: { ai: false }
   acquisition: { ai: false }
-  test: { ai: false }
 access: "GPL-2.0; needs compatible GNSS, PHC and oscillator hardware."
 addedAt: "2026-11-24"
 reviewedAt: "2026-11-24"
@@ -35,3 +34,5 @@ This entry tracks the maintained fork, not an assertion that the origin is disco
 [Reviewed upstream implementation](#source-implementation).
 
 Additional context: [Original Orolia oscillator daemon](#source-lineage); [Maintained fork v3.10.5](#source-release).
+
+Autonomous oscillator discipline and GNSS telemetry are Control and Acquisition. They do not execute a measurement test plan or produce tester verdicts.

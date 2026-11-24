@@ -1,8 +1,9 @@
 ---
 name: "ngscopeclient"
 aliases: ["scopehal scopehal-apps"]
-description: "Oscilloscope and instrument frontend with acquisition and waveform-analysis tools. It uses scopehal for instrument support and analysis, including eye diagrams and timing measurements whose interpretation depends on the reference clock and acquisition setup."
+description: "Oscilloscope and instrument frontend for configuring supported hardware, acquiring traces and analyzing waveforms. It provides instrument timebase and trigger controls alongside analysis tools such as eye diagrams and timing measurements; available settings depend on the connected instrument and driver."
 scope:
+  control: { ai: false }
   acquisition: { ai: false }
   analysis: { ai: false }
 access: "BSD-3-Clause application; drivers and supported instruments determine access."
@@ -23,6 +24,9 @@ sources:
   - id: scopehal
     title: "scopehal instrument and analysis library"
     url: "https://github.com/ngscopeclient/scopehal"
+  - id: trigger-controls
+    title: "Implemented oscilloscope trigger controls"
+    url: "https://github.com/ngscopeclient/scopehal-apps/blob/4841cc8f19f1fcd6dceba146fd0c306bcb5b543f/src/ngscopeclient/TriggerPropertiesDialog.cpp"
 ---
 
 ## Scope and limits
@@ -30,3 +34,5 @@ sources:
 Reference selection and instrument bandwidth govern timing measurements. [scopehal](#source-scopehal) is shared implementation, not independent validation.
 
 The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
+
+The trigger dialog controls instrument settings, rather than merely viewing previously captured waveforms. [Implemented controls](#source-trigger-controls).

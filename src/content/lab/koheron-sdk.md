@@ -1,7 +1,7 @@
 ---
 name: "Koheron SDK"
 aliases: ["Koheron"]
-description: "FPGA and software development kit for Koheron instruments, with board designs, server drivers and client APIs. Example instruments demonstrate synchronized data paths and spectral processing; the supported functions and bandwidth depend on the board and instrument implementation."
+description: "FPGA and software development kit for Koheron instruments, with board-specific definitions, server drivers and client APIs. Example instruments demonstrate synchronized acquisition and spectral processing; the supported functions and bandwidth depend on the board and instrument implementation."
 scope:
   control: { ai: false }
   acquisition: { ai: false }
@@ -35,6 +35,9 @@ sources:
   - id: chirp-code
     title: "Merged ALPHA250 chirp instrument"
     url: "https://github.com/Koheron/koheron-sdk/commit/b813f1460b2610ca6e1458d61f4761e15d748d41"
+  - id: board-support
+    title: "Reviewed ALPHA250 board support and build configuration"
+    url: "https://github.com/Koheron/koheron-sdk/tree/199b8abb1388a41018c113a6877f713ab5e0d3d0/boards/alpha250"
 ---
 
 ## Scope and limits
@@ -42,3 +45,5 @@ sources:
 The [phase-noise example](#source-phase-noise) is a specific DSP implementation. ADC range, reference clock, overflow, calibration and demonstrated noise floor remain setup-specific. The V1 SDK is not a compatibility claim for V0 instruments.
 
 The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
+
+Board support provides definitions and configuration to build instruments targeting the hardware. It is not a fabrication package for the board. [Board support](#source-board-support).

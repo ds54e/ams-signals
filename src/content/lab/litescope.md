@@ -5,7 +5,6 @@ description: "LiteX FPGA logic analyzer for triggering on internal digital signa
 scope:
   control: { ai: false }
   acquisition: { ai: false }
-  analysis: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the capture-upload sample accounting repair and associated software regressions."
@@ -25,6 +24,9 @@ sources:
   - id: implementation
     title: "Specific implementation reviewed"
     url: "https://github.com/enjoy-digital/litescope/commit/0ebf9b02adeae2d19b04331e05417efeeef05bff"
+  - id: capture-workflow
+    title: "Reviewed capture and export workflow"
+    url: "https://github.com/enjoy-digital/litescope/blob/b28dcccea1009fa983684cabd55e61e4082d53a1/README.md"
 ---
 
 ## Scope and limits
@@ -32,3 +34,5 @@ sources:
 The upload fix accounts for samples in FIFO paths. With RLE, storage words do not necessarily equal decoded samples. Software-only driver checks do not establish FPGA timing or analog edge quality.
 
 [Reviewed upstream implementation](#source-implementation).
+
+The reviewed core, driver and CLI acquire, decode and export traces. Viewing or interpreting the exported traces with another tool is not a separate LiteScope Analysis capability. [Capture workflow](#source-capture-workflow).

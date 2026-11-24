@@ -6,7 +6,17 @@ Applies only to the independent Analog, Digital and Lab catalogs. [Analog](../an
 
 The catalogs describe evolving public implementations, their user-facing functional coverage, primary evidence and reviewed activity. They are a current landscape, not an exhaustive archive or ranking. Keep them independent of Golden Timeline/Events, Company/Person records and viewer state; do not force catalog projects into Golden Events.
 
-Domain selects the catalog. Cross-catalog membership is separately curated. Vibe-IC remains the explicit exception: independently reviewed domain workflows share one canonical repository identity, not independent activity evidence. This does not authorize other duplicate entries.
+Choose the catalog from the primary implemented workflow and its inputs and outputs, not the project name, application example, programming language or presence of an adapter.
+
+| Catalog | Primary outcome |
+| --- | --- |
+| Analog | An analog/RF circuit or model, electrical simulation or characterization, or physical custom-IC implementation and extraction |
+| Digital | An RTL or digital design representation, logic synthesis or physical implementation, or a functional result from exercising models, testbenches or digital constraints |
+| Lab | A board or fixture artifact, physical instrument or DUT operation, acquired measurement, analysis of recorded bench data, or a repeatable test procedure or verdict |
+
+A calibrated VNA is Lab; RF network fitting and equivalent model export remain Analog even when the input is measured data. An RTL waveform viewer is Digital; a reader for saved oscilloscope or tester records is Lab. Register test layers and virtual-target co-simulation can stay Digital while companion transports and physical fixture control are Lab. Cross-reference related implementations in project sources rather than adding a copy.
+
+Cross-catalog membership is separately curated. Vibe-IC remains the explicit exception: independently reviewed domain workflows share one canonical repository identity, not independent activity evidence. This does not authorize other duplicate entries.
 
 ## Project selection and retention
 
@@ -40,7 +50,7 @@ Keep implementation, classification, selection, limitations and release reasonin
 
 ## Scope and AI classification
 
-Stages record material user-facing coverage, not completeness or strength. Dependencies, incidental adapters and plans add no stages; absence is not a claim of inability.
+Stages record distinct, implemented user-facing operations, not completeness or strength. Record more than one when the project itself exposes those operations, directly or through a supported execution workflow. Dependencies, data formats, externally consumed output files, incidental adapters and plans do not add stages by themselves; absence is not a claim of inability.
 
 `scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage under the domain-specific [Analog](../analog/README.md#scope), [Digital](../digital/README.md#scope) or [Lab](../lab/README.md#scope) rules. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
 

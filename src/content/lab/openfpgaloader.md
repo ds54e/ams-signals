@@ -4,7 +4,6 @@ aliases: []
 description: "Cross-vendor command-line tool for programming supported FPGAs and flash devices. It drives compatible cables and interfaces for FPGA configuration, flash and JTAG or SVF operations, including provisioning evaluation boards and test fixtures."
 scope:
   control: { ai: false }
-  test: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude is credited on the Gowin compressed-bitstream parser correction."
@@ -35,3 +34,5 @@ sources:
 The reviewed Gowin compressed-bitstream parser fix follows v1.2.0. Parser regression coverage does not establish USB transfer success, supported hardware combinations or a programmed device's functional behavior.
 
 [Reviewed upstream implementation](#source-implementation).
+
+Programming and any integrated verification of that programming are Control operations. Calling the loader in a fixture script does not assign it ownership of the test sequence or DUT verdict.

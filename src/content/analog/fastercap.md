@@ -37,3 +37,5 @@ Version 6.4.0 improves boundary handling and numerical checks. Small residuals d
 [Reviewed upstream implementation](#source-implementation).
 
 Additional context: [Original FasterCap implementation](#source-lineage); [IIC-JKU FasterCap v6.4.0](#source-release); [Algebraic and mesh convergence boundaries](#source-convergence).
+
+Layout covers dedicated extraction of geometry-derived capacitance; use as an external extraction solver does not establish a circuit simulation stage.

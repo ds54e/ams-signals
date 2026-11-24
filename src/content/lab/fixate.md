@@ -3,7 +3,6 @@ name: "Fixate"
 aliases: []
 description: "Python hardware-test framework connecting instrument drivers, named relay and multiplexer paths, measurement checks, operator interfaces and result logs. It supports fixture-based test procedures that need to switch signals and record per-step outcomes."
 scope:
-  board: { ai: false }
   control: { ai: false }
   test: { ai: false }
 access: "MIT; drivers and physical test fixtures must be supplied and configured."
@@ -29,3 +28,5 @@ In the reviewed v0.7.0 switching module, intended pin state can update before a 
 [Reviewed upstream implementation](#source-activity).
 
 Additional context: [Reviewed switching and reset implementation](#source-switching).
+
+Relay and multiplexer routing is fixture Control; the framework provides runnable checks and records under Test Automation. Its switch model is not itself a board design or a fabrication and assembly artifact.
