@@ -15,10 +15,15 @@ sources:
   - id: activity
     title: "Reviewed implementation or test change"
     url: "https://github.com/aewallin/allantools/commit/5cc6d4dbae3985d6cb452583ad25be9c434180b1"
+  - id: maintenance-earlier
+    title: "April 2026 piecewise PSD and Allan-deviation implementation"
+    url: "https://github.com/aewallin/allantools/commit/07227fd02637db17fa02fa17b8e8abfb606cdd7a"
 ---
 
 ## Scope and limits
 
 Use phase/time-error in seconds or normalized fractional frequency as documented. Allan deviation alone does not uniquely determine a phase-noise spectrum.
 
-The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
+## Reviewed maintenance
+
+April 2026 work added approximate piecewise PSD reconstruction and conversion back to Allan deviation. The October correction restores the squared `(N - 2)` term in the equivalent-degrees-of-freedom calculation for `alpha == -1, m == 1`. These separate implementation changes support continued maintenance of the numerical library. [April implementation](#source-maintenance-earlier) · [October correction](#source-activity).

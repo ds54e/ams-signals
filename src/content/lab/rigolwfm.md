@@ -30,6 +30,9 @@ sources:
   - id: development-retained
     title: "Retained piecewise-linear waveform export"
     url: "https://github.com/scottprahl/RigolWFM/blob/9e6f993103f773f81df409fc65c2cc359d7bd249/RigolWFM/wfm.py"
+  - id: maintenance-earlier
+    title: "April 2026 NumPy and MATLAB waveform export implementation"
+    url: "https://github.com/scottprahl/RigolWFM/commit/935e501cb0d3c98cf50d0dea5c1b1dba98751571"
 ---
 
 ## Scope and limits
@@ -37,3 +40,7 @@ sources:
 PWL export shifts the time origin and uses seven significant digits. Closely spaced samples can collapse at that precision, so retain the original file for precision timing analysis. See the compatibility table for covered formats.
 
 [Reviewed upstream implementation](#source-implementation).
+
+## Reviewed maintenance
+
+April 2026 work adds NumPy and MATLAB export paths with conversion tests. September work adds PWL export, preserving explicit time and voltage values for replay, with waveform and CLI regressions. These separate implementations extend an existing waveform reader across multiple development periods. [Array exports](#source-maintenance-earlier) · [PWL integration](#source-activity).

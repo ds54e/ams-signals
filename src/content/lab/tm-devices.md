@@ -31,6 +31,9 @@ sources:
   - id: development-retained
     title: "Retained Python 3.15 pylint execution wrapper"
     url: "https://github.com/tektronix/tm_devices/blob/eb4969cd15795999b9184e679b1b65d847ac8e01/scripts/run_pylint.py"
+  - id: maintenance-earlier
+    title: "August 2026 power-supply slew-rate command correction"
+    url: "https://github.com/tektronix/tm_devices/commit/9c1a643956784452a99b08c773fa6101150c4ca3"
 ---
 
 ## Scope and limits
@@ -38,3 +41,7 @@ sources:
 The AWG calculation fix in v3.8.0 distinguishes waveform record length from samples per cycle and enforces hardware limits. A software frequency-setting check is not output jitter characterization.
 
 [Reviewed upstream implementation](#source-activity).
+
+## Reviewed maintenance
+
+August 2026 work corrects the power-supply `source.slewrate.v` command tree and regenerates the affected APIs. September work fixes predefined AWG clock frequency calculations using two samples per cycle and applies the AWG70K family's clock-output ceiling, with regression tests. These are separate device-control corrections across successive maintenance periods. [Supply command correction](#source-maintenance-earlier) · [AWG correction](#source-activity).

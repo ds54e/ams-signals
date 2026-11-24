@@ -7,7 +7,7 @@ scope:
     ai: true
 access: "Public Python implementation; selected model/API access and Cadence JasperGold are required by the evaluation workflow."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-22"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -22,6 +22,12 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: update code."
     url: "https://github.com/wyt2000/CodeV-SVA/commit/99acfc521b583a5569573b4c477de5b7454631ed"
+  - id: "earlier-client"
+    title: "December 2025 NL2SVA task dispatch on the former master branch"
+    url: "https://github.com/wyt2000/CodeV-SVA/blob/764cb3d5746e959c7683e2a40cec634201ce0f63/SVAClient/src/SVAClient/cli/main.py"
+  - id: "waveform-client"
+    title: "October 2026 waveform-image generation and verification client"
+    url: "https://github.com/wyt2000/CodeV-SVA/blob/80a9585b761d3a08f2f2b7ca7150e1a48f21aa28/SVAClient/src/SVAClient/Agent_Wave2SVA.py"
 ---
 
 ### Implemented operations and boundaries
@@ -35,5 +41,7 @@ The actual default branch is wave2sva. Generation clients and a JasperGold-backe
 The exposed operations support Verification. The AI prefix describes the optional implemented model-hosted workflow or the explicitly evaluated AI task. It does not classify the conventional checker or numerical engine as AI.
 
 The meaningful checkpoint is 2026-10-14T08:24:30Z (`99acfc521b583a5569573b4c477de5b7454631ed`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+
+The former master branch published the NL2SVA client in December 2025. The October 2026 default branch adds waveform-image inputs, model dispatch and verification through the Wave2SVA client. These two source publications establish a substantive extension of the earlier workflow. Their separate histories do not establish continuous maintenance between publications; the activity row follows the actual default branch. [Earlier client](#source-earlier-client) · [Waveform client](#source-waveform-client).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.

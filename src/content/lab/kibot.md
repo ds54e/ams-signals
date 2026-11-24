@@ -21,12 +21,23 @@ sources:
   - id: board-preflight
     title: "Reviewed PCB design-rule preflight"
     url: "https://github.com/INTI-CMNB/KiBot/blob/b81caf648b7eaf687b14c4290cc7e50d66eede33/kibot/pre_drc.py"
+  - id: maintenance-earlier
+    title: "July 2026 correction to multi-page PDF assembly"
+    url: "https://github.com/INTI-CMNB/KiBot/commit/6fb22377c721bd29515420eb316017cb68f681bd"
+  - id: development-fix
+    title: "November 2026 compute_dnp compatibility correction on dev"
+    url: "https://github.com/INTI-CMNB/KiBot/commit/32ff896cb60053b38f9fa7b2605a5069dcb037e1"
+  - id: release
+    title: "KiBot v1.9.1 release and integrated development branch"
+    url: "https://github.com/INTI-CMNB/KiBot/releases/tag/v1.9.1"
 ---
 
 ## Scope and limits
 
 Pin KiCad and output options. Generated output does not by itself verify electrical behavior or fabrication. [InteractiveHtmlBom](#source-ibom) is a separate review workflow, also usable from KiBot.
 
-The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
-
 Board & Fixture describes the manufacturing and assembly outputs, including their configured ERC/DRC preflight checks. Those checks validate board design artifacts; they are not a separate instrument or DUT test procedure. [PCB preflight](#source-board-preflight).
+
+## Reviewed maintenance
+
+The July 2026 PDF correction preserves every input page and was followed by the v1.9.1 release. November work on `master` repairs configuration-schema validation. The `dev` branch also corrects the legacy schematic `compute_dnp` signature for variant handling; that development-branch fix is separate from the reviewed `master` activity and the July release. Branch and tag selection determine which changes are available. [PDF correction](#source-maintenance-earlier) · [Release](#source-release) · [Master schema](#source-activity) · [Development fix](#source-development-fix).

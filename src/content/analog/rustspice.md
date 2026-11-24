@@ -19,6 +19,9 @@ sources:
   - id: activity
     title: Buffered rawfile parsing with selected-column retention
     url: https://github.com/lab-emi/RustSpice/commit/d4d6a5043af226643d39ecc43f9a3859e29b0cc5
+  - id: earlier-maintenance
+    title: October 28 implementation of previously ignored device parameters
+    url: https://github.com/lab-emi/RustSpice/commit/2fd287a191d99bd06ccada25c12a5c4a6e347086
   - id: rawfile-reader
     title: Retained buffered rawfile reader and parser regressions
     url: https://github.com/lab-emi/RustSpice/blob/6cdffef0f617bc9f37239179345b4a9176b86ff8/crates/rustspice-cli/src/bench/rawfile.rs
@@ -61,6 +64,8 @@ The source includes linear devices, controlled sources, diodes and Level-1 MOSFE
 Streaming transient tests compare emitted rows against collected rows and cover sink failure handling. Those are inspectable verification assets, separate from the project's published benchmark claims. [Stream implementation](#source-transient) · [Regression tests](#source-stream-tests).
 
 ### Activity review
+
+October 28 work implements previously ignored diode, Level-1 MOS and controlled-element parameters and repairs shared CPU/Metal device handling. November 3 then addresses the comparison harness's memory use through buffered rawfile parsing. These are substantive follow-up changes to existing paths. The observed record remains short, concentrated in October and November; it does not establish long-term maintenance or validate the published speed comparisons. [Device corrections](#source-earlier-maintenance) · [Rawfile maintenance](#source-activity).
 
 The reviewed meaningful first-parent checkpoint is 2026-11-03T20:00:28Z: the comparison harness changed from loading whole rawfiles to buffered, selected-column parsing, with executable regression coverage. The reader remains present at the reviewed head. Later documentation, toolchain and mechanical cleanup commits were not promoted to this meaningful-activity date. [Implementation change](#source-activity) · [Retained reader and tests](#source-rawfile-reader).
 

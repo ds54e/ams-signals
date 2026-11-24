@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public C++ implementation; the supported compiler/task runtime and matching libraries, netlists and constraints are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -32,7 +32,7 @@ sources:
 
 ### Implemented operations and boundaries
 
-The December implementation series adds Liberty bus-group support and subsequently corrects the build-system source list. This low-frequency maintained implementation still meets the reviewed freshness window. SDC/Liberty coverage is not inferred from OpenSTA.
+The December 2025 implementation series adds Liberty bus-group support and subsequently corrects the build-system source list. Maintenance is intermittent; SDC/Liberty coverage is not inferred from OpenSTA.
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2).
 
@@ -40,6 +40,6 @@ The December implementation series adds Liberty bus-group support and subsequent
 
 The exposed operations support Layout. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The December 24 build-system correction adds celllibs.cpp to CMake, repairing the link failure introduced by multi-library loading. It follows the earlier Liberty bus-group implementation and is substantive low-frequency maintenance. No STA or build run was independently repeated. [Reviewed implementation](#source-review-20261107-implementation).
+The December 16, 2025 Liberty change parses bus groups and inherits bus-level directions for their pins. The December 24 correction adds celllibs.cpp to CMake, repairing the link failure introduced by multi-library loading. These are concrete extensions and follow-up repairs to an established engine. The November 24, 2026 review found no later substantive default-branch change, so this evidence supports intermittent maintenance with a substantial recent gap. No STA or build run was independently repeated. [Liberty implementation](#source-activity) · [Build correction](#source-review-20261107-implementation).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.

@@ -7,7 +7,7 @@ scope:
   aiDevelopment: assisted
 access: Public source; live measurement needs Cadence, Spectre and the relevant PDK.
 addedAt: '2026-11-16'
-reviewedAt: '2026-11-16'
+reviewedAt: '2026-11-24'
 sources:
 - id: "official"
   title: "Official project website"
@@ -29,6 +29,15 @@ sources:
 - id: retained
   title: Current implementation at review
   url: https://github.com/chloeyntu-byte/tank-scan-lab/blob/1d848d394b495c6f0ca588147e2a4f463d2f73d0/caplab/backend.py
+- id: initial-public-release
+  title: Initial capacitor-array implementation and examples
+  url: https://github.com/chloeyntu-byte/tank-scan-lab/commit/d8cefa890b1a8440eba0d590596481edff463f50
+- id: tank-mode
+  title: Subsequent tank-mode implementation
+  url: https://github.com/chloeyntu-byte/tank-scan-lab/commit/ce1621ab9a335d7cce75c156bf7cb3a36704b6eb
+- id: release-history
+  title: Published release history
+  url: https://github.com/chloeyntu-byte/tank-scan-lab/releases
 summary: RF analysis toolkit for LC tanks, switched-capacitor arrays and transconductance cores using simulator measurements.
 developmentEvidence:
   summary: The reviewed implementation commit credits Claude for port-two register validation and its regression tests. The attributed executable changes are integrated and retained in the pinned source; this does not attribute unrelated project code.
@@ -40,7 +49,7 @@ developmentEvidence:
 
 ### Implementation and selection
 
-Recent tank, port and linearity features plus register-value validation tests show substantive iteration despite a short public history. The tool does not itself run EMX or establish steady-state amplitude. [Workflow](#source-readme) · [Implementation change](#source-implementation) · [Retained code](#source-retained).
+The November 10, 2026 capacitor-array implementation is followed by tank mode on November 13 and a November 15 correctness repair: port-two scans must verify the actual register values even when no per-frequency scalar rows exist. The repair includes a regression for mismatched and missing register values. This is concrete follow-through within the initial release sequence; longer-term maintenance remains unestablished. The tool does not itself run EMX or establish steady-state amplitude. [Initial implementation](#source-initial-public-release) · [Tank mode](#source-tank-mode) · [Correctness repair](#source-implementation) · [Releases](#source-release-history).
 
 ### Review boundary
 

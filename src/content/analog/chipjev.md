@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Apache-2.0 project code, with separate MIT notices for derived model layers and separate checkpoint/model terms. Python 3.13, numerical/model packages, ngspice and the selected model/PDK are required; physical work adds Magic and SKY130. PDK-dependent integration tests can be skipped when the environment is absent."
 addedAt: "2026-10-11"
-reviewedAt: '2026-10-23'
+reviewedAt: '2026-11-24'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -57,6 +57,15 @@ sources:
     title: Official project website and documentation
     url: https://chipjev.com/
     purpose: official
+  - id: maintenance-sar-labels
+    title: Repair SAR pin labeling at the die edge
+    url: https://github.com/lab-emi/ChipJev/commit/53283b3469b7d57fc329500a699c902806059ec0
+  - id: maintenance-post-layout-verdict
+    title: Reject post-layout runs with no measurements to judge
+    url: https://github.com/lab-emi/ChipJev/commit/e0b596e638388a1b0b82ec763a294c5919b821ee
+  - id: executor-proposal
+    title: Separate unmerged reasoning-agent executor proposal
+    url: https://github.com/lab-emi/ChipJev/pull/10
 ---
 
 ## Implementation and Scope
@@ -74,6 +83,8 @@ Apache-2.0 project code, with separate MIT notices for derived model layers and 
 ## Reviewed public activity
 
 The meaningful checkpoint is 6389189d8cc40393eca97e8776638aaba5038b95 (2026-10-01 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-activity) supports the meaningful date; the latest head is separately retained for activity ordering.
+
+After the September 25 source import, September 29 repairs SAR pin labeling when a sampler reaches the die edge, and September 30 prevents a post-layout run with no measurements from receiving a passing layout verdict. October 1 integrates expanded measurement reporting. These executable corrections support retention, while the observed integrated history remains concentrated in the first release sequence. The October 3 reasoning-agent executor proposal remains unmerged and is excluded from released capability and default-branch activity. [SAR repair](#source-maintenance-sar-labels) · [Verdict repair](#source-maintenance-post-layout-verdict) · [Unmerged proposal](#source-executor-proposal).
 
 ### Development provenance
 

@@ -49,6 +49,12 @@ sources:
   - id: pyvisa-sim
     title: "Related PyVISA simulation-backend approach"
     url: "https://github.com/pyvisa/pyvisa-sim"
+  - id: maintenance-earlier
+    title: "August 2026 TCP device-state persistence correction and reconnection regression"
+    url: "https://github.com/anlaco/Crucible/commit/c87751ecec24aa3a0b57649381ffa55088470fd4"
+  - id: release
+    title: "Crucible v0.1.0 release published in September 2026"
+    url: "https://github.com/anlaco/Crucible/releases/tag/v0.1.0"
 ---
 
 ## Selection and scope
@@ -67,4 +73,6 @@ VXI-11 discovery needs a portmapper on UDP 111 and the necessary host permission
 
 ## Reviewed maintenance
 
-The September 2026 VXI-11 implementation is followed by a correction that routes each link to the requested device, distinguishes partial-response completion flags and clears pending data correctly. The integration includes real-socket regressions for those failures. The subsequent documentation commits are not the meaningful-activity checkpoint. [Initial implementation](#source-prior-vxi11) · [Reviewed correction](#source-activity).
+An August 2026 correction replaces per-connection device clones with shared state and adds a reconnection regression to the existing TCP runtime. September VXI-11 work is followed by named-device routing, partial-read completion and pending-response corrections with socket regressions. These changes show follow-through on implemented transport behavior. [TCP correction](#source-maintenance-earlier) · [VXI-11 implementation](#source-prior-vxi11) · [VXI-11 corrections](#source-activity).
+
+The observed implementation work spans August–September 2026, and the reviewed release history contains v0.1.0 from September. This remains a short maintenance record; longer-term support continuity has not yet been established. [Release](#source-release).

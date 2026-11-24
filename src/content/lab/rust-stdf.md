@@ -30,6 +30,9 @@ sources:
   - id: formats
     title: "Record APIs, optional compression and ATDF development boundary"
     url: "https://github.com/noonchen/rust-stdf/blob/5160dc3859ea1ed19c94f008a1a6133299715993/README.md"
+  - id: maintenance-earlier
+    title: "August 2026 typed STDF writer and validation integration"
+    url: "https://github.com/noonchen/rust-stdf/commit/a195ea103dc3fcf072f5856d15e42742222b1c0a"
 ---
 
 ## Scope and limits
@@ -37,3 +40,7 @@ sources:
 The library supplies an embeddable transformation path in addition to parsing: an editing example changes selected PTR records while copying other records through the raw API. Typed records are validated before encoding; raw writes reject mismatched byte order, while known record views can be re-encoded. The writer regressions exercise roundtrips, invalid fields and byte-order guards. These are file-processing operations, so the catalog retains Analysis alone. [Reader/writer](#source-reader-writer); [Editing example](#source-edit-example); [Writer regressions](#source-writer-tests).
 
 The optional ATDF reader/conversion feature is explicitly under development. The [companion viewer](#source-viewer) provides a separate interactive workflow using this parser family; agreement between the two is not independent parser validation. [Formats and features](#source-formats).
+
+## Reviewed maintenance
+
+The August 2026 integration adds typed writing, raw passthrough and validation tests. September maintenance then makes truncated record bodies report `UnexpectedEof` consistently across owned, raw and borrowed-view readers, with regressions for each path, and corrects the invalid-ATDF error kind. This is follow-up work on the existing parser and newly integrated APIs. [Writer integration](#source-maintenance-earlier) · [Error-reporting corrections](#source-activity).

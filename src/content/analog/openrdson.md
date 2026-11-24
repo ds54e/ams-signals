@@ -40,6 +40,12 @@ sources:
   - id: manifest
     title: Workspace and license declaration
     url: https://github.com/tPkl/OpenRdson/blob/5dfdc1a8574c6a5da4cde43f4021da2d8b55c210/Cargo.toml
+  - id: alpha-release
+    title: Published v0.1.0-alpha release
+    url: https://github.com/tPkl/OpenRdson/releases/tag/v0.1.0-alpha
+  - id: canonical-history
+    title: Canonical implementation history
+    url: https://github.com/tPkl/OpenRdson/commits/main/
 ---
 
 ### Implemented operation and selection
@@ -54,6 +60,6 @@ The documented device flow expects compatible CCI connectivity/layout exports, a
 
 ### Activity review
 
-The first-parent checkpoint is 2026-10-04T17:42:27Z. It adds parser diagnostics, stack-connectivity checks and extraction integration tests after the earlier adaptive-reporting/cache corrections. This is recent implementation and validation beyond the initial source import. [Reviewed change](#source-activity) · [Earlier correction](#source-prior-iteration) · [Acceptance checks](#source-acceptance).
+The first-parent checkpoint is 2026-10-04T17:42:27Z. The observed history starts with the September 26 implementation, followed by September 27 adaptive-reporting/cache corrections and the alpha release. October 4 adds parser diagnostics, stack-connectivity checks and analytic extraction integration tests. These are concrete corrections and validation work after the initial usable source; the reviewed history still ends with this early sequence. No later implementation or additional development branch was found, so an established maintenance cadence is not claimed. [Reviewed change](#source-activity) · [Earlier correction](#source-prior-iteration) · [Alpha release](#source-alpha-release) · [History](#source-canonical-history).
 
 Review was static. Public code and test assertions were inspected; the upstream suite, proprietary input flow and numerical or silicon correlation were not independently reproduced.

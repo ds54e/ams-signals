@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical Dr. RTL repository"
@@ -36,6 +36,8 @@ sources:
 ### Implementation context
 
 LLM agents perform critical-path analysis, rewrite candidates and use tool feedback at runtime. The latest agent scoring-contract correction changes how candidates are compared. [Reviewed source](#source-readme).
+
+The September 4, 2026 follow-up corrects the signs of the WNS/TNS normalization denominators in the operative `CLAUDE.md` optimization instructions. This is maintenance of the agent's candidate-selection procedure; it is not a later Python evaluator implementation. The reviewed history contains the April implementation and this subsequent workflow correction, but does not establish sustained engine development or long-term maintenance. [Scoring correction](#source-activity).
 
 ### Release boundary
 

@@ -19,6 +19,9 @@ sources:
   - id: activity
     title: "Reviewed implementation or canonical integration"
     url: "https://github.com/pyvisa/pyvisa-sim/commit/aea284b00a1c1b4eac8d9e1cb78a54ec21c84a89"
+  - id: maintenance-earlier
+    title: "June 2026 byte-response newline correction and regression"
+    url: "https://github.com/pyvisa/pyvisa-sim/commit/4f3ff2460cc98dc76abf80094503a153ead99735"
 ---
 
 ## Scope and limits
@@ -28,3 +31,7 @@ The reviewed main branch rejects unknown resources more explicitly, but not ever
 [Reviewed upstream implementation](#source-activity).
 
 Test Automation covers simulated command fixtures for driver regressions. The backend responds to instrument commands without setting a physical instrument, unlike the real VISA backends.
+
+## Reviewed maintenance
+
+June 2026 maintenance fixes newline handling inside `BYTES(...)` response definitions and adds a regression. October changes route supported error results through PyVISA's exception-handling convention, with backend tests. These separate corrections support ongoing maintenance despite the later history containing frequent automated configuration updates. [Byte-response correction](#source-maintenance-earlier) · [Error-handling integration](#source-activity).

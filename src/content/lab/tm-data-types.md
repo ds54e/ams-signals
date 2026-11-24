@@ -22,6 +22,9 @@ sources:
   - id: csv-header
     title: "Model label in the reviewed CSV writer"
     url: "https://github.com/tektronix/tm_data_types/blob/7a0bfc4d4fd23cfff0b70296431f6d2252a3dce1/src/tm_data_types/files_and_formats/csv/csv.py"
+  - id: maintenance-earlier
+    title: "April 2026 MAT waveform axis-unit correction"
+    url: "https://github.com/tektronix/tm_data_types/commit/343af99af17949c5b2b5c8500fab3bd8442ec34f"
 ---
 
 ## Scope and limits
@@ -33,3 +36,7 @@ Version 0.6.0 includes fixed-length string and parallel I/O repairs. Generic TEK
 Additional context: [Model label in the reviewed CSV writer](#source-csv-header).
 
 Scope is Analysis: readers, writers and waveform objects handle saved data. They are not the instrument I/O path used to acquire the waveform.
+
+## Reviewed maintenance
+
+April 2026 maintenance corrects swapped horizontal and vertical unit fields in MAT waveforms. September work stops fixed-width strings at their first NUL and repairs parallel I/O error propagation, with regression coverage. The distinct file-format and failure-handling corrections establish continued maintenance beyond the initial library release. [Axis-unit correction](#source-maintenance-earlier) · [String and I/O corrections](#source-activity).

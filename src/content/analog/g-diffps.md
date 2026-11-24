@@ -40,6 +40,9 @@ sources:
   - id: development-branch
     title: Separate September development work on the SKY130 harness
     url: https://github.com/ACADLab/G-DiffPS/commit/bab150c9dcc93cc3010324e656310890355b8a7b
+  - id: unmerged-backup
+    title: Separate November working-tree backup
+    url: https://github.com/ACADLab/G-DiffPS/commit/47ee13d5dbfbf3eef48f8237455bac6b65925a08
 ---
 
 ### Scope
@@ -58,6 +61,6 @@ The trained graph-conditioned policy selects RF topology and continuous componen
 
 ### Retention and branch boundary
 
-The default branch remains a curated August research release. Its separate dev/nuerips_workshop branch contains subsequent executable circuit-encoder, coordinate, area-reward and inference-bound corrections. Those inspected development changes support retention under the same selection rule used for new projects; they are not promoted into default-branch monthly counts or claimed as released capabilities. The last branch tip only changes a commit-trailer rule and is not the technical basis. The existing description and Scope remain on their integrated evidence. [Development implementation](#source-review-20261103-development).
+The default branch remains a curated August research release. Its separate dev/nuerips_workshop branch contains subsequent executable circuit-encoder, coordinate, area-reward and inference-bound corrections; the reviewed training-bound repair is dated September 13, 2026. Those inspected development changes support retention under the same selection rule used for new projects; they are not promoted into default-branch monthly counts or claimed as released capabilities. The September 15 branch tip changes IDE/commit-policy files. A separate November 20 working-tree backup is also unmerged; neither that backup date nor the later review date establishes a newer released implementation. The existing description and Scope remain on their integrated evidence. [Development implementation](#source-review-20261103-development) · [Separate backup](#source-unmerged-backup).
 
 The September SKY130 harness and input changes supply an additional example of executable work on that development line. [SKY130 harness](#source-development-branch).

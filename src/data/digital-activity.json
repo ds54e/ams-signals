@@ -1231,31 +1231,6 @@
       "lastMeaningfulCommitAt": "2026-10-02",
       "lastMeaningfulCommitSha": "b92801a05c653cc6df1ad5d6005a62c36375b471"
     },
-    "equivsva": {
-      "kind": "github",
-      "repository": "aditigupta96/EquivSVA",
-      "repositoryId": 1369242885,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "71b93e6c62b81fadac87d2e6e097cf005bf1ce99",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        15,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-23",
-      "lastMeaningfulCommitAt": "2026-09-16",
-      "lastMeaningfulCommitSha": "cfa118a97b992013891dd98211877d21ea52026c"
-    },
     "hls-eval": {
       "kind": "github",
       "repository": "sharc-lab/hls-eval",

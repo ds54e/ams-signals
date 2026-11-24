@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: Public Apache-2.0 source. Requires Claude Code, the configured EDA container and appropriate PDK/model installation; available operations and reproducibility depend on that toolchain.
 addedAt: '2026-10-01'
-reviewedAt: '2026-10-23'
+reviewedAt: '2026-11-24'
 sources:
 - id: code
   title: Canonical Vibe-IC repository
@@ -62,6 +62,9 @@ sources:
   title: Official project website and documentation
   url: https://vibeic.ai
   purpose: official
+- id: maintenance-cdc
+  title: November 24 incomplete timing-class rejection and CDC regressions
+  url: https://github.com/vibeic/vibe-ic/commit/6c1bc41e2dbd07110a6ad169fa7c1e4abfc6668e
 ---
 
 ### Analog scope
@@ -85,5 +88,7 @@ Claude Code runtime skills and an AI-native product description do not establish
 The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
 
 The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+Maintenance extends beyond the initial release: September's layout-netlist identity repair is followed by October's physical-flow evidence fixes. November 24 adds rejection of incomplete timing-class records and CDC regression cases in the same canonical repository. That later Digital/AMS work supports repository continuity without adding Analog capability or counting as a second project history. [September correction](#source-activity); [October integration](#source-review-20261011-1); [November correction and tests](#source-maintenance-cdc).
 
 Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode. [Credited helper implementation](#source-development-codex) · [Retained guards](#source-development-retained).

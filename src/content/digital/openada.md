@@ -55,6 +55,12 @@ sources:
   - id: "workflow-boundaries"
     title: "Digital workflow maturity and unavailable physical operations"
     url: "https://github.com/simra-tech/OpenADA/blob/ff9415e24fe6407820ca23147e3cf42625dd69b7/docs/ENGINEERING_SKILLS.md"
+  - id: "maintenance-experiment"
+    title: "July 28 fixes for experiment integrity and captured PDK inputs"
+    url: "https://github.com/simra-tech/OpenADA/commit/be174a0761d8a06851c90432632c1b09b75698ba"
+  - id: "maintenance-cosim"
+    title: "August 3 correction of co-simulation context lifetime and instance state"
+    url: "https://github.com/simra-tech/OpenADA/commit/a0128406e23be22a2734fac77523f3dd5a5d7b0a"
 ---
 
 
@@ -65,6 +71,10 @@ The synthesis skill interprets mapping and inference results and chooses control
 Layout covers the model-guided review and repair of small custom-digital geometry increments, using KLayout/Netgen checks. The skill explicitly includes custom digital cells and hard-macro interfaces. This is separate from the ideal-interconnect synthesis-stage timing operation; neither that timing result nor tool discovery establishes an implemented standard-cell place-and-route flow. [Layout workflow](#source-layout-skill); [KLayout implementation](#source-implementation); [Workflow boundaries](#source-workflow-boundaries).
 
 The stage AI flags refer to these packaged model-hosted decisions. Native tools still execute the operations and determine their engineering results. Local CLI integration is implemented; remote execution and a normative MCP binding remain future work. Experimental oscillator and testbench profiles are bounded, and the reverted knowledge-graph spike is not included as capability. [Implemented preview](#source-readme); [Typed testbench implementation](#source-activity).
+
+### Maintenance evidence
+
+Follow-up after the July public implementation includes the July 28 correction of captured PDK inputs and experiment-result integrity, followed by the August 3 repair of Verilator context lifetime and per-instance co-simulation state. These are implemented responses to concrete correctness problems and remain on the reviewed default branch. The public implementation history inspected on November 24 ends on August 12; the other published branches and release/tag evidence did not establish later implementation. Retention rests on this observed follow-through, with a short maintenance record and no claim of continuing frequent updates. This is shared repository evidence, not a separate Digital development history. [Experiment fixes](#source-maintenance-experiment); [Co-simulation fix](#source-maintenance-cosim); [August integration](#source-activity).
 
 ### Development provenance and validation limits
 

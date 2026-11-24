@@ -9,7 +9,7 @@ scope:
   aiDevelopment: assisted
 access: Public source; live optimization requires Cadence/Maestro/Ocean, a supported simulator, PDK and licenses.
 addedAt: '2026-11-16'
-reviewedAt: '2026-11-19'
+reviewedAt: '2026-11-24'
 sources:
 - id: "official"
   title: "Official project website"
@@ -31,6 +31,12 @@ sources:
 - id: retained
   title: Current implementation at review
   url: https://github.com/chloeyntu-byte/crescendo/blob/1df82d03762eb1c2c631b2e0f62d0413e9277680/crescendo_engine/completion.py
+- id: initial-public-release
+  title: Initial public release of the usable optimizer
+  url: https://github.com/chloeyntu-byte/crescendo/commit/037dc8a304209194f161dd6f245ec6eeacafb8dd
+- id: release-history
+  title: Published optimizer releases and their changes
+  url: https://github.com/chloeyntu-byte/crescendo/releases
 summary: Analog sizing optimizer integrated with Cadence Maestro and Spectre or ALPS measurement flows.
 developmentEvidence:
   summary: The reviewed implementation commit credits Claude for native-log scoping and checkpoint/diagnostic corrections. The attributed executable changes are integrated and retained in the pinned source; this does not attribute unrelated project code.
@@ -42,7 +48,7 @@ developmentEvidence:
 
 ### Implementation and selection
 
-Short public history nevertheless contains distinct batching, headless execution, diagnostics and checkpoint implementation iterations. Conventional optimization is Design, not automatically runtime AI; synthetic demo results are not electrical validation. [Workflow](#source-readme) · [Implementation change](#source-implementation) · [Retained code](#source-retained).
+The initial-public-release commit is dated November 10, 2026. Subsequent released versions repair native-log reader/cleanup scoping and checkpoint integrity on November 16, then add three-objective viewing and schematic persistence on November 18. These are corrections and extensions to an already usable optimizer. Public follow-through is visible within this first release sequence; longer-term maintenance remains unestablished. Conventional optimization is Design; synthetic demos do not validate electrical accuracy. [Initial release](#source-initial-public-release) · [Corrective implementation](#source-implementation) · [Later implementation](#source-activity) · [Releases](#source-release-history).
 
 ### Review boundary
 

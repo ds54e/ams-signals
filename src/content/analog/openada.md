@@ -52,6 +52,12 @@ sources:
   - id: "development-2"
     title: "Codex-credited conformance campaign"
     url: "https://github.com/simra-tech/OpenADA/commit/dff55d2cca12985ff167d58d8b01b46e0ab3bce0"
+  - id: "maintenance-experiment"
+    title: "July 28 fixes for experiment integrity and captured PDK inputs"
+    url: "https://github.com/simra-tech/OpenADA/commit/be174a0761d8a06851c90432632c1b09b75698ba"
+  - id: "maintenance-cosim"
+    title: "August 3 correction of co-simulation context lifetime and instance state"
+    url: "https://github.com/simra-tech/OpenADA/commit/a0128406e23be22a2734fac77523f3dd5a5d7b0a"
 ---
 
 ### Analog scope
@@ -65,6 +71,10 @@ The layout skill makes the model choose and inspect one geometry increment, loca
 Native execution, valid simulation evidence, derived measurements and specification verdicts are separate results. Available transient oscillator metrics do not establish phase-noise analysis. The reviewed preview and experimental skills require external tools and authoritative collateral; project conformance claims were inspected, and no EDA or model campaign was reproduced for this catalog review. [Implemented operations](#source-readme); [Engineering boundaries](#source-engineering-skills).
 
 The Analog and Digital entries cover independently usable workflows in one canonical repository. The Digital entry covers RTL review, mapped synthesis and physical checks. Both retain the same repository identity and activity observation, not independent project histories. [Domain workflows](#source-engineering-skills).
+
+### Maintenance evidence
+
+Follow-up after the July public implementation includes the July 28 correction of captured PDK inputs and experiment-result integrity, followed by the August 3 repair of Verilator context lifetime and per-instance co-simulation state. These are implemented responses to concrete correctness problems and remain on the reviewed default branch. The public implementation history inspected on November 24 ends on August 12; the other published branches and release/tag evidence did not establish later implementation. Retention rests on this observed follow-through, with a short maintenance record and no claim of continuing frequent updates. [Experiment fixes](#source-maintenance-experiment); [Co-simulation fix](#source-maintenance-cosim); [August integration](#source-activity).
 
 ### Development provenance
 

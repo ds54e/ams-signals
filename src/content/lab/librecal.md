@@ -39,6 +39,9 @@ sources:
   - id: license
     title: "Repository license"
     url: "https://github.com/jankae/LibreCAL/blob/5ff26b504aeb43de66641013e3f3642fbd9f86b7/LICENSE"
+  - id: release
+    title: "LibreCAL v0.3.0 release published in June 2025"
+    url: "https://github.com/jankae/LibreCAL/releases/tag/v0.3.0"
 ---
 
 ## Scope and limits
@@ -54,3 +57,5 @@ LibreCAL is independently usable calibration hardware with its own firmware and 
 ## Selection and activity
 
 July 2025 coefficient-export compatibility work is followed by the integrated October 2026 macOS build repair, including dependency setup and replacement of unavailable version-extraction commands. These are concrete maintenance changes across separate periods. They support current implementation availability, not a new hardware accuracy claim. [Coefficient fix](#source-earlier-coefficients) · [Build repair](#source-activity).
+
+Maintenance is intermittent. The v0.3.0 release was published in June 2025 and predates the reviewed October 2026 build repair; selecting an older release does not provide that source change. [Tagged release](#source-release) · [Build repair](#source-activity).

@@ -39,6 +39,12 @@ sources:
   - id: licenses
     title: "Workspace license declaration"
     url: "https://github.com/HalfSweet/HSync/blob/afd04c732a7e6fe439da2429b57dfe83b65dc003/Cargo.toml"
+  - id: maintenance-earlier
+    title: "October 2026 SWD sampling-edge and protocol-decoder correction"
+    url: "https://github.com/HalfSweet/HSync/commit/9479eef6d23e4678aaf5fefff9fdb8b633905731"
+  - id: release
+    title: "HSync v0.2.9 release published in November 2026"
+    url: "https://github.com/HalfSweet/HSync/releases/tag/v0.2.9"
 ---
 
 ## Selection and scope
@@ -55,4 +61,6 @@ Use the timing views within the analyzer's sampling, threshold and clock accurac
 
 ## Reviewed maintenance
 
-The November 2026 changes separate USB reception from conversion, then fix finite-capture completion, recent-throughput detection and buffer reuse after unaligned triggers. The default-branch fixes include regression coverage for conversion timeout and a dropped receiver. This substantive iteration supports selection of a new project independently of repository age, release count or the choice of Rust. [Stream correction](#source-prior-stream-fix) · [Reviewed implementation](#source-activity).
+The October 2026 SWD decoder correction changes target-bit sampling and protocol-state handling. November changes then separate USB reception from conversion and repair finite-capture completion, throughput detection and buffer reuse after unaligned triggers. Regressions cover the affected decoder and capture paths. [SWD correction](#source-maintenance-earlier) · [Stream correction](#source-prior-stream-fix) · [Capture corrections](#source-activity).
+
+The observed corrections and public releases span October–November 2026, including v0.2.9. They show early follow-through on released workflows; the review cannot yet establish a longer maintenance record. [Release](#source-release).

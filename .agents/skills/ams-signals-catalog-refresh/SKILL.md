@@ -11,6 +11,8 @@ Input: the requested Analog, Digital and/or Lab catalogs. Read only the selected
 
 Inspect the current snapshot, source records and working-tree changes. Preserve unrelated edits. Verify canonical repository identity, actual default branch and substantive first-parent changes before updating any meaningful date/SHA and its matching source. Mechanical latest commits are not automatically meaningful activity. Do not add/remove projects, change Scope/provenance or substitute hosts solely to make a refresh pass.
 
+When a task includes selection or retention, first apply the shared [selection and retention criteria](../../../docs/catalog/CONTRACT.md#project-selection-and-retention) to existing and new entries alike. Inspect substantive follow-up after the initial usable implementation; counts, a recent checkpoint or tests shipped in the initial release do not establish continued maintenance. Resolve quiet default branches, canonical migrations and substantive release/development-branch evidence before exclusion, without adding those branches to the default-branch snapshot.
+
 Resolve repository moves against the canonical metadata and numeric identity; old README install URLs and redirected namespaces do not establish separate projects. Keep the reviewed implementation revision distinct from the meaningful activity checkpoint. Inspect the selected change and its retained code/tests; a substantive commit visible in an API listing can still be on a merged side branch and fail the first-parent requirement.
 
 Use the existing manual command for the selected domain:

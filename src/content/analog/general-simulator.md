@@ -24,6 +24,9 @@ sources:
   - id: activity
     title: Integrated waveform evaluation, output-channel fixes and regression tests
     url: https://github.com/GLODI-Engineering/general-simulator/commit/9e0ca26be76087a2ad2ab158250bba5f7e86cf27
+  - id: earlier-maintenance
+    title: September 14 consolidation of coordinate transforms and signal limiting
+    url: https://github.com/GLODI-Engineering/general-simulator/commit/e9664c55df3e35c6b83cf1e3350a3b84eb921ed5
   - id: lcp-solver
     title: Lemke linear-complementarity solver and failure modes
     url: https://github.com/GLODI-Engineering/general-simulator/blob/9e0ca26be76087a2ad2ab158250bba5f7e86cf27/crates/lcp-solver/src/lemke.rs
@@ -66,6 +69,8 @@ The implemented active devices are ideal diodes and ideal switches with piecewis
 The CLI is available as a published crate or release binary. Building a checkout requires the documented sibling parser, MNA and waveform-measurement repositories. Python-backed custom blocks additionally require the optional embedded-interpreter build. [Entry points](#source-readme) · [Dependencies](#source-manifest).
 
 ### Activity and development provenance
+
+Follow-through spans separate implementation periods: September 14 consolidated coordinate-transform and limiting functions to prevent duplicate formulas drifting apart, while November 19 added measured-capture evaluation and corrected output-channel handling. The latter also replaces repeated waveform scans with binary search that remains valid when an adaptive step retries an earlier time. These concrete changes support retention beyond the existence of tests in a single initial release. [Earlier maintenance](#source-earlier-maintenance) · [Capture implementation](#source-activity).
 
 The reviewed first-parent checkpoint is 2026-11-19T10:31:36Z: file-waveform evaluation, bounded lookup and additional channel export were implemented with regression tests. The same integrated commit credits Claude Opus 5 as a coauthor, and its runtime and CLI changes are retained at the reviewed head. This supports AI-ASSISTED; the reviewed simulation operations are conventional. [Credited implementation](#source-activity) · [Retained runtime](#source-block-runtime) · [Retained CLI](#source-cli).
 

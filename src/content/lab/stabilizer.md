@@ -48,6 +48,12 @@ sources:
   - id: loopback
     title: "Physical ADC/DAC loopback settings, telemetry and tolerance checks"
     url: "https://github.com/quartiq/stabilizer/blob/5d7a40dc960a01bd93f0bbd6a86850f5f6265e45/hitl/loopback.py"
+  - id: maintenance-earlier
+    title: "February 2026 MPLL firmware and host-stream integration"
+    url: "https://github.com/quartiq/stabilizer/commit/df06d66544ae617c03d90da5d92b6afeae887cce"
+  - id: firmware-release
+    title: "Stabilizer v0.11.0 firmware release published in December 2024"
+    url: "https://github.com/quartiq/stabilizer/releases/tag/v0.11.0"
 ---
 
 ## Selection and scope
@@ -66,4 +72,6 @@ UDP streams and MQTT telemetry use best-effort delivery. Application timing figu
 
 ## Reviewed maintenance
 
-The March 2026 integration updates the phase/frequency application, DSP paths and host stream handling. The April correction changes the second channel's RF-power readout from the first input to its own input. Both are default-branch implementation changes, separate from the later dependency update and repository push time. [Phase/frequency iteration](#source-fls-iteration) · [Reviewed measurement fix](#source-activity).
+The February 2026 integration adds MPLL processing and its host stream format. March work updates the phase/frequency application, followed in April by a correction that reads the second channel's RF power from its own input. These are successive default-branch firmware and measurement changes. [MPLL integration](#source-maintenance-earlier) · [Phase/frequency iteration](#source-fls-iteration) · [Measurement fix](#source-activity).
+
+The reviewed default branch has no later implementation change after April 2026. Its maintenance is intermittent, and the v0.11.0 firmware release from December 2024 predates these changes. Build the required reviewed revision when using the newer applications or fixes. [Firmware release](#source-firmware-release) · [Reviewed setup](#source-setup).

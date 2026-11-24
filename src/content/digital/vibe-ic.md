@@ -18,7 +18,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Apache-2.0 public plugin and bundled MCP-EDA tooling. The open path uses pinned open-source EDA tools; FPGA, commercial-EDA, PDK and lab-hardware paths require the corresponding user-provided environments."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "official"
     title: "Vibe-IC project site"
@@ -52,6 +52,9 @@ sources:
   - id: development-retained-20261018
     title: "Retained ensure-only validation and image-pull guards"
     url: https://github.com/vibeic/vibe-ic/blob/c22e34b991b6380c438f88a3ee9f054f97c3a90e/tools/vibeic-eda/restart-eda.sh
+  - id: maintenance-cdc
+    title: "November 24 incomplete timing-class rejection and CDC regressions"
+    url: https://github.com/vibeic/vibe-ic/commit/6c1bc41e2dbd07110a6ad169fa7c1e4abfc6668e
 ---
 
 ### Staged flow
@@ -73,6 +76,8 @@ The repository also contains Analog A1-A9 and mixed-signal tracks. The separatel
 The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
 
 The artifact checks do not independently verify every supported technology or commercial flow. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun. [Stage contract](#source-agent-guide); [Setup and reported results](#source-readme).
+
+Maintenance extends beyond the initial release: October's physical-flow evidence fixes are followed by November 24 validation that rejects incomplete timing-class records, with regression cases for malformed routed-interface data. The corrective implementation is integrated in the canonical default branch. These separate changes support continued technical work; release/version counts alone are not the basis. [October integration](#source-review-20261011-1); [November correction and tests](#source-maintenance-cdc).
 
 ### Development provenance
 

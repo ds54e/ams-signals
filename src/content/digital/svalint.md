@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python implementation; a compatible Verible syntax executable is required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -25,6 +25,9 @@ sources:
   - id: "activity"
     title: "Reviewed meaningful change: Merge pull request #68 from AsFigo/srini_dev"
     url: "https://github.com/AsFigo/svalint/commit/3f4f77765f577cfa24b90c4afb6441cf3dd96b48"
+  - id: "earlier-correction"
+    title: "September 2025 implication-rule correction from an SPI assertion benchmark"
+    url: "https://github.com/AsFigo/svalint/commit/dde9750dd8a75bba0fda3a4309bcb1d2e885f559"
   - id: website
     title: Official project website and documentation
     url: https://asfigo.github.io/svalint/
@@ -42,5 +45,7 @@ The CLI invokes Verible syntax inspection and adds assertion-specific Python rul
 The exposed operations support Verification. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
 The meaningful checkpoint is 2026-08-23T22:20:32Z (`3f4f77765f577cfa24b90c4afb6441cf3dd96b48`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+
+Maintenance is intermittent. A September 2025 correction handles multiple implication operators found in an SPI assertion benchmark. The August 2026 implementation expands the rule set, registers rules in the CLI and improves diagnostics and examples. This establishes follow-up changes across separate development periods despite sparse recent commit counts. [Earlier correction](#source-earlier-correction) · [Rule expansion](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was not assigned without a separate retained-code attribution review.

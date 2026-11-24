@@ -95,32 +95,6 @@
       "lastMeaningfulCommitSha": "7c7d89d8a4cf4c7aeae190b93b5bf6740df734be",
       "notes": "Substantive implementation/task/result activity reviewed at 7c7d89d8a4cf4c7aeae190b93b5bf6740df734be: Refactor preprocessing pipeline and evaluation metrics. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
     },
-    "autosizer": {
-      "kind": "github",
-      "repository": "yuxi120407/AutoSizer",
-      "repositoryId": 1147553501,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "1b9b8f6498e2c7ad3b650bbbc78c8e3b0e1205e1",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        6,
-        5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-05-26",
-      "lastMeaningfulCommitAt": "2026-05-26",
-      "lastMeaningfulCommitSha": "97ef89f5e34a46eb8a508ed68b15afea2f551044",
-      "notes": "Substantive implementation/task/result activity reviewed at 97ef89f5e34a46eb8a508ed68b15afea2f551044: Release: clean paths, add test_magic_pex.py, add README. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
-    },
     "behavioral-veriloga-eval": {
       "kind": "github",
       "repository": "Arcadia-1/behavioral-veriloga-eval",
@@ -1140,32 +1114,6 @@
       "lastMeaningfulCommitAt": "2026-09-23",
       "lastMeaningfulCommitSha": "d580b43f9e4baece3d7b013de0f9efe30c094597",
       "notes": "Meaningful activity manually reviewed: improvements in code structure using AI. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
-    },
-    "vajax": {
-      "kind": "github",
-      "repository": "ChipFlow/vajax",
-      "repositoryId": 1106272774,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "2dfc4072cc8a00bef4e5773619dbda3e9a413220",
-      "commits": [
-        486,
-        314,
-        137,
-        118,
-        8,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-04-07",
-      "lastMeaningfulCommitAt": "2026-03-30",
-      "lastMeaningfulCommitSha": "5ae5deefa600e037ba8891d2e033b425cdddcd3b",
-      "notes": "Meaningful activity manually reviewed: feat: SCCP constant propagation eliminates 73% of PSP103 dead blocks. Raw counts include cosmetic, automated and bulk-import commits; they do not independently establish freshness."
     },
     "gnucap": {
       "kind": "repository",

@@ -25,6 +25,9 @@ sources:
   - id: register-access
     title: "Related SystemRDL-generated access layer"
     url: "https://github.com/krcb197/PeakRDL-python"
+  - id: maintenance-earlier
+    title: "August 2025 I2C output-direction correction"
+    url: "https://github.com/eblot/pyftdi/commit/104bfe699e625fc92d6dc4579513aff21f83f017"
 ---
 
 ## Scope and limits
@@ -34,3 +37,7 @@ Supported electrical behavior depends on the FTDI model and wiring. USB latency 
 [Reviewed upstream implementation](#source-implementation).
 
 Additional context: [Related SystemRDL-generated access layer](#source-register-access).
+
+## Reviewed maintenance
+
+The August 2025 I²C correction restores output-direction bits in the fake-tristate path. June 2026 maintenance adds FT4232HP EEPROM properties and corresponding virtual-device and USB fixtures. The merged `main` changes show intermittent device-compatibility work on the established implementation. [I²C correction](#source-maintenance-earlier) · [FT4232HP integration](#source-activity).

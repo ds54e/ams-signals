@@ -31,6 +31,9 @@ sources:
   - id: parsers
     title: "Bundled native and WASM format parsers"
     url: "https://github.com/wafertools/tsmap/blob/d343fe9bd609a080184c3bfdbd512ed7a50cbbb0/packages/parsers/src/lib.rs"
+  - id: maintenance-earlier
+    title: "August 2026 coordinate-less die and wafer import implementation"
+    url: "https://github.com/wafertools/tsmap/commit/d6ad5dff582aaab286c8b9a2ff69a4ff423bf115"
 ---
 
 ## Scope and limits
@@ -39,4 +42,6 @@ Validate coordinates, orientation and bins independently. Visualizations using t
 
 The retained workflow is interactive multi-file and multi-format wafer review, including a browser build. The load pipeline maps CSV/JSON/Parquet columns, selects tests before full STDF/ATDF loading and combines chosen wafers for display. Its bundled parsers target native and WASM execution; the rendering engine is a separate dependency. Browser access and mapped imports are distinct reasons to choose this workflow alongside parser APIs and STDF-focused desktop viewers. [Load pipeline](#source-load-pipeline) · [Desktop/browser adapters](#source-desktop-browser) · [Parser implementations](#source-parsers).
 
-The [implementation checkpoint](#source-activity) corrects loading of multiple sessions as distinct files. Repository activity does not establish hardware accuracy or independent validation of the input records.
+## Reviewed maintenance
+
+August 2026 work preserves dies without reported coordinates across the STDF, ATDF and mapped-import paths. November work replaces concatenated multi-session example files with a zip of separate session files and updates the load pipeline and regressions to keep each wafer's source while opening the lot together. These are successive parser and workflow corrections; the examples remain synthetic data. [Coordinate-less imports](#source-maintenance-earlier) · [Session-file and load correction](#source-activity).
