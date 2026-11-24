@@ -27,10 +27,12 @@ env:
   BASE_URL: /ams-signals
 
 jobs:
-  verify:
-    name: Validate and test
+  prepare:
+    name: Validate and build preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      core_only: ${{ steps.scope.outputs.core_only }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -47,8 +49,20 @@ jobs:
       - name: Determine regression scope
         id: scope
         env:
+          RELEASE: ${{ inputs.release }}
           BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-        run: node tools/ci-impact.mjs "$BASE_SHA" >> "$GITHUB_OUTPUT"
+        run: |
+          if [ "$RELEASE" = true ]; then
+            echo core_only=false >> "$GITHUB_OUTPUT"
+          else
+            # Fetch the immutable before/base SHA if a normal multi-commit push
+            # (or the synthetic PR merge) omitted it from the shallow checkout.
+            if [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ && "$BASE_SHA" != 0000000000000000000000000000000000000000 ]] &&
+              ! git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+              timeout 8s git fetch --no-tags --depth=1 origin "$BASE_SHA" || true
+            fi
+            node tools/ci-impact.mjs "$BASE_SHA" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Validate root-domain deployment shape
         if: ${{ !inputs.release }}
@@ -63,32 +77,91 @@ jobs:
 
       - name: Build fallback preview for release regression
         if: ${{ inputs.release }}
-        run: npm run build
+        run: npm run build && node tools/check-indexing.mjs && node tools/check-analytics.mjs
+
+      - name: Core Chromium smoke tests
+        if: steps.scope.outputs.core_only == 'true'
+        run: |
+          bash tools/install-ci-chromium.sh
+          npx playwright test --grep '@core'
+
+      - name: Retain core browser failure evidence
+        if: failure() && steps.scope.outputs.core_only == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-failure-core
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Share the exact fallback preview
+        if: steps.scope.outputs.core_only == 'false'
+        uses: actions/upload-artifact@v7
+        with:
+          name: fallback-preview
+          path: dist/
+          compression-level: 1
+          if-no-files-found: error
+          retention-days: 1
+
+  full:
+    name: Chromium (${{ matrix.lane }})
+    needs: prepare
+    if: needs.prepare.outputs.core_only == 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        lane: [analog-timeline, digital-layout, integration]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: fallback-preview
+          path: dist/
 
       - name: Install Chromium headless shell
-        run: |
-          npx playwright install --only-shell chromium
-          probe='import { chromium } from "@playwright/test"; const browser = await chromium.launch(); await browser.close();'
-          if ! node --input-type=module -e "$probe"; then
-            npx playwright install-deps chromium
-            node --input-type=module -e "$probe"
-          fi
+        run: bash tools/install-ci-chromium.sh
 
-      - name: Chromium smoke tests
+      - name: Full Chromium smoke tests
         env:
-          CORE_ONLY: ${{ !inputs.release && steps.scope.outputs.core_only == 'true' }}
-        run: |
-          if [ "$CORE_ONLY" = true ]; then
-            npx playwright test --grep '@core'
-          else
-            npx playwright test
-          fi
+          SMOKE_CI_LANE: ${{ matrix.lane }}
+        run: npx playwright test
 
       - name: Retain browser failure evidence
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: browser-failure-evidence
+          name: browser-failure-${{ matrix.lane }}
           path: test-results/
           if-no-files-found: ignore
           retention-days: 7
+
+  gate:
+    name: Validate and test
+    needs: [prepare, full]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Require the selected verification scope
+        env:
+          PREPARE: ${{ needs.prepare.result }}
+          CORE_ONLY: ${{ needs.prepare.outputs.core_only }}
+          FULL: ${{ needs.full.result }}
+        run: |
+          test "$PREPARE" = success
+          case "$CORE_ONLY:$FULL" in
+            true:skipped|false:success) ;;
+            *) echo "::error::Unexpected regression result: $CORE_ONLY:$FULL"; exit 1 ;;
+          esac

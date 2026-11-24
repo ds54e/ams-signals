@@ -338,6 +338,14 @@ test('Timeline always shows both Signal types while Events retains kind filterin
     Array(corpus.organizational).fill('Organizational'),
   );
 
+  await page.goto('./events/ecosystem-2025-02-uvm-ms-1-standard/');
+  await expect(page.locator('.event-meta')).toContainText('Technical');
+  await page.goto('./events/sitime-2023-keiichi-kajino-japan-verification-manager/');
+  await expect(page.locator('.event-meta')).toContainText('Organizational');
+});
+
+// Legacy spellings are fixed viewer behavior, independent of corpus edits.
+test('Events canonicalizes every supported old Signal type and rejects other values', async ({ page }) => {
   const aliases = new Map([
     ['publication', 'technical'],
     ['conference', 'technical'],
@@ -357,12 +365,7 @@ test('Timeline always shows both Signal types while Events retains kind filterin
   await expectExplorerReady(page, 'events');
   await expect(page.locator('[data-kind]')).toHaveValue('all');
   expect(new URL(page.url()).searchParams.has('kind')).toBe(false);
-
   expect(new Set(await page.locator('.signal-type').allTextContents())).toEqual(new Set(['Technical', 'Organizational']));
-  await page.goto('./events/ecosystem-2025-02-uvm-ms-1-standard/');
-  await expect(page.locator('.event-meta')).toContainText('Technical');
-  await page.goto('./events/sitime-2023-keiichi-kajino-japan-verification-manager/');
-  await expect(page.locator('.event-meta')).toContainText('Organizational');
 });
 
 test('Events clears unsupported Company state while company-name search and kind filtering remain complete', async ({ page }) => {

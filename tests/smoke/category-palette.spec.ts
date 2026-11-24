@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { expect, test, type Page } from '@playwright/test';
 
 const scopeColors = { design: 'green', simulation: 'blue', verification: 'blue', synthesis: 'gold', layout: 'rust', aiDevelopment: 'purple' };
@@ -46,30 +47,25 @@ async function readColors(page: Page) {
 }
 
 function expectMapping(colors: Awaited<ReturnType<typeof readColors>>, checkContrast: boolean) {
-  const { tokens, semantics, surfaces, badges, glyphs, pageBackground } = colors;
-  expect(semantics).toEqual({ technical: tokens.blue, organizational: tokens.rust });
-  expect(new Set(['green', 'blue', 'gold', 'rust', 'purple'].map((key) => tokens[key])).size).toBe(5);
+  const { tokens, badges, glyphs, semantics, pageBackground, surfaces } = colors;
+  assert.deepEqual(semantics, { technical: tokens.blue, organizational: tokens.rust });
+  assert.equal(new Set(['green', 'blue', 'gold', 'rust', 'purple'].map((key) => tokens[key])).size, 5);
   for (const badge of badges) {
     const color = badge.scope ? scopeColors[badge.scope as keyof typeof scopeColors] : kindColors[badge.kind as keyof typeof kindColors];
-    expect(color, badge.label).toBeDefined();
+    assert.notEqual(color, undefined, badge.label);
     if (badge.development) {
-      expect(badge.fill).toBe('rgba(0, 0, 0, 0)');
-      expect(badge.ink).toBe(tokens.purple);
-      expect(badge.shadow).toBe('none');
-      expect(badge.border).toBe(tokens['provenance-border']);
-      expect(badge.borderWidth).toBe('1px');
+      assert.deepEqual([badge.fill, badge.ink, badge.shadow, badge.border, badge.borderWidth],
+        ['rgba(0, 0, 0, 0)', tokens.purple, 'none', tokens['provenance-border'], '1px'], badge.label);
     } else {
-      expect(badge.fill, badge.label).toBe(tokens[`${color}-soft`]);
-      expect(badge.ink).toBe(tokens[color]);
+      assert.deepEqual([badge.fill, badge.ink], [tokens[`${color}-soft`], tokens[color]], badge.label);
     }
-    expect(badge.opacity).toBe('1');
-    // Transparent provenance badges render over the actual page background.
-    if (checkContrast) expect(contrast(badge.ink, badge.development ? pageBackground : badge.fill), badge.label).toBeGreaterThanOrEqual(4.5);
+    assert.equal(badge.opacity, '1', badge.label);
+    if (checkContrast) assert(contrast(badge.ink, badge.development ? pageBackground : badge.fill) >= 4.5, badge.label);
   }
   for (const glyph of glyphs) {
-    expect(glyph.fill).toBe(timelineColors[glyph.kind as keyof typeof timelineColors]);
-    expect(glyph.shape).toBe(glyph.kind === 'technical' ? '50%' : '0px');
-    if (checkContrast) for (const surface of surfaces) expect(contrast(glyph.fill, surface), 'Timeline glyph contrast').toBeGreaterThanOrEqual(3);
+    assert.equal(glyph.fill, timelineColors[glyph.kind as keyof typeof timelineColors], glyph.kind);
+    assert.equal(glyph.shape, glyph.kind === 'technical' ? '50%' : '0px', glyph.kind);
+    if (checkContrast) for (const surface of surfaces) assert(contrast(glyph.fill, surface) >= 3, `${glyph.kind}: Timeline glyph contrast`);
   }
 }
 

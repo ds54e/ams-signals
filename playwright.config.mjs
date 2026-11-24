@@ -13,8 +13,22 @@ const baseURL = requestedBaseUrl
 
 const isCI = Boolean(process.env.CI);
 
+// Equal test counts put most layout-heavy specs on the last native shard.
+// Group the large suites by measured work; integration also picks up every
+// newly added spec automatically, so an omitted filename cannot skip tests.
+const lanes = new Map([
+  ['analog-timeline', ['**/analog.spec.ts', '**/timeline-visual.spec.ts']],
+  ['digital-layout', ['**/digital.spec.ts', '**/visual-system.spec.ts']],
+]);
+const lane = process.env.SMOKE_CI_LANE;
+if (lane && lane !== 'integration' && !lanes.has(lane)) throw new Error(`Unknown smoke CI lane: ${lane}`);
+const laneFilter = !lane ? {} : lane === 'integration'
+  ? { testIgnore: [...lanes.values()].flat() }
+  : { testMatch: lanes.get(lane) };
+
 export default defineConfig({
   testDir: './tests/smoke',
+  ...laneFilter,
   timeout: 30_000,
   expect: {
     timeout: 5_000,
