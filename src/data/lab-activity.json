@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T08:04:05.807Z",
+  "capturedAt": "2026-11-24T10:04:27.276Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -21,6 +21,7 @@
       "kind": "github",
       "repository": "microsoft/Qcodes",
       "repositoryId": 37137879,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "1583027138ef8d1b45370c56c2aba65fa2d119fd",
       "commits": [
@@ -39,13 +40,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "1583027138ef8d1b45370c56c2aba65fa2d119fd",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "1583027138ef8d1b45370c56c2aba65fa2d119fd"
     },
     "openhtf": {
       "kind": "github",
       "repository": "google/openhtf",
       "repositoryId": 41519483,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "9f7371af4e210fddbba1cd9afdd62700b57d74a2",
       "commits": [
@@ -64,13 +65,13 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-10-23",
-      "lastMeaningfulCommitSha": "916885e625130e2b0e2fe7b81b1b96ec3f11c973",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "916885e625130e2b0e2fe7b81b1b96ec3f11c973"
     },
     "opentap": {
       "kind": "github",
       "repository": "opentap/opentap",
       "repositoryId": 436397521,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "172874ff9ea60f0fa6ec9be758b3eb644da9939e",
       "commits": [
@@ -89,13 +90,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-10",
-      "lastMeaningfulCommitSha": "2f0da929d84edbc145e2f3352b9dcf3d98fdf172",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "2f0da929d84edbc145e2f3352b9dcf3d98fdf172"
     },
     "pymeasure": {
       "kind": "github",
       "repository": "pymeasure/pymeasure",
       "repositoryId": 18864038,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "02da8edb7d7a22d3662911f842dfe4c433631b4c",
       "commits": [
@@ -114,13 +115,13 @@
       ],
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "02dba75b377b76dbdabb154b86423e61f8f3cfbe",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "02dba75b377b76dbdabb154b86423e61f8f3cfbe"
     },
     "koheron-sdk": {
       "kind": "github",
       "repository": "Koheron/koheron-sdk",
       "repositoryId": 45677828,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "V1",
       "headSha": "199b8abb1388a41018c113a6877f713ab5e0d3d0",
       "commits": [
@@ -139,13 +140,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-10-20",
-      "lastMeaningfulCommitSha": "77861da8b5bc853b633cd0eed9ab8980b547f97f",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "77861da8b5bc853b633cd0eed9ab8980b547f97f"
     },
     "librevna": {
       "kind": "github",
       "repository": "jankae/LibreVNA",
       "repositoryId": 282472168,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "e21e2fe218b7cc61dca85f3897a945711118389d",
       "commits": [
@@ -164,13 +165,13 @@
       ],
       "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "e21e2fe218b7cc61dca85f3897a945711118389d",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "e21e2fe218b7cc61dca85f3897a945711118389d"
     },
     "glasgow": {
       "kind": "github",
       "repository": "GlasgowEmbedded/glasgow",
       "repositoryId": 118316091,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "c118429b1ef688a8c97afb4045cec27055026e7e",
       "commits": [
@@ -189,13 +190,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "208f01f21e1d0fa71b52965910592a3ab6363cc7",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "208f01f21e1d0fa71b52965910592a3ab6363cc7"
     },
     "joulescope-driver": {
       "kind": "github",
       "repository": "jetperch/joulescope_driver",
       "repositoryId": 520251055,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "0ed3d68081db4097ab338f505b03a50b78c7adbe",
       "commits": [
@@ -214,13 +215,13 @@
       ],
       "lastCommitAt": "2026-11-14",
       "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "0ed3d68081db4097ab338f505b03a50b78c7adbe",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "0ed3d68081db4097ab338f505b03a50b78c7adbe"
     },
     "stdf-viewer": {
       "kind": "github",
       "repository": "noonchen/STDF-Viewer",
       "repositoryId": 321024713,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "170f5a1dc7df8f46950a1ad6b920d032e000a254",
       "commits": [
@@ -239,13 +240,13 @@
       ],
       "lastCommitAt": "2026-10-10",
       "lastMeaningfulCommitAt": "2026-10-10",
-      "lastMeaningfulCommitSha": "170f5a1dc7df8f46950a1ad6b920d032e000a254",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "170f5a1dc7df8f46950a1ad6b920d032e000a254"
     },
     "rust-stdf": {
       "kind": "github",
       "repository": "noonchen/rust-stdf",
       "repositoryId": 544603403,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "5160dc3859ea1ed19c94f008a1a6133299715993",
       "commits": [
@@ -264,13 +265,13 @@
       ],
       "lastCommitAt": "2026-09-22",
       "lastMeaningfulCommitAt": "2026-09-22",
-      "lastMeaningfulCommitSha": "5160dc3859ea1ed19c94f008a1a6133299715993",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "5160dc3859ea1ed19c94f008a1a6133299715993"
     },
     "tsmap": {
       "kind": "github",
       "repository": "wafertools/tsmap",
       "repositoryId": 1255289194,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "d343fe9bd609a080184c3bfdbd512ed7a50cbbb0",
       "commits": [
@@ -289,13 +290,13 @@
       ],
       "lastCommitAt": "2026-11-07",
       "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "8cda82b0094acb9add38225ff36a6d0eb1674624",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "8cda82b0094acb9add38225ff36a6d0eb1674624"
     },
     "libm2k": {
       "kind": "github",
       "repository": "analogdevicesinc/libm2k",
       "repositoryId": 189372256,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "a4f6d8a87fc26acfd0b2a569ce2cfd182349d1e8",
       "commits": [
@@ -314,13 +315,13 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "a4f6d8a87fc26acfd0b2a569ce2cfd182349d1e8",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "a4f6d8a87fc26acfd0b2a569ce2cfd182349d1e8"
     },
     "scopy": {
       "kind": "github",
       "repository": "analogdevicesinc/scopy",
       "repositoryId": 68070804,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "main",
       "headSha": "b26aeea11227f3a3f301d960fbe9b70aed7dce7e",
       "commits": [
@@ -339,13 +340,13 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "b26aeea11227f3a3f301d960fbe9b70aed7dce7e",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "b26aeea11227f3a3f301d960fbe9b70aed7dce7e"
     },
     "smuview": {
       "kind": "github",
       "repository": "knarfS/smuview",
       "repositoryId": 102384100,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "117ba6c8604076e5831b4265e5bf0f54f353b245",
       "commits": [
@@ -364,13 +365,13 @@
       ],
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "6f35ca9698c0d595e8759d9b6dcb40306e934727",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "6f35ca9698c0d595e8759d9b6dcb40306e934727"
     },
     "kibot": {
       "kind": "github",
       "repository": "INTI-CMNB/KiBot",
       "repositoryId": 246344800,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "b81caf648b7eaf687b14c4290cc7e50d66eede33",
       "commits": [
@@ -389,13 +390,13 @@
       ],
       "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-11-10",
-      "lastMeaningfulCommitSha": "6f93e6a365f83647cbe5ee569953a9c665f273c2",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "6f93e6a365f83647cbe5ee569953a9c665f273c2"
     },
     "interactive-html-bom": {
       "kind": "github",
       "repository": "openscopeproject/InteractiveHtmlBom",
       "repositoryId": 142263436,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "363d5df487cb7d9ed34d2e4b3288683835f00dce",
       "commits": [
@@ -414,13 +415,13 @@
       ],
       "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-10-10",
-      "lastMeaningfulCommitSha": "30ce006dcf42d6b280fa6c87219a8104d0ca8d70",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "30ce006dcf42d6b280fa6c87219a8104d0ca8d70"
     },
     "allantools": {
       "kind": "github",
       "repository": "aewallin/allantools",
       "repositoryId": 16369189,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "32ad8fce6be9f51dda4ab407931f71503c50d101",
       "commits": [
@@ -439,13 +440,13 @@
       ],
       "lastCommitAt": "2026-11-15",
       "lastMeaningfulCommitAt": "2026-10-12",
-      "lastMeaningfulCommitSha": "5cc6d4dbae3985d6cb452583ad25be9c434180b1",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "5cc6d4dbae3985d6cb452583ad25be9c434180b1"
     },
     "ngscopeclient": {
       "kind": "github",
       "repository": "ngscopeclient/scopehal-apps",
       "repositoryId": 139762258,
+      "capturedAt": "2026-11-24T04:32:08.978Z",
       "defaultBranch": "master",
       "headSha": "4841cc8f19f1fcd6dceba146fd0c306bcb5b543f",
       "commits": [
@@ -464,13 +465,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "40673ea2beef99ff2844845f804ed753cdb321cd",
-      "capturedAt": "2026-11-24T04:32:08.978Z"
+      "lastMeaningfulCommitSha": "40673ea2beef99ff2844845f804ed753cdb321cd"
     },
     "pyvisa": {
       "kind": "github",
       "repository": "pyvisa/pyvisa",
       "repositoryId": 12338875,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "a5b56ab857115e44e59f240f99207b305f77c459",
       "commits": [
@@ -489,13 +490,13 @@
       ],
       "lastCommitAt": "2026-10-26",
       "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "a5b56ab857115e44e59f240f99207b305f77c459",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "a5b56ab857115e44e59f240f99207b305f77c459"
     },
     "pyvisa-py": {
       "kind": "github",
       "repository": "pyvisa/pyvisa-py",
       "repositoryId": 23625378,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "aeff64fa1a8bfea0e66492ca2cd8de4f1b9f4274",
       "commits": [
@@ -514,13 +515,13 @@
       ],
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "fa7320dc6b81d2b8dd7c6c9734908cae33641b83",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "fa7320dc6b81d2b8dd7c6c9734908cae33641b83"
     },
     "pyvisa-sim": {
       "kind": "github",
       "repository": "pyvisa/pyvisa-sim",
       "repositoryId": 24314533,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "3132559456e32677139290b5d779d394045b89b2",
       "commits": [
@@ -539,13 +540,13 @@
       ],
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "aea284b00a1c1b4eac8d9e1cb78a54ec21c84a89",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "aea284b00a1c1b4eac8d9e1cb78a54ec21c84a89"
     },
     "bluesky": {
       "kind": "github",
       "repository": "bluesky/bluesky",
       "repositoryId": 36754446,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "d960763a10645c5117aacd791424f67d68b5f544",
       "commits": [
@@ -564,13 +565,13 @@
       ],
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "d960763a10645c5117aacd791424f67d68b5f544",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "d960763a10645c5117aacd791424f67d68b5f544"
     },
     "ophyd-async": {
       "kind": "github",
       "repository": "bluesky/ophyd-async",
       "repositoryId": 682088136,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee",
       "commits": [
@@ -589,13 +590,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "e9ddd98799f619c8c5fb0a0cb8a1c4d9aeff7dee"
     },
     "jumperlos": {
       "kind": "github",
       "repository": "Architeuthis-Flux/JumperlOS",
       "repositoryId": 1070919178,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "5374d38da2d31d5a481b8eb81be904c4d8bc8ec7",
       "commits": [
@@ -614,13 +615,13 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-09-25",
-      "lastMeaningfulCommitSha": "a0736901096e0440e7a05cb7ceafc77e49d07b2c",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "a0736901096e0440e7a05cb7ceafc77e49d07b2c"
     },
     "red-pitaya-software": {
       "kind": "github",
       "repository": "RedPitaya/RedPitaya",
       "repositoryId": 17261658,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "0e46d64396a57752bf97315789d6cc6c9fbddad8",
       "commits": [
@@ -639,13 +640,13 @@
       ],
       "lastCommitAt": "2026-07-20",
       "lastMeaningfulCommitAt": "2026-07-03",
-      "lastMeaningfulCommitSha": "0f7954f385e03aeace207d398d7ac63dd3224f79",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "0f7954f385e03aeace207d398d7ac63dd3224f79"
     },
     "litescope": {
       "kind": "github",
       "repository": "enjoy-digital/litescope",
       "repositoryId": 42044258,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "b28dcccea1009fa983684cabd55e61e4082d53a1",
       "commits": [
@@ -664,13 +665,13 @@
       ],
       "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "e2f39268820262dc358af8a135b025b4f908cfab",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "e2f39268820262dc358af8a135b025b4f908cfab"
     },
     "libiio": {
       "kind": "github",
       "repository": "analogdevicesinc/libiio",
       "repositoryId": 16914258,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "081fd1380feb6fbfae106ef189a90a37b3fb3939",
       "commits": [
@@ -689,13 +690,13 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "30d16e7c9549d1181d71e3c91232a8f7c2c629dd",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "30d16e7c9549d1181d71e3c91232a8f7c2c629dd"
     },
     "pymodaq": {
       "kind": "github",
       "repository": "PyMoDAQ/PyMoDAQ",
       "repositoryId": 150546761,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "5.3.x",
       "headSha": "2c95157fb9018c96d28fb1cafe979ede4329ee03",
       "commits": [
@@ -714,13 +715,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "53a9bb574908b9c3e17578ceebce9e1102a53adc",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "53a9bb574908b9c3e17578ceebce9e1102a53adc"
     },
     "qmi": {
       "kind": "github",
       "repository": "QuTech-Delft/QMI",
       "repositoryId": 605613560,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "d3ecd5c01609528fabbc6801996fd1eb562c38ff",
       "commits": [
@@ -739,13 +740,13 @@
       ],
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "14d079df902bc19880e67e006fb5312e89bc10ab",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "14d079df902bc19880e67e006fb5312e89bc10ab"
     },
     "time-card": {
       "kind": "github",
       "repository": "Time-Appliances-Project/Time-Card",
       "repositoryId": 280271608,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "af8becdae503f80ac8f74a5c6f207cf1b894852b",
       "commits": [
@@ -764,13 +765,13 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-05",
-      "lastMeaningfulCommitSha": "fbb5f33be7117613cc4557390c869ad7ec2bd9cc",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "fbb5f33be7117613cc4557390c869ad7ec2bd9cc"
     },
     "oscillatord": {
       "kind": "github",
       "repository": "leoleovich/oscillatord",
       "repositoryId": 1184205953,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "ac5afa15acf34dd120ccbc845db53f9b9b91b265",
       "commits": [
@@ -789,13 +790,13 @@
       ],
       "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "ac5afa15acf34dd120ccbc845db53f9b9b91b265",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "ac5afa15acf34dd120ccbc845db53f9b9b91b265"
     },
     "tm-devices": {
       "kind": "github",
       "repository": "tektronix/tm_devices",
       "repositoryId": 673856097,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "eb4969cd15795999b9184e679b1b65d847ac8e01",
       "commits": [
@@ -814,13 +815,13 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "730214258a49eca4eb213ee70d2b43a19de70aae",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "730214258a49eca4eb213ee70d2b43a19de70aae"
     },
     "tm-data-types": {
       "kind": "github",
       "repository": "tektronix/tm_data_types",
       "repositoryId": 811047155,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "7a0bfc4d4fd23cfff0b70296431f6d2252a3dce1",
       "commits": [
@@ -839,13 +840,13 @@
       ],
       "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "6d135b97d8eb2b1289c4b4fd7b03b2814e16f9e0",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "6d135b97d8eb2b1289c4b4fd7b03b2814e16f9e0"
     },
     "nptdms": {
       "kind": "github",
       "repository": "adamreeve/npTDMS",
       "repositoryId": 3533807,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "939f32a4bb37cc7404eab4255a305ed54ca98f1d",
       "commits": [
@@ -864,13 +865,13 @@
       ],
       "lastCommitAt": "2026-11-07",
       "lastMeaningfulCommitAt": "2026-11-07",
-      "lastMeaningfulCommitSha": "36a3b7f73c49a4c346c084bc257c576cecfffa83",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "36a3b7f73c49a4c346c084bc257c576cecfffa83"
     },
     "rigolwfm": {
       "kind": "github",
       "repository": "scottprahl/RigolWFM",
       "repositoryId": 244228290,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "9e6f993103f773f81df409fc65c2cc359d7bd249",
       "commits": [
@@ -889,13 +890,13 @@
       ],
       "lastCommitAt": "2026-10-12",
       "lastMeaningfulCommitAt": "2026-09-10",
-      "lastMeaningfulCommitSha": "881bc547bb5873543822a11a0d37fabde99b3251",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "881bc547bb5873543822a11a0d37fabde99b3251"
     },
     "pyocd": {
       "kind": "github",
       "repository": "pyocd/pyOCD",
       "repositoryId": 13862423,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "0ce0fbd201010d617d7a4e3582c39b8e8561e33d",
       "commits": [
@@ -914,13 +915,13 @@
       ],
       "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-27",
-      "lastMeaningfulCommitSha": "8d378fa08f384df1c77622479bd3b5cd9855cd0b",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "8d378fa08f384df1c77622479bd3b5cd9855cd0b"
     },
     "probe-rs": {
       "kind": "github",
       "repository": "probe-rs/probe-rs",
       "repositoryId": 170021740,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "569e0d0db7f700f1d70fee31e326dc9ac85d8143",
       "commits": [
@@ -939,13 +940,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "02d10bdec3891bcf0b469286ee706440f0b1ad20",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "02d10bdec3891bcf0b469286ee706440f0b1ad20"
     },
     "labgrid": {
       "kind": "github",
       "repository": "labgrid-project/labgrid",
       "repositoryId": 82293105,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "a556a0d016bd5eb8728e26d8bdb41cf952c151aa",
       "commits": [
@@ -964,13 +965,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "9412cc8ab0a82958815fa312e196f3eead2a2b92",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "9412cc8ab0a82958815fa312e196f3eead2a2b92"
     },
     "adctoolbox": {
       "kind": "github",
       "repository": "Arcadia-1/ADCToolbox",
       "repositoryId": 1044123662,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "b96e033af30a49d87a29e3c8900cd19c61e6a8a3",
       "commits": [
@@ -989,13 +990,13 @@
       ],
       "lastCommitAt": "2026-11-21",
       "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "cb3636cd3b68ba3a6ec321a6b5c71e244d9a85d3",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "cb3636cd3b68ba3a6ec321a6b5c71e244d9a85d3"
     },
     "openfpgaloader": {
       "kind": "github",
       "repository": "trabucayre/openFPGALoader",
       "repositoryId": 211133953,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "3c52ab1487ff759e1a3790346455ec7e92ba8c44",
       "commits": [
@@ -1014,13 +1015,13 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "2aafd90208dc8c3142fb617d2a91522513107c17",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "2aafd90208dc8c3142fb617d2a91522513107c17"
     },
     "pyftdi": {
       "kind": "github",
       "repository": "eblot/pyftdi",
       "repositoryId": 1162758,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "25d77b02960dd42c018ac7c463b6a5500b95b5b6",
       "commits": [
@@ -1039,13 +1040,13 @@
       ],
       "lastCommitAt": "2026-06-02",
       "lastMeaningfulCommitAt": "2026-06-02",
-      "lastMeaningfulCommitSha": "25d77b02960dd42c018ac7c463b6a5500b95b5b6",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "25d77b02960dd42c018ac7c463b6a5500b95b5b6"
     },
     "fixate": {
       "kind": "github",
       "repository": "PyFixate/Fixate",
       "repositoryId": 104846993,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "657713fd5e7b0c416ad8c3293a4e8e1e3114823f",
       "commits": [
@@ -1064,8 +1065,7 @@
       ],
       "lastCommitAt": "2026-07-24",
       "lastMeaningfulCommitAt": "2026-06-24",
-      "lastMeaningfulCommitSha": "3f86e4e64772ae04971283c4979ea84355febd00",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "3f86e4e64772ae04971283c4979ea84355febd00"
     },
     "speckit": {
       "kind": "github",
@@ -1191,6 +1191,156 @@
       "lastCommitAt": "2026-10-22",
       "lastMeaningfulCommitAt": "2026-10-22",
       "lastMeaningfulCommitSha": "2ad6ac4b255fd36dc107e16f74b1f8239e0159be"
+    },
+    "eez-bb3plus": {
+      "kind": "github",
+      "repository": "eez-open/eez-bb3plus",
+      "repositoryId": 1055001245,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "main",
+      "headSha": "71a8d8af1d02bbbcf05235a1235fb1a7dc486990",
+      "commits": [
+        9,
+        4,
+        3,
+        1,
+        7,
+        2,
+        0,
+        10,
+        4,
+        25,
+        34,
+        29
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "c22ade78ec94c66ec70ac64466ba0cb55f1ceb80"
+    },
+    "labscript": {
+      "kind": "github",
+      "repository": "labscript-suite/labscript",
+      "repositoryId": 253142452,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "master",
+      "headSha": "607cfaecd58869b876d19cf30c52566a4f490cc6",
+      "commits": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "607cfaecd58869b876d19cf30c52566a4f490cc6"
+    },
+    "librecal": {
+      "kind": "github",
+      "repository": "jankae/LibreCAL",
+      "repositoryId": 528409618,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "main",
+      "headSha": "5ff26b504aeb43de66641013e3f3642fbd9f86b7",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "lastCommitAt": "2026-10-04",
+      "lastMeaningfulCommitAt": "2026-10-04",
+      "lastMeaningfulCommitSha": "5ff26b504aeb43de66641013e3f3642fbd9f86b7"
+    },
+    "nidaqmx-python": {
+      "kind": "github",
+      "repository": "ni/nidaqmx-python",
+      "repositoryId": 82310639,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "master",
+      "headSha": "ca7ff414aeb98eda788f2bae2b53fdda816cd82a",
+      "commits": [
+        14,
+        8,
+        7,
+        9,
+        14,
+        7,
+        9,
+        8,
+        15,
+        12,
+        8,
+        12
+      ],
+      "lastCommitAt": "2026-11-16",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "77a0ed807ecec28a7d224428b0650154765f249a"
+    },
+    "opendaq": {
+      "kind": "github",
+      "repository": "openDAQ/openDAQ",
+      "repositoryId": 705721336,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "main",
+      "headSha": "1fa4ad074e21a6532893d4c843139c74c01e2916",
+      "commits": [
+        18,
+        17,
+        28,
+        31,
+        35,
+        3,
+        3,
+        11,
+        15,
+        34,
+        27,
+        22
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "1e78a058d84823a8b363b3f5fafc0a6528ecc345"
+    },
+    "phase-noise-data-processor-lib": {
+      "kind": "github",
+      "repository": "lrd512/phase-noise-data-processor-lib",
+      "repositoryId": 926683271,
+      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "defaultBranch": "main",
+      "headSha": "ab9ef4b81fcb92e121478978da1657b4e718b66b",
+      "commits": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-02-16",
+      "lastMeaningfulCommitAt": "2026-02-16",
+      "lastMeaningfulCommitSha": "ab9ef4b81fcb92e121478978da1657b4e718b66b"
     }
   }
 }

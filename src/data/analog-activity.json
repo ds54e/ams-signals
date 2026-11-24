@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T08:04:02.984Z",
+  "capturedAt": "2026-11-24T10:05:01.543Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -627,6 +627,7 @@
       "kind": "github",
       "repository": "scikit-rf/scikit-rf",
       "repositoryId": 3218028,
+      "capturedAt": "2026-11-24T05:48:48.833Z",
       "defaultBranch": "master",
       "headSha": "df7a414090da14bca7fbf99fc0a5398f9bf9ea69",
       "commits": [
@@ -645,8 +646,7 @@
       ],
       "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "df7a414090da14bca7fbf99fc0a5398f9bf9ea69",
-      "capturedAt": "2026-11-24T05:48:48.833Z"
+      "lastMeaningfulCommitSha": "df7a414090da14bca7fbf99fc0a5398f9bf9ea69"
     },
     "qucs-s": {
       "kind": "github",
@@ -2420,6 +2420,7 @@
       "kind": "github",
       "repository": "rmanohar/actsim",
       "repositoryId": 282709160,
+      "capturedAt": "2026-11-23T04:32:05.131Z",
       "defaultBranch": "master",
       "headSha": "0eb0dcb0c22d997766c5f49cd4f34226876f3a44",
       "commits": [
@@ -2437,7 +2438,6 @@
         3
       ],
       "lastCommitAt": "2026-11-05",
-      "capturedAt": "2026-11-23T04:32:05.131Z",
       "lastMeaningfulCommitAt": "2026-11-05",
       "lastMeaningfulCommitSha": "0eb0dcb0c22d997766c5f49cd4f34226876f3a44"
     },
@@ -2445,6 +2445,7 @@
       "kind": "github",
       "repository": "VolkerMuehlhaus/gds2palace_ihp_sg13g2",
       "repositoryId": 1073603194,
+      "capturedAt": "2026-11-23T04:32:05.131Z",
       "defaultBranch": "main",
       "headSha": "e841e0b2caadb6cd6e7034f4cc3ee235437e3070",
       "commits": [
@@ -2462,7 +2463,6 @@
         26
       ],
       "lastCommitAt": "2026-11-22",
-      "capturedAt": "2026-11-23T04:32:05.131Z",
       "lastMeaningfulCommitAt": "2026-11-22",
       "lastMeaningfulCommitSha": "2e26c45d928d506667393ae6b84faa53fff63891"
     },
@@ -2470,6 +2470,7 @@
       "kind": "github",
       "repository": "gvcallen/paramrf",
       "repositoryId": 992436422,
+      "capturedAt": "2026-11-23T04:32:05.131Z",
       "defaultBranch": "main",
       "headSha": "bce28fa07350c0e82915a936b8a49947b853e1ef",
       "commits": [
@@ -2487,7 +2488,6 @@
         30
       ],
       "lastCommitAt": "2026-11-13",
-      "capturedAt": "2026-11-23T04:32:05.131Z",
       "lastMeaningfulCommitAt": "2026-11-13",
       "lastMeaningfulCommitSha": "bce28fa07350c0e82915a936b8a49947b853e1ef"
     },
@@ -2495,6 +2495,7 @@
       "kind": "github",
       "repository": "Nubis-Communications/SignalIntegrity",
       "repositoryId": 49224614,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "a0cfb37ebf318cab38a9738db6c0dca710fbd16d",
       "commits": [
@@ -2513,13 +2514,13 @@
       ],
       "lastCommitAt": "2026-11-15",
       "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "4d0d961360d957acbfe8bc1fd075ef2105d63d6e",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "4d0d961360d957acbfe8bc1fd075ef2105d63d6e"
     },
     "pyibis-ami": {
       "kind": "github",
       "repository": "capn-freako/PyAMI",
       "repositoryId": 4931653,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "34cd1603132407d310f05c4e082e1fce5dae78d9",
       "commits": [
@@ -2538,13 +2539,13 @@
       ],
       "lastCommitAt": "2026-11-14",
       "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "7b53d39ab1266e6096eb663d19c30d32d641a802",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "7b53d39ab1266e6096eb663d19c30d32d641a802"
     },
     "fastercap": {
       "kind": "github",
       "repository": "iic-jku/FasterCap",
       "repositoryId": 841609533,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "171f2462fc33b1e67e8d02227c7d141fe95ee3ee",
       "commits": [
@@ -2563,8 +2564,7 @@
       ],
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "4d5d52a2d93433d84770ad84f0a7890e86872ac8",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "4d5d52a2d93433d84770ad84f0a7890e86872ac8"
     },
     "lctime": {
       "kind": "repository",
@@ -2817,6 +2817,56 @@
       "lastCommitAt": "2026-08-12",
       "lastMeaningfulCommitAt": "2026-08-12",
       "lastMeaningfulCommitSha": "3bd838c0f1db15e6d38c26d43ece68402e841005"
+    },
+    "devsim": {
+      "kind": "github",
+      "repository": "devsim/devsim",
+      "repositoryId": 8838727,
+      "capturedAt": "2026-11-24T10:05:01.543Z",
+      "defaultBranch": "main",
+      "headSha": "438ccb280aec7308522cc0e4b01de3c3033bd78b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        12,
+        0,
+        24,
+        4
+      ],
+      "lastCommitAt": "2026-11-17",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "3ea0d5a483f0f1d9381c08ef19a24b581cf43fa2"
+    },
+    "spicefault": {
+      "kind": "github",
+      "repository": "telmomm/spicefault",
+      "repositoryId": 1402807236,
+      "capturedAt": "2026-11-24T10:05:01.543Z",
+      "defaultBranch": "main",
+      "headSha": "36814e09fc651dc786c2765ec396c3d49972a372",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        89,
+        6
+      ],
+      "lastCommitAt": "2026-11-02",
+      "lastMeaningfulCommitAt": "2026-11-02",
+      "lastMeaningfulCommitSha": "4b84c6c9da35192f28929c1b333b5e8e6135bcdc"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T08:04:05.146Z",
+  "capturedAt": "2026-11-24T10:04:13.333Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2741,6 +2741,7 @@
       "kind": "github",
       "repository": "krcb197/PeakRDL-python",
       "repositoryId": 382653901,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "main",
       "headSha": "dfa195780f365fb08bd0dce523bfc33a17713b34",
       "commits": [
@@ -2759,13 +2760,13 @@
       ],
       "lastCommitAt": "2026-10-26",
       "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "dfa195780f365fb08bd0dce523bfc33a17713b34",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "dfa195780f365fb08bd0dce523bfc33a17713b34"
     },
     "renode": {
       "kind": "github",
       "repository": "renode/renode",
       "repositoryId": 95903234,
+      "capturedAt": "2026-11-24T05:48:48.931Z",
       "defaultBranch": "master",
       "headSha": "b3664392f23a4e4531f0d7bc808a2686d2834fc8",
       "commits": [
@@ -2784,8 +2785,7 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "30c54ee00d13d1263d167a3bf6fda8602292b3d5",
-      "capturedAt": "2026-11-24T05:48:48.931Z"
+      "lastMeaningfulCommitSha": "30c54ee00d13d1263d167a3bf6fda8602292b3d5"
     },
     "wavetools": {
       "kind": "github",
@@ -2886,6 +2886,56 @@
       "lastCommitAt": "2026-08-24",
       "lastMeaningfulCommitAt": "2026-08-24",
       "lastMeaningfulCommitSha": "264319c17f0869e4d0efb15ad0e6d74e3bef453c"
+    },
+    "cocotbext-i2c": {
+      "kind": "github",
+      "repository": "alexforencich/cocotbext-i2c",
+      "repositoryId": 325913285,
+      "capturedAt": "2026-11-24T10:04:13.333Z",
+      "defaultBranch": "master",
+      "headSha": "a1a4d5da1cffe7b317a0ca2f3aff15e72df35bea",
+      "commits": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-24",
+      "lastMeaningfulCommitAt": "2026-08-24",
+      "lastMeaningfulCommitSha": "a1a4d5da1cffe7b317a0ca2f3aff15e72df35bea"
+    },
+    "svgap": {
+      "kind": "github",
+      "repository": "shsridhar-beep/svgap",
+      "repositoryId": 1287806129,
+      "capturedAt": "2026-11-24T10:04:13.333Z",
+      "defaultBranch": "main",
+      "headSha": "856c5832b2b5f2dfbeac58a6e4961ecc0550e4df",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        66,
+        28,
+        9,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-28",
+      "lastMeaningfulCommitAt": "2026-09-28",
+      "lastMeaningfulCommitSha": "856c5832b2b5f2dfbeac58a6e4961ecc0550e4df"
     }
   }
 }

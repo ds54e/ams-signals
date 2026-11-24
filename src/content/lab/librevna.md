@@ -1,6 +1,6 @@
 ---
 name: "LibreVNA"
-aliases: ["VNA vector network analyzer LibreCAL"]
+aliases: ["VNA vector network analyzer"]
 description: "Open vector network analyzer project with instrument hardware, firmware and desktop software. It acquires and calibrates S-parameter sweeps for network and fixture measurements and supports remote control for repeatable measurement setups; compound devices lack phase information for transmission between separate units."
 scope:
   control: { ai: false }
@@ -42,7 +42,7 @@ sources:
 
 ## Scope and limits
 
-Calibration and fixture reference planes matter. S-parameter measurements are not measurements of phase noise or jitter. [LibreCAL](#source-librecal) is a companion, not a second analyzer.
+Calibration and fixture reference planes matter. S-parameter measurements are not measurements of phase noise or jitter. [LibreCAL](#source-librecal) has its own catalog entry for calibration hardware, firmware and coefficient-characterization scripts; its capabilities are evaluated independently of this analyzer.
 
 The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
 
