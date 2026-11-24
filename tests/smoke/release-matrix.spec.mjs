@@ -123,24 +123,37 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       await expectMatrixRowWindow(page, label === 'mobile' ? 10 : 25);
       const scroller = page.locator('.activity-matrix-scroll');
       const shell = page.locator('.activity-matrix-shell');
-      // Native keyboard/wheel/touch scrolling can still be animating when a
-      // nonzero scrollTop first appears. Finish that input before sending the next.
-      const nativeScroll = async (input) => {
-        await scroller.evaluate((node) => {
-          node.testScrollEnded = new Promise((resolve) => {
-            node.addEventListener('scrollend', () => resolve(), { once: true });
-          });
-        });
+      // A scrollend event is not guaranteed for a clamped or interrupted native
+      // scroll. Require the real input to reach its expected position and settle
+      // before issuing the next input; do not wait on an unbounded event promise.
+      const scrollPosition = () => scroller.evaluate((node) => ({
+        top: node.scrollTop,
+        remaining: node.scrollHeight - node.clientHeight - node.scrollTop,
+      }));
+      const nativeScroll = async (input, reached) => {
+        const before = await scrollPosition();
         await input();
-        await scroller.evaluate((node) => node.testScrollEnded);
+        let last = before;
+        let stableSince = performance.now();
+        await expect.poll(async () => {
+          const current = await scrollPosition();
+          if (current.top !== last.top || current.remaining !== last.remaining) {
+            last = current;
+            stableSince = performance.now();
+          }
+          return reached(current, before) && performance.now() - stableSince >= 150;
+        }, {
+          message: 'native input reaches the expected scroll position and settles',
+          intervals: [50],
+        }).toBe(true);
       };
       await captureSmokeEvidence(page, testInfo, `timeline-${label}-top.png`, {
         fullPage: true, attachment: `timeline-${label}-top`,
       });
       await scroller.focus();
-      await nativeScroll(() => scroller.press('PageDown'));
+      await nativeScroll(() => scroller.press('PageDown'), (current, before) => current.top > before.top);
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
-      await nativeScroll(() => scroller.press('Home'));
+      await nativeScroll(() => scroller.press('Home'), ({ top }) => top === 0);
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBe(0);
 
       // Keep the frame top in view so actual wheel/touch input lands on the region.
@@ -155,7 +168,7 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       const x = bounds.x + bounds.width / 2;
       const y = Math.min(bounds.y + 180, viewport.height - 30);
       await page.mouse.move(x, y);
-      await nativeScroll(() => page.mouse.wheel(0, 150));
+      await nativeScroll(() => page.mouse.wheel(0, 150), (current, before) => current.top > before.top);
       await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
       await expect(shell).toHaveAttribute('data-more-rows', '');
       expect((await page.locator('.activity-matrix-axis-viewport').boundingBox()).y).toBe(heading.y);
@@ -169,13 +182,13 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
             await touch.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x, y: y - step * 20, id: 1 }] });
           }
           await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-        });
+        }, (current, start) => current.top > start.top);
         await expect.poll(() => scroller.evaluate((node) => node.scrollTop)).toBeGreaterThan(before);
         await touch.detach();
       }
 
       await scroller.focus();
-      await nativeScroll(() => scroller.press('End'));
+      await nativeScroll(() => scroller.press('End'), ({ remaining }) => remaining <= 1);
       await expect.poll(() => scroller.evaluate((node) => node.scrollHeight - node.clientHeight - node.scrollTop)).toBeLessThanOrEqual(1);
       await expect(shell).not.toHaveAttribute('data-more-rows');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').opacity)).toBe('0');
@@ -183,7 +196,7 @@ for (const [label, viewport] of [['PC', { width: 1440, height: 900 }], ['mobile'
       await captureSmokeEvidence(page, testInfo, `timeline-${label}-bottom.png`, {
         fullPage: true, attachment: `timeline-${label}-bottom`,
       });
-      await nativeScroll(() => scroller.press('Home'));
+      await nativeScroll(() => scroller.press('Home'), ({ top }) => top === 0);
       await expect(shell).toHaveAttribute('data-more-rows', '');
       expect(await shell.evaluate((node) => getComputedStyle(node, '::after').pointerEvents)).toBe('none');
     });
