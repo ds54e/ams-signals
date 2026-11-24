@@ -14,28 +14,12 @@ const records = async (collection) => {
 };
 const [events, companies, people] = await Promise.all(['events', 'companies', 'people'].map(records));
 
-test('robots.txt permits crawling and advertises the sitemap', { tag: '@core' }, async ({ request }) => {
-  const response = await request.get('./robots.txt');
-  expect(response.status()).toBe(200);
-
-  const robots = await response.text();
-  expect(robots).toContain('User-agent: *');
-  expect(robots).toContain('Allow: /');
-  expect(robots).toContain(`Sitemap: ${publicOrigin}${basePath}sitemap.xml`);
-  expect(robots).not.toMatch(/^Disallow:\s*\S/m);
-});
-
-test('sitemap.xml advertises public HTML routes and excludes retired routes', { tag: '@core' }, async ({ request }) => {
-  const response = await request.get('./sitemap.xml');
-  expect(response.status()).toBe(200);
-
-  const sitemap = await response.text();
-  expect(sitemap).toContain('<urlset');
-  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) {
-    expect(sitemap).toContain(`<loc>${publicOrigin}${basePath}${route}</loc>`);
-  }
-  expect(sitemap).not.toContain('/articles/');
-  expect(sitemap).not.toContain('export.json');
+test('indexing endpoints are served from the configured base', { tag: '@core' }, async ({ request }) => {
+  const [robots, sitemap] = await Promise.all([request.get('./robots.txt'), request.get('./sitemap.xml')]);
+  expect(robots.status()).toBe(200);
+  expect(await robots.text()).toContain(`Sitemap: ${publicOrigin}${basePath}sitemap.xml`);
+  expect(sitemap.status()).toBe(200);
+  expect(await sitemap.text()).toContain('<urlset');
 });
 
 test('unsupported and retired routes return 404', { tag: '@core' }, async ({ request }) => {
@@ -49,10 +33,10 @@ test('unsupported and retired routes return 404', { tag: '@core' }, async ({ req
     ].map((slug) => `articles/${slug}/`),
     'analysis/', 'analysis/from-behavioral-models-to-managed-verification-assets/',
   ];
-  for (const route of routes) {
+  await Promise.all(routes.map(async (route) => {
     const response = await request.get(`./${route}`, { maxRedirects: 0 });
     expect(response.status(), route).toBe(404);
-  }
+  }));
 });
 
 test('retired empty Company routes stay absent unless factual Events restore the group', async ({ request }) => {
@@ -68,38 +52,25 @@ test('retired empty Company routes stay absent unless factual Events restore the
   }
 });
 
-test('entity indexing follows actual evidence while empty views remain available', async ({ request }) => {
-  test.setTimeout(120_000);
-  const sitemap = await (await request.get('./sitemap.xml')).text();
+test('active and empty entity pages are served without redirecting', async ({ request }) => {
+  // The static audit checks every expected route and all metadata. This checks
+  // the preview boundary for one active and one empty page of each entity type
+  // when present. The independent live suite owns production HTTP verification.
   for (const [collection, entities] of [['companies', companies], ['people', people]]) {
-    for (const entity of entities) {
-      const route = `${collection}/${entity.id}/`;
-      const hasEvents = events.some((event) => event[collection].includes(entity.id));
-      const response = await request.get(`./${route}`);
+    const active = new Set(events.flatMap((event) => event[collection]));
+    for (const id of [entities.find((entity) => active.has(entity.id))?.id,
+      entities.find((entity) => !active.has(entity.id))?.id].filter(Boolean)) {
+      const route = `${collection}/${id}/`;
+      const response = await request.get(`./${route}`, { maxRedirects: 0 });
       expect(response.status(), route).toBe(200);
-      const html = await response.text();
-      expect(html, route).toContain(`<meta name="robots" content="${hasEvents ? 'index' : 'noindex'}, follow">`);
-      expect(html, route).toContain(`<link rel="canonical" href="${publicOrigin}${basePath}${route}">`);
-      expect(sitemap.includes(`<loc>${publicOrigin}${basePath}${route}</loc>`), route).toBe(hasEvents);
-      if (!hasEvents) expect(html, route).toContain('No events are currently indexed');
+      expect(response.headers(), route).not.toHaveProperty('location');
+      if (!active.has(id)) expect(await response.text(), route).toContain('No events are currently indexed');
     }
   }
 });
 
 test.describe('browser indexing', () => {
   installBrowserErrorGuards(test);
-
-  test('indexable surfaces self-canonicalize at the configured origin', async ({ page }) => {
-    for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) {
-      const response = await page.goto(`./${route}`);
-      expect(response?.status(), `HTTP status for ${route}`).toBe(200);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
-      await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
-      await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
-      await expect(page.locator('link[rel="canonical"]'))
-        .toHaveAttribute('href', `${publicOrigin}${basePath}${route}`);
-    }
-  });
 
   test('factual Event text, evidence and navigation are readable without JavaScript', async ({ browser, baseURL }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, baseURL });

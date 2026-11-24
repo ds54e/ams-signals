@@ -583,9 +583,116 @@ async function expectedHomeActivity(page, events, analog, digital, lab) {
     analog: active(analog, key), digital: active(digital, key), lab: active(lab, key) }));
 }
 
+async function expectHomeData(page) {
+  const [{ events }, analog, digital, lab] = await Promise.all([
+    loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital'), catalogFixture('lab'),
+  ]);
+  const expected = await expectedHomeActivity(page, events, analog, digital, lab);
+  const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
+    events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital), lab: Number(el.dataset.lab) })));
+  expect(actual).toEqual(expected);
+  const series = ['events', 'analog', 'digital', 'lab'];
+  const maxima = series.map((key) => Math.max(...expected.map((m) => m[key])));
+  await expect(page.getByRole('heading', { name: 'Activity Trend', exact: true })).toBeVisible();
+  const chart = page.locator('.activity-chart');
+  await expect(chart).toHaveAccessibleName('Monthly Events, active Analog projects and active Digital projects and active Lab projects');
+  await expect(chart).toHaveAttribute('aria-describedby', 'chart-description');
+  const chartLines = await chart.locator('[data-activity-series]').evaluateAll((nodes) => nodes.map((el) => ({
+    series: el.dataset.activitySeries, path: el.getAttribute('d'), stroke: getComputedStyle(el).stroke,
+    strokeWidth: getComputedStyle(el).strokeWidth, fill: getComputedStyle(el).fill,
+    pointerEvents: getComputedStyle(el).pointerEvents, animation: getComputedStyle(el).animationName,
+    transition: getComputedStyle(el).transitionDuration,
+  })));
+  expect(chartLines.map((line) => line.series)).toEqual(series);
+  expect(chartLines.map((line) => line.stroke)).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)', 'rgb(128, 86, 179)']);
+  for (const [j, key] of series.entries()) {
+    const line = chartLines[j];
+    // Exactly one real point per month, connected only by straight segments.
+    expect(line.path.match(/[A-Za-z]/g)).toEqual(['M', ...Array(11).fill('L')]);
+    const points = line.path.split(' ').map((point) => point.slice(1).split(',').map(Number));
+    expect(points).toHaveLength(12);
+    const percentages = expected.map((month) => maxima[j] === 0 ? 0 : month[key] / maxima[j] * 100);
+    for (const [i, [x, y]] of points.entries()) {
+      expect(x).toBeCloseTo(50 + i * 44, 5);
+      expect(y).toBeCloseTo(242 - percentages[i] / 100 * 218, 5);
+      expect(y).toBeGreaterThanOrEqual(24);
+      expect(y).toBeLessThanOrEqual(242);
+    }
+    expect(Math.min(...points.map((point) => point[1])), `${key} peak`).toBe(maxima[j] === 0 ? 242 : 24);
+    expect(line.strokeWidth).toBe('2.5px');
+    expect(line.fill).toBe('none');
+    expect(line.pointerEvents).toBe('none');
+    expect(line.animation).toBe('none');
+    expect(line.transition).toBe('0s');
+    const area = chart.locator(`[data-activity-area="${key}"]`);
+    await expect(area).toHaveAttribute('d', `${line.path} L534,242 L50,242 Z`);
+    await expect(area).toHaveAttribute('fill', `url(#activity-${key}-area)`);
+    const gradient = chart.locator(`#activity-${key}-area`);
+    await expect(gradient).toHaveAttribute('gradientUnits', 'userSpaceOnUse');
+    await expect(gradient).toHaveAttribute('y1', '24');
+    await expect(gradient).toHaveAttribute('y2', '242');
+    expect(await gradient.locator('stop').evaluateAll((nodes) => nodes.map((el) => ({
+      offset: el.getAttribute('offset'), opacity: el.getAttribute('stop-opacity'), color: getComputedStyle(el).stopColor,
+    })))).toEqual([
+      { offset: '0', opacity: '0.13', color: line.stroke },
+      { offset: '1', opacity: '0', color: line.stroke },
+    ]);
+  }
+  await expect(chart.locator('.chart-percent')).toHaveText(['0%', '25%', '50%', '75%', '100%']);
+  expect(await chart.locator('.chart-percent').evaluateAll((nodes) => nodes.map((el) => Number(el.getAttribute('y')))))
+    .toEqual([242, 187.5, 133, 78.5, 24]);
+  await expect(page.locator('[data-dashboard-month] > text')).toHaveText(expected.map((m) =>
+    new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })));
+  await expect(chart.locator('text')).toHaveCount(17);
+  await expect(page.locator('.chart-card title, .chart-card [title], .chart-card [role="tooltip"]')).toHaveCount(0);
+  await expect(chart.locator('rect, circle, marker, animate, animateTransform, set, a, [tabindex], [onclick], [onmouseover], [onmousemove]')).toHaveCount(0);
+  await expect(page.locator('.chart-partial, .chart-card > p:not(.visually-hidden)')).toHaveCount(0);
+  await expect(page.locator('#chart-description')).toContainText('Current month is partial.');
+  await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%');
+  await expect(page.locator('#chart-description')).toContainText('not count comparisons between series');
+  expect(await page.locator('#chart-description').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
+  const monthNames = expected.map((m) => new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }));
+  expect(await page.locator('.activity-counts tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim()))))
+    .toEqual(expected.map((m, i) => [monthNames[i], ...series.map((key) => String(m[key]))]));
+  await expect(page.locator('.recent-signals li')).toHaveCount(4);
+  expect(await page.locator('[data-recent-event]').evaluateAll((nodes) => nodes.map((el) => el.dataset.recentEvent)))
+    .toEqual(sortEventsNewestFirst(events).slice(0, 4).map((entry) => entry.id));
+  for (const entry of sortEventsNewestFirst(events).slice(0, 4)) {
+    const row = page.locator(`[data-recent-event="${entry.id}"]`);
+    await expect(row.locator('.signal-title')).toHaveText(entry.data.headline);
+    await expect(row.locator('a')).toHaveAttribute('href', `${basePath}events/${entry.id}/`);
+    await expect(row.locator('.signal-meta')).toContainText(entry.data.kind === 'technical' ? 'Technical' : 'Organizational');
+    const icon = row.locator(`.signal-symbol.${entry.data.kind} svg`);
+    await expect(icon).toHaveAttribute('aria-hidden', 'true');
+    await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'signal-icon-buildings');
+    await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
+    expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, strokeWidth: s.strokeWidth, fill: s.fill }; }))
+      .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', strokeWidth: '1.6px', fill: 'none' });
+    await expect(icon.locator('rect, circle')).toHaveCount(0);
+    await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 4);
+    await expect(icon.locator('path').first()).toHaveAttribute('d', entry.data.kind === 'technical'
+      ? 'M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2'
+      : 'M5 20V7a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v13');
+    await expect(icon.locator('path').last()).toHaveAttribute('d', entry.data.kind === 'technical' ? 'M7 16h10' : 'M3 20h19');
+    if (entry.data.kind === 'organizational') {
+      await expect(icon.locator('path').nth(1)).toHaveAttribute('d', 'M14 10h4a2 2 0 0 1 2 2v8');
+      await expect(icon.locator('path').nth(2)).toHaveAttribute('d', 'M10 20v-3');
+    }
+  }
+  for (const fixture of [analog, digital, lab]) {
+    const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
+    expect(await list.locator('li').evaluateAll((nodes) => nodes.map((el) => el.dataset.updatedProject)))
+      .toEqual(fixture.ordered.slice(0, 3).map((project) => project.id));
+    for (const project of fixture.ordered.slice(0, 3)) {
+      const row = list.locator(`[data-updated-project="${project.id}"]`);
+      await expect(row.locator('p')).toHaveText(project.description);
+      await expect(row.locator('a')).toHaveAttribute('href', `${basePath}${fixture.domain}/#${project.id}--name`);
+    }
+  }
+}
+
 for (const width of [1440, 900, 390]) {
-  test(`Home renders source-derived activity, four recent Events and complete project updates at ${width}px`, { tag: width !== 900 ? '@core' : [] }, async ({ page }) => {
-    const [{ events }, analog, digital, lab] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital'), catalogFixture('lab')]);
+  test(`Home data and layout at ${width}px`, { tag: width !== 900 ? '@core' : [] }, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('./');
     await expect(page).toHaveTitle('AMS Signals');
@@ -593,110 +700,14 @@ for (const width of [1440, 900, 390]) {
     await expect(page.locator('[data-event-explorer-root]')).toHaveCount(0);
     expect(await page.locator('.activity-counts').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-    const expected = await expectedHomeActivity(page, events, analog, digital, lab);
-    const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
-      events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital), lab: Number(el.dataset.lab) })));
-    expect(actual).toEqual(expected);
-    const series = ['events', 'analog', 'digital', 'lab'];
-    const maxima = series.map((key) => Math.max(...expected.map((m) => m[key])));
-    await expect(page.getByRole('heading', { name: 'Activity Trend', exact: true })).toBeVisible();
-    const chart = page.locator('.activity-chart');
-    await expect(chart).toHaveAccessibleName('Monthly Events, active Analog projects and active Digital projects and active Lab projects');
-    await expect(chart).toHaveAttribute('aria-describedby', 'chart-description');
-    const chartLines = await chart.locator('[data-activity-series]').evaluateAll((nodes) => nodes.map((el) => ({
-      series: el.dataset.activitySeries, path: el.getAttribute('d'), stroke: getComputedStyle(el).stroke,
-      strokeWidth: getComputedStyle(el).strokeWidth, fill: getComputedStyle(el).fill,
-      pointerEvents: getComputedStyle(el).pointerEvents, animation: getComputedStyle(el).animationName,
-      transition: getComputedStyle(el).transitionDuration,
-    })));
-    expect(chartLines.map((line) => line.series)).toEqual(series);
-    expect(chartLines.map((line) => line.stroke)).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)', 'rgb(128, 86, 179)']);
-    for (const [j, key] of series.entries()) {
-      const line = chartLines[j];
-      // Exactly one real point per month, connected only by straight segments.
-      expect(line.path.match(/[A-Za-z]/g)).toEqual(['M', ...Array(11).fill('L')]);
-      const points = line.path.split(' ').map((point) => point.slice(1).split(',').map(Number));
-      expect(points).toHaveLength(12);
-      const percentages = expected.map((month) => maxima[j] === 0 ? 0 : month[key] / maxima[j] * 100);
-      for (const [i, [x, y]] of points.entries()) {
-        expect(x).toBeCloseTo(50 + i * 44, 5);
-        expect(y).toBeCloseTo(242 - percentages[i] / 100 * 218, 5);
-        expect(y).toBeGreaterThanOrEqual(24);
-        expect(y).toBeLessThanOrEqual(242);
-      }
-      expect(Math.min(...points.map((point) => point[1])), `${key} peak`).toBe(maxima[j] === 0 ? 242 : 24);
-      expect(line.strokeWidth).toBe('2.5px');
-      expect(line.fill).toBe('none');
-      expect(line.pointerEvents).toBe('none');
-      expect(line.animation).toBe('none');
-      expect(line.transition).toBe('0s');
-      const area = chart.locator(`[data-activity-area="${key}"]`);
-      await expect(area).toHaveAttribute('d', `${line.path} L534,242 L50,242 Z`);
-      await expect(area).toHaveAttribute('fill', `url(#activity-${key}-area)`);
-      const gradient = chart.locator(`#activity-${key}-area`);
-      await expect(gradient).toHaveAttribute('gradientUnits', 'userSpaceOnUse');
-      await expect(gradient).toHaveAttribute('y1', '24');
-      await expect(gradient).toHaveAttribute('y2', '242');
-      expect(await gradient.locator('stop').evaluateAll((nodes) => nodes.map((el) => ({
-        offset: el.getAttribute('offset'), opacity: el.getAttribute('stop-opacity'), color: getComputedStyle(el).stopColor,
-      })))).toEqual([
-        { offset: '0', opacity: '0.13', color: line.stroke },
-        { offset: '1', opacity: '0', color: line.stroke },
-      ]);
-    }
-    await expect(chart.locator('.chart-percent')).toHaveText(['0%', '25%', '50%', '75%', '100%']);
-    expect(await chart.locator('.chart-percent').evaluateAll((nodes) => nodes.map((el) => Number(el.getAttribute('y')))))
-      .toEqual([242, 187.5, 133, 78.5, 24]);
-    await expect(page.locator('[data-dashboard-month] > text')).toHaveText(expected.map((m) =>
-      new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })));
-    await expect(chart.locator('text')).toHaveCount(17);
-    await expect(page.locator('.chart-card title, .chart-card [title], .chart-card [role="tooltip"]')).toHaveCount(0);
-    await expect(chart.locator('rect, circle, marker, animate, animateTransform, set, a, [tabindex], [onclick], [onmouseover], [onmousemove]')).toHaveCount(0);
-    await expect(page.locator('.chart-partial, .chart-card > p:not(.visually-hidden)')).toHaveCount(0);
-    await expect(page.locator('#chart-description')).toContainText('Current month is partial.');
-    await expect(page.locator('#chart-description')).toContainText('Each series is scaled to its own largest monthly count in these twelve months, which is 100%; an all-zero series stays at 0%');
-    await expect(page.locator('#chart-description')).toContainText('not count comparisons between series');
-    expect(await page.locator('#chart-description').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
-    const monthNames = expected.map((m) => new Date(`${m.month}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }));
-    expect(await page.locator('.activity-counts tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim()))))
-      .toEqual(expected.map((m, i) => [monthNames[i], ...series.map((key) => String(m[key]))]));
-    await expect(page.locator('.recent-signals li')).toHaveCount(4);
-    expect(await page.locator('[data-recent-event]').evaluateAll((nodes) => nodes.map((el) => el.dataset.recentEvent)))
-      .toEqual(sortEventsNewestFirst(events).slice(0, 4).map((entry) => entry.id));
-    for (const entry of sortEventsNewestFirst(events).slice(0, 4)) {
-      const row = page.locator(`[data-recent-event="${entry.id}"]`);
-      await expect(row.locator('.signal-title')).toHaveText(entry.data.headline);
-      await expect(row.locator('a')).toHaveAttribute('href', `${basePath}events/${entry.id}/`);
-      await expect(row.locator('.signal-meta')).toContainText(entry.data.kind === 'technical' ? 'Technical' : 'Organizational');
-      const icon = row.locator(`.signal-symbol.${entry.data.kind} svg`);
-      await expect(icon).toHaveAttribute('aria-hidden', 'true');
-      await expect(icon).toHaveClass(entry.data.kind === 'technical' ? 'lucide lucide-flask-conical' : 'signal-icon-buildings');
-      await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
-      expect(await icon.evaluate((el) => { const s = getComputedStyle(el); return { width: s.width, height: s.height, stroke: s.stroke, strokeWidth: s.strokeWidth, fill: s.fill }; }))
-        .toEqual({ width: '20px', height: '20px', stroke: entry.data.kind === 'technical' ? 'rgb(60, 101, 164)' : 'rgb(136, 100, 84)', strokeWidth: '1.6px', fill: 'none' });
-      await expect(icon.locator('rect, circle')).toHaveCount(0);
-      await expect(icon.locator('path')).toHaveCount(entry.data.kind === 'technical' ? 3 : 4);
-      await expect(icon.locator('path').first()).toHaveAttribute('d', entry.data.kind === 'technical'
-        ? 'M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2'
-        : 'M5 20V7a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v13');
-      await expect(icon.locator('path').last()).toHaveAttribute('d', entry.data.kind === 'technical' ? 'M7 16h10' : 'M3 20h19');
-      if (entry.data.kind === 'organizational') {
-        await expect(icon.locator('path').nth(1)).toHaveAttribute('d', 'M14 10h4a2 2 0 0 1 2 2v8');
-        await expect(icon.locator('path').nth(2)).toHaveAttribute('d', 'M10 20v-3');
-      }
-    }
-    for (const fixture of [analog, digital, lab]) {
-      const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
-      expect(await list.locator('li').evaluateAll((nodes) => nodes.map((el) => el.dataset.updatedProject)))
-        .toEqual(fixture.ordered.slice(0, 3).map((project) => project.id));
-      for (const project of fixture.ordered.slice(0, 3)) {
-        const row = list.locator(`[data-updated-project="${project.id}"]`);
-        await expect(row.locator('p')).toHaveText(project.description);
-        await expect(row.locator('a')).toHaveAttribute('href', `${basePath}${fixture.domain}/#${project.id}--name`);
-        const style = await row.locator('p').evaluate((el) => ({ clamp: getComputedStyle(el).webkitLineClamp, overflow: getComputedStyle(el).overflow }));
-        expect(style).toEqual({ clamp: 'none', overflow: 'visible' });
-      }
-    }
+    // Data and SVG attributes do not depend on the viewport. Check the full
+    // corpus wiring once; keep responsive rendering and scroll tests below.
+    if (width === 1440) await expectHomeData(page);
+    const descriptions = await page.locator('[data-updated-project] p').evaluateAll((nodes) => nodes.map((el) => {
+      const { webkitLineClamp, overflow } = getComputedStyle(el);
+      return [webkitLineClamp, overflow];
+    }));
+    expect(descriptions).toEqual(Array.from({ length: 9 }, () => ['none', 'visible']));
     if (width === 1440) {
       const chart = await page.locator('.chart-card').boundingBox();
       const signals = await page.locator('.signals-card').boundingBox();

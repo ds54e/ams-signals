@@ -49,7 +49,9 @@ jobs:
 
   browser:
     # Full regression on this exact revision, even if its normal CI was content-only.
-    uses: ./.github/workflows/browser.yml
+    uses: ./.github/workflows/ci.yml
+    with:
+      release: true
     permissions:
       contents: read
 

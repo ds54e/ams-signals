@@ -5,6 +5,12 @@ on:
     branches: [main, 'ci/**']
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      release:
+        description: Run the full fallback browser gate for the Pages workflow, whose artifact job runs the deterministic checks.
+        type: boolean
+        required: true
   schedule:
     - cron: '0 18 * * 0'
 
@@ -16,33 +22,21 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  SITE: https://ds54e.github.io
+  BASE_URL: /ams-signals
+
 jobs:
-  impact:
-    name: Classify change
+  verify:
+    name: Validate and test
     runs-on: ubuntu-latest
-    timeout-minutes: 2
-    outputs:
-      core_only: ${{ steps.scope.outputs.core_only }}
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 2
-      - name: Determine regression scope
-        id: scope
-        env:
-          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-        run: node tools/ci-impact.mjs "$BASE_SHA" >> "$GITHUB_OUTPUT"
 
-  validate:
-    name: Deterministic validation
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -50,32 +44,51 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Determine regression scope
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: node tools/ci-impact.mjs "$BASE_SHA" >> "$GITHUB_OUTPUT"
+
       - name: Validate root-domain deployment shape
+        if: ${{ !inputs.release }}
         env:
           SITE: https://migration-test.invalid
           BASE_URL: /
-        run: npm run build && npm run check:internal-links
+        run: npm run build && node tools/internal-link-check.mjs
 
-      # Audit the fallback build independently of the browser jobs.
-      - name: Deterministic checks
+      - name: Deterministic checks and fallback build
+        if: ${{ !inputs.release }}
         run: npm run check
 
-  browser:
-    needs: impact
-    uses: ./.github/workflows/browser.yml
-    with:
-      core_only: ${{ needs.impact.outputs.core_only == 'true' }}
+      - name: Build fallback preview for release regression
+        if: ${{ inputs.release }}
+        run: npm run build
 
-  gate:
-    name: Validate and test
-    if: ${{ always() }}
-    needs: [impact, validate, browser]
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
-      - name: Require every validation job
+      - name: Install Chromium headless shell
+        run: |
+          npx playwright install --only-shell chromium
+          probe='import { chromium } from "@playwright/test"; const browser = await chromium.launch(); await browser.close();'
+          if ! node --input-type=module -e "$probe"; then
+            npx playwright install-deps chromium
+            node --input-type=module -e "$probe"
+          fi
+
+      - name: Chromium smoke tests
         env:
-          IMPACT: ${{ needs.impact.result }}
-          STATIC: ${{ needs.validate.result }}
-          BROWSER: ${{ needs.browser.result }}
-        run: test "$IMPACT" = success && test "$STATIC" = success && test "$BROWSER" = success
+          CORE_ONLY: ${{ !inputs.release && steps.scope.outputs.core_only == 'true' }}
+        run: |
+          if [ "$CORE_ONLY" = true ]; then
+            npx playwright test --grep '@core'
+          else
+            npx playwright test
+          fi
+
+      - name: Retain browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-failure-evidence
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7

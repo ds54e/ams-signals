@@ -116,23 +116,23 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
     if (checkData) {
       assert.strictEqual(item.text, item.dateText, context + ': item.text');
       assert.doesNotMatch(item.text, /\/12|months/, context + ': item.text');
-      for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
+      assert.doesNotMatch(item.text, /Paper|Release|Public update|Latest|GitHub|GitLab/, context);
       assert.strictEqual(item.links, 0, context + ': item.links');
       if (repositoryBacked) {
-        expect(item.text).not.toContain(record.repository!);
-        expect(item.label).toContain(record.repository!);
-        expect(item.label).toContain(`default branch ${record.defaultBranch}`);
+        assert(!item.text.includes(record.repository!), context);
+        assert(item.label?.includes(record.repository!), context);
+        assert(item.label?.includes(`default branch ${record.defaultBranch}`), context);
       } else if (unfetched) {
-        expect(item.provenance).toContain(`Activity not fetched for ${record.repository}; last attempt `);
-        expect(item.label).toContain(item.provenance);
+        assert(item.provenance.includes(`Activity not fetched for ${record.repository}; last attempt `), context);
+        assert(item.label?.includes(item.provenance), context);
       } else {
         assert.match(item.provenance, new RegExp(`^${signalLabel}: .+`), context + ': item.provenance');
-        expect(item.label).toContain(item.provenance);
+        assert(item.label?.includes(item.provenance), context);
       }
       const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
-      expect(item.label).toContain(`${activeMonths} months with reviewed public activity`);
+      assert(item.label?.includes(`${activeMonths} months with reviewed public activity`), context);
       assert.strictEqual(item.months.length, 12, context + ': item.months');
-      expect(item.label).toContain(`${monthLabels[0]}–${monthLabels[11]} (oldest to newest)`);
+      assert(item.label?.includes(`${monthLabels[0]}–${monthLabels[11]} (oldest to newest)`), context);
       assert.doesNotMatch(item.label, /newest (?:to oldest|(?:on|at) the left)|newest-left/i, context + ': item.label');
       assert.deepStrictEqual(item.months.map((month) => month.month), snapshot.months, context + ': item.months.map((month) => month.month)');
       assert.strictEqual(new Set(item.months.map((month) => month.month)).size, 12, context + ': new Set(item.months.map((month) => month.month)).size');
@@ -150,9 +150,9 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
     if (checkData) {
       // One structural assertion retains every cell's exact metadata
       // without recording a separate Playwright trace step for each scalar field.
-      expect(item.months.map(({ month, active, signal, count, source, title, accessible }) => ({
+      assert.deepEqual(item.months.map(({ month, active, signal, count, source, title, accessible }) => ({
         month, active, signal, count, source, title, accessible,
-      })), item.id!).toEqual(snapshot.months.map((month, index) => {
+      })), snapshot.months.map((month, index) => {
         const count = record.commits?.[index];
         const active = !unfetched && (repositoryBacked ? count! > 0 : month === date.slice(0, 7));
         const title = unfetched ? `${monthLabels[index]} — activity not fetched`
@@ -161,17 +161,16 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
           count: repositoryBacked ? String(count) : undefined,
           source: !repositoryBacked && active ? record.lastPublicUpdateSource : undefined,
           title, accessible: title };
-      }));
-      if (!repositoryBacked) expect(item.months.map((bucket) => bucket.title.includes('commits')), item.id!)
-        .toEqual(snapshot.months.map(() => false));
+      }), `${item.id}: activity metadata`);
+      if (!repositoryBacked) assert(item.months.every((bucket) => !bucket.title.includes('commits')), context);
     }
-    expect(item.months.map(({ width, height, borderWidth, opacity }) => ({ width, height, borderWidth, opacity })), `${item.id}: tick dimensions`)
-      .toEqual(Array.from({ length: 12 }, () => ({ width: 6, height: 8, borderWidth: forcedColors ? 1 : 0, opacity: '1' })));
+    assert.deepEqual(item.months.map(({ width, height, borderWidth, opacity }) => ({ width, height, borderWidth, opacity })),
+      Array.from({ length: 12 }, () => ({ width: 6, height: 8, borderWidth: forcedColors ? 1 : 0, opacity: '1' })), `${item.id}: tick dimensions`);
     // Compare the complete twelve-month result in one assertion per row. Thousands
     // of per-cell Playwright trace steps can otherwise consume the test deadline
     // before its scroll checks. Keep every predicate and the original precision-1
     // toBeCloseTo tolerance (< 0.05); do not sample rows or relax geometry.
-    expect(item.months.map((bucket, index) => ({
+    assert.deepEqual(item.months.map((bucket, index) => ({
       month: bucket.month,
       accessibleWidth: bucket.accessibleWidth <= 1,
       accessibleHeight: bucket.accessibleHeight <= 1,
@@ -180,10 +179,10 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
       verticalTick: bucket.height / bucket.width > 1,
       opaque: bucket.fill !== 'rgba(0, 0, 0, 0)',
       gap: index === 0 || Math.abs(bucket.left - item.months[index - 1].left - item.months[index - 1].width - 2) < 0.05,
-    })), `${item.id}: activity tick geometry`).toEqual(snapshot.months.map((month) => ({
+    })), snapshot.months.map((month) => ({
       month, accessibleWidth: true, accessibleHeight: true,
       equalWidth: true, equalHeight: true, verticalTick: true, opaque: true, gap: true,
-    })));
+    })), `${item.id}: activity tick geometry`);
   }
   const inactive = rendered.flatMap((row) => row.months).filter((month) => !month.active);
   const activeFills = new Set(rendered.flatMap((row) => row.months).filter((month) => month.active).map((month) => month.fill));

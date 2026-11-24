@@ -31,12 +31,14 @@ async function fixture(t, siteBase) {
     <a href="${siteBase}analog/">Analog</a><a href="${siteBase}digital/">Digital</a><a href="${siteBase}lab/">Lab</a>
     <a href="https://github.com/ds54e/ams-signals">GitHub ↗</a>
     </nav></body></html>`;
+  const emptyHtml = (route) => html(route, 'noindex, follow')
+    .replace('</nav>', '</nav><h2>No events are currently indexed</h2>');
   const page = (route, body = html(route)) => write(`dist/${route}index.html`, body);
   for (const route of routes) await page(route);
   const sitemap = (paths) => `<urlset>${paths.map((route) => `<url><loc>${origin}${siteBase}${route}</loc></url>`).join('')}</urlset>`;
   await write('dist/sitemap.xml', sitemap(routes));
   await write('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${origin}${siteBase}sitemap.xml\n`);
-  return { options, page, html, write, routes, sitemap };
+  return { options, page, html, emptyHtml, write, routes, sitemap };
 }
 
 for (const siteBase of ['/', '/a+b/']) {
@@ -113,8 +115,14 @@ for (const siteBase of ['/', '/a+b/']) {
     for (const [collection, id] of [['companies', 'empty-company'], ['people', 'empty-person']]) {
       await f.write(`src/data/${collection}/empty.json`, JSON.stringify({ id }));
     }
-    for (const route of emptyRoutes) await f.page(route, f.html(route, 'noindex, follow'));
+    for (const route of emptyRoutes) await f.page(route, f.emptyHtml(route));
     assert.deepEqual((await auditIndexing(f.options)).errors, []);
+
+    await rm(path.join(f.options.outputRoot, emptyRoutes[0], 'index.html'));
+    assert((await auditIndexing(f.options)).errors.includes(`${siteBase}${emptyRoutes[0]} is missing its generated empty entity page`));
+    await f.page(emptyRoutes[0], f.html(emptyRoutes[0], 'noindex, follow'));
+    assert((await auditIndexing(f.options)).errors.includes(`${siteBase}${emptyRoutes[0]} is missing its empty entity message`));
+    await f.page(emptyRoutes[0], f.emptyHtml(emptyRoutes[0]));
 
     await f.write('dist/sitemap.xml', f.sitemap([...f.routes, ...emptyRoutes]));
     assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith('sitemap.xml advertises non-indexable page(s):')));
@@ -122,7 +130,7 @@ for (const siteBase of ['/', '/a+b/']) {
 
     await f.page(emptyRoutes[0]);
     assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith(`${siteBase}${emptyRoutes[0]} robots`)));
-    await f.page(emptyRoutes[0], f.html(emptyRoutes[0], 'noindex, follow'));
+    await f.page(emptyRoutes[0], f.emptyHtml(emptyRoutes[0]));
 
     // Adding real evidence makes both entity pages indexable again.
     await f.write('src/data/events/record.json', JSON.stringify({

@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { expect, test } from '@playwright/test';
 import { captureSmokeEvidence, installBrowserErrorGuards } from './release-helpers.mjs';
 
@@ -89,12 +90,21 @@ for (const colorScheme of ['light', 'dark'] as const) {
           expect(['company', 'person']).toContain(label.type);
           expect(label.color).toBe(label.type === 'company' ? 'rgb(36, 43, 48)' : 'rgb(24, 117, 101)');
         }
-        const firstLabel = page.locator('.matrix-entity-label:visible, .timeline-lane > .lane-label:visible').first();
-        const labelColor = await firstLabel.evaluate((el) => getComputedStyle(el).color);
-        await firstLabel.hover();
-        await expect(firstLabel).toHaveCSS('color', labelColor);
-        await expect(firstLabel).toHaveCSS('text-decoration-line', 'underline');
-        await page.mouse.move(0, 0);
+        // The rectangle/paint contract stays exhaustive. Native inputs exercise
+        // each surface in both palettes and representative desktop/mobile views,
+        // not each viewport/fixture permutation.
+        const interact = fullMatrix || (route === globalTimeline
+          ? viewport.width !== 320
+          : viewport.width !== 1440 ||
+            route === (colorScheme === 'light' ? appleTimeline : renesasTimeline));
+        if (interact) {
+          const firstLabel = page.locator('.matrix-entity-label:visible, .timeline-lane > .lane-label:visible').first();
+          const labelColor = await firstLabel.evaluate((el) => getComputedStyle(el).color);
+          await firstLabel.hover();
+          await expect(firstLabel).toHaveCSS('color', labelColor);
+          await expect(firstLabel).toHaveCSS('text-decoration-line', 'underline');
+          await page.mouse.move(0, 0);
+        }
         const marks = page.locator('[data-event-mark]:visible');
         const measured = await marks.evaluateAll((nodes) => nodes.map((el) => {
           const glyph = el.querySelector<HTMLElement>('.timeline-glyph')!;
@@ -106,14 +116,15 @@ for (const colorScheme of ['light', 'dark'] as const) {
         }));
         expect(measured.length).toBeGreaterThan(0);
         for (const mark of measured) {
-          expect(mark.hit).toEqual([18, 18]); expect(mark.glyph).toEqual(['9px', '9px']);
-          expect(mark.renderedWidth).toBeCloseTo(9, 1);
-          expect(Math.max(...mark.centered)).toBeLessThan(0.1);
-          expect(mark.radius).toBe(mark.kind === 'technical' ? '50%' : '0px');
-          expect(mark.background).toBe(mark.kind === 'technical' ? 'rgb(96, 137, 173)' : 'rgb(177, 122, 68)');
-          expect([mark.border, mark.outline, mark.shadow]).toEqual(['0px', 'none', mark.active ? selectionShadow(colorScheme) : 'none']);
-          if (shapes.has(mark.kind)) expect(mark.radius).toBe(shapes.get(mark.kind));
-          if (colors.has(mark.kind)) expect(mark.background).toBe(colors.get(mark.kind));
+          const context = `${route}: ${mark.kind} glyph`;
+          assert.deepEqual(mark.hit, [18, 18], context);
+          assert.deepEqual(mark.glyph, ['9px', '9px'], context);
+          assert(Math.abs(mark.renderedWidth - 9) < 0.05, context);
+          assert(Math.max(...mark.centered) < 0.1, context);
+          assert.equal(mark.radius, mark.kind === 'technical' ? '50%' : '0px', context);
+          assert.equal(mark.background, mark.kind === 'technical' ? 'rgb(96, 137, 173)' : 'rgb(177, 122, 68)', context);
+          assert.deepEqual([mark.border, mark.outline, mark.shadow], ['0px', 'none', mark.active ? selectionShadow(colorScheme) : 'none'], context);
+          // Fixed exact expectations above already guarantee consistency.
           shapes.set(mark.kind, mark.radius); colors.set(mark.kind, mark.background);
         }
         for (const kind of ['technical', 'organizational']) {
@@ -124,6 +135,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
           }), { message: route + ': ' + kind + ' legend style' })
             .toEqual([colors.get(kind), shapes.get(kind), '9px', '9px', '0px', 'none', 'none']);
         }
+        if (!interact) continue;
         for (const kind of ['technical', 'organizational']) {
           const candidates = page.locator(`[data-event-mark].event-kind-${kind}:visible`);
           if (await candidates.count() === 0) continue;
@@ -157,16 +169,20 @@ for (const colorScheme of ['light', 'dark'] as const) {
           if (await other.count()) {
             await other.focus(); await page.keyboard.press('Space');
             await expect(other).toHaveAttribute('aria-pressed', 'true');
-            for (const deselected of await linked.all()) {
-              await expect(deselected).toHaveAttribute('aria-pressed', 'false');
-              await expect(deselected.locator('.timeline-glyph')).toHaveCSS('box-shadow', 'none');
-            }
+            const count = await linked.count();
+            expect(count).toBeGreaterThan(0);
+            await expect.poll(() => linked.evaluateAll((nodes) => nodes.map((el) => [
+              el.getAttribute('aria-pressed'), getComputedStyle(el.querySelector('.timeline-glyph')!).boxShadow,
+            ])), { message: `${route}: deselected linked glyphs for ${id}` })
+              .toEqual(Array.from({ length: count }, () => ['false', 'none']));
           }
         }
-        await page.locator('[data-search]').fill('zzzz-no-matching-selection');
-        await expect(page.locator('[data-event-mark].is-active')).toHaveCount(0);
-        await page.locator('[data-search]').fill('');
-        await expect(page.locator('[data-event-mark].is-active').first()).toHaveAttribute('aria-pressed', 'true');
+        if (fullMatrix || route === globalTimeline) {
+          await page.locator('[data-search]').fill('zzzz-no-matching-selection');
+          await expect(page.locator('[data-event-mark].is-active')).toHaveCount(0);
+          await page.locator('[data-search]').fill('');
+          await expect(page.locator('[data-event-mark].is-active').first()).toHaveAttribute('aria-pressed', 'true');
+        }
       }
       expect(new Set(shapes.values()).size).toBe(2); expect(new Set(colors.values()).size).toBe(2);
     });
@@ -269,7 +285,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         await expect(page.locator('[data-status]')).toHaveText(/\d+ of \d+ events?$/);
         const rows = page.locator('.activity-matrix-row:visible, .timeline-lane:visible');
         const originalOrder = await rows.evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-entity-id') ?? el.getAttribute('data-lane-id')));
-        const stripeCheck = async () => {
+        const stripeCheck = async (checkHover) => {
           await page.mouse.move(0, 0);
           const fills = await rows.evaluateAll((nodes) => nodes.map((el) => ({
             fill: getComputedStyle(el).backgroundColor,
@@ -282,14 +298,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
             expect(row.label).toBe(row.fill);
           }
           // Exercise both stripe parities. Hovering the fixed label must tint the entire row.
-          for (const row of (await rows.all()).slice(0, 2)) {
+          for (const row of checkHover ? (await rows.all()).slice(0, 2) : []) {
             await row.locator('.matrix-entity-label, .lane-label').hover();
             await expect(row).toHaveCSS('background-color', 'rgb(238, 243, 248)');
             await expect(row.locator('.matrix-entity-label, .lane-label')).toHaveCSS('background-color', 'rgb(238, 243, 248)');
           }
           await page.mouse.move(0, 0);
         };
-        await stripeCheck();
+        await stripeCheck(fullMatrix || [1440, 390, 320].includes(viewport.width));
         const label = rows.first().locator('.matrix-entity-label, .lane-label');
         const before = (await label.boundingBox())!.x;
         const scroll = page.locator('.activity-matrix-scroll, .timeline-scroll').first();
@@ -312,13 +328,13 @@ for (const colorScheme of ['light', 'dark'] as const) {
         // still cover every global viewport in both palettes.
         if (route === globalTimeline && (fullMatrix || viewport.width === 1440 || viewport.width === 390)) {
           await page.locator('[data-search]').fill('UVM');
-          await stripeCheck();
+          await stripeCheck(true);
           await page.locator('[data-search]').fill('');
           await page.locator('[data-company-picker] summary').click();
           await page.locator('[data-clear-all-companies]').click();
           await page.locator('[data-company-options] input[value="renesas"]').check();
           await page.locator('[data-company-picker] summary').click();
-          await stripeCheck();
+          await stripeCheck(true);
           await captureSmokeEvidence(page, info, `filtered-sticky-${viewport.width}-${colorScheme}.png`);
           await page.goto('./timeline/');
           expect(await rows.evaluateAll((nodes) => nodes.map((el) => el.getAttribute('data-entity-id') ?? el.getAttribute('data-lane-id')))).toEqual(originalOrder);

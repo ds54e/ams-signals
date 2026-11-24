@@ -17,7 +17,7 @@ function compareIds(left, right) {
 
 /**
  * Audits one built output tree. Pure with respect to the filesystem: it only
- * reads, so the detection self-check can point it at a mutated clone.
+ * reads, so contract tests can point it at disposable fixtures.
  */
 export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase }) {
   const errors = [];
@@ -49,12 +49,14 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
   ]);
 
   // --- Built HTML: robots + canonical -------------------------------------
+  const builtPaths = new Set();
   const navReports = [];
   const indexableCanonicals = new Set();
 
   for (const file of htmlFiles) {
     const html = await readFile(file, 'utf8');
     const pagePath = publicPathFor(outputRoot, siteBase, file);
+    builtPaths.add(pagePath);
 
     const robotsCount = occurrences(html, /<meta\b[^>]*\bname="robots"/gi);
     expect(robotsCount === 1, `${pagePath} emits ${robotsCount} robots directives, expected exactly 1`);
@@ -76,6 +78,10 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
       `${pagePath} canonical is ${JSON.stringify(canonical)}, expected ${JSON.stringify(expectedCanonical)}`,
     );
 
+    if (emptyEntityPaths.has(pagePath)) {
+      expect(html.includes('No events are currently indexed'), `${pagePath} is missing its empty entity message`);
+    }
+
     if (robotsValue === INDEXABLE) indexableCanonicals.add(expectedCanonical);
 
     const nav = html.match(/<nav\b[^>]*\baria-label="Primary"[^>]*>([\s\S]*?)<\/nav>/i)?.[1];
@@ -85,6 +91,10 @@ export async function auditIndexing({ projectRoot, outputRoot, origin, siteBase 
         .map((match) => ({ href: match[1], text: match[2].trim() }));
       navReports.push({ pagePath, links });
     }
+  }
+
+  for (const emptyPath of emptyEntityPaths) {
+    expect(builtPaths.has(emptyPath), `${emptyPath} is missing its generated empty entity page`);
   }
 
   expect(navReports.length > 0, 'no page rendered the primary navigation');
