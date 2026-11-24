@@ -2,18 +2,18 @@
 name: "scikit-rf"
 aliases: ["skrf"]
 summary: "Processes RF network data and builds rational equivalent models for circuit simulation."
-description: "Python toolkit for measured or simulated N-port RF networks, including S-parameter operations, calibration and transmission-line models. Vector fitting turns sampled frequency responses into rational models, with SPICE subcircuit export for fitted S-parameters, connecting RF characterization to circuit simulation."
+description: "Python toolkit for measured or simulated N-port RF networks, including S-parameter operations, calibration and transmission-line models. Vector fitting produces rational models with SPICE export for fitted S-parameters, while development-source circuit analysis propagates modeled noise to external network ports."
 scope:
   simulation:
     ai: false
   aiDevelopment: assisted
 developmentEvidence:
-  summary: "Claude Opus 4.7 is credited on the MDIF parser repair that folds tab-prefixed continuation lines before parsing. The merged implementation remains in the canonical project."
-  sources: ["assistance-fix", "development-retained"]
-  reviewedAt: '2026-10-18'
+  summary: "Claude is credited on the MDIF continuation-line repair and on adapting noise-wave correlations between scattering definitions for complex port impedances. These are scoped contributions to the retained implementation."
+  sources: ["assistance-fix", "noise-wave-conventions", "circuit-noise"]
+  reviewedAt: "2026-11-24"
 access: "Public Python package and documentation; network data, measurement hardware and external circuit simulators are separate inputs or tools."
 addedAt: "2026-09-07"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-24"
 sources:
   - id: "documentation"
     title: "Official scikit-rf documentation"
@@ -83,6 +83,18 @@ sources:
   - id: "release-tests-20261115"
     title: "v2.2.0 parametric fitting and serialization tests"
     url: "https://github.com/scikit-rf/scikit-rf/blob/05f8486420fe94a91d983c685948e78f95296ffa/skrf/tests/test_vectorfitting_parametric.py"
+  - id: activity-20261124
+    title: "Integration of exact calibration-standard name matching"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/df7a414090da14bca7fbf99fc0a5398f9bf9ea69"
+  - id: exact-calibration
+    title: "Match calibration standards by exact Network.name"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/6ebc79cf3d107df625cbcb9330f5c71cd92a6bce"
+  - id: circuit-noise
+    title: "Reviewed external-port noise-wave correlation implementation"
+    url: "https://github.com/scikit-rf/scikit-rf/blob/df7a414090da14bca7fbf99fc0a5398f9bf9ea69/skrf/circuit.py"
+  - id: noise-wave-conventions
+    title: "Credited noise-wave conversion for complex reference impedances"
+    url: "https://github.com/scikit-rf/scikit-rf/commit/ae0ef3ca2c6adf9de904b4cbf2ef463641993d6c"
 ---
 
 ### Implementation context
@@ -118,3 +130,10 @@ The November 13 master revision aligns per-frequency voltage, current and impeda
 The latest verified stable release is v2.2.0 (October 18); the November repairs follow its tag. The stable source also implements parametric vector fitting over supplied network responses, with model-error and serialization tests. This numerical macromodeling remains conventional Simulation. Python 3.10 or newer, NumPy, SciPy and pandas are required; instrument access additionally uses optional VISA dependencies and separate hardware. [Stable release](#source-release-20261115); [stable fitting implementation](#source-release-fitting-20261115); [stable tests](#source-release-tests-20261115); [dependencies](#source-dependencies-20261115).
 
 The credited MDIF parser repair remains integrated and retains tab-prefixed continuation-line folding in current master, supporting the existing AI-assisted development label. [Credited repair](#source-assistance-fix); [current retained implementation](#source-retained-20261115).
+
+
+### Calibration naming and linear circuit noise
+
+The reviewed master adds exact alignment using each Network.name rather than dictionary keys or substring matching. An absent or ambiguous ideal name is rejected. This is not a reason to reorder standards in an ordering-dependent calibration such as TRL. [Exact name matching](#source-exact-calibration); [canonical integration](#source-activity-20261124).
+
+Circuit analysis propagates internal noise correlations to the external ports. Noise data supplied on a two-port can be used directly; a passive network with a supplied temperature can contribute thermal noise, while a network without either input is treated as noiseless. The result is a linear RF network calculation, not oscillator phase noise, jitter or periodic-noise analysis. Both changes are present in the reviewed master after the v2.2.0 release tag; they are not presented as v2.2.0 capabilities. [Circuit implementation](#source-circuit-noise); [wave conventions](#source-noise-wave-conventions); [stable release](#source-release-20261115).
