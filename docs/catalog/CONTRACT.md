@@ -26,13 +26,19 @@ Require reviewed public implementation supporting the claimed contribution and a
 
 Public code and recent activity establish eligibility, not an automatic reason for a separate listing. Identify the reusable engineering operation, its usable entry point and the material choice it adds alongside retained projects. A narrow specialist can justify a listing; a generic transport, packaging layer, incidental example or unfinished scaffold needs more than proximity to an EDA or measurement tool. Distinct research tasks, evaluation methods and reusable verification assets can provide that value when their execution and limits are inspectable.
 
-Require verified meaningful public activity within the preceding calendar year, inclusively; February 29 clamps to February 28. All three domain guides require a reviewed signal in the twelve displayed calendar months. These necessary freshness conditions neither establish selection nor guarantee a year of retention.
-
 Treat continued development or technical maintenance as a selection criterion separate from usefulness and recent activity. Identify what changed after the first usable implementation: follow-up feature work, correctness fixes, verification improvements, compatibility repairs or responses to observed engineering problems. New projects can qualify through demonstrated follow-through; low-frequency technical maintenance can qualify without a minimum project age, fixed cadence or additional day-count threshold.
 
 An initial burst, commit counts, stars, repository age and latest push dates alone are insufficient. Tests delivered with an initial implementation do not by themselves demonstrate later maintenance, and a long past history does not establish continuing work today. Assess the substance and chronology of changes, including merges and bot-authored work. Cosmetic edits, traffic statistics and automatic version bumps alone do not renew eligibility.
 
 Record concrete technical changes from separate periods when using them as evidence of sustained development. For low-cadence tools, distinguish a stable, still useful implementation with real maintenance from a prototype whose public follow-through cannot be established. Review maintainer responses, branches, releases and declared migrations where the history is ambiguous; open issues or proposed work alone do not establish implementation. If the evidence is too short or equivocal, keep the candidate out until the next review instead of inferring abandonment or inventing a minimum age.
+
+### Freshness and active-list eligibility
+
+Entries with reviewed activity require verified meaningful public activity within the preceding calendar year, inclusively; February 29 clamps to February 28. They also need at least one reviewed public activity signal in the twelve displayed calendar months. These necessary freshness conditions neither establish selection nor guarantee a year of retention.
+
+New [unfetched registrations](#capture-types-and-failures) may be displayed without an activity date or counts while capture is unresolved; they do not establish reviewed freshness.
+
+A confirmed all-zero band is removed through explicit curation, including its matching snapshot record; zero in only the current month is not a removal criterion. Missing records, failed captures and unknown activity are errors to investigate, never zero signals. Validators reject an all-zero active entry instead of silently filtering it or inventing activity. The generic band renderer still represents out-of-window point evidence accurately without clamping it into the window.
 
 ### Retention and removal
 
@@ -120,4 +126,4 @@ Separate editorial curation from mechanical capture. Preserve unrelated metadata
 
 Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` / `npm run refresh:lab-activity` derive registrations from Code links and explicit `activity` commit sources, refresh GitHub history, preserve reviewed meaningful activity and manual non-GitHub records, validate the whole candidate snapshot and replace it atomically. `-- --project=<slug>` selects same-month captures, preserving untouched GitHub timestamps. Month rollover requires complete recapture, including canonical non-GitHub history. New failures produce `unfetched`; existing good-record failures preserve the checked-in snapshot. Refresh is not a build/check/browser dependency; normal builds need no repository-host access.
 
-Use the [catalog-refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for recapture, starting from current records, source notes and domain validation. [Testing](../TESTING.md) owns check selection. Presentation checks cover first/middle/last, multi-stage and multi-link rows at visual-system viewports, system color schemes, keyboard, no-JavaScript and forced colors. Never hardcode mutable project counts or weaken domain/factual guards.
+Use the [catalog-refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for activity registration, recapture and month rollover, starting from current records, source notes and domain validation. [Testing](../TESTING.md) owns check selection. Presentation checks cover first/middle/last, multi-stage and multi-link rows at visual-system viewports, system color schemes, keyboard, no-JavaScript and forced colors. Never hardcode mutable project counts or weaken domain/factual guards.

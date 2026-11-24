@@ -1,8 +1,5 @@
-// Pure, domain-independent activity-window mechanics shared by the Analog and Digital
-// catalogs. Domain modules (src/lib/analog/activity.ts, src/lib/digital/activity.ts) import
-// and re-export these so existing call sites are unaffected; domain-specific semantics
-// (PublicActivity's discriminated union, its optional/required lastPublicUpdateAt, scope
-// stages, schema/validation policy) stay local to each domain and are never represented here.
+// UTC window and counting mechanics shared by Analog, Digital and Lab.
+// Domain schemas own eligibility and required evidence fields.
 
 /** Inclusive rolling curation boundary, independent of the calendar-month strip. */
 export function freshnessCutoff(reviewedAt: string): string {

@@ -10,7 +10,7 @@ Read the guide and sections needed for the task. Each document owns one current 
 | Golden selection, evidence, hiring, dates and attribution | [Golden evidence contract](GOLDEN.md) |
 | Golden editing and record validation | [Golden guidance](../src/data/AGENTS.md) / [content schema](../src/content.config.ts) |
 | Timeline, Events, Company/Person behavior | [Timeline contract](TIMELINE.md) |
-| Shared catalog curation, data, activity and interaction | [Catalog contract](catalog/CONTRACT.md) |
+| Catalog selection, retention, evidence, activity and interaction | [Catalog contract](catalog/CONTRACT.md) |
 | Domain-specific stages and schema differences | [Analog](analog/README.md) / [Digital](digital/README.md) / [Lab](lab/README.md) |
 | Evidence for AI-development labels | [AI-development policy](AI_DEVELOPMENT.md) |
 | Typography, palette, layout and responsive behavior | [Visual system](VISUAL_SYSTEM.md) |
@@ -54,6 +54,6 @@ Current guides explain intent, contracts, necessary technical rationale and unre
 
 ## Reusable workflows
 
-Repository skills live in `.agents/skills/`. The analytics skill handles fresh traffic/search metrics; the catalog-refresh skill handles activity recapture and month rollover. Their descriptions are task-specific, and their full instructions are read only when needed. Ordinary code/content edits do not require either workflow.
+Repository skills live in `.agents/skills/`. The analytics skill handles fresh traffic/search metrics; the catalog-refresh skill handles new activity registrations, recapture and month rollover. Their descriptions are task-specific, and their full instructions are read only when needed. Ordinary code/content edits do not require either workflow.
 
 Keep guidance outside Astro-loaded content collections. Root task routing points to scoped guides for associated content, implementation, tests and docs because Codex's automatic `AGENTS.md` discovery follows the current working directory's ancestor path.

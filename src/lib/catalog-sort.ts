@@ -1,7 +1,4 @@
-// Pure, domain-independent ordering mechanics shared by the Analog and Digital catalogs.
-// The activity date's meaning (PublicActivity, publicActivityDate()) is domain-specific and
-// stays in each domain's catalog.ts; only the generic "newest activity, then name, then id"
-// comparator is shared, via a caller-supplied activity-date lookup rather than a shared type.
+// Pure ordering for catalog entries; callers supply dates from validated activity records.
 
 function compareStrings(a: string, b: string): number {
   return a < b ? -1 : a > b ? 1 : 0;

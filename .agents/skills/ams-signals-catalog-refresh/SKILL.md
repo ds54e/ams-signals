@@ -7,13 +7,15 @@ description: Capture Analog, Digital or Lab catalog activity snapshots. Use for 
 
 Input: the requested Analog, Digital and/or Lab catalogs. Read only the selected domain guide and the shared [activity contract](../../../docs/catalog/CONTRACT.md#reviewed-public-activity). Use current project records and their source notes. Commands below run from the repository root.
 
-## Review and capture
+## Prepare the capture
 
 Inspect the current snapshot, source records and working-tree changes. Preserve unrelated edits. Verify canonical repository identity, actual default branch and substantive first-parent changes before updating any meaningful date/SHA and its matching source. Mechanical latest commits are not automatically meaningful activity. Do not add/remove projects, change Scope/provenance or substitute hosts solely to make a refresh pass.
 
-When a task includes selection or retention, first apply the shared [selection and retention criteria](../../../docs/catalog/CONTRACT.md#project-selection-and-retention) to existing and new entries alike. Inspect substantive follow-up after the initial usable implementation; counts, a recent checkpoint or tests shipped in the initial release do not establish continued maintenance. Resolve quiet default branches, canonical migrations and substantive release/development-branch evidence before exclusion, without adding those branches to the default-branch snapshot.
+When a task includes selection or retention, apply the shared [selection and retention criteria](../../../docs/catalog/CONTRACT.md#project-selection-and-retention) to existing and new entries before capture. Resolve the editorial decision first; development-branch evidence can support it but must not be added to the default-branch snapshot.
 
 Resolve repository moves against the canonical metadata and numeric identity; old README install URLs and redirected namespaces do not establish separate projects. Keep the reviewed implementation revision distinct from the meaningful activity checkpoint. Inspect the selected change and its retained code/tests; a substantive commit visible in an API listing can still be on a merged side branch and fail the first-parent requirement.
+
+## Capture GitHub activity
 
 Use the existing manual command for the selected domain:
 
@@ -27,12 +29,14 @@ Run only the requested command(s), not all by default. They use Git and GitHub m
 
 Repeat `--project=<slug>` for multiple targets. Finish coordinated article edits before running a domain's capture, and use one writer per snapshot. Registration also discovers every new or `unfetched` article in that domain during targeted runs; inspect that complete set, not just the named targets. Before accepting a same-month diff, compare unselected records with the original snapshot, allowing only an explicit individual `capturedAt` that preserves the original observation time.
 
+## Non-GitHub evidence and month rollover
+
 For non-GitHub monthly records, inspect the canonical host directly, pin identity/branch/head/capture time and recapture complete first-parent UTC buckets. Do not borrow mirrors or silently shift old buckets to a new month. On month rollover, coordinate a complete internally consistent candidate snapshot, including manual captures; inspect the existing validator/refresh entry conditions rather than patching production JSON blindly. Point evidence retains its actual reviewed event date/type/source, with no synthetic commits.
 
 Before month rollover, identify existing records whose only visible signal will fall out of the twelve-month band. Check canonical upstream first. Pending pull requests must not contribute repository buckets. Documentation-only commits remain in captured first-parent counts, but do not by themselves advance meaningful activity or renew eligibility. If a record no longer qualifies, curate the article and activity record together before retrying the refresh.
 
-A failed existing capture, changed identity, expired eligibility or inconsistent window is not a successful refresh. Preserve the checked-in snapshot, record the exact blocker and resolve reviewable issues within the request. A failed new GitHub capture may register as `unfetched`, visibly without synthetic activity; retry it before claiming reviewed freshness. Do not weaken validation or relabel stale evidence as fresh. A curation decision such as removing an expired project must be explicit in the review, not a hidden consequence of the refresh script.
+## Validate and finish
 
-## Finish
+A failed existing capture, changed identity, expired eligibility or inconsistent window is not a successful refresh. Preserve the checked-in snapshot, record the exact blocker and resolve reviewable issues within the request. A failed new GitHub capture may register as `unfetched`, visibly without synthetic activity; retry it before claiming reviewed freshness. Do not weaken validation or relabel stale evidence as fresh. A curation decision such as removing an expired project must be explicit in the review, not a hidden consequence of the refresh script.
 
 Review the complete JSON and source diff, run the applicable [verification](../../../docs/TESTING.md), and leave the requested reviewable change. Report snapshot/capture dates, refreshed domains, substantive source changes, retained manual records, checks and any unresolved access/eligibility issue. Preserve Golden data and unrelated catalog metadata. A refresh does not authorize merge, deployment, external model/EDA experiments or account configuration changes.

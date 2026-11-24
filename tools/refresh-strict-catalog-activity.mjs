@@ -5,7 +5,7 @@ import { mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promi
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFrontmatter } from 'astro/markdown';
-import { activityMonths, countActivity } from '../src/lib/strict-catalog-activity.ts';
+import { activityMonths, countActivity } from '../src/lib/catalog-activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from './strict-activity-support.mjs';
 import { githubMetadata, planActivityRegistration, preserveUnselectedCapture } from './activity-registration.mjs';
 

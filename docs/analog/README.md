@@ -20,7 +20,7 @@ Conventional simulation after AI-generated circuit inputs alone does not make Si
 
 ## Active-list eligibility
 
-In addition to the shared meaningful-activity freshness requirement, an Analog entry needs at least one reviewed public activity signal in the twelve displayed calendar months. A confirmed all-zero band is removed through explicit curation, including its matching snapshot record; zero in only the current month is not a removal criterion. Missing records, failed captures and unknown activity are errors to investigate, never zero signals. The validator rejects an all-zero active entry instead of silently filtering it or inventing activity. The generic band renderer still represents out-of-window point evidence accurately without clamping it into the window.
+Apply the shared [selection and retention criteria](../catalog/CONTRACT.md#project-selection-and-retention), including [freshness and active-list eligibility](../catalog/CONTRACT.md#freshness-and-active-list-eligibility), to new and existing entries.
 
 ## Data and implementation map
 

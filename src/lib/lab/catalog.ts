@@ -1,4 +1,4 @@
-import { publicActivityDate, type PublicActivity } from '../strict-catalog-activity.ts';
+import { publicActivityDate, type PublicActivity } from '../catalog-activity.ts';
 import { sortByActivityThenName } from '../catalog-sort.ts';
 
 export const scopeStageIds = ['board', 'control', 'acquisition', 'analysis', 'test'] as const;
