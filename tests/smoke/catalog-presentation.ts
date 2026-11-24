@@ -1,10 +1,14 @@
+import assert from 'node:assert/strict';
 import { expect, type Locator } from '@playwright/test';
+
+// Use Node assertions on captured DOM snapshots. Playwright locators above the
+// snapshots still retry; tracing each scalar comparison adds no browser evidence.
 
 export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   await expect(scope.locator('.scope-mark, [data-level], [aria-hidden="true"]')).toHaveCount(0);
   const items = await scope.locator('li[data-scope-item]').evaluateAll((nodes) => nodes.map((el) => {
     const style = getComputedStyle(el), box = el.getBoundingClientRect();
-    return { id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), development: el.getAttribute('data-ai-development'),
+    return { project: el.closest('[data-catalog-project]')?.getAttribute('data-catalog-project'), id: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), development: el.getAttribute('data-ai-development'),
       text: el.textContent!.trim(), renderedText: (el as HTMLElement).innerText.trim(), transform: style.textTransform,
       classes: [...el.classList], color: style.color, fill: style.backgroundColor,
       radius: parseFloat(style.borderRadius), font: parseFloat(style.fontSize), weight: Number(style.fontWeight),
@@ -14,27 +18,28 @@ export async function expectScopeLabels(scope: Locator, forcedColors = false) {
   }));
   expect(items.length).toBeGreaterThan(0);
   for (const item of items) {
-    if (item.development) expect(item.development).toBe('assisted');
-    expect(item.classes).toEqual(['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`]);
-    if (item.development) expect(item.text).toBe('AI-ASSISTED');
-    else expect(item.text).toMatch(/^(?:Design|Simulation|Synthesis|Verification|Layout)$/);
-    expect(item.transform).toBe('none');
-    expect(item.renderedText).toBe(item.text);
-    expect(item.text).not.toMatch(/core|supporting|[●○◐]/i);
-    expect(item.radius).toBe(0);
-    expect(item.font).toBe(11); expect(item.weight).toBe(500);
-    expect(item.paddingX).toBeGreaterThanOrEqual(5); expect(item.paddingX).toBeLessThanOrEqual(7);
-    expect(item.paddingY).toBeGreaterThanOrEqual(2); expect(item.paddingY).toBeLessThanOrEqual(3);
-    expect(item.width).toBeLessThanOrEqual(120);
-    expect(item.height).toBeCloseTo(21.4, 1);
+    const context = [item.project, item.id].join(': ');
+    if (item.development) assert.strictEqual(item.development, 'assisted', context + ': item.development');
+    assert.deepStrictEqual(item.classes, ['category-label', 'scope-label', item.development ? `scope-ai-${item.development}` : `scope-${item.id}`], context + ': item.classes');
+    if (item.development) assert.strictEqual(item.text, 'AI-ASSISTED', context + ': item.text');
+    else assert.match(item.text, /^(?:Design|Simulation|Synthesis|Verification|Layout)$/, context + ': item.text');
+    assert.strictEqual(item.transform, 'none', context + ': item.transform');
+    assert.strictEqual(item.renderedText, item.text, context + ': item.renderedText');
+    assert.doesNotMatch(item.text, /core|supporting|[●○◐]/i, context + ': item.text');
+    assert.strictEqual(item.radius, 0, context + ': item.radius');
+    assert.strictEqual(item.font, 11, context + ': item.font'); assert.strictEqual(item.weight, 500, context + ': item.weight');
+    assert(item.paddingX >= 5, context + ': item.paddingX'); assert(item.paddingX <= 7, context + ': item.paddingX');
+    assert(item.paddingY >= 2, context + ': item.paddingY'); assert(item.paddingY <= 3, context + ': item.paddingY');
+    assert(item.width <= 120, context + ': item.width');
+    assert(Math.abs(item.height - 21.4) < 0.05, context + ': item.height');
     if (item.development && !forcedColors) {
-      expect(item.fill).toBe('rgba(0, 0, 0, 0)');
-      expect(item.shadow).toBe('none');
-      expect(item.borderWidth).toBe('1px');
-      expect(item.border).not.toBe(item.fill);
-    } else expect(item.fill).not.toBe('rgba(0, 0, 0, 0)');
-    expect(item.color).not.toBe(item.fill);
-    if (forcedColors) expect(item.outline).toBe('solid');
+      assert.strictEqual(item.fill, 'rgba(0, 0, 0, 0)', context + ': item.fill');
+      assert.strictEqual(item.shadow, 'none', context + ': item.shadow');
+      assert.strictEqual(item.borderWidth, '1px', context + ': item.borderWidth');
+      assert.notStrictEqual(item.border, item.fill, context + ': item.border');
+    } else assert.notStrictEqual(item.fill, 'rgba(0, 0, 0, 0)', context + ': item.fill');
+    assert.notStrictEqual(item.color, item.fill, context + ': item.color');
+    if (forcedColors) assert.strictEqual(item.outline, 'solid', context + ': item.outline');
   }
   // AI-backed and conventional stages use the same stage color, while
   // development provenance has its own category; strength is not represented.
@@ -92,26 +97,27 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
     .toEqual(Object.keys(snapshot.projects).sort());
   for (const item of rendered) {
     const record = snapshot.projects[item.id];
+    const context = item.id ?? 'catalog activity';
     const repositoryBacked = record.kind === 'github' || record.kind === 'repository';
     const unfetched = record.kind === 'unfetched';
     const date = unfetched ? '' : repositoryBacked ? record.lastCommitAt! : record.lastPublicUpdateAt!;
     if (checkData) {
-      expect(item.kind).toBe(record.kind);
-      expect(item.dateTag).toBe(unfetched ? 'SPAN' : 'TIME');
-      expect(item.date).toBe(date || null);
-      expect(item.dateText).toBe(unfetched ? 'Activity not fetched' : dateFormat.format(new Date(`${date}T00:00:00Z`)));
-      expect(item.dateRendered).toBe(item.dateText);
-      if (!unfetched) expect(item.dateRendered).toMatch(/^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/);
+      assert.strictEqual(item.kind, record.kind, context + ': item.kind');
+      assert.strictEqual(item.dateTag, unfetched ? 'SPAN' : 'TIME', context + ': item.dateTag');
+      assert.strictEqual(item.date, date || null, context + ': item.date');
+      assert.strictEqual(item.dateText, unfetched ? 'Activity not fetched' : dateFormat.format(new Date(`${date}T00:00:00Z`)), context + ': item.dateText');
+      assert.strictEqual(item.dateRendered, item.dateText, context + ': item.dateRendered');
+      if (!unfetched) assert.match(item.dateRendered, /^[A-Z][a-z]{2} [1-9]\d?, \d{4}$/, context + ': item.dateRendered');
     }
-    expect(item.dateTransform).toBe('none');
-    expect(item.weight).toBe(400);
-    expect(item.dateLine).toBe(item.dateRendered);
+    assert.strictEqual(item.dateTransform, 'none', context + ': item.dateTransform');
+    assert.strictEqual(item.weight, 400, context + ': item.weight');
+    assert.strictEqual(item.dateLine, item.dateRendered, context + ': item.dateLine');
     const signalLabel = { paper: 'paper publication', release: 'release', 'public-update': 'public update' }[record.lastPublicUpdateType ?? ''];
     if (checkData) {
-      expect(item.text).toBe(item.dateText);
-      expect(item.text).not.toMatch(/\/12|months/);
+      assert.strictEqual(item.text, item.dateText, context + ': item.text');
+      assert.doesNotMatch(item.text, /\/12|months/, context + ': item.text');
       for (const forbidden of ['Paper', 'Release', 'Public update', 'Latest', 'GitHub', 'GitLab']) expect(item.text).not.toContain(forbidden);
-      expect(item.links).toBe(0);
+      assert.strictEqual(item.links, 0, context + ': item.links');
       if (repositoryBacked) {
         expect(item.text).not.toContain(record.repository!);
         expect(item.label).toContain(record.repository!);
@@ -120,27 +126,27 @@ async function assertActivityBands(rows: Locator, activitySelector: string, snap
         expect(item.provenance).toContain(`Activity not fetched for ${record.repository}; last attempt `);
         expect(item.label).toContain(item.provenance);
       } else {
-        expect(item.provenance).toMatch(new RegExp(`^${signalLabel}: .+`));
+        assert.match(item.provenance, new RegExp(`^${signalLabel}: .+`), context + ': item.provenance');
         expect(item.label).toContain(item.provenance);
       }
       const activeMonths = repositoryBacked ? record.commits!.filter((count) => count > 0).length : Number(snapshot.months.includes(date.slice(0, 7)));
       expect(item.label).toContain(`${activeMonths} months with reviewed public activity`);
-      expect(item.months).toHaveLength(12);
+      assert.strictEqual(item.months.length, 12, context + ': item.months');
       expect(item.label).toContain(`${monthLabels[0]}–${monthLabels[11]} (oldest to newest)`);
-      expect(item.label).not.toMatch(/newest (?:to oldest|(?:on|at) the left)|newest-left/i);
-      expect(item.months.map((month) => month.month)).toEqual(snapshot.months);
-      expect(new Set(item.months.map((month) => month.month)).size).toBe(12);
-      expect(item.months[0].month).toBe(snapshot.months[0]);
-      expect(item.months[11].month).toBe(snapshot.reviewedAt.slice(0, 7));
+      assert.doesNotMatch(item.label, /newest (?:to oldest|(?:on|at) the left)|newest-left/i, context + ': item.label');
+      assert.deepStrictEqual(item.months.map((month) => month.month), snapshot.months, context + ': item.months.map((month) => month.month)');
+      assert.strictEqual(new Set(item.months.map((month) => month.month)).size, 12, context + ': new Set(item.months.map((month) => month.month)).size');
+      assert.strictEqual(item.months[0].month, snapshot.months[0], context + ': item.months[0].month');
+      assert.strictEqual(item.months[11].month, snapshot.reviewedAt.slice(0, 7), context + ': item.months[11].month');
     }
-    expect(item.months[0].left).toBe(Math.min(...item.months.map((month) => month.left)));
-    expect(item.months[11].left).toBe(Math.max(...item.months.map((month) => month.left)));
-    expect(item.dateBottom).toBeLessThan(item.stripTop!);
-    expect(item.activityWidth).toBeGreaterThanOrEqual(94);
-    expect(item.activityWidth).toBeLessThanOrEqual(120);
-    expect(item.stripWidth).toBeCloseTo(94, 1);
-    expect(item.stripWidth).toBeLessThanOrEqual(item.activityWidth);
-    expect(item.dateRight).toBeLessThanOrEqual(item.activityRight);
+    assert.strictEqual(item.months[0].left, Math.min(...item.months.map((month) => month.left)), context + ': item.months[0].left');
+    assert.strictEqual(item.months[11].left, Math.max(...item.months.map((month) => month.left)), context + ': item.months[11].left');
+    assert(item.dateBottom < item.stripTop!, context + ': item.dateBottom');
+    assert(item.activityWidth >= 94, context + ': item.activityWidth');
+    assert(item.activityWidth <= 120, context + ': item.activityWidth');
+    assert(Math.abs(item.stripWidth - 94) < 0.05, context + ': item.stripWidth');
+    assert(item.stripWidth <= item.activityWidth, context + ': item.stripWidth');
+    assert(item.dateRight <= item.activityRight, context + ': item.dateRight');
     if (checkData) {
       // One structural assertion retains every cell's exact metadata
       // without recording a separate Playwright trace step for each scalar field.
@@ -205,6 +211,7 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     const rect = (node: Element) => { const r = node.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width }; };
     const title = el.querySelector(`.catalog-title`)!;
     return {
+      id: el.getAttribute('data-catalog-project'),
       columns: [...el.querySelectorAll('.catalog-rail, .catalog-overview')].map(rect), row: rect(el),
       rail: rect(el.querySelector('.catalog-rail')!), strip: rect(el.querySelector('.activity-strip')!),
       date: rect(el.querySelector('.activity-latest')!),
@@ -220,60 +227,62 @@ export async function expectTitleAndIndexGeometry(rows: Locator, width: number) 
     };
   }));
   for (const row of geometry) {
-    expect(row.columns).toHaveLength(2);
-    expect(row.row.width).toBeLessThanOrEqual(1200);
+    const context = [row.id, width + 'px'].join(': ');
+    assert.strictEqual(row.columns.length, 2, context + ': row.columns');
+    assert(row.row.width <= 1200, context + ': row.row.width');
     if (width >= 1024) {
-      expect(row.columns[0].width).toBe(120);
-      expect(row.columns[1].width).toBeGreaterThan(754);
-      expect(row.columns[1].left - row.columns[0].right).toBe(0);
+      assert.strictEqual(row.columns[0].width, 120, context + ': row.columns[0].width');
+      assert(row.columns[1].width > 754, context + ': row.columns[1].width');
+      assert.strictEqual(row.columns[1].left - row.columns[0].right, 0, context + ': row.columns[1].left - row.columns[0].right');
       if (width >= 1280) {
-        expect(row.row.width).toBe(1200);
-        expect(row.columns[1].width).toBe(1080);
+        assert.strictEqual(row.row.width, 1200, context + ': row.row.width');
+        assert.strictEqual(row.columns[1].width, 1080, context + ': row.columns[1].width');
       }
     } else {
-      expect(row.columns[0].left).toBe(row.columns[1].left);
-      expect(row.columns[1].bottom).toBeLessThanOrEqual(row.columns[0].top);
+      assert.strictEqual(row.columns[0].left, row.columns[1].left, context + ': row.columns[0].left');
+      assert(row.columns[1].bottom <= row.columns[0].top, context + ': row.columns[1].bottom');
     }
-    expect(row.date.bottom).toBeLessThan(row.strip.top);
-    expect(row.strip.top - row.date.bottom).toBeCloseTo(6, 1);
-    expect(row.scopeItems[0].top - row.strip.bottom).toBeCloseTo(10, 1);
+    assert(row.date.bottom < row.strip.top, context + ': row.date.bottom');
+    assert(Math.abs(row.strip.top - row.date.bottom - 6) < 0.05, context + ': row.strip.top - row.date.bottom');
+    assert(Math.abs(row.scopeItems[0].top - row.strip.bottom - 10) < 0.05, context + ': row.scopeItems[0].top - row.strip.bottom');
     for (const badge of row.scopeItems) {
-      expect(badge.left).toBe(row.rail.left);
-      expect(badge.right).toBeLessThanOrEqual(row.rail.right);
+      assert.strictEqual(badge.left, row.rail.left, context + ': badge.left');
+      assert(badge.right <= row.rail.right, context + ': badge.right');
     }
-    expect(row.justify).toBe('flex-start');
-    expect(row.nameLinks).toBe(0); expect(row.nameText).not.toContain('#');
-    expect(row.name.left).toBeCloseTo(row.title.left, 1);
-    expect(row.titleChildren).toHaveLength(2); // Plain-text name immediately followed by external quick links.
+    assert.strictEqual(row.justify, 'flex-start', context + ': row.justify');
+    assert.strictEqual(row.nameLinks, 0, context + ': row.nameLinks');
+    assert.doesNotMatch(row.nameText, /#/, context + ': row.nameText');
+    assert(Math.abs(row.name.left - row.title.left) < 0.05, context + ': row.name.left');
+    assert.strictEqual(row.titleChildren.length, 2, context + ': row.titleChildren'); // Plain-text name immediately followed by external quick links.
     for (let index = 1; index < row.titleChildren.length; index++) {
       const previous = row.titleChildren[index - 1], current = row.titleChildren[index];
       if (current.top < previous.bottom - 1) {
-        expect(current.left - previous.right).toBeGreaterThanOrEqual(15);
-        expect(current.left - previous.right).toBeLessThanOrEqual(17);
-      } else expect(current.left).toBeCloseTo(row.title.left, 1);
+        assert(current.left - previous.right >= 15, context + ': current.left - previous.right');
+        assert(current.left - previous.right <= 17, context + ': current.left - previous.right');
+      } else assert(Math.abs(current.left - row.title.left) < 0.05, context + ': current.left');
     }
-    expect(row.name.bottom).toBeLessThan(row.description.top);
+    assert(row.name.bottom < row.description.top, context + ': row.name.bottom');
     for (const link of row.links) {
-      expect(link.left).toBeGreaterThanOrEqual(row.title.left - 1);
-      expect(link.right).toBeLessThanOrEqual(row.title.right + 1);
-      expect(link.bottom).toBeLessThan(row.description.top);
-      expect(link.left >= row.name.right - 1 || link.top >= row.name.bottom - 1).toBe(true);
+      assert(link.left >= row.title.left - 1, context + ': link.left');
+      assert(link.right <= row.title.right + 1, context + ': link.right');
+      assert(link.bottom < row.description.top, context + ': link.bottom');
+      assert(link.left >= row.name.right - 1 || link.top >= row.name.bottom - 1, context + ': link must not overlap the name');
     }
     for (let index = 1; index < row.links.length; index++) {
       const previous = row.links[index - 1], current = row.links[index];
-      expect(current.left >= previous.right - 1 || current.top >= previous.bottom - 1).toBe(true);
+      assert(current.left >= previous.right - 1 || current.top >= previous.bottom - 1, context + ': adjacent links must not overlap');
     }
-    expect(row.scopeStyle).toBe('flex'); expect(row.scopeDirection).toBe('column');
-    expect(row.scopeItems.length).toBeGreaterThan(0);
+    assert.strictEqual(row.scopeStyle, 'flex', context + ': row.scopeStyle'); assert.strictEqual(row.scopeDirection, 'column', context + ': row.scopeDirection');
+    assert(row.scopeItems.length > 0, context + ': row.scopeItems.length');
     for (let index = 1; index < row.scopeItems.length; index++) {
       const previous = row.scopeItems[index - 1], current = row.scopeItems[index];
-      expect(current.left).toBeCloseTo(previous.left, 1);
-      expect(current.top - previous.bottom).toBeCloseTo(current.development ? 8 : 4, 1);
+      assert(Math.abs(current.left - previous.left) < 0.05, context + ': current.left');
+      assert(Math.abs(current.top - previous.bottom - (current.development ? 8 : 4)) < 0.05, context + ': current.top - previous.bottom');
     }
     for (const item of row.scopeItems) {
-      expect(item.left).toBeGreaterThanOrEqual(row.rail.left);
-      expect(item.right).toBeLessThanOrEqual(row.rail.right);
-      expect(item.bottom - item.top).toBeLessThan(24);
+      assert(item.left >= row.rail.left, context + ': item.left');
+      assert(item.right <= row.rail.right, context + ': item.right');
+      assert(item.bottom - item.top < 24, context + ': item.bottom - item.top');
     }
   }
 }
@@ -298,11 +307,12 @@ export async function expectCompleteDescriptions(descriptions: Locator) {
   }));
   expect(rendered.length).toBeGreaterThan(0);
   for (const description of rendered) {
-    expect(description.clamp, description.project!).toBe('none');
-    expect(description.fullHeight, description.project!).toBeLessThanOrEqual(description.height + 1);
+    const context = description.project ?? 'catalog description';
+    assert.strictEqual(description.clamp, 'none', context + ': description.clamp');
+    assert(description.fullHeight <= description.height + 1, context + ': description.fullHeight');
     // The inert background extends into the existing body inset; text must still fit the paragraph.
-    expect(description.fullWidth, description.project!).toBeLessThanOrEqual(description.width + description.paintOutset + 1);
-    expect(description.copyFullWidth, description.project!).toBeLessThanOrEqual(description.copyWidth + 1);
-    expect(description.textFits, description.project!).toBe(true);
+    assert(description.fullWidth <= description.width + description.paintOutset + 1, context + ': description.fullWidth');
+    assert(description.copyFullWidth <= description.copyWidth + 1, context + ': description.copyFullWidth');
+    assert(description.textFits, context + ': description.textFits');
   }
 }

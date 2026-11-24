@@ -36,6 +36,8 @@ Use the domain catalog browser suites for catalog behavior; `catalog-index.ts` o
 
 Each release spec registers `installBrowserErrorGuards(test)` at module scope. `release-helpers.mjs` owns shared readiness/corpus/label helpers; a hook declared only inside an imported helper can attach to the first loaded suite. Preserve test-name and URL/surface diagnostics, plus the configured failure traces and screenshots. Local smoke and live verification also retain video on failure; CI does not record successful browser sessions just to discard their videos. Do not suppress unrelated console errors to make a test pass.
 
+Use Playwright's request fixture for HTTP-only checks so they do not start Chromium. Browser DOM, layout, keyboard and no-JavaScript checks stay in Chromium. When validating every catalog row, capture one browser snapshot for that assertion and compare it against the source in Node. Use retryable Playwright assertions for interactions and synchronous Node assertions for scalar checks on an already captured snapshot. Keep the row ID in snapshot diagnostics; do not replace full-catalog checks with a sample.
+
 The CI job installs dependencies once, verifies the separate root-domain shape, then runs the full Chromium suite against the audited fallback build without rebuilding it. On failure it retains available browser traces and screenshots from `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
 
 ## Local, production-shaped and live checks

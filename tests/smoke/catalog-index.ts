@@ -191,19 +191,26 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
 
   test(`${label} Scope labels stay plain for every stage and preserve separate AI provenance`, async ({ page }) => {
     await open(page);
-    for (const p of projects) {
-      const scope = row(page, p.id).getByRole('list', { name: `${p.name} Scope`, exact: true });
-      const cells = await scope.locator('li').evaluateAll((nodes) => nodes.map((el) => ({
-        stage: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), text: el.textContent?.trim(),
+    const scopes = await rows(page).getByRole('list').filter({ has: page.locator('[data-scope-item]') }).evaluateAll((lists) =>
+      lists.map((list) => ({
+        id: list.closest('[data-catalog-project]')!.getAttribute('data-catalog-project'),
+        name: list.getAttribute('aria-label'),
+        cells: [...list.querySelectorAll('li')].map((el) => ({
+          stage: el.getAttribute('data-scope-item'), ai: el.getAttribute('data-ai'), text: el.textContent?.trim(),
+        })),
       })));
+    const scopesById = new Map(scopes.map((scope) => [scope.id, scope]));
+    expect(scopes.length).toBe(projects.length);
+    expect(scopesById.size).toBe(projects.length);
+    for (const p of projects) {
       const expected: { stage: string; ai: string | null; text: string }[] = Object.entries(scopeStageLabels).filter(([stage]) => p.scope[stage]).map(([stage, label]) => {
         const { ai } = p.scope[stage];
         return { stage, ai: String(ai), text: label };
       });
-      if (p.scope.aiDevelopment) expected.push({ stage: 'aiDevelopment', ai: null, text: `AI-${p.scope.aiDevelopment.toUpperCase()}` });
-      expect(cells).toEqual(expected);
-      expect(new Set(cells.map((cell) => cell.stage)).size).toBe(cells.length);
-      expect(cells.length).toBeGreaterThan(0);
+      if (p.scope.aiDevelopment) expected.push({ stage: 'aiDevelopment', ai: null, text: 'AI-' + p.scope.aiDevelopment.toUpperCase() });
+      expect(scopesById.get(p.id), p.id).toEqual({ id: p.id, name: p.name + ' Scope', cells: expected });
+      expect(new Set(expected.map((cell) => cell.stage)).size).toBe(expected.length);
+      expect(expected.length).toBeGreaterThan(0);
     }
     await expectScopeLabels(page.locator(`.catalog-scope`));
   });
