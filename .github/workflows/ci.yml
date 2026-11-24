@@ -14,34 +14,8 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  validate-and-build:
-    name: Deterministic checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Validate content, build, and audit links
-        run: npm run check
-
-      - name: Validate root-domain deployment shape
-        env:
-          SITE: https://migration-test.invalid
-          BASE_URL: /
-        run: npm run build && npm run check:internal-links
-
-  browser-smoke:
-    name: Chromium smoke tests
+  validate:
+    name: Validate and test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -57,11 +31,21 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Validate root-domain deployment shape
+        env:
+          SITE: https://migration-test.invalid
+          BASE_URL: /
+        run: npm run build && npm run check:internal-links
 
-      - name: Run production-preview smoke tests
-        run: npm run test:smoke
+      # Leave the audited fallback build in dist for Chromium.
+      - name: Deterministic checks
+        run: npm run check
+
+      - name: Install Chromium headless shell
+        run: npx playwright install --with-deps --only-shell chromium
+
+      - name: Chromium smoke tests
+        run: npx playwright test
 
       - name: Retain browser failure evidence
         if: failure()

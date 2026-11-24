@@ -5,7 +5,7 @@ Production is `https://ams-signals.com/`. GitHub Pages uses the manual-only [Dep
 ## Publication
 
 1. Confirm the intended main revision and authorized scope. Preserve unrelated changes. Run the relevant local gates in [Testing](docs/TESTING.md), then integrate the verified temporary branch. When PRs are disabled, push the authorized integration directly to main without rewriting history.
-2. Confirm that exact main SHA's **Deterministic checks** and **Chromium smoke tests** both succeeded. Success for another revision is insufficient.
+2. Confirm that exact main SHA's **Validate and test** CI job succeeded, including its **Validate root-domain deployment shape**, **Deterministic checks** and **Chromium smoke tests** steps. Success for another revision is insufficient.
 3. Read the current Pages source, custom domain, HTTPS state and Actions Variables. Production uses GitHub Actions with `SITE=https://ams-signals.com` and `BASE_URL=/`. Missing variables select the workflow fallback `https://ds54e.github.io/ams-signals/`; do not silently change settings to match this document.
 4. Dispatch **Deploy GitHub Pages (manual)** on main. Verify the run's actual `head_sha` matches the validated revision and both artifact build and deployment succeed. If main moved, reconcile and validate the intended revision before publishing.
 5. Run the delivery-only deployed-site suite. Supply the full prior production SHA (not a guessed parent), expected deployed SHA, and successful manual deployment run ID. The config checks checkout/build inputs and the successful exact-SHA main deployment via read-only `gh run view`; it never deploys or starts a local server. It does not prove the served SHA by itself, so inspect the run and changed-page results together:

@@ -8,7 +8,7 @@ For code or published-content changes, `npm run check` is the deterministic gate
 
 Viewer/navigation/release changes also use `npm run test:smoke`, which builds and tests a local preview by default. Catalog presentation changes use the relevant browser coverage and visual checks. Targeted checks are useful while iterating; do not repeatedly run unrelated suites after every small edit or replace a required final gate with a narrow test.
 
-Documentation/guidance-only changes require whitespace, Markdown parsing, local link/anchor and instruction-consistency checks, plus confirmation that application/content/configuration inputs are unchanged. No full build/browser run is needed for those changes alone. This exception does not alter the existing PR CI jobs. Report what ran, what did not and any access limitation separately from a test failure.
+Documentation/guidance-only changes require whitespace, Markdown parsing, local link/anchor and instruction-consistency checks, plus confirmation that application/content/configuration inputs are unchanged. No full build/browser run is needed for those changes alone. This exception does not bypass the CI job. Report what ran, what did not and any access limitation separately from a test failure.
 
 ## Deterministic versus browser contracts
 
@@ -34,9 +34,9 @@ Golden date fixtures cover calendar validity, precision, range order and nested-
 
 Use the domain catalog browser suites for catalog behavior; `catalog-index.ts` owns shared catalog assertions. Pure logic belongs in Node tests even when its output is later rendered.
 
-Each release spec registers `installBrowserErrorGuards(test)` at module scope. `release-helpers.mjs` owns shared readiness/corpus/label helpers; a hook declared only inside an imported helper can attach to the first loaded suite. Preserve test-name and URL/surface diagnostics, plus the configured failure traces/screenshots/video. Do not suppress unrelated console errors to make a test pass.
+Each release spec registers `installBrowserErrorGuards(test)` at module scope. `release-helpers.mjs` owns shared readiness/corpus/label helpers; a hook declared only inside an imported helper can attach to the first loaded suite. Preserve test-name and URL/surface diagnostics, plus the configured failure traces and screenshots. Local smoke and live verification also retain video on failure; CI does not record successful browser sessions just to discard their videos. Do not suppress unrelated console errors to make a test pass.
 
-When the browser CI job fails, it uploads `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
+The CI job installs dependencies once, verifies the separate root-domain shape, then runs the full Chromium suite against the audited fallback build without rebuilding it. On failure it retains available browser traces and screenshots from `test-results/` as a short-lived artifact; [CI](../.github/workflows/ci.yml) owns its name and retention. These tests visit public/local pages without authenticated browser state; keep credentials and private fixtures out of recorded requests and attachments. Normal CI does not deploy.
 
 ## Local, production-shaped and live checks
 

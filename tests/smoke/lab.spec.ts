@@ -9,7 +9,8 @@ catalogSearchRegression(fixture, {
   'ADALM2000': ['libm2k', 'scopy'],
   'wafer map': ['tsmap'],
   'Allan deviation': ['allantools'],
-  'Test Automation': ['openhtf', 'opentap', 'pymeasure', 'kibot'],
+  'Test Automation': ['openhtf', 'opentap', 'pymeasure'],
+  'KiCad automation': ['kibot'],
 });
 
 for (const width of [1440, 390, 320]) {

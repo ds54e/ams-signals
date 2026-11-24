@@ -1,3 +1,4 @@
+import { availableParallelism } from 'node:os';
 import { defineConfig, devices } from '@playwright/test';
 import { resolveSiteDeployment } from './src/lib/site-deployment.mjs';
 
@@ -10,20 +11,22 @@ const baseURL = requestedBaseUrl
   ? `${requestedBaseUrl.replace(/\/+$/, '')}/`
   : localBaseUrl;
 
+const isCI = Boolean(process.env.CI);
+
 export default defineConfig({
   testDir: './tests/smoke',
   timeout: 30_000,
   expect: {
     timeout: 5_000,
   },
-  fullyParallel: false,
-  workers: process.env.CI ? 2 : undefined,
-  reporter: process.env.CI ? 'line' : 'list',
+  fullyParallel: isCI,
+  workers: isCI ? Math.min(4, availableParallelism()) : undefined,
+  reporter: isCI ? 'line' : 'list',
   use: {
     baseURL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: isCI ? 'off' : 'retain-on-failure',
   },
   webServer: requestedBaseUrl
     ? undefined
