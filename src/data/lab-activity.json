@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T07:48:51.550Z",
+  "capturedAt": "2026-11-24T08:04:05.807Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1166,6 +1166,31 @@
       "lastCommitAt": "2026-10-19",
       "lastMeaningfulCommitAt": "2026-10-19",
       "lastMeaningfulCommitSha": "9cdefc8421c1f133403a691717dbd69c8725a532"
+    },
+    "pypicosdk": {
+      "kind": "github",
+      "repository": "picotech/pyPicoSDK",
+      "repositoryId": 950783248,
+      "capturedAt": "2026-11-24T07:58:48.896Z",
+      "defaultBranch": "main",
+      "headSha": "2ad6ac4b255fd36dc107e16f74b1f8239e0159be",
+      "commits": [
+        6,
+        0,
+        6,
+        3,
+        3,
+        2,
+        4,
+        3,
+        2,
+        0,
+        5,
+        0
+      ],
+      "lastCommitAt": "2026-10-22",
+      "lastMeaningfulCommitAt": "2026-10-22",
+      "lastMeaningfulCommitSha": "2ad6ac4b255fd36dc107e16f74b1f8239e0159be"
     }
   }
 }
