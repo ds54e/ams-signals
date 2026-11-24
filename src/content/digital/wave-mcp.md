@@ -1,13 +1,13 @@
 ---
 name: "wave-mcp"
 aliases: []
-description: "RTL debug server and CLI exposing waveform values, hierarchy, drivers, X tracing and pass/fail comparisons through pyslang and FST analysis. It can prepare sessions from existing FST or converted VCD/FSDB data and open a synchronized browser viewer; simulation and model-driven diagnostic decisions stay in the external workflow."
+description: "RTL debug server and CLI for waveform queries, hierarchy and driver inspection, approximate value/X tracing and pass/fail comparisons, with a browser viewer. FST is read directly; VCD/FSDB need conversion, FSDB needs vendor reader libraries, and structural answers depend on reported elaboration coverage."
 scope:
   verification:
     ai: false
-access: "Public source implementation; tool and environment requirements are documented by the project."
+access: "Public Python source with pyslang and pylibfst. VCD conversion uses GTKWave vcd2fst; the optional FSDB converter needs a compatible Linux FsdbReader runtime."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical wave-mcp repository"
@@ -15,10 +15,10 @@ sources:
     purpose: "code"
   - id: "readme"
     title: "README at the reviewed revision"
-    url: "https://github.com/Tencent/wave-mcp/blob/06a0b98be46da9b3f81119c3f97d8833be71b401/README.md"
+    url: "https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/README.md"
   - id: "implementation"
     title: "Reviewed implementation: wave_mcp/netlist/trace_engine.py"
-    url: "https://github.com/Tencent/wave-mcp/blob/06a0b98be46da9b3f81119c3f97d8833be71b401/wave_mcp/netlist/trace_engine.py"
+    url: "https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/netlist/trace_engine.py"
   - id: "activity"
     title: "fix(deploy): resolve install paths to absolute and verify launcher at install time"
     url: "https://github.com/Tencent/wave-mcp/commit/cbd367ada0da49ca9cd5ef34dd201f751cfb5ea5"
@@ -35,29 +35,27 @@ sources:
   - id: review-20261103-time
     title: "Exact FST timestamp conversion and tests"
     url: https://github.com/Tencent/wave-mcp/commit/0b8c5fff11c9b4bf1e668787322ec41d08dd9d91
+  - id: fsdb-runtime
+    title: "FSDB converter build and required reader runtime"
+    url: https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/deploy/build_fsdb2fst.sh
+  - id: session-coverage
+    title: "Session mode, elaboration health and definition coverage"
+    url: https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/session.py
+  - id: netlist-coverage
+    title: "Partial elaboration and recovered-module boundaries"
+    url: https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/netlist/slang_netlist.py
 ---
 
+### Implemented workflow and selection
 
-### Implementation context
+The independent value is the combination of pyslang elaboration, source-level drivers and recorded waveform values. Static sessions inspect hierarchy and connectivity before a waveform is available; full sessions add value queries, comparisons and viewer synchronization. These are conventional Verification operations over existing artifacts. The MCP/CLI interface does not itself implement a model-driven diagnostic workflow or execute simulation. [Workflow](#source-readme) · [Tracing implementation](#source-implementation).
 
-The MCP server exposes implemented waveform and RTL query operations to agents. [Reviewed source](#source-readme).
+### Access and interpretation boundaries
 
-### Release boundary
+FST reads use pylibfst, VCD preparation invokes vcd2fst, and FSDB conversion requires a compatible FsdbReader runtime. The converter build resolves local `libnffr.so` / `libnsys.so`; absence of a license checkout does not make these vendor dependencies part of the open implementation. [Converter dependencies](#source-fsdb-runtime).
 
-The tool reads existing simulation artifacts; it is not a simulator. Reported production and query-accuracy results were not independently reproduced. [Public update](#source-activity).
+Recovered modules can remain available after elaboration errors. The session exposes `netlist_health` and definition coverage, so a usable waveform session does not establish complete structural coverage. The trace engine explicitly treats value-informed active-driver and backward-trace decisions as best-effort temporal analysis; inspect the source context before assigning causality. [Elaboration](#source-netlist-coverage) · [Session coverage](#source-session-coverage) · [Trace boundary](#source-implementation).
 
-[Implementation inspected](#source-implementation).
+### Reviewed maintenance
 
-### Scope classification
-
-FST queries, connectivity tracing and failure comparisons are debug/verification operations over existing artifacts. Static elaboration does not edit the design. [Reviewed source](#source-readme).
-
-Structured waveform, driver and X-tracing queries serve conventional Verification. The inspected server supplies tools to an external model rather than implementing model-driven debug decisions itself. [AI/stage evidence](#source-readme).
-
-### Current-source review
-
-Reviewed 2026-10-01. Current release adds static-only sessions, source/waveform identity checks, browser views and automatic VCD/FSDB-to-FST preparation. The inspected implementation remains a deterministic analysis toolkit exposed through MCP/CLI, without a packaged substantive model-decision workflow. Verification stays conventional; automatic query preparation or netlist repair is not itself AI. [README](#source-readme); [Trace implementation](#source-implementation).
-
-### Selection and current source review
-
-Release v1.1.1 follows integrated bit/part-select support across waveform queries, analyses, comparisons and tracing, with signedness/range checks and substantial unit/functional regressions. A separate exact-time conversion correction avoids floating-point loss in FST timestamps. This is meaningful technical maintenance of deterministic Verification tools; the generic MCP interface does not establish model-driven diagnostic decisions. The existing description remains adequate and no query-accuracy or production result was independently reproduced. [Implementation and regression evidence](#source-review-20261103-implementation). [Related correction](#source-review-20261103-time).
+Bit/part-select support and exact FST timestamp conversion are concrete correctness work supporting retention. Their implementation evidence is separate from the existing activity capture. This review inspected current code and documentation; the project's production/query-accuracy claims were not independently reproduced. [Bit/part selects](#source-review-20261103-implementation) · [Timestamp correction](#source-review-20261103-time).

@@ -1,7 +1,7 @@
 ---
 name: "Red Pitaya software"
 aliases: ["Red Pitaya"]
-description: "Platform software for Red Pitaya instruments, including signal generation, triggered acquisition, streaming and host APIs. It exposes board and FPGA functions for programmable measurements while keeping instrument calibration and hardware capabilities separate from the application interface."
+description: "Platform software for Red Pitaya instruments, with signal generation, triggered acquisition, streaming and host APIs. Its oscilloscope and spectrum applications expose time-domain and FFT measurements; results depend on the installed FPGA image, board model, input scaling, windowing and device calibration."
 scope:
   control: { ai: false }
   acquisition: { ai: false }
@@ -30,12 +30,16 @@ sources:
   - id: calibration
     title: "Reviewed legacy calibration initialization"
     url: "https://github.com/RedPitaya/RedPitaya/blob/0e46d64396a57752bf97315789d6cc6c9fbddad8/rp-api/api-hw-calib/src/calib.cpp"
+  - id: spectrum-app
+    title: "Spectrum application controls for windowing, impedance and probe scaling"
+    url: "https://github.com/RedPitaya/RedPitaya/blob/0e46d64396a57752bf97315789d6cc6c9fbddad8/apps-tools/spectrumpro/src/main.cpp"
+  - id: spectrum-dsp
+    title: "Window, FFT and amplitude/power conversion implementation"
+    url: "https://github.com/RedPitaya/RedPitaya/blob/0e46d64396a57752bf97315789d6cc6c9fbddad8/rp-api/api-dsp/src/rp_dsp.cpp"
 ---
 
 ## Scope and limits
 
-Release 2026.1 includes streaming and calibration work. Initialization can fall back to default calibration values for some invalid legacy records; success does not prove the origin or validity of device calibration.
+The spectrum application exposes FFT-window, DC-removal, buffer-length, impedance and probe-factor controls. Its DSP implementation applies those settings during spectral and amplitude/power conversion, establishing Analysis beyond streaming acquired samples. A spectral result must be interpreted with those settings and the corresponding board/input calibration. [Spectrum application](#source-spectrum-app); [DSP implementation](#source-spectrum-dsp).
 
-[Reviewed upstream implementation](#source-implementation).
-
-Additional context: [Release 2026.1](#source-release); [Reviewed legacy calibration initialization](#source-calibration).
+Release 2026.1 includes streaming and calibration work. Initialization can fall back to default calibration values for some invalid legacy records; success does not prove the origin or validity of device calibration. [Reviewed change](#source-implementation); [Release](#source-release); [Legacy calibration initialization](#source-calibration).

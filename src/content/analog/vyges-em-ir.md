@@ -1,8 +1,8 @@
 ---
 name: "Vyges EM-IR"
 aliases: []
-summary: "Physical power-grid analysis tool computing resistive IR drop and electromigration-limit violations from supplied networks or routed geometry."
-description: "Physical power-grid analysis tool computing resistive IR drop and electromigration-limit violations from supplied networks or routed geometry. Analog and digital examples use externally supplied loads; current limits, thermal assumptions and process data must be reviewed independently from claims of foundry-certified signoff."
+summary: "Physical power-grid IR-drop, bounded transient-droop and segment-current analysis."
+description: "Analyzes physical power grids for static IR drop, bounded transient droop and segment-current limits. It accepts resistor networks or supported DEF/LEF extraction with external loads; dynamic estimates use prescribed triangular switching pulses and a fixed-step RC solve, so they do not establish general supply-noise or foundry-signoff accuracy."
 scope:
   layout:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; network or supported DEF/LEF inputs, load currents and reviewed current-limit data are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-23'
+reviewedAt: '2026-11-24'
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -41,6 +41,18 @@ sources:
     title: Official project website and documentation
     url: https://vyges.com/products/loom/em-ir/
     purpose: official
+  - id: transient-solver
+    title: "Static and transient power-grid solves and bounded result report"
+    url: https://github.com/vyges-tools/em-ir/blob/9ad03f02054ab3c3ec87bc69a684dff2aaf7a8a9/src/emir.rs
+  - id: explicit-switches
+    title: "Explicit PDN capacitances and per-event switching times"
+    url: https://github.com/vyges-tools/em-ir/blob/9ad03f02054ab3c3ec87bc69a684dff2aaf7a8a9/src/pdn.rs
+  - id: extracted-switches
+    title: "Common switching schedule in the DEF and power-map path"
+    url: https://github.com/vyges-tools/em-ir/blob/9ad03f02054ab3c3ec87bc69a684dff2aaf7a8a9/src/extract.rs
+  - id: transient-tests
+    title: "Analytic pulse, energy-scaling and decoupling-capacitance tests"
+    url: https://github.com/vyges-tools/em-ir/blob/9ad03f02054ab3c3ec87bc69a684dff2aaf7a8a9/tests/transient.rs
 ---
 
 ### Implemented operations and boundaries
@@ -48,6 +60,10 @@ sources:
 The exposed result is physical power-grid IR drop and segment-current checking, classified as Layout. Load currents are externally supplied; the tool does not solve analog operating points. Public generic limits and private foundry plugins are different inputs, and no independent PDNSim or silicon correlation was performed.
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2).
+
+The dynamic path forms triangular current pulses from externally supplied switching energy and node capacitances, solves the RC network with backward Euler, and reports worst droop plus segment RMS/peak currents. It chooses a fixed timestep equal to one tenth of the shortest pulse duration, bounded below by 1 ps, and keeps no public time-series waveform in its result object. The fixed step and pulse assumptions matter for short events and supply-noise interpretation. [Transient implementation](#source-transient-solver) · [Analytic and invariant tests](#source-transient-tests).
+
+The DEF/power-map extraction path assigns a common switching time and duration to its generated events. Hand-authored `.pdn` input separately supports per-event times and durations; the common-time limitation must not be generalized to that interface. Neither path infers actual clock-phase relationships or jitter from a functional circuit simulation. [Extracted events](#source-extracted-switches) · [Explicit event input](#source-explicit-switches).
 
 ### Scope and activity review
 

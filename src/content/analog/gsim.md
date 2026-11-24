@@ -2,7 +2,7 @@
 name: "gsim"
 aliases: []
 summary: "Simulation interface connecting GDSFactory layouts to electromagnetic solvers through geometry, meshing and port setup."
-description: "Connects GDSFactory layouts to electromagnetic solvers through PDK-derived geometry, meshing and multimode ports, including terminal S-parameter extraction. Optional FEMwell mode solving and DEVSIM-driven electro-optic workflows extend the analysis interface; local/cloud backends retain separate dependencies, and the package requires GDSFactory 9."
+description: "Connects GDSFactory layouts to electromagnetic solvers through geometry, meshes, ports and S-parameter extraction. Local Palace execution can fetch a Linux x86_64 CPU runtime; local Meep uses a configured Python environment, while cloud jobs require separate access. The current package still requires GDSFactory 9, with optional FEMwell and DEVSIM workflows."
 scope:
   simulation:
     ai: false
@@ -11,9 +11,9 @@ developmentEvidence:
   summary: "Claude is co-credited for implementing conversion from SParams to a scikit-rf Network. The canonical result adapter retains frequency-unit conversion and complex multiport matrix construction."
   sources: [development-code-20261022, development-retained-20261022]
   reviewedAt: '2026-10-22'
-access: "Public Python implementation; the declared GDSFactory/GDSFactory+ versions and selected local solver or cloud access are required."
+access: "Public Python implementation requiring Python 3.12 and the declared GDSFactory/GDSFactory+ versions. Local Palace supports a supplied binary or Linux x86_64 runtime download; local Meep requires a suitable Python environment. Authenticated cloud execution and optional solver extras have separate requirements."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -53,11 +53,20 @@ sources:
   - id: review-20261031-dependencies
     title: "Current dependency and optional-extra constraints"
     url: https://github.com/gdsfactory/gsim/blob/9f31460946f5c3f036fb91bc32a2ed1bc38245ce/pyproject.toml
+  - id: runtime-dependencies
+    title: "Current Python, GDSFactory and optional solver requirements"
+    url: https://github.com/gdsfactory/gsim/blob/af7487391abcf45636cbc9228772e733b7662a8e/pyproject.toml
+  - id: palace-runtime
+    title: "Local Palace executable resolution and optional runtime download"
+    url: https://github.com/gdsfactory/gsim/blob/af7487391abcf45636cbc9228772e733b7662a8e/src/gsim/palace/runtime.py
+  - id: meep-local
+    title: "Local Meep script execution and S-parameter result loading"
+    url: https://github.com/gdsfactory/gsim/blob/af7487391abcf45636cbc9228772e733b7662a8e/src/gsim/meep/simulation.py
 ---
 
 ### Implemented operations and boundaries
 
-The reviewed pyproject is version 0.8.0 and requires gdsfactory>=9,<10 and gdsfactoryplus>=1.8.20,<3. These constraints matter because the separately reviewed core main is version 10. Local solver dependencies and authenticated cloud operations are separate paths.
+The current source declares version 0.10.0, Python `~=3.12.0`, `gdsfactory>=9,<10` and `gdsfactoryplus>=1.8.20,<3`. Its supported dependency range must be checked against the chosen GDSFactory installation; the catalog's separate GDSFactory listing does not guarantee cross-version compatibility. [Current package requirements](#source-runtime-dependencies).
 
 [Project overview](#source-readme); [Source 1](#source-implementation-1); [Source 2](#source-implementation-2).
 
@@ -65,7 +74,7 @@ The reviewed pyproject is version 0.8.0 and requires gdsfactory>=9,<10 and gdsfa
 
 The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The earlier meaningful checkpoint was 2026-10-22T11:57:19Z (`fe55668055bd3aaea944a4e8fde03a73f728cd1d`). It clips disconnected sidewall solids to the physical domain and rejects mesh nodes outside those bounds; the later 0.8.0 version bump does not independently renew meaningful activity. The current reviewed implementation checkpoint is the October 29 PDK-stack integration described below. [Implementation activity](#source-activity).
+Sidewall-domain clipping and PDK-stack integration provide substantive implementation evidence. Source review and package versions remain separate from the captured repository history and its meaningful checkpoint. [Sidewall implementation](#source-activity) · [Stack integration](#source-review-20261031-stack).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
 
@@ -75,4 +84,8 @@ Claude is co-credited for implementing conversion from SParams to a scikit-rf Ne
 
 The opt-in PDK-authoritative stack preserves layer elevation, thickness, material and mesh order instead of reconstructing them from generic assumptions. The Palace terminal-port pipeline joins driven-run modal S-parameters with aligned two-dimensional voltage/current matrices; its mode ordering and gauge requirements still apply. [Stack integration](#source-review-20261031-stack) · [Terminal assembly](#source-review-20261031-ports).
 
-The optional FEMwell adapter and DEVSIM-based traveling-wave modulator examples add mode solving, carrier-dependent material transfer and electro-optic response calculations. These are implementation and example workflows, not independent validation against silicon. Version 0.8.0 still declares `gdsfactory>=9,<10` and `gdsfactoryplus>=1.8.20,<3`; installing optional extras and external solvers remains separate. [Electro-optic workflow](#source-review-20261031-electrooptic) · [Dependencies](#source-review-20261031-dependencies).
+The optional FEMwell adapter and DEVSIM-based traveling-wave modulator examples add mode solving, carrier-dependent material transfer and electro-optic response calculations. These are implementation and example workflows, not independent validation against silicon. The current TCAD extra requires DEVSIM plus a BLAS/LAPACK provider, with platform constraints documented in the package declaration. [Electro-optic workflow](#source-review-20261031-electrooptic) · [Current dependencies](#source-runtime-dependencies).
+
+### Local and cloud execution
+
+Palace runtime resolution accepts a user-supplied executable, then supported packaged or cached paths; on Linux x86_64 it can download and cache a prebuilt CPU runtime when enabled. The resolver and launcher expose failures instead of making the cloud service a prerequisite for all Palace work. Local Meep writes a configuration, layout and runner script, executes them with a Python environment containing Meep, and reads S-parameter results; MPI execution additionally needs its launcher. Authenticated cloud submission remains a separate path. [Palace runtime](#source-palace-runtime) · [Local Meep execution](#source-meep-local).

@@ -2,7 +2,7 @@
 name: "SpiceXplorer"
 aliases: ["Analog-DB", "analog-db"]
 summary: "Analog circuit database, sizing and simulation platform with agent-driven schematic/layout co-design."
-description: "Combines a PDK-neutral analog circuit database with gm/ID sizing, numerical and Bayesian optimization, SPICE evaluation and parameterized layout flows. Released agent workflows and worked IHP designs span schematic/layout co-design, including a PAM-4 driver and a low-pass-filter front end, with inspectable verification artifacts."
+description: "Analog circuit database and Python platform for gm/ID sizing, numerical and Bayesian optimization, SPICE evaluation and parameterized layout, with agent-guided schematic/layout co-design. The published source uses PolyForm Noncommercial terms; live SPICE is opt-in, and physical or EM workflows require their separate tools and PDK setup."
 scope:
   design:
     ai: true
@@ -15,9 +15,9 @@ developmentEvidence:
   summary: "The September 1 EM-verification contribution credits Claude Opus and adds net extraction, openEMS S-parameter orchestration and SPICE-model export with tests. The reviewed diff establishes AI-assisted implementation of this analysis subsystem."
   sources: ["activity", "em-implementation"]
   reviewedAt: "2026-10-01"
-access: "Public Python platform, Studio interface, circuit database and agent definitions. Live SPICE is opt-in; open bindings cover IHP SG13G2, SKY130 and GF180MCU. Physical and EM flows need additional tools; the Spectre path requires a user-supplied licensed environment."
+access: "Source-available under PolyForm Noncommercial 1.0.0; the maintainer directs commercial users to separate licensing. Python tools, Studio, the circuit database and agent definitions are public. Live SPICE is opt-in; physical, EM and licensed Spectre paths require their own tools and PDK setup."
 addedAt: "2026-10-01"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical SpiceXplorer public release repository"
@@ -28,8 +28,8 @@ sources:
     url: "https://arxiv.org/abs/2609.01286"
     purpose: "paper"
   - id: "readme"
-    title: "Released components, open-PDK bindings and live-simulation setup"
-    url: "https://github.com/MacAnalog/spicexplorer-release/blob/263d0322f8900dc331536fbbe6c0e804514fc454/README.md"
+    title: "Released components, execution setup and noncommercial-use boundary"
+    url: "https://github.com/MacAnalog/spicexplorer-release/blob/7932a92ff0b8ebe8b341271cdd7549fb378efeb3/README.md"
   - id: "database"
     title: "Versioned circuit registry and tiered verification harness"
     url: "https://github.com/MacAnalog/spicexplorer-release/blob/263d0322f8900dc331536fbbe6c0e804514fc454/analog-db/README.md"
@@ -63,6 +63,12 @@ sources:
   - id: "review-20261011-3"
     title: "Capless LDO collateral"
     url: "https://github.com/MacAnalog/spicexplorer-release/blob/f6f3f92246cc4dbe2763155b375c34aeec7dd39d/analog-db/circuits/ldo_010_capless_lowiq/README.md"
+  - id: "license"
+    title: "PolyForm Noncommercial 1.0.0 terms at the reviewed release head"
+    url: "https://github.com/MacAnalog/spicexplorer-release/blob/7932a92ff0b8ebe8b341271cdd7549fb378efeb3/LICENSE"
+  - id: "license-integration"
+    title: "Root license and explicit commercial-use guidance"
+    url: "https://github.com/MacAnalog/spicexplorer-release/commit/7932a92ff0b8ebe8b341271cdd7549fb378efeb3"
 ---
 
 ### Inclusion and project boundary
@@ -79,12 +85,16 @@ AI Layout follows the released agent workflow that writes or repairs a parameter
 
 ### Activity and development provenance
 
-The September 1 EM-verification commit is the reviewed meaningful first-parent change; the later same-day head updates documentation. The EM implementation extracts named nets from GDS, orchestrates the PDK's openEMS workflow and exports a fitted SPICE subcircuit. It is an optional verification lane outside the optimizer loop. Its handling of near-passive fits requires explicit warnings and checking the spliced deck's operating point, so the catalog does not imply guaranteed passivity or independently reproduced results. [Meaningful commit](#source-activity) · [Implementation](#source-em-implementation)
+The September 1 EM-verification contribution extracts named nets from GDS, orchestrates the PDK's openEMS workflow and exports a fitted SPICE subcircuit. It is an optional verification lane outside the optimizer loop. Its handling of near-passive fits requires explicit warnings and checking the spliced deck's operating point, so the catalog does not imply guaranteed passivity or independently reproduced results. The activity snapshot's later meaningful checkpoint is the October 10 worked-design and execution update. [EM contribution](#source-activity) · [Implementation](#source-em-implementation) · [Recorded meaningful update](#source-review-20261011-2)
 
-That commit credits Claude Opus and introduces the actual analysis pipeline with configuration and tests. The diff supports AI-ASSISTED for this subsystem, without attributing upstream simulator code to the contribution. [Attributed implementation](#source-activity) · [Retained subsystem](#source-em-implementation)
+The September 1 EM-verification commit credits Claude Opus and introduces the actual analysis pipeline with configuration and tests. The diff supports AI-ASSISTED for this subsystem, without attributing upstream simulator code to the contribution. [Attributed implementation](#source-activity) · [Retained subsystem](#source-em-implementation)
 
 ### Current implementation and operating boundaries
 
 The October 9 integration refreshes the database, packages and Studio and adds capless-LDO collateral. October 10 adds a pinned 250 Hz fourth-order fully differential IHP SG13G2 filter/AFE design example alongside the PAM-4 driver, and changes notebook/report storage into executable Python plus plain data. [Platform/database refresh](#source-review-20261011-1) · [Second worked design](#source-review-20261011-2) · [Capless LDO collateral](#source-review-20261011-3)
 
 The filter is a separately pinned submodule. Its parent-repository README establishes the link and release integration, not a new independently reproduced success rate. Existing AI Design / Simulation / AI Layout already covers this flow; no automatic stage expansion is warranted.
+
+The October 26 root license and current README identify the published project as source-available under PolyForm Noncommercial 1.0.0. The maintainer's guidance excludes commercial use, including business R&D and evaluation, and points to separate commercial licensing. Third-party circuits, corpora and PDK material retain their own terms. The catalog includes public implementations with differing access conditions; this entry must not present SpiceXplorer as an unrestricted open-source tool. [License](#source-license) · [Maintainer guidance](#source-readme) · [License integration](#source-license-integration)
+
+The default application starts with replay/cached data. Live ngspice is explicitly enabled through the documented container or native setup; the EM image is a separate optional build. Public examples and agent definitions provide inspectable workflows, while model access, external tools and project-specific verification remain necessary for a new design. [Execution setup](#source-readme)

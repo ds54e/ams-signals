@@ -1,7 +1,7 @@
 ---
 name: "Koheron SDK"
 aliases: ["Koheron"]
-description: "FPGA and software development kit with board definitions, server drivers and client APIs for measurement instruments. Examples cover synchronized acquisition, spectral processing and an executable Red Pitaya hardware-test suite; supported functions and bandwidth depend on the board and instrument implementation."
+description: "FPGA/Linux SDK for building measurement instruments with board drivers and Python clients. Its implementations include phase-noise acquisition, signed cross-spectral processing and a Red Pitaya hardware-test suite; instrument images and clients must match, and calibration and demonstrated noise floors remain specific to the board and setup."
 scope:
   control: { ai: false }
   acquisition: { ai: false }
@@ -45,13 +45,22 @@ sources:
   - id: development-retained
     title: "Retained credited ALPHA250 capture logic"
     url: "https://github.com/Koheron/koheron-sdk/blob/199b8abb1388a41018c113a6877f713ab5e0d3d0/examples/alpha250/adc-dma-chirp/adc_capture_v1_0/adc_capture.v"
+  - id: cross-spectrum
+    title: "Streaming Welch auto-spectral and signed cross-spectral estimator"
+    url: "https://github.com/Koheron/koheron-sdk/blob/199b8abb1388a41018c113a6877f713ab5e0d3d0/server/drivers/phase-noise/streaming-welch.hpp"
+  - id: saved-analysis
+    title: "Reopen saved phase-noise segments for spectral plotting"
+    url: "https://github.com/Koheron/koheron-sdk/blob/199b8abb1388a41018c113a6877f713ab5e0d3d0/examples/alpha250-4/phase-noise-analyzer/python/plot_data.py"
+  - id: quad-pna
+    title: "ALPHA250-4 instrument revisions and hardware-validation boundaries"
+    url: "https://github.com/Koheron/koheron-sdk/blob/199b8abb1388a41018c113a6877f713ab5e0d3d0/examples/alpha250-4/phase-noise-analyzer/README.md"
 ---
 
 ## Scope and limits
 
-The [phase-noise example](#source-phase-noise) is a specific DSP implementation. ADC range, reference clock, overflow, calibration and demonstrated noise floor remain setup-specific. The V1 SDK is not a compatibility claim for V0 instruments.
+The V1 phase-noise instruments expose acquisition and numerical analysis through supported FPGA/server/client combinations. Their shared estimator computes Hann-windowed auto spectra and signed complex cross density; overlapping segment counts do not represent independent averages. The ALPHA250-4 Python workflow also reopens saved phase-noise segments for plotting, providing an offline Analysis entry point. [Processing guide](#source-phase-noise); [Estimator](#source-cross-spectrum); [Saved-record analysis](#source-saved-analysis).
 
-The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
+ADC range, reference clock, overflow, detrending response and absolute noise-floor calibration remain setup-specific. The ALPHA250-4 documentation distinguishes the current split-filter configuration from measurements made with an earlier 200 MHz revision; those results do not qualify the later 250 MHz configuration. V1 clients and images must be matched to the instrument. [Instrument revision boundaries](#source-quad-pna).
 
 Board support provides definitions and configuration to build instruments targeting the hardware. It is not a fabrication package for the board. [Board support](#source-board-support).
 

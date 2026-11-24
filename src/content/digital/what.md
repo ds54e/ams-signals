@@ -1,7 +1,7 @@
 ---
 name: "WHAT"
 aliases: []
-description: "Browser HDL debugger linking SystemVerilog hierarchy and source-level driver/load navigation with interactive FST waveform analysis. Users can follow signals between source and waveforms, inspect values at the current cursor and save the resulting debug session."
+description: "Browser HDL debugger linking a Surelog-derived SystemVerilog knowledge database with existing FST waveforms. It supports driver/load navigation, cursor-linked source values and saved sessions; users generate a matching KDB before inspection, while database extraction, waveform production and interactive viewing remain separate operations."
 scope:
   verification:
     ai: false
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public browser frontend, Rust server and Surelog-based HDL extraction backend. Source navigation uses generated KDB data and waveform inspection uses existing FST artifacts."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Canonical WHAT repository"
@@ -27,29 +27,22 @@ sources:
   - id: "activity"
     title: "Fix waveform ghost, avoid flicker on cursor-only clicks, reset signal panel page on module switch"
     url: "https://github.com/rain91508-cmd/what/commit/6c0348fb8ac87ea384023ef8237fe4b4f0b2a99f"
+  - id: driver-extraction
+    title: "Surelog/UHDM-based driver-edge extraction"
+    url: https://github.com/rain91508-cmd/what/blob/e176ca3e0b981031ca2e47da368d8c84df21f4ab/interpreter/src/driver_analyzer.cpp
+  - id: release-entry
+    title: "Packaged interpreter/server and source-navigation corrections"
+    url: https://github.com/rain91508-cmd/what/releases/tag/v1.1.1
 ---
 
+### Implemented workflow and selection
 
-### Implementation context
+The user first generates a KDB from the design with the Surelog-based interpreter, then serves that database and matching FST artifacts to the browser. The interface links hierarchy, source-level driver/load navigation and values at the waveform cursor, with saved sessions. This integrated interactive workflow has independent discovery value alongside waveform-only viewers and query-oriented debug servers. [Setup and operation](#source-readme) · [Driver extraction](#source-driver-extraction) · [Waveform handlers](#source-implementation).
 
-The author credits AI-assisted implementation of the application interface and functional logic; this is development evidence rather than a claim about an agent runtime. [Reviewed source](#source-readme).
+Published packages provide interpreter/server entry points for the documented platforms. The v1.1.1 release includes source-navigation, KDB loading and waveform-UI fixes. Earlier March/April implementation and July maintenance were checked when reviewing retention; a quiet latest period alone is not evidence that the usable viewer is abandoned. [Packaged release and fixes](#source-release-entry) · [Reviewed correction](#source-activity).
 
-### Release boundary
+### Classification and review boundary
 
-Browser debug functionality is implemented; AI authorship does not establish independent correctness or a runtime design agent. [Public update](#source-activity).
+Source/database navigation and recorded-waveform inspection support conventional Verification. The extractor prepares read-only debug information rather than authoring the DUT or simulating it. The maintainer credits AI-assisted implementation of the application interface and functional logic; that provenance does not establish runtime AI or independently verified correctness. [Maintainer account](#source-readme) · [Reviewed implementation](#source-implementation).
 
-[Implementation inspected](#source-implementation).
-
-### Scope classification
-
-Source navigation and FST waveform interaction are the central debug product. The extraction backend enables inspection rather than RTL design generation. [Reviewed source](#source-readme).
-
-HDL/waveform inspection is conventional Verification. The author credits AI-assisted implementation of the application interface and functional logic, independently of runtime AI. [AI/stage evidence](#source-readme).
-
-### Development provenance review
-
-Reviewed 2026-09-07: **AI-ASSISTED**. The maintainer credits AI-assisted implementation of the application interface and functional logic. [Maintainer creation account](#source-readme).
-
-### Current-source review
-
-Reviewed 2026-10-01. Reopened the maintainer creation account and waveform handler at the unchanged canonical head. Source/waveform navigation and stored sessions remain conventional debugging operations; the maintainer’s implementation account supports AI-assisted provenance without implying runtime AI or source-code generation. [Maintainer account](#source-readme); [Waveform handler](#source-implementation).
+This review inspected the public code, release entry points and canonical branch history; it did not rerun the viewer or simulate a design.
