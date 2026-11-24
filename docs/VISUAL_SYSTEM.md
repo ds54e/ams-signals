@@ -41,7 +41,7 @@ Dates share `formatDate` in `src/lib/date-format.ts` and `.index-date`: title-ca
 | `--layout-listing` | 1040px | Entity headers |
 | `--layout-explorer` | 1200px | Shell, Timeline, Events, Analog, Digital and Lab indexes |
 
-Events and both catalogs share a 120px metadata rail and zero column gap above 760px. At the full 1200px listing width this leaves a 1080px body, with 20px text insets on each side and 1040px readable copy. Text insets become 12px at or below 760px and 8px at or below 400px. Their outer edges and Search starting positions align with Timeline.
+Events and all three catalogs share a 120px metadata rail and zero column gap above 760px. At the full 1200px listing width this leaves a 1080px body, with 20px text insets on each side and 1040px readable copy. Text insets become 12px at or below 760px and 8px at or below 400px. Their outer edges and Search starting positions align with Timeline.
 
 Only `.index-description` has the #f7f8fa surface: Event facts and catalog descriptions. Titles, Company/Person context links, quick links, metadata and provenance remain on white. The shared class adds 8px top/bottom padding on desktop, 6px at or below 760px, and 4px at or below 400px. Its inert pseudo-element paints 10px beyond each side of the text on desktop, 12px at 401–760px and 8px at 400px or below. Background extent is independent from text alignment; changing it must not rewrap or shift text. Empty descriptions do not paint a surface. Forced colors use Canvas.
 
@@ -59,7 +59,7 @@ Home uses light-gray rounded panels in a two-column activity/recent grid and a t
 
 Controls use whitespace rather than toolbar border rules, cards or shadows. Native controls are 40px high with 13px text. Toolbars leave 22px before the ruled list or visualization. The Timeline Company picker has a thin border and no shadow; it remains above overlapping content on desktop and in-flow on narrow screens. Events has Search and Signal type only.
 
-Catalog Search is about 328px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and both catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular.
+Catalog Search is about 328px and Scope select 160px; the 12px normal-weight result count follows with 12px gaps. Search takes a full row below 760px. Events and all three catalogs align control boxes and the top list rule at the same position. Grid labels eliminate inline baseline spacing; Events lets controls and count share the toolbar flow rather than reserving a separate nested row. All toolbars order controls, count/status, then any legend, wrapping naturally without pushing status to the far edge. `.index-count` is shared, muted and tabular.
 
 ## Category labels and palette
 

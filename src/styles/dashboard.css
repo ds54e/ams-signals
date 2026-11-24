@@ -17,7 +17,7 @@
 .series-lab { --series-color: #8056b3; fill: var(--series-color); background: var(--series-color); }
 .chart-frame { display: flex; flex: 1; align-items: center; justify-content: center; margin: 0 12px 12px; min-width: 0; overflow-x: auto; }
 .activity-chart { display: block; width: 100%; max-width: 580px; max-height: 298px; flex: 0 1 auto; pointer-events: none; }
-.chart-line { fill: none; stroke: var(--series-color); stroke-width: 2.5; stroke-linejoin: miter; }
+.activity-chart .chart-line { fill: none; stroke: var(--series-color); stroke-width: 2.5; stroke-linejoin: miter; }
 .chart-gradient stop { stop-color: var(--series-color); }
 .chart-grid { stroke: #e0e5ec; stroke-width: 1; }
 .activity-chart text { fill: var(--muted); font: 11px var(--font-sans); }
@@ -56,8 +56,7 @@
   .panel-heading { padding: 16px 16px 9px; }
   .chart-legend { flex-basis: 100%; margin-left: 0; }
   .chart-card { min-height: 0; }
-  .series-lab { --series-color: #8056b3; fill: var(--series-color); background: var(--series-color); }
-.chart-frame { display: block; margin: 0 9px 10px; scrollbar-width: thin; }
+  .chart-frame { display: block; margin: 0 9px 10px; scrollbar-width: thin; }
   .activity-chart { width: 520px; min-width: 520px; max-width: none; max-height: none; }
   .recent-signals { padding: 0 16px 9px; }
   .updated-list { padding: 0 16px 5px; }

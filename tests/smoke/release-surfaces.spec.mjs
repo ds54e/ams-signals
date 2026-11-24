@@ -762,13 +762,19 @@ for (const width of [1440, 390]) {
     expect(layout.position).toBe('static');
     expect(layout.clip).toBe('auto');
     expect(layout.scrollWidth).toBe(layout.width);
-    for (const cell of await table.locator('th, td').all()) {
-      await cell.scrollIntoViewIfNeeded();
-      await expect(cell).toBeInViewport();
-      const style = await cell.evaluate((el) => ({ fontSize: parseFloat(getComputedStyle(el).fontSize), color: getComputedStyle(el).color, background: getComputedStyle(el).backgroundColor }));
-      expect(style.fontSize).toBeGreaterThanOrEqual(12);
-      expect(style.color).not.toBe(style.background);
-    }
+    // Check each cell without a browser-protocol round trip per scroll.
+    const cells = await table.locator('th, td').evaluateAll((nodes) => nodes.map((cell) => {
+      cell.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+      const bounds = cell.getBoundingClientRect();
+      const style = getComputedStyle(cell);
+      return {
+        inView: bounds.width > 0 && bounds.height > 0 && bounds.right > 0 &&
+          bounds.left < innerWidth && bounds.bottom > 0 && bounds.top < innerHeight,
+        textReadable: parseFloat(style.fontSize) >= 12 && style.color !== style.backgroundColor,
+      };
+    }));
+    expect(cells).toHaveLength((expected.length + 1) * 5);
+    expect(cells.every(({ inView, textReadable }) => inView && textReadable)).toBe(true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
   });
 }
