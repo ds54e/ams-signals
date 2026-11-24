@@ -58,6 +58,9 @@ sources:
   - id: review-20261103-events
     title: "Retained unscheduled-event lint on rewritten lineage"
     url: https://github.com/OpenVAF/OpenVAF-Reloaded/commit/fae51c35c1bffee70770403257d4d06bae054269
+  - id: va-models-corpus
+    title: "Related portable compact-model implementations"
+    url: "https://github.com/dwarning/VA-Models"
 ---
 
 ### Scope
@@ -87,3 +90,5 @@ The October 25 batch-compiler corrections incorporate target/CPU/optimization/co
 ### Selection and current source review
 
 The canonical default remains mob. Its November history was rewritten: the previously reviewed cache-key SHA is absent from the captured first-parent lineage. The replacement checkpoint is the inspected OSDI 0.5 reconciliation, including lowering, limiting-delta handling and diagnostic/integration-test changes; it retains the code-generation cache fix on the new lineage. The current header/descriptor and README establish OSDI 0.5 development output, while older README references to master/mb-experimental describe other lines. Do not infer released host support from that compiler interface or transfer this update to the August v24.0.2mob tag. The unscheduled_event lint and fixtures still warn for cross/above/timer/absdelta. Existing credited named-event/jump implementation remains independent software-development provenance. [Reconciliation](#source-review-20261103-integration) · [Current interface](#source-review-20261103-interface) · [Retained scheduling limitation](#source-review-20261103-events).
+
+VA-Models supplies model implementations and compatibility notes. The compiler supplies the OSDI artifact path, not device calibration or guaranteed support for every example. [Model sources and examples](#source-va-models-corpus).
