@@ -55,6 +55,9 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/iic-jku/open-pdks-regression-tests/blob/3a97ca55bfbf482400f6b8d35f341b465303fe13/ihp-sg13g2/pex_bench/scripts/compare_engines.py
+  - id: pdkmaster
+    title: "Related process-rule description and layout construction"
+    url: "https://gitlab.com/Chips4Makers/PDKMaster"
 ---
 
 ### Implemented operations and boundaries
@@ -74,3 +77,5 @@ Review was static: public implementation and published tests/documentation were 
 ### Development provenance
 
 Claude is co-credited for correcting substrate-net handling in the parasitic-extraction comparison tools. The canonical scripts retain the PDK-specific substrate names and use them when comparing capacitance results. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+
+PDKMaster describes technology objects and generates circuits or geometry; this project executes regressions against selected PDK/tool combinations. Neither substitutes for the other. [Technology and layout construction](#source-pdkmaster).

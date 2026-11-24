@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T07:50:37.949Z",
+  "capturedAt": "2026-11-24T08:03:44.695Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2741,6 +2741,32 @@
       "lastCommitAt": "2026-08-16",
       "lastMeaningfulCommitAt": "2026-08-16",
       "lastMeaningfulCommitSha": "ef59ffd8f1882bc1ccad046c37b39e6a756d2fd9"
+    },
+    "pdkmaster": {
+      "kind": "repository",
+      "repository": "https://gitlab.com/Chips4Makers/PDKMaster",
+      "repositoryId": "gitlab:16339564",
+      "capturedAt": "2026-11-24T07:58:33.296Z",
+      "defaultBranch": "main",
+      "headSha": "99d3e6b4f0ca82019a8899fd252fae2d7786d770",
+      "commits": [
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        6,
+        7,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-24",
+      "lastMeaningfulCommitAt": "2026-09-24",
+      "lastMeaningfulCommitSha": "99d3e6b4f0ca82019a8899fd252fae2d7786d770",
+      "lastMeaningfulCommitSource": "activity"
     }
   }
 }
