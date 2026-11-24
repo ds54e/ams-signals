@@ -341,7 +341,12 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} keyboard navigation reaches filters, provenance and useful external actions`, async ({ page }) => {
     await open(page);
     const search = page.getByRole('searchbox', { name: 'Search projects' });
-    for (let i = 0; i < 8 && !await search.evaluate((el) => el === document.activeElement); i++) await page.keyboard.press('Tab');
+    const mastheadActions = page.locator('.site-header .brand, .site-header nav[aria-label="Primary"] a');
+    for (const action of await mastheadActions.all()) {
+      await page.keyboard.press('Tab');
+      await expect(action).toBeFocused();
+    }
+    await page.keyboard.press('Tab');
     await expect(search).toBeFocused();
     expect(await search.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none');
     await page.keyboard.press('Tab'); await expect(page.getByRole('combobox', { name: 'Scope', exact: true })).toBeFocused();

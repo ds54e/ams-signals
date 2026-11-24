@@ -80,7 +80,7 @@
   .activity-counts th, .activity-counts td { border: 1px solid CanvasText; padding: 4px; text-align: right; }
   .activity-counts th:first-child { text-align: left; }
   .chart-area { display: none; }
-  .chart-line { stroke: CanvasText; }
+  .activity-chart .chart-line { stroke: CanvasText; }
   .chart-line.series-analog { stroke-dasharray: 6 3; }
   .chart-line.series-digital { stroke-dasharray: 2 3; }
   .chart-line.series-lab { stroke-dasharray: 8 3 2 3; }
