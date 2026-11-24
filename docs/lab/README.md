@@ -18,7 +18,7 @@ Use the [strict Lab schema](../../src/lib/lab/schema.ts). Require at least one f
 
 ## Active-list eligibility
 
-Review a meaningful public implementation or test change within the preceding calendar year and at least one reviewed signal in the displayed twelve calendar months. Use the canonical implementation, not a mirror or companion repository. For KiBot, the maintained canonical repository is GitHub's fork-marked `INTI-CMNB/KiBot`; the refresh exception is pinned to its validated repository ID instead of relaxing fork handling for all projects.
+Review a meaningful public implementation or test change within the preceding calendar year and at least one reviewed signal in the displayed twelve calendar months. Use the canonical implementation, not a mirror or companion repository. For a reviewed maintained fork used as the canonical implementation, bind the refresh allowance to its catalog slug, repository name and exact GitHub ID. Link the origin separately when it explains lineage, without adding its activity to the maintained fork's counts. The manual refresh entrypoint owns the exact exceptions.
 
 Run `npm run validate:lab` for the content and snapshot contract and `npm run refresh:lab-activity` only when explicitly collecting activity. Use the [catalog refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for new registrations, captures and rollover. A failed new fetch remains marked unfetched without guessed counts; an existing good snapshot is not overwritten on failure. Build and tests work from checked-in records without contacting repository hosts.
 

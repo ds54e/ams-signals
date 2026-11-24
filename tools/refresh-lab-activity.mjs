@@ -3,6 +3,9 @@ import { refreshStrictCatalog } from './refresh-strict-catalog-activity.mjs';
 
 await refreshStrictCatalog({
   ...contract, domain: 'lab',
-  // KiBot's maintained canonical repository is marked as a fork by GitHub.
-  reviewedFork: (id, repo, repositoryId) => id === 'kibot' && repo === 'INTI-CMNB/KiBot' && repositoryId === 246344800,
+  // Reviewed canonical implementations whose GitHub identity is fork-marked.
+  reviewedFork: (id, repo, repositoryId) => [
+    ['kibot', 'INTI-CMNB/KiBot', 246344800],
+    ['oscillatord', 'leoleovich/oscillatord', 1184205953],
+  ].some(([slug, repository, numericId]) => id === slug && repo === repository && repositoryId === numericId),
 });

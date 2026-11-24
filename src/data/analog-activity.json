@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T05:48:48.833Z",
+  "capturedAt": "2026-11-24T05:48:48.931Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2516,6 +2516,81 @@
       "capturedAt": "2026-11-23T04:32:05.131Z",
       "lastMeaningfulCommitAt": "2026-11-13",
       "lastMeaningfulCommitSha": "bce28fa07350c0e82915a936b8a49947b853e1ef"
+    },
+    "signal-integrity": {
+      "kind": "github",
+      "repository": "Nubis-Communications/SignalIntegrity",
+      "repositoryId": 49224614,
+      "defaultBranch": "master",
+      "headSha": "a0cfb37ebf318cab38a9738db6c0dca710fbd16d",
+      "commits": [
+        0,
+        2,
+        3,
+        2,
+        4,
+        44,
+        4,
+        49,
+        0,
+        0,
+        0,
+        18
+      ],
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "4d0d961360d957acbfe8bc1fd075ef2105d63d6e",
+      "capturedAt": "2026-11-24T05:48:48.931Z"
+    },
+    "pyibis-ami": {
+      "kind": "github",
+      "repository": "capn-freako/PyAMI",
+      "repositoryId": 4931653,
+      "defaultBranch": "master",
+      "headSha": "34cd1603132407d310f05c4e082e1fce5dae78d9",
+      "commits": [
+        3,
+        3,
+        0,
+        5,
+        0,
+        13,
+        6,
+        2,
+        3,
+        0,
+        6,
+        6
+      ],
+      "lastCommitAt": "2026-11-14",
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "7b53d39ab1266e6096eb663d19c30d32d641a802",
+      "capturedAt": "2026-11-24T05:48:48.931Z"
+    },
+    "fastercap": {
+      "kind": "github",
+      "repository": "iic-jku/FasterCap",
+      "repositoryId": 841609533,
+      "defaultBranch": "master",
+      "headSha": "171f2462fc33b1e67e8d02227c7d141fe95ee3ee",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        53,
+        33
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "4d5d52a2d93433d84770ad84f0a7890e86872ac8",
+      "capturedAt": "2026-11-24T05:48:48.931Z"
     }
   }
 }

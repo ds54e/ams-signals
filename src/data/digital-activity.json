@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-23",
-  "capturedAt": "2026-11-23T05:23:15.490Z",
+  "reviewedAt": "2026-11-24",
+  "capturedAt": "2026-11-24T05:48:48.931Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2736,6 +2736,56 @@
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-14",
       "lastMeaningfulCommitSha": "4f2d2ec652a8bf55b2fbf8c28e7ff1cc260d0a4d"
+    },
+    "peakrdl-python": {
+      "kind": "github",
+      "repository": "krcb197/PeakRDL-python",
+      "repositoryId": 382653901,
+      "defaultBranch": "main",
+      "headSha": "dfa195780f365fb08bd0dce523bfc33a17713b34",
+      "commits": [
+        0,
+        0,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-10-26",
+      "lastMeaningfulCommitAt": "2026-10-26",
+      "lastMeaningfulCommitSha": "dfa195780f365fb08bd0dce523bfc33a17713b34",
+      "capturedAt": "2026-11-24T05:48:48.931Z"
+    },
+    "renode": {
+      "kind": "github",
+      "repository": "renode/renode",
+      "repositoryId": 95903234,
+      "defaultBranch": "master",
+      "headSha": "b3664392f23a4e4531f0d7bc808a2686d2834fc8",
+      "commits": [
+        89,
+        90,
+        88,
+        153,
+        138,
+        164,
+        148,
+        154,
+        177,
+        198,
+        182,
+        225
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "30c54ee00d13d1263d167a3bf6fda8602292b3d5",
+      "capturedAt": "2026-11-24T05:48:48.931Z"
     }
   }
 }
