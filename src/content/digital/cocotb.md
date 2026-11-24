@@ -73,6 +73,9 @@ sources:
   - id: review-20261119-activity
     title: "VPI interface reference bounds and get_actual API change"
     url: https://github.com/cocotb/cocotb/commit/75c83c237377b9eaf4c817f8d6e0543322822b9b
+  - id: axi-extension
+    title: "Related AXI and APB bus-functional models"
+    url: "https://github.com/alexforencich/cocotbext-axi"
 ---
 
 ### Implementation and scope
@@ -108,3 +111,5 @@ A Claude-credited correction changes the executable nox release backport tool to
 ### November 19, 2026 review
 
 The November 19 development-branch fix distinguishes an interface-array reference's index range from that of the concrete object to avoid selecting the wrong element when port ranges differ. It also replaces `get_concrete_path()` with `get_actual()`, which returns the concrete object. This is not attributed to the existing 2.1.0 release. [Implementation and regression](#source-review-20261119-activity).
+
+cocotb provides the coroutine test interface; cocotbext-axi separately implements bus-functional stimulus and models. [AXI/APB extension](#source-axi-extension).

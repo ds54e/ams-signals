@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T08:04:03.986Z",
+  "capturedAt": "2026-11-24T08:04:05.146Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2861,6 +2861,31 @@
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-19",
       "lastMeaningfulCommitSha": "6438a25a060bd691b082da4c845ad26885f4059e"
+    },
+    "cocotbext-axi": {
+      "kind": "github",
+      "repository": "alexforencich/cocotbext-axi",
+      "repositoryId": 305507409,
+      "capturedAt": "2026-11-24T07:58:38.189Z",
+      "defaultBranch": "master",
+      "headSha": "264319c17f0869e4d0efb15ad0e6d74e3bef453c",
+      "commits": [
+        0,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-24",
+      "lastMeaningfulCommitAt": "2026-08-24",
+      "lastMeaningfulCommitSha": "264319c17f0869e4d0efb15ad0e6d74e3bef453c"
     }
   }
 }
