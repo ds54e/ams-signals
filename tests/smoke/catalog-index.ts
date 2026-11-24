@@ -6,7 +6,7 @@ import { basePath } from './release-helpers.mjs';
 import { isAnalyticsRequest } from '../../src/lib/analytics.mjs';
 
 const linkLabels = { official: 'Website', paper: 'Paper', code: 'Code', results: 'Results' };
-export async function catalogFixture(domain: 'analog' | 'digital') {
+export async function catalogFixture(domain: 'analog' | 'digital' | 'lab') {
   const directory = new URL(`../../src/content/${domain}/`, import.meta.url);
   const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => ({
     id: file.slice(0, -3), ...parseFrontmatter(await readFile(new URL(file, directory), 'utf8')).frontmatter,
@@ -51,10 +51,10 @@ export function catalogIndexTests(fixture: Awaited<ReturnType<typeof catalogFixt
   test(`${label} starts with one sparse, activity-ordered project index`, async ({ page }) => {
     expect((await open(page))!.ok()).toBe(true);
     const nav = page.getByRole('navigation', { name: 'Primary' });
-    await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
+    await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
     await expect(page.locator('[data-catalog-search]')).toHaveAttribute('placeholder', domain === 'analog' ? 'Design, Simulation, AI' : 'Design, Verification, AI');
     await expect(nav.locator('[aria-current="page"]')).toHaveText(label);
-    for (const [text, route] of [['Analog', 'analog'], ['Digital', 'digital']]) {
+    for (const [text, route] of [['Analog', 'analog'], ['Digital', 'digital'], ['Lab', 'lab']]) {
       await expect(nav.getByRole('link', { name: text, exact: true })).toHaveAttribute('href', `${basePath}${route}/`);
     }
     await expect(page).toHaveTitle(`${label} · AMS Signals`);

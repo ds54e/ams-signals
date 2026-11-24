@@ -11,7 +11,7 @@ Read the guide and sections needed for the task. Each document owns one current 
 | Golden editing and record validation | [Golden guidance](../src/data/AGENTS.md) / [content schema](../src/content.config.ts) |
 | Timeline, Events, Company/Person behavior | [Timeline contract](TIMELINE.md) |
 | Shared catalog curation, data, activity and interaction | [Catalog contract](catalog/CONTRACT.md) |
-| Domain-specific stages and schema differences | [Analog](analog/README.md) / [Digital](digital/README.md) |
+| Domain-specific stages and schema differences | [Analog](analog/README.md) / [Digital](digital/README.md) / [Lab](lab/README.md) |
 | Evidence for AI-development labels | [AI-development policy](AI_DEVELOPMENT.md) |
 | Typography, palette, layout and responsive behavior | [Visual system](VISUAL_SYSTEM.md) |
 | Check selection and test ownership | [Testing](TESTING.md) |
@@ -33,7 +33,7 @@ npm run dev
 ### Repository layout
 
 - `src/data/events/`, `src/data/companies/`, `src/data/people/`: Golden factual records.
-- `src/content/analog/`, `src/content/digital/`: catalog metadata and source-backed implementation/classification notes.
+- `src/content/analog/`, `src/content/digital/`, `src/content/lab/`: catalog metadata and source-backed implementation/classification notes.
 - `src/data/*-activity.json`: reviewed catalog activity captures.
 - `src/lib/`: factual transforms, catalog contracts and shared presentation helpers.
 - `src/components/`, `src/pages/`, `src/scripts/`, `src/styles/`: Astro views and browser behavior.

@@ -24,12 +24,13 @@ function activeProjects(snapshot: ActivitySnapshot, month: string): number {
  * year-only records cannot be assigned to a month. No factual records are changed.
  */
 export function dashboardActivity(
-  events: readonly DatedEvent[], analog: ActivitySnapshot, digital: ActivitySnapshot, buildDate: string,
+  events: readonly DatedEvent[], analog: ActivitySnapshot, digital: ActivitySnapshot, lab: ActivitySnapshot, buildDate: string,
 ) {
   return activityMonths(buildDate).map((month) => ({
     month,
     events: events.filter(({ data: { when } }) => when.precision !== 'year' && when.start.slice(0, 7) === month).length,
     analog: activeProjects(analog, month),
     digital: activeProjects(digital, month),
+    lab: activeProjects(lab, month),
   }));
 }

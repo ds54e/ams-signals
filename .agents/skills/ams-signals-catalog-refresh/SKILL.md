@@ -1,11 +1,11 @@
 ---
 name: ams-signals-catalog-refresh
-description: Refresh Analog/Digital catalog activity snapshots. Use for activity recapture or month rollover, not general catalog edits or traffic analytics.
+description: Refresh Analog, Digital or Lab catalog activity snapshots. Use for activity recapture or month rollover, not general catalog edits or traffic analytics.
 ---
 
 # Catalog activity refresh
 
-Input: the requested Analog, Digital or both catalogs. Read only the selected domain guide and the shared [activity contract](../../../docs/catalog/CONTRACT.md#reviewed-public-activity). Use current project records and their source notes. Commands below run from the repository root.
+Input: the requested Analog, Digital and/or Lab catalogs. Read only the selected domain guide and the shared [activity contract](../../../docs/catalog/CONTRACT.md#reviewed-public-activity). Use current project records and their source notes. Commands below run from the repository root.
 
 ## Review and capture
 
@@ -16,9 +16,10 @@ Use the existing manual command for the selected domain:
 ```bash
 npm run refresh:analog-activity
 npm run refresh:digital-activity
+npm run refresh:lab-activity
 ```
 
-Run only the requested command(s), not both by default. They use Git and GitHub metadata, recapture GitHub history, preserve manually reviewed fields and non-GitHub records, then validate and atomically replace the complete snapshot. Use `-- --project=<slug>` for a targeted recapture; untouched GitHub records retain their actual capture timestamps. New catalog articles register from their canonical GitHub Code source and explicit `activity` commit source. The scripts derive capture/review dates from actual UTC capture; do not invent historical captures. Normal builds must remain offline with respect to repository hosts.
+Run only the requested command(s), not all by default. They use Git and GitHub metadata, recapture GitHub history, preserve manually reviewed fields and non-GitHub records, then validate and atomically replace the complete snapshot. Use `-- --project=<slug>` for a targeted recapture; untouched GitHub records retain their actual capture timestamps. New catalog articles register from their canonical GitHub Code source and explicit `activity` commit source. The scripts derive capture/review dates from actual UTC capture; do not invent historical captures. Normal builds must remain offline with respect to repository hosts.
 
 For non-GitHub monthly records, inspect the canonical host directly, pin identity/branch/head/capture time and recapture complete first-parent UTC buckets. Do not borrow mirrors or silently shift old buckets to a new month. On month rollover, coordinate a complete internally consistent candidate snapshot, including manual captures; inspect the existing validator/refresh entry conditions rather than patching production JSON blindly. Point evidence retains its actual reviewed event date/type/source, with no synthetic commits.
 

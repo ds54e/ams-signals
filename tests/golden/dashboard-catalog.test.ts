@@ -12,9 +12,9 @@ test('Home uses captured catalog dates and active projects while Events stay ind
   } };
   const digital = { months, projects: { cocotb: { kind: 'github' as const, commits: [1, 1] } } };
   const events = [{ data: { when: { start: '2026-10-03', precision: 'day' } } }];
-  const rows = dashboardActivity(events, analog, digital, '2026-10-20');
-  assert.deepEqual(rows.slice(-2).map(({ events, analog, digital }) => ({ events, analog, digital })), [
-    { events: 0, analog: 1, digital: 1 }, { events: 1, analog: 1, digital: 1 },
+  const rows = dashboardActivity(events, analog, digital, { months, projects: { bench: { kind: 'github' as const, commits: [0, 8] } } }, '2026-10-20');
+  assert.deepEqual(rows.slice(-2).map(({ events, analog, digital, lab }) => ({ events, analog, digital, lab })), [
+    { events: 0, analog: 1, digital: 1, lab: 0 }, { events: 1, analog: 1, digital: 1, lab: 1 },
   ]);
   const projects = Object.keys(analog.projects).map((id) => ({ id, data: { name: id } }));
   assert.deepEqual(sortAnalog(projects, analog.projects).map(({ id }) => id), ['newest', 'older', 'pending']);

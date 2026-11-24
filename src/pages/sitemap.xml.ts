@@ -29,6 +29,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...ids(events).map((id) => sitePath(`events/${id}/`)),
     sitePath('analog/'),
     sitePath('digital/'),
+    sitePath('lab/'),
     ...ids(companies.filter((entry) => activeCompanies.has(entry.data.id))).map((id) => sitePath(`companies/${id}/`)),
     ...ids(people.filter((entry) => activePeople.has(entry.data.id))).map((id) => sitePath(`people/${id}/`)),
   ];

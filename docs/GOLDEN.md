@@ -1,6 +1,6 @@
 # Golden evidence contract
 
-This document owns selection, evidence, dates and entity attribution for Golden Events, Companies and People. [Product Context](../PROJECT_CONTEXT.md) owns product intent; [Timeline](TIMELINE.md) owns presentation and Signal type terminology. The [schema](../src/content.config.ts) owns record shape. Independent Analog/Digital catalogs follow the [catalog contract](catalog/CONTRACT.md).
+This document owns selection, evidence, dates and entity attribution for Golden Events, Companies and People. [Product Context](../PROJECT_CONTEXT.md) owns product intent; [Timeline](TIMELINE.md) owns presentation and Signal type terminology. The [schema](../src/content.config.ts) owns record shape. Independent Analog, Digital and Lab catalogs follow the [catalog contract](catalog/CONTRACT.md).
 
 ## Qualifying activity
 

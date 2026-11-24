@@ -22,7 +22,7 @@ const changes = diff.trim().split('\n').filter(Boolean).map((line) => {
   return { status, kind: match[1], id: record.id, record, route: `${match[1]}/${record.id}/` };
 }).filter(Boolean);
 
-for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
+for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) {
   test(`served surface /${route}`, async ({ page }) => {
     const failedAssets = [];
     page.on('response', (r) => { if (new URL(r.url()).origin === origin && r.status() >= 400) failedAssets.push(`${r.status()} ${r.url()}`); });
@@ -47,7 +47,7 @@ test('retired export returns 404 and robots and sitemap reflect this release', a
   expect(robots).toContain('Allow: /');
   expect(robots).not.toMatch(/^Disallow:\s*\S/m);
   const sitemap = await (await get('sitemap.xml')).text();
-  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) expect(sitemap).toContain(`<loc>${origin}/${route}</loc>`);
+  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) expect(sitemap).toContain(`<loc>${origin}/${route}</loc>`);
   expect(sitemap).not.toContain('export.json');
   for (const change of changes) {
     if (change.status === 'D') expect(sitemap).not.toContain(`${origin}/${change.route}`);
@@ -88,7 +88,7 @@ test('Event source and Timeline inspector are wired', async ({ page }) => {
   await expect(page.locator('[data-detail-event]')).toHaveAttribute('href', `/events/${id}/`);
 });
 
-for (const width of [390, 320]) for (const domain of ['analog', 'digital']) {
+for (const width of [390, 320]) for (const domain of ['analog', 'digital', 'lab']) {
   test(`${domain} search and narrow delivery ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.goto(`./${domain}/`);

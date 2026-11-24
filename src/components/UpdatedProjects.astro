@@ -1,8 +1,9 @@
 ---
+import type { CatalogDomain } from '../lib/catalog-domains';
 import { sitePath } from '../lib/paths';
 import { formatDate } from '../lib/date-format';
 interface Props {
-  domain: 'analog' | 'digital';
+  domain: CatalogDomain;
   title: string;
   projects: { id: string; name: string; description: string; date: string }[];
 }

@@ -5,6 +5,8 @@ import { isCalendarDate, isValidWhen } from './lib/golden-dates.mjs';
 import { analogSchema, catalogSlug } from './lib/analog/schema';
 import { digitalSchema, catalogSlug as digitalSlug } from './lib/digital/schema';
 
+import { labSchema, catalogSlug as labSlug } from './lib/lab/schema';
+
 const datePrecision = z.enum(['year', 'month', 'day']);
 const eventKind = z.enum(['technical', 'organizational']);
 
@@ -91,4 +93,13 @@ const digital = defineCollection({
   schema: digitalSchema,
 });
 
-export const collections = { events, companies, people, analog, digital };
+const lab = defineCollection({
+  loader: glob({
+    pattern: '*.md',
+    base: './src/content/lab',
+    generateId: ({ entry }) => labSlug.parse(entry.replace(/\.md$/, '')),
+  }),
+  schema: labSchema,
+});
+
+export const collections = { events, companies, people, analog, digital, lab };

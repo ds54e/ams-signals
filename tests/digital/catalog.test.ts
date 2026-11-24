@@ -12,7 +12,7 @@ import { parseFrontmatter } from 'astro/markdown';
 import { activitySchema, catalogSlug, digitalSchema, validateCatalog, validateActivity } from '../../src/lib/digital/schema.ts';
 import { scopeStageIds, scopeStageLabels, sortProjects } from '../../src/lib/digital/catalog.ts';
 import { hasRepositoryHistory, activityMonths, countActivity, freshnessCutoff, publicActivityDate } from '../../src/lib/digital/activity.ts';
-import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/digital-activity-support.mjs';
+import { assertRepositoryIdentity, verifyMeaningfulCommit } from '../../tools/strict-activity-support.mjs';
 
 
 const stages = (scope: Record<string, unknown>) => Object.keys(scope).filter((stage) => stage !== 'aiDevelopment');

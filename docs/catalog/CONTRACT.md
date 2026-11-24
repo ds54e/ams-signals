@@ -1,10 +1,10 @@
 # Shared catalog contract
 
-Applies only to the independent Analog and Digital catalogs. [Analog](../analog/README.md) and [Digital](../digital/README.md) own domain scope and schema differences; [AI-development policy](../AI_DEVELOPMENT.md) owns development provenance; [the visual system](../VISUAL_SYSTEM.md) owns visual tokens and dimensions. Read the sections relevant to the task.
+Applies only to the independent Analog, Digital and Lab catalogs. [Analog](../analog/README.md), [Digital](../digital/README.md) and [Lab](../lab/README.md) own domain scope and schema differences; [AI-development policy](../AI_DEVELOPMENT.md) owns development provenance; [the visual system](../VISUAL_SYSTEM.md) owns visual tokens and dimensions. Read the sections relevant to the task.
 
 ## Curation and boundaries
 
-The catalogs describe evolving public implementations, their user-facing design-flow coverage, primary evidence and reviewed activity. They are a current landscape, not an exhaustive archive or ranking. Keep them independent of Golden Timeline/Events, Company/Person records and viewer state; do not force catalog projects into Golden Events.
+The catalogs describe evolving public implementations, their user-facing functional coverage, primary evidence and reviewed activity. They are a current landscape, not an exhaustive archive or ranking. Keep them independent of Golden Timeline/Events, Company/Person records and viewer state; do not force catalog projects into Golden Events.
 
 Domain selects the catalog. Cross-catalog membership is separately curated. Vibe-IC remains the explicit exception: independently reviewed domain workflows share one canonical repository identity, not independent activity evidence. This does not authorize other duplicate entries.
 
@@ -14,7 +14,7 @@ Domain selects the catalog. Cross-catalog membership is separately curated. Vibe
 
 Require reviewed public implementation supporting the claimed contribution and a canonical repository or source distribution linked as `code`. Papers, READMEs, datasets, demonstrations and recorded outputs cannot replace code. Licensed EDA, PDKs, hardware or model access may be needed; neither an open-source license nor a fully open reproducible toolchain is required.
 
-Require verified meaningful public activity within the preceding calendar year, inclusively; February 29 clamps to February 28. [Analog](../analog/README.md#active-list-eligibility) and [Digital](../digital/README.md#active-list-eligibility) also require a reviewed signal in the twelve displayed calendar months. These necessary freshness conditions neither establish selection nor guarantee a year of retention.
+Require verified meaningful public activity within the preceding calendar year, inclusively; February 29 clamps to February 28. All three domain guides require a reviewed signal in the twelve displayed calendar months. These necessary freshness conditions neither establish selection nor guarantee a year of retention.
 
 Select projects showing either sustained substantive development/maintenance across their history or active recent implementation and validation. Inspect distinct feature additions, correctness fixes, verification improvements, compatibility work and technical results. New projects can qualify through substantive iteration; low-frequency technical maintenance can qualify without a minimum project age, fixed cadence or additional day-count threshold.
 
@@ -42,7 +42,7 @@ Keep implementation, classification, selection, limitations and release reasonin
 
 Stages record material user-facing coverage, not completeness or strength. Dependencies, incidental adapters and plans add no stages; absence is not a claim of inability.
 
-`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage under the domain-specific [Analog](../analog/README.md#scope) or [Digital](../digital/README.md#scope) rules. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
+`scope` requires at least one domain stage, each a strict `{ ai: boolean }`. Presence records coverage under the domain-specific [Analog](../analog/README.md#scope), [Digital](../digital/README.md#scope) or [Lab](../lab/README.md#scope) rules. Render the same plain functional stage label regardless of the boolean. Describe material model-driven operations in the project description and notes rather than a label prefix.
 
 Optional `scope.aiDevelopment` is `assisted` with paired evidence under the shared policy. Verified credited executable code, including isolated fixes and test/build/tool/example logic, supports the single AI-ASSISTED label; contribution size is not classified. Verify actor identity, actual code, canonical integration and current retention. Provenance is independent of runtime AI and is not a functional stage. Reject parallel provenance booleans, roles, strength levels and project-wide runtime-AI enums.
 
@@ -82,7 +82,7 @@ Repository cells retain counts; point cells identify paper/release/public-update
 
 ### Index and provenance
 
-Support only `/analog/` and `/digital/`, without compatibility routes, redirects, detail pages or self-permalink aliases. Use domain-defined hidden H1/browser titles, correct base-path links, indexable self-canonical metadata and Home | Timeline | Events | Analog | Digital | GitHub navigation. No visible section title, introduction, review-date/methodology block, overview cards, legend, tabs or rankings.
+Support only `/analog/`, `/digital/` and `/lab/`, without compatibility routes, redirects, detail pages or self-permalink aliases. Use domain-defined hidden H1/browser titles, correct base-path links, indexable self-canonical metadata and Home | Timeline | Events | Analog | Digital | Lab | GitHub navigation. No visible section title, introduction, review-date/methodology block, overview cards, legend, tabs or rankings.
 
 The English index has a metadata rail and project body, without column headings. The rail order is latest public date, twelve binary activity cells, then vertically stacked Scope labels; no month totals or repeated Scope/Activity labels. The body starts with a plain-text H2 name and authored Website / Paper / Code / Results links, in that order on one left-aligned wrapping title line. No title classification badge or replacement icon.
 
@@ -104,6 +104,6 @@ Show `N projects` unfiltered or `N of TOTAL projects` for any nonempty search/na
 
 Separate editorial curation from mechanical capture. Preserve unrelated metadata, source URLs, activity, Golden records and export semantics; source URL changes require review. Explicitly curate removals/renames and keep matching activity records aligned.
 
-Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` derive registrations from Code links and explicit `activity` commit sources, refresh GitHub history, preserve reviewed meaningful activity and manual non-GitHub records, validate the whole candidate snapshot and replace it atomically. `-- --project=<slug>` selects same-month captures, preserving untouched GitHub timestamps. Month rollover requires complete recapture, including canonical non-GitHub history. New failures produce `unfetched`; existing good-record failures preserve the checked-in snapshot. Refresh is not a build/check/browser dependency; normal builds need no repository-host access.
+Manual `npm run refresh:analog-activity` / `npm run refresh:digital-activity` / `npm run refresh:lab-activity` derive registrations from Code links and explicit `activity` commit sources, refresh GitHub history, preserve reviewed meaningful activity and manual non-GitHub records, validate the whole candidate snapshot and replace it atomically. `-- --project=<slug>` selects same-month captures, preserving untouched GitHub timestamps. Month rollover requires complete recapture, including canonical non-GitHub history. New failures produce `unfetched`; existing good-record failures preserve the checked-in snapshot. Refresh is not a build/check/browser dependency; normal builds need no repository-host access.
 
 Use the [catalog-refresh skill](../../.agents/skills/ams-signals-catalog-refresh/SKILL.md) for recapture, starting from current records, source notes and domain validation. [Testing](../TESTING.md) owns check selection. Presentation checks cover first/middle/last, multi-stage and multi-link rows at visual-system viewports, system color schemes, keyboard, no-JavaScript and forced colors. Never hardcode mutable project counts or weaken domain/factual guards.

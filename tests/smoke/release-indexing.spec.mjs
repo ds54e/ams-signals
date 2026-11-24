@@ -33,7 +33,7 @@ test('sitemap.xml advertises public HTML routes and excludes retired routes', as
 
   const sitemap = await response.text();
   expect(sitemap).toContain('<urlset');
-  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
+  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) {
     expect(sitemap).toContain(`<loc>${publicOrigin}${basePath}${route}</loc>`);
   }
   expect(sitemap).not.toContain('/articles/');
@@ -71,7 +71,7 @@ test('retired empty Company routes stay absent unless factual Events restore the
 });
 
 test('indexable surfaces self-canonicalize at the configured origin', async ({ page }) => {
-  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/']) {
+  for (const route of ['', 'timeline/', 'events/', 'analog/', 'digital/', 'lab/']) {
     const response = await page.goto(`./${route}`);
     expect(response?.status(), `HTTP status for ${route}`).toBe(200);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');

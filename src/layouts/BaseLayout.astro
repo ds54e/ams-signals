@@ -19,6 +19,7 @@ const {
 const inEvents = Astro.url.pathname.startsWith(sitePath('events/'));
 const inAnalog = Astro.url.pathname.startsWith(sitePath('analog/'));
 const inDigital = Astro.url.pathname.startsWith(sitePath('digital/'));
+const inLab = Astro.url.pathname.startsWith(sitePath('lab/'));
 const inHome = Astro.url.pathname === sitePath('');
 const inTimeline = Astro.url.pathname === sitePath('timeline/');
 // Self-referential canonical, derived from the configured deployment target
@@ -50,6 +51,7 @@ const analyticsEnabled = analyticsEnabledFor(Astro.site);
           <a href={sitePath('events/')} data-filter-view-link data-filter-surface="events" aria-current={inEvents ? 'page' : undefined}>Events</a>
           <a href={sitePath('analog/')} aria-current={inAnalog ? 'page' : undefined}>Analog</a>
           <a href={sitePath('digital/')} aria-current={inDigital ? 'page' : undefined}>Digital</a>
+          <a href={sitePath('lab/')} aria-current={inLab ? 'page' : undefined}>Lab</a>
           <a class="nav-github" href="https://github.com/ds54e/ams-signals">GitHub ↗</a>
         </nav>
       </div>

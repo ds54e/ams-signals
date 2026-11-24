@@ -41,7 +41,7 @@ test('Timeline is the temporal view with filters and one Evidence Inspector', as
   await expect(page.locator('a.brand')).toHaveAttribute('href', basePath);
   await expect(page.getByRole('link', { name: 'Timeline', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toHaveAttribute('href', `${basePath}events/`);
-  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
 
   await expect(page.locator('[data-activity-matrix-surface]')).toBeVisible();
   await expect(page.locator('.desktop-timeline')).toHaveCount(0);
@@ -566,11 +566,11 @@ test('narrow viewports retain basic access without a mobile chronology fallback'
   await expect(page.getByRole('link', { name: 'Events', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Analog', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Digital', exact: true })).toBeVisible();
-  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
+  await expect(page.locator('.site-header nav a')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
 });
 
 // Anchor the independent source calculation to the static artifact, not the smoke run date.
-async function expectedHomeActivity(page, events, analog, digital) {
+async function expectedHomeActivity(page, events, analog, digital, lab) {
   const buildMonth = await page.locator('.chart-card').getAttribute('data-build-month');
   expect(buildMonth).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
   const [year, month] = buildMonth.split('-').map(Number);
@@ -580,12 +580,12 @@ async function expectedHomeActivity(page, events, analog, digital) {
     : record.commits[fixture.activity.months.indexOf(key)] > 0).length;
   return months.map((key) => ({ month: key,
     events: events.filter(({ data: { when } }) => when.precision !== 'year' && when.start.startsWith(key)).length,
-    analog: active(analog, key), digital: active(digital, key) }));
+    analog: active(analog, key), digital: active(digital, key), lab: active(lab, key) }));
 }
 
 for (const width of [1440, 900, 390]) {
   test(`Home renders source-derived activity, four recent Events and complete project updates at ${width}px`, async ({ page }) => {
-    const [{ events }, analog, digital] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital')]);
+    const [{ events }, analog, digital, lab] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital'), catalogFixture('lab')]);
     await page.setViewportSize({ width, height: 900 });
     await page.goto('./');
     await expect(page).toHaveTitle('AMS Signals');
@@ -593,15 +593,15 @@ for (const width of [1440, 900, 390]) {
     await expect(page.locator('[data-event-explorer-root]')).toHaveCount(0);
     expect(await page.locator('.activity-counts').evaluate((el) => getComputedStyle(el).clip)).toBe('rect(0px, 0px, 0px, 0px)');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-    const expected = await expectedHomeActivity(page, events, analog, digital);
+    const expected = await expectedHomeActivity(page, events, analog, digital, lab);
     const actual = await page.locator('[data-dashboard-month]').evaluateAll((nodes) => nodes.map((el) => ({ month: el.dataset.dashboardMonth,
-      events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital) })));
+      events: Number(el.dataset.events), analog: Number(el.dataset.analog), digital: Number(el.dataset.digital), lab: Number(el.dataset.lab) })));
     expect(actual).toEqual(expected);
-    const series = ['events', 'analog', 'digital'];
+    const series = ['events', 'analog', 'digital', 'lab'];
     const maxima = series.map((key) => Math.max(...expected.map((m) => m[key])));
     await expect(page.getByRole('heading', { name: 'Activity Trend', exact: true })).toBeVisible();
     const chart = page.locator('.activity-chart');
-    await expect(chart).toHaveAccessibleName('Monthly Events, active Analog projects and active Digital projects');
+    await expect(chart).toHaveAccessibleName('Monthly Events, active Analog projects and active Digital projects and active Lab projects');
     await expect(chart).toHaveAttribute('aria-describedby', 'chart-description');
     const chartLines = await chart.locator('[data-activity-series]').evaluateAll((nodes) => nodes.map((el) => ({
       series: el.dataset.activitySeries, path: el.getAttribute('d'), stroke: getComputedStyle(el).stroke,
@@ -610,7 +610,7 @@ for (const width of [1440, 900, 390]) {
       transition: getComputedStyle(el).transitionDuration,
     })));
     expect(chartLines.map((line) => line.series)).toEqual(series);
-    expect(chartLines.map((line) => line.stroke)).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)']);
+    expect(chartLines.map((line) => line.stroke)).toEqual(['rgb(37, 99, 235)', 'rgb(41, 152, 130)', 'rgb(239, 173, 84)', 'rgb(128, 86, 179)']);
     for (const [j, key] of series.entries()) {
       const line = chartLines[j];
       // Exactly one real point per month, connected only by straight segments.
@@ -685,7 +685,7 @@ for (const width of [1440, 900, 390]) {
         await expect(icon.locator('path').nth(2)).toHaveAttribute('d', 'M10 20v-3');
       }
     }
-    for (const fixture of [analog, digital]) {
+    for (const fixture of [analog, digital, lab]) {
       const list = page.locator(`[data-updated-projects="${fixture.domain}"]`);
       expect(await list.locator('li').evaluateAll((nodes) => nodes.map((el) => el.dataset.updatedProject)))
         .toEqual(fixture.ordered.slice(0, 3).map((project) => project.id));
@@ -702,17 +702,19 @@ for (const width of [1440, 900, 390]) {
       const signals = await page.locator('.signals-card').boundingBox();
       expect(chart.y).toBe(signals.y);
       expect(chart.height).toBe(signals.height);
-      const [analogCard, digitalCard] = await page.locator('.updated-grid > .dashboard-panel').all();
+      const [analogCard, digitalCard, labCard] = await page.locator('.updated-grid > .dashboard-panel').all();
       const analogBox = await analogCard.boundingBox();
       const digitalBox = await digitalCard.boundingBox();
+      const labBox = await labCard.boundingBox();
       expect(chart.width).toBe(signals.width);
       expect(chart.width).toBe(592);
       expect(signals.x - (chart.x + chart.width)).toBe(16);
       expect(digitalBox.x - (analogBox.x + analogBox.width)).toBe(16);
-      for (const key of ['x', 'width']) {
-        expect(chart[key]).toBe(analogBox[key]);
-        expect(signals[key]).toBe(digitalBox[key]);
-      }
+      expect(labBox.x - (digitalBox.x + digitalBox.width)).toBe(16);
+      expect(analogBox.x).toBe(chart.x);
+      expect(labBox.x + labBox.width).toBeCloseTo(signals.x + signals.width, 1);
+      expect(analogBox.width).toBeCloseTo(labBox.width, 1);
+      expect(analogBox.y).toBe(labBox.y);
       expect((await page.locator('.activity-chart').boundingBox()).height).toBeGreaterThan(250);
     } else {
       expect((await page.locator('.signals-card').boundingBox()).y).toBeGreaterThan((await page.locator('.chart-card').boundingBox()).y);
@@ -728,11 +730,11 @@ for (const width of [1440, 900, 390]) {
 
 for (const width of [1440, 390]) {
   test(`Home exposes readable source-derived monthly counts in forced colors at ${width}px`, async ({ page }) => {
-    const [{ events }, analog, digital] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital')]);
+    const [{ events }, analog, digital, lab] = await Promise.all([loadGoldenCorpus(), catalogFixture('analog'), catalogFixture('digital'), catalogFixture('lab')]);
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ forcedColors: 'active' });
     await page.goto('./');
-    const expected = await expectedHomeActivity(page, events, analog, digital);
+    const expected = await expectedHomeActivity(page, events, analog, digital, lab);
     await expect(page.locator('.chart-area:visible')).toHaveCount(0);
     await expect(page.locator('.chart-percent')).toHaveText(['0%', '25%', '50%', '75%', '100%']);
     const forcedLines = await page.locator('.chart-line').evaluateAll((nodes) => nodes.map((el) => ({
@@ -743,14 +745,15 @@ for (const width of [1440, 390]) {
       { stroke: systemText, dash: 'none' },
       { stroke: systemText, dash: '6px, 3px' },
       { stroke: systemText, dash: '2px, 3px' },
+      { stroke: systemText, dash: '8px, 3px, 2px, 3px' },
     ]);
     const counts = page.locator('.activity-counts');
     const table = counts.getByRole('table', { name: 'Monthly activity counts; Events and distinct active projects' });
     await expect(table).toBeVisible();
-    await expect(table.locator('thead th')).toHaveText(['Month', 'Events', 'Analog', 'Digital']);
+    await expect(table.locator('thead th')).toHaveText(['Month', 'Events', 'Analog', 'Digital', 'Lab']);
     const expectedRows = expected.map((row) => [new Date(`${row.month}-01T00:00:00Z`).toLocaleDateString('en-US', {
       month: 'long', year: 'numeric', timeZone: 'UTC',
-    }), ...[row.events, row.analog, row.digital].map(String)]);
+    }), ...[row.events, row.analog, row.digital, row.lab].map(String)]);
     expect(await table.locator('tbody tr').evaluateAll((rows) => rows.map((row) => [...row.children].map((cell) => cell.textContent.trim())))).toEqual(expectedRows);
     const layout = await counts.evaluate((el) => ({
       position: getComputedStyle(el).position, clip: getComputedStyle(el).clip,

@@ -1,16 +1,2 @@
-import { hasRepositoryHistory } from '../catalog-repository-activity.ts';
-export { hasRepositoryHistory } from '../catalog-repository-activity.ts';
-export { monthLabel } from '../catalog-activity-band.ts';
-// Pure activity-window mechanics are domain-independent and shared verbatim; see that
-// module for the freshness/window contract. PublicActivity below (the discriminated union,
-// and lastPublicUpdateAt's required-ness) is Digital-specific and intentionally not shared.
-export { freshnessCutoff, activityMonths, countActivity } from '../catalog-activity-window.ts';
-
-export type PublicActivity =
-  | { kind: 'github' | 'repository'; lastCommitAt: string }
-  | { kind: 'public-update'; lastPublicUpdateAt: string }
-  | { kind: 'unfetched' };
-
-export function publicActivityDate(activity: PublicActivity): string {
-  return activity.kind === 'unfetched' ? '' : hasRepositoryHistory(activity) ? activity.lastCommitAt : activity.lastPublicUpdateAt;
-}
+// Strict repository and public-update activity shared by Digital and Lab.
+export * from '../strict-catalog-activity.ts';

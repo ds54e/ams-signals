@@ -72,7 +72,7 @@ for (const viewport of viewports) {
     for (const surface of indexes) {
       await open(page, surface);
       const nav = page.getByRole('navigation', { name: 'Primary' });
-      await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'GitHub ↗']);
+      await expect(nav.getByRole('link')).toHaveText(['Home', 'Timeline', 'Events', 'Analog', 'Digital', 'Lab', 'GitHub ↗']);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
       await expect(nav.locator('[aria-current="page"]')).toHaveText(surface[0].toUpperCase() + surface.slice(1));
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');

@@ -1,6 +1,6 @@
 // Refresh-only checks. No imports from a site build or browser entry point.
-export function assertRepositoryIdentity(record, meta) {
-  if (meta.private !== false || meta.fork !== false || meta.archived !== false
+export function assertRepositoryIdentity(record, meta, { allowFork = false } = {}) {
+  if (meta.private !== false || (meta.fork !== false && !(allowFork && meta.fork === true)) || meta.archived !== false
     || meta.id !== record.repositoryId
     || typeof meta.full_name !== 'string' || meta.full_name.toLowerCase() !== record.repository.toLowerCase()
     || typeof meta.default_branch !== 'string' || !meta.default_branch) {

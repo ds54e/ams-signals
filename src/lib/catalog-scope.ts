@@ -20,7 +20,7 @@ export const developmentEvidenceSchema = z.object({
 }).strict();
 export type DevelopmentEvidence = z.infer<typeof developmentEvidenceSchema>;
 
-// Both domains enforce the same classification/evidence relationship. This date
+// All catalogs enforce the same classification/evidence relationship. This date
 // records a provenance review independently of the public-activity snapshot.
 export function validateDevelopmentEvidence(project: {
   scope: { aiDevelopment?: AiDevelopment };

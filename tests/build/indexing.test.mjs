@@ -22,13 +22,13 @@ async function fixture(t, siteBase) {
       : { id };
     await write(`src/data/${collection}/record.json`, JSON.stringify(record));
   }
-  const routes = ['', 'timeline/', 'events/', 'events/event-one/', 'analog/', 'digital/', 'companies/company-one/', 'people/person-one/'];
+  const routes = ['', 'timeline/', 'events/', 'events/event-one/', 'analog/', 'digital/', 'lab/', 'companies/company-one/', 'people/person-one/'];
   const html = (route, robots = 'index, follow') => `<!doctype html><html><head>
     <meta name="robots" content="${robots}">
     <link rel="canonical" href="${origin}${siteBase}${route}">
     </head><body><nav aria-label="Primary">
     <a href="${siteBase}">Home</a><a href="${siteBase}timeline/">Timeline</a><a href="${siteBase}events/">Events</a>
-    <a href="${siteBase}analog/">Analog</a><a href="${siteBase}digital/">Digital</a>
+    <a href="${siteBase}analog/">Analog</a><a href="${siteBase}digital/">Digital</a><a href="${siteBase}lab/">Lab</a>
     <a href="https://github.com/ds54e/ams-signals">GitHub ↗</a>
     </nav></body></html>`;
   const page = (route, body = html(route)) => write(`dist/${route}index.html`, body);
@@ -130,7 +130,7 @@ for (const siteBase of ['/', '/a+b/']) {
     }));
     assert((await auditIndexing(f.options)).errors.some((error) => error.startsWith(`${siteBase}${emptyRoutes[0]} robots`)));
     for (const route of emptyRoutes) await f.page(route);
-    const routes = [...f.routes.slice(0, 7), emptyRoutes[0], emptyRoutes[1], f.routes[7]];
+    const routes = [...f.routes.slice(0, 8), emptyRoutes[0], emptyRoutes[1], f.routes.at(-1)];
     await f.write('dist/sitemap.xml', f.sitemap(routes));
     assert.deepEqual((await auditIndexing(f.options)).errors, []);
   });

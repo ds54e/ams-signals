@@ -15,16 +15,19 @@
     "check:internal-links": "node tools/internal-link-check.mjs",
     "check:indexing": "node tools/check-indexing.mjs",
     "check:analytics": "node tools/check-analytics.mjs",
-    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog && npm run validate:digital && npm run test:contracts && npm run build && npm run check:internal-links && npm run check:indexing && npm run check:analytics",
+    "check": "npm run validate && npm run lint:facts && npm run check:duplicates && npm run validate:analog && npm run validate:digital && npm run validate:lab && npm run test:contracts && npm run build && npm run check:internal-links && npm run check:indexing && npm run check:analytics",
     "test:smoke": "npm run build && playwright test",
     "test:golden": "node --test tests/golden/*.test.ts",
-    "test:contracts": "npm run test:golden && npm run test:build && npm run test:analog && npm run test:digital",
+    "test:contracts": "npm run test:golden && npm run test:build && npm run test:analog && npm run test:digital && npm run test:lab",
     "refresh:analog-activity": "node tools/refresh-analog-activity.mjs",
     "validate:digital": "node tools/validate-digital.mjs",
     "test:digital": "node --test tests/digital/*.test.ts",
     "refresh:digital-activity": "node tools/refresh-digital-activity.mjs",
     "test:build": "node --test tests/build/*.test.mjs",
-    "test:live": "playwright test --config playwright.live.config.mjs"
+    "test:live": "playwright test --config playwright.live.config.mjs",
+    "validate:lab": "node tools/validate-lab.mjs",
+    "test:lab": "node --test tests/lab/*.test.ts",
+    "refresh:lab-activity": "node tools/refresh-lab-activity.mjs"
   },
   "dependencies": {
     "astro": "7.4.12"

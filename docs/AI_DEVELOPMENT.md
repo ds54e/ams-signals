@@ -1,6 +1,6 @@
 # AI-development provenance policy
 
-This is the shared classification policy for Analog and Digital. It describes how cataloged software was implemented, independently of AI used at runtime in a user's design workflow. Current judgments and primary evidence live in each project's frontmatter and Markdown notes; this file is not a second project inventory.
+This is the shared classification policy for Analog, Digital and Lab. It describes how cataloged software was implemented, independently of AI used at runtime in a user's design workflow. Current judgments and primary evidence live in each project's frontmatter and Markdown notes; this file is not a second project inventory.
 
 ## Shared policy
 

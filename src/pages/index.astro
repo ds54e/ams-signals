@@ -13,16 +13,20 @@ import { publicActivityDate as analogDate } from '../lib/analog/activity';
 import { publicActivityDate as digitalDate } from '../lib/digital/activity';
 import analogData from '../data/analog-activity.json';
 import digitalData from '../data/digital-activity.json';
+import labData from '../data/lab-activity.json';
+import { sortProjects as sortLab } from '../lib/lab/catalog';
+import { validateActivity as validateLab } from '../lib/lab/schema';
 import { sitePath } from '../lib/paths';
 import '../styles/dashboard.css';
 
-const [events, analog, digital] = await Promise.all([
-  getCollection('events'), getCollection('analog'), getCollection('digital'),
+const [events, analog, digital, lab] = await Promise.all([
+  getCollection('events'), getCollection('analog'), getCollection('digital'), getCollection('lab'),
 ]);
 const analogActivity = validateAnalog(analog, analogData);
 const digitalActivity = validateDigital(digital, digitalData);
+const labActivity = validateLab(lab, labData);
 const buildDate = new Date().toISOString().slice(0, 10);
-const months = dashboardActivity(events, analogActivity, digitalActivity, buildDate);
+const months = dashboardActivity(events, analogActivity, digitalActivity, labActivity, buildDate);
 const recent = sortEventsNewestFirst(events).slice(0, 4);
 const analogUpdated = sortAnalog(analog, analogActivity.projects).slice(0, 3).map(({ id, data }) => ({
   id, name: data.name, description: data.description, date: analogDate(analogActivity.projects[id]),
@@ -30,8 +34,11 @@ const analogUpdated = sortAnalog(analog, analogActivity.projects).slice(0, 3).ma
 const digitalUpdated = sortDigital(digital, digitalActivity.projects).slice(0, 3).map(({ id, data }) => ({
   id, name: data.name, description: data.description, date: digitalDate(digitalActivity.projects[id]),
 }));
+const labUpdated = sortLab(lab, labActivity.projects).slice(0, 3).map(({ id, data }) => ({
+  id, name: data.name, description: data.description, date: digitalDate(labActivity.projects[id]),
+}));
 ---
-<BaseLayout description="Explore recent public RNM and mixed-signal verification Events and active Analog and Digital projects.">
+<BaseLayout description="Explore recent public RNM and mixed-signal verification Events and active Analog, Digital and Lab projects.">
   <h1 class="visually-hidden">AMS Signals Home</h1>
   <div class="dashboard">
     <div class="dashboard-top">
@@ -68,6 +75,7 @@ const digitalUpdated = sortDigital(digital, digitalActivity.projects).slice(0, 3
       <div class="updated-grid">
         <UpdatedProjects domain="analog" title="Analog" projects={analogUpdated} />
         <UpdatedProjects domain="digital" title="Digital" projects={digitalUpdated} />
+        <UpdatedProjects domain="lab" title="Lab" projects={labUpdated} />
       </div>
     </section>
   </div>

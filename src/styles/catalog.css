@@ -18,10 +18,11 @@
 .catalog-quicklinks { display: flex; flex-wrap: wrap; gap: 5px 11px; align-content: start; }
 .catalog-quicklinks a { display: inline-block; padding-block: 2px; }
 .catalog-scope { display: flex; flex-direction: column; align-items: start; gap: 4px; }
-.scope-design { --category-fill: var(--category-green-soft); --category-text: var(--category-green); }
-.scope-simulation, .scope-verification { --category-fill: var(--category-blue-soft); --category-text: var(--category-blue); }
-.scope-synthesis { --category-fill: var(--category-gold-soft); --category-text: var(--category-gold); }
-.scope-layout { --category-fill: var(--category-rust-soft); --category-text: var(--category-rust); }
+.scope-design, .scope-board { --category-fill: var(--category-green-soft); --category-text: var(--category-green); }
+.scope-simulation, .scope-verification, .scope-acquisition { --category-fill: var(--category-blue-soft); --category-text: var(--category-blue); }
+.scope-synthesis, .scope-control { --category-fill: var(--category-gold-soft); --category-text: var(--category-gold); }
+.scope-analysis { --category-fill: #ede6f4; --category-text: var(--category-purple); }
+.scope-layout, .scope-test { --category-fill: var(--category-rust-soft); --category-text: var(--category-rust); }
 .catalog-scope [data-ai-development="assisted"] { color: var(--category-purple); background: transparent; border: 1px solid var(--provenance-border); padding: 2px 6px; box-shadow: none; margin-top: 4px; }
 .catalog-provenance-toggle {
   position: relative;
