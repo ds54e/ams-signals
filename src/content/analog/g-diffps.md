@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Python/PyTorch, ngspice and released policy checkpoints; optional LLM netlist paths require separate model access."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-03"
+reviewedAt: "2026-11-24"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -37,6 +37,9 @@ sources:
   - id: review-20261103-development
     title: Development-branch correction to training-bound inference
     url: https://github.com/ACADLab/G-DiffPS/commit/36fc6111563b37062a33da187fe98a8a16606198
+  - id: development-branch
+    title: Separate September development work on the SKY130 harness
+    url: https://github.com/ACADLab/G-DiffPS/commit/bab150c9dcc93cc3010324e656310890355b8a7b
 ---
 
 ### Scope
@@ -56,3 +59,5 @@ The trained graph-conditioned policy selects RF topology and continuous componen
 ### Retention and branch boundary
 
 The default branch remains a curated August research release. Its separate dev/nuerips_workshop branch contains subsequent executable circuit-encoder, coordinate, area-reward and inference-bound corrections. Those inspected development changes support retention under the same selection rule used for new projects; they are not promoted into default-branch monthly counts or claimed as released capabilities. The last branch tip only changes a commit-trailer rule and is not the technical basis. The existing description and Scope remain on their integrated evidence. [Development implementation](#source-review-20261103-development).
+
+The September SKY130 harness and input changes supply an additional example of executable work on that development line. [SKY130 harness](#source-development-branch).

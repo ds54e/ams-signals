@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T05:48:48.931Z",
+  "capturedAt": "2026-11-24T06:51:21.269Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -68,32 +68,6 @@
       "lastMeaningfulCommitAt": "2026-10-30",
       "lastMeaningfulCommitSha": "45364540b6d1feab8ba640e0ed471c9f4edcc38a",
       "notes": "Reviewed October 30 sizing implementation, automatic runner integration and plain-Python response handling with regression tests. Scripted model replies and selected real-ngspice smoke tests do not reproduce live-model quality or paper performance."
-    },
-    "analogsage": {
-      "kind": "github",
-      "repository": "wznmickey/AnalogSAGE",
-      "repositoryId": 1098707425,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0
-      ],
-      "lastCommitAt": "2026-10-17",
-      "lastMeaningfulCommitAt": "2026-10-17",
-      "lastMeaningfulCommitSha": "8fd72e235d2b331ee3ef2e3b633b4875bb9fa358",
-      "notes": "The canonical repository keeps ID 1098707425 but its default branch was rewritten to one October 17 implementation snapshot. It now includes circuit adapters, testbenches and an ngspice runner absent from the earlier reviewed release. Counts describe only the current first-parent chain, not original development or publication dates."
     },
     "analogtobi": {
       "kind": "github",
@@ -1453,9 +1427,9 @@
       "kind": "github",
       "repository": "iic-jku/open-pdks-regression-tests",
       "repositoryId": 1276759971,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-24T06:50:40.309Z",
       "defaultBranch": "main",
-      "headSha": "c72ee597b6d5ba1ea50bb023aea77fbb37319bd4",
+      "headSha": "3e2f87f46bb9d8be6f5e3763fc5ec574ff312c71",
       "commits": [
         0,
         0,
@@ -1468,11 +1442,11 @@
         9,
         4,
         14,
-        30
+        31
       ],
-      "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-10-20",
-      "lastMeaningfulCommitSha": "3a97ca55bfbf482400f6b8d35f341b465303fe13"
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "3e2f87f46bb9d8be6f5e3763fc5ec574ff312c71"
     },
     "openems": {
       "kind": "github",
@@ -2591,6 +2565,107 @@
       "lastMeaningfulCommitAt": "2026-11-20",
       "lastMeaningfulCommitSha": "4d5d52a2d93433d84770ad84f0a7890e86872ac8",
       "capturedAt": "2026-11-24T05:48:48.931Z"
+    },
+    "lctime": {
+      "kind": "repository",
+      "repository": "https://codeberg.org/librecell/lctime",
+      "repositoryId": "codeberg.org:43529",
+      "capturedAt": "2026-11-24T06:50:40.309Z",
+      "defaultBranch": "main",
+      "headSha": "e57d3c57d8816871e392c393b8c79011221055f4",
+      "commits": [
+        2,
+        11,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-30",
+      "lastMeaningfulCommitAt": "2026-04-30",
+      "lastMeaningfulCommitSha": "d6ef4f5fe4305c88e4b2fde6abdd9695747fa210",
+      "lastMeaningfulCommitSource": "activity"
+    },
+    "cobra": {
+      "kind": "github",
+      "repository": "DI-PASSIONATE/COBRA",
+      "repositoryId": 1152309439,
+      "capturedAt": "2026-11-24T06:51:21.269Z",
+      "defaultBranch": "main",
+      "headSha": "2b24532f2666b9c5a6030521c4997f8c93b9235a",
+      "commits": [
+        0,
+        0,
+        31,
+        17,
+        0,
+        2,
+        17,
+        0,
+        2,
+        22,
+        9,
+        8
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "2b24532f2666b9c5a6030521c4997f8c93b9235a"
+    },
+    "emerge": {
+      "kind": "github",
+      "repository": "FennisRobert/EMerge",
+      "repositoryId": 766087649,
+      "capturedAt": "2026-11-24T06:51:21.269Z",
+      "defaultBranch": "main",
+      "headSha": "6fe5253863de9b8c62671f7f819135743a3b704e",
+      "commits": [
+        12,
+        32,
+        22,
+        25,
+        24,
+        9,
+        18,
+        38,
+        18,
+        1,
+        32,
+        22
+      ],
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "addbe25b3a41a85184324bf8907506b00bc0a19b"
+    },
+    "pybert": {
+      "kind": "github",
+      "repository": "capn-freako/PyBERT",
+      "repositoryId": 25015439,
+      "capturedAt": "2026-11-24T06:51:21.269Z",
+      "defaultBranch": "master",
+      "headSha": "fc4a55725539af59fcc2e0c418a9e67969d8e0cb",
+      "commits": [
+        4,
+        0,
+        8,
+        0,
+        0,
+        0,
+        22,
+        4,
+        6,
+        3,
+        20,
+        5
+      ],
+      "lastCommitAt": "2026-11-08",
+      "lastMeaningfulCommitAt": "2026-11-08",
+      "lastMeaningfulCommitSha": "0e2d85f54a67f21f4711e60fc171afe583874e46"
     }
   }
 }

@@ -6,7 +6,7 @@ installBrowserErrorGuards(test);
 
 const fixture = await catalogFixture('analog');
 catalogIndexTests(fixture, { design: 'Design', simulation: 'Simulation', layout: 'Layout' },
-  ['ngspice', 'klayout-tools', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'gmoverid-skill', 'analogsage', 'klayout',
+  ['ngspice', 'klayout-tools', 'autosizer', 'ngspice-openvaf-enhancements', 'xschem', 'gmoverid-skill', 'cobra', 'emerge', 'klayout',
     'klayout-pex', 'pyopus', 'scikit-rf', 'qucs-s', 'verilog-a-sim']);
 
 catalogSearchRegression(fixture, {
@@ -16,9 +16,9 @@ catalogSearchRegression(fixture, {
   'Verilog-A': ['evas', 'openvaf-reloaded', 'verilog-a-sim'],
   'verilog-a-sim': ['verilog-a-sim'],
   SKY130: ['analog-design-bench', 'gmoverid-skill'],
-  AI: ['analogsage', 'gmoverid-skill'],
+  AI: ['analog-design-bench', 'gmoverid-skill'],
   layout: ['klayout', 'magic'],
-  sizing: ['autosizer', 'klayout-tools', 'analogsage', 'gmoverid-skill', 'pyopus'],
+  sizing: ['autosizer', 'klayout-tools', 'gmoverid-skill', 'pyopus'],
   'KLayout-PEX': ['klayout-pex'],
   parasitic: ['klayout-pex'],
   PEX: ['klayout-pex'],
@@ -28,6 +28,9 @@ catalogSearchRegression(fixture, {
   'S-parameter': ['scikit-rf'],
   SPICE: ['ngspice', 'scikit-rf', 'qucs-s'],
   'Qucs-S': ['qucs-s'],
+  EMerge: ['emerge'],
+  PyBERT: ['pybert'],
+  sp2bool: ['lctime'],
   Xyce: ['xyce', 'qucs-s'],
 });
 

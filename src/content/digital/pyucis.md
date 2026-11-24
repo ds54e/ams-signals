@@ -1,7 +1,7 @@
 ---
 name: "PyUCIS"
 aliases: []
-description: "Python UCIS library for importing, merging and analyzing hardware verification coverage. CLI/TUI tools connect coverage reports, regression comparisons, test history and testplan closure; SQLite and NCDB storage support richer metadata, while format conversions have preservation limits."
+description: "Python UCIS library for importing, merging and analyzing hardware verification coverage. CLI/TUI tools connect coverage reports, regression comparisons, test history and testplan closure; SQLite and NCDB storage support richer metadata, and the 0.2.2 release updates coverage-group option merging. Format conversions have preservation limits."
 scope:
   verification:
     ai: false
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public Python package; supported coverage exports or compatible UCIS interfaces are required, and format-specific preservation limits apply."
 addedAt: "2026-09-07"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-24"
 sources:
   - id: "documentation"
     title: "Current official PyUCIS documentation"
@@ -26,8 +26,8 @@ sources:
     title: "Reviewed README and format matrix on the GitHub mirror"
     url: "https://github.com/fvutils/pyucis/blob/11c39fd03a983fa602eb8967b3640a0fcc532458/README.md"
   - id: "release"
-    title: "PyPI 0.2.0.22787133465, published March 7, 2026"
-    url: "https://pypi.org/project/pyucis/0.2.0.22787133465/"
+    title: "PyPI 0.2.2, published November 5, 2026"
+    url: "https://pypi.org/project/pyucis/0.2.2/"
   - id: "github-release"
     title: "Older GitHub release v0.1.5, October 21, 2025"
     url: "https://github.com/fvutils/pyucis/releases/tag/v0.1.5"
@@ -71,14 +71,12 @@ Conversion is format-specific. Recognized unsupported constructs produce warning
 
 ### Release and authority boundary
 
-Rechecked 2026-10-01: the latest PyPI distribution remains 0.2.0.22787133465 from March 7, 2026; GitHub Releases still shows v0.1.5 from October 21, 2025. The March implementation is merged and present in that wheel. August 31 changes concern hosting/publishing rather than new coverage algorithms. [PyPI distribution](#source-release); [older GitHub channel](#source-github-release); [implementation merge](#source-merge).
+The reviewed PyPI 0.2.2 release was published November 5, 2026. The canonical Git revision `e57f3816e3903577c7b6fb95157acd0737f9fe73` includes coverage-group option handling during merge and associated SQLite and XML updates. The PyPI wheel digest was verified and the two merge files, XML writer and version file matched the canonical Git tree byte for byte; this does not establish lossless interchange. [PyPI distribution](#source-release).
 
-The maintainer's workflow declares the Git host and GitHub mirror relationship, with documentation published on dvkit.org. Direct Git advertises `master` at the same head as the mirror, but the repository web view redirects and the host API does not provide a repository ID. Package release authority is separately verified as GitHub through the public switch and tag-gated publishing workflow. [Hosting policy](#source-hosting); [publishing workflow](#source-publishing); [release switch](#source-release-authority).
-
-The activity record therefore uses the supported March 7 release point. It does not fabricate a host ID or borrow mirror monthly counts; inactive months mean no reviewed public signal. [Verified release](#source-release).
+The project's Git host, GitHub mirror, and documentation publication are distinct from package release authority. No stable primary-host repository ID was established for this capture, so the activity record uses the verified PyPI release date rather than borrowing mirror activity counts. [Hosting policy](#source-hosting) · [Publishing workflow](#source-publishing) · [Release switch](#source-release-authority).
 
 ### Scope and development provenance
 
-Verification covers implemented coverage and testplan analysis. The packaged skill is a command/data-model reference, with deterministic query examples rather than a substantive model-hosted decision procedure. The separate tutorial supplies example prompts and desired analysis outcomes; it does not establish a released agent control loop or an explicit evaluated AI benchmark. Generic MCP/CLI access and an agent-readable reference alone therefore do not justify an AI Verification prefix. [Packaged skill](#source-agent-skill); [agent workflow tutorial](#source-agent-example).
+Verification covers implemented coverage and testplan analysis. The packaged skill is a command/data-model reference, with deterministic query examples rather than a substantive model-hosted decision procedure. The separate tutorial supplies example prompts and desired analysis outcomes; it does not establish a released agent control loop or an explicit evaluated AI benchmark. Generic MCP/CLI access and an agent-readable reference alone therefore do not justify the internal AI flag for Verification. [Packaged skill](#source-agent-skill); [agent workflow tutorial](#source-agent-example).
 
 Rechecked 2026-10-01: AI-ASSISTED is supported by the maintainer's account and the substantial Copilot-attributed history storage/query, testplan, report and CLI/TUI implementation. These code paths remain integrated; current NCDB code retains the attributed history-query, per-test statistics, binary serialization and testplan integration. The earlier release comparison established matching sampled implementation files in the wheel. The attribution concerns these retained extensions, not unrelated library code. [Maintainer account](#source-maintainer); [implementation diff](#source-implementation); [current integration](#source-history-code).

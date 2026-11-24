@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T05:48:48.931Z",
+  "capturedAt": "2026-11-24T06:50:55.278Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -921,7 +921,7 @@
     },
     "pyucis": {
       "kind": "public-update",
-      "lastPublicUpdateAt": "2026-03-07",
+      "lastPublicUpdateAt": "2026-11-05",
       "lastPublicUpdateSource": "release",
       "lastPublicUpdateType": "release"
     },
@@ -1678,8 +1678,8 @@
         2
       ],
       "lastCommitAt": "2026-11-01",
-      "lastMeaningfulCommitAt": "2026-04-30",
-      "lastMeaningfulCommitSha": "17cef8b8c4ca0a2ec9eea67c6e8ee53625d6e25b"
+      "lastMeaningfulCommitAt": "2026-11-01",
+      "lastMeaningfulCommitSha": "01a1f85a9a17d3e949ec446044701b8607c6c2e2"
     },
     "cnstlint": {
       "kind": "github",
@@ -2786,6 +2786,31 @@
       "lastMeaningfulCommitAt": "2026-11-23",
       "lastMeaningfulCommitSha": "30c54ee00d13d1263d167a3bf6fda8602292b3d5",
       "capturedAt": "2026-11-24T05:48:48.931Z"
+    },
+    "wavetools": {
+      "kind": "github",
+      "repository": "hudson-trading/wavetools",
+      "repositoryId": 1209837307,
+      "capturedAt": "2026-11-24T06:50:55.278Z",
+      "defaultBranch": "main",
+      "headSha": "406d127b490747e346ec2e0b56f180b621ed5e53",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        17,
+        0,
+        11,
+        2,
+        0,
+        1,
+        7,
+        14
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "5345b6bd6d377ec263c9bc5d0441d1a08fcf6142"
     }
   }
 }

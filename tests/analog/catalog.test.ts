@@ -155,7 +155,8 @@ test('optional pinned activity evidence preserves transferred identity and requi
 
 test('Analog Scope reflects reviewed design, evaluation and layout operations', async () => {
   const scopes = {
-    analogsage: ['design', 'simulation'],
+    'g-diffps': ['design', 'simulation'],
+    emerge: ['simulation'], lctime: ['simulation'], cobra: ['design', 'simulation'], pybert: ['design', 'simulation'],
     autosizer: ['design', 'simulation'],
     'klayout-tools': ['design', 'simulation', 'layout'],
     'verilog-a-sim': ['simulation'], 'rnl': ['design'],
@@ -462,7 +463,9 @@ test('Scope rendering keeps functional labels plain and development provenance d
 test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, generic tools and provenance', async () => {
   const expected = {
     openpcells: [['layout', false]], ngspice: [['simulation', false]], klayout: [['layout', false]],
-    analogsage: [['design', true], ['simulation', false]], autosizer: [['design', true], ['simulation', false]],
+    'g-diffps': [['design', true], ['simulation', false]],
+    cobra: [['design', true], ['simulation', true]], emerge: [['simulation', false]], pybert: [['design', false], ['simulation', false]],
+    autosizer: [['design', true], ['simulation', false]],
     'klayout-tools': [['design', true], ['simulation', false], ['layout', true]],
     'masala-chai': [['design', true], ['simulation', true]],
     'evo-ldo-bench': [['design', true], ['simulation', true]],
@@ -493,7 +496,7 @@ test('Analog AI stages distinguish runtime decisions, explicit benchmark tasks, 
 test('explicitly curated Analog removals leave neither articles nor activity records', async () => {
   const files = await readdir(new URL('../../src/content/analog/', import.meta.url));
   const activity = JSON.parse(await readFile(new URL('../../src/data/analog-activity.json', import.meta.url), 'utf8'));
-  for (const id of ['analogagent', 'gf180-analog-agent', 'analogmaster', 'wirewright', 'ams-io-agent', 'arcs']) {
+  for (const id of ['analogagent', 'gf180-analog-agent', 'analogmaster', 'wirewright', 'ams-io-agent', 'arcs', 'analogsage']) {
     assert.ok(!files.includes(`${id}.md`), id);
     assert.ok(!(id in activity.projects), id);
   }
