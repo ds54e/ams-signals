@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:48:29.256Z",
+  "capturedAt": "2026-11-25T02:52:01.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2939,6 +2939,56 @@
       "lastCommitAt": "2026-11-12",
       "lastMeaningfulCommitAt": "2026-11-12",
       "lastMeaningfulCommitSha": "9cf1fcc126c19c9331ed9e31cc9d4f80cd482c5c"
+    },
+    "kairoq": {
+      "kind": "github",
+      "repository": "hanzamzamy/kairoq",
+      "repositoryId": 1414596177,
+      "capturedAt": "2026-11-25T02:52:01.000Z",
+      "defaultBranch": "main",
+      "headSha": "e4088247b89053fd6820340119725ef9b7a5845c",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        19,
+        0
+      ],
+      "lastCommitAt": "2026-10-18",
+      "lastMeaningfulCommitAt": "2026-10-18",
+      "lastMeaningfulCommitSha": "e4088247b89053fd6820340119725ef9b7a5845c"
+    },
+    "opensipi": {
+      "kind": "github",
+      "repository": "rivosinc/opensipi",
+      "repositoryId": 793811450,
+      "capturedAt": "2026-11-25T02:52:01.000Z",
+      "defaultBranch": "main",
+      "headSha": "3fcfe815f7fcf49ea82e358591b9c570e65f6c32",
+      "commits": [
+        0,
+        0,
+        2,
+        8,
+        3,
+        1,
+        3,
+        0,
+        8,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-01",
+      "lastMeaningfulCommitAt": "2026-08-01",
+      "lastMeaningfulCommitSha": "3fcfe815f7fcf49ea82e358591b9c570e65f6c32"
     }
   }
 }

@@ -1,20 +1,20 @@
 [
   {
+    "project": "kairoq",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Fabrication-data board simulation including SI, PDN, thermal and selected IBIS channel models."
+  },
+  {
+    "project": "opensipi",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Table-driven SI/PI extraction automation for commercial Sigrity solvers."
+  },
+  {
     "project": "kipi",
     "date": "2026-11-25",
     "kind": "added",
     "summary": "PCB DC rail and AC impedance analysis with geometry-based switching-noise coupling."
-  },
-  {
-    "project": "rspice",
-    "date": "2026-11-25",
-    "kind": "updated",
-    "summary": "Reviewed autonomous PSS oscillator phase-noise regression coverage and license boundary."
-  },
-  {
-    "project": "pcb-em-lab",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "KiCad-to-Palace electromagnetic simulation and network extraction for PCB geometries."
   }
 ]
