@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:34:44.779Z",
+  "capturedAt": "2026-11-25T04:51:56.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2166,6 +2166,81 @@
       "lastCommitAt": "2026-11-22",
       "lastMeaningfulCommitAt": "2026-11-22",
       "lastMeaningfulCommitSha": "6fbca35252d6ec7c1b72f7e557c118dc5a7c6d48"
+    },
+    "pyrpl": {
+      "kind": "github",
+      "repository": "pyrpl-fpga/pyrpl",
+      "repositoryId": 58811185,
+      "capturedAt": "2026-11-25T04:51:56.000Z",
+      "defaultBranch": "main",
+      "headSha": "68e700ee39f2f1b442f295fc60dc360cd771d7b6",
+      "commits": [
+        0,
+        7,
+        3,
+        9,
+        3,
+        0,
+        1,
+        0,
+        9,
+        10,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-06",
+      "lastMeaningfulCommitSha": "19ba082a10d42c901ade5f47d6e65281d1c2eb94"
+    },
+    "tinysa-ultra-phase-noise": {
+      "kind": "github",
+      "repository": "Hagtronics/tinySA-Ultra-Phase-Noise",
+      "repositoryId": 793597279,
+      "capturedAt": "2026-11-25T04:51:56.000Z",
+      "defaultBranch": "main",
+      "headSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444",
+      "commits": [
+        8,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-02-20",
+      "lastMeaningfulCommitAt": "2026-02-20",
+      "lastMeaningfulCommitSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444"
+    },
+    "lab-instrument-control": {
+      "kind": "github",
+      "repository": "daskals/lab-instrument-control",
+      "repositoryId": 1271586225,
+      "capturedAt": "2026-11-25T04:51:56.000Z",
+      "defaultBranch": "master",
+      "headSha": "601a287e3c1fa6d1022b01bf8a6030a6f377479a",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-23",
+      "lastMeaningfulCommitAt": "2026-09-23",
+      "lastMeaningfulCommitSha": "4c05492e63b7438cba7dc5143fa8216d05ede64a"
     }
   }
 }
