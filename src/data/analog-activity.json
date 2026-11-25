@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T03:06:26.000Z",
+  "capturedAt": "2026-11-25T03:19:57.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3067,6 +3067,58 @@
       "lastMeaningfulCommitAt": "2026-10-05",
       "lastMeaningfulCommitSha": "f1daa8225cc9ae66c0eae13f70cd1b98c2d5e22e",
       "notes": "May 28 updates executable ACM2 LNA design notebook; October 5 integrates the new unified ACM2/ACM3 Verilog-A models, extracted IHP cards and fit notebooks. October 7 model-page integration is the later raw activity date."
+    },
+    "gspice": {
+      "kind": "github",
+      "repository": "hegdeshreesha/GSPICE",
+      "repositoryId": 1214863022,
+      "capturedAt": "2026-11-25T03:19:57.000Z",
+      "defaultBranch": "main",
+      "headSha": "ae2dfcba271ccda22be6272ec0a40cb4105629bf",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        2,
+        15,
+        9,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-29",
+      "lastMeaningfulCommitAt": "2026-08-29",
+      "lastMeaningfulCommitSha": "ae2dfcba271ccda22be6272ec0a40cb4105629bf",
+      "notes": "June correctness diagnostics and August integrated voltage-source initialization and AC phase corrections demonstrate substantive follow-through. DAE audit is implemented; RF execution and qualification remain experimental. External compiled-model loaders were removed in August."
+    },
+    "pqwave": {
+      "kind": "github",
+      "repository": "niuniuaba/pqwave",
+      "repositoryId": 1206823948,
+      "capturedAt": "2026-11-25T03:19:57.000Z",
+      "defaultBranch": "main",
+      "headSha": "f7b7e1cb3f74d31be232360733361a6d396a3d8b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        22,
+        150,
+        143,
+        39,
+        0,
+        2,
+        1,
+        2
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "a5d204596b495a81f1202357a66588c127e3f37d",
+      "notes": "May correlation engine, July worst-case analysis, September API and test repairs, and November startup crash repair are substantive maintenance. The latest same-day theme compatibility repair is retained separately as raw activity."
     }
   }
 }

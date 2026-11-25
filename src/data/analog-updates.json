@@ -1,20 +1,20 @@
 [
   {
+    "project": "gspice",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Experimental circuit solver with residual-Jacobian and charge-conservation auditing."
+  },
+  {
+    "project": "pqwave",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Correlated parameter generation and statistical analysis of analog simulation results."
+  },
+  {
     "project": "acm-mosfet-models",
     "date": "2026-11-25",
     "kind": "added",
     "summary": "Charge-based ACM2/ACM3 models, IHP cards and executable I-V fitting notebooks."
-  },
-  {
-    "project": "pexengine",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "Multi-backend parasitic extraction, native RC calculation and normalized SPICE backannotation."
-  },
-  {
-    "project": "pybis2spice",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "IBIS-to-SPICE model conversion including ngspice output and revived canonical maintenance."
   }
 ]
