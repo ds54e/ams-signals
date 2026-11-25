@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T06:31:19.000Z",
+  "capturedAt": "2026-11-25T06:41:11.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3275,6 +3275,58 @@
       "lastMeaningfulCommitAt": "2026-08-05",
       "lastMeaningfulCommitSha": "3a6a1f9a6157f3cfbb6f13d1a3589026b7e13055",
       "notes": "July 25 adds ASAP7 LDO benchmark migration and simulator setup; August 5 adds the mismatch-aware sizing driver and validation workflow. Later August 5 documentation changes are the raw activity date."
+    },
+    "cvc": {
+      "kind": "github",
+      "repository": "d-m-bailey/cvc",
+      "repositoryId": 59817893,
+      "capturedAt": "2026-11-25T06:41:11.000Z",
+      "defaultBranch": "master",
+      "headSha": "23c3867bb9c227ec395e2812b318379ffb9a0df9",
+      "commits": [
+        2,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-04-09",
+      "lastMeaningfulCommitAt": "2026-04-09",
+      "lastMeaningfulCommitSha": "23c3867bb9c227ec395e2812b318379ffb9a0df9",
+      "notes": "December 25 2025 integrates inverter-loop and interactive port-display fixes; April 9 2026 changes the Autoconf lexer check for Flex compatibility. Vibe-IC derivative history is not included in upstream counts."
+    },
+    "emi-analyzer": {
+      "kind": "github",
+      "repository": "embeddedci-com/emi-analyzer",
+      "repositoryId": 1363208528,
+      "capturedAt": "2026-11-25T06:41:11.000Z",
+      "defaultBranch": "main",
+      "headSha": "eabaf77bd9cb35a1e33ddb1b17bfab18dd2b2584",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        83,
+        17,
+        7
+      ],
+      "lastCommitAt": "2026-11-17",
+      "lastMeaningfulCommitAt": "2026-11-07",
+      "lastMeaningfulCommitSha": "13c3583cd2416dcb527d2e5ffd8447ae727fa129",
+      "notes": "September 28 adds routing checks around antennas and ESD clamps. November 7 corrects clamp ground-port naming and adds native ngspice regressions; November 17 dependency updates are the later raw checkpoint."
     }
   }
 }
