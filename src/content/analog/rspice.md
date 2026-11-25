@@ -1,7 +1,7 @@
 ---
 name: RSpice
 summary: Rust circuit simulator with schematic editing, SPICE netlist execution and waveform analysis through desktop, browser, CLI and Python interfaces.
-description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, HDL tracing, circuit assertions and selected LTspice special-function devices. SystemVerilog support remains a subset without custom real-net resolution functions; its personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
+description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, circuit assertions and autonomous PSS oscillator phase-noise analysis. SystemVerilog remains a subset without custom real-net resolution functions; its personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
 scope:
   design:
     ai: false
@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: '2026-11-23'
+reviewedAt: '2026-11-25'
 sources:
 - id: "official"
   title: "Official project website"
@@ -101,6 +101,15 @@ sources:
 - id: review-20261123
   title: "SPICE deck editor parameter completion"
   url: "https://github.com/JaimeHW/RSpice/commit/e2dd8f1102f2f87bd4056d8b80baf731000c685c"
+- id: review-20261125-oscillator-api
+  title: "Driven versus autonomous periodic noise analysis contract"
+  url: "https://github.com/JaimeHW/RSpice/blob/86be28d360cae4d5df30dd7542f5f30984e7f218/crates/rspice-core/src/analysis/pnoise.rs"
+- id: review-20261125-oscillator-tests
+  title: "Autonomous PSS oscillator phase-noise and timing regressions"
+  url: "https://github.com/JaimeHW/RSpice/blob/86be28d360cae4d5df30dd7542f5f30984e7f218/crates/rspice-core/tests/periodic/pnoise_oscillator.rs"
+- id: review-20261125-license
+  title: "Personal Use License v1.1 at the reviewed revision"
+  url: "https://github.com/JaimeHW/RSpice/blob/86be28d360cae4d5df30dd7542f5f30984e7f218/LICENSE"
 ---
 
 ### Implementation and boundaries
@@ -149,3 +158,7 @@ PSTB explicitly refuses an event orbit crossing an ideal switch controlled by ci
 ### November 23 source review
 
 The deck editor now pulls supported model and instance parameter completions from the simulator tables. Completion is limited by those tables; the update is not evidence of wider SPICE or Verilog-A compatibility. [Reviewed implementation](#source-review-20261123).
+
+### November 25 oscillator phase-noise review
+
+The current source distinguishes driven conversion noise from phase noise computed on an autonomous shooting PSS orbit. The oscillator regression invokes the autonomous PSS and noise engine, compares the negative-resistance LC tank with the analytical Demir phase-diffusion result, checks the phase-noise result variant from an authored autonomous deck, and includes sampled-noise cases. This is materially different from a driven periodic-noise analysis or a waveform FFT. These upstream regression sources were inspected, not executed; they do not establish general transistor-model coverage, silicon correlation or tagged-release availability. The Personal Use License v1.1 still restricts commercial evaluation, development, redistribution and derivative works for distribution. This is a capability review, not an activity recapture or a license recommendation. [Analysis contract](#source-review-20261125-oscillator-api) · [Oscillator regressions](#source-review-20261125-oscillator-tests) · [License](#source-review-20261125-license).

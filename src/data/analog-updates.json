@@ -1,20 +1,20 @@
 [
   {
+    "project": "kipi",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "PCB DC rail and AC impedance analysis with geometry-based switching-noise coupling."
+  },
+  {
+    "project": "rspice",
+    "date": "2026-11-25",
+    "kind": "updated",
+    "summary": "Reviewed autonomous PSS oscillator phase-noise regression coverage and license boundary."
+  },
+  {
     "project": "pcb-em-lab",
     "date": "2026-11-25",
     "kind": "added",
     "summary": "KiCad-to-Palace electromagnetic simulation and network extraction for PCB geometries."
-  },
-  {
-    "project": "pcb-thermal-lab",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "PCB heat-conduction simulation with KiCad geometry, Gmsh meshes and Elmer FEM."
-  },
-  {
-    "project": "3d-ice",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "Compact steady and transient thermal simulation for IC stacks and floorplans."
   }
 ]
