@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: "Public source workbench and portable agent skill. Requires Node.js/Python and ngspice for simulation; analog-IC use requires user-supplied PDK/model files, while Claude Code, Codex or another compatible coding agent supplies the model-driven workflow."
 addedAt: "2026-09-26"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical vibe-analog repository"
@@ -41,6 +41,12 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/DeconBear/vibe-analog/blob/d97ca469ca9dab71a7394d7ede848d3d53e2b693/renderer/src/components/canvas/componentParams/AnalogIcParamForm.tsx"
+  - id: pdk-checkout-fix
+    title: "October 13 integration of public PDK checkout compatibility fix"
+    url: "https://github.com/DeconBear/vibe-analog/commit/14210e73f1974db3e7adee4155e3bb36c64354c5"
+  - id: pdk-checkout-regression
+    title: "Retained offline regression for recursive locked PDK checkout"
+    url: "https://github.com/DeconBear/vibe-analog/blob/14210e73f1974db3e7adee4155e3bb36c64354c5/scripts/pdk-checkout-regression.py"
 ---
 
 ### Project workflow
@@ -60,3 +66,7 @@ Ngspice and deterministic extraction still produce the numerical evidence. Schem
 ### Development provenance
 
 The Cursor-credited desktop change implements Electron IPC, project/model binding, type-specific forms and schematic interchange controls across the desktop. The development label records this executable contribution, independently of the coding agents that operate the workbench at runtime. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+
+### Continued maintenance
+
+October 13 integrates a correction to the nightly qualification workflow: public GitHub SSH submodule URLs in historical PDK revisions are rewritten to HTTPS only within the recursive Git invocation. The offline regression executes the checkout step against mocked inputs and checks URL resolution in real Git, locked source revision preservation and the absence of persistent rewrite settings. This is concrete PDK-access and verification maintenance beyond the September ERC correction, not support for additional foundry processes or completed electrical qualification. October 13 supersedes September 1 within the saved capture. No PDK download, live agent or EDA run was reproduced. [Integrated correction](#source-pdk-checkout-fix) · [Retained regression](#source-pdk-checkout-regression).

@@ -9,7 +9,7 @@ scope:
   aiDevelopment: assisted
 access: Public source; runs require a supported simulator and circuit models. Cloned training starts without pretrained weights; Spectre use additionally requires licensed Cadence access.
 addedAt: '2026-11-16'
-reviewedAt: '2026-11-16'
+reviewedAt: '2026-11-25'
 sources:
 - id: code
   title: Canonical public implementation
@@ -27,6 +27,12 @@ sources:
 - id: retained
   title: Current implementation at review
   url: https://github.com/FengyanWong/gator/blob/3157d5373e074e022816b4e079a4984ad8493b7b/src/gator_workbench/connection.py
+- id: november-test-integration
+  title: "November 12 integration of public checkout test infrastructure"
+  url: https://github.com/FengyanWong/gator/commit/3157d5373e074e022816b4e079a4984ad8493b7b
+- id: checkout-tests
+  title: "Retained fresh-checkout CI and ngspice test setup"
+  url: https://github.com/FengyanWong/gator/blob/3157d5373e074e022816b4e079a4984ad8493b7b/.github/workflows/tests.yml
 summary: Reinforcement-learning sizing of fixed-topology analog circuits using a graph-based policy and simulator feedback.
 developmentEvidence:
   summary: The reviewed implementation commit credits Claude for connection-gating corrections and regression tests. The attributed executable changes are integrated and retained in the pinned source; this does not attribute unrelated project code.
@@ -47,3 +53,7 @@ Canonical default-branch history was checked, including first-parent integration
 ### Development provenance
 
 The credited Claude identity, executable diff, canonical integration and retained implementation were checked together. This is development assistance, separate from runtime stage classification. [Attributed change](#source-implementation) · [Current code](#source-retained).
+
+### Continued verification maintenance
+
+The November 12 first-parent integration adds fresh-checkout CI that installs ngspice, builds the browser workbench and runs its Python tests, with a serial retry of initially failed tests and a warning when a retry is needed. Tests requiring absent recorded evidence remain skipped; this does not qualify learned sizing performance, PDK coverage or a full Spectre workflow. The same integration repairs a filesystem fixture's dependence on an existing local path. This is substantive test maintenance after the November 6 connection-gating repair and supersedes that earlier checkpoint within the saved capture. [Integrated changes](#source-november-test-integration) · [Retained workflow](#source-checkout-tests).

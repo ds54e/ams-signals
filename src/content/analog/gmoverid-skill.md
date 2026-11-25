@@ -7,9 +7,14 @@ scope:
     ai: true
   simulation:
     ai: true
+  aiDevelopment: assisted
+developmentEvidence:
+  summary: "Claude is co-credited on the November 21 executable Spectre-style source conversion extension; the current main retains the new PWL, transient random/noise and behavioral-source branches."
+  sources: [converter-update, converter-retained]
+  reviewedAt: "2026-11-25"
 access: "Python, ngspice and the selected transistor models; SKY130 examples require the local PDK. The installed reasoning and visual-validation skills additionally require a compatible model host."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Public project implementation"
@@ -30,6 +35,12 @@ sources:
   - id: "meaningful-implementation"
     title: "Reviewed substantive implementation or technical maintenance"
     url: "https://github.com/Arcadia-1/gmoverid-skill/commit/8feb841f3684898d7aa44225b62e16263a501e3c"
+  - id: converter-update
+    title: "November 21 executable Spectre-style source conversion extension"
+    url: "https://github.com/Arcadia-1/gmoverid-skill/commit/e9d829823eae6eac7a16613c2b78a9cfd38889d7"
+  - id: converter-retained
+    title: "Retained SKY130 Spectre-style to ngspice source converter"
+    url: "https://github.com/Arcadia-1/gmoverid-skill/blob/30ab431485ed9045d9df8a12bda545e163b6b1d8/sky130-pdk/assets/scs_sky130_to_ngspice_sky130.py"
 ---
 
 ### Scope
@@ -45,3 +56,7 @@ Simulation covers device characterization; Design covers lookup-based sizing and
 The installed skill directs a model to select topology, channel length and gm/ID from specifications and trade-offs, supporting AI Design. Its separate characterization self-validation explicitly requires LLM visual physics assessment and diagnosis of suspicious extraction/convergence behavior, supporting AI Simulation. [Runtime skill](#source-runtime-skill)
 
 The Python lookup API, sweeps, PVT and Monte Carlo execution remain conventional. The tags concern the released model-hosted workflow, not a learned ngspice solver or every direct API call. [Backing API](#source-readme-md)
+
+### November source review
+
+The November 21 main implementation extends the SKY130 Spectre-style to ngspice converter with PWL, TRRANDOM, TRNOISE and supported bsource forms. This establishes renewed technical maintenance after July, not general Spectre compatibility or equivalence of stochastic processes in the two simulators. The credited change and retained executable code establish AI-ASSISTED development independently of the existing model-hosted sizing and diagnosis operations. The retained conversion code was inspected; simulator execution and numerical comparison were not reproduced. This change postdates the saved activity capture, which remains unchanged pending targeted recapture. [Credited change](#source-converter-update) · [Retained converter](#source-converter-retained).

@@ -9,7 +9,7 @@ scope:
 targets: "Analog layout generators and PCells for mapped open PDKs including SKY130, GF180 and IHP130, plus an experimental ASAP7 FinFET mapping."
 access: "MIT-licensed public Python source; core layout generation is installable without an LLM, while the LLM path requires the documented model/inference environment."
 addedAt: "2026-09-14"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical gLayout repository"
@@ -39,6 +39,12 @@ sources:
   - id: finfet-flavor-tests
     title: "Threshold-mask and reference-model negative tests"
     url: https://github.com/ReaLLMASIC/gLayout/blob/97276267411c193037f9844716f376fcb126c3e6/tests/test_finfet_flavors.py
+  - id: notebook-maintenance
+    title: "November 9 integrated notebook execution and timeout repairs"
+    url: https://github.com/ReaLLMASIC/gLayout/commit/63cc1d70c5f001b9188be9656112d9b345d8539e
+  - id: notebook-runner
+    title: "Retained headless notebook runner with output handling and timeout reporting"
+    url: https://github.com/ReaLLMASIC/gLayout/blob/63cc1d70c5f001b9188be9656112d9b345d8539e/tests/notebooks/run_tutorial_notebooks.py
 ---
 
 ### Layout scope
@@ -57,4 +63,4 @@ The implementation offers NMOS/PMOS RVT, LVT, SLVT and SRAM flavors. Reviewed te
 
 ### Activity
 
-The August 2026 head includes a physical-layout change allowing narrow FETs through dogbone diffusion, keeping the underlying layout framework within the catalog's current-activity window. [Meaningful update](#source-activity).
+The August 28 implementation allows narrow FETs through dogbone diffusion. November 9 integrates headless tutorial-notebook fixes: the runner bypasses problematic widget-output capture in CI, records per-notebook timeout failures and adjusts affected tutorials. This is executable verification and compatibility maintenance, not an expansion of layout geometry or PDK support. The November 9 merge supersedes August 28 as the meaningful checkpoint within the existing capture. No notebook or EDA run was independently performed. [Earlier implementation](#source-activity) · [November integration](#source-notebook-maintenance) · [Retained runner](#source-notebook-runner).
