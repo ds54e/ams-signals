@@ -1,5 +1,11 @@
 [
   {
+    "project": "gf180-efuse-otp",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "GF180 eFuse array reference design, sense-margin verification benches and layout generation with explicit signoff gaps."
+  },
+  {
     "project": "mna-simulator",
     "date": "2026-11-25",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-11-25",
     "kind": "added",
     "summary": "Experimental circuit solver with residual-Jacobian and charge-conservation auditing."
-  },
-  {
-    "project": "pqwave",
-    "date": "2026-11-25",
-    "kind": "added",
-    "summary": "Correlated parameter generation and statistical analysis of analog simulation results."
   }
 ]

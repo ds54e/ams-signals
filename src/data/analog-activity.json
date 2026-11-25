@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T04:40:34.000Z",
+  "capturedAt": "2026-11-25T05:10:58.170Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3145,6 +3145,32 @@
       "lastCommitAt": "2026-10-13",
       "lastMeaningfulCommitAt": "2026-10-13",
       "lastMeaningfulCommitSha": "dcbdeb5e497a12d973d68ae15c809308c0599af4"
+    },
+    "gf180-efuse-otp": {
+      "kind": "github",
+      "repository": "2AMLogic/gf180-efuse-otp",
+      "repositoryId": 1423556597,
+      "capturedAt": "2026-11-25T05:09:51.361Z",
+      "defaultBranch": "main",
+      "headSha": "f103081b06270707f48be8ebd2f8bd8f792a6b5d",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        57,
+        200
+      ],
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "9494dee471f469c481c77246cb5110ecd32073ec",
+      "notes": "First-parent committer history includes development predating the repository's reviewed public availability; it does not establish historical public landing dates."
     }
   }
 }

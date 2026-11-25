@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T05:06:32.007Z",
+  "capturedAt": "2026-11-25T05:10:58.788Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2391,6 +2391,56 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "d2908aad8da8e01fdecf6e76456076ff96bc7e6b"
+    },
+    "project-kimchi": {
+      "kind": "github",
+      "repository": "kjstanford/project_kimchi",
+      "repositoryId": 1421504727,
+      "capturedAt": "2026-11-25T05:09:50.090Z",
+      "defaultBranch": "main",
+      "headSha": "85c9adfa60a4597441d0582f9bf179d6af41c377",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        8
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "85c9adfa60a4597441d0582f9bf179d6af41c377"
+    },
+    "espec-temperature-control-ui": {
+      "kind": "github",
+      "repository": "vincesum/ESPEC-Temperature-Control-UI",
+      "repositoryId": 1156905391,
+      "capturedAt": "2026-11-25T05:09:50.084Z",
+      "defaultBranch": "master",
+      "headSha": "40881a974b48864b75e464d72452c1a3f6a51a73",
+      "commits": [
+        0,
+        0,
+        6,
+        1,
+        6,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-21",
+      "lastMeaningfulCommitAt": "2026-04-27",
+      "lastMeaningfulCommitSha": "c8d7f761a865857041af6a64e4079ccee765d491"
     }
   }
 }
