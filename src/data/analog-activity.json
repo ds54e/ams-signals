@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T06:27:35.000Z",
+  "capturedAt": "2026-11-25T06:31:19.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3223,6 +3223,58 @@
       "lastMeaningfulCommitAt": "2026-09-05",
       "lastMeaningfulCommitSha": "b4329b60cc0f964aee47616126f56994ce2239c0",
       "notes": "September 2 adds benchmark checkpoint reconstruction and completed-target handling; September 5 repairs model-tier profile resolution. September 7 figure generation is the later raw date; public maintenance is concentrated around the release."
+    },
+    "stat-sim": {
+      "kind": "github",
+      "repository": "kev-cam/stat-sim",
+      "repositoryId": 1283209633,
+      "capturedAt": "2026-11-25T06:31:19.000Z",
+      "defaultBranch": "main",
+      "headSha": "59230dd7cb02d7f85d9eb1eef984dedf8c24e2b0",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        20,
+        0,
+        85,
+        9,
+        23
+      ],
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "d6545dd08ba045c135174f2daa65c17946a96878",
+      "notes": "July 11 adds SPEF-based EM screening and LEF rule import; November 25 integrates RF behavioral frontend and timing changes. The later November 25 documentation commit is the raw activity date; project-level maintenance is not EM-specific maintenance."
+    },
+    "analog-circuit-sizing-benchmark": {
+      "kind": "github",
+      "repository": "jialinlu/opensource-analog-circuits",
+      "repositoryId": 1230396964,
+      "capturedAt": "2026-11-25T06:31:19.000Z",
+      "defaultBranch": "main",
+      "headSha": "e8308aa273c1a6737a5dee89178c4d48270ff87e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        16,
+        0,
+        1,
+        5,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-05",
+      "lastMeaningfulCommitAt": "2026-08-05",
+      "lastMeaningfulCommitSha": "3a6a1f9a6157f3cfbb6f13d1a3589026b7e13055",
+      "notes": "July 25 adds ASAP7 LDO benchmark migration and simulator setup; August 5 adds the mismatch-aware sizing driver and validation workflow. Later August 5 documentation changes are the raw activity date."
     }
   }
 }

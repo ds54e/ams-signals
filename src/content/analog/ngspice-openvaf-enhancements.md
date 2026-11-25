@@ -1,8 +1,8 @@
 ---
 name: "Ngspice + OpenVAF Enhancements"
 aliases: []
-summary: "Extends SPICE simulation and Verilog-A compilation with circuit optimization, including Gaussian-process Bayesian search."
-description: "Extends ngspice simulation and OpenVAF Verilog-A compilation with circuit-parameter optimization. A Gaussian-process surrogate guides Bayesian search alongside conventional optimizers, while SPICE evaluates each candidate; these Claude-assisted enhancements belong to the combined development tree rather than automatically to either upstream project."
+summary: "Extends SPICE and Verilog-A with circuit optimization, correlated Monte Carlo and high-sigma failure-probability analysis."
+description: "Extends ngspice and OpenVAF with Gaussian-process Bayesian circuit optimization, correlated Monte Carlo and high-sigma failure-probability estimation. Scaled-sigma importance sampling and worst-case-distance analysis supplement conventional SPICE evaluation; these enhancements belong to the combined development tree, not automatically to either upstream project."
 scope:
   design:
     ai: true
@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: '2026-11-24'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-11-24'
+reviewedAt: '2026-11-25'
 sources:
   - id: "code"
     title: "Canonical Ngspice + OpenVAF Enhancements repository"
@@ -55,6 +55,12 @@ sources:
   - id: development-20261124-retained
     title: "Credited executable contribution retained at the current head"
     url: https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/OpenVAF-master-20260610/openvaf/hir_def/src/item_tree/lower.rs
+  - id: statistical-implementation
+    title: "Retained Monte Carlo, scaled-sigma and worst-case-distance implementation"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/ngspice-46/src/frontend/com_sweep.c"
+  - id: statistical-audit
+    title: "September 4 statistical command correctness audit and reported fixes"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/docs/bug_hunts/2026-09-04_monte-carlo-commands.md"
 ---
 
 ### Scope
@@ -90,3 +96,7 @@ Reviewed 2026-10-05. The reviewed diagnostics/numeric-cast change updates the Ve
 The owner identifies Claude Code use, and a Claude-credited commit implements compiler discipline-attribute handling and OSDI callbacks retained in this tree. These credited contributions support AI-assisted development. [Owner’s development account](#source-development-1) · [Compiler and simulator implementation](#source-development-2).
 
 Current-head review confirms that the credited discipline-attribute evaluation remains in the canonical compiler. This compiler contribution is software-development provenance, separate from runtime circuit-optimization classification. [Retained implementation](#source-development-20261124-retained).
+
+### Statistical simulation review
+
+The retained frontend implements ordinary Monte Carlo, scaled-sigma importance sampling in `highsigma` with likelihood-ratio weighting, and `wcd` with a first-order reliability approximation and optional mean-shift importance sampling near the design point. The commands use supported statistical parameters and execute SPICE for sampled points. The September 4 audit records corrections for unresolved expressions, model-declared statistical dimensions in WCD and seed reporting. A nonlinear or multimodal failure boundary can limit a local first-order reliability approximation; neither algorithm validates the underlying process distributions or foundry yield. The reported analytical and regression checks were not rerun here. These conventional statistical operations retain Simulation without an AI flag. This review adds evidence at the already captured head and does not recapture activity or change the existing meaningful checkpoint. [Retained statistical commands](#source-statistical-implementation) · [Correctness audit](#source-statistical-audit).
