@@ -15,6 +15,12 @@ When a task includes selection or retention, apply the shared [selection and ret
 
 Resolve repository moves against the canonical metadata and numeric identity; old README install URLs and redirected namespaces do not establish separate projects. Keep the reviewed implementation revision distinct from the meaningful activity checkpoint. Inspect the selected change and its retained code/tests; a substantive commit visible in an API listing can still be on a merged side branch and fail the first-parent requirement.
 
+## Distinguish editorial review from recapture
+
+For an updated checkpoint inside the existing captured first-parent history, follow the shared activity contract: edit the meaningful date/SHA and matching primary source, preserving the raw counts, head and timestamps. Keep historical source IDs used by article links or development evidence. A source revision beyond the captured head may be discussed in the article but needs a verified recapture before advancing the stored checkpoint. Digital and Lab do not accept activity-record `notes`; retain reasoning in the article. Analog's optional notes are not a shared capture field.
+
+For existing Digital/Lab entries, the current validator requires the article review date not to follow the snapshot review date. When a later-day editorial update would exceed that date, capture first against the previously valid article and checkpoint, then apply the reviewed metadata and meaningful-source update. Do not backdate a review or relabel a capture to bypass the constraint.
+
 ## Capture GitHub activity
 
 Use the existing manual command for the selected domain:
@@ -27,7 +33,7 @@ npm run refresh:lab-activity
 
 Run only the requested command(s), not all by default. They use Git and GitHub metadata, recapture GitHub history, preserve manually reviewed fields and non-GitHub records, then validate and atomically replace the complete snapshot. Use `-- --project=<slug>` for a targeted recapture; untouched GitHub records retain their actual capture timestamps. New catalog articles register from their canonical GitHub Code source and explicit `activity` commit source. The scripts derive capture/review dates from actual UTC capture; do not invent historical captures. Normal builds must remain offline with respect to repository hosts.
 
-Repeat `--project=<slug>` for multiple targets. Finish coordinated article edits before running a domain's capture, and use one writer per snapshot. Registration also discovers every new or `unfetched` article in that domain during targeted runs; inspect that complete set, not just the named targets. Before accepting a same-month diff, compare unselected records with the original snapshot, allowing only an explicit individual `capturedAt` that preserves the original observation time.
+Repeat `--project=<slug>` for multiple targets. Finish coordinated additions and removals before running a domain's capture; keep existing article dates/checkpoints valid for its preflight as described above. Use one writer per snapshot. Registration also discovers every new or `unfetched` article in that domain during targeted runs; inspect that complete set, not just the named targets. Before accepting a same-month diff, compare unselected records with the original snapshot, allowing only an explicit individual `capturedAt` that preserves the original observation time.
 
 ## Non-GitHub evidence and month rollover
 

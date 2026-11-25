@@ -24,6 +24,18 @@ test('the catalog registers new articles and retains existing captures', () => {
   });
 });
 
+test('existing reviewed activity stays independent of the original registration source', () => {
+  const record = { kind: 'github', repository: 'owner/added', lastMeaningfulCommitSha: 'b'.repeat(40) };
+  const existing = { ...snapshot, projects: { added: record } };
+  const project = { ...added, data: { sources: [...added.data.sources,
+    { id: 'later-review', url: `https://github.com/owner/added/commit/${record.lastMeaningfulCommitSha}` },
+  ] } };
+  const [planned] = planActivityRegistration([project], existing);
+  assert.equal(planned.existing, record);
+  assert.equal(planned.meaningfulSha, undefined);
+  assert.equal(planned.selected, true);
+});
+
 test('removed and renamed articles require explicit curation', () => {
   assert.throws(() => planActivityRegistration([added], snapshot), /Removed or renamed/);
   assert.throws(() => planActivityRegistration([old], snapshot, ['unknown']), /Unknown selected/);

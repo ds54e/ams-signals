@@ -165,8 +165,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "cac9bbf29b9de3479abb97d2f100356fdfbbaa94",
-      "notes": "November 19 integrates language/runtime corrections and regressions for tagged-union matches, trireg tran force/release and multidimensional array port drivers. Experimental use boundary retained."
+      "lastMeaningfulCommitSha": "cac9bbf29b9de3479abb97d2f100356fdfbbaa94"
     },
     "openada": {
       "kind": "github",
@@ -241,8 +240,7 @@
       ],
       "lastCommitAt": "2026-11-10",
       "lastMeaningfulCommitAt": "2026-11-10",
-      "lastMeaningfulCommitSha": "aed0ca013b346fe577610dad32ecf4d6556ce97d",
-      "notes": "November 10 corrects BTOR2 usubo encoding with an unsigned-overflow regression. Later CI caching remains raw activity."
+      "lastMeaningfulCommitSha": "aed0ca013b346fe577610dad32ecf4d6556ce97d"
     },
     "rtldebugdbkit": {
       "kind": "github",
@@ -267,8 +265,7 @@
       ],
       "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "3b62e10cf0cbefb11fbef9845a31997270a8bd65",
-      "notes": "November 16 fixes static extraction and SQL views across calls, ports and packages, with construct fixtures and database consistency tests."
+      "lastMeaningfulCommitSha": "3b62e10cf0cbefb11fbef9845a31997270a8bd65"
     },
     "sentinel-dv": {
       "kind": "github",
@@ -419,8 +416,7 @@
       ],
       "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-10-15",
-      "lastMeaningfulCommitSha": "79fc9eddca5e33a28cc2f2cd19c9825efd9a7255",
-      "notes": "October 14 fixes canceled job leases and timeout hangs; October 15 corrects property-kind regression checks. November 16 rename to SBY is not a meaningful implementation update."
+      "lastMeaningfulCommitSha": "79fc9eddca5e33a28cc2f2cd19c9825efd9a7255"
     },
     "ucagent": {
       "kind": "github",
@@ -445,8 +441,7 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-18",
-      "lastMeaningfulCommitSha": "2309f0dc8ded6073ce880f92886dc37086c69151",
-      "notes": "November 18 integrates ACT4 XiangShan asset handoff and execution preflight with optional simulator isolation. November 24 RTL2Spec integration is outside the saved capture."
+      "lastMeaningfulCommitSha": "2309f0dc8ded6073ce880f92886dc37086c69151"
     },
     "uhdm2rtlil": {
       "kind": "github",
@@ -596,8 +591,7 @@
       ],
       "lastCommitAt": "2026-11-16",
       "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "04afe72ca02fdca0301350a8ea218cc54d389c91",
-      "notes": "November 16 fixes long-history FST sampling with generated regression. November 20 buffer-lifetime correction is reviewed outside the saved capture."
+      "lastMeaningfulCommitSha": "04afe72ca02fdca0301350a8ea218cc54d389c91"
     },
     "what": {
       "kind": "github",
@@ -798,8 +792,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-18",
-      "lastMeaningfulCommitSha": "01c628717bba711b4f75719f3ca827eb8c544e04",
-      "notes": "November 18 implements OpenROAD version-aware SPEF loading (-scene versus -corner). November 19 version and dependency updates remain separate raw/release evidence."
+      "lastMeaningfulCommitSha": "01c628717bba711b4f75719f3ca827eb8c544e04"
     },
     "amaranth": {
       "kind": "github",
@@ -849,8 +842,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "eae25de8e680b8c23c65312ad51d3f9827224468",
-      "notes": "November 19 adds experimental SMV arithmetic unit models, corrects generator parameters and buffer naming, and extends generator tests. Abstract-data paths do not establish bit-accurate arithmetic or full equivalence."
+      "lastMeaningfulCommitSha": "eae25de8e680b8c23c65312ad51d3f9827224468"
     },
     "rggen": {
       "kind": "github",
@@ -937,8 +929,7 @@
       ],
       "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-10-26",
-      "lastMeaningfulCommitSha": "0edbcad8266c6a038124d026fcb90269eb7c7c8d",
-      "notes": "October 21 integrates RTLScout 0.2.0 installable packaging and environment migration; October 26 enables bounded Verilator ccache in Docker. November 3 README update is raw activity."
+      "lastMeaningfulCommitSha": "0edbcad8266c6a038124d026fcb90269eb7c7c8d"
     },
     "kepler-formal": {
       "kind": "github",
@@ -1063,8 +1054,7 @@
       ],
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-11-17",
-      "lastMeaningfulCommitSha": "e1bca4bf6779ccc98b5099f9a2284ca3b0bef637",
-      "notes": "November 17 reworks auxin data and numerical conversion, Cider serialization and data-directory format, with retained parser tests and fixed-point CLI."
+      "lastMeaningfulCommitSha": "e1bca4bf6779ccc98b5099f9a2284ca3b0bef637"
     },
     "icrtl-benchmark": {
       "kind": "github",
@@ -1164,8 +1154,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "f1db5dd29cea5343c036d2c4413d6ccbdfd40557",
-      "notes": "November 13 fixes mixed-bit asynchronous reset lowering; November 19 fixes VHDL scalar and vector conversion/visibility with retained regression coverage. No independent HDL equivalence or simulation campaign was performed."
+      "lastMeaningfulCommitSha": "f1db5dd29cea5343c036d2c4413d6ccbdfd40557"
     },
     "lazyverilog": {
       "kind": "github",
@@ -1190,8 +1179,7 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "17c79c6aa2a0649f6cc66b41f17bee072f1506ff",
-      "notes": "November 3 adds deterministic lint autofixes; November 15 corrects fuzz session memory and queued-request timeouts with tests. November 18 is primarily cleanup, retained separately."
+      "lastMeaningfulCommitSha": "17c79c6aa2a0649f6cc66b41f17bee072f1506ff"
     },
     "hls-eval": {
       "kind": "github",
@@ -1216,8 +1204,7 @@
       ],
       "lastCommitAt": "2026-11-14",
       "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "e31f731db6cf3cac2e1072ff13d6b889677b710d",
-      "notes": "November 14 integrates the separate XLS DSLX GEPA evaluator, protected tests, interface/codegen acceptance, delay-based scoring and optional equivalence evidence. October 19 adds the top-level AGPL v3 license."
+      "lastMeaningfulCommitSha": "e31f731db6cf3cac2e1072ff13d6b889677b710d"
     },
     "rohd": {
       "kind": "github",
@@ -1267,8 +1254,7 @@
       ],
       "lastCommitAt": "2026-10-28",
       "lastMeaningfulCommitAt": "2026-10-24",
-      "lastMeaningfulCommitSha": "70a371e96b90dbb8d22f3deb7ce8e6595997754e",
-      "notes": "October 24 integrates Verilator line/expression coverage mode, output validation and regression workflow. Later release documentation remains raw activity."
+      "lastMeaningfulCommitSha": "70a371e96b90dbb8d22f3deb7ce8e6595997754e"
     },
     "uvm-bridge": {
       "kind": "github",
@@ -1293,8 +1279,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22",
-      "notes": "November 13 restores suspendable DPI task paths on supported Verilator; November 19 expands VPI API tests with explicit probes/skips."
+      "lastMeaningfulCommitSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22"
     },
     "verilua": {
       "kind": "github",
@@ -1319,8 +1304,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "797e58060076d09718ee10b729e05a7378fed4bb",
-      "notes": "November 12 adds standalone Lua behavioral simulation; November 13 repairs missing nosim-build diagnostics. Later documentation remains raw activity."
+      "lastMeaningfulCommitSha": "797e58060076d09718ee10b729e05a7378fed4bb"
     },
     "veripower": {
       "kind": "github",
@@ -1395,8 +1379,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "dd7167c56dba6af6c41653d0169dc98053c88321",
-      "notes": "November 18 updates Simulation Record validation and SDC handoff tests; November 19 corrects refused Flow Job outcome and memory-admission diagnostics with retained regression changes."
+      "lastMeaningfulCommitSha": "dd7167c56dba6af6c41653d0169dc98053c88321"
     },
     "spire-hdl": {
       "kind": "github",
@@ -1471,8 +1454,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "34094d96a610e42719b3ce1250de921689f13466",
-      "notes": "November 16 corrects path-generator per-test extra-tags handling and affected test configuration. Subsequent dependency bumps remain raw activity."
+      "lastMeaningfulCommitSha": "34094d96a610e42719b3ce1250de921689f13466"
     },
     "sv2v": {
       "kind": "github",
@@ -1647,8 +1629,7 @@
       ],
       "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-29",
-      "lastMeaningfulCommitSha": "aa34c10d164ae9c077ed9636b3cb6dcb404e41fa",
-      "notes": "October 24 corrects transition-fault grading during slow scan unload; October 29 adds constant-D flip-flop scan insertion and matching scan-check/simulation eligibility, with regressions. Later benchmark documentation remains separate."
+      "lastMeaningfulCommitSha": "aa34c10d164ae9c077ed9636b3cb6dcb404e41fa"
     },
     "fcovlint": {
       "kind": "github",
@@ -1698,8 +1679,7 @@
       ],
       "lastCommitAt": "2026-11-13",
       "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "2dd20e23e5931c0a22b6b61900f345578c389c70",
-      "notes": "November 13 fixes scope-map lifetime and covers nested generate-loop hierarchy and clock crossings in regression cases."
+      "lastMeaningfulCommitSha": "2dd20e23e5931c0a22b6b61900f345578c389c70"
     },
     "opencollate": {
       "kind": "github",
@@ -1799,8 +1779,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "f238d8bf692428277fad06feea25614eba7fb594",
-      "notes": "November 8 fixes the word-level unrolling false-SAT case; November 15 adds per-worker RLIMIT_AS configuration. Later cleanup remains raw activity."
+      "lastMeaningfulCommitSha": "f238d8bf692428277fad06feea25614eba7fb594"
     },
     "rta": {
       "kind": "github",
@@ -1850,8 +1829,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "3916c663e9d2ff6310782067060d7667866b622c",
-      "notes": "November 19 lowers interface port members and preserves observable registers; supported register-array FIFO memory recognition has regression coverage. Structural checks are not protocol proof."
+      "lastMeaningfulCommitSha": "3916c663e9d2ff6310782067060d7667866b622c"
     },
     "rtl-buddy": {
       "kind": "github",
@@ -2076,8 +2054,7 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-09",
-      "lastMeaningfulCommitSha": "6d341dff1e261e26247d6245fcac8ae717ec4f86",
-      "notes": "November 9 corrects URL provider option alias serialization and adds a user-agent regression. Subsequent test discovery/CI cleanup remains raw activity."
+      "lastMeaningfulCommitSha": "6d341dff1e261e26247d6245fcac8ae717ec4f86"
     },
     "spinalhdl": {
       "kind": "github",
@@ -2933,8 +2910,7 @@
       ],
       "lastCommitAt": "2026-09-22",
       "lastMeaningfulCommitAt": "2026-09-22",
-      "lastMeaningfulCommitSha": "e295c4846911a5b228c3aefb124b34f0ce7f7f9c",
-      "notes": "Low-frequency maintenance: April test-seed correction integrated September 22, plus separate XML bin identification and CoverCheck merge correctness repairs. Same-day version and documentation changes are raw activity only."
+      "lastMeaningfulCommitSha": "e295c4846911a5b228c3aefb124b34f0ce7f7f9c"
     },
     "cell-aware-spice-simulation": {
       "kind": "github",
@@ -2984,8 +2960,7 @@
       ],
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "658641ee0233a240fedfd0d8c7e39697a0192287",
-      "notes": "First-parent counts include the December container workflow and March build maintenance. November 6 integrates Verilator 5 C++/SystemC support and injection placement regressions; the subsequent documentation integration supplies the raw last activity date."
+      "lastMeaningfulCommitSha": "658641ee0233a240fedfd0d8c7e39697a0192287"
     }
   }
 }

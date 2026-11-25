@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile, readdir } from 'node:fs/promises';
 import { parseFrontmatter } from 'astro/markdown';
-import { labSchema, validateActivity, validateCatalog } from '../../src/lib/lab/schema.ts';
+import { labSchema, activitySchema as labActivitySchema, validateActivity, validateCatalog } from '../../src/lib/lab/schema.ts';
+import { activitySchema as digitalActivitySchema } from '../../src/lib/digital/schema.ts';
 import { assertRepositoryIdentity } from '../../tools/strict-activity-support.mjs';
 
 const root = new URL('../../src/content/', import.meta.url);
@@ -71,6 +72,18 @@ test('Lab activity keeps unknown captures distinct from zero and rejects bad reg
   assert.throws(() => validateActivity([project], { ...base, projects: {} }), /Missing activity/);
   const record = snapshot.projects.qcodes;
   assert.throws(() => validateActivity([project], withRecord({ ...record, commits: Array(12).fill(0) })), /Commit buckets disagree/);
+});
+
+test('strict Digital and Lab captures reject editorial notes outside article metadata', async () => {
+  const digital = JSON.parse(await readFile(new URL('../../src/data/digital-activity.json', import.meta.url), 'utf8'));
+  for (const [schema, source] of [[labActivitySchema, snapshot], [digitalActivitySchema, digital]] as const) {
+    const record = structuredClone(source);
+    const id = Object.keys(record.projects).find((id) => record.projects[id].kind === 'github');
+    assert(id);
+    assert(schema.safeParse(record).success);
+    record.projects[id].notes = 'Editorial explanation belongs in the project article.';
+    assert.equal(schema.safeParse(record).success, false);
+  }
 });
 
 test('reviewed canonical KiBot fork exception is bound to exact public repository identity', () => {

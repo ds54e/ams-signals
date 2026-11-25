@@ -65,8 +65,7 @@
       ],
       "lastCommitAt": "2026-11-18",
       "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "2ea7793293e6c076aa59254ad75788eec3ff2c49",
-      "notes": "October 29 extends PhaseGraph to nested collections and teardown-aware cancellation. November 13 adds recipe topology export and an executable concurrent-phase example. Later publishing/dependency changes remain raw activity."
+      "lastMeaningfulCommitSha": "2ea7793293e6c076aa59254ad75788eec3ff2c49"
     },
     "opentap": {
       "kind": "github",
@@ -91,8 +90,7 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "1ff61c6953f3293154474734e80852ff90ef945a",
-      "notes": "November 11 fixes a reference-count race in asynchronous artifact publication and integrates managed package-version calculation. Later build-pipeline work remains raw activity."
+      "lastMeaningfulCommitSha": "1ff61c6953f3293154474734e80852ff90ef945a"
     },
     "pymeasure": {
       "kind": "github",
@@ -692,8 +690,7 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-05",
-      "lastMeaningfulCommitSha": "b5f54a2323496d189119383948cc8cdfc493080c",
-      "notes": "September 5 persistent native macOS serial-session integration with tests is the selected source checkpoint. November 19 publishes updated FPGA binary images and documentation; no corresponding source change is established by those binary commits."
+      "lastMeaningfulCommitSha": "b5f54a2323496d189119383948cc8cdfc493080c"
     },
     "oscillatord": {
       "kind": "github",
@@ -843,8 +840,7 @@
       ],
       "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-10-29",
-      "lastMeaningfulCommitSha": "20c2dbc5d6c9db5fe7f49f351a9e17ab1fc9ebdd",
-      "notes": "October 29 isolates halt-on-reset state to the intended debug sequence, with explicit finally cleanup. November runner pinning remains raw activity."
+      "lastMeaningfulCommitSha": "20c2dbc5d6c9db5fe7f49f351a9e17ab1fc9ebdd"
     },
     "probe-rs": {
       "kind": "github",
@@ -894,8 +890,7 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "a556a0d016bd5eb8728e26d8bdb41cf952c151aa",
-      "notes": "November 21 corrects duplicate supplier matching with a retained inheritance regression; November 23 extends i.MX USB resource matching. Neither change establishes physical fixture or programming success."
+      "lastMeaningfulCommitSha": "a556a0d016bd5eb8728e26d8bdb41cf952c151aa"
     },
     "adctoolbox": {
       "kind": "github",
@@ -945,8 +940,7 @@
       ],
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "3c52ab1487ff759e1a3790346455ec7e92ba8c44",
-      "notes": "November 23 corrects CH347F device matching and CMSIS-DAP v2 USB bulk write lengths and polling. The final transport correction supersedes November 20."
+      "lastMeaningfulCommitSha": "3c52ab1487ff759e1a3790346455ec7e92ba8c44"
     },
     "pyftdi": {
       "kind": "github",
@@ -1096,8 +1090,7 @@
       ],
       "lastCommitAt": "2026-10-19",
       "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "87b809f871fa51750fbf25456077d0b17dfa8da0",
-      "notes": "October 19 archive correctness fixes are followed by removal of SigMFGenerator and its tests from 1.15.0 source. The API removal is the selected final same-day implementation checkpoint."
+      "lastMeaningfulCommitSha": "87b809f871fa51750fbf25456077d0b17dfa8da0"
     },
     "pypicosdk": {
       "kind": "github",
@@ -1697,8 +1690,7 @@
       ],
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "b2abda7b8ad092aca0b9c0ba5f28f429be32efe8",
-      "notes": "November 20 integrates RF board driver changes and bounded ADC interrupt clearing/reporting, then repairs RF filter frequency-validation syntax. These are driver changes, not physical calibration or protection qualification."
+      "lastMeaningfulCommitSha": "b2abda7b8ad092aca0b9c0ba5f28f429be32efe8"
     },
     "metrolopy": {
       "kind": "github",
@@ -1998,8 +1990,7 @@
       ],
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "423df7f2e4014e38f6d1c9160b538a71fb5f3f7a",
-      "notes": "November 16 extends session context-manager generation; November 20 adds an executable NI-SCOPE filtered-waveform and FFT acquisition example. Same-day renaming remains raw activity."
+      "lastMeaningfulCommitSha": "423df7f2e4014e38f6d1c9160b538a71fb5f3f7a"
     },
     "processbehavior": {
       "kind": "github",
@@ -2624,8 +2615,7 @@
       ],
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
-      "lastMeaningfulCommitSha": "438da00f2fb42c75db7b93dff4b11d5a800d840b",
-      "notes": "November 23 adds database migration/schema-equivalence checks; November 24 corrects the requested OAuth scopes to respect authenticator configuration. The later release-candidate version bump remains raw activity."
+      "lastMeaningfulCommitSha": "438da00f2fb42c75db7b93dff4b11d5a800d840b"
     }
   }
 }
