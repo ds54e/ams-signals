@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T01:51:00.218Z",
+  "capturedAt": "2026-11-25T02:03:11.858Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1841,6 +1841,81 @@
       "lastCommitAt": "2026-11-11",
       "lastMeaningfulCommitAt": "2026-10-30",
       "lastMeaningfulCommitSha": "9a0ec238de6824adfd2c3ae69e3df1e49e6d1972"
+    },
+    "instro": {
+      "kind": "github",
+      "repository": "nominal-io/instro",
+      "repositoryId": 1237168785,
+      "capturedAt": "2026-11-25T02:02:12.262Z",
+      "defaultBranch": "main",
+      "headSha": "6fa91f45f5d178ab0013d9146143603e9df0a505",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        19,
+        91,
+        68,
+        66,
+        53,
+        35,
+        30
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "4aaaf15118c52b53fc1eb0f4d3010422d4821909"
+    },
+    "zhinst-toolkit": {
+      "kind": "github",
+      "repository": "zhinst/zhinst-toolkit",
+      "repositoryId": 245159715,
+      "capturedAt": "2026-11-25T02:02:21.680Z",
+      "defaultBranch": "main",
+      "headSha": "48162020bb99b1d5bd3a442de124cf97d7037b69",
+      "commits": [
+        0,
+        2,
+        0,
+        7,
+        5,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-05",
+      "lastMeaningfulCommitSha": "f6ead8b7c41a680a2b1ba885ff8737a37a2f666b"
+    },
+    "labscript": {
+      "kind": "github",
+      "repository": "labscript-suite/labscript",
+      "repositoryId": 253142452,
+      "capturedAt": "2026-11-25T02:02:20.021Z",
+      "defaultBranch": "master",
+      "headSha": "607cfaecd58869b876d19cf30c52566a4f490cc6",
+      "commits": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0
+      ],
+      "lastCommitAt": "2026-10-30",
+      "lastMeaningfulCommitAt": "2026-10-23",
+      "lastMeaningfulCommitSha": "c8441c1029aa25652627a1f67cbfff5b852ade18"
     }
   }
 }

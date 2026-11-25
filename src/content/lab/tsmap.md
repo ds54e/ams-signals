@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "MIT; underlying dependencies have separate terms."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Project documentation"
@@ -34,6 +34,9 @@ sources:
   - id: maintenance-earlier
     title: "August 2026 coordinate-less die and wafer import implementation"
     url: "https://github.com/wafertools/tsmap/commit/d6ad5dff582aaab286c8b9a2ff69a4ff423bf115"
+  - id: wafermap-api
+    title: "Independent package exports for embedding the shared engine"
+    url: "https://github.com/wafertools/wafermap/blob/28a2479e67ba601aff3a70a6809a8c7d46f5fe0c/package.json"
 ---
 
 ## Scope and limits
@@ -45,3 +48,7 @@ The retained workflow is interactive multi-file and multi-format wafer review, i
 ## Reviewed maintenance
 
 August 2026 work preserves dies without reported coordinates across the STDF, ATDF and mapped-import paths. November work replaces concatenated multi-session example files with a zip of separate session files and updates the load pipeline and regressions to keep each wafer's source while opening the lot together. These are successive parser and workflow corrections; the examples remain synthetic data. [Coordinate-less imports](#source-maintenance-earlier) · [Session-file and load correction](#source-activity).
+
+## Related workflow
+
+The wafermap package can be embedded in other applications through its separate core, statistics and rendering exports. It is the shared rendering and analysis engine, not a separate end-to-end wafer-file review application. Keep this alternative integration path linked here rather than counting the same analysis implementation as a second independent listing. Engine maintenance is not included in the tsmap repository's activity. [Package exports](#source-wafermap-api).
