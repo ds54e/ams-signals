@@ -48,8 +48,8 @@ test('Lab sources and project descriptions remain readable without JavaScript', 
   await page.goto(new URL('lab/', base).href);
   await expect(page.getByRole('search')).toBeHidden();
   await expect(fixture.rows(page)).toHaveCount(fixture.projects.length);
-  const bom = fixture.row(page, 'interactive-html-bom');
-  await expect(bom.getByRole('link', { name: 'Code', exact: true })).toBeVisible();
-  await expect(bom.getByText('Development provenance', { exact: true })).toBeVisible();
+  const board = fixture.row(page, 'diode-pcb');
+  await expect(board.getByRole('link', { name: 'Code', exact: true })).toBeVisible();
+  await expect(board.getByText('Development provenance', { exact: true })).toBeVisible();
   await context.close();
 });

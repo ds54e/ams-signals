@@ -18,6 +18,15 @@ sources:
   - id: ibom
     title: "InteractiveHtmlBom"
     url: "https://github.com/openscopeproject/InteractiveHtmlBom"
+  - id: ibom-integration
+    title: "Retained InteractiveHtmlBom output integration"
+    url: "https://github.com/INTI-CMNB/KiBot/blob/b81caf648b7eaf687b14c4290cc7e50d66eede33/kibot/out_ibom.py"
+  - id: related-makerpnp
+    title: "Related independent PCB assembly planning implementation"
+    url: "https://github.com/MakerPnP/makerpnp"
+  - id: related-makerpnp-planning
+    title: "Related variant builder implementation"
+    url: "https://github.com/MakerPnP/makerpnp/blob/67fb2ead2fa4aadbb112fa904f90283f58fe7fc2/planning/variantbuilder_app/src/lib.rs"
   - id: board-preflight
     title: "Reviewed PCB design-rule preflight"
     url: "https://github.com/INTI-CMNB/KiBot/blob/b81caf648b7eaf687b14c4290cc7e50d66eede33/kibot/pre_drc.py"
@@ -34,7 +43,9 @@ sources:
 
 ## Scope and limits
 
-Pin KiCad and output options. Generated output does not by itself verify electrical behavior or fabrication. [InteractiveHtmlBom](#source-ibom) is a separate review workflow, also usable from KiBot.
+Pin KiCad and output options. Generated output does not by itself verify electrical behavior or fabrication. [InteractiveHtmlBom](#source-ibom) is an independently maintained assembly-review plugin, invoked through KiBot's optional IBoM output integration rather than implemented by KiBot itself. Its standalone component-location and placement-tracking workflow is retained here as a related resource. [Integration](#source-ibom-integration).
+
+[MakerPnP](#source-related-makerpnp) is a separate assembly-planning tool whose variant builder produces placements and BOMs from existing EDA outputs. It is not a KiBot dependency or an electrical test-fixture design tool; keep it as a related downstream assembly resource rather than a separate catalog row. [Variant builder](#source-related-makerpnp-planning).
 
 Board & Fixture describes the manufacturing and assembly outputs, including their configured ERC/DRC preflight checks. Those checks validate board design artifacts; they are not a separate instrument or DUT test procedure. [PCB preflight](#source-board-preflight).
 

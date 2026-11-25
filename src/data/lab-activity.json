@@ -392,31 +392,6 @@
       "lastMeaningfulCommitAt": "2026-11-10",
       "lastMeaningfulCommitSha": "6f93e6a365f83647cbe5ee569953a9c665f273c2"
     },
-    "interactive-html-bom": {
-      "kind": "github",
-      "repository": "openscopeproject/InteractiveHtmlBom",
-      "repositoryId": 142263436,
-      "capturedAt": "2026-11-24T04:32:08.978Z",
-      "defaultBranch": "master",
-      "headSha": "363d5df487cb7d9ed34d2e4b3288683835f00dce",
-      "commits": [
-        3,
-        1,
-        0,
-        10,
-        2,
-        1,
-        1,
-        2,
-        0,
-        6,
-        18,
-        2
-      ],
-      "lastCommitAt": "2026-11-13",
-      "lastMeaningfulCommitAt": "2026-10-10",
-      "lastMeaningfulCommitSha": "30ce006dcf42d6b280fa6c87219a8104d0ca8d70"
-    },
     "allantools": {
       "kind": "github",
       "repository": "aewallin/allantools",
@@ -1741,31 +1716,6 @@
       "lastCommitAt": "2026-07-08",
       "lastMeaningfulCommitAt": "2026-07-08",
       "lastMeaningfulCommitSha": "7f260881b1d058179eb2137c0df4f88685d8427c"
-    },
-    "makerpnp": {
-      "kind": "github",
-      "repository": "MakerPnP/makerpnp",
-      "repositoryId": 823683598,
-      "capturedAt": "2026-11-25T01:49:00.898Z",
-      "defaultBranch": "master",
-      "headSha": "67fb2ead2fa4aadbb112fa904f90283f58fe7fc2",
-      "commits": [
-        1,
-        0,
-        0,
-        9,
-        0,
-        0,
-        2,
-        4,
-        7,
-        0,
-        0,
-        100
-      ],
-      "lastCommitAt": "2026-11-08",
-      "lastMeaningfulCommitAt": "2026-11-08",
-      "lastMeaningfulCommitSha": "67fb2ead2fa4aadbb112fa904f90283f58fe7fc2"
     },
     "lager": {
       "kind": "github",

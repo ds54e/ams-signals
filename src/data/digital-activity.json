@@ -1781,31 +1781,6 @@
       "lastMeaningfulCommitAt": "2026-11-21",
       "lastMeaningfulCommitSha": "daaff8459896ac69d5ea29678923a3703e2f5272"
     },
-    "opentimer": {
-      "kind": "github",
-      "repository": "OpenTimer/OpenTimer",
-      "repositoryId": 39079545,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "master",
-      "headSha": "cd0565fc7a720368e75751c717be92d76350ee8d",
-      "commits": [
-        6,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2025-12-26",
-      "lastMeaningfulCommitAt": "2025-12-24",
-      "lastMeaningfulCommitSha": "00d592bb13921493e416c3aa1bf87fd649411045"
-    },
     "ric3": {
       "kind": "github",
       "repository": "gipsyh/rIC3",

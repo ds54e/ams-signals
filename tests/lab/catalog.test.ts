@@ -49,7 +49,7 @@ test('Lab distinguishes live capture, recorded data and test execution from rela
 });
 
 test('Lab Scope stays functional and strict; development provenance requires real source IDs', () => {
-  const p = lab.find(({ id }) => id === 'interactive-html-bom')!.data;
+  const p = lab.find(({ id }) => id === 'diode-pcb')!.data;
   assert(labSchema.safeParse(p).success);
   for (const scope of [{}, { design: { ai: false } }, { board: true }, { board: { ai: false, rank: 1 } }]) {
     assert(!labSchema.safeParse({ ...p, scope }).success);
