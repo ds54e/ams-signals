@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T03:05:19.000Z",
+  "capturedAt": "2026-11-25T03:44:07.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1910,9 +1910,9 @@
       "kind": "github",
       "repository": "rtl-buddy/rtl_buddy",
       "repositoryId": 1211146986,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-25T03:44:07.000Z",
       "defaultBranch": "main",
-      "headSha": "b6fcc98241626864d35cf948d86dd90e1700910e",
+      "headSha": "6cbf80822110ee634e00c03b723f8ab171bbb604",
       "commits": [
         0,
         0,
@@ -1925,11 +1925,11 @@
         70,
         96,
         110,
-        18
+        32
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-21",
-      "lastMeaningfulCommitSha": "7ef509c029fbf15b483684223492393d12ded066"
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "6cbf80822110ee634e00c03b723f8ab171bbb604"
     },
     "svalint": {
       "kind": "github",
@@ -2936,6 +2936,57 @@
       "lastCommitAt": "2026-11-21",
       "lastMeaningfulCommitAt": "2026-11-08",
       "lastMeaningfulCommitSha": "76d3368dfa18e4e8d6c9b1635c606a792e4a7139"
+    },
+    "rtl-buddy-xeno": {
+      "kind": "github",
+      "repository": "rtl-buddy/rtl-buddy-xeno",
+      "repositoryId": 1249322607,
+      "capturedAt": "2026-11-25T03:44:07.000Z",
+      "defaultBranch": "main",
+      "headSha": "19c9f54d9e6a58a4f691652c54b31ab74b062c52",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        6,
+        0,
+        1,
+        6,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-16",
+      "lastMeaningfulCommitAt": "2026-09-16",
+      "lastMeaningfulCommitSha": "19c9f54d9e6a58a4f691652c54b31ab74b062c52"
+    },
+    "cocotb-coverage": {
+      "kind": "github",
+      "repository": "mciepluc/cocotb-coverage",
+      "repositoryId": 159490350,
+      "capturedAt": "2026-11-25T03:44:07.000Z",
+      "defaultBranch": "master",
+      "headSha": "6bae4f629b0edde5169d20ca792627495ab7a38e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-22",
+      "lastMeaningfulCommitAt": "2026-09-22",
+      "lastMeaningfulCommitSha": "e295c4846911a5b228c3aefb124b34f0ce7f7f9c",
+      "notes": "Low-frequency maintenance: April test-seed correction integrated September 22, plus separate XML bin identification and CoverCheck merge correctness repairs. Same-day version and documentation changes are raw activity only."
     }
   }
 }
