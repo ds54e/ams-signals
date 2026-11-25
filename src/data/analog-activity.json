@@ -724,32 +724,6 @@
       "lastMeaningfulCommitSha": "7d46afe213a15dbe125ad5fedbd52942d55053bf",
       "notes": "The September 1 ERC interaction fix is the reviewed meaningful checkpoint. Later captured commits remain in raw history; the October 13 captured head changes public-PDK checkout and its regression check. The older release-preparation commit is not the current captured head."
     },
-    "analog-agents": {
-      "kind": "github",
-      "repository": "Arcadia-1/analog-agents",
-      "repositoryId": 1201926784,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
-      "defaultBranch": "main",
-      "headSha": "4d6bd218ceff60624d7ee62887787aa83daecdb4",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        59,
-        4,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-07-02",
-      "lastMeaningfulCommitAt": "2026-05-02",
-      "lastMeaningfulCommitSha": "771d27d3b0b939b916f819ae375469cda892eb24",
-      "notes": "July activity is a distribution-link merge. The May 2 implementation change in the analog netlist-crawl path is the latest reviewed substantive project update."
-    },
     "spicexplorer": {
       "kind": "github",
       "repository": "MacAnalog/spicexplorer-release",
@@ -1392,8 +1366,8 @@
         3
       ],
       "lastCommitAt": "2026-11-04",
-      "lastMeaningfulCommitAt": "2026-10-13",
-      "lastMeaningfulCommitSha": "e27246513b606f67f59576d1963e3d4bbea4f9a8"
+      "lastMeaningfulCommitAt": "2026-11-04",
+      "lastMeaningfulCommitSha": "7b25375228a288b3d4e2cb0a7e4d19f82504c85e"
     },
     "openram": {
       "kind": "github",

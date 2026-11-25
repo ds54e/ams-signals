@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Public repository"
@@ -100,6 +100,24 @@ sources:
   - id: related-analog-mcp-eldo
     title: "Analog_MCP Eldo batch and interactive execution client"
     url: https://github.com/SiliCAD/Analog_MCP/blob/606ac2eba83233d8834ce9fa8eb889c5145c7611/src/clients/eldo_client.py
+  - id: related-analog-agents
+    title: "Separate analog-agents workflow and skills"
+    url: "https://github.com/Arcadia-1/analog-agents"
+  - id: related-analog-agents-submodules
+    title: "Declared bridge and ADCToolbox dependencies"
+    url: "https://github.com/Arcadia-1/analog-agents/blob/4d6bd218ceff60624d7ee62887787aa83daecdb4/.gitmodules"
+  - id: related-analog-agents-pipeline
+    title: "Role-separated design and verification workflow"
+    url: "https://github.com/Arcadia-1/analog-agents/blob/4d6bd218ceff60624d7ee62887787aa83daecdb4/skills/analog-pipeline/SKILL.md"
+  - id: related-analog-agents-crawl
+    title: "Independent Calibre and Spectre parasitic-netlist analysis CLI"
+    url: "https://github.com/Arcadia-1/analog-agents/blob/4d6bd218ceff60624d7ee62887787aa83daecdb4/skills/analog-netlist-crawl/scripts/scan.py"
+  - id: related-analog-agents-resistance
+    title: "Effective-resistance numerical kernel"
+    url: "https://github.com/Arcadia-1/analog-agents/blob/4d6bd218ceff60624d7ee62887787aa83daecdb4/skills/analog-netlist-crawl/scripts/kernels/r_network.py"
+  - id: related-analog-agents-maintenance
+    title: "May 2 model-order-reduction implementation change"
+    url: "https://github.com/Arcadia-1/analog-agents/commit/771d27d3b0b939b916f819ae375469cda892eb24"
 ---
 ### Implemented interfaces
 
@@ -144,3 +162,5 @@ The bridge remains a separate listing because it provides reusable, structured c
 EDA Agent is a related application over this bridge: it retrieves API/design context, generates Python, executes it and retries errors. Its round-trip benchmark measures grounding and operator execution. It is recorded here as a companion instead of a separate catalog entry; its model-driven behavior is not a capability or provenance claim for the bridge. [EDA Agent implementation](#source-related-eda-agent) · [Operator benchmark](#source-related-eda-agent-benchmark).
 
 Analog_MCP is a separate alternative integration, not a component of this repository. It exposes Virtuoso SKILL/shell transport, Eldo batch/interactive execution and waveform plotting. Those implemented adapter operations remain discoverable as related sources, while their additional catalog value does not justify a separate entry in this review. This consolidation does not add Eldo or Calibre support, runtime AI, development attribution or repository activity to virtuoso-bridge-lite. [Analog_MCP interfaces](#source-related-analog-mcp) · [Eldo execution](#source-related-analog-mcp-eldo).
+
+analog-agents is a separate role-oriented analog design and verification skill framework from the same organization, with this bridge and ADCToolbox declared as submodules. Its independent parasitic-netlist crawl CLI reads Calibre and Spectre extractions, ranks coupling, and computes resistive paths; retain those implementation references rather than implying the bridge supplies those operations. The May 2, 2026 model-order-reduction simplification is its last reviewed substantive change; the July 2 integration adds an installation link, not further numerical or agent implementation. Under the stricter retention review, consolidate its discovery reference here instead of keeping a separate catalog row. Its workflow, AI stages, attribution and repository activity are not inherited by the bridge. [Related project](#source-related-analog-agents) · [Dependencies](#source-related-analog-agents-submodules) · [Pipeline](#source-related-analog-agents-pipeline) · [Analysis CLI](#source-related-analog-agents-crawl) · [Resistance kernel](#source-related-analog-agents-resistance) · [Maintenance](#source-related-analog-agents-maintenance).
