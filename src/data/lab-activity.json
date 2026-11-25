@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:03:11.858Z",
+  "capturedAt": "2026-11-25T02:18:44.542Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1916,6 +1916,81 @@
       "lastCommitAt": "2026-10-30",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "c8441c1029aa25652627a1f67cbfff5b852ade18"
+    },
+    "origen-o2": {
+      "kind": "github",
+      "repository": "Origen-SDK/o2",
+      "repositoryId": 223623642,
+      "capturedAt": "2026-11-25T02:18:03.568Z",
+      "defaultBranch": "master",
+      "headSha": "f4c6b5b91f30b9805aa1044c566e474a646327d1",
+      "commits": [
+        0,
+        0,
+        9,
+        4,
+        0,
+        0,
+        0,
+        6,
+        20,
+        8,
+        2,
+        24
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "78ec0a081291a4edfa2b478cb3962e15eb702aa5"
+    },
+    "semi-ate": {
+      "kind": "github",
+      "repository": "Semi-ATE/Semi-ATE",
+      "repositoryId": 279304034,
+      "capturedAt": "2026-11-25T02:17:48.209Z",
+      "defaultBranch": "master",
+      "headSha": "a906e5ba78101c065877c48bb1bbccf5eb45d453",
+      "commits": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        3,
+        2,
+        1,
+        2
+      ],
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "a906e5ba78101c065877c48bb1bbccf5eb45d453"
+    },
+    "ni-semi-test-library": {
+      "kind": "github",
+      "repository": "ni/semi-test-library-dotnet",
+      "repositoryId": 749603971,
+      "capturedAt": "2026-11-25T02:17:52.908Z",
+      "defaultBranch": "main",
+      "headSha": "361110d9019ee6f976ea78e22f4ef1d4d8854c94",
+      "commits": [
+        14,
+        21,
+        13,
+        32,
+        44,
+        7,
+        4,
+        32,
+        33,
+        17,
+        40,
+        40
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "ac1de16ce8358129bc46f045aa689d97bda0788f"
     }
   }
 }
