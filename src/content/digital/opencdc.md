@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-31"
 access: "Public C++ implementation; slang/build dependencies and suitable clock constraints or configuration are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-10-31"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -45,6 +45,12 @@ sources:
   - id: review-20261031-limits
     title: "Current structural guarantees and known analysis gaps"
     url: https://github.com/Ayoubbelguellaoui/CDC/blob/16be223c535013b5f4be90e0885b16d67228e15e/README.md
+  - id: generate-scope-integration
+    title: "November 13 nested generate scope and lifetime correction"
+    url: "https://github.com/Ayoubbelguellaoui/CDC/commit/2dd20e23e5931c0a22b6b61900f345578c389c70"
+  - id: generate-scope-tests
+    title: "Retained nested-generate and clock-domain regression"
+    url: "https://github.com/Ayoubbelguellaoui/CDC/blob/2dd20e23e5931c0a22b6b61900f345578c389c70/tests/regression/frontend_test.cpp"
 ---
 
 ### Implemented operations and boundaries
@@ -57,10 +63,14 @@ The public corpus records an untraced instance-to-instance violation, width-limi
 
 The exposed operations support Verification. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The earlier meaningful checkpoint was 2026-09-26T13:24:58Z (`6c6bd44bf2d137e108437bb5a9729c8fd5350886`), reviewed independently from later cosmetic or version-only changes. The current checkpoint is the October 25 UTC hierarchy elaborator described below. [Implementation activity](#source-activity).
+The earlier meaningful checkpoint was 2026-09-26T13:24:58Z (`6c6bd44bf2d137e108437bb5a9729c8fd5350886`), reviewed independently from later cosmetic or version-only changes. The October 25 UTC hierarchy elaborator was the next checkpoint. November 13 supersedes it within the saved capture. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun. Development provenance was separately reviewed against the integrated, retained code below.
 
 The gate-level frontend now elaborates multi-module structural Verilog by flattening child instances, binding parent ports and preserving instance-qualified names. Recursive instantiation and hierarchy depth above 64 are rejected. Cell classification combines defaults, a limited Liberty subset and explicit YAML overrides; behavioral RTL still uses slang. This gate-level path does not resolve the separate documented RTL instance-to-instance tracing gap. [Netlist frontend and limits](#source-review-20261031-netlist) · [Current analysis boundaries](#source-review-20261031-limits).
 
 Claude Opencode is explicitly co-credited in the integrated hierarchy-elaboration commit. The current canonical frontend retains recursive elaboration, parent-port binding and cycle/depth checks, supporting AI-ASSISTED development. [Credited implementation](#source-development-code-20261031) · [Retained code](#source-development-retained-20261031).
+
+### November 13 implementation
+
+A follow-up to the October generate-loop fixes restores the thread-local scope map with an RAII guard, including on exceptions, and adds a nested generate regression. The test distinguishes each generated instance's hierarchical name and clock domain and checks the crossings from the outer-loop register to the inner-loop registers. This is concrete frontend correctness maintenance; it does not establish resolution of all previously documented hierarchy, FIFO or handshake limits. OpenCDC's structural gate-netlist path and rtl-buddy-cdc's alternative Yosys/pyslang and abstraction paths remain independent implementations. No CDC run was independently reproduced. [Integration](#source-generate-scope-integration) · [Retained regression](#source-generate-scope-tests).

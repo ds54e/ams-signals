@@ -1,7 +1,7 @@
 ---
 name: "LazyVerilog"
 aliases: []
-description: "SystemVerilog language server for Neovim and VS Code, with class, package and UVM-aware completion, navigation, formatting and diagnostics. Slang-backed analysis and configurable lint rules accompany RTL code actions for module instantiation, wiring, arguments and sequential logic."
+description: "SystemVerilog language server for Neovim and VS Code, with class, package and UVM-aware completion, navigation, formatting and diagnostics. Slang-backed analysis and configurable lint rules accompany RTL code actions and CLI autofixes, including distinct safe, unsafe and interactive modes."
 scope:
   design:
     ai: false
@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "MIT. The public C++/slang-based language server and editor tooling need the documented build environment. UVM editing support does not supply a UVM simulator."
 addedAt: "2026-10-11"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -51,6 +51,18 @@ sources:
     title: Official project website and documentation
     url: https://lazyverilog.github.io
     purpose: official
+  - id: lint-autofix
+    title: "November 3 shared LSP and CLI autofix integration"
+    url: "https://github.com/lazyverilog/LazyVerilog/commit/921c6276eb60918fba34c7199ecfe6623eb8ed6e"
+  - id: autofix-cli
+    title: "Retained lint autofix modes and safety classifications"
+    url: "https://github.com/lazyverilog/LazyVerilog/blob/906e44e443d86a567568ce8b5e52c058d4f70490/docs/linter/cli.md"
+  - id: fuzz-maintenance
+    title: "November 15 LSP fuzz-runner resource and timeout corrections"
+    url: "https://github.com/lazyverilog/LazyVerilog/commit/17c79c6aa2a0649f6cc66b41f17bee072f1506ff"
+  - id: compiler-cleanup
+    title: "November 18 background-compiler lifecycle and cleanup"
+    url: "https://github.com/lazyverilog/LazyVerilog/commit/906e44e443d86a567568ce8b5e52c058d4f70490"
 ---
 
 ## Implementation and Scope
@@ -67,8 +79,12 @@ MIT. The public C++/slang-based language server and editor tooling need the docu
 
 ## Reviewed public activity
 
-The meaningful checkpoint is b92801a05c653cc6df1ad5d6005a62c36375b471 (2026-10-02 UTC), verified on the captured default branch's first-parent chain. The [implementation update](#source-activity) supports the meaningful date; the latest head is separately retained for activity ordering.
+The earlier meaningful checkpoint is b92801a05c653cc6df1ad5d6005a62c36375b471 (2026-10-02 UTC). November 15 verification maintenance supersedes it in the saved capture. The [implementation update](#source-activity) supports the meaningful date; the latest head is separately retained for activity ordering.
 
 ### Development provenance
 
 The changes replace one combined compilation context with per-project inputs, snapshots and background compilation, then route the Connect feature through that identity boundary. This is substantial language-server architecture and resolution work; the label is not based on the number of credited formatting fixes. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+
+## November implementation review
+
+November 3 integrates diagnostic fixes for the language server and standalone linter. The CLI distinguishes `--fix`, `--fix-unsafe` and `--fix-interactive`. These are deterministic edits; a safe classification is the tool's own assessment, not an independent proof of equivalence. November 15 streams fuzz sessions instead of keeping them entirely in memory, preserves the command timeout for queued requests and adds resource heartbeats and watchdog regression coverage. The saved meaningful checkpoint is the November 15 test-maintenance integration. November 18 primarily refactors existing code and simplifies the background compiler to one worker, including lifecycle cleanup; no new language capability is inferred from that refactor. No LSP, lint or simulator test was independently executed. [Autofix integration](#source-lint-autofix) · [CLI](#source-autofix-cli) · [Fuzzer maintenance](#source-fuzz-maintenance) · [Cleanup](#source-compiler-cleanup).

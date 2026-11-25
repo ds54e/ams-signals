@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: Public tests and runner infrastructure; tool installations and third-party integration dependencies are configured separately.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-25"
 sources:
 - id: code
   title: Canonical public implementation
@@ -39,6 +39,12 @@ sources:
   title: Official project website and documentation
   url: https://chipsalliance.github.io/sv-tests-results/
   purpose: official
+- id: generator-maintenance
+  title: "November 16 per-test path generator metadata correction"
+  url: "https://github.com/chipsalliance/sv-tests/commit/34094d96a610e42719b3ce1250de921689f13466"
+- id: generator-retained
+  title: "Retained per-test extra-tags handling"
+  url: "https://github.com/chipsalliance/sv-tests/blob/9558c8c251fdd158a7e26f9c871a7a70f5f50a36/generators/path_generator"
 ---
 
 ### Implementation and boundaries
@@ -47,8 +53,12 @@ The language cases and tool runners implement Verification of tool behavior, wit
 
 ### Reviewed activity
 
-The meaningful checkpoint is `c527acc461be115da8aa1a50f9756942c4a8b366` (2026-07-02 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+The earlier meaningful checkpoint was `c527acc461be115da8aa1a50f9756942c4a8b366` (2026-07-02 UTC). November 16 supersedes it in the saved first-parent capture. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
 
 ### Development provenance
 
 Claude is credited for correcting the executable packed tagged-union formatting test, including its expected binary value and assertion syntax. The canonical suite retains this correction. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### November test maintenance
+
+The November 16 integration separates global metadata from per-test `extra_tags` in the path generator and corrects the affected generated-test configuration, including p774. This is executable test-infrastructure maintenance rather than a new simulator feature. Later dependency/submodule updates remain raw activity. No generated case, runner or cross-tool comparison was independently executed. [Integration](#source-generator-maintenance) · [Retained generator](#source-generator-retained).

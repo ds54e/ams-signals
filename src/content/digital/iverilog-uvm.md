@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-07"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical iverilog-uvm repository"
@@ -59,6 +59,18 @@ sources:
   - id: review-20261107-retained
     title: "Retained nested-object dynamic-array regression fixture"
     url: https://github.com/dsellerbrock/iverilog-uvm/blob/43abd12b5fc66513f6177d20f4a531c5e12b96ae/ivtest/ivltests/issue2602_nested_object_dynamic_array2_body.vh
+  - id: november19-integration
+    title: "November 19 integrated language and runtime correctness train"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/commit/cac9bbf29b9de3479abb97d2f100356fdfbbaa94"
+  - id: match-regression
+    title: "Retained tagged-union matches expression regression"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/blob/cac9bbf29b9de3479abb97d2f100356fdfbbaa94/ivtest/ivltests/issue3477_if_matches_expression.sv"
+  - id: trireg-regression
+    title: "Retained trireg tran force/release and charge regression"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/blob/cac9bbf29b9de3479abb97d2f100356fdfbbaa94/ivtest/ivltests/issue3491.sv"
+  - id: array-port-regression
+    title: "Retained multidimensional array port and driver regression"
+    url: "https://github.com/dsellerbrock/iverilog-uvm/blob/cac9bbf29b9de3479abb97d2f100356fdfbbaa94/ivtest/ivltests/issue3791.sv"
 ---
 
 ### Implementation and scope
@@ -84,3 +96,7 @@ The November 3 first-parent train integrates numeric clocking-input skew initial
 ### November implementation review
 
 The November 7 integration adds nested rand-object dynamic-array constraint lowering and runtime size/element handling, with paired 2017/2023 regression fixtures checking direct references, foreach constraints, contradictory constraints and null handles. This supports continued technical maintenance, not complete SystemVerilog/UVM compliance. The experimental/tapeout warning, conventional Design/Verification classification and separately attributed AI-assisted development remain unchanged. No simulator runs were performed. [Implementation and regression evidence](#source-review-20261107-implementation) · [Retained fixture](#source-review-20261107-retained).
+
+### November 19 implementation
+
+The integrated train adds executable elaboration/runtime corrections and regression fixtures for tagged-union `if ... matches` expression evaluation, binding scope and short circuiting; trireg charge retention under force/release across tran connections; and multidimensional unpacked array ports with disjoint word drivers. The November 19 integration supersedes the November 7 checkpoint in the saved first-parent capture. These targeted cases do not certify the entire language, UVM, timing or mixed-signal behavior. The experimental-use warning and existing scope and provenance classifications are retained. No simulator or reference workload was independently executed. [Integration](#source-november19-integration) · [Pattern matching](#source-match-regression) · [Charge semantics](#source-trireg-regression) · [Array ports](#source-array-port-regression).

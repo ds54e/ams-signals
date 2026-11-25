@@ -164,8 +164,9 @@
         121
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-07",
-      "lastMeaningfulCommitSha": "43abd12b5fc66513f6177d20f4a531c5e12b96ae"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "cac9bbf29b9de3479abb97d2f100356fdfbbaa94",
+      "notes": "November 19 integrates language/runtime corrections and regressions for tagged-union matches, trireg tran force/release and multidimensional array port drivers. Experimental use boundary retained."
     },
     "openada": {
       "kind": "github",
@@ -1178,8 +1179,9 @@
         12
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-10-02",
-      "lastMeaningfulCommitSha": "b92801a05c653cc6df1ad5d6005a62c36375b471"
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "17c79c6aa2a0649f6cc66b41f17bee072f1506ff",
+      "notes": "November 3 adds deterministic lint autofixes; November 15 corrects fuzz session memory and queued-request timeouts with tests. November 18 is primarily cleanup, retained separately."
     },
     "hls-eval": {
       "kind": "github",
@@ -1453,8 +1455,9 @@
         54
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-07-02",
-      "lastMeaningfulCommitSha": "c527acc461be115da8aa1a50f9756942c4a8b366"
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "34094d96a610e42719b3ce1250de921689f13466",
+      "notes": "November 16 corrects path-generator per-test extra-tags handling and affected test configuration. Subsequent dependency bumps remain raw activity."
     },
     "sv2v": {
       "kind": "github",
@@ -1678,8 +1681,9 @@
         1
       ],
       "lastCommitAt": "2026-11-13",
-      "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "7a4ebe6124551662ea663b2e2ae625e40a2f07ee"
+      "lastMeaningfulCommitAt": "2026-11-13",
+      "lastMeaningfulCommitSha": "2dd20e23e5931c0a22b6b61900f345578c389c70",
+      "notes": "November 13 fixes scope-map lifetime and covers nested generate-loop hierarchy and clock crossings in regression cases."
     },
     "opencollate": {
       "kind": "github",
@@ -1828,8 +1832,9 @@
         48
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-09-28",
-      "lastMeaningfulCommitSha": "df996d55af0e8b824183d03d531426b8601af429"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "3916c663e9d2ff6310782067060d7667866b622c",
+      "notes": "November 19 lowers interface port members and preserves observable registers; supported register-array FIFO memory recognition has regression coverage. Structural checks are not protocol proof."
     },
     "rtl-buddy": {
       "kind": "github",
