@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:42:42.731Z",
+  "capturedAt": "2026-11-25T02:53:07.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1760,9 +1760,9 @@
       "kind": "github",
       "repository": "parallaxsw/OpenSTA",
       "repositoryId": 649415806,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-25T02:53:07.000Z",
       "defaultBranch": "master",
-      "headSha": "d8448379114c6e4738f7a6074480dca10434460c",
+      "headSha": "28d7a0b5123d59cbff8c1def4e3830c840fe5d50",
       "commits": [
         27,
         24,
@@ -1775,11 +1775,11 @@
         7,
         30,
         80,
-        87
+        94
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-21",
-      "lastMeaningfulCommitSha": "f7100b9276667aa5e51d6b7b152e457595991751"
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "28d7a0b5123d59cbff8c1def4e3830c840fe5d50"
     },
     "opentestability": {
       "kind": "github",
