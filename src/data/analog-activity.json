@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T03:21:05.000Z",
+  "capturedAt": "2026-11-25T04:40:34.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3120,6 +3120,31 @@
       "lastMeaningfulCommitAt": "2026-11-21",
       "lastMeaningfulCommitSha": "a5d204596b495a81f1202357a66588c127e3f37d",
       "notes": "May correlation engine, July worst-case analysis, September API and test repairs, and November startup crash repair are substantive maintenance. The latest same-day theme compatibility repair is retained separately as raw activity."
+    },
+    "mna-simulator": {
+      "kind": "github",
+      "repository": "miracleNico/MNA-Simulator",
+      "repositoryId": 1079871144,
+      "capturedAt": "2026-11-25T04:40:34.000Z",
+      "defaultBranch": "main",
+      "headSha": "cf0668083b5f1d8906cabcb9daa2cd9d242b5b40",
+      "commits": [
+        2,
+        2,
+        0,
+        0,
+        2,
+        5,
+        0,
+        0,
+        0,
+        0,
+        72,
+        0
+      ],
+      "lastCommitAt": "2026-10-13",
+      "lastMeaningfulCommitAt": "2026-10-13",
+      "lastMeaningfulCommitSha": "dcbdeb5e497a12d973d68ae15c809308c0599af4"
     }
   }
 }

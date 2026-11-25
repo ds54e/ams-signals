@@ -1,5 +1,11 @@
 [
   {
+    "project": "mna-simulator",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Selected-output Krylov and nonlinear TPWL/POD reduction with full-order comparison tests."
+  },
+  {
     "project": "gspice",
     "date": "2026-11-25",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-11-25",
     "kind": "added",
     "summary": "Correlated parameter generation and statistical analysis of analog simulation results."
-  },
-  {
-    "project": "vams-conformance-suite",
-    "date": "2026-11-25",
-    "kind": "updated",
-    "summary": "Simulator-specific numerical oracles, FFT phase conventions and strict JSON output."
   }
 ]
