@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T11:03:53.616Z",
+  "reviewedAt": "2026-11-25",
+  "capturedAt": "2026-11-25T01:26:52.759Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1366,6 +1366,131 @@
       "lastCommitAt": "2026-04-08",
       "lastMeaningfulCommitAt": "2026-04-07",
       "lastMeaningfulCommitSha": "12183c8ac5e25c92e5ac468877d65d438e066a0b"
+    },
+    "pyice": {
+      "kind": "github",
+      "repository": "PyICe-ADI/PyICe",
+      "repositoryId": 663628141,
+      "capturedAt": "2026-11-25T01:26:02.845Z",
+      "defaultBranch": "main",
+      "headSha": "c5a8f230d4a05b5c8c364901aca9a576dac275a4",
+      "commits": [
+        1,
+        2,
+        10,
+        4,
+        2,
+        20,
+        7,
+        19,
+        3,
+        2,
+        7,
+        2
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-10-20",
+      "lastMeaningfulCommitSha": "f8948068758196b3cbc549917f096416327bb697"
+    },
+    "lewis": {
+      "kind": "github",
+      "repository": "ISISComputingGroup/lewis",
+      "repositoryId": 55496490,
+      "capturedAt": "2026-11-25T01:26:04.617Z",
+      "defaultBranch": "main",
+      "headSha": "1b2086d6ce5eda9a46c264067f3e6d66d15ac8cf",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-25",
+      "lastMeaningfulCommitAt": "2026-08-25",
+      "lastMeaningfulCommitSha": "1b2086d6ce5eda9a46c264067f3e6d66d15ac8cf"
+    },
+    "suncal": {
+      "kind": "github",
+      "repository": "sandialabs/suncal",
+      "repositoryId": 165912953,
+      "capturedAt": "2026-11-25T01:25:34.485Z",
+      "defaultBranch": "master",
+      "headSha": "1c3bb6846ccf9eb62ef3337230da72b551716fa5",
+      "commits": [
+        0,
+        7,
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-11",
+      "lastMeaningfulCommitAt": "2026-04-14",
+      "lastMeaningfulCommitSha": "99fb29585c677cfc298d671f7d6c9b8cfa425ab1"
+    },
+    "kikit": {
+      "kind": "github",
+      "repository": "yaqwsx/KiKit",
+      "repositoryId": 253615688,
+      "capturedAt": "2026-11-25T01:26:01.700Z",
+      "defaultBranch": "master",
+      "headSha": "2aa564ff6019560e18553b2c7d16c875fa417d63",
+      "commits": [
+        0,
+        0,
+        1,
+        1,
+        28,
+        0,
+        2,
+        3,
+        4,
+        1,
+        1,
+        7
+      ],
+      "lastCommitAt": "2026-11-08",
+      "lastMeaningfulCommitAt": "2026-11-08",
+      "lastMeaningfulCommitSha": "2aa564ff6019560e18553b2c7d16c875fa417d63"
+    },
+    "pytest-embedded": {
+      "kind": "github",
+      "repository": "espressif/pytest-embedded",
+      "repositoryId": 374549882,
+      "capturedAt": "2026-11-25T01:26:04.618Z",
+      "defaultBranch": "main",
+      "headSha": "43e577ae192b277aea9e0c708c23d92919b63bd0",
+      "commits": [
+        7,
+        4,
+        3,
+        8,
+        1,
+        4,
+        3,
+        0,
+        9,
+        3,
+        3,
+        4
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "889d61fbe0bb1879c1ee9d39eff5cfa7c9970e2f"
     }
   }
 }
