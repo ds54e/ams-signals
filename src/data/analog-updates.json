@@ -1,20 +1,20 @@
 [
   {
-    "project": "kairoq",
+    "project": "pybis2spice",
     "date": "2026-11-25",
     "kind": "added",
-    "summary": "Fabrication-data board simulation including SI, PDN, thermal and selected IBIS channel models."
+    "summary": "IBIS-to-SPICE model conversion including ngspice output and revived canonical maintenance."
   },
   {
-    "project": "opensipi",
+    "project": "orca",
     "date": "2026-11-25",
-    "kind": "added",
-    "summary": "Table-driven SI/PI extraction automation for commercial Sigrity solvers."
+    "kind": "updated",
+    "summary": "Finite center-tap termination impedance in differential network postprocessing."
   },
   {
-    "project": "kipi",
+    "project": "cobra",
     "date": "2026-11-25",
-    "kind": "added",
-    "summary": "PCB DC rail and AC impedance analysis with geometry-based switching-noise coupling."
+    "kind": "updated",
+    "summary": "Cross-type linked parameters, invalid-goal penalties and simulator timeout handling."
   }
 ]

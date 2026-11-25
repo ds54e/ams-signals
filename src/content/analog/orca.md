@@ -9,7 +9,7 @@ scope:
     ai: false
 access: "Apache-2.0 source; Python 3.11–3.13 with gdsfactory, KLayout and gds2palace, plus an external Palace installation for EM. Training/export/testing require optional PyTorch, Optuna and ONNX dependencies. Users need suitable stackup, geometry and simulation data; reference presets target IHP SG13G2."
 addedAt: "2026-11-15"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-25"
 sources:
   - id: "official"
     title: "Official project website"
@@ -49,13 +49,22 @@ sources:
   - id: "license"
     title: "Apache License 2.0"
     url: "https://github.com/DI-PASSIONATE/ORCA/blob/4319761442897576b45b637729c4cca6ea3aa0b2/LICENSE"
+  - id: review-20261123-center-tap
+    title: "Integrated finite center-tap termination impedance"
+    url: "https://github.com/DI-PASSIONATE/ORCA/commit/65e851a7fe65892efc696c3d04061d0fc1a628f8"
+  - id: review-20261125-postprocessing
+    title: "Retained loaded differential impedance implementation"
+    url: "https://github.com/DI-PASSIONATE/ORCA/blob/976689605aabdee1df8fe4cae63570530eed6e00/src/orca/utils/postprocessing.py"
+  - id: review-20261125-tests
+    title: "Retained Schur-complement reference and termination limit tests"
+    url: "https://github.com/DI-PASSIONATE/ORCA/blob/976689605aabdee1df8fe4cae63570530eed6e00/tests/test_postprocessing.py"
 ---
 
 ### Implementation and selection
 
 ORCA is a public implementation, not just a paper or dataset: its pipeline draws parameterized layouts, orchestrates EM simulation, fits models, exports ONNX and evaluates held-out networks. Its canonical repository differs from all existing catalog Code identities; using cataloged gdsfactory, Palace and scikit-rf as dependencies does not duplicate those tools. COBRA is a separate circuit optimizer and is not folded into ORCA's contribution. [Pipeline](#source-readme) · [Training loop](#source-training) · [Prediction](#source-prediction) · [Geometry](#source-geometry)
 
-Distinct recent changes include the October 12 correction that removes each port's own parasitic inductance with two/three-port regression coverage, and the October 19 expansion of supported transformer diameters with updated pipeline examples. The latter is the meaningful first-parent checkpoint; the November 6 packaging fix supplies the later raw activity date. This is repeated implementation and validation, not a one-time paper release. Reviewed main and release v2.3.0 are identical. [De-embedding diff](#source-deembedding) · [Geometry change](#source-activity) · [Release](#source-release)
+Distinct recent changes include the October 12 correction that removes each port's own parasitic inductance with two/three-port regression coverage, and the October 19 expansion of supported transformer diameters with updated pipeline examples. The October 19 change was the earlier meaningful first-parent checkpoint; the November 6 packaging fix supplied the later raw activity date at that review. The November 23 termination implementation below supersedes it. The earlier review found main and release v2.3.0 identical. [De-embedding diff](#source-deembedding) · [Geometry change](#source-activity) · [Release](#source-release)
 
 ### Scope, provenance and limits
 
@@ -64,3 +73,7 @@ AI Simulation is established by actual electrical prediction: Torch inference no
 Layout covers implemented parametric transformer/inductor GDS generation and associated DRC orchestration; it has no model-driven geometry decision in this reviewed pipeline. No Design stage is borrowed from COBRA. AI-assisted development is separately unestablished: model training, AI wording and assistant instruction files alone do not attribute a retained code contribution, so no development badge is assigned. [Geometry implementation](#source-geometry) · [Project boundary](#source-readme)
 
 Apache-2.0 applies to ORCA's source, not automatically to every dependency, PDK or model. EM requires Palace and an appropriate stackup/configuration; training and ONNX paths require the optional training dependencies and relevant simulation data. Prediction accuracy is conditional on the trained geometry/frequency domain and held-out validation; no universal accuracy, fabrication signoff or independently reproduced result is claimed. [License](#source-license) · [Dependencies](#source-dependencies) · [Evaluation](#source-model-test)
+
+### November 25 source review
+
+The November 23 integration extends differential-impedance reduction to finite complex shunt terminations on otherwise unused ports, including transformer center taps. It distinguishes a shorted port from a finite nonzero load and an open port, and the retained tests compare the asymmetric multiport reduction with an independently expressed Schur-complement reference and approach-to-open/short limits. This is conventional network postprocessing, not a new AI capability or a device-noise solver. The later v2.4.0 version integration does not itself replace the reviewed meaningful checkpoint. No RF simulation or regression was independently run. [Integration](#source-review-20261123-center-tap) · [Retained calculation](#source-review-20261125-postprocessing) · [Regression cases](#source-review-20261125-tests).

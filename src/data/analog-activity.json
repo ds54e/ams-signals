@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:52:01.000Z",
+  "capturedAt": "2026-11-25T03:00:01.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1937,9 +1937,9 @@
       "kind": "github",
       "repository": "DI-PASSIONATE/ORCA",
       "repositoryId": 1123682205,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-25T03:00:01.000Z",
       "defaultBranch": "main",
-      "headSha": "4319761442897576b45b637729c4cca6ea3aa0b2",
+      "headSha": "976689605aabdee1df8fe4cae63570530eed6e00",
       "commits": [
         12,
         70,
@@ -1952,12 +1952,12 @@
         0,
         20,
         28,
-        1
+        7
       ],
-      "lastCommitAt": "2026-11-06",
-      "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "42123d6a1699c7dca47ee0ad135b838c5728b264",
-      "notes": "Meaningful review: transformer geometry-range implementation and pipeline examples; separate per-port de-embedding correction has regression tests. Latest packaging commit is not the meaningful checkpoint. Default main equals v2.3.0; counts include cosmetic and packaging commits without treating them as meaningful."
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "65e851a7fe65892efc696c3d04061d0fc1a628f8",
+      "notes": "November 23 center-tap impedance termination implementation with independent Schur-complement test references supersedes the October transformer-range checkpoint. November 24 release and documentation commits remain raw activity. Earlier de-embedding and geometry changes remain separate reviewed evidence."
     },
     "tiny-rf-simulator": {
       "kind": "github",
@@ -2468,9 +2468,9 @@
       "kind": "github",
       "repository": "DI-PASSIONATE/COBRA",
       "repositoryId": 1152309439,
-      "capturedAt": "2026-11-24T06:51:21.269Z",
+      "capturedAt": "2026-11-25T03:00:01.000Z",
       "defaultBranch": "main",
-      "headSha": "2b24532f2666b9c5a6030521c4997f8c93b9235a",
+      "headSha": "94a9fa1e86d7c847588e3dd7700268ff2d6b2282",
       "commits": [
         0,
         0,
@@ -2483,11 +2483,11 @@
         2,
         22,
         9,
-        8
+        19
       ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "2b24532f2666b9c5a6030521c4997f8c93b9235a"
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "2e951bf8f275c1d3b2c8b75736946effe0f511b4"
     },
     "emerge": {
       "kind": "github",
@@ -2989,6 +2989,32 @@
       "lastCommitAt": "2026-08-01",
       "lastMeaningfulCommitAt": "2026-08-01",
       "lastMeaningfulCommitSha": "3fcfe815f7fcf49ea82e358591b9c570e65f6c32"
+    },
+    "pybis2spice": {
+      "kind": "github",
+      "repository": "Jamanaman/pybis2spice",
+      "repositoryId": 1039079194,
+      "capturedAt": "2026-11-25T03:00:01.000Z",
+      "defaultBranch": "main",
+      "headSha": "47cd54c9f0bb32e9c53778e5de3c5ff0413c6ab9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        25,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-23",
+      "lastMeaningfulCommitAt": "2026-08-19",
+      "lastMeaningfulCommitSha": "b75d0264c1f4ce33cd632efcaf18e2fe7c1737eb",
+      "notes": "Canonical successor to kamratia1/pybis2spice with shared older history; the August 2026 v1.3.0 release-candidate integration adds ngspice export and refactors the model interface. Follow-up executable distribution fixes are retained. The renewed public maintenance period is short; the predecessor is not a second project or activity record."
     }
   }
 }
