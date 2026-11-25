@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical Pono repository"
@@ -50,6 +50,12 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/stanford-centaur/pono/blob/fe3f751590262d12e420ea810af7d22eb74020c5/python/pono/pono.pyx"
+  - id: unsigned-overflow-fix
+    title: "November 10 BTOR2 unsigned subtraction overflow correction"
+    url: "https://github.com/stanford-centaur/pono/commit/aed0ca013b346fe577610dad32ecf4d6556ce97d"
+  - id: overflow-regression
+    title: "Retained unsigned overflow encoder regression"
+    url: "https://github.com/stanford-centaur/pono/blob/2bdce7576b871dde7732ed8ee89424ec99d096fb/tests/encoders/test_btor2.cpp"
 ---
 
 
@@ -74,3 +80,9 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 ### Development provenance
 
 The reviewed changes connect fairness conditions to both liveness dispatch paths and implement the missing Python property/prover hierarchy with backward-compatible safety aliases. This establishes a meaningful liveness integration and API campaign beyond the previously reviewed isolated lookup and warning repairs; it does not attribute Pono's original proof engines to AI. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained)
+
+### Reviewed implementation update, November 25, 2026
+
+November 10 corrects the BTOR2 usubo encoder by inverting the subtrahend before widened addition. The previous formula could evaluate the overflow predicate incorrectly. The retained regression checks unsigned subtraction and addition overflow against a four-bit combinational model using SMT. This specific encoding correction does not establish full BTOR2 or proof-engine correctness. [Correction](#source-unsigned-overflow-fix) · [Regression](#source-overflow-regression).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-11-10 UTC. The source and retained tests were inspected, not independently executed.

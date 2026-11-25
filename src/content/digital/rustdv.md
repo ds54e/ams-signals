@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: Public Rust source and examples; requires a supported simulator and platform-specific VPI build setup.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-25"
 sources:
 - id: code
   title: Canonical public implementation
@@ -39,6 +39,12 @@ sources:
   title: Official project website and documentation
   url: https://rustdv.org
   purpose: official
+- id: rtl-coverage-integration
+  title: "October 24 Verilator RTL coverage integration"
+  url: "https://github.com/rustdv/rustdv/commit/70a371e96b90dbb8d22f3deb7ce8e6595997754e"
+- id: coverage-runner
+  title: "Retained coverage build and output checks"
+  url: "https://github.com/rustdv/rustdv/blob/a58a422392be3ce467338a441045efec6ff192d3/sim/run_verilator.sh"
 ---
 
 ### Implementation and boundaries
@@ -47,8 +53,14 @@ The released runtime, component library and simulator examples establish an inde
 
 ### Reviewed activity
 
-The meaningful checkpoint is `ac72f6f4e95331e5e542a93d0a1574a6ca72dcb2` (2026-10-15 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+The earlier meaningful checkpoint was `ac72f6f4e95331e5e542a93d0a1574a6ca72dcb2` (2026-10-15 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
 
 ### Development provenance
 
 The maintainer credits Sonnet with corrected simulator code and executable clock tests. The canonical project retains the falling-edge test window and per-test read-only-phase transition. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Reviewed implementation update, November 25, 2026
+
+October 24 integrates Verilator line and expression coverage instrumentation, simulator-host coverage output and regression checks for missing output. FST tracing and coverage require separate builds in the reviewed runner. This is RTL code coverage, not functional coverage or verification closure. Later release/documentation changes remain separate from the selected implementation checkpoint. [Integration](#source-rtl-coverage-integration) · [Retained runner](#source-coverage-runner).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-10-24 UTC. The source and retained tests were inspected, not independently executed.

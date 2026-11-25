@@ -240,8 +240,9 @@
         15
       ],
       "lastCommitAt": "2026-11-10",
-      "lastMeaningfulCommitAt": "2026-10-06",
-      "lastMeaningfulCommitSha": "fe3f751590262d12e420ea810af7d22eb74020c5"
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "aed0ca013b346fe577610dad32ecf4d6556ce97d",
+      "notes": "November 10 corrects BTOR2 usubo encoding with an unsigned-overflow regression. Later CI caching remains raw activity."
     },
     "rtldebugdbkit": {
       "kind": "github",
@@ -265,8 +266,9 @@
         1
       ],
       "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-09-29",
-      "lastMeaningfulCommitSha": "7c5d46d4bd15ceee3f9073cbb3568a09d1100cfa"
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "3b62e10cf0cbefb11fbef9845a31997270a8bd65",
+      "notes": "November 16 fixes static extraction and SQL views across calls, ports and packages, with construct fixtures and database consistency tests."
     },
     "sentinel-dv": {
       "kind": "github",
@@ -416,8 +418,9 @@
         1
       ],
       "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-07-07",
-      "lastMeaningfulCommitSha": "6e3dc04d9279da257b29e336edf3b599cccd4907"
+      "lastMeaningfulCommitAt": "2026-10-15",
+      "lastMeaningfulCommitSha": "79fc9eddca5e33a28cc2f2cd19c9825efd9a7255",
+      "notes": "October 14 fixes canceled job leases and timeout hangs; October 15 corrects property-kind regression checks. November 16 rename to SBY is not a meaningful implementation update."
     },
     "ucagent": {
       "kind": "github",
@@ -591,8 +594,9 @@
         1
       ],
       "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-10-22",
-      "lastMeaningfulCommitSha": "bb0bfe60d1d68d47e9612e7016f840e4e9696f29"
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "04afe72ca02fdca0301350a8ea218cc54d389c91",
+      "notes": "November 16 fixes long-history FST sampling with generated regression. November 20 buffer-lifetime correction is reviewed outside the saved capture."
     },
     "what": {
       "kind": "github",
@@ -1255,8 +1259,9 @@
         0
       ],
       "lastCommitAt": "2026-10-28",
-      "lastMeaningfulCommitAt": "2026-10-15",
-      "lastMeaningfulCommitSha": "ac72f6f4e95331e5e542a93d0a1574a6ca72dcb2"
+      "lastMeaningfulCommitAt": "2026-10-24",
+      "lastMeaningfulCommitSha": "70a371e96b90dbb8d22f3deb7ce8e6595997754e",
+      "notes": "October 24 integrates Verilator line/expression coverage mode, output validation and regression workflow. Later release documentation remains raw activity."
     },
     "uvm-bridge": {
       "kind": "github",
@@ -1280,8 +1285,9 @@
         5
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-16",
-      "lastMeaningfulCommitSha": "2ac3b4656f6cab28b7bcc9781b64e7c89c3a6dca"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22",
+      "notes": "November 13 restores suspendable DPI task paths on supported Verilator; November 19 expands VPI API tests with explicit probes/skips."
     },
     "verilua": {
       "kind": "github",
@@ -1305,8 +1311,9 @@
         35
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-15",
-      "lastMeaningfulCommitSha": "ea0c6ec5500f271ca401c4e9486a732561beed22"
+      "lastMeaningfulCommitAt": "2026-11-13",
+      "lastMeaningfulCommitSha": "797e58060076d09718ee10b729e05a7378fed4bb",
+      "notes": "November 12 adds standalone Lua behavioral simulation; November 13 repairs missing nosim-build diagnostics. Later documentation remains raw activity."
     },
     "veripower": {
       "kind": "github",
@@ -1782,8 +1789,9 @@
         12
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-15",
-      "lastMeaningfulCommitSha": "8c6df1b7a8c217e157215e05348a7a04b5d2fbb2"
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "f238d8bf692428277fad06feea25614eba7fb594",
+      "notes": "November 8 fixes the word-level unrolling false-SAT case; November 15 adds per-worker RLIMIT_AS configuration. Later cleanup remains raw activity."
     },
     "rta": {
       "kind": "github",

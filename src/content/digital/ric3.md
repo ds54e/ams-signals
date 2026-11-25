@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Rust implementation; model-format frontend and selected solver dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: '2026-10-22'
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -45,6 +45,18 @@ sources:
   - id: development-retained-20261022
     title: Retained executable contribution at the reviewed head
     url: https://github.com/gipsyh/rIC3/blob/8c6df1b7a8c217e157215e05348a7a04b5d2fbb2/src/transys/others.rs
+  - id: word-unroll-fix
+    title: "November 8 word-level unrolling correction"
+    url: "https://github.com/gipsyh/rIC3/commit/0b66826a801c38d630843c0842b8fd312fca11a2"
+  - id: word-unroll-regression
+    title: "Retained word-level BMC false-SAT regression"
+    url: "https://github.com/gipsyh/rIC3/blob/6bcb9fe1950c06d8eaebebecd2c2bfac93352eaf/tests/wl_bmc_false_sat/main.rs"
+  - id: portfolio-limit
+    title: "November 15 worker address-space limit"
+    url: "https://github.com/gipsyh/rIC3/commit/f238d8bf692428277fad06feea25614eba7fb594"
+  - id: portfolio-retained
+    title: "Retained portfolio resource limit"
+    url: "https://github.com/gipsyh/rIC3/blob/6bcb9fe1950c06d8eaebebecd2c2bfac93352eaf/src/portfolio/mod.rs"
 ---
 
 ### Implemented operations and boundaries
@@ -57,10 +69,16 @@ Ordinary engines consume transition-system models. The optional experimental CIl
 
 The exposed operations support Verification. The AI prefix describes the optional implemented model-hosted workflow or the explicitly evaluated AI task. It does not classify the conventional checker or numerical engine as AI.
 
-The meaningful checkpoint is 2026-10-15T22:58:16Z (`8c6df1b7a8c217e157215e05348a7a04b5d2fbb2`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+The earlier meaningful checkpoint was 2026-10-15T22:58:16Z (`8c6df1b7a8c217e157215e05348a7a04b5d2fbb2`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
 
 ### Development provenance
 
 Copilot is co-credited on the integrated sequential-correlation repair. The canonical transition-system implementation retains polarity-aware initialization handling when replacing latch variables. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+
+### Reviewed implementation update, November 25, 2026
+
+November 8 fixes word-level unrolling by instantiating original terms at each new frame rather than rewriting previously simplified terms, correcting the recorded false-SAT case. Retained tests check a toggling latch and word-level/bit-level BMC agreement through the affected bound. November 15 adds a configurable per-worker RLIMIT_AS limit, defaulting to 16 GiB and bounded by the inherited hard limit. This is a per-process virtual-address-space limit, not a combined memory cap or OOM guarantee. [Unrolling correction](#source-word-unroll-fix) · [Regression](#source-word-unroll-regression) · [Resource limit](#source-portfolio-limit) · [Implementation](#source-portfolio-retained).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-11-15 UTC. The source and retained tests were inspected, not independently executed.

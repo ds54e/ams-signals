@@ -1,6 +1,6 @@
 ---
-name: "SymbiYosys"
-aliases: ["sby"]
+name: "SBY"
+aliases: ["SymbiYosys"]
 description: "Driver for Yosys-based formal verification flows, orchestrating bounded checks, inductive proofs and cover analysis. Task configurations select engines and solvers, while the driver manages their execution and collects proof status or counterexample traces for inspection."
 scope:
   verification:
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical SymbiYosys repository"
@@ -46,6 +46,18 @@ sources:
   - id: "review-20261022-itp-core"
     title: "ITP bounded and fixpoint result paths"
     url: "https://github.com/inquisitour/itp-bmc/blob/bdd5342f0ec275b1de044d050505c483e7ee3737/src/model_checker.cpp"
+  - id: lease-fix
+    title: "October 14 canceled job-lease correction"
+    url: "https://github.com/YosysHQ/sby/commit/f9954c52290b83aa5f3078b7ca1a28efa81262b9"
+  - id: lease-regression
+    title: "Retained timeout regression"
+    url: "https://github.com/YosysHQ/sby/blob/b21f778333efc1e7c33fe22b56d43f87e4f759d4/tests/regression/jobserver_timeout.sh"
+  - id: property-kind-tests
+    title: "October 15 status database regression correction"
+    url: "https://github.com/YosysHQ/sby/commit/79fc9eddca5e33a28cc2f2cd19c9825efd9a7255"
+  - id: rename-sby
+    title: "November 16 official rename to SBY"
+    url: "https://github.com/YosysHQ/sby/commit/b21f778333efc1e7c33fe22b56d43f87e4f759d4"
 ---
 
 
@@ -71,4 +83,10 @@ Copilot is credited for correcting the executed rIC3 unsupported-mode diagnostic
 
 Engine availability is not a uniform proof guarantee. The reviewed ITP adapter accepts prove/bmc but maps both Fixpoint reached and Safe up to bound to PASS; the standalone checker also returns OK for bounded-only outcomes. This static result-contract concern prevents treating every ITP PASS as an unbounded proof, and itp-bmc is held from the proposed additions. No independent failure reproduction was performed. rIC3 remains a separate BTOR engine with its own supported modes, and the RTL frontend still limits assertion support. [ITP adapter](#source-review-20261022-itp); [checker](#source-review-20261022-itp-core); [BTOR adapter](#source-review-20261022-btor).
 
-This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Existing activity freshness checkpoints and development-provenance labels are preserved.
+This was a static source and documentation review. External EDA, numerical-accuracy and model/API experiments were not rerun. Development-provenance labels are preserved; the subsequent technical checkpoint is documented below.
+
+### Reviewed implementation update, November 25, 2026
+
+The project renamed SymbiYosys to SBY on November 16; retain the catalog ID, repository identity and former name. The rename is not meaningful implementation activity. October 14 corrects release of canceled queued or held job leases and adds a regression checking TIMEOUT with a fake sleeping solver. October 15 corrects the status database test to read explicit property kinds instead of inferring them from frontend-dependent names. The latter test maintenance supersedes July 7 within the saved capture. The earlier proof-result limitations remain. [Rename](#source-rename-sby) · [Runtime correction](#source-lease-fix) · [Regression](#source-lease-regression) · [Property-kind test](#source-property-kind-tests).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-10-15 UTC. The source and retained tests were inspected, not independently executed.

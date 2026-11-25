@@ -6,7 +6,7 @@ scope:
     ai: false
 access: Public Python/C++/SystemVerilog implementation; simulator, UVM version and DPI/VPI support determine compatibility.
 addedAt: '2026-10-18'
-reviewedAt: '2026-10-18'
+reviewedAt: "2026-11-25"
 sources:
 - id: code
   title: Canonical public implementation
@@ -24,6 +24,18 @@ sources:
 - id: implementation-2
   title: 'Released implementation: test/uvm_compat/test_compat.py'
   url: https://github.com/Dragon-Git/uvm_bridge/blob/b178c9ace130cdf448625a44f356491fd60823c4/test/uvm_compat/test_compat.py
+- id: suspendable-dpi
+  title: "November 13 suspendable DPI task integration"
+  url: "https://github.com/Dragon-Git/uvm_bridge/commit/7c2ecc518bacf1598821c214fcb5484cb7a16663"
+- id: dpi-retained
+  title: "Retained Python GIL handling and DPI entry points"
+  url: "https://github.com/Dragon-Git/uvm_bridge/blob/6882e7142c5391d830d5a7d84a57c457b71cfc22/src/svuvm/svuvm.cpp"
+- id: vpi-tests
+  title: "November 19 VPI compatibility test expansion"
+  url: "https://github.com/Dragon-Git/uvm_bridge/commit/6882e7142c5391d830d5a7d84a57c457b71cfc22"
+- id: vpi-probes
+  title: "Retained VPI probes and skip handling"
+  url: "https://github.com/Dragon-Git/uvm_bridge/blob/6882e7142c5391d830d5a7d84a57c457b71cfc22/test/base_test/base_test.py"
 ---
 
 ### Implementation and boundaries
@@ -32,4 +44,10 @@ The binding implements reusable interaction with UVM rather than a single protoc
 
 ### Reviewed activity
 
-The meaningful checkpoint is `2ac3b4656f6cab28b7bcc9781b64e7c89c3a6dca` (2026-10-16 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+The earlier meaningful checkpoint was `2ac3b4656f6cab28b7bcc9781b64e7c89c3a6dca` (2026-10-16 UTC), verified in the captured canonical default branch's first-parent history. Latest activity and twelve UTC monthly buckets are recorded separately; the current month is partial. [Meaningful change](#source-activity).
+
+### Reviewed implementation update, November 25, 2026
+
+November 13 restores time-consuming exported UVM operations on sufficiently recent Verilator builds using suspendable DPI tasks. The bridge separates function-phase and task entry points and releases the Python GIL across potentially suspending exported calls. Function-phase callbacks still cannot invoke time-consuming exports. November 19 extends VPI tests for control, callbacks, assertions and covergroup objects, probing or skipping unsupported simulator operations. The tests do not establish universal VPI compatibility. [DPI integration](#source-suspendable-dpi) · [Retained bridge](#source-dpi-retained) · [VPI tests](#source-vpi-tests) · [Probe behavior](#source-vpi-probes).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-11-19 UTC. The source and retained tests were inspected, not independently executed.

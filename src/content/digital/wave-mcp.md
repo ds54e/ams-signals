@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python source with pyslang and pylibfst. VCD conversion uses GTKWave vcd2fst; the optional FSDB converter needs a compatible Linux FsdbReader runtime."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical wave-mcp repository"
@@ -44,6 +44,18 @@ sources:
   - id: netlist-coverage
     title: "Partial elaboration and recovered-module boundaries"
     url: https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/netlist/slang_netlist.py
+  - id: long-wave-fix
+    title: "November 16 long-waveform clock sampling correction"
+    url: "https://github.com/Tencent/wave-mcp/commit/04afe72ca02fdca0301350a8ea218cc54d389c91"
+  - id: long-wave-regression
+    title: "Retained FST clock sampling regression"
+    url: "https://github.com/Tencent/wave-mcp/blob/04afe72ca02fdca0301350a8ea218cc54d389c91/tests/unit/test_clocking.py"
+  - id: bus-buffer-fix
+    title: "November 20 aggregated bus buffer lifetime correction"
+    url: "https://github.com/Tencent/wave-mcp/commit/c1fdbf0a9b3b66c5251b94351943031e3132d97a"
+  - id: bus-buffer-retained
+    title: "Retained FST point-read implementation"
+    url: "https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/sources/fst_source.py"
 ---
 
 ### Implemented workflow and selection
@@ -59,3 +71,9 @@ Recovered modules can remain available after elaboration errors. The session exp
 ### Reviewed maintenance
 
 Bit/part-select support and exact FST timestamp conversion are concrete correctness work supporting retention. Their implementation evidence is separate from the existing activity capture. This review inspected current code and documentation; the project's production/query-accuracy claims were not independently reproduced. [Bit/part selects](#source-review-20261103-implementation) · [Timestamp correction](#source-review-20261103-time).
+
+### Reviewed implementation update, November 25, 2026
+
+November 16 fixes clock sampling over long histories, including held and sparse values. Generated FST regressions exercise 220,003 clock edges and explicit completeness assertions. November 20 separately fixes the lifetime of the cffi buffer used for aggregated-bus point reads, preventing a native-read lifetime error. That later change lies outside the saved November 19 capture and is not included in its counts or meaningful checkpoint. [Clock sampling](#source-long-wave-fix) · [Regression](#source-long-wave-regression) · [Buffer correction](#source-bus-buffer-fix) · [Retained implementation](#source-bus-buffer-retained).
+
+The reviewed meaningful checkpoint within the existing capture is 2026-11-16 UTC. The source and retained tests were inspected, not independently executed.
