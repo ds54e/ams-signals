@@ -43,6 +43,18 @@ sources:
   - id: companion
     title: "Related standalone BINDER driver and its license"
     url: "https://github.com/daskals/binder-mk53-rs422-control"
+  - id: related-espec
+    title: "Related ESPEC SH241 chamber scheduling implementation"
+    url: "https://github.com/vincesum/ESPEC-Temperature-Control-UI/blob/40881a974b48864b75e464d72452c1a3f6a51a73/src/ESPEC.py"
+  - id: related-espec-cycling
+    title: "Related chamber cycling and monitoring implementation"
+    url: "https://github.com/vincesum/ESPEC-Temperature-Control-UI/commit/2adb1b1244c9e01dc84137051c3f9f21fa8782d2"
+  - id: related-espec-serial
+    title: "Related serial transport and device detection"
+    url: "https://github.com/vincesum/ESPEC-Temperature-Control-UI/blob/40881a974b48864b75e464d72452c1a3f6a51a73/src/UART.py"
+  - id: related-espec-release
+    title: "Related ESPEC UI v1.1 release"
+    url: "https://github.com/vincesum/ESPEC-Temperature-Control-UI/releases/tag/v1.1"
 ---
 
 ## Scope and limits
@@ -52,3 +64,9 @@ This project adds a specific multi-instrument temperature-conditioning test work
 ## Reviewed maintenance and provenance
 
 June 24 adds the LCR driver and extends the powered DUT test with attributed Claude development. September 23 corrects DMM limit-status interpretation and restoration of triggering settings, power-supply regulation-mode handling, and chamber communication, setpoint checks and retries, with offline tests. The following mirror automation commit is raw activity only. The standalone chamber repository shares the driver lineage and is linked rather than listed as another independent workflow. Its MIT license does not establish a license for the whole lab repository. No physical instrument tests or offline regression were independently run. [June implementation](#source-june) · [September repairs](#source-activity) · [Offline tests](#source-offline-tests) · [Companion](#source-companion).
+
+## Reviewed implementation and retention, November 25, 2026
+
+A separate ESPEC Temperature Control UI project provides SH241 serial control, temperature monitoring, soak scheduling and two-temperature cycling. The March cycling implementation and April connection corrections demonstrate real follow-through, but the reviewed public history has no further technical change after April 27, no other branch or PR, and v1.1 was published April 29. The narrow chamber-only workflow has limited additional discovery value alongside this broader temperature-conditioned DUT measurement entry, so it is retained as a related implementation rather than an independent catalog row. It does not acquire DUT electrical characteristics or establish qualification verdicts. The ESPEC code, license status, device support and activity are separate from Lab Instrument Control; the two projects do not depend on one another. No repository-wide reuse license was established for the ESPEC code. [Chamber control](#source-related-espec) · [Cycling](#source-related-espec-cycling) · [Serial interface](#source-related-espec-serial) · [Release](#source-related-espec-release).
+
+Source inspection only; no physical test, regression or instrument run was independently reproduced.

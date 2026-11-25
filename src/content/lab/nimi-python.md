@@ -33,6 +33,12 @@ sources:
   - id: context-metadata
     title: "Retained metadata normalization for context managers"
     url: "https://github.com/ni/nimi-python/blob/56d2479f12043923eb29201a1d6dd975264f2aa8/build/helper/metadata_filters.py"
+  - id: scope-filter-example
+    title: "November 20 NI-SCOPE filtering and FFT measurement example"
+    url: "https://github.com/ni/nimi-python/commit/423df7f2e4014e38f6d1c9160b538a71fb5f3f7a"
+  - id: scope-filter-retained
+    title: "Retained acquisition and array-measurement example"
+    url: "https://github.com/ni/nimi-python/blob/56d2479f12043923eb29201a1d6dd975264f2aa8/src/niscope/examples/niscope_digital_filtering.py"
 ---
 
 ## Scope and limits
@@ -44,3 +50,9 @@ The native NI drivers remain a separate requirement even when using supported si
 ## Reviewed maintenance
 
 July 2026 corrects session error-description handling across generated modular-instrument drivers, avoiding mismatched queued errors. November extends the generator for multiple session context managers and adds tests. Copilot is co-credited for this implementation, and the reviewed source retains the generator and metadata helpers. This is evidence of development assistance, not runtime AI control. [Session correction](#source-earlier) · [Credited implementation](#source-activity) · [Retained generator](#source-context-generator) · [Retained metadata](#source-context-metadata).
+
+## Reviewed implementation and retention, November 25, 2026
+
+November 20 adds a runnable NI-SCOPE example configuring FIR or IIR processing, acquiring a filtered waveform and retrieving FFT amplitude measurements through the native driver. The example configures measurement units, filter parameters and per-acquisition processing. This is a reusable acquisition and measurement demonstration using existing NI-SCOPE operations, not an independent Python signal-processing engine or proof of instrument accuracy. [Example integration](#source-scope-filter-example) · [Retained example](#source-scope-filter-retained).
+
+The selected meaningful checkpoint in the saved capture is 2026-11-20 UTC. Source inspection only; no physical test, regression or instrument run was independently reproduced.

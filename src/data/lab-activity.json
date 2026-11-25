@@ -64,8 +64,9 @@
         7
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-10-23",
-      "lastMeaningfulCommitSha": "916885e625130e2b0e2fe7b81b1b96ec3f11c973"
+      "lastMeaningfulCommitAt": "2026-11-13",
+      "lastMeaningfulCommitSha": "2ea7793293e6c076aa59254ad75788eec3ff2c49",
+      "notes": "October 29 extends PhaseGraph to nested collections and teardown-aware cancellation. November 13 adds recipe topology export and an executable concurrent-phase example. Later publishing/dependency changes remain raw activity."
     },
     "opentap": {
       "kind": "github",
@@ -89,8 +90,9 @@
         20
       ],
       "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-10",
-      "lastMeaningfulCommitSha": "2f0da929d84edbc145e2f3352b9dcf3d98fdf172"
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "1ff61c6953f3293154474734e80852ff90ef945a",
+      "notes": "November 11 fixes a reference-count race in asynchronous artifact publication and integrates managed package-version calculation. Later build-pipeline work remains raw activity."
     },
     "pymeasure": {
       "kind": "github",
@@ -1989,8 +1991,9 @@
         11
       ],
       "lastCommitAt": "2026-11-20",
-      "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "2f19618c21dc34e70a39a4b186ee664e3c8d8cad"
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "423df7f2e4014e38f6d1c9160b538a71fb5f3f7a",
+      "notes": "November 16 extends session context-manager generation; November 20 adds an executable NI-SCOPE filtered-waveform and FFT acquisition example. Same-day renaming remains raw activity."
     },
     "processbehavior": {
       "kind": "github",
@@ -2366,31 +2369,6 @@
       "lastCommitAt": "2026-11-21",
       "lastMeaningfulCommitAt": "2026-11-21",
       "lastMeaningfulCommitSha": "85c9adfa60a4597441d0582f9bf179d6af41c377"
-    },
-    "espec-temperature-control-ui": {
-      "kind": "github",
-      "repository": "vincesum/ESPEC-Temperature-Control-UI",
-      "repositoryId": 1156905391,
-      "capturedAt": "2026-11-25T05:09:50.084Z",
-      "defaultBranch": "master",
-      "headSha": "40881a974b48864b75e464d72452c1a3f6a51a73",
-      "commits": [
-        0,
-        0,
-        6,
-        1,
-        6,
-        2,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-05-21",
-      "lastMeaningfulCommitAt": "2026-04-27",
-      "lastMeaningfulCommitSha": "c8d7f761a865857041af6a64e4079ccee765d491"
     },
     "gpcam": {
       "kind": "github",
