@@ -12,9 +12,9 @@
     "summary": "Correlated parameter generation and statistical analysis of analog simulation results."
   },
   {
-    "project": "acm-mosfet-models",
+    "project": "vams-conformance-suite",
     "date": "2026-11-25",
-    "kind": "added",
-    "summary": "Charge-based ACM2/ACM3 models, IHP cards and executable I-V fitting notebooks."
+    "kind": "updated",
+    "summary": "Simulator-specific numerical oracles, FFT phase conventions and strict JSON output."
   }
 ]
