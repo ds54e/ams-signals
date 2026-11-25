@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T01:26:52.759Z",
+  "capturedAt": "2026-11-25T01:32:53.698Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1491,6 +1491,131 @@
       "lastCommitAt": "2026-11-23",
       "lastMeaningfulCommitAt": "2026-11-23",
       "lastMeaningfulCommitSha": "889d61fbe0bb1879c1ee9d39eff5cfa7c9970e2f"
+    },
+    "ticc": {
+      "kind": "github",
+      "repository": "TAPR/TICC",
+      "repositoryId": 54783260,
+      "capturedAt": "2026-11-25T01:30:52.595Z",
+      "defaultBranch": "main",
+      "headSha": "25adafebc603ebc511429f53c547951fa8999efd",
+      "commits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "lastCommitAt": "2026-11-02",
+      "lastMeaningfulCommitAt": "2026-11-02",
+      "lastMeaningfulCommitSha": "3a716c3a61d29f275bc55544fcd67a0a1463efe0"
+    },
+    "semi-auto-probe": {
+      "kind": "github",
+      "repository": "GEMsLab-NUS/semi-auto-probe",
+      "repositoryId": 1240001321,
+      "capturedAt": "2026-11-25T01:30:36.817Z",
+      "defaultBranch": "master",
+      "headSha": "ef186ed71eb16dcc50d8922f1af4faa4fbfceeff",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        1,
+        3,
+        0,
+        6,
+        1,
+        0
+      ],
+      "lastCommitAt": "2026-10-23",
+      "lastMeaningfulCommitAt": "2026-10-23",
+      "lastMeaningfulCommitSha": "ef186ed71eb16dcc50d8922f1af4faa4fbfceeff"
+    },
+    "sentio-prober-control": {
+      "kind": "github",
+      "repository": "SentioProberDev/SentioProberControl",
+      "repositoryId": 275152387,
+      "capturedAt": "2026-11-25T01:30:52.592Z",
+      "defaultBranch": "master",
+      "headSha": "65e6e3370c27072f2b8b32e0e37c155a8223b66c",
+      "commits": [
+        0,
+        0,
+        2,
+        3,
+        4,
+        0,
+        1,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-22",
+      "lastMeaningfulCommitAt": "2026-09-22",
+      "lastMeaningfulCommitSha": "65e6e3370c27072f2b8b32e0e37c155a8223b66c"
+    },
+    "pica": {
+      "kind": "github",
+      "repository": "prathameshnium/PICA-Python-Instrument-Control-and-Automation",
+      "repositoryId": 728975387,
+      "capturedAt": "2026-11-25T01:31:18.143Z",
+      "defaultBranch": "main",
+      "headSha": "f03a3c1d64c6c52c862b74fae6d78028db8a784c",
+      "commits": [
+        326,
+        2,
+        2,
+        43,
+        1,
+        0,
+        61,
+        122,
+        31,
+        26,
+        148,
+        21
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-17",
+      "lastMeaningfulCommitSha": "407927d55574a1c4e2c24533b68b1116b34795e1"
+    },
+    "gr-signal-hound": {
+      "kind": "github",
+      "repository": "SignalHound/gr-signal-hound",
+      "repositoryId": 1071852460,
+      "capturedAt": "2026-11-25T01:30:36.811Z",
+      "defaultBranch": "master",
+      "headSha": "13217d9902f240d34ac085406ddcdb92e2a1f223",
+      "commits": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-15",
+      "lastMeaningfulCommitAt": "2026-09-15",
+      "lastMeaningfulCommitSha": "7295722bbfeb59d3e3a7cfc7b20b44857fd65ef9"
     }
   }
 }
