@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T03:00:01.000Z",
+  "capturedAt": "2026-11-25T03:05:19.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3015,6 +3015,32 @@
       "lastMeaningfulCommitAt": "2026-08-19",
       "lastMeaningfulCommitSha": "b75d0264c1f4ce33cd632efcaf18e2fe7c1737eb",
       "notes": "Canonical successor to kamratia1/pybis2spice with shared older history; the August 2026 v1.3.0 release-candidate integration adds ngspice export and refactors the model interface. Follow-up executable distribution fixes are retained. The renewed public maintenance period is short; the predecessor is not a second project or activity record."
+    },
+    "pexengine": {
+      "kind": "github",
+      "repository": "1amageek/PEXEngine",
+      "repositoryId": 1159136951,
+      "capturedAt": "2026-11-25T03:05:19.000Z",
+      "defaultBranch": "main",
+      "headSha": "af89be07e9a5f87e945993860442851e1c69c3e3",
+      "commits": [
+        0,
+        0,
+        3,
+        0,
+        0,
+        24,
+        6,
+        30,
+        2,
+        0,
+        41,
+        0
+      ],
+      "lastCommitAt": "2026-10-21",
+      "lastMeaningfulCommitAt": "2026-10-20",
+      "lastMeaningfulCommitSha": "b1bbf83af9218590ff47bb6c8c31482a1dd03bb0",
+      "notes": "October 20 implements controlled standard parasitic parsing and writing with cumulative resource accounting. October 19 introduces public dependency pins and source-bound native extraction; October 21 dependency alignment is the later raw activity. Actual builds and accuracy were not independently verified."
     }
   }
 }

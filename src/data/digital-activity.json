@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:53:07.000Z",
+  "capturedAt": "2026-11-25T03:05:19.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2911,6 +2911,31 @@
       "lastCommitAt": "2026-11-21",
       "lastMeaningfulCommitAt": "2026-10-23",
       "lastMeaningfulCommitSha": "3953953c3b9a19c90486b0c271b5acdd025a3f3a"
+    },
+    "vyges-extract": {
+      "kind": "github",
+      "repository": "vyges-tools/extract",
+      "repositoryId": 1254677675,
+      "capturedAt": "2026-11-25T03:05:19.000Z",
+      "defaultBranch": "main",
+      "headSha": "487e8f01cc93de56ebef9e22311d9c917b95a305",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        16,
+        41,
+        57,
+        4,
+        32,
+        13
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-08",
+      "lastMeaningfulCommitSha": "76d3368dfa18e4e8d6c9b1635c606a792e4a7139"
     }
   }
 }

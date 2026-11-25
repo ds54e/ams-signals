@@ -1,5 +1,11 @@
 [
   {
+    "project": "pexengine",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Multi-backend parasitic extraction, native RC calculation and normalized SPICE backannotation."
+  },
+  {
     "project": "pybis2spice",
     "date": "2026-11-25",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-11-25",
     "kind": "updated",
     "summary": "Finite center-tap termination impedance in differential network postprocessing."
-  },
-  {
-    "project": "cobra",
-    "date": "2026-11-25",
-    "kind": "updated",
-    "summary": "Cross-type linked parameters, invalid-goal penalties and simulator timeout handling."
   }
 ]
