@@ -1,10 +1,10 @@
 // Manual only. Checked-in data remains the build source; no network calls during checks.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseFrontmatter } from 'astro/markdown';
+import { readCatalogProjects } from './lib/catalog-input.mjs';
 import { activityMonths, countActivity } from '../src/lib/catalog-activity.ts';
 import { assertRepositoryIdentity, verifyMeaningfulCommit } from './strict-activity-support.mjs';
 import { githubMetadata, planActivityRegistration, preserveUnselectedCapture } from './activity-registration.mjs';
@@ -16,11 +16,7 @@ const run = async (command, args) => (await exec(command, args, {
 export async function refreshStrictCatalog({
   domain, activitySchema, validateActivity, validateCatalog, reviewedFork = () => false,
 }) {
-  const directory = new URL(`../src/content/${domain}/`, import.meta.url);
-  const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
-    const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
-    return { id: file.slice(0, -3), data: frontmatter, body: content };
-  }));
+  const projects = await readCatalogProjects(new URL(`../src/content/${domain}/`, import.meta.url));
   validateCatalog(projects);
   const destination = new URL(`../src/data/${domain}-activity.json`, import.meta.url);
   const previous = activitySchema.parse(JSON.parse(await readFile(destination, 'utf8')));

@@ -1,10 +1,10 @@
 // Manual only: never imported by a build, check, or browser entry point.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseFrontmatter } from 'astro/markdown';
+import { readCatalogProjects } from './lib/catalog-input.mjs';
 import { activityMonths, countActivity } from '../src/lib/analog/activity.ts';
 import { activitySchema, validateActivity, validateCatalog } from '../src/lib/analog/schema.ts';
 import { githubMetadata, planActivityRegistration, preserveUnselectedCapture } from './activity-registration.mjs';
@@ -13,11 +13,7 @@ const exec = promisify(execFile);
 const run = async (command, args) => (await exec(command, args, {
   timeout: 120_000, maxBuffer: 32 * 1024 * 1024, env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
 })).stdout;
-const directory = new URL('../src/content/analog/', import.meta.url);
-const projects = await Promise.all((await readdir(directory)).filter((file) => file.endsWith('.md')).map(async (file) => {
-  const { frontmatter, content } = parseFrontmatter(await readFile(new URL(file, directory), 'utf8'));
-  return { id: file.slice(0, -3), data: frontmatter, body: content };
-}));
+const projects = await readCatalogProjects(new URL('../src/content/analog/', import.meta.url));
 const updates = JSON.parse(await readFile(new URL('../src/data/analog-updates.json', import.meta.url), 'utf8'));
 validateCatalog(projects, updates);
 const destination = new URL('../src/data/analog-activity.json', import.meta.url);
