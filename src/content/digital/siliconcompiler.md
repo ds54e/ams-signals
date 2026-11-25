@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source Python build framework and releases; selected EDA tools, licenses, device data and PDKs are separate requirements."
 addedAt: "2026-09-06"
-reviewedAt: '2026-10-23'
+reviewedAt: "2026-11-25"
 sources:
   - id: "official"
     title: "Official SiliconCompiler documentation"
@@ -80,6 +80,15 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/siliconcompiler/siliconcompiler/blob/de6aa298786c1d02510489f0d6f673be3f2d2c6a/tests/apps/test_sc_install.py"
+  - id: spef-scene-fix
+    title: "November 18 OpenROAD SPEF scene/corner compatibility"
+    url: "https://github.com/siliconcompiler/siliconcompiler/commit/01c628717bba711b4f75719f3ca827eb8c544e04"
+  - id: spef-scene-retained
+    title: "Retained version-aware SPEF read adapter"
+    url: "https://github.com/siliconcompiler/siliconcompiler/blob/1099d324557ff7ceba7a9a546d15bc39b82c27ae/siliconcompiler/tools/openroad/scripts/apr/sc_write_data.tcl"
+  - id: release-0390
+    title: "SiliconCompiler v0.39.0 release"
+    url: "https://github.com/siliconcompiler/siliconcompiler/releases/tag/v0.39.0"
 ---
 
 ### Implementation context
@@ -94,7 +103,7 @@ ASIC flows coordinate synthesis, floorplanning, placement, clock-tree synthesis,
 
 Reviewed October 1, 2026 at `33c80f6558823e8c6d20d5ca2ee3969f9502dcbd`. The October 1 first-parent merge introduces stable collection identities for data roots and uses them in file resolution and curation, with cross-library collision and portability tests. This is substantive build-artifact correctness, separate from version automation. [Current project source](#source-readme); [meaningful activity](#source-activity-refresh).
 
-The latest stable release is **0.38.9**, published September 21. The reviewed main branch includes subsequent fixes; release 0.38.9 added build-directory reuse changes and explicit rectilinear-floorplan support. [Stable release](#source-release).
+The previously reviewed stable release 0.38.9, published September 21, added build-directory reuse changes and explicit rectilinear-floorplan support. The November 19 v0.39.0 release supersedes that release checkpoint. [Stable release](#source-release).
 
 ### Scope classification
 
@@ -107,3 +116,9 @@ All runtime stage AI booleans are false. Accepting a machine-learning model as a
 The cited Claude-credited work adds optional post-route task controls, defaults and sequencing around existing OpenROAD repair operations, with subsequent adapter cleanup. These credited retained executable controls support AI-assisted development. [Post-route controls](#source-development-1) · [Adapter follow-up](#source-development-2) · [Routing flow](#source-development-3).
 
 Claude is credited for correcting executable Python tests for Yosys v0.70 tool manifests and synthesis warning counts. The canonical project retains the test logic. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Reviewed implementation update, November 25, 2026
+
+November 18 adapts the OpenROAD SPEF loading script to the read_spef option change from -corner to -scene. The retained script selects -scene for OpenROAD 26Q4-2280 and later, and -corner for earlier versions, preserving per-scenario parasitic inputs. This is concrete toolchain compatibility maintenance, not a new RC extraction or STA algorithm. The November 19 v0.39.0 release is separate release evidence. [Adapter change](#source-spef-scene-fix) · [Retained script](#source-spef-scene-retained) · [Release](#source-release-0390).
+
+The selected meaningful checkpoint in the existing capture is 2026-11-18 UTC. Source and retained test code were inspected; no EDA, solver or regression run was independently performed.

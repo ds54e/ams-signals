@@ -18,7 +18,7 @@ developmentEvidence:
   reviewedAt: "2026-10-01"
 access: "Public source academic compiler; optional simulation, model-checking, visualization and FPGA evaluation tools have separate installation requirements."
 addedAt: "2026-09-06"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "official"
     title: "Official Dynamatic documentation"
@@ -79,6 +79,15 @@ sources:
   - id: "activity-current"
     title: "Cross-type-system HLS fuzzer transfer functions"
     url: "https://github.com/EPFL-LAP/dynamatic/commit/f0323e259969b73e010e2d0c7315e85b6cc4db79"
+  - id: smv-units
+    title: "November 19 SMV arithmetic unit models and parameter corrections"
+    url: "https://github.com/EPFL-LAP/dynamatic/commit/eae25de8e680b8c23c65312ad51d3f9827224468"
+  - id: smv-tests
+    title: "Retained SMV unit-generator test script"
+    url: "https://github.com/EPFL-LAP/dynamatic/blob/eae25de8e680b8c23c65312ad51d3f9827224468/experimental/tools/unit-generators/smv/test.sh"
+  - id: smv-max
+    title: "Retained signed maximum unit model"
+    url: "https://github.com/EPFL-LAP/dynamatic/blob/eae25de8e680b8c23c65312ad51d3f9827224468/experimental/tools/unit-generators/smv/generators/arith/maxsi.py"
 ---
 
 ### Implementation context
@@ -110,3 +119,9 @@ Reviewed 2026-10-01: **AI-ASSISTED**. The explicitly assisted feature adds contr
 ### Current activity review
 
 Reviewed 2026-10-05. The HLS fuzzer adds transfer-function support across composed type systems and corresponding unit coverage. These deterministic compiler-test mechanics do not introduce an AI stage. [Reviewed change](#source-activity-current).
+
+### Reviewed implementation update, November 25, 2026
+
+November 19 extends the experimental SMV unit generator with signed min/max and unsigned integer-to-floating-point operation models, corrects arithmetic width parameters and the latency-one delay-buffer stage name, and extends the generator test script. Some operations are tested in abstract-data mode, which is not evidence of bit-accurate floating-point semantics. This extends the model-checking infrastructure used with the dataflow compiler, rather than establishing universal C-to-RTL equivalence. [Unit changes](#source-smv-units) · [Test script](#source-smv-tests) · [Example model](#source-smv-max).
+
+The selected meaningful checkpoint in the existing capture is 2026-11-19 UTC. Source and retained test code were inspected; no EDA, solver or regression run was independently performed.

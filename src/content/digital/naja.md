@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public Apache-2.0 source and najaeda Python wheels; source builds require the documented frontend and native-library dependencies."
 addedAt: "2026-10-05"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "site"
     title: "Official najaeda Python API documentation"
@@ -51,6 +51,18 @@ sources:
   - id: "companion-scope-benchmark"
     title: "Separate naja-scope agent comparison harness and reporting limits"
     url: "https://github.com/keplertech/naja-scope/blob/6e8a92009ac3c2b73ec948d05202dd8166d6e046/benchmarks/README.md"
+  - id: async-reset-fix
+    title: "November 13 mixed-bit asynchronous reset lowering repair"
+    url: "https://github.com/keplertech/naja/commit/ad1985445794721b43fda405ec1c79e9e1961ccd"
+  - id: async-reset-test
+    title: "Retained mixed and constant-driven reset regressions"
+    url: "https://github.com/keplertech/naja/blob/f1db5dd29cea5343c036d2c4413d6ccbdfd40557/test/najaeda/test_najaeda_determinism.py"
+  - id: vhdl-conversions
+    title: "November 19 VHDL scalar conversions and vector visibility"
+    url: "https://github.com/keplertech/naja/commit/f1db5dd29cea5343c036d2c4413d6ccbdfd40557"
+  - id: vhdl-conversion-test
+    title: "Retained VHDL conversion cases"
+    url: "https://github.com/keplertech/naja/blob/f1db5dd29cea5343c036d2c4413d6ccbdfd40557/test/nl/formats/vhdl/VHDLConstructorTest.cpp"
 ---
 
 ### Implementation and scope
@@ -81,3 +93,9 @@ Claude is credited in a canonical implementation change that releases parameter 
 
 
 The canonical repository moved from `najaeda/naja` to `keplertech/naja` with GitHub repository ID 414906187 unchanged. Source links now use that canonical owner; the move does not independently establish new implementation activity.
+
+### Reviewed implementation update, November 25, 2026
+
+November 13 repairs SystemVerilog asynchronous reset lowering for mixed reset bit values, clock-edge handling and supported constant aliases. November 19 corrects VHDL scalar type/subtype conversion and logic-vector visibility, with tests covering conversions without numeric_std and preservation of values in supported conversions. These are targeted HDL-to-netlist semantic repairs. They do not establish full VHDL, SystemVerilog or sequential-equivalence conformance. The distinct companion verification and agent interfaces retain their existing boundaries. [Reset correction](#source-async-reset-fix) · [Reset regression](#source-async-reset-test) · [VHDL correction](#source-vhdl-conversions) · [Conversion tests](#source-vhdl-conversion-test).
+
+The selected meaningful checkpoint in the existing capture is 2026-11-19 UTC. Source and retained test code were inspected; no EDA, solver or regression run was independently performed.

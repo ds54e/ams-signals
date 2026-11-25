@@ -796,8 +796,9 @@
         90
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-01",
-      "lastMeaningfulCommitSha": "33c80f6558823e8c6d20d5ca2ee3969f9502dcbd"
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "01c628717bba711b4f75719f3ca827eb8c544e04",
+      "notes": "November 18 implements OpenROAD version-aware SPEF loading (-scene versus -corner). November 19 version and dependency updates remain separate raw/release evidence."
     },
     "amaranth": {
       "kind": "github",
@@ -846,8 +847,9 @@
         34
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "f0323e259969b73e010e2d0c7315e85b6cc4db79"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "eae25de8e680b8c23c65312ad51d3f9827224468",
+      "notes": "November 19 adds experimental SMV arithmetic unit models, corrects generator parameters and buffer naming, and extends generator tests. Abstract-data paths do not establish bit-accurate arithmetic or full equivalence."
     },
     "rggen": {
       "kind": "github",
@@ -1058,8 +1060,9 @@
         1
       ],
       "lastCommitAt": "2026-11-17",
-      "lastMeaningfulCommitAt": "2026-07-30",
-      "lastMeaningfulCommitSha": "a7c9f131abda9edb5d22934b159e9f0f543ab793"
+      "lastMeaningfulCommitAt": "2026-11-17",
+      "lastMeaningfulCommitSha": "e1bca4bf6779ccc98b5099f9a2284ca3b0bef637",
+      "notes": "November 17 reworks auxin data and numerical conversion, Cider serialization and data-directory format, with retained parser tests and fixed-point CLI."
     },
     "icrtl-benchmark": {
       "kind": "github",
@@ -1158,8 +1161,9 @@
         31
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-09",
-      "lastMeaningfulCommitSha": "545ebd99803d301bdb46b4f326998945df83aa28"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "f1db5dd29cea5343c036d2c4413d6ccbdfd40557",
+      "notes": "November 13 fixes mixed-bit asynchronous reset lowering; November 19 fixes VHDL scalar and vector conversion/visibility with retained regression coverage. No independent HDL equivalence or simulation campaign was performed."
     },
     "lazyverilog": {
       "kind": "github",
@@ -1638,8 +1642,9 @@
         2
       ],
       "lastCommitAt": "2026-11-02",
-      "lastMeaningfulCommitAt": "2026-08-19",
-      "lastMeaningfulCommitSha": "45725dff360ce8a5242a6579d98bed8faeac8df3"
+      "lastMeaningfulCommitAt": "2026-10-29",
+      "lastMeaningfulCommitSha": "aa34c10d164ae9c077ed9636b3cb6dcb404e41fa",
+      "notes": "October 24 corrects transition-fault grading during slow scan unload; October 29 adds constant-D flip-flop scan insertion and matching scan-check/simulation eligibility, with regressions. Later benchmark documentation remains separate."
     },
     "fcovlint": {
       "kind": "github",
@@ -2066,8 +2071,9 @@
         5
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-10-23",
-      "lastMeaningfulCommitSha": "213618ab43b686638865fdf687c59b410da1f28f"
+      "lastMeaningfulCommitAt": "2026-11-09",
+      "lastMeaningfulCommitSha": "6d341dff1e261e26247d6245fcac8ae717ec4f86",
+      "notes": "November 9 corrects URL provider option alias serialization and adds a user-agent regression. Subsequent test discovery/CI cleanup remains raw activity."
     },
     "spinalhdl": {
       "kind": "github",

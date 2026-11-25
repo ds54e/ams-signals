@@ -11,7 +11,7 @@ scope:
     ai: false
 access: "Public Rust compiler, interpreter and debugger; external RTL simulation and implementation tools are configured separately."
 addedAt: "2026-09-22"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-25"
 sources:
   - id: "official"
     title: "Official Calyx website"
@@ -39,6 +39,15 @@ sources:
   - id: "debugger"
     title: "Cider user-facing stepping, breakpoints and state inspection"
     url: "https://github.com/calyxir/calyx/blob/d6bcdc8707fe2f024a7b18a86523bda6f770186a/docs/debug/cider.md"
+  - id: auxin-update
+    title: "November 17 auxin data conversion and serialization changes"
+    url: "https://github.com/calyxir/calyx/commit/e1bca4bf6779ccc98b5099f9a2284ca3b0bef637"
+  - id: auxin-format
+    title: "Retained plain-text data-directory header and tests"
+    url: "https://github.com/calyxir/calyx/blob/e1bca4bf6779ccc98b5099f9a2284ca3b0bef637/tools/auxin/formats/src/dat_dir.rs"
+  - id: auxin-repl
+    title: "Retained fixed-point number CLI"
+    url: "https://github.com/calyxir/calyx/blob/e1bca4bf6779ccc98b5099f9a2284ca3b0bef637/tools/fixed_cli/src/main.rs"
 ---
 
 ### Implementation context
@@ -54,3 +63,9 @@ Reviewed October 1, 2026 at `d6bcdc8707fe2f024a7b18a86523bda6f770186a`. The Augu
 Design covers the explicit hardware IR and compiler construction surface. Synthesis covers optimization and lowering from accelerator descriptions to RTL, without gate-level technology mapping or Layout. Verification covers Cider execution and its interactive debugger: users can step clock ticks, break on control groups and inspect ports, registers and memories. This is a documented design-debugging surface, not merely internal regression machinery. [Interpreter](#source-interpreter); [debugger](#source-debugger).
 
 The reviewed compiler and interpreter are conventional; all runtime AI flags remain false. The reviewed primary sources do not establish qualifying AI implementation provenance.
+
+### Reviewed implementation update, November 25, 2026
+
+November 17 reworks auxin's memory-data and numeric conversion APIs, separates Cider serialization into its own crate, changes the data-directory header format, and adds a fixed-point/type parsing REPL. JSON output expectations are flattened to one-dimensional arrays, so consumers of older shaped output need to check the new format. The retained header parser has tests including property-based cases. These are user-facing data interchange and verification-tool maintenance, not a new synthesis optimization or independently measured speedup. [Integrated change](#source-auxin-update) · [Format implementation](#source-auxin-format) · [Number CLI](#source-auxin-repl).
+
+The selected meaningful checkpoint in the existing capture is 2026-11-17 UTC. Source and retained test code were inspected; no EDA, solver or regression run was independently performed.
