@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T05:10:58.170Z",
+  "capturedAt": "2026-11-25T06:27:35.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3171,6 +3171,58 @@
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "9494dee471f469c481c77246cb5110ecd32073ec",
       "notes": "First-parent committer history includes development predating the repository's reviewed public availability; it does not establish historical public landing dates."
+    },
+    "tcadopt": {
+      "kind": "github",
+      "repository": "rskrishna2004/tcad-optimization-engine",
+      "repositoryId": 1301550636,
+      "capturedAt": "2026-11-25T06:27:35.000Z",
+      "defaultBranch": "main",
+      "headSha": "ad6db019492d0caeb56259a78ecbb10369562daa",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        1,
+        1,
+        1
+      ],
+      "lastCommitAt": "2026-11-19",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "ad6db019492d0caeb56259a78ecbb10369562daa",
+      "notes": "September 11 integrates staged BSIM-CMG extraction, HSPICE evaluation and identifiability; November 19 merges v1.2.0 with per-curve guards, dependency analysis and shared-parameter trade-off scans."
+    },
+    "acm-fit": {
+      "kind": "github",
+      "repository": "SJTU-YONGFU-RESEARCH-GRP/acm-fit",
+      "repositoryId": 1351701080,
+      "capturedAt": "2026-11-25T06:27:35.000Z",
+      "defaultBranch": "main",
+      "headSha": "9667c2db99f44762a4d39663e59dbeb900fcf978",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        11,
+        6,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-07",
+      "lastMeaningfulCommitAt": "2026-09-05",
+      "lastMeaningfulCommitSha": "b4329b60cc0f964aee47616126f56994ce2239c0",
+      "notes": "September 2 adds benchmark checkpoint reconstruction and completed-target handling; September 5 repairs model-tier profile resolution. September 7 figure generation is the later raw date; public maintenance is concentrated around the release."
     }
   }
 }
