@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-24",
-  "capturedAt": "2026-11-24T11:01:07.158Z",
+  "reviewedAt": "2026-11-25",
+  "capturedAt": "2026-11-25T02:42:42.730Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2839,6 +2839,81 @@
       "lastCommitAt": "2026-11-17",
       "lastMeaningfulCommitAt": "2026-11-17",
       "lastMeaningfulCommitSha": "0ffdd4b284af6a56f18b630e6c51ae3c1c4e9067"
+    },
+    "pcb-em-lab": {
+      "kind": "github",
+      "repository": "gerhardmalberg/pcb-em-lab",
+      "repositoryId": 1439028024,
+      "capturedAt": "2026-11-25T02:41:17.424Z",
+      "defaultBranch": "main",
+      "headSha": "aa11742b218727fb48810b759712b87a9ba46308",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        7
+      ],
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-01",
+      "lastMeaningfulCommitSha": "95f462d33c7b82cd9a4eaaacf58773803b672919"
+    },
+    "pcb-thermal-lab": {
+      "kind": "github",
+      "repository": "gerhardmalberg/pcb-thermal-lab",
+      "repositoryId": 1440743413,
+      "capturedAt": "2026-11-25T02:41:17.428Z",
+      "defaultBranch": "main",
+      "headSha": "df0f63b753a11d865cbe7128c5cdfece37c38258",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        6
+      ],
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "df0f63b753a11d865cbe7128c5cdfece37c38258"
+    },
+    "3d-ice": {
+      "kind": "github",
+      "repository": "esl-epfl/3d-ice",
+      "repositoryId": 150560837,
+      "capturedAt": "2026-11-25T02:41:30.586Z",
+      "defaultBranch": "master",
+      "headSha": "a9875356a636ea0a06691a7abb2a68c0a6b35818",
+      "commits": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        7,
+        3,
+        1,
+        0,
+        0,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-12",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "a9875356a636ea0a06691a7abb2a68c0a6b35818"
     }
   }
 }

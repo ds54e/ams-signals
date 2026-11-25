@@ -1,20 +1,20 @@
 [
   {
-    "project": "gnucap-modelgen-verilog",
-    "date": "2026-10-31",
+    "project": "pcb-em-lab",
+    "date": "2026-11-25",
     "kind": "added",
-    "summary": "Behavioral-model compilation with pending-event and delay corrections for Gnucap."
+    "summary": "KiCad-to-Palace electromagnetic simulation and network extraction for PCB geometries."
   },
   {
-    "project": "vera",
-    "date": "2026-10-31",
+    "project": "pcb-thermal-lab",
+    "date": "2026-11-25",
     "kind": "added",
-    "summary": "Verilog-A/AMS device compilation with explicit fixture-runner and OSDI boundaries."
+    "summary": "PCB heat-conduction simulation with KiCad geometry, Gmsh meshes and Elmer FEM."
   },
   {
-    "project": "spicebind",
-    "date": "2026-10-31",
+    "project": "3d-ice",
+    "date": "2026-11-25",
     "kind": "added",
-    "summary": "VPI mixed-signal co-simulation with HDL/ngspice timestep synchronization."
+    "summary": "Compact steady and transient thermal simulation for IC stacks and floorplans."
   }
 ]
