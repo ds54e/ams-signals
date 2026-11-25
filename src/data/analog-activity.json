@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T06:41:11.000Z",
+  "capturedAt": "2026-11-25T06:50:11.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3327,6 +3327,84 @@
       "lastMeaningfulCommitAt": "2026-11-07",
       "lastMeaningfulCommitSha": "13c3583cd2416dcb527d2e5ffd8447ae727fa129",
       "notes": "September 28 adds routing checks around antennas and ESD clamps. November 7 corrects clamp ground-port naming and adds native ngspice regressions; November 17 dependency updates are the later raw checkpoint."
+    },
+    "pcb-pi-lab": {
+      "kind": "github",
+      "repository": "gerhardmalberg/pcb-pi-lab",
+      "repositoryId": 1448788707,
+      "capturedAt": "2026-11-25T06:50:11.000Z",
+      "defaultBranch": "main",
+      "headSha": "8b57a4f70e175a6f37477bf7a177d2b9454e33b4",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-15",
+      "lastMeaningfulCommitAt": "2026-11-15",
+      "lastMeaningfulCommitSha": "8b57a4f70e175a6f37477bf7a177d2b9454e33b4",
+      "notes": "November 7 publishes standalone PDN and electrothermal workflow; November 15 adds CUDA field solves and backend validation. Short public history."
+    },
+    "pdn-toolkit": {
+      "kind": "github",
+      "repository": "Tomer-Harari/pdn-toolkit",
+      "repositoryId": 1323999427,
+      "capturedAt": "2026-11-25T06:50:11.000Z",
+      "defaultBranch": "main",
+      "headSha": "c398f0d81b4c531a54eb7df903c11a51bd92da6b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-19",
+      "lastMeaningfulCommitAt": "2026-08-19",
+      "lastMeaningfulCommitSha": "c398f0d81b4c531a54eb7df903c11a51bd92da6b",
+      "notes": "August 19 adds bias derating and cached-admittance search, then corrects infeasible frequency-band handling after the August 5 initial implementation."
+    },
+    "tpt-electronics": {
+      "kind": "github",
+      "repository": "tpt-solutions/tpt-electronics",
+      "repositoryId": 1336600405,
+      "capturedAt": "2026-11-25T06:50:11.000Z",
+      "defaultBranch": "master",
+      "headSha": "1bf8a17befa9368ec031da3ba091b6b30b754f9c",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        15,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-26",
+      "lastMeaningfulCommitAt": "2026-09-26",
+      "lastMeaningfulCommitSha": "e234d1ee5e6686721777ad6118303b633e08cf1c",
+      "notes": "September 15 publishes multi-crate implementation, September 25 adds CLI/WASM analysis paths, September 26 adds elliptic synthesis and reference checks. Later CI changes are the raw checkpoint."
     }
   }
 }
