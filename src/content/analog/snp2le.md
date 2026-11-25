@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation; scikit-rf and numerical packages are required, with PySide6 for the GUI and Xschem/simulators for optional testbench runs."
 addedAt: "2026-10-22"
-reviewedAt: '2026-11-24'
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -55,6 +55,12 @@ sources:
   - id: dc-pin-check
     title: "Sampled DC pin acceptance checks"
     url: "https://github.com/iic-jku/snp2le/blob/95fe03dab6df86fdb7369a9d8daef6cc018714af/snp2le/core/dcpin.py"
+  - id: convex-integration
+    title: "November 18 integration of bounded-real convex passive refit"
+    url: "https://github.com/iic-jku/snp2le/commit/b0db91d696fc81ce66d9d447550694558a9d1db9"
+  - id: convex-review-fixes
+    title: "Follow-up regression and diagnostic corrections"
+    url: "https://github.com/iic-jku/snp2le/commit/95fe03dab6df86fdb7369a9d8daef6cc018714af"
 ---
 
 ### Implemented operations and boundaries
@@ -69,10 +75,14 @@ The November source adds Xyce export and a bounded-real convex refit of residues
 
 The exposed operations support Simulation. The reviewed operations are conventional; a CLI, API, MCP interface or software-development assistance alone does not add a runtime AI prefix.
 
-The meaningful checkpoint is 2026-10-18T17:35:20Z (`446e2b3b5c2cdfea4b508455a4470b77557f543c`), reviewed independently from later cosmetic or version-only changes. [Implementation activity](#source-activity).
+The October 18 batch/fit correction remains earlier substantive evidence. The November 18 convex-refit merge supersedes it as the meaningful checkpoint in the existing capture. [Earlier implementation](#source-activity) · [Convex integration](#source-convex-integration).
 
 Review was static: public implementation and published tests/documentation were inspected. No external EDA, model/API benchmark, foundry qualification or numerical-accuracy experiment was independently rerun.
 
 ### Development provenance
 
 Claude is co-credited for correcting S-parameter plotting on PySide6 builds that return list-valued selector data. The canonical plot view retains handling of both tuples and lists. This supports AI-ASSISTED. [Credited change](#source-development-code-20261022) · [Retained implementation](#source-development-retained-20261022).
+
+### November maintenance
+
+November 18 integrates the bounded-real convex refit of residues and the constant term, with further tests and CLI diagnostic corrections at the captured head. The default 100-state limit bounds use of this method; larger models use the alternative perturbation path. The refit does not establish passivity after the optional DC overlay or independent thermal-noise accuracy. [Integration](#source-convex-integration) · [Follow-up tests](#source-convex-review-fixes).

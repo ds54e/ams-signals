@@ -8,7 +8,7 @@ scope:
     ai: false
 access: "Public C++ implementation; its MPI/MFEM/libCEED-based build or supported packaged environment and prepared meshes are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -45,6 +45,18 @@ sources:
   - id: "release-20261115"
     title: "Palace v0.19.0 stable release"
     url: "https://github.com/awslabs/palace/releases/tag/v0.19.0"
+  - id: adaptive-certification
+    title: "November 19 integration of adaptive sweep PROM certification"
+    url: "https://github.com/awslabs/palace/commit/0ed2f3306d0ca4755296a2edcd5c6e0635b3e623"
+  - id: adaptive-driver
+    title: "Retained certification and full-order fallback"
+    url: "https://github.com/awslabs/palace/blob/49bb1d479c2dfa1fc517bea578afeb969929333f/palace/drivers/drivensolver.cpp"
+  - id: adaptive-tests
+    title: "Retained reduced-model and certification tests"
+    url: "https://github.com/awslabs/palace/blob/49bb1d479c2dfa1fc517bea578afeb969929333f/test/unit/test-romoperator.cpp"
+  - id: parallel-mesh
+    title: "November 19 parallel nonconforming mesh I/O"
+    url: "https://github.com/awslabs/palace/commit/158836ecbd371d189b378806b21010b1d7c872c5"
 ---
 
 ### Implemented operations and boundaries
@@ -66,3 +78,7 @@ Review was static: public implementation and published tests/documentation were 
 The November 13 main revision matches saved and PROM frequencies to the nearest sampled frequency before exact index scans. This prevents driven sweeps from aborting when overlapping sample ranges differ only by floating-point rounding. The regression uses adjacent representable values and checks both saved and PROM indices. This is conventional Simulation maintenance. [Repair](#source-activity-20261115); [implementation](#source-config-20261115); [regression](#source-tests-20261115).
 
 The latest verified stable release is v0.19.0, published November 3; the reviewed repair follows that tag. Current source requires CMake 3.27 or newer, a C++20 compiler, MPI and BLAS/LAPACK; GPU execution additionally requires CUDA or ROCm. The finite-element dependencies and prepared-mesh/convergence requirements remain. This static review did not build Palace, acquire its dependencies or run its numerical tests. [Stable release](#source-release-20261115); [requirements](#source-requirements-20261115).
+
+### November 19 implementation
+
+The adaptive driven sweep uses a projection-based reduced-order model (PROM) solution as the initial guess of a full-order solve. Certification requires convergence and a sufficiently small correction; failed certification falls back to a solve from zero. Tests distinguish the solver tolerance, correction limit and basis dependence. The same day integrates parallel I/O for supported adapted nonconforming meshes, avoiding a full mesh gather at the root rank on that path; unsupported meshes retain a gather fallback. November 19 supersedes the November 13 checkpoint in the saved capture. These are development-source changes; no solver run, numerical accuracy or memory benchmark was independently reproduced. [Adaptive integration](#source-adaptive-certification) · [Driver](#source-adaptive-driver) · [Tests](#source-adaptive-tests) · [Mesh integration](#source-parallel-mesh).

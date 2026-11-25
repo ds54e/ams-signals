@@ -36,6 +36,18 @@ sources:
   - id: wasm
     title: "Retained WASM analysis interfaces"
     url: "https://github.com/tpt-solutions/tpt-electronics/blob/1bf8a17befa9368ec031da3ba091b6b30b754f9c/crates/core/tpt-elec-wasm/src/lib.rs"
+  - id: related-pdn-toolkit
+    title: "Related Python lumped PDN and capacitor-bank workflow"
+    url: "https://github.com/Tomer-Harari/pdn-toolkit/blob/c398f0d81b4c531a54eb7df903c11a51bd92da6b/README.md"
+  - id: related-pdn-search
+    title: "Related cost-aware search, pruning and part-number merging"
+    url: "https://github.com/Tomer-Harari/pdn-toolkit/blob/c398f0d81b4c531a54eb7df903c11a51bd92da6b/pdn/optimize.py"
+  - id: related-pdn-tests
+    title: "Related target-mask and infeasibility regression cases"
+    url: "https://github.com/Tomer-Harari/pdn-toolkit/blob/c398f0d81b4c531a54eb7df903c11a51bd92da6b/tests/test_optimize.py"
+  - id: related-pdn-fix
+    title: "August 19 infeasible design-band handling correction"
+    url: "https://github.com/Tomer-Harari/pdn-toolkit/commit/c398f0d81b4c531a54eb7df903c11a51bd92da6b"
 ---
 
 ## Scope and limits
@@ -47,3 +59,7 @@ The filter crate implements elliptic prototype synthesis with vendored SciPy ref
 ## Reviewed maintenance
 
 September 15 publishes the initial solver libraries; September 25 integrates new executable CLI and WASM paths, including PDN analysis; September 26 adds elliptic prototype synthesis and reference checks. Later CI and build changes remain raw history. Public engineering follow-through is concentrated in September and longer-term maintenance remains unestablished. No tests were independently run; no qualifying AI-development attribution was established from the reviewed changes. [Initial code](#source-initial) · [Interface expansion](#source-earlier) · [Retained WASM](#source-wasm) · [Synthesis change](#source-activity).
+
+## Related PDN implementation
+
+The separate Python pdn-toolkit project implements lumped impedance modeling and cost-aware capacitor selection with bias derating, pruning, part-number merging and sampled target-band checks. Its public first-parent history consists of the August 5 initial implementation and two August 19 follow-up changes; the November 25 review found no other public branch, GitHub Release or pull request. Because its main workflow overlaps this broader library's lumped PDN and decoupling search, retain it as a related implementation rather than an independent active listing. This is not a claim that tpt-electronics implements pdn-toolkit's cost-specific methods, that the projects depend on one another, or that development has permanently ended. No numerical or hardware comparison was independently performed. [Related workflow](#source-related-pdn-toolkit) · [Search](#source-related-pdn-search) · [Tests](#source-related-pdn-tests) · [Last technical correction](#source-related-pdn-fix).

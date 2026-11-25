@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public C++/Python/Matlab implementation; CSXCAD and solver build/runtime dependencies are required."
 addedAt: "2026-10-22"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -62,6 +62,15 @@ sources:
   - id: "release-20261115"
     title: "openEMS v0.37.0 stable release"
     url: "https://github.com/thliebig/openEMS/releases/tag/v0.37.0"
+  - id: material-table
+    title: "November 19 material table storage and dense fallback"
+    url: "https://github.com/thliebig/openEMS/commit/29f2b5060ad0ff6bd63834d76c9bd8af09aaadae"
+  - id: memory-guard
+    title: "November 19 mesh memory preflight"
+    url: "https://github.com/thliebig/openEMS/commit/ce1ae2c93419956246d7567008a52f863ad53c00"
+  - id: memory-test
+    title: "Retained insufficient-memory and override regression"
+    url: "https://github.com/thliebig/openEMS/blob/ce1ae2c93419956246d7567008a52f863ad53c00/python/Tests/test_openEMS.py"
 ---
 
 ### Implemented operations and boundaries
@@ -89,3 +98,7 @@ The November 13 master revision corrects `Write2XML()` to serialize a reduced `T
 The latest verified stable release is v0.37.0 (October 9). The later GPU cell-model implementation and experimental CPU engine are unreleased source-tree work. GPU use requires a compatible HIP/CUDA or macOS Metal backend; the GPU engine rejects an extension without a device implementation. The C++17 build still needs CSXCAD, HDF5, zlib and other declared dependencies. No benchmark performance or numerical accuracy was independently reproduced. [Stable release](#source-release-20261115); [unreleased changes](#source-changes-20261115); [build requirements](#source-build-20261115); [GPU implementation](#source-gpu-20261115).
 
 The original Claude Code credit remains supported by the integrated writer change and its retained XML escaping, base64 encoding and zlib compression. Development assistance remains independent of the conventional Simulation workflow. [Credited change](#source-activity); [current retained writer](#source-retained-20261115).
+
+### November 19 resource-management maintenance
+
+November 19 improves storage of repeated effective-material coefficients with a dense fallback for highly varying materials. A further preflight rejects meshes whose minimum estimated engine memory cannot fit the reported available memory, including Linux cgroup limits, before the expensive setup. The regression checks insufficient-memory rejection and an explicit override. The estimate is a lower bound, not a peak-memory guarantee. The final November 19 implementation supersedes the November 13 checkpoint within the saved capture. Performance and numerical results were not independently reproduced. [Material storage](#source-material-table) · [Memory preflight](#source-memory-guard) · [Regression](#source-memory-test).

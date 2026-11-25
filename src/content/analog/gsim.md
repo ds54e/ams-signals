@@ -2,7 +2,7 @@
 name: "gsim"
 aliases: []
 summary: "Simulation interface connecting GDSFactory layouts to electromagnetic solvers through geometry, meshing and port setup."
-description: "Connects GDSFactory layouts to electromagnetic solvers through geometry, meshes, ports and S-parameter extraction. Local Palace execution can fetch a Linux x86_64 CPU runtime; local Meep uses a configured Python environment, while cloud jobs require separate access. The current package still requires GDSFactory 9, with optional FEMwell and DEVSIM workflows."
+description: "Connects GDSFactory layouts to electromagnetic solvers through geometry, meshes, ports, network responses and capacitance/inductance matrices. Palace and Meep support local execution with suitable runtimes; authenticated cloud jobs remain separate. The reviewed package requires GDSFactory 9, with optional FEMwell and DEVSIM workflows."
 scope:
   simulation:
     ai: false
@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public Python implementation requiring Python 3.12 and the declared GDSFactory/GDSFactory+ versions. Local Palace supports a supplied binary or Linux x86_64 runtime download; local Meep requires a suitable Python environment. Authenticated cloud execution and optional solver extras have separate requirements."
 addedAt: "2026-10-22"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -62,6 +62,18 @@ sources:
   - id: meep-local
     title: "Local Meep script execution and S-parameter result loading"
     url: https://github.com/gdsfactory/gsim/blob/af7487391abcf45636cbc9228772e733b7662a8e/src/gsim/meep/simulation.py
+  - id: magnetostatic-integration
+    title: "November 11 magnetostatic simulation and inductance extraction"
+    url: "https://github.com/gdsfactory/gsim/commit/76d4bdcf587e98333337e4c00e362c53eb83bc64"
+  - id: inductance-results
+    title: "Retained inductance matrix loader and checks"
+    url: "https://github.com/gdsfactory/gsim/blob/17326e9f659681fecc57fe159eecabe87d78c059/src/gsim/palace/inductance.py"
+  - id: complex-mode-integration
+    title: "November 17 complex boundary-mode impedance repair"
+    url: "https://github.com/gdsfactory/gsim/commit/46253ac33783f71787cdfbfa1b5dc08ccc0d9c7a"
+  - id: complex-mode-tests
+    title: "Retained complex and legacy impedance regression cases"
+    url: "https://github.com/gdsfactory/gsim/blob/17326e9f659681fecc57fe159eecabe87d78c059/tests/palace/test_complex_mode_impedance.py"
 ---
 
 ### Implemented operations and boundaries
@@ -89,3 +101,7 @@ The optional FEMwell adapter and DEVSIM-based traveling-wave modulator examples 
 ### Local and cloud execution
 
 Palace runtime resolution accepts a user-supplied executable, then supported packaged or cached paths; on Linux x86_64 it can download and cache a prebuilt CPU runtime when enabled. The resolver and launcher expose failures instead of making the cloud service a prerequisite for all Palace work. Local Meep writes a configuration, layout and runner script, executes them with a Python environment containing Meep, and reads S-parameter results; MPI execution additionally needs its launcher. Authenticated cloud submission remains a separate path. [Palace runtime](#source-palace-runtime) · [Local Meep execution](#source-meep-local).
+
+### November implementation
+
+November 11 adds a Palace magnetostatic workflow with current-source setup, inductance matrix loading, self/mutual inductance, coupling and convergence/physical-consistency checks. These are magnetostatic results, not frequency-dependent winding resistance or independently calibrated inductor models. November 17 corrects complex boundary-mode impedance parsing and calculation, retaining legacy scalar input without inventing its missing phase. Tests cover indices, complex values and unavailable-data behavior. November 17 supersedes the earlier checkpoint within the saved capture. The project remains a general simulation interface rather than an independent solver. No Palace run or numerical comparison was independently performed. [Magnetostatic integration](#source-magnetostatic-integration) · [Inductance results](#source-inductance-results) · [Impedance correction](#source-complex-mode-integration) · [Regression cases](#source-complex-mode-tests).

@@ -1267,8 +1267,9 @@
         62
       ],
       "lastCommitAt": "2026-11-17",
-      "lastMeaningfulCommitAt": "2026-10-29",
-      "lastMeaningfulCommitSha": "b5d858801191920ec502fe7a2bedfb4226abfe15"
+      "lastMeaningfulCommitAt": "2026-11-17",
+      "lastMeaningfulCommitSha": "46253ac33783f71787cdfbfa1b5dc08ccc0d9c7a",
+      "notes": "November 11 adds magnetostatic inductance matrices; November 17 fixes complex boundary-mode impedances with regressions. Legacy scalar input cannot recover missing phase. Later documentation remains raw activity."
     },
     "netgen": {
       "kind": "github",
@@ -1343,8 +1344,9 @@
         40
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "fc002359254cda9dfbb5c503cc5933306083eb57"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "ce1ae2c93419956246d7567008a52f863ad53c00",
+      "notes": "November 19 improves material coefficient storage and dense fallback, then adds a minimum-memory preflight with cgroup-aware available memory and regression. This is not a peak-memory guarantee."
     },
     "openlayout": {
       "kind": "github",
@@ -1419,8 +1421,9 @@
         75
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-13",
-      "lastMeaningfulCommitSha": "6e185f2413d6c4c8c16e0953f0be345342a95e95"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "0ed2f3306d0ca4755296a2edcd5c6e0635b3e623",
+      "notes": "November 19 integrates adaptive PROM certification with full-order fallback and regression tests after parallel nonconforming mesh I/O. Later Lookahead build maintenance remains raw activity."
     },
     "reticle": {
       "kind": "github",
@@ -1469,8 +1472,9 @@
         23
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-10-18",
-      "lastMeaningfulCommitSha": "446e2b3b5c2cdfea4b508455a4470b77557f543c"
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "b0db91d696fc81ce66d9d447550694558a9d1db9",
+      "notes": "November 18 integrates bounded-real convex refit of residues and constant term with state limits and later regression/diagnostic corrections. Optional DC overlay has separate sampled acceptance."
     },
     "superpeec": {
       "kind": "github",
@@ -3305,32 +3309,6 @@
       "lastMeaningfulCommitAt": "2026-11-15",
       "lastMeaningfulCommitSha": "8b57a4f70e175a6f37477bf7a177d2b9454e33b4",
       "notes": "November 7 publishes standalone PDN and electrothermal workflow; November 15 adds CUDA field solves and backend validation. Short public history."
-    },
-    "pdn-toolkit": {
-      "kind": "github",
-      "repository": "Tomer-Harari/pdn-toolkit",
-      "repositoryId": 1323999427,
-      "capturedAt": "2026-11-25T06:50:11.000Z",
-      "defaultBranch": "main",
-      "headSha": "c398f0d81b4c531a54eb7df903c11a51bd92da6b",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-08-19",
-      "lastMeaningfulCommitAt": "2026-08-19",
-      "lastMeaningfulCommitSha": "c398f0d81b4c531a54eb7df903c11a51bd92da6b",
-      "notes": "August 19 adds bias derating and cached-admittance search, then corrects infeasible frequency-band handling after the August 5 initial implementation."
     },
     "tpt-electronics": {
       "kind": "github",
