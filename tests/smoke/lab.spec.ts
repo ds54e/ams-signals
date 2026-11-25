@@ -23,7 +23,8 @@ for (const width of [1440, 390, 320]) {
     await recent.first().click();
     expect(new URL(page.url()).hash).toBe(`#${fixture.ordered[0].id}--name`);
     await expect(page.locator(':target')).toHaveText(fixture.ordered[0].name);
-    await expect(page).toHaveTitle('Lab: Board, Test & Measurement · AMS Signals');
+    await expect(page).toHaveTitle('Lab · AMS Signals');
+    await expect(page.getByRole('heading', { level: 1, name: 'Lab', exact: true })).toHaveCount(1);
     const nav = page.getByRole('navigation', { name: 'Primary' });
     await expect(nav.getByRole('link', { name: 'Lab', exact: true })).toHaveAttribute('aria-current', 'page');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);

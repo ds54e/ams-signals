@@ -1,6 +1,6 @@
-# Lab: Board, Test & Measurement
+# Lab catalog
 
-Lab catalogs public technical projects for evaluation boards and fixtures, instrument and DUT control, measurement acquisition and analysis, and test automation. It is independent of the Golden Events corpus. See the [shared catalog contract](../catalog/CONTRACT.md) and [AI-development policy](../AI_DEVELOPMENT.md).
+Lab catalogs public technical projects for evaluation boards and fixtures, instrument and DUT control, measurement acquisition and analysis, and test automation. Its hidden H1 is `Lab` and browser title `Lab · AMS Signals`. It is independent of the Golden Events corpus. See the [shared catalog contract](../catalog/CONTRACT.md) and [AI-development policy](../AI_DEVELOPMENT.md).
 
 Classify by the primary operation and inputs/outputs. A network or EM field solver remains Analog even if it takes board files; an RTL or on-chip DFT tool remains Digital. A program that controls a DUT, acquires measurements or processes tester records belongs in Lab. A GUI and a separately usable API may each have an entry, but shared engines, parsers and instrument stacks are not independent evidence; record their relationships in notes and sources.
 
