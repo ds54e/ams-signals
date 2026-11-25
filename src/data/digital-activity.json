@@ -92,31 +92,6 @@
       "lastMeaningfulCommitAt": "2026-10-09",
       "lastMeaningfulCommitSha": "06dc6d8acc69eae04ea8f9dc8a63a51fe07de1d3"
     },
-    "dr-rtl": {
-      "kind": "github",
-      "repository": "hkust-zhiyao/DR_RTL",
-      "repositoryId": 1221463263,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        0,
-        2,
-        1,
-        2,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-04",
-      "lastMeaningfulCommitAt": "2026-09-04",
-      "lastMeaningfulCommitSha": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b"
-    },
     "eqy": {
       "kind": "github",
       "repository": "YosysHQ/eqy",

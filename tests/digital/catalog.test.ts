@@ -167,7 +167,7 @@ test('Digital classification follows user-facing operations rather than internal
     siliconcompiler: ['synthesis', 'verification', 'layout'],
     amaranth: ['design', 'synthesis', 'verification', 'layout'],
     dynamatic: ['design', 'synthesis', 'verification', 'layout'],
-    'dr-rtl': ['design', 'synthesis', 'verification'],
+    'icrtl-benchmark': ['design', 'synthesis', 'verification'],
     coresmith: ['design', 'synthesis', 'verification', 'layout'],
   };
   for (const [id, expectedStages] of Object.entries(scopes)) assert.deepEqual(stages(projects.find((p) => p.id === id)!.data.scope), expectedStages, id);
@@ -507,7 +507,6 @@ test('GitHub and GitLab render genuine counts oldest-first with equal binary mon
 
 test('Digital AI stages follow implemented decisions rather than MCP or project-wide AI labels', () => {
   const expected = {
-    'dr-rtl': [['design', true], ['synthesis', false], ['verification', false]],
     coresmith: [['design', true], ['synthesis', true], ['verification', true], ['layout', true]],
     'icrtl-benchmark': [['design', true], ['synthesis', false], ['verification', false]],
     'cvdp-benchmark': [['design', true], ['verification', true]],

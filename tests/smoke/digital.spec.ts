@@ -6,7 +6,7 @@ installBrowserErrorGuards(test);
 
 const fixture = await catalogFixture('digital');
 catalogIndexTests(fixture, { design: 'Design', synthesis: 'Synthesis', verification: 'Verification', layout: 'Layout' },
-  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'ucagent', 'coresmith', 'yosys', 'openroad', 'dr-rtl', 'veryl', 'xls',
+  ['surfer', 'pono', 'xezim', 'verilator', 'iverilog-uvm', 'ucagent', 'coresmith', 'yosys', 'openroad', 'icrtl-benchmark', 'veryl', 'xls',
     'spade', 'kanagawa', 'siliconcompiler', 'amaranth', 'dynamatic', 'rggen', 'pyucis', 'slang-server', 'gtkwave']);
 
 catalogSearchRegression(fixture, {
@@ -24,7 +24,7 @@ catalogSearchRegression(fixture, {
   GTKWave: ['gtkwave'],
   Yosys: ['yosys', 'sv-elab', 'uhdm2rtlil', 'spade', 'siliconcompiler', 'amaranth'],
   OpenROAD: ['openroad', 'coresmith', 'siliconcompiler'],
-  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'dr-rtl', 'veryl', 'xls', 'siliconcompiler', 'amaranth'],
+  synthesis: ['yosys', 'sv-elab', 'uhdm2rtlil', 'icrtl-benchmark', 'veryl', 'xls', 'siliconcompiler', 'amaranth'],
   XLS: ['xls'],
   HLS: ['xls', 'kanagawa', 'dynamatic'],
   DSLX: ['xls'],
