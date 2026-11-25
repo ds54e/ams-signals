@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T04:58:09.000Z",
+  "capturedAt": "2026-11-25T05:06:32.007Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2316,6 +2316,81 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "37a638bafc8bf4a03246c81b986fd80d0225b5d7"
+    },
+    "daspi": {
+      "kind": "github",
+      "repository": "j4ggr/DaSPi",
+      "repositoryId": 739054227,
+      "capturedAt": "2026-11-25T05:04:26.977Z",
+      "defaultBranch": "main",
+      "headSha": "186cb5ce348fca4f214742cf92c11634415a985e",
+      "commits": [
+        0,
+        9,
+        4,
+        12,
+        0,
+        5,
+        11,
+        23,
+        0,
+        4,
+        30,
+        4
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-06",
+      "lastMeaningfulCommitSha": "15dee3991a5d7fe4cdf3ea29028e4aa9a981ee04"
+    },
+    "process-capability-analyzer": {
+      "kind": "github",
+      "repository": "DailyDana/process-capability-analyzer",
+      "repositoryId": 1353839478,
+      "capturedAt": "2026-11-25T05:04:19.876Z",
+      "defaultBranch": "main",
+      "headSha": "b71d69e126454484aba5a1ed89125449e94a26a1",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10,
+        6,
+        11
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "dd0435b403d3db179e5a61c6c22952a412e6884f"
+    },
+    "gpsdo-freertos": {
+      "kind": "github",
+      "repository": "jmnlabs/GPSDO_FreeRTOS",
+      "repositoryId": 1259778167,
+      "capturedAt": "2026-11-25T05:05:18.560Z",
+      "defaultBranch": "main",
+      "headSha": "d2908aad8da8e01fdecf6e76456076ff96bc7e6b",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15,
+        11,
+        5,
+        4,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "d2908aad8da8e01fdecf6e76456076ff96bc7e6b"
     }
   }
 }

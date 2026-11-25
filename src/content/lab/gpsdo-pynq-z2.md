@@ -9,7 +9,7 @@ scope:
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude Opus is co-credited for revisions to the board generator that protect terminals during routing and add channel probe access, and for subsequent helper-clock routing corrections. The revised generator and board are retained."
-  sources: [probe-routing, helper-routing, generator, board]
+  sources: [probe-routing, helper-routing, generator]
   reviewedAt: "2026-11-25"
 access: "Hardware CERN-OHL-P-2.0; software MIT, with separately licensed library material. Requires a compatible fabricated front end, PYNQ-Z2, Vivado and separately obtained board support files."
 addedAt: "2026-11-25"
