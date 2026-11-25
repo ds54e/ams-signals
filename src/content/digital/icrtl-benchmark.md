@@ -37,21 +37,15 @@ sources:
     url: "https://github.com/weiber2002/ICRTL-Benchmark/blob/d87c7cfe58ae4af79a4aecf13720b0c6f73df7ae/VCS/eval/eval.py"
 ---
 
-### Benchmark surface
+### Benchmark surface and scope
 
 Ten challenge directories provide problem specifications, testbenches and reference implementations for accelerator, control, compression, geometry and matrix-processing designs. The repository also includes prompts intended for code-generation and PPA experiments. [Reviewed source](#source-readme)
 
-### Evaluation paths
-
 Each problem exposes an open Icarus/Yosys path. A separate commercial harness evaluates RTL simulation, synthesis and power/timing with Synopsys tools; those tools and a foundry library are user-provided rather than bundled. [Reviewed source](#source-readme)
-
-### Scope classification
 
 The released prompts explicitly evaluate model-generated and optimized RTL against specifications and correctness/PPA goals. AI Design identifies that model task. Icarus/Yosys and the optional VCS/DC/PrimeTime flow provide conventional Verification and Synthesis grading; model-authored RTL alone does not give those graders an AI prefix. [Benchmark](#source-readme); [Task contract](#source-task-contract).
 
-### Current-source review
-
-Reviewed 2026-10-01. The task prompt separates model-side RTL optimization and executable-reference comparisons from later HDL-tool evaluation. The benchmark role, rather than inference inside its scripts, is the basis for the AI Design label. [Task contract](#source-task-contract).
+The task prompt separates model-side RTL optimization and executable-reference comparisons from later HDL-tool evaluation. [Task contract](#source-task-contract).
 
 ### Reviewed implementation and retention, November 25, 2026
 

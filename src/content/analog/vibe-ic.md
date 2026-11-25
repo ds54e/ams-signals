@@ -73,22 +73,23 @@ This entry covers the analog path in a larger digital/AMS plugin, not an indepen
 
 The layout skill makes the agent choose matching structures, placement and routing and connect those decisions to implemented Magic layout operations and DRC/LVS workflows, establishing AI Layout. It explicitly distinguishes a scaffold-only MCP layout operation from real authored geometry. The reviewed emitter implements PDK-derived guard-ring layers and bulk-tap search, not merely a layout plan. [Layout workflow](#source-layout) · [Emitter](#source-layout-implementation) · [Guard-ring implementation change](#source-guard-ring)
 
-### Boundaries
+### Evidence and operating boundaries
 
 A green topology-only LVS gate does not prove matched physical placement. The layout workflow requires explicit matching disclosure and distinguishes unmatched-device recipes from common-centroid or interdigitated placement. Extraction may yield capacitance-only output even when an RC recipe is requested; the workflow requires that limitation to be disclosed. Docker, EDA binaries and PDK setup remain substantial prerequisites. No circuit or benchmark run was reproduced for this review. [Layout limits](#source-layout) · [Extraction limits](#source-extraction) · [Setup](#source-readme)
 
 The September 29 first-parent integration adds layout-netlist identity checks, atomic refusal of stale layouts before LVS, and post-layout resimulation provenance. This establishes recent analog implementation activity; the repository-wide latest date also includes digital and infrastructure work. [Meaningful activity](#source-activity)
 
-### Development provenance
-
-Claude Code runtime skills and an AI-native product description do not establish who implemented the software. The separately credited container-setup helper supports AI-assisted development; model-facing interfaces and activity counts are not the attribution basis. [Project description](#source-readme)
-
-### Current implementation and operating boundaries
-
 The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
 
-The implementation review preserves functional Scope. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun.
+
+
+### Maintenance evidence
 
 Maintenance extends beyond the initial release: September's layout-netlist identity repair is followed by October's physical-flow evidence fixes. November 24 adds rejection of incomplete timing-class records and CDC regression cases in the same canonical repository. That later Digital/AMS work supports repository continuity without adding Analog capability or counting as a second project history. [September correction](#source-activity); [October integration](#source-review-20261011-1); [November correction and tests](#source-maintenance-cdc).
+
+### Development provenance
+
+Claude Code runtime skills and an AI-native product description do not establish who implemented the software. [Project description](#source-readme)
 
 Codex is co-credited for implementing an ensure-only container setup mode in the deployment helper. The canonical helper retains validation that requires a distinct source and target and rejects image pulls in this mode. [Credited helper implementation](#source-development-codex) · [Retained guards](#source-development-retained).

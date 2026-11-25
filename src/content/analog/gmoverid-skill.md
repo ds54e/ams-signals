@@ -43,15 +43,11 @@ sources:
     url: "https://github.com/Arcadia-1/gmoverid-skill/blob/30ab431485ed9045d9df8a12bda545e163b6b1d8/sky130-pdk/assets/scs_sky130_to_ngspice_sky130.py"
 ---
 
-### Scope
+### Implemented workflow and scope
 
 The repository ships agent instructions alongside executable characterization, sizing and simulation scripts. `GmIdTable` caches simulated device sweeps and computes widths or operating points from gm/ID, current, transit-frequency or intrinsic-gain targets. SKY130 examples run corner and Monte Carlo jobs and write measurements. [Packages](#source-readme-md) · [Sizing API](#source-gmoverid-assets-design-gmoverid-py) · [Sweep runner](#source-sky130-pdk-assets-run-sky130-five-transistor-ota-pvt-mc-py)
 
-### Classification
-
 Simulation covers device characterization; Design covers lookup-based sizing and operating-point selection, without an autonomous multi-objective optimizer. The Python tools do not host a model themselves; the installed reasoning skill requires a separate model host. Ngspice use alone does not imply EDA-session control. Results depend on the selected models; PTM examples and foundry PDK simulations are distinct environments.
-
-### Scope classification
 
 The installed skill directs a model to select topology, channel length and gm/ID from specifications and trade-offs, supporting AI Design. Its separate characterization self-validation explicitly requires LLM visual physics assessment and diagnosis of suspicious extraction/convergence behavior, supporting AI Simulation. [Runtime skill](#source-runtime-skill)
 

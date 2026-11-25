@@ -57,23 +57,17 @@ sources:
     url: https://github.com/vibeic/vibe-ic/commit/6c1bc41e2dbd07110a6ad169fa7c1e4abfc6668e
 ---
 
-### Staged flow
+### Staged flow and scope
 
-The plugin routes agent-authored RTL through deterministic lint, simulation/formal, synthesis, STA and backend runners instead of accepting a model's self-reported verdict. Stage-specific skills include RTL/testbench/property generation, synthesis diagnosis, timing review, hold repair and physical-verification triage. [Agent guide](#source-agent-guide)
+The plugin routes agent-authored RTL through deterministic lint, simulation/formal, synthesis, STA and backend runners instead of accepting a model's self-reported verdict. Stage-specific skills author and repair RTL, testbenches and properties, diagnose synthesis, review timing, repair hold violations and triage physical verification, establishing AI participation across Design, Verification, Synthesis and Layout. Yosys, SymbiYosys, OpenROAD, KLayout and related tools still provide the executable verdicts. [Agent guide](#source-agent-guide)
 
-### Evidence boundary
+### Evidence and operating boundaries
 
 Open-source tool outputs and explicit compliance gates determine whether artifacts exist and checks passed; the repository also records waived or unavailable paths rather than presenting them as bare passes. Benchmark results are model-plus-plugin datapoints, not isolated model scores. [Reviewed source](#source-readme)
 
-### Scope classification
-
-The agent authors and repairs RTL, testbenches and properties and makes stage-specific synthesis/timing/physical remediation decisions, establishing AI participation across Design, Verification, Synthesis and Layout. Yosys, SymbiYosys, OpenROAD, KLayout and related tools still provide the executable verdicts. [Agent guide](#source-agent-guide)
-
 The repository also contains Analog A1-A9 and mixed-signal tracks. The separately reviewed Analog entry covers its sizing, testbench, simulation and physical-implementation operations. Vibe-IC is an explicit cross-catalog exception: each entry describes only its domain-specific workflow, and shared repository activity is not a second independent project signal. [Reviewed source](#source-readme)
 
-### Implementation and operating boundaries
-
-The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. The Analog and Digital entries keep their own domain coverage while sharing one canonical repository history. [Reviewed implementation integration](#source-review-20261011-1)
+The default physical flow retains completed rows and their inputs through final layout evidence, and its signoff/fill/stream ordering has targeted fixes. Failure handling, retained evidence and process-specific physical acceptance remain separate. [Reviewed implementation integration](#source-review-20261011-1)
 
 The artifact checks do not independently verify every supported technology or commercial flow. Source and regression evidence was inspected; external EDA/model/conformance experiments were not rerun. [Stage contract](#source-agent-guide); [Setup and reported results](#source-readme).
 
