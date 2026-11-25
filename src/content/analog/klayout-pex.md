@@ -1,8 +1,8 @@
 ---
-name: "KLayout-PEX"
-aliases: ["KPEX"]
+name: "KPEX"
+aliases: ["KLayout-PEX"]
 summary: "Connects layout connectivity and process stacks to parasitic extraction and interconnect-model exchange."
-description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. Exclusion markers and model cutouts preserve external coupling while partitioning RC extraction; PEX25D exchange and project-declared Beta status retain backend-specific accuracy limits."
+description: "Layout parasitic extraction infrastructure combining KLayout connectivity and process stacks with Magic, FasterCap and an internal 2.5D engine. PEX25D exchange, RC partitioning and field-solver calibration patterns support extraction development; collecting raw capacitance matrices does not establish coefficient fitting or foundry-qualified accuracy."
 scope:
   layout:
     ai: false
@@ -13,11 +13,11 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public Python implementation under GPL-3.0-or-later, classified Beta by the project since version 0.9.0. Extraction backends, KLayout and process-specific technology/LVS data are required; the internal 2.5D engine remains under development."
 addedAt: "2026-09-07"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "site"
     title: "Official KPEX overview and backend status"
-    url: "https://iic-jku.github.io/klayout-pex-website/"
+    url: "https://iic-jku.github.io/kpex-website/"
     purpose: "official"
   - id: "code"
     title: "Canonical iic-jku repository"
@@ -131,6 +131,24 @@ sources:
   - id: review-20261112-geometry-tests
     title: "Analytical sidewall, rotation and clamp-boundary regressions"
     url: https://github.com/iic-jku/kpex/blob/4f31c972a1140035bdd9603261d45b571ca120af/tests/rcx25/sidewall_and_fringe_extractor_test.py
+  - id: calibration-prepare
+    title: "November 18 first-parent integration of finite calibration patterns"
+    url: https://github.com/iic-jku/kpex/commit/28b7bf65c766ad6bf56adce049566ef6f5e90f4e
+  - id: calibration-execution
+    title: "November 19 first-parent integration of bounded solve and raw matrix collection"
+    url: https://github.com/iic-jku/kpex/commit/2a7c8ed75d0c7c2a0a51212cb0300dbe805a62f8
+  - id: calibration-cli
+    title: "Retained calibration solve and collect commands and numerical limits"
+    url: https://github.com/iic-jku/kpex/blob/dac8e1b9cd5a6f2f082de006e0f1d7e11dc936a6/klayout_pex/calibration/solve_cli.py
+  - id: calibration-tests
+    title: "Retained field-solve and circuit-comparison tests"
+    url: https://github.com/iic-jku/kpex/blob/dac8e1b9cd5a6f2f082de006e0f1d7e11dc936a6/tests/calibration/solve_simulation_test.py
+  - id: rename
+    title: "November 24 canonical project and Python distribution rename"
+    url: https://github.com/iic-jku/kpex/commit/7e61ea020ca67a5281db3a0a7cac55f1a65f2edf
+  - id: renamed-readme
+    title: "Renamed package installation, import compatibility and calibration solver requirements"
+    url: https://github.com/iic-jku/kpex/blob/d48653b8cf465a2e33a40bd6f4e1da316bcae05b/README.md
 ---
 
 ### Implementation context
@@ -185,3 +203,9 @@ Recent extraction work adds exclusion markers, model-cell cutouts and external-c
 ### November 12, 2026 implementation review
 
 The November 11 first-parent integration corrects duplicate halving in directed-edge sidewall capacitance accounting and enforces a minimum Magic backend version, with explicit overrides. Analytical geometry and process fixtures cover the correction, but do not establish calibrated accuracy or signoff readiness. The subsequent 0.9.0 metadata declares Beta rather than Pre-Alpha; that status change is not substituted for implementation freshness. Layout and existing AI-development provenance remain unchanged. [Integrated activity](#source-review-20261112-activity). [Project-declared Beta status in version 0.9.0](#source-review-20261112-status) · [Analytical sidewall, rotation and clamp-boundary regressions](#source-review-20261112-geometry-tests).
+
+### Calibration workflow and project identity
+
+The November 18 and 19 first-parent integrations add `kpex calibrate prepare`, `solve` and `collect`. The workflow constructs finite substrate, parallel-plate, parallel-wire and directional-fringe geometries from the process stack, runs bounded FasterCap field solves and collects typed raw capacitance matrices with explicit incomplete or failed cases. The saved-capture checkpoint is `2a7c8ed75d0c7c2a0a51212cb0300dbe805a62f8` (2026-11-19T21:36:25Z); the following parallel-regression synchronization remains in that capture. These operations prepare physical extraction models and do not independently establish circuit Simulation, numerical qualification, coefficient fitting or updates to installed technology tables. No solver or regression was rerun here. [Pattern integration](#source-calibration-prepare) · [Solve/collect integration](#source-calibration-execution) · [Command boundaries](#source-calibration-cli) · [Retained tests](#source-calibration-tests).
+
+The November 24 project rename is separate from the saved activity capture. The canonical repository remains `iic-jku/kpex` with the same repository identity; the README identifies version 0.12.0 as the transition to the `kpex` distribution and Python imports, replacing `klayout-pex`, and requires FasterCap 6.4.0 or later for new calibration runs. Preserve the existing catalog ID and legacy name as an alias. Tagged-release installation and subsequent activity recapture are not claimed by this source review. [Rename integration](#source-rename) · [Migration and solver requirements](#source-renamed-readme).

@@ -566,9 +566,9 @@
         134
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "4f31c972a1140035bdd9603261d45b571ca120af",
-      "notes": "Substantive implementation and regression evidence reviewed November 12, 2026: Sidewall accounting correction and Magic backend version enforcement. Existing stage and development-provenance classifications are preserved; source review is not an independent upstream test run."
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "2a7c8ed75d0c7c2a0a51212cb0300dbe805a62f8",
+      "notes": "November 18 prepares finite PEX25D calibration patterns; November 19 integrates bounded FasterCap execution and typed raw matrix collection. The following parallel-regression synchronization is the captured head. Numerical qualification and coefficient fitting are separate; later upstream activity has not been recaptured."
     },
     "pyopus": {
       "kind": "repository",
@@ -1214,8 +1214,9 @@
         15
       ],
       "lastCommitAt": "2026-11-09",
-      "lastMeaningfulCommitAt": "2026-10-16",
-      "lastMeaningfulCommitSha": "2100e66b5bad4bc6cb8ef0dc66db788022d19fb8"
+      "lastMeaningfulCommitAt": "2026-11-09",
+      "lastMeaningfulCommitSha": "c130cb5e73546423082cde624e4c99ddbbe02933",
+      "notes": "November 9 adds predictive ASAP7 rule decks and retained generated-fixture regressions; the subsequent version update remains the raw latest date in this capture. Later upstream activity has not been recaptured."
     },
     "gdsfactory": {
       "kind": "github",
