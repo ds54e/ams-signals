@@ -1,5 +1,11 @@
 [
   {
+    "project": "acm-mosfet-models",
+    "date": "2026-11-25",
+    "kind": "added",
+    "summary": "Charge-based ACM2/ACM3 models, IHP cards and executable I-V fitting notebooks."
+  },
+  {
     "project": "pexengine",
     "date": "2026-11-25",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-11-25",
     "kind": "added",
     "summary": "IBIS-to-SPICE model conversion including ngspice output and revived canonical maintenance."
-  },
-  {
-    "project": "orca",
-    "date": "2026-11-25",
-    "kind": "updated",
-    "summary": "Finite center-tap termination impedance in differential network postprocessing."
   }
 ]
