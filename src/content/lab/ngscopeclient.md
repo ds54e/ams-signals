@@ -8,7 +8,7 @@ scope:
   analysis: { ai: false }
 access: "BSD-3-Clause application; drivers and supported instruments determine access."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Project documentation"
@@ -27,6 +27,9 @@ sources:
   - id: trigger-controls
     title: "Implemented oscilloscope trigger controls"
     url: "https://github.com/ngscopeclient/scopehal-apps/blob/4841cc8f19f1fcd6dceba146fd0c306bcb5b543f/src/ngscopeclient/TriggerPropertiesDialog.cpp"
+  - id: oos
+    title: "Related instrument-side oscilloscope software"
+    url: "https://github.com/dekajoule/oos/blob/fdf8833594292d121eba3ff032c13aaec203e6ca/README.md"
 ---
 
 ## Scope and limits
@@ -36,3 +39,7 @@ Reference selection and instrument bandwidth govern timing measurements. [scopeh
 The [implementation checkpoint](#source-activity) records a substantive upstream change. Repository activity does not establish hardware accuracy or an independent system validation.
 
 The trigger dialog controls instrument settings, rather than merely viewing previously captured waveforms. [Implemented controls](#source-trigger-controls).
+
+## Related workflow
+
+The related [OOS project](#source-oos) replaces the instrument-side application on specific Rigol hardware. ngscopeclient is a host-side frontend for supported instruments. OOS's experimental hardware status and measurement limitations do not establish the behavior of stock instruments connected to this frontend.

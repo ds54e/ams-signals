@@ -8,7 +8,7 @@ scope:
   analysis: { ai: false }
 access: "Public source with Apache-2.0 and GPL-3.0-or-later components; bundled firmware has separate terms."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Official user guide and device limitations"
@@ -45,6 +45,9 @@ sources:
   - id: release
     title: "HSync v0.2.9 release published in November 2026"
     url: "https://github.com/HalfSweet/HSync/releases/tag/v0.2.9"
+  - id: openscilab
+    title: "Related instrument and simulated measurement-flow application"
+    url: "https://github.com/dekajoule/openSciLab/blob/49bf5ad6e3b8e5103138dfae6e62ac1b279991ec/README.md"
 ---
 
 ## Selection and scope
@@ -64,3 +67,7 @@ Use the timing views within the analyzer's sampling, threshold and clock accurac
 The October 2026 SWD decoder correction changes target-bit sampling and protocol-state handling. November changes then separate USB reception from conversion and repair finite-capture completion, throughput detection and buffer reuse after unaligned triggers. Regressions cover the affected decoder and capture paths. [SWD correction](#source-maintenance-earlier) · [Stream correction](#source-prior-stream-fix) · [Capture corrections](#source-activity).
 
 The observed corrections and public releases span October–November 2026, including v0.2.9. They show early follow-through on released workflows; the review cannot yet establish a longer maintenance record. [Release](#source-release).
+
+## Related workflow
+
+The related [openSciLab application](#source-openscilab) overlaps in logic capture and protocol decoding, but adds visual or Python measurement-flow execution with real and simulated devices. HSync retains its distinct native analyzer-driver and recorded-capture workflow. Device compatibility, decoding behavior and activity must be assessed separately.

@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T01:32:53.698Z",
+  "capturedAt": "2026-11-25T01:43:25.140Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1616,6 +1616,131 @@
       "lastCommitAt": "2026-09-15",
       "lastMeaningfulCommitAt": "2026-09-15",
       "lastMeaningfulCommitSha": "7295722bbfeb59d3e3a7cfc7b20b44857fd65ef9"
+    },
+    "openscilab": {
+      "kind": "github",
+      "repository": "dekajoule/openSciLab",
+      "repositoryId": 1372724006,
+      "capturedAt": "2026-11-25T01:40:54.076Z",
+      "defaultBranch": "main",
+      "headSha": "49bf5ad6e3b8e5103138dfae6e62ac1b279991ec",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10,
+        77,
+        0
+      ],
+      "lastCommitAt": "2026-10-28",
+      "lastMeaningfulCommitAt": "2026-10-27",
+      "lastMeaningfulCommitSha": "1b4a4e315752ce0132a97d68ed2211658db41579"
+    },
+    "oos": {
+      "kind": "github",
+      "repository": "dekajoule/oos",
+      "repositoryId": 1449731206,
+      "capturedAt": "2026-11-25T01:41:07.804Z",
+      "defaultBranch": "main",
+      "headSha": "fdf8833594292d121eba3ff032c13aaec203e6ca",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        735
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "6c82c64f5a6ecf68004193b0c97e1c4c91fc1f79"
+    },
+    "open-lab-automation": {
+      "kind": "github",
+      "repository": "mede-erik/Open-Lab-Automation",
+      "repositoryId": 1066492108,
+      "capturedAt": "2026-11-25T01:41:04.761Z",
+      "defaultBranch": "main",
+      "headSha": "3bde6534b97bb6ff1d00d1a584b7350b939c1357",
+      "commits": [
+        0,
+        4,
+        3,
+        0,
+        1,
+        0,
+        5,
+        0,
+        6,
+        0,
+        0,
+        99
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "3bde6534b97bb6ff1d00d1a584b7350b939c1357"
+    },
+    "qick": {
+      "kind": "github",
+      "repository": "openquantumhardware/qick",
+      "repositoryId": 398393723,
+      "capturedAt": "2026-11-25T01:41:39.245Z",
+      "defaultBranch": "main",
+      "headSha": "b2abda7b8ad092aca0b9c0ba5f28f429be32efe8",
+      "commits": [
+        2,
+        4,
+        0,
+        4,
+        5,
+        2,
+        4,
+        3,
+        0,
+        3,
+        7,
+        6
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "515933320587f32995573571451379c41f4e2c4c"
+    },
+    "metrolopy": {
+      "kind": "github",
+      "repository": "nrc-cnrc/MetroloPy",
+      "repositoryId": 177786277,
+      "capturedAt": "2026-11-25T01:40:56.640Z",
+      "defaultBranch": "master",
+      "headSha": "3ed1a4dd7c00498aafbbc2f552892826bcec7df7",
+      "commits": [
+        0,
+        0,
+        12,
+        0,
+        0,
+        0,
+        0,
+        17,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-07-08",
+      "lastMeaningfulCommitAt": "2026-07-08",
+      "lastMeaningfulCommitSha": "7f260881b1d058179eb2137c0df4f88685d8427c"
     }
   }
 }
