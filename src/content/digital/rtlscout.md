@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "BSD-3-Clause-Clear public source; Docker/devcontainer toolchain is provided and real agent runs require a supported LLM provider."
 addedAt: "2026-09-14"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical RTLScout repository"
@@ -59,6 +59,18 @@ sources:
   - id: "development-retained-eval"
     title: "Retained advisory evaluation and authoritative rescoring contract"
     url: "https://github.com/huawei-csl/rtlscout/blob/1fc8afeb887e33294f452766a70056fc2966066a/rtlscout/eval_store.py"
+  - id: package-integration
+    title: "October 21 installable Python distribution integration"
+    url: "https://github.com/huawei-csl/rtlscout/commit/e827566dfc3dff8092b16983d78417f2e55030f7"
+  - id: package-config
+    title: "Retained RTLScout 0.2.0 distribution metadata"
+    url: "https://github.com/huawei-csl/rtlscout/blob/1fc8afeb887e33294f452766a70056fc2966066a/pyproject.toml"
+  - id: verilator-ccache
+    title: "October 26 Verilator object-cache integration"
+    url: "https://github.com/huawei-csl/rtlscout/commit/0edbcad8266c6a038124d026fcb90269eb7c7c8d"
+  - id: ccache-config
+    title: "Retained bounded compiler cache configuration"
+    url: "https://github.com/huawei-csl/rtlscout/blob/1fc8afeb887e33294f452766a70056fc2966066a/.devcontainer/Dockerfile"
 ---
 
 ### Agent loop
@@ -71,7 +83,7 @@ The model changes the design, giving AI Design. Verilator and synthesis/PPA tool
 
 ### Integrity boundary
 
-The external OpenCode mode can run with a shell, but the framework re-evaluates candidates against benchmark-owned inputs before authoritative results enter the elite pool. The September 17 merge refreshes the RTLRewriter evaluation artifacts and corrects lint/build timeout handling for larger gate-level candidates; it is the current meaningful-activity checkpoint. [Reviewed update](#source-activity-review).
+The external OpenCode mode can run with a shell, but the framework re-evaluates candidates against benchmark-owned inputs before authoritative results enter the elite pool. The September 17 merge refreshes the RTLRewriter evaluation artifacts and corrects lint/build timeout handling for larger gate-level candidates; it was an earlier meaningful-activity checkpoint. [Reviewed update](#source-activity-review).
 
 ### Current-source review
 
@@ -86,3 +98,9 @@ Runtime Scope classifications are preserved. Source and regression evidence was 
 ### Development provenance
 
 The patches implement an execution backend, sandbox protocol, independent re-evaluation and persisted evaluation artifacts, rather than merely configuring an agent. These are executable orchestration and evaluation implementations in RTLScout; provenance remains separate from its runtime model-driven RTL transformations. The current package retains the backend and advisory-evaluation storage after moving them from `core/` into `rtlscout/`. [Implementation](#source-development-audit-implementation) · [Implementation](#source-development-audit-extension) · [Retained backend](#source-development-audit-retained) · [Retained evaluation contract](#source-development-retained-eval).
+
+### Reviewed implementation and retention, November 25, 2026
+
+October 21 packages RTLScout as an installable Python distribution, moves core execution modules into the rtlscout package and updates the environment and benchmark entry points. October 26 enables Verilator object caching in the Docker environment with an explicit cache-size bound and opt-out for build timing. These are reproducibility and build-performance maintenance; the November 3 README change does not establish new benchmark implementation in this repository. The measured speed or PPA improvement was not reproduced. [Package integration](#source-package-integration) · [Metadata](#source-package-config) · [Cache integration](#source-verilator-ccache) · [Configuration](#source-ccache-config).
+
+The selected meaningful checkpoint within the saved capture is 2026-10-26 UTC. Source inspection only; no EDA or model experiment was independently reproduced.

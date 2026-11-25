@@ -17,7 +17,7 @@ developmentEvidence:
   reviewedAt: '2026-11-24'
 access: Public Python/Rust tooling; Docker, editor, EDA stack and agent CLI are needed for the integrated workflow, with licensed Vivado for FPGA implementation.
 addedAt: '2026-10-18'
-reviewedAt: '2026-11-24'
+reviewedAt: "2026-11-25"
 sources:
 - id: code
   title: Canonical public implementation
@@ -51,6 +51,12 @@ sources:
   title: Official project website and documentation
   url: https://booley.dev/
   purpose: official
+- id: refused-admission
+  title: "November 19 refused-flow outcome and admission diagnostic correction"
+  url: "https://github.com/boldaxolotl/booley/commit/dd7167c56dba6af6c41653d0169dc98053c88321"
+- id: refused-admission-retained
+  title: "Retained endpoint memory-warning handling"
+  url: "https://github.com/boldaxolotl/booley/blob/dd7167c56dba6af6c41653d0169dc98053c88321/src/booley/flows/endpoint_session.py"
 ---
 
 ### Implementation and boundaries
@@ -66,3 +72,9 @@ Earlier Goal Mode maintenance is historical. The November 18 integration correct
 ### Development provenance
 
 The previously cited mutation-scope test was removed with Goal Mode, so it no longer supports a retained-code claim. The November 18 validator and SDC regression changes explicitly credit Claude Opus 5.5 and remain in the current code, supporting AI-ASSISTED for that bounded contribution. [Attributed change](#source-activity-review-20261124) · [Retained regression](#source-development-retained-20261124) · [Retained validators](#source-development-validator-20261124).
+
+### Reviewed implementation and retention, November 25, 2026
+
+November 19 follows the November 18 Simulation Record validator update with a correction to Flow Job refusal handling. Refused outcomes are explicitly marked across flow endpoints and no longer receive misleading memory-admission warnings; the integration includes regression changes for simulation, elaboration, target omission and endpoint admission. This is execution-status and evidence maintenance, not a new verification engine or a measured memory reduction. [Integration](#source-refused-admission) · [Retained endpoint logic](#source-refused-admission-retained).
+
+The selected meaningful checkpoint within the saved capture is 2026-11-19 UTC. Source inspection only; no EDA or model experiment was independently reproduced.

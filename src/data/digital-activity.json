@@ -444,8 +444,9 @@
         41
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-11-11",
-      "lastMeaningfulCommitSha": "c5276ca94c95595c2d646c134acc0b2eb71db1b5"
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "2309f0dc8ded6073ce880f92886dc37086c69151",
+      "notes": "November 18 integrates ACT4 XiangShan asset handoff and execution preflight with optional simulator isolation. November 24 RTL2Spec integration is outside the saved capture."
     },
     "uhdm2rtlil": {
       "kind": "github",
@@ -935,8 +936,9 @@
         1
       ],
       "lastCommitAt": "2026-11-03",
-      "lastMeaningfulCommitAt": "2026-10-05",
-      "lastMeaningfulCommitSha": "9bb5683747dafc8722b680140070ace3c5ffceab"
+      "lastMeaningfulCommitAt": "2026-10-26",
+      "lastMeaningfulCommitSha": "0edbcad8266c6a038124d026fcb90269eb7c7c8d",
+      "notes": "October 21 integrates RTLScout 0.2.0 installable packaging and environment migration; October 26 enables bounded Verilator ccache in Docker. November 3 README update is raw activity."
     },
     "kepler-formal": {
       "kind": "github",
@@ -1213,8 +1215,9 @@
         1
       ],
       "lastCommitAt": "2026-11-14",
-      "lastMeaningfulCommitAt": "2026-09-21",
-      "lastMeaningfulCommitSha": "af9821608d9ee46a26edd8193b522628b731ac39"
+      "lastMeaningfulCommitAt": "2026-11-14",
+      "lastMeaningfulCommitSha": "e31f731db6cf3cac2e1072ff13d6b889677b710d",
+      "notes": "November 14 integrates the separate XLS DSLX GEPA evaluator, protected tests, interface/codegen acceptance, delay-based scoring and optional equivalence evidence. October 19 adds the top-level AGPL v3 license."
     },
     "rohd": {
       "kind": "github",
@@ -1391,8 +1394,9 @@
         787
       ],
       "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-10-16",
-      "lastMeaningfulCommitSha": "c28daf4fc6f74fdee44592284aa2b410ff6752b8"
+      "lastMeaningfulCommitAt": "2026-11-19",
+      "lastMeaningfulCommitSha": "dd7167c56dba6af6c41653d0169dc98053c88321",
+      "notes": "November 18 updates Simulation Record validation and SDC handoff tests; November 19 corrects refused Flow Job outcome and memory-admission diagnostics with retained regression changes."
     },
     "spire-hdl": {
       "kind": "github",

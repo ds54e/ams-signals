@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; requires Python, target-core submodules, Verilator, an OSS CAD Suite formal toolchain and a configured LLM provider or local Codex CLI."
 addedAt: "2026-09-18"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical LACE repository"
@@ -42,6 +42,12 @@ sources:
   - id: "development-retained-20261018"
     title: "Retained executable code at the reviewed canonical head"
     url: "https://github.com/UMN-ZhaoLab/LACE/blob/29ea8ed56eb5fce838815a0892c05b8162ece500/src/arithmetic_integrator.py"
+  - id: research-realization
+    title: "September 2 structured realization work on research/sail-testrig-rvfi-dii"
+    url: "https://github.com/UMN-ZhaoLab/LACE/commit/9ecdb1926662210d5b84d6f3c6d8e6decf8949fd"
+  - id: research-fast-path
+    title: "Research-branch exact replay and constrained realization selection"
+    url: "https://github.com/UMN-ZhaoLab/LACE/blob/9ecdb1926662210d5b84d6f3c6d8e6decf8949fd/src/fast_realization.py"
 ---
 
 ### Design workflow
@@ -63,3 +69,9 @@ Reviewed October 1, 2026 at `29ea8ed56eb5fce838815a0892c05b8162ece500`. The Augu
 ### Development provenance
 
 Claude is credited for adding a Verilator lint gate after arithmetic integration so invalid integrated CPUs halt before formal checks. The canonical project retains the gate and regression code. This supports AI-assisted development. [AI-credited executable implementation](#source-development-implementation-20261018) · [Retained executable code at the reviewed canonical head](#source-development-retained-20261018).
+
+### Reviewed implementation and retention, November 25, 2026
+
+The August 27 default-branch head remains the captured checkpoint. A separate public research branch, research/sail-testrig-rvfi-dii, adds a structured fast-realization workflow on September 2, with exact verified-replay selection, profile-limited realization and fallback to the ordinary agent graph. The retained source distinguishes an available replay from a request that requires fallback. This supports continued public technical work beyond the August publication, but the research branch is not merged into the reviewed default branch; its operations and commits are not attributed to the default-branch capability or activity strip. [Research change](#source-research-realization) · [Fast-path implementation](#source-research-fast-path).
+
+Source inspection only; no EDA or model experiment was independently reproduced.

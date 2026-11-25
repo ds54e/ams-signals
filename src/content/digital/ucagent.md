@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-22'
 access: "Public implementation with direct model and external coding-agent backends. The optional DesignWithPPA plugin has separate installation and needs picker, Yosys, OpenSTA and a selected Liberty library; Chisel mode additionally needs its documented JDK/Mill toolchain."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical UCAgent repository"
@@ -74,6 +74,21 @@ sources:
   - id: review-20261112-tests
     title: "Launcher safety, waveform restoration and shutdown regressions"
     url: https://github.com/XS-MLVP/UCAgent/blob/c5276ca94c95595c2d646c134acc0b2eb71db1b5/tests/test_launch_uvd.py
+  - id: act4-handoff
+    title: "November 18 ACT4 XiangShan asset handoff integration"
+    url: "https://github.com/XS-MLVP/UCAgent/commit/3c8c536117e024a448a6727ceaf896dde52a4937"
+  - id: act4-preflight
+    title: "November 18 execution-preparation and optional-tool isolation"
+    url: "https://github.com/XS-MLVP/UCAgent/commit/2309f0dc8ded6073ce880f92886dc37086c69151"
+  - id: act4-checker
+    title: "Retained review command preflight and optional-tool handling"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/819e430af5887e949c0e194c4ae06843fe365f1a/plugins/ACT4/src/act4_privileged_suite/checkers/act4_review_checker.py"
+  - id: act4-workflow
+    title: "Retained XiangShan handoff workflow"
+    url: "https://github.com/XS-MLVP/UCAgent/blob/819e430af5887e949c0e194c4ae06843fe365f1a/plugins/ACT4/src/act4_privileged_suite/workflows/xiangshan-v3-handoff.yaml"
+  - id: rtl2spec-nov24
+    title: "November 24 FM-Agent specification and UnityTest handoff integration beyond the saved capture"
+    url: "https://github.com/XS-MLVP/UCAgent/commit/7607e05b287c9349c394534f75bdfeddd01ed02a"
 ---
 
 
@@ -109,3 +124,9 @@ Copilot is co-credited for implementing workspace-bound path checks in the MiniW
 ### November 12, 2026 implementation review
 
 The November 11 update implements UVD waveform launching from signed metadata, checks workspace-contained databases and restores selected signals and native-tick cursor/window state. Tests cover missing signals, escaped symlinks, Tcl failures and viewer shutdown. UVD/UVS, UVD_HOME, Xvfb and related runtimes remain separate requirements; real-tool tests skip without them and were not reproduced here. This conventional supporting viewer does not independently establish AI operation or additional Synthesis/Layout stages; existing AI Verification remains unchanged. [Integrated activity](#source-review-20261112-activity). [UVD workspace-contained waveform launcher](#source-review-20261112-implementation) · [Launcher safety, waveform restoration and shutdown regressions](#source-review-20261112-tests).
+
+### Reviewed implementation and retention, November 25, 2026
+
+November 18 extends ACT4 with a XiangShan Kunminghu V3 asset-handoff workflow, including upstream-first acquisition, testcase and normative-rule traceability, reproducible build preparation and recipient artifacts. The later same-day preflight validates commands against the actual working directory and child PATH; required jobs cannot depend on optional commercial simulator jobs. This is executable verification workflow and checker maintenance, not ISA compliance certification. November 24 separately integrates FM-Agent specification workflows, standalone document export and UnityTest handoff in RTL2Spec. That change is outside the saved November 19 capture and is not included in its activity counts or meaningful checkpoint. [ACT4 integration](#source-act4-handoff) · [Preflight](#source-act4-preflight) · [Checker](#source-act4-checker) · [Workflow](#source-act4-workflow) · [Later RTL2Spec change](#source-rtl2spec-nov24).
+
+The selected meaningful checkpoint within the saved capture is 2026-11-18 UTC. Source inspection only; no EDA or model experiment was independently reproduced.
