@@ -39,6 +39,9 @@ sources:
   - id: stdf-convert-vur
     title: "Separate converter's alternative VUR layout handling"
     url: "https://github.com/davidmathers/stdf-convert/blob/4d902aa71d81857a52c9d98b4b893a4eb2996df0/crates/stdf-convert/src/vur.rs"
+  - id: stdfreader
+    title: "Related independent Python parser lineage and record extraction"
+    url: "https://github.com/showjim/STDFReader/blob/e5639bab63f20b11243dd4a43353c7390eef4834/stdf_reader/FileRead.py"
 ---
 
 ## Scope and limits
@@ -54,3 +57,5 @@ The August 2026 integration adds typed writing, raw passthrough and validation t
 ## Related workflow
 
 The related [stdf-convert](#source-stdf-convert) uses rust-stdf to produce JSON Lines and Arrow tables, and implements its own handling for an alternative Version Update Record layout found in some files. That separate conversion and parsing extension is not a feature or an independent validation of rust-stdf; its activity and provenance are not counted here. [VUR implementation](#source-stdf-convert-vur).
+
+The related STDFReader application uses a PySTDF-derived parser rather than this Rust implementation. Its record extraction provides a separate implementation path for interoperability comparisons. Agreement on a selected file does not establish conformance for all record types, optional fields or vendor extensions. [Python extraction](#source-stdfreader).

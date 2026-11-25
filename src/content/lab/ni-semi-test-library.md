@@ -26,6 +26,9 @@ sources:
   - id: dc-measure
     title: "Retained pin/site-aware DC measurement and compliance implementation"
     url: "https://github.com/ni/semi-test-library-dotnet/blob/361110d9019ee6f976ea78e22f4ef1d4d8854c94/SemiconductorTestLibrary.Extensions/source/InstrumentAbstraction/DCPower/Measure.cs"
+  - id: nimi-python
+    title: "Related modular instrument Python binding implementation"
+    url: "https://github.com/ni/nimi-python/blob/56d2479f12043923eb29201a1d6dd975264f2aa8/generated/nidigital/nidigital/session.py"
 ---
 
 ## Scope and limits
@@ -37,3 +40,7 @@ The source is useful for reviewing production test interface design, including s
 ## Reviewed maintenance
 
 August 2026 corrects how DC power getters return results for ganged and merged pins, with unit regressions. November masks register addresses and values to configured bit widths in the SPI/I2C example, including site-specific write data. The reviewed revision retains these operations. [Pin-group correction](#source-pin-groups) · [Register width correction](#source-activity).
+
+## Related workflow
+
+The separate nimi-python project generates direct modular-instrument Python bindings, including digital pattern and PPMU operations. This library instead provides a higher-level C# abstraction for pin/site results and STS test sequences. Both depend on NI native instrument drivers; they are not independent evidence of hardware behavior. [Python digital session](#source-nimi-python).

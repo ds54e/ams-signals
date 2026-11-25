@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:18:44.542Z",
+  "capturedAt": "2026-11-25T02:29:22.707Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1991,6 +1991,81 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-16",
       "lastMeaningfulCommitSha": "ac1de16ce8358129bc46f045aa689d97bda0788f"
+    },
+    "stdf-reader": {
+      "kind": "github",
+      "repository": "showjim/STDFReader",
+      "repositoryId": 209222578,
+      "capturedAt": "2026-11-25T02:28:24.353Z",
+      "defaultBranch": "master",
+      "headSha": "e5639bab63f20b11243dd4a43353c7390eef4834",
+      "commits": [
+        1,
+        10,
+        2,
+        2,
+        17,
+        3,
+        0,
+        0,
+        0,
+        0,
+        6,
+        0
+      ],
+      "lastCommitAt": "2026-10-17",
+      "lastMeaningfulCommitAt": "2026-10-17",
+      "lastMeaningfulCommitSha": "47e09172daa6e456335d39b1d1a61efecfe0c235"
+    },
+    "nimi-python": {
+      "kind": "github",
+      "repository": "ni/nimi-python",
+      "repositoryId": 91020334,
+      "capturedAt": "2026-11-25T02:28:41.360Z",
+      "defaultBranch": "master",
+      "headSha": "56d2479f12043923eb29201a1d6dd975264f2aa8",
+      "commits": [
+        6,
+        10,
+        5,
+        6,
+        6,
+        0,
+        0,
+        9,
+        15,
+        4,
+        13,
+        11
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "2f19618c21dc34e70a39a4b186ee664e3c8d8cad"
+    },
+    "processbehavior": {
+      "kind": "github",
+      "repository": "cnicholas/processbehavior",
+      "repositoryId": 1061462283,
+      "capturedAt": "2026-11-25T02:28:26.134Z",
+      "defaultBranch": "main",
+      "headSha": "d28e8d15fcabc3485f7c47e0e983b6dffe0d2f17",
+      "commits": [
+        97,
+        23,
+        46,
+        56,
+        21,
+        50,
+        10,
+        25,
+        17,
+        38,
+        7,
+        13
+      ],
+      "lastCommitAt": "2026-11-07",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "85bb0dbaaf1f5f543f40cd8b0369d29bbd4112a0"
     }
   }
 }
