@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T03:44:07.000Z",
+  "capturedAt": "2026-11-25T04:39:08.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2987,6 +2987,57 @@
       "lastMeaningfulCommitAt": "2026-09-22",
       "lastMeaningfulCommitSha": "e295c4846911a5b228c3aefb124b34f0ce7f7f9c",
       "notes": "Low-frequency maintenance: April test-seed correction integrated September 22, plus separate XML bin identification and CoverCheck merge correctness repairs. Same-day version and documentation changes are raw activity only."
+    },
+    "cell-aware-spice-simulation": {
+      "kind": "github",
+      "repository": "TobiasFaller/cell-aware-spice-simulation",
+      "repositoryId": 1211620484,
+      "capturedAt": "2026-11-25T04:39:08.000Z",
+      "defaultBranch": "main",
+      "headSha": "6e7fb7a5d3390cc2fc8f2d623f2561bffcdd0e97",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-11-11",
+      "lastMeaningfulCommitSha": "6e7fb7a5d3390cc2fc8f2d623f2561bffcdd0e97"
+    },
+    "vrtlmod": {
+      "kind": "github",
+      "repository": "tum-ei-eda/vrtlmod",
+      "repositoryId": 546121468,
+      "capturedAt": "2026-11-25T04:39:08.000Z",
+      "defaultBranch": "master",
+      "headSha": "c78e43cee2990105306f9bfeaad14ce709a332d8",
+      "commits": [
+        1,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9
+      ],
+      "lastCommitAt": "2026-11-06",
+      "lastMeaningfulCommitAt": "2026-11-06",
+      "lastMeaningfulCommitSha": "658641ee0233a240fedfd0d8c7e39697a0192287",
+      "notes": "First-parent counts include the December container workflow and March build maintenance. November 6 integrates Verilator 5 C++/SystemC support and injection placement regressions; the subsequent documentation integration supplies the raw last activity date."
     }
   }
 }
