@@ -3,7 +3,7 @@
   "name": "verilog-a-sim",
   "aliases": [],
   "summary": "Pure-Rust Verilog-A compilation and circuit simulation with automatic differentiation.",
-  "description": "Pure-Rust Verilog-A simulator with automatic differentiation and MNA/Newton execution for DC, transient, AC and noise analysis. Source builds include pseudo-transient DC recovery and diagnostic warnings; downloadable binaries lag the reviewed source, and digital events, wreal, connectmodule and periodic-noise analysis remain outside its supported scope.",
+  "description": "Pure-Rust Verilog-A simulator with automatic differentiation and MNA/Newton execution for DC, transient, AC and noise analysis. Source builds include pseudo-transient DC recovery and band-limited transient flicker-noise synthesis; digital events, wreal, connectmodule and periodic-noise analysis remain outside its supported scope.",
   "scope": {
     "simulation": {
       "ai": false
@@ -20,7 +20,7 @@
   },
   "access": "Apache-2.0 source; builds require the documented Rust toolchain. Downloadable v2.0.0 binaries predate the reviewed 2.58.0 source. Committed QSPICE references support local comparisons; Spectre reference outputs are not distributed and require a separately licensed environment to regenerate.",
   "addedAt": "2026-11-07",
-  "reviewedAt": "2026-11-24",
+  "reviewedAt": "2026-11-25",
   "sources": [
     {
       "id": "code",
@@ -87,6 +87,11 @@
       "id": "spectre-gate",
       "title": "Comparison gate explicitly skips when Spectre outputs are absent",
       "url": "https://github.com/philippevelha/verilog-a-sim/blob/048184d7d080d0e6d526a3d94a871741dac8443a/paper_writing/mwp/tests/t12_spectre_golden.py"
+    },
+    {
+      "id": "transient-noise",
+      "title": "Retained transient flicker-noise synthesis, tests and exclusions",
+      "url": "https://github.com/philippevelha/verilog-a-sim/blob/048184d7d080d0e6d526a3d94a871741dac8443a/crates/va-transient/src/noise.rs"
     }
   ]
 }
@@ -98,7 +103,7 @@ The frontend, automatically differentiated models and MNA/Newton execution suppo
 
 ### Selection and reviewed activity
 
-Select for substantive implementation and validation iteration beyond an initial release. The November 3 main change implements oct/lin noise-card parsing and sweep execution, adds parser assertions, and extends the RC noise deck and QSPICE-reference harness; the preceding change propagates deck temperature to compiled models and thermal noise. These are concrete supported-analysis improvements, not cosmetic freshness. The activity capture uses the canonical main first-parent history. [Noise change](#source-activity) · [Temperature change](#source-temperature).
+Select for substantive implementation and validation iteration beyond an initial release. The November 3 main change implements oct/lin noise-card parsing and sweep execution, adds parser assertions, and extends the RC noise deck and QSPICE-reference harness; the preceding change propagates deck temperature to compiled models and thermal noise. These are concrete supported-analysis improvements, not cosmetic freshness. The November 18 source integration now supersedes that checkpoint: it adds pseudo-transient DC recovery and transient flicker-noise synthesis with executable regression cases. The activity capture uses the canonical main first-parent history. [Noise change](#source-activity) · [Temperature change](#source-temperature).
 
 ### Access, release and validation limits
 
@@ -109,3 +114,5 @@ Committed QSPICE references and closed-form tests remain distinct from project-r
 ### Development provenance
 
 The reviewed change explicitly credits Claude Opus as coauthor of executable noise-grid parsing, sweep execution, parser regressions and validation-harness code. Inspection of the diff and retained main execution path supports AI-assisted development. This attribution does not change the conventional Simulation Scope. [Credited implementation](#source-activity) · [Retained execution](#source-noise-implementation).
+
+The 2.58.0 source includes transient flicker noise synthesized as discrete sinusoidal bands from the configured minimum frequency to one quarter of the maximum noise frequency. The implementation retains tests for integrated variance and spectral slope; tabulated noise sources are excluded. This is a seeded, band-limited time-domain noise mechanism, not autonomous periodic-noise analysis or independently verified oscillator phase-noise accuracy. [Implementation and tests](#source-transient-noise) · [November 18 integration](#source-dc-recovery).

@@ -377,9 +377,9 @@
         13
       ],
       "lastCommitAt": "2026-11-07",
-      "lastMeaningfulCommitAt": "2026-10-04",
-      "lastMeaningfulCommitSha": "14ab4f3be7ba4dc5987164bd78ab0a9e929f32cd",
-      "notes": "The reviewed diagnostics/numeric-cast change updates the Verilog-A casting macro implementation. Activity and development attribution remain specific to the enhancement fork, not upstream ngspice or OpenVAF."
+      "lastMeaningfulCommitAt": "2026-11-07",
+      "lastMeaningfulCommitSha": "2a1ec83239b11c3c8d7a1e36f70b0112cfea088c",
+      "notes": "October 22 corrects compiled-model options and convergence. November 7 excludes failed candidates from NSGA-II Pareto fronts and repairs the GNU Readline/X11 end-of-input hang with tests. Subsequent binary publishing remains raw activity; these changes are fork-specific."
     },
     "xyce": {
       "kind": "github",
@@ -403,9 +403,9 @@
         1
       ],
       "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "e5b7b9bb5b221630c66654c059fc2d33524f5b21",
-      "notes": "September 21 integrates GeneralExternal time-integrator error-weight masks, Xyce-PyMi exposure and optional Xyce_Dependencies discovery. The current first-parent master history starts at the 7.9 restart; old_master is not grafted. October 19 master integration now reviewed: typed node/device expression lookup, missing-analysis allocation guard, and nanobind/attribute-based Xyce-PyMi with legacy adapter and explicit finalization. Counts, latest date and original capture timestamp are retained at the identical pinned head; release inclusion is separate."
+      "lastMeaningfulCommitAt": "2026-11-16",
+      "lastMeaningfulCommitSha": "369a7be860d0d55b147d7fe5defd47c992439859",
+      "notes": "November 16 removes the obsolete REST experiment while retaining the existing direct Python-interface Simulink S-function. October expression, allocation and Xyce-PyMi fixes remain separate reviewed evidence. The saved November 19 capture and current first-parent history are preserved; no independent MATLAB/Xyce run."
     },
     "xschem": {
       "kind": "github",
@@ -1804,8 +1804,9 @@
         15
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-11-03",
-      "lastMeaningfulCommitSha": "f862694e1e5d95c0a691bcfdd67463ad2af58c84"
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "048184d7d080d0e6d526a3d94a871741dac8443a",
+      "notes": "November 18 integrates pseudo-transient DC recovery, partial-sweep failure diagnostics and band-limited transient flicker-noise synthesis. Tabulated transient noise remains excluded. Source and published test cases reviewed; independent numerical validation not performed."
     },
     "spicelib": {
       "kind": "github",
@@ -3172,32 +3173,6 @@
       "lastMeaningfulCommitAt": "2026-11-19",
       "lastMeaningfulCommitSha": "ad6db019492d0caeb56259a78ecbb10369562daa",
       "notes": "September 11 integrates staged BSIM-CMG extraction, HSPICE evaluation and identifiability; November 19 merges v1.2.0 with per-curve guards, dependency analysis and shared-parameter trade-off scans."
-    },
-    "acm-fit": {
-      "kind": "github",
-      "repository": "SJTU-YONGFU-RESEARCH-GRP/acm-fit",
-      "repositoryId": 1351701080,
-      "capturedAt": "2026-11-25T06:27:35.000Z",
-      "defaultBranch": "main",
-      "headSha": "9667c2db99f44762a4d39663e59dbeb900fcf978",
-      "commits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        11,
-        6,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-09-07",
-      "lastMeaningfulCommitAt": "2026-09-05",
-      "lastMeaningfulCommitSha": "b4329b60cc0f964aee47616126f56994ce2239c0",
-      "notes": "September 2 adds benchmark checkpoint reconstruction and completed-target handling; September 5 repairs model-tier profile resolution. September 7 figure generation is the later raw date; public maintenance is concentrated around the release."
     },
     "stat-sim": {
       "kind": "github",

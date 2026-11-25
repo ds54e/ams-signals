@@ -40,6 +40,18 @@ sources:
   - id: release
     title: "ACM2 2.0.0 and ACM3 3.0.0 release"
     url: "https://github.com/ACMmodel/ACM-MOSFET-models/releases/tag/v2.0.0"
+  - id: related-acm-fit
+    title: "Related independent ACM-5 fitting implementation and workflow"
+    url: "https://github.com/SJTU-YONGFU-RESEARCH-GRP/acm-fit/blob/9667c2db99f44762a4d39663e59dbeb900fcf978/README.md"
+  - id: related-acm-fit-strategies
+    title: "Related staged parameter-fitting strategies"
+    url: "https://github.com/SJTU-YONGFU-RESEARCH-GRP/acm-fit/blob/9667c2db99f44762a4d39663e59dbeb900fcf978/src/acm/opt/strategies.py"
+  - id: related-ptm45
+    title: "Related simulated PTM45 reference metadata"
+    url: "https://github.com/SJTU-YONGFU-RESEARCH-GRP/acm-fit/blob/9667c2db99f44762a4d39663e59dbeb900fcf978/data/golden/ptm/ptm45/meta.json"
+  - id: related-fit-maintenance
+    title: "Related September 5 model-tier profile resolution repair"
+    url: "https://github.com/SJTU-YONGFU-RESEARCH-GRP/acm-fit/commit/b4329b60cc0f964aee47616126f56994ce2239c0"
 ---
 
 ## Scope and limits
@@ -51,3 +63,7 @@ The supplied IHP cards use public measured DC curves at 27 C and zero body/sourc
 ## Reviewed maintenance
 
 May 28 updates an executable ACM2 LNA-design notebook. October 5 integrates the unified ACM2 and new ACM3 models, fit notebooks, IHP cards and circuit examples. The later October 7 model-page integration remains the raw activity checkpoint; release v2.0.0 distributes ACM2 2.0.0 and ACM3 3.0.0. The new model interface is not interchangeable with legacy ACM2 2V0 cards. No model fit, simulator run or numerical agreement was independently reproduced. [May update](#source-earlier) · [October integration](#source-activity) · [Release](#source-release) · [License](#source-license).
+
+## Related fitting implementation
+
+The separate acm-fit research release implements staged numerical fitting for an ACM-5 model using frozen BSIM references or user-supplied I-V curves, with a PTM45 reference dataset. It had real follow-up fixes through September 5, but its reviewed public first-parent implementation and later figure update are concentrated in the August 30–September 7 release period; the November 25 review found no other public branch, GitHub Release or pull request. Retain its useful model-fitting reference here rather than a separate active listing until more sustained public maintenance is established. This is a conservative catalog selection decision, not a claim of abandonment. ACM-5 fitting and simulated PTM reference curves must not be attributed to the ACM2/ACM3 implementations, their measured IHP inputs or their activity history. [Related workflow](#source-related-acm-fit) · [Fit strategies](#source-related-acm-fit-strategies) · [PTM45 metadata](#source-related-ptm45) · [Follow-up repair](#source-related-fit-maintenance).

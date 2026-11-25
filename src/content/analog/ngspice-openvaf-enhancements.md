@@ -61,6 +61,21 @@ sources:
   - id: statistical-audit
     title: "September 4 statistical command correctness audit and reported fixes"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/docs/bug_hunts/2026-09-04_monte-carlo-commands.md"
+  - id: osdi-option-fixes
+    title: "October 22 compiled-device option propagation and convergence fixes"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/f0a10ddcc2b8ed323393069fbe8ec574b9209e5e"
+  - id: pareto-fix
+    title: "November 7 exclude failed designs from NSGA-II Pareto fronts"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/2940faeca74498ca93be318866259c8d7ca950c6"
+  - id: pareto-tests
+    title: "Retained failed-solve and unreadable-objective regressions"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/examples/pareto_examples/verify_pareto.py"
+  - id: optimizer-current
+    title: "Retained corrected objective evaluation and Pareto filtering"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/9309c753edf70b37da77211274d1151e6ca2cd11/ngspice-46/src/frontend/com_optimize.c"
+  - id: november-activity
+    title: "November 7 interactive GNU Readline/X11 end-of-input repair"
+    url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/commit/2a1ec83239b11c3c8d7a1e36f70b0112cfea088c"
 ---
 
 ### Scope
@@ -99,4 +114,10 @@ Current-head review confirms that the credited discipline-attribute evaluation r
 
 ### Statistical simulation review
 
-The retained frontend implements ordinary Monte Carlo, scaled-sigma importance sampling in `highsigma` with likelihood-ratio weighting, and `wcd` with a first-order reliability approximation and optional mean-shift importance sampling near the design point. The commands use supported statistical parameters and execute SPICE for sampled points. The September 4 audit records corrections for unresolved expressions, model-declared statistical dimensions in WCD and seed reporting. A nonlinear or multimodal failure boundary can limit a local first-order reliability approximation; neither algorithm validates the underlying process distributions or foundry yield. The reported analytical and regression checks were not rerun here. These conventional statistical operations retain Simulation without an AI flag. This review adds evidence at the already captured head and does not recapture activity or change the existing meaningful checkpoint. [Retained statistical commands](#source-statistical-implementation) · [Correctness audit](#source-statistical-audit).
+The retained frontend implements ordinary Monte Carlo, scaled-sigma importance sampling in `highsigma` with likelihood-ratio weighting, and `wcd` with a first-order reliability approximation and optional mean-shift importance sampling near the design point. The commands use supported statistical parameters and execute SPICE for sampled points. The September 4 audit records corrections for unresolved expressions, model-declared statistical dimensions in WCD and seed reporting. A nonlinear or multimodal failure boundary can limit a local first-order reliability approximation; neither algorithm validates the underlying process distributions or foundry yield. The reported analytical and regression checks were not rerun here. These conventional statistical operations retain Simulation without an AI flag. This statistical review added evidence at the already captured head without recapturing activity. [Retained statistical commands](#source-statistical-implementation) · [Correctness audit](#source-statistical-audit).
+
+### Later correctness and maintenance
+
+The October 22 integration corrects nominal-temperature and geometry-scale propagation to supported compiled models, separates a subcircuit multiplier from device parameters named m, and addresses non-finite steps in the compiled-MOSFET limiter. November 7 corrects NSGA-II objective handling: a failed electrical solve or unreadable objective receives a penalty across every objective after sign conversion, and failed candidates are filtered out of the reported front. The retained regressions exercise failed solves, invalid objectives and maximization. This is a correction to the optimization workflow, not evidence that all candidates or electrical models are valid. [Compiled-model fixes](#source-osdi-option-fixes) · [Pareto correction](#source-pareto-fix) · [Retained evaluator](#source-optimizer-current) · [Regression cases](#source-pareto-tests).
+
+The same day also repairs a hang in the interactive GNU Readline/X11 input path at end of piped input, with an added regression. The change is specific to the supported input path, not a general GUI guarantee. This first-parent implementation is the updated meaningful checkpoint within the saved capture; later binary publishing remains raw activity. Upstream test results were not independently reproduced. [Meaningful checkpoint](#source-november-activity).
