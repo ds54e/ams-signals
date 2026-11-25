@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "MIT."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: code
     title: "Canonical project source"
@@ -33,6 +33,12 @@ sources:
   - id: maintenance-earlier
     title: "August 2026 typed STDF writer and validation integration"
     url: "https://github.com/noonchen/rust-stdf/commit/a195ea103dc3fcf072f5856d15e42742222b1c0a"
+  - id: stdf-convert
+    title: "Related JSON Lines and Arrow conversion tool using rust-stdf"
+    url: "https://github.com/davidmathers/stdf-convert/blob/4d902aa71d81857a52c9d98b4b893a4eb2996df0/README.md"
+  - id: stdf-convert-vur
+    title: "Separate converter's alternative VUR layout handling"
+    url: "https://github.com/davidmathers/stdf-convert/blob/4d902aa71d81857a52c9d98b4b893a4eb2996df0/crates/stdf-convert/src/vur.rs"
 ---
 
 ## Scope and limits
@@ -44,3 +50,7 @@ The optional ATDF reader/conversion feature is explicitly under development. The
 ## Reviewed maintenance
 
 The August 2026 integration adds typed writing, raw passthrough and validation tests. September maintenance then makes truncated record bodies report `UnexpectedEof` consistently across owned, raw and borrowed-view readers, with regressions for each path, and corrects the invalid-ATDF error kind. This is follow-up work on the existing parser and newly integrated APIs. [Writer integration](#source-maintenance-earlier) · [Error-reporting corrections](#source-activity).
+
+## Related workflow
+
+The related [stdf-convert](#source-stdf-convert) uses rust-stdf to produce JSON Lines and Arrow tables, and implements its own handling for an alternative Version Update Record layout found in some files. That separate conversion and parsing extension is not a feature or an independent validation of rust-stdf; its activity and provenance are not counted here. [VUR implementation](#source-stdf-convert-vur).

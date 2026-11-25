@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T01:43:25.140Z",
+  "capturedAt": "2026-11-25T01:51:00.218Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1741,6 +1741,106 @@
       "lastCommitAt": "2026-07-08",
       "lastMeaningfulCommitAt": "2026-07-08",
       "lastMeaningfulCommitSha": "7f260881b1d058179eb2137c0df4f88685d8427c"
+    },
+    "makerpnp": {
+      "kind": "github",
+      "repository": "MakerPnP/makerpnp",
+      "repositoryId": 823683598,
+      "capturedAt": "2026-11-25T01:49:00.898Z",
+      "defaultBranch": "master",
+      "headSha": "67fb2ead2fa4aadbb112fa904f90283f58fe7fc2",
+      "commits": [
+        1,
+        0,
+        0,
+        9,
+        0,
+        0,
+        2,
+        4,
+        7,
+        0,
+        0,
+        100
+      ],
+      "lastCommitAt": "2026-11-08",
+      "lastMeaningfulCommitAt": "2026-11-08",
+      "lastMeaningfulCommitSha": "67fb2ead2fa4aadbb112fa904f90283f58fe7fc2"
+    },
+    "lager": {
+      "kind": "github",
+      "repository": "lagerdata/lager",
+      "repositoryId": 1171185418,
+      "capturedAt": "2026-11-25T01:49:03.371Z",
+      "defaultBranch": "main",
+      "headSha": "bded23b4ca07ae8782d196b204fe085c6f566d04",
+      "commits": [
+        0,
+        0,
+        0,
+        74,
+        74,
+        105,
+        117,
+        165,
+        217,
+        199,
+        253,
+        73
+      ],
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "d0201d58ee3a55aff9277fa1d2f9baa00964240a"
+    },
+    "wavebench": {
+      "kind": "github",
+      "repository": "Scaxlibur/WaveBench",
+      "repositoryId": 1224668859,
+      "capturedAt": "2026-11-25T01:48:46.217Z",
+      "defaultBranch": "master",
+      "headSha": "7677f886e748e6acdb254d069a837e578596d482",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        86,
+        54,
+        10,
+        87,
+        14,
+        5,
+        1,
+        0
+      ],
+      "lastCommitAt": "2026-10-26",
+      "lastMeaningfulCommitAt": "2026-10-26",
+      "lastMeaningfulCommitSha": "7677f886e748e6acdb254d069a837e578596d482"
+    },
+    "pyadi-iio": {
+      "kind": "github",
+      "repository": "analogdevicesinc/pyadi-iio",
+      "repositoryId": 196650246,
+      "capturedAt": "2026-11-25T01:49:11.583Z",
+      "defaultBranch": "main",
+      "headSha": "4870d1f43c195e8483ac11a47cb8e51a3a1fafff",
+      "commits": [
+        3,
+        1,
+        1,
+        7,
+        9,
+        14,
+        2,
+        20,
+        4,
+        1,
+        12,
+        2
+      ],
+      "lastCommitAt": "2026-11-11",
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "9a0ec238de6824adfd2c3ae69e3df1e49e6d1972"
     }
   }
 }

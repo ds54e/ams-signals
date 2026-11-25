@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "MIT, LGPL and GPL apply to different components; check the selected build."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Official project website or documentation"
@@ -28,6 +28,9 @@ sources:
   - id: development-retained
     title: "Retained Zephyr ADC scale calculation"
     url: "https://github.com/analogdevicesinc/libiio/blob/081fd1380feb6fbfae106ef189a90a37b3fb3939/zephyr/drivers/iio_device/io_channels.c"
+  - id: pyadi-iio
+    title: "Related device-specific Python interfaces on libiio"
+    url: "https://github.com/analogdevicesinc/pyadi-iio/blob/4870d1f43c195e8483ac11a47cb8e51a3a1fafff/README.md"
 ---
 
 ## Scope and limits
@@ -35,3 +38,7 @@ sources:
 The reviewed Zephyr ADC scale repair follows v1.0.0. The v1 API and ABI have migration requirements, while separate legacy compatibility remains available. Correct scale formatting is not device calibration.
 
 [Reviewed upstream implementation](#source-activity).
+
+## Related workflow
+
+The related [pyadi-iio](#source-pyadi-iio) provides device-specific settings and acquisition interfaces above libiio. The generic transport and the part-specific operations are separate workflows; neither the coverage nor compatibility of every device class with a particular libiio revision is established by the shared dependency.

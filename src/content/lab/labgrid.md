@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "LGPL-2.1-or-later; requires drivers and access to configured fixtures."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Official project website or documentation"
@@ -34,6 +34,9 @@ sources:
   - id: development-retained
     title: "Retained Sunxi USB loader implementation"
     url: "https://github.com/labgrid-project/labgrid/blob/a556a0d016bd5eb8728e26d8bdb41cf952c151aa/labgrid/driver/usbloader.py"
+  - id: lager
+    title: "Related remote bench and instrument-control platform"
+    url: "https://github.com/lagerdata/lager/blob/bded23b4ca07ae8782d196b204fe085c6f566d04/README.md"
 ---
 
 ## Scope and limits
@@ -41,3 +44,7 @@ sources:
 The reviewed stale-setting rejection follows v26.0.1. Fixture coordination is distinct from test verdicts, while resource ownership alone is not verification of physical state.
 
 [Reviewed upstream implementation](#source-implementation).
+
+## Related workflow
+
+The related [Lager](#source-lager) maps named electrical test points to instrument channels and provides bench-host script execution. labgrid retains its embedded board resource, driver and reservation workflow. The two implementations have different interfaces and independent activity; neither substitutes for the other's fixture setup or physical test evidence.
