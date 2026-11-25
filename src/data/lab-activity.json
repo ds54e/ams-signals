@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T02:29:22.707Z",
+  "capturedAt": "2026-11-25T02:34:44.779Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2066,6 +2066,106 @@
       "lastCommitAt": "2026-11-07",
       "lastMeaningfulCommitAt": "2026-11-03",
       "lastMeaningfulCommitSha": "85bb0dbaaf1f5f543f40cd8b0369d29bbd4112a0"
+    },
+    "wafer-space-cob": {
+      "kind": "github",
+      "repository": "wafer-space/chip-on-board-wire-bonded-pcbs",
+      "repositoryId": 1074002573,
+      "capturedAt": "2026-11-25T02:32:42.258Z",
+      "defaultBranch": "main",
+      "headSha": "5cb466897372ac6c9df03142287858c1c8b1c9a7",
+      "commits": [
+        0,
+        0,
+        0,
+        10,
+        7,
+        6,
+        3,
+        1,
+        8,
+        1,
+        16,
+        0
+      ],
+      "lastCommitAt": "2026-10-10",
+      "lastMeaningfulCommitAt": "2026-10-10",
+      "lastMeaningfulCommitSha": "5cb466897372ac6c9df03142287858c1c8b1c9a7"
+    },
+    "tinytapeout-demo-pcb": {
+      "kind": "github",
+      "repository": "TinyTapeout/tt-demo-pcb",
+      "repositoryId": 703524561,
+      "capturedAt": "2026-11-25T02:32:41.055Z",
+      "defaultBranch": "main",
+      "headSha": "bbf3dd1f771d5aed249b07ddf130b3ddc8261d60",
+      "commits": [
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-29",
+      "lastMeaningfulCommitAt": "2026-06-23",
+      "lastMeaningfulCommitSha": "ecb636aced1a431edb12ec634f3f88c586f39cf4"
+    },
+    "testomatic-runner": {
+      "kind": "github",
+      "repository": "SuperHouse/testomatic-runner",
+      "repositoryId": 1352309453,
+      "capturedAt": "2026-11-25T02:32:41.048Z",
+      "defaultBranch": "main",
+      "headSha": "a45170a754cc2a04f9071649acfc11b1911abbf9",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        11,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-18",
+      "lastMeaningfulCommitAt": "2026-11-18",
+      "lastMeaningfulCommitSha": "e98731d58c82d919d52e6fd01672ace5bbc122e2"
+    },
+    "surpyval": {
+      "kind": "github",
+      "repository": "derrynknife/SurPyval",
+      "repositoryId": 161888222,
+      "capturedAt": "2026-11-25T02:33:33.835Z",
+      "defaultBranch": "main",
+      "headSha": "6fbca35252d6ec7c1b72f7e557c118dc5a7c6d48",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        82,
+        86,
+        3,
+        2,
+        6,
+        4
+      ],
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-22",
+      "lastMeaningfulCommitSha": "6fbca35252d6ec7c1b72f7e557c118dc5a7c6d48"
     }
   }
 }
