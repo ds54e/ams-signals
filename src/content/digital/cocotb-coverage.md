@@ -1,7 +1,7 @@
 ---
 name: "cocotb-coverage"
 aliases: ["cocotb_coverage"]
-description: "Python functional-coverage and constrained-randomization extensions for cocotb testbenches, including coverpoints, cross coverage, pass/fail checks and XML/YAML coverage merging. The September 2026 development source corrects merged bin identification and CoverCheck semantics; it does not collect simulator-native code coverage."
+description: "Python functional-coverage and constrained-randomization extensions for cocotb testbenches, including coverpoints, crosses and pass/fail checks. The reviewed default-branch merger identifies XML bins by attributes and preserves CoverCheck failure semantics across XML/YAML reports; simulator-native code coverage is outside its scope."
 scope:
   verification: { ai: false }
 access: "BSD-2-Clause Python source; requires compatible Python and cocotb for HDL testbench use. The reviewed merge corrections are on the development branch after release 2.0."

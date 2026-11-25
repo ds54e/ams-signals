@@ -1,7 +1,7 @@
 ---
 name: "Qibocal"
 aliases: ["Qibo calibration", "qubit calibration"]
-description: "Python calibration and characterization framework for quantum hardware. Implements frequency and amplitude sweeps, pulse-based measurement protocols, fitted parameter extraction and calibration updates, including resonator spectroscopy, readout classification and two-dimensional punchout measurements. Uses Qibolab for device execution and stores calibration parameters separately."
+description: "Python calibration and characterization framework for quantum hardware using Qibolab for pulse-based measurements, including resonator spectroscopy, readout classification and two-dimensional frequency/amplitude punchout sweeps. Numerical analysis extracts fitted parameters and discrimination settings, with separate calibration-update operations and structured parameter storage."
 scope:
   control: { ai: false }
   acquisition: { ai: false }

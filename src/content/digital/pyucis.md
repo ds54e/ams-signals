@@ -1,7 +1,7 @@
 ---
 name: "PyUCIS"
 aliases: []
-description: "Python UCIS library for importing, merging and analyzing hardware verification coverage. CLI/TUI tools connect coverage reports, regression comparisons, test history and testplan closure; SQLite and NCDB storage support richer metadata, and the 0.2.2 release updates coverage-group option merging. Format conversions have preservation limits."
+description: "Python UCIS library for importing, merging and analyzing hardware verification coverage, including coverage-group options. CLI/TUI tools support reports, regression comparisons, test history and testplan closure; SQLite and NCDB retain richer metadata than restricted interchange formats, and conversions have preservation limits."
 scope:
   verification:
     ai: false

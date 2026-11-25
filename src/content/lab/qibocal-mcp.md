@@ -1,7 +1,7 @@
 ---
 name: "Qibocal MCP"
 aliases: ["qibocal-mcp", "qibocal-agent", "AI calibration agent"]
-description: "MCP servers and a model-directed calibration agent for Qibocal. Expose protocol discovery and execution, fitted results and plot inspection, separate application of updates, and Git-backed platform version management. Support interactive or autonomous orchestration, including remote execution through SSH and SLURM."
+description: "Model-directed calibration agent and MCP servers for Qibocal, supporting protocol discovery, interactive or autonomous selection and execution, fitted-result inspection and plot analysis. Applying calibration updates is separate from measurement; the project also provides Git-backed platform version management and remote execution through SSH and SLURM."
 scope:
   control: { ai: true }
   acquisition: { ai: true }

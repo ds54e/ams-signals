@@ -1,7 +1,7 @@
 ---
 name: "xezim"
 aliases: ["sisSIM"]
-description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with randomization, coverage, DPI/VPI, SDF timing and optional native compilation. Recent main-branch fixes include real-valued user-defined nettype input resolution; UPF and resolved-real/wreal support remain subsets, not general analog simulation."
+description: "Rust SystemVerilog simulator for RTL, gate-level and UVM verification, with randomization, coverage, DPI/VPI, SDF timing and optional native compilation. The reviewed default branch supports real-valued user-defined nettype input resolution; UPF and resolved-real/wreal support remain partial, without a general analog solver."
 scope:
   verification:
     ai: false
