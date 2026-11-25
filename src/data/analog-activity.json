@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T06:50:11.000Z",
+  "capturedAt": "2026-11-25T07:03:20.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3405,6 +3405,32 @@
       "lastMeaningfulCommitAt": "2026-09-26",
       "lastMeaningfulCommitSha": "e234d1ee5e6686721777ad6118303b633e08cf1c",
       "notes": "September 15 publishes multi-crate implementation, September 25 adds CLI/WASM analysis paths, September 26 adds elliptic synthesis and reference checks. Later CI changes are the raw checkpoint."
+    },
+    "freecad-chip-packaging-workbench": {
+      "kind": "github",
+      "repository": "Haggi84/FreeCAD-Chip-Packaging-Workbench-",
+      "repositoryId": 1003066262,
+      "capturedAt": "2026-11-25T07:03:20.000Z",
+      "defaultBranch": "main",
+      "headSha": "5f6c9d98be4d2deedc1bea373c51c9c354625ace",
+      "commits": [
+        3,
+        0,
+        0,
+        27,
+        19,
+        16,
+        13,
+        7,
+        9,
+        34,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-23",
+      "lastMeaningfulCommitAt": "2026-09-23",
+      "lastMeaningfulCommitSha": "65cb17b2403a692f99757b8fa6f11da031b61bad",
+      "notes": "July 10 adds wire-bond profiles, rendering and test infrastructure; August 5 adds package DRC; September 17 adds stacked die checks and September 23 adds GDS pad selection. Later September 23 stack visualization is the raw checkpoint. Related DesignStudio and non-default branches are excluded from the count."
     }
   }
 }
