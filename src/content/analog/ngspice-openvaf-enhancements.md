@@ -25,7 +25,7 @@ sources:
     title: "README at the reviewed revision"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/1f70cb3788cabdd8ba2d694b2318c92b6e9727a9/README.md"
   - id: "implementation"
-    title: "Reviewed implementation: docs/handbook/README.md"
+    title: "User handbook index, documented workflows and verification guidance"
     url: "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/blob/05fa8a439e7b84a26f45320dceb8dea2391ae2a1/docs/handbook/README.md"
   - id: "activity"
     title: "fix: a system function or random draw in a parameter default or range is refused, not crashed on (compiler hunt F1)"
@@ -90,7 +90,7 @@ The author explicitly presents the development effort as Claude-assisted; core c
 
 These enhancements belong to this combined development tree and are not automatically upstream ngspice/OpenVAF features. Automated binary publishing is excluded from the meaningful-activity decision. [Public update](#source-activity).
 
-[Implementation inspected](#source-implementation).
+[Handbook and verification guidance](#source-implementation).
 
 ### Scope classification
 

@@ -30,8 +30,11 @@ sources:
   title: Reviewed implementation and validation change
   url: https://github.com/lizhangmai/ICLayout-Bench/commit/069b1dd250722f49ca26a56c715a1a1f58bbc492
 - id: retained
-  title: Current implementation at review
-  url: https://github.com/lizhangmai/ICLayout-Bench/blob/de0910856777cbdc87452678a40bafe0288274a9/README.md
+  title: Retained evaluation runner and measurement validation
+  url: https://github.com/lizhangmai/ICLayout-Bench/blob/de0910856777cbdc87452678a40bafe0288274a9/benchmarking/evaluation/runner.py
+- id: extraction
+  title: Retained KPEX extraction and interface validation
+  url: https://github.com/lizhangmai/ICLayout-Bench/blob/de0910856777cbdc87452678a40bafe0288274a9/benchmarking/eda/_scripts/kpex_runner.py
 - id: development-20261124-code
   title: "Credited executable implementation and tests"
   url: https://github.com/lizhangmai/ICLayout-Bench/commit/06aeecd2e213f56746cfa98537158af55962b3be
@@ -42,7 +45,7 @@ sources:
 
 ### Implementation and selection
 
-AI Layout describes the evaluated agent task, not an AI grader. Conventional post-layout electrical evaluation supports Simulation. Public scope is 92 tasks across four open PDKs, distinct from the full paper study; native evidence-contract and extraction changes include tests. [Workflow](#source-readme) · [Implementation change](#source-implementation) · [Retained code](#source-retained).
+AI Layout describes the evaluated agent task, not an AI grader. Conventional post-layout electrical evaluation supports Simulation. Public scope is 92 tasks across four open PDKs, distinct from the full paper study; native evidence-contract and extraction changes include tests. [Workflow](#source-readme) · [Implementation change](#source-implementation) · [Evaluation runner](#source-retained) · [KPEX extraction](#source-extraction).
 
 ### Review boundary
 
