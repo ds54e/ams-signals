@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T05:53:35.241Z",
+  "capturedAt": "2026-11-25T06:12:42.038Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2591,6 +2591,131 @@
       "lastCommitAt": "2026-11-20",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "92ea1d61a1cea92fb8d874ebd061e126ed9b4ed0"
+    },
+    "msl-equipment": {
+      "kind": "github",
+      "repository": "MSLNZ/msl-equipment",
+      "repositoryId": 86027122,
+      "capturedAt": "2026-11-25T06:10:23.918Z",
+      "defaultBranch": "main",
+      "headSha": "b8dc71d13a068d151aa26278244ae957ea173f55",
+      "commits": [
+        13,
+        23,
+        25,
+        21,
+        9,
+        26,
+        27,
+        9,
+        7,
+        9,
+        12,
+        6
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-04",
+      "lastMeaningfulCommitSha": "1b7c9fc4dfd2a26a92470d5ab494fae14b97034b"
+    },
+    "calibrafacil": {
+      "kind": "github",
+      "repository": "CalibraFacil/calibrafacil",
+      "repositoryId": 1400859503,
+      "capturedAt": "2026-11-25T06:11:24.388Z",
+      "defaultBranch": "main",
+      "headSha": "e17bc56b2ea090498658cf7c4ea14c587a39b477",
+      "commits": [
+        81,
+        38,
+        33,
+        7,
+        69,
+        111,
+        194,
+        194,
+        11,
+        33,
+        166,
+        219
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-12",
+      "lastMeaningfulCommitSha": "e451727b87efb024a5dfe217ec782d2f843a2e98"
+    },
+    "curepy": {
+      "kind": "github",
+      "repository": "comet-toolkit/curepy",
+      "repositoryId": 1197034551,
+      "capturedAt": "2026-11-25T06:10:20.994Z",
+      "defaultBranch": "main",
+      "headSha": "0dcf00d208fbadec5b0dd3b9726597ea25137ae1",
+      "commits": [
+        0,
+        0,
+        0,
+        9,
+        5,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-15",
+      "lastMeaningfulCommitAt": "2026-05-15",
+      "lastMeaningfulCommitSha": "0dcf00d208fbadec5b0dd3b9726597ea25137ae1"
+    },
+    "statime": {
+      "kind": "github",
+      "repository": "pendulum-project/statime",
+      "repositoryId": 444359788,
+      "capturedAt": "2026-11-25T06:11:00.557Z",
+      "defaultBranch": "main",
+      "headSha": "fe8cb88fa4fe5f13241d23a3d26c00f195044c33",
+      "commits": [
+        0,
+        10,
+        1,
+        7,
+        4,
+        1,
+        2,
+        0,
+        0,
+        4,
+        2,
+        5
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "8cbcec2d4155c3969077f6343c53969f40688fd9"
+    },
+    "tiled": {
+      "kind": "github",
+      "repository": "bluesky/tiled",
+      "repositoryId": 335642034,
+      "capturedAt": "2026-11-25T06:10:43.509Z",
+      "defaultBranch": "main",
+      "headSha": "0732d02df6fb3dd4f193181d0e4f28bd495cfef6",
+      "commits": [
+        15,
+        14,
+        12,
+        7,
+        30,
+        35,
+        8,
+        14,
+        23,
+        21,
+        49,
+        39
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "c6301e2dcdcefde365e767094527e3f4f8965d21"
     }
   }
 }
