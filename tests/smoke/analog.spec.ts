@@ -38,7 +38,7 @@ test('Analog search matches authored aliases without changing the displayed name
   await page.goto('./analog/');
   const search = page.getByRole('searchbox', { name: 'Search projects' });
   for (const [query, project, name] of [
-    ['ＫＰＥＸ', 'klayout-pex', 'KLayout-PEX'],
+    ['ＫＬａｙｏｕｔ－ＰＥＸ', 'klayout-pex', 'KPEX'],
     ['skrf', 'scikit-rf', 'scikit-rf'],
   ]) {
     await search.fill(query);
