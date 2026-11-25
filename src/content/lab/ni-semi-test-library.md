@@ -33,7 +33,7 @@ sources:
 
 ## Scope and limits
 
-The extension library expresses instrument settings and measured results using pin and site data, including merged or ganged source-measure channels. The register-I/O example writes source waveforms, executes patterns and retrieves per-site capture data. Test Automation follows reusable test steps and sequence examples, not a standalone implementation of the proprietary TestStand execution environment. [DC measurement](#source-dc-measure) · [Register I/O](#source-register-io).
+The extension library expresses instrument settings and measured results using pin and site data, including merged or ganged source-measure channels. The register-I/O example writes source waveforms, executes patterns and retrieves per-site capture data. Test follows reusable test steps and sequence examples, not a standalone implementation of the proprietary TestStand execution environment. [DC measurement](#source-dc-measure) · [Register I/O](#source-register-io).
 
 The source is useful for reviewing production test interface design, including site-dependent data and shared channels. Native drivers and STS software remain separate requirements; inspected examples and unit tests do not establish physical timing or measurement accuracy.
 

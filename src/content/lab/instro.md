@@ -32,7 +32,7 @@ sources:
 
 ## Scope and limits
 
-Instro combines instrument-category interfaces with structured measurement and command publishers. It has its own drivers and can also wrap existing PyMeasure properties: reads publish measurements and writes publish command channels. The latter is an optional integration, not a second source of independent driver validation. Local operation does not require the Nominal service, and separate service dependencies apply to its cloud publishers. Neither ordinary driver unit tests nor publishing a reading establishes an independent Test Automation or Analysis stage. [Publishing adapter](#source-pymeasure) · [Standalone operation](#source-standalone).
+Instro combines instrument-category interfaces with structured measurement and command publishers. It has its own drivers and can also wrap existing PyMeasure properties: reads publish measurements and writes publish command channels. The latter is an optional integration, not a second source of independent driver validation. Local operation does not require the Nominal service, and separate service dependencies apply to its cloud publishers. Neither ordinary driver unit tests nor publishing a reading establishes an independent Test or Analysis stage. [Publishing adapter](#source-pymeasure) · [Standalone operation](#source-standalone).
 
 ## Reviewed maintenance
 

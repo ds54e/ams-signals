@@ -54,7 +54,7 @@ sources:
 
 HSync adds a desktop workflow for external logic analyzers, with its own Rust device drivers, capture storage and uiharu decoder engine. It is useful for observing a board's configuration buses, trigger relationships and digital edge timing. The operational difference from Glasgow is the frontend and streaming support for existing analyzer families; it does not require building a programmable interface applet. The bundled demo and saved-file workflow provide a hardware-free entry point. [Installation and device support](#source-usage).
 
-Control follows device settings and triggers; Acquisition follows the implemented USB streaming path. Analysis is independently supported by reopening saved captures, rerunning decoders, searching decoded events and counting edges. Importing simulator waveforms does not change the primary external-measurement workflow. The driver mocks and software regression tests support the implementation claims without adding a Test Automation stage. [Acquisition implementation](#source-capture-driver) · [Capture regressions](#source-capture-regression) · [Recorded decoding](#source-recorded-decoding).
+Control follows device settings and triggers; Acquisition follows the implemented USB streaming path. Analysis is independently supported by reopening saved captures, rerunning decoders, searching decoded events and counting edges. Importing simulator waveforms does not change the primary external-measurement workflow. The driver mocks and software regression tests support the implementation claims without adding a Test stage. [Acquisition implementation](#source-capture-driver) · [Capture regressions](#source-capture-regression) · [Recorded decoding](#source-recorded-decoding).
 
 ## Use and limits
 

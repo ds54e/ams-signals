@@ -64,4 +64,4 @@ ADC range, reference clock, overflow, detrending response and absolute noise-flo
 
 Board support provides definitions and configuration to build instruments targeting the hardware. It is not a fabrication package for the board. [Board support](#source-board-support).
 
-Test Automation is supported by the same-repository Red Pitaya BIST example. Its executable hardware checks repeat live workloads, inspect per-metric verdicts, exercise a missing-loopback negative case and cancellation/recovery, and save JSON reports. It requires the stated physical loopback setup; the AI-development attribution remains limited to the separately credited chirp example. [Hardware test suite](#source-hardware-test).
+Test is supported by the same-repository Red Pitaya BIST example. Its executable hardware checks repeat live workloads, inspect per-metric verdicts, exercise a missing-loopback negative case and cancellation/recovery, and save JSON reports. It requires the stated physical loopback setup; the AI-development attribution remains limited to the separately credited chirp example. [Hardware test suite](#source-hardware-test).

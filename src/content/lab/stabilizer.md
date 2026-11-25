@@ -60,9 +60,9 @@ sources:
 
 Stabilizer supplies an embedded measurement and feedback implementation, beyond a collection of DSP algorithms or a generic instrument transport. The supplied applications configure real ADC/DAC paths, digital filters, lock-in demodulation and phase/frequency feedback. The FLS application uses the Pounder RF frontend for phase measurement and controlled RF output. This adds a configurable bench servo to the timing-card discipline and host-side spectral-analysis workflows already cataloged. [Application overview](#source-overview) · [Lock-in implementation](#source-lockin) · [Phase/frequency implementation](#source-fls).
 
-Control follows configurable processing and output paths, and Acquisition follows hardware samples and telemetry streamed to the host. Processing in the live embedded feedback loop is not a separate saved-measurement Analysis workflow. Board designs are maintained separately and do not supply Board scope to this firmware listing. [Settings and streams](#source-usage) · [Hardware separation](#source-overview).
+Control follows configurable processing and output paths, and Acquisition follows hardware samples and telemetry streamed to the host. Calculations used only by the embedded feedback loop belong to Control; they do not alone establish a separate user-facing Analysis operation. Board designs are maintained separately and do not supply Design scope to this firmware listing. [Settings and streams](#source-usage) · [Hardware separation](#source-overview).
 
-Test Automation follows the public hardware-in-the-loop scripts. The loopback procedure sets gains and PID parameters, reads ADC telemetry and checks the measured value against a tolerance at several setpoints. The shell entry also invokes a stream test. These are executable physical checks rather than ordinary software unit tests. [Test entry](#source-hitl-entry) · [Loopback procedure](#source-loopback).
+Test follows the public hardware-in-the-loop scripts. The loopback procedure sets gains and PID parameters, reads ADC telemetry and checks the measured value against a tolerance at several setpoints. The shell entry also invokes a stream test. These are executable physical checks rather than ordinary software unit tests. [Test entry](#source-hitl-entry) · [Loopback procedure](#source-loopback).
 
 ## Use and limits
 

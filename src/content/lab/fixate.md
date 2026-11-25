@@ -33,6 +33,6 @@ In the reviewed v0.7.0 switching module, intended pin state can update before a 
 
 Additional context: [Reviewed switching and reset implementation](#source-switching).
 
-Relay and multiplexer routing is fixture Control; the framework provides runnable checks and records under Test Automation. Its switch model is not itself a board design or a fabrication and assembly artifact.
+Relay and multiplexer routing is fixture Control; the framework provides runnable checks and records under Test. Its switch model is not itself a board design or a fabrication and assembly artifact.
 
 Acquisition follows the bundled DMM driver's `measurement`, `measurements` and live SCPI readout methods, rather than a capability assumed from external test code. [Instrument readout](#source-acquisition-driver).

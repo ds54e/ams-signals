@@ -51,7 +51,7 @@ sources:
 
 ## Scope and limits
 
-The distinct workflow combines microwave and pulsed measurement instruments under Python scripts with reusable acquisition and timing controls. The reviewed pulse-scan example configures a pulse programmer, AWG and digitizer, shifts stimulus timing, acquires phase-cycled traces and saves the results with experiment metadata. This supports Test Automation beyond generic transport and driver APIs. The frequency-counter and temperature-controller modules are separate control/acquisition endpoints, not a demonstrated automated oscillator temperature-sweep recipe. The station and optional treatment tools have separate repositories and are not counted as independent capabilities of the core. [Procedure](#source-procedure) · [Counter](#source-counter) · [Temperature](#source-temperature) · [Overview](#source-overview).
+The distinct workflow combines microwave and pulsed measurement instruments under Python scripts with reusable acquisition and timing controls. The reviewed pulse-scan example configures a pulse programmer, AWG and digitizer, shifts stimulus timing, acquires phase-cycled traces and saves the results with experiment metadata. This supports Test beyond generic transport and driver APIs. The frequency-counter and temperature-controller modules are separate control/acquisition endpoints, not a demonstrated automated oscillator temperature-sweep recipe. The station and optional treatment tools have separate repositories and are not counted as independent capabilities of the core. [Procedure](#source-procedure) · [Counter](#source-counter) · [Temperature](#source-temperature) · [Overview](#source-overview).
 
 ## Reviewed maintenance and provenance
 

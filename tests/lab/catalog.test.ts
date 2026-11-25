@@ -45,6 +45,12 @@ test('Lab distinguishes live capture, recorded data and test execution from rela
   for (const id of ['nptdms', 'rigolwfm', 'tm-data-types']) assert.deepEqual(scopes(id), ['analysis']);
   for (const id of ['openfpgaloader', 'pyocd']) assert.deepEqual(scopes(id), ['control']);
   assert.deepEqual(scopes('litescope'), ['acquisition', 'control']);
+  assert.deepEqual(scopes('pyrpl'), ['acquisition', 'analysis', 'control']);
+  assert.deepEqual(scopes('stabilizer'), ['acquisition', 'control', 'test']);
+  assert.deepEqual(scopes('diode-pcb'), ['design']);
+  assert.deepEqual(scopes('kibot'), ['design']);
+  assert.deepEqual(scopes('gpcam'), ['analysis']);
+  assert.deepEqual(scopes('origen-o2'), ['test']);
   assert.deepEqual(scopes('probe-rs'), ['control', 'test']);
   assert.deepEqual(scopes('pyvisa-sim'), ['test']);
 });
@@ -52,8 +58,11 @@ test('Lab distinguishes live capture, recorded data and test execution from rela
 test('Lab Scope stays functional and strict; development provenance requires real source IDs', () => {
   const p = lab.find(({ id }) => id === 'diode-pcb')!.data;
   assert(labSchema.safeParse(p).success);
-  for (const scope of [{}, { design: { ai: false } }, { board: true }, { board: { ai: false, rank: 1 } }]) {
-    assert(!labSchema.safeParse({ ...p, scope }).success);
+  // Isolate stage validation from the separate provenance/evidence pairing rule.
+  const { developmentEvidence: _, ...plain } = p;
+  assert(labSchema.safeParse({ ...plain, scope: { design: { ai: false } } }).success);
+  for (const scope of [{}, { board: { ai: false } }, { layout: { ai: false } }, { design: true }, { design: { ai: false, rank: 1 } }]) {
+    assert(!labSchema.safeParse({ ...plain, scope }).success);
   }
   assert(!labSchema.safeParse({ ...p, developmentEvidence: { ...p.developmentEvidence, sources: ['missing'] } }).success);
   assert(!labSchema.safeParse({ ...p, status: 'draft' }).success);

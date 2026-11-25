@@ -5,6 +5,7 @@ description: "Python-controlled Red Pitaya FPGA instruments for spectrum and tra
 scope:
   control: { ai: false }
   acquisition: { ai: false }
+  analysis: { ai: false }
 access: "Public source; repository LICENSE is MIT, while some retained source headers state GPL-3.0-or-later. Requires compatible Red Pitaya hardware; review per-file terms before reuse."
 addedAt: "2026-11-25"
 reviewedAt: "2026-11-25"
@@ -38,7 +39,7 @@ sources:
 
 ## Scope and limits
 
-The instrument modules control FPGA acquisition and signal processing, with a baseband cross-spectrum calculated from two acquired traces and a separate IQ-centered spectrum path. The network analyzer measures a configured transfer function; the IIR and PID modules provide programmable feedback. These are distinct from the general Red Pitaya software stack: PyRPL supplies a user-facing DSP instrument and feedback workflow. The cross-spectrum is not by itself a calibrated cross-correlation phase-noise measurement system, and the code does not establish a noise floor or oscillator jitter accuracy. Spectrum processing embedded in live acquisition is not counted as a separate offline analysis stage. [Spectrum](#source-spectrum) · [Transfer function](#source-network).
+The instrument modules control FPGA acquisition and signal processing, with a baseband cross-spectrum calculated from two acquired traces and a separate IQ-centered spectrum path. The network analyzer measures a configured transfer function; the IIR and PID modules provide programmable feedback. These are distinct from the general Red Pitaya software stack: PyRPL supplies a user-facing DSP instrument and feedback workflow. The cross-spectrum is not by itself a calibrated cross-correlation phase-noise measurement system, and the code does not establish a noise floor or oscillator jitter accuracy. Analysis covers the exposed windowed spectra, complex cross-spectrum and spectral-density results computed from acquired traces; it is distinct from returning or exporting raw samples. [Spectrum](#source-spectrum) · [Spectrum tests](#source-spectrum-tests) · [Transfer function](#source-network).
 
 ## Reviewed maintenance
 

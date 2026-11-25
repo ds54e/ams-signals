@@ -48,4 +48,4 @@ The ADI license limits software use to ADI components. Confirm compatible IIO dr
 
 ## Reviewed maintenance
 
-August 2026 restores the CN0540 offset calibration sequence. October adds exclusive/nonexclusive DDS tone configuration and AD9088 device support, including an emulation mapping. These are distinct device-specific implementation changes, not just updates to the common IIO transport. No separate Test Automation scope is inferred from the internal calibration or repository regression fixtures. [Calibration sequence](#source-calibration) · [DDS change](#source-dds) · [AD9088 integration](#source-activity).
+August 2026 restores the CN0540 offset calibration sequence. October adds exclusive/nonexclusive DDS tone configuration and AD9088 device support, including an emulation mapping. These are distinct device-specific implementation changes, not just updates to the common IIO transport. No separate Test scope is inferred from the internal calibration or repository regression fixtures. [Calibration sequence](#source-calibration) · [DDS change](#source-dds) · [AD9088 integration](#source-activity).

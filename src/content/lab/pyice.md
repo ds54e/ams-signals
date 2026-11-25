@@ -31,7 +31,7 @@ sources:
 
 ## Scope and limits
 
-The channel abstraction covers bench equipment and physical IC register access in a shared test workflow. Unlike a generic instrument transport, register values can be read, written and recorded alongside external conditions. The test framework evaluates measurement results against declared limits. Logging and in-procedure evaluation do not alone establish a separate offline Analysis stage. Host-side coordination does not guarantee hardware-timed alignment, calibrated accuracy or a particular register-map format's complete support.
+The channel abstraction covers bench equipment and physical IC register access in a shared test workflow. Unlike a generic instrument transport, register values can be read, written and recorded alongside external conditions. The test framework evaluates measurement results against declared limits. Logging and in-procedure limit checks are part of Test and do not alone establish a separate Analysis operation. Host-side coordination does not guarantee hardware-timed alignment, calibrated accuracy or a particular register-map format's complete support.
 
 ## Reviewed maintenance
 

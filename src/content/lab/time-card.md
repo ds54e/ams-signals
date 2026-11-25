@@ -3,7 +3,7 @@ name: "Time Card"
 aliases: []
 description: "GNSS-referenced timing card design and software, with clock selection, counters, pulse-per-second inputs and timestamp capture. The project documents FPGA and driver interfaces for disciplined time and frequency references used by hosts and measurement systems."
 scope:
-  board: { ai: false }
+  design: { ai: false }
   control: { ai: false }
   acquisition: { ai: false }
 access: "Public implementations under component-specific terms; production bitstreams have separate terms."

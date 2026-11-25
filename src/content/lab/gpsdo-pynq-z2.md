@@ -3,7 +3,7 @@ name: "GPSDO-PYNQ-Z2"
 aliases: ["DDMTD", "Digital dual-mixer time difference"]
 description: "Open-hardware front end for comparing thirteen 10 MHz frequency references and twelve 1 PPS inputs using digital dual-mixer time difference. KiCad fabrication data, FPGA timestamp capture, a Python driver and stability-analysis scripts form a measurement workflow; revision A has reported bench measurements, while revision B remains untested."
 scope:
-  board: { ai: false }
+  design: { ai: false }
   acquisition: { ai: false }
   analysis: { ai: false }
   aiDevelopment: assisted

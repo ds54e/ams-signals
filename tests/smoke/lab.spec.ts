@@ -9,7 +9,8 @@ catalogSearchRegression(fixture, {
   'ADALM2000': ['libm2k', 'scopy'],
   'wafer map': ['tsmap'],
   'Allan deviation': ['allantools'],
-  'Test Automation': ['openhtf', 'opentap', 'pymeasure'],
+  'Design': ['diode-pcb', 'kibot', 'kikit'],
+  'Test': ['openhtf', 'opentap', 'pymeasure'],
   'KiCad automation': ['kibot'],
 });
 
@@ -31,7 +32,14 @@ for (const width of [1440, 390, 320]) {
     await expect(fixture.rows(page)).toHaveCount(fixture.projects.length);
     await expect(fixture.rows(page).first().locator('.activity-strip > li')).toHaveCount(12);
     const scope = page.getByRole('combobox', { name: 'Scope' });
-    await expect(scope.locator('option')).toHaveText(['All scopes', 'Board & Fixture', 'Control', 'Acquisition', 'Analysis', 'Test Automation']);
+    await expect(scope.locator('option')).toHaveText(['All scopes', 'Design', 'Control', 'Acquisition', 'Analysis', 'Test']);
+    for (const stage of ['design', 'control', 'acquisition', 'analysis', 'test']) {
+      await scope.selectOption(stage);
+      const expected = fixture.ordered.filter((project) => project.scope[stage]).map((project) => `${project.id}--name`);
+      await expect.poll(() => fixture.rows(page).filter({ visible: true }).locator('h2')
+        .evaluateAll((nodes) => nodes.map((node) => node.id))).toEqual(expected);
+    }
+    await scope.selectOption('');
     const search = page.getByRole('searchbox', { name: 'Search projects' });
     await search.fill('Standard Test Data Format');
     await scope.selectOption('analysis');

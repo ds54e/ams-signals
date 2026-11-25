@@ -32,4 +32,4 @@ The reviewed routing repair refuses an invalid power-net join. Routing resistanc
 
 Additional context: [Jumperless V5 hardware and its separate terms](#source-hardware).
 
-This listing follows the firmware's routing, stimulation and measurement operations. Board fabrication artifacts belong to the separate hardware repository. The retained agent-skill document is explicitly superseded by a separate automation project, so neither Board coverage nor runtime AI is inherited from those companion repositories. [Automation migration](#source-automation-migration).
+This listing follows the firmware's routing, stimulation and measurement operations. Board fabrication artifacts belong to the separate hardware repository. The retained agent-skill document is explicitly superseded by a separate automation project, so neither Design coverage nor runtime AI is inherited from those companion repositories. [Automation migration](#source-automation-migration).

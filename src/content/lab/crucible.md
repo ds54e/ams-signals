@@ -59,7 +59,7 @@ sources:
 
 ## Selection and scope
 
-Crucible provides network endpoints for developing instrument drivers and bench sequences without attached instruments. It loads a bench or device profile, accepts SCPI requests and retains simulated device state across connections. The reusable workflow is exercising a client's actual socket or VXI-11 communication path against controlled responses. Test Automation follows that virtual-instrument fixture, rather than physical Control or Acquisition. [Startup](#source-startup) · [TCP runtime](#source-tcp-server) · [VXI-11 runtime](#source-vxi11-core).
+Crucible provides network endpoints for developing instrument drivers and bench sequences without attached instruments. It loads a bench or device profile, accepts SCPI requests and retains simulated device state across connections. The reusable workflow is exercising a client's actual socket or VXI-11 communication path against controlled responses. Test follows that virtual-instrument fixture, rather than physical Control or Acquisition. [Startup](#source-startup) · [TCP runtime](#source-tcp-server) · [VXI-11 runtime](#source-vxi11-core).
 
 This adds a different integration boundary from the retained PyVISA-sim backend. PyVISA-sim substitutes the Python VISA backend; Crucible instead listens on network protocols that compatible clients can address through their existing transport implementation. Driver addresses/resource strings and profile commands still need configuration. The manual shows PyVISA connections but labels NI MAX and LabVIEW instructions unverified, so this entry does not claim universal client compatibility. [Connection guide](#source-connection) · [Related backend](#source-pyvisa-sim).
 

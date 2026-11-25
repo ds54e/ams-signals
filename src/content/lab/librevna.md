@@ -4,7 +4,7 @@ aliases: ["VNA vector network analyzer"]
 description: "Open vector network analyzer project with instrument hardware, firmware and desktop software. It acquires and calibrates S-parameter sweeps for network and fixture measurements and supports remote control for repeatable measurement setups; compound devices lack phase information for transmission between separate units."
 scope:
   control: { ai: false }
-  board: { ai: false }
+  design: { ai: false }
   acquisition: { ai: false }
   analysis: { ai: false }
   aiDevelopment: assisted

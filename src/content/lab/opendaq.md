@@ -64,7 +64,7 @@ sources:
 
 The SDK implements remote property changes and native signal subscriptions, with sample readers preserving domain ticks and timestamps. This establishes Control and Acquisition independently of its synthetic reference devices. It supplies a shared device and signal model rather than another VISA transport backend. Hardware support depends on the loaded device modules; timestamps and software alignment do not establish synchronized or calibrated hardware performance. [Configuration](#source-control); [Streaming](#source-streaming); [Native client](#source-native-client).
 
-The optional audio module reads recorded WAV samples into typed signal packets, and the bundled FFT block processes signal packets through a deterministic transform. Those separately usable file-reading and processing operations establish Analysis. The WAV reader initializes a miniaudio playback device, so this path is not a backend-free batch file parser. A custom function-block API or a streaming loop alone is not counted as Test Automation. [WAV reader](#source-wav-reader); [FFT implementation](#source-fft).
+The optional audio module reads recorded WAV samples into typed signal packets, and the bundled FFT block processes signal packets through a deterministic transform. Those separately usable file-reading and processing operations establish Analysis. The WAV reader initializes a miniaudio playback device, so this path is not a backend-free batch file parser. A custom function-block API or a streaming loop alone is not counted as Test. [WAV reader](#source-wav-reader); [FFT implementation](#source-fft).
 
 ### Selection and development provenance
 

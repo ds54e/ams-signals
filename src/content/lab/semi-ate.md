@@ -32,7 +32,7 @@ sources:
 
 ## Scope and limits
 
-Semi-ATE organizes project definitions, generated test code, site-specific execution and tester or equipment plugins. The test application and binning workflow are distinct from a generic measurement driver library; instrument operations depend on the configured plugins. Result logging is part of test execution and does not alone establish separate offline Analysis. [Generator](#source-generation) · [Sequencer](#source-sequencer).
+Semi-ATE organizes project definitions, generated test code, site-specific execution and tester or equipment plugins. The test application and binning workflow are distinct from a generic measurement driver library; instrument operations depend on the configured plugins. Result logging is part of Test and does not alone establish a separate Analysis operation. [Generator](#source-generation) · [Sequencer](#source-sequencer).
 
 PyLab-ML is a related instrument library with device classes and register access. Keep this companion linked to the framework without attributing its separate maintenance or instrument support to the framework's repository activity. This workflow does not establish a complete physical ATE emulator, calibrated measurements or a particular tester's multisite performance. [Companion library](#source-pylab).
 

@@ -28,7 +28,7 @@ sources:
 
 ## Scope and limits
 
-Origen 2 produces tester-facing artifacts from device and test definitions. Its pattern example selects named timesets and drives pins cycle by cycle; the generated test flow is separate from RTL scan insertion or fault-pattern generation. Test Automation covers the executable tester-program and pattern generation workflow. Generation alone does not establish physical instrument control, acquisition, timing accuracy, or compatibility with every tester model. [Timeset example](#source-timesets).
+Origen 2 produces tester-facing artifacts from device and test definitions. Its pattern example selects named timesets and drives pins cycle by cycle; the generated test flow is separate from RTL scan insertion or fault-pattern generation. Test covers the executable tester-program and pattern generation workflow. Generation alone does not establish physical instrument control, acquisition, timing accuracy, or compatibility with every tester model. [Timeset example](#source-timesets).
 
 The entry records the Python/Rust O2 repository only, not the older Ruby Origen ecosystem or separate plugins. It is not a virtual mixed-signal tester or circuit simulator.
 

@@ -39,7 +39,7 @@ sources:
 
 ## Scope and limits
 
-The application implements a bench workflow for power-conversion efficiency measurements and related oscilloscope captures rather than only supplying generic instrument drivers. Control configures instrument settings, Acquisition retrieves waveforms and measurement values, Test Automation executes project-defined sweeps and capture conditions, and Analysis reopens recorded runs and calculates relative time offsets. [Canonical integration](#source-development-integration).
+The application implements a bench workflow for power-conversion efficiency measurements and related oscilloscope captures rather than only supplying generic instrument drivers. Control configures instrument settings, Acquisition retrieves waveforms and measurement values, Test executes project-defined sweeps and capture conditions, and Analysis reopens recorded runs and calculates relative time offsets. [Canonical integration](#source-development-integration).
 
 The alignment routine estimates a relative shift using cross-correlation of a named signal shared by two captures and rejects poor matches. Its output is not hardware trigger synchronization, calibrated skew or independent timebase correction; a common signal can have ambiguous correlation peaks. The original waveform files are preserved. [Alignment implementation](#source-development-retained).
 

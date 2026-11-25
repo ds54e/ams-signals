@@ -46,7 +46,7 @@ sources:
 
 ## Scope and limits
 
-QICK implements programmable excitation and acquisition on RFSoC boards. Its real-time programs load pulse and readout settings, run repeated shots, stream ADC results and support parameter sweeps and averaging. This is a combined hardware-timed stimulus/readout workflow, not a general-purpose software instrument scheduler. Firmware for existing RFSoC boards does not establish a separate Board stage. [Acquisition program](#source-acquire-program).
+QICK implements programmable excitation and acquisition on RFSoC boards. Its real-time programs load pulse and readout settings, run repeated shots, stream ADC results and support parameter sweeps and averaging. This is a combined hardware-timed stimulus/readout workflow, not a general-purpose software instrument scheduler. Firmware for existing RFSoC boards does not establish a separate Design stage. [Acquisition program](#source-acquire-program).
 
 The main application is quantum instrumentation; other RF experiments require appropriate application code, frontend bandwidth, clocking and calibration. The source does not establish precision oscillator phase-noise or jitter performance.
 

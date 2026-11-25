@@ -30,7 +30,7 @@ The reviewed main branch rejects unknown resources more explicitly, but not ever
 
 [Reviewed upstream implementation](#source-activity).
 
-Test Automation covers simulated command fixtures for driver regressions. The backend responds to instrument commands without setting a physical instrument, unlike the real VISA backends.
+Test covers simulated command fixtures for driver regressions. The backend responds to instrument commands without setting a physical instrument, unlike the real VISA backends.
 
 ## Reviewed maintenance
 

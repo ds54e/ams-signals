@@ -3,7 +3,7 @@ name: "EEZ BB3+"
 aliases: [EEZ BB3 Plus, eez-bb3plus]
 description: "Published KiCad and fabrication designs for a modular test-and-measurement chassis, including a 10 MHz reference fanout, module interconnects and a mixed I/O board. Schematics, PCB layouts, BOMs, Gerbers and mechanical files are available; the project is under development and requires compatible controllers, firmware, modules, assembly and validation."
 scope:
-  board: { ai: false }
+  design: { ai: false }
 access: "TAPR Open Hardware License v1.0 for the hardware documentation. This is a developing hardware design; controller modules, firmware and third-party components have their own dependencies and terms. The reviewed sources use KiCad 10."
 addedAt: "2026-11-24"
 reviewedAt: "2026-11-24"
@@ -46,7 +46,7 @@ sources:
 
 ### Scope and maturity
 
-The repository supplies actual schematic and PCB sources plus fabrication and mechanical artifacts for the chassis, mainboard, display, DIB2 adapter and BIO2210 I/O module. The reference-clock schematic includes a 10 MHz TCXO and fanout to the module slots. These artifacts establish Board & Fixture independently of the controller firmware or a working acquisition application. [Design sources](#source-designs); [Fabrication outputs](#source-fabrication); [Clock schematic](#source-clock-fanout); [I/O schematic](#source-io-board); [Adapter PCB](#source-adapter-pcb).
+The repository supplies actual schematic and PCB sources plus fabrication and mechanical artifacts for the chassis, mainboard, display, DIB2 adapter and BIO2210 I/O module. The reference-clock schematic includes a 10 MHz TCXO and fanout to the module slots. These artifacts establish Design independently of the controller firmware or a working acquisition application. [Design sources](#source-designs); [Fabrication outputs](#source-fabrication); [Clock schematic](#source-clock-fanout); [I/O schematic](#source-io-board); [Adapter PCB](#source-adapter-pcb).
 
 The project describes itself as work in progress. The listing does not treat planned integration, electrical specifications, clock jitter or a certification target as independently verified hardware performance. Controller and module dependencies must be assessed for the chosen build. No board was fabricated, assembled or electrically tested for this review. [Project status and dependencies](#source-readme); [Hardware license](#source-license).
 

@@ -30,7 +30,7 @@ sources:
 
 ## Scope and limits
 
-Control covers motor positioning and measurement-instrument configuration; Acquisition covers live microscope and instrument measurements. Test Automation follows the mapping and electrical measurement workflow, including repeatable instrument sequences. The public hardware description is not classified as a separate Board stage without verified fabrication or assembly-design outputs.
+Control covers motor positioning and measurement-instrument configuration; Acquisition covers live microscope and instrument measurements. Test follows the mapping and electrical measurement workflow, including repeatable instrument sequences. The public hardware description is not classified as a separate Design stage without verified fabrication or assembly-design outputs.
 
 The optional model-driven planner selects existing high-level motion, imaging and measurement actions using application context. The local runtime checks prerequisites and invokes existing workflows; the LLM does not issue low-level instrument commands directly. These are runtime AI operations, not evidence of how the project was developed. Confirm physical clearance, probe contact, bias limits and output state independently of software completion. [Planner](#source-agent-planner) · [Runtime](#source-agent-runtime).
 

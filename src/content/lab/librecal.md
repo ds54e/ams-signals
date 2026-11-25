@@ -3,7 +3,7 @@ name: "LibreCAL"
 aliases: ["electronic calibration ECal VNA standards"]
 description: "Open four-port electronic VNA calibration module with KiCad manufacturing files, firmware, USB/SCPI control and factory-coefficient measurement scripts. Its switched standards require device-specific measured coefficients and thermal stabilization; bundled VNA adapters collect and check calibration data, while the factory workflow can replace stored coefficients."
 scope:
-  board: { ai: false }
+  design: { ai: false }
   control: { ai: false }
   acquisition: { ai: false }
   test: { ai: false }
@@ -48,7 +48,7 @@ sources:
 
 Board is supported by editable KiCad schematics and PCB files plus BOM, Gerber and placement outputs. Control covers selecting open, short, load and through states and accessing temperature and coefficient commands. Each unit needs its own measured standard coefficients; assembling the public design alone does not produce a characterized calibration kit. Changing the temperature target can invalidate the coefficients. [Hardware](#source-hardware) · [Operating requirements](#source-overview) · [SCPI interface](#source-scpi).
 
-Acquisition is supported by the bundled factory-characterization workflow and concrete VNA adapters, not by a receiver inside the calibration module. The script waits for thermal stabilization, guides physical port reconnections, switches standards, triggers fresh VNA sweeps and retrieves complex S-parameters. Its configurable magnitude, phase and delay limits and repeatable measurement sequence support Test Automation. The operator must configure a compatible calibrated VNA and the adapter's frequency range and connections. [Factory workflow](#source-factory-workflow) · [VNA adapter](#source-vna-adapter).
+Acquisition is supported by the bundled factory-characterization workflow and concrete VNA adapters, not by a receiver inside the calibration module. The script waits for thermal stabilization, guides physical port reconnections, switches standards, triggers fresh VNA sweeps and retrieves complex S-parameters. Its configurable magnitude, phase and delay limits and repeatable measurement sequence support Test. The operator must configure a compatible calibrated VNA and the adapter's frequency range and connections. [Factory workflow](#source-factory-workflow) · [VNA adapter](#source-vna-adapter).
 
 The factory workflow explicitly enables writes, deletes existing factory coefficients and writes replacements. It is a manufacturing/characterization procedure, not a read-only accuracy check for an already calibrated unit. Optional limit checking does not establish traceability or a published uncertainty budget. [Factory workflow](#source-factory-workflow) · [Coefficient protection](#source-scpi).
 

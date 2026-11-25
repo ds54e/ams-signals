@@ -50,7 +50,7 @@ sources:
 
 Task operations reach the NI-DAQmx interpreter for channel reads, waveform transfers, output writes and lifecycle control. The timing API configures device sample and reference clocks; the examples implement a shared AI/AO start trigger and an AI sample clock routed to a counter task. These are Control and Acquisition operations. Their availability and actual timing depend on the device, terminal routes and installed driver version. The examples were inspected, not executed on NI hardware. [Task implementation](#source-task); [Timing](#source-timing); [Start trigger](#source-synchronization); [Shared sample clock](#source-shared-clock).
 
-This entry supplies a hardware-specific DAQ task API, separately from VISA instrument messaging. The shared-clock example assumes one synchronized device and explains the extra routing needed across devices. Its TDMS persistence uses npTDMS, which has its own saved-record Analysis listing. Routine task loops and package tests do not establish a separate Test Automation workflow here. [Dependencies and logging](#source-readme); [Shared-clock example](#source-shared-clock); [npTDMS](#source-recorded-data).
+This entry supplies a hardware-specific DAQ task API, separately from VISA instrument messaging. The shared-clock example assumes one synchronized device and explains the extra routing needed across devices. Its TDMS persistence uses npTDMS, which has its own saved-record Analysis listing. Routine task loops and package tests do not establish a separate Test workflow here. [Dependencies and logging](#source-readme); [Shared-clock example](#source-shared-clock); [npTDMS](#source-recorded-data).
 
 ### Selection
 

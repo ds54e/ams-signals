@@ -44,7 +44,7 @@ sources:
 
 ### Scope and evidence
 
-BLACS is the execution GUI and coordinator, not the experiment compiler, a generic driver SDK or independent post-processing. Control covers device programming and manual operations; Test Automation covers the shot queue, abort behavior and run coordination. Device-specific sampling does not by itself give the coordinator a separate Acquisition scope. This entry records BLACS activity only; labscript is linked as the companion compiler. [Shot management](#source-website) · [Compiler](#source-compiler).
+BLACS is the execution GUI and coordinator, not the experiment compiler, a generic driver SDK or independent post-processing. Control covers device programming and manual operations; Test covers the shot queue, abort behavior and run coordination. Device-specific sampling does not by itself give the coordinator a separate Acquisition scope. This entry records BLACS activity only; labscript is linked as the companion compiler. [Shot management](#source-website) · [Compiler](#source-compiler).
 
 The related labscript compiler writes the HDF5 device instructions and shot metadata consumed by this workflow. Use it to construct a sequence, and BLACS to queue and execute the resulting shot with compatible workers. Compiler capabilities, development credits and repository activity are separate from this BLACS entry. [Compiler implementation](#source-compiler-implementation).
 

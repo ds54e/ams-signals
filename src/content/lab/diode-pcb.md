@@ -3,7 +3,7 @@ name: "Diode PCB"
 aliases: [pcb, Zener]
 description: "Rust CLI for Zener, a Starlark-based PCB language, that builds typed circuit hierarchies and synchronizes them with KiCad layouts while preserving placement and routing. Optional agent skills guide component-package authoring and design repair; layout generation requires KiCad 10.x, and manufacturing checks do not establish a board's electrical performance."
 scope:
-  board: { ai: true }
+  design: { ai: true }
   aiDevelopment: assisted
 developmentEvidence:
   summary: "An Amp-coauthored change snaps Gerber region contours to a 1 micrometre grid before decomposition and adds regression checks. The integrated implementation and tests remain in the reviewed tree."
@@ -60,11 +60,11 @@ sources:
 
 `pcb build` evaluates a Zener design and its dependencies; `pcb layout` generates or synchronizes KiCad artifacts. Circuit metadata and hierarchy come from the netlist, while existing placement, routing, zones and graphics are retained where their entities persist. Reusable layout fragments and regression fixtures make this a board-design workflow with a concrete use in repeated evaluation-board revisions. [Project entry points](#source-readme); [Synchronization model](#source-synchronization); [Implementation](#source-implementation); [Layout tests](#source-layout-tests).
 
-The Rust CLI includes a Python KiCad bridge. KiCad is required for the layout workflow, not for Zener build alone. Package/unit tests and manufacturing preflight do not establish a separate Lab Test Automation workflow or measured signal-integrity, jitter or electrical-compliance results. No board was fabricated or measured for this review. [Setup](#source-official); [Manufacturing tests](#source-manufacturing-tests).
+The Rust CLI includes a Python KiCad bridge. KiCad is required for the layout workflow, not for Zener build alone. Package/unit tests and manufacturing preflight do not establish a separate Lab Test workflow or measured signal-integrity, jitter or electrical-compliance results. No board was fabricated or measured for this review. [Setup](#source-official); [Manufacturing tests](#source-manufacturing-tests).
 
 ### Optional AI authoring
 
-The shipped agent skills specify board-level decisions: typed power and protocol connections, stable population variants, datasheet-based component calculations, reference-circuit boundaries and footprint validation. They connect those decisions to Zener packages and the implemented compiler/layout tools, supporting an optional AI-backed Board & Fixture path. The CLI and synchronization algorithms also work without a model. These skill instructions establish a runtime authoring path, not AI development provenance for the Rust implementation. [Zener authoring](#source-authoring-skill); [Package authoring](#source-librarian-skill); [Layout implementation](#source-implementation).
+The shipped agent skills specify board-level decisions: typed power and protocol connections, stable population variants, datasheet-based component calculations, reference-circuit boundaries and footprint validation. They connect those decisions to Zener packages and the implemented compiler/layout tools, supporting an optional AI-backed Design path. The CLI and synchronization algorithms also work without a model. These skill instructions establish a runtime authoring path, not AI development provenance for the Rust implementation. [Zener authoring](#source-authoring-skill); [Package authoring](#source-librarian-skill); [Layout implementation](#source-implementation).
 
 ### Development provenance
 

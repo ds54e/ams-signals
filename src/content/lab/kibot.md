@@ -3,7 +3,7 @@ name: "KiBot"
 aliases: ["KiCad automation"]
 description: "Batch automation for producing KiCad board manufacturing, assembly and review outputs. It generates artifacts such as fabrication files, BOMs and documentation from versioned configuration, supporting repeatable evaluation-board and fixture releases."
 scope:
-  board: { ai: false }
+  design: { ai: false }
 access: "AGPL-3.0; requires KiCad, with separate terms for optional tools."
 addedAt: "2026-11-24"
 reviewedAt: "2026-11-24"
@@ -47,7 +47,7 @@ Pin KiCad and output options. Generated output does not by itself verify electri
 
 [MakerPnP](#source-related-makerpnp) is a separate assembly-planning tool whose variant builder produces placements and BOMs from existing EDA outputs. It is not a KiBot dependency or an electrical test-fixture design tool; keep it as a related downstream assembly resource rather than a separate catalog row. [Variant builder](#source-related-makerpnp-planning).
 
-Board & Fixture describes the manufacturing and assembly outputs, including their configured ERC/DRC preflight checks. Those checks validate board design artifacts; they are not a separate instrument or DUT test procedure. [PCB preflight](#source-board-preflight).
+Design describes the manufacturing and assembly outputs, including their configured ERC/DRC preflight checks. Those checks validate board design artifacts; they are not a separate instrument or DUT test procedure. [PCB preflight](#source-board-preflight).
 
 ## Reviewed maintenance
 

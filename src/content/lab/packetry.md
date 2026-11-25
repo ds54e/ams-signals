@@ -54,7 +54,7 @@ Packetry adds USB protocol debugging between a host and peripheral using Cynthio
 
 Control follows analyzer configuration and supported VBUS power switching. Acquisition follows the physical USB stream, and Analysis follows saved-file decoding and packet, transaction and device views. These operations complement the general board interfaces in Glasgow; neither project's hardware or history is attributed to the other. [Capture/control backend](#source-capture-control) · [Views](#source-interface).
 
-Test Automation follows the exposed `--test-cynthion` path. It enables the analyzer's test device, captures traffic at low/full/high speeds with explicit and automatic speed selection, compares captured payload bytes with received bytes and checks SOF timing/counts where applicable. Failures produce a nonzero exit, and an option saves the captures. [CLI entry](#source-test-entry) · [Hardware test](#source-hardware-test).
+Test follows the exposed `--test-cynthion` path. It enables the analyzer's test device, captures traffic at low/full/high speeds with explicit and automatic speed selection, compares captured payload bytes with received bytes and checks SOF timing/counts where applicable. Failures produce a nonzero exit, and an option saves the captures. [CLI entry](#source-test-entry) · [Hardware test](#source-hardware-test).
 
 ## Use and limits
 

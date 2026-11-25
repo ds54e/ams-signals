@@ -3,7 +3,7 @@ name: "KiKit"
 aliases: ["KiCad panelization"]
 description: "Python library, command-line tool and KiCad plugin for repeatable PCB panelization and manufacturing preparation. It combines boards into configurable panels, generates separation geometry and exports manufacturing data, supporting evaluation-board and fixture production."
 scope:
-  board: { ai: false }
+  design: { ai: false }
 access: "MIT; requires a compatible KiCad installation."
 addedAt: "2026-11-25"
 reviewedAt: "2026-11-25"

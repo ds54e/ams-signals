@@ -3,7 +3,7 @@ name: "wafer.space COB PCBs"
 aliases: ["Chip-on-Board Wire-Bonded PCBs"]
 description: "KiCad designs for mounting bare integrated-circuit dies on wire-bonded breakout and mezzanine PCBs. Run-specific board layouts, pad and connector documentation, panelization and manufacturing outputs support access to open-silicon dies through compatible motherboards."
 scope:
-  board: { ai: false }
+  design: { ai: false }
 access: "Apache-2.0; requires the matching die, padframe, wire-bonding process and fabrication capabilities. Run-specific layouts are not interchangeable without review."
 addedAt: "2026-11-25"
 reviewedAt: "2026-11-25"

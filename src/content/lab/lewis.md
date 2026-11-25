@@ -22,7 +22,7 @@ sources:
 
 ## Scope and limits
 
-Lewis separates device state and behavior from the protocol-facing interface. Its virtual network endpoints support driver and system-test fixtures beyond the VISA-specific simulated backend workflow. Test Automation describes these executable device emulators, not physical instrument control or analog circuit simulation. Fidelity depends on the authored device model; it does not establish electrical or timing accuracy of the real hardware.
+Lewis separates device state and behavior from the protocol-facing interface. Its virtual network endpoints support driver and system-test fixtures beyond the VISA-specific simulated backend workflow. Test describes these executable device emulators, not physical instrument control or analog circuit simulation. Fidelity depends on the authored device model; it does not establish electrical or timing accuracy of the real hardware.
 
 ## Reviewed maintenance
 

@@ -42,4 +42,4 @@ The reviewed CMSIS-DAP request fix follows v0.32.0. Reset cleanup can attempt re
 
 [Reviewed upstream implementation](#source-activity).
 
-Test Automation is grounded in the host runner registering test cases, executing them against the device and reporting results with the separate target harness. Generic debugger or flash scripting alone would not justify it. [Runner](#source-test-runner) · [Target harness](#source-embedded-test).
+Test is grounded in the host runner registering test cases, executing them against the device and reporting results with the separate target harness. Generic debugger or flash scripting alone would not justify it. [Runner](#source-test-runner) · [Target harness](#source-embedded-test).

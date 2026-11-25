@@ -32,7 +32,7 @@ sources:
 
 ## Scope and limits
 
-The compiler generates hardware programming instructions from a Python experiment and device tree, including pseudoclocks, trigger relationships and timed output operations. Its executable shot-file workflow supports Control and Test Automation; it does not itself retrieve physical samples. BLACS is the separate execution and queue layer, not an independent implementation of this compiler. Unlike QICK's RFSoC-specific programming workflow, labscript uses device definitions to generate coordinated instructions for multiple types of hardware. [Clock compiler](#source-clock-compiler) · [Experiment example](#source-example) · [Execution layer](#source-blacs).
+The compiler generates hardware programming instructions from a Python experiment and device tree, including pseudoclocks, trigger relationships and timed output operations. Its executable shot-file workflow supports Control and Test; it does not itself retrieve physical samples. BLACS is the separate execution and queue layer, not an independent implementation of this compiler. Unlike QICK's RFSoC-specific programming workflow, labscript uses device definitions to generate coordinated instructions for multiple types of hardware. [Clock compiler](#source-clock-compiler) · [Experiment example](#source-example) · [Execution layer](#source-blacs).
 
 ## Reviewed maintenance
 

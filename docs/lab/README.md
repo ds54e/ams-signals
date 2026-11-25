@@ -6,19 +6,23 @@ Classify by the primary operation and inputs/outputs. A network or EM field solv
 
 ## Scope
 
-| Scope | Meaning |
-| --- | --- |
-| Board & Fixture (`board`) | Evaluation board or fixture designs, calibration hardware, and concrete fabrication or assembly outputs |
-| Control (`control`) | Configuration, stimulation, programming or control of an instrument, DUT, fixture, power or thermal system |
-| Acquisition (`acquisition`) | Capturing or retrieving values, traces or timestamps through an active instrument, DUT or live data path |
-| Analysis (`analysis`) | Inspecting, interpreting, decoding or converting recorded measurements as a distinct operation |
-| Test Automation (`test`) | Executable measurement/test procedures, fixture scheduling, test cases, verdicts or results |
+Stages appear in this order. As in Analog and Digital, they describe distinct implemented operations; one project can cover several stages.
 
-Reading a saved TDMS or WFM file is Analysis, not Acquisition. Export or decompression that only exposes a live capture is part of Acquisition, not a second Analysis workflow. Issuing flash, reset or switch commands is Control; allowing calls from a script does not make the tool a test runner. An implemented test harness, virtual instrument for driver regression, or reservation and coordination of shared fixtures can qualify as Test Automation. Listing support for a target board does not make an SDK a source of board designs.
+| Field | Label | Meaningful user-facing coverage |
+| --- | --- | --- |
+| `design` | Design | Creating, modifying or providing reusable board, fixture or measurement-hardware designs, including schematic, PCB, mechanical, fabrication and assembly outputs |
+| `control` | Control | Configuring, stimulating, programming or steering an instrument, DUT, fixture, power, thermal or synchronization system |
+| `acquisition` | Acquisition | Capturing, reading or subscribing to measured values, waveforms, events or timestamps from hardware or an active measurement-data path |
+| `analysis` | Analysis | Reading saved measurement records, or inspecting, calibrating, decoding, fitting or transforming measured data and test results as a distinct user-facing operation |
+| `test` | Test | Generating or executing repeatable measurement/test procedures, coordinating test resources and sequences, reporting outcomes or providing executable instrument fixtures for driver/system tests |
 
-Board & Fixture requires implemented schematic, PCB, fabrication, assembly or fixture-design outputs. Firmware, FPGA board definitions and instrument SDKs do not inherit that stage from the hardware they target. ERC/DRC preflight and fabrication-package checks remain part of the Board workflow; they do not independently establish Test Automation. Ordinary package unit tests also do not add that stage. Instrument-driver fixtures and executable DUT or measurement procedures are distinct user-facing test workflows.
+Design requires concrete hardware-design or fabrication/assembly artifacts; a reusable published board design qualifies alongside tools that generate such designs. Firmware, FPGA board definitions and instrument SDKs do not inherit that stage from the hardware they target. ERC/DRC preflight and fabrication-package checks remain part of Design. Experimental parameter selection or test-program generation alone is not hardware Design: classify the implemented analysis or test procedure instead.
 
-Reusable measurement procedures that coordinate settings, parameter sweeps, acquisition and persisted results can establish Test Automation without a pass/fail verdict. An incidental capture loop or general scriptable API does not establish that separate procedure workflow.
+Control and Acquisition remain separate. Flashing, resetting, switching and device configuration establish Control without necessarily retrieving measurements. Acquisition needs a live measured-data path; a configured stream or subscription must deliver measured payloads, not only metadata or update notifications. Reading a saved TDMS, WFM or STDF file is Analysis.
+
+Analysis can operate on incoming or saved measurements. User-facing spectra, cross-spectra, decoding, calibration or fitted results can establish Analysis even within a live instrument workflow. Export, decompression or routine scaling that only exposes a capture does not add another stage, and internal calculations used solely for feedback remain part of Control. Distinguish an exposed measurement result from transport and implementation details.
+
+Test does not require a pass/fail verdict: reusable characterization procedures can coordinate settings, parameter sweeps, acquisition and persisted results. Tester-program generation, a test harness, virtual instruments for driver regression, and reservation or coordination of shared test fixtures can also qualify. Generic scriptability, ordinary package unit tests, incidental acquisition loops and reading saved test results alone do not establish Test. A test runner does not inherit every Control or Acquisition capability of its device bindings.
 
 Use the [strict Lab schema](../../src/lib/lab/schema.ts). Require at least one functional stage. Each stage records runtime AI separately from evidence-backed AI-ASSISTED development. Keep descriptions concise, in English, and distinguish public source from hardware, calibration, instrument specifications and third-party dependencies. Put limits and references in article notes; do not imply that simulation, source inspection or a synthetic check demonstrates hardware accuracy.
 

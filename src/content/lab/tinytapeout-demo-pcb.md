@@ -3,7 +3,7 @@ name: "Tiny Tapeout Demo Board"
 aliases: ["Tiny Tapeout ASIC evaluation board"]
 description: "Open KiCad evaluation-board designs for Tiny Tapeout ASICs. The board connects the ASIC to an onboard RP2350 controller, manual controls, PMOD expansion and analog headers, allowing access to selected projects and external test circuits."
 scope:
-  board: { ai: false }
+  design: { ai: false }
 access: "Apache-2.0 PCB designs; documentation CC0. Requires compatible Tiny Tapeout hardware and separate controller firmware."
 addedAt: "2026-11-25"
 reviewedAt: "2026-11-25"
@@ -28,7 +28,7 @@ sources:
 
 ## Scope and limits
 
-This project implements an evaluation motherboard for selecting and exercising Tiny Tapeout ASIC projects, distinct from bare-die mounting and wire-bond breakout designs. It exposes manual, microcontroller and external instrument connections. The reviewed schematic and PCB change history and the retained tree establish Board & Fixture; controller firmware and automated test programs belong to separate projects. The board is not a commercial ATE interface and does not establish calibrated analog bandwidth or measurement uncertainty. [Board overview](#source-overview) · [PCB design](#source-board-layout).
+This project implements an evaluation motherboard for selecting and exercising Tiny Tapeout ASIC projects, distinct from bare-die mounting and wire-bond breakout designs. It exposes manual, microcontroller and external instrument connections. The reviewed schematic and PCB change history and the retained tree establish Design; controller firmware and automated test programs belong to separate projects. The board is not a commercial ATE interface and does not establish calibrated analog bandwidth or measurement uncertainty. [Board overview](#source-overview) · [PCB design](#source-board-layout).
 
 ## Reviewed maintenance
 

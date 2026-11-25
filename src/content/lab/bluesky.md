@@ -52,6 +52,6 @@ The reviewed thread error handling follows v1.16.0. A stopped plan does not nece
 
 [Reviewed upstream implementation](#source-implementation).
 
-Control is supported by the RunEngine's implemented `set` and trigger dispatch, including device status and completion handling. Acquisition records device reads, and Test Automation describes the reusable plan and run orchestration. These stages do not inherit every capability of a device binding or subscriber. [RunEngine](#source-run-engine).
+Control is supported by the RunEngine's implemented `set` and trigger dispatch, including device status and completion handling. Acquisition records device reads, and Test describes the reusable plan and run orchestration. These stages do not inherit every capability of a device binding or subscriber. [RunEngine](#source-run-engine).
 
 ophyd-async is one separately installed device layer: it implements asynchronous signals and supported EPICS and Tango connections used by experiment plans. Choose and configure the device layer for the actual control system. Its hardware coverage, development credits and activity are not properties of the Bluesky repository recorded here. [Device package](#source-async-devices) · [Signal implementation](#source-async-device-implementation) · [Backend requirements](#source-async-device-backends).
