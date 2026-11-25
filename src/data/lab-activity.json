@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T05:10:58.788Z",
+  "capturedAt": "2026-11-25T05:48:27.222Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2441,6 +2441,81 @@
       "lastCommitAt": "2026-05-21",
       "lastMeaningfulCommitAt": "2026-04-27",
       "lastMeaningfulCommitSha": "c8d7f761a865857041af6a64e4079ccee765d491"
+    },
+    "gpcam": {
+      "kind": "github",
+      "repository": "lbl-camera/gpCAM",
+      "repositoryId": 434768487,
+      "capturedAt": "2026-11-25T05:47:24.705Z",
+      "defaultBranch": "master",
+      "headSha": "94d23263f65e2012d32b402183fc352526ac6159",
+      "commits": [
+        0,
+        5,
+        2,
+        0,
+        0,
+        15,
+        8,
+        8,
+        8,
+        0,
+        6,
+        9
+      ],
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "5ce31f276c36d8ef8d9b6079704e04e001fd848b"
+    },
+    "bluesky-adaptive": {
+      "kind": "github",
+      "repository": "bluesky/bluesky-adaptive",
+      "repositoryId": 274789262,
+      "capturedAt": "2026-11-25T05:47:36.760Z",
+      "defaultBranch": "main",
+      "headSha": "7889ba7812f36b4786699b6dc60af681c58ea2c0",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        18
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "13bbd18e2d614fcc5e6bb1d59749075167cea2de"
+    },
+    "optimaldesign-jl": {
+      "kind": "github",
+      "repository": "waudbylab/OptimalDesign.jl",
+      "repositoryId": 1186068400,
+      "capturedAt": "2026-11-25T05:47:22.250Z",
+      "defaultBranch": "main",
+      "headSha": "453c6f4b3b0f546b43492b11f649f13eef24c62b",
+      "commits": [
+        0,
+        0,
+        0,
+        27,
+        2,
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-05-26",
+      "lastMeaningfulCommitAt": "2026-05-22",
+      "lastMeaningfulCommitSha": "47790a39f86db935d1499914c4ff7132e5f590fa"
     }
   }
 }
