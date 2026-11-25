@@ -30,6 +30,18 @@ sources:
   - id: acquire-program
     title: "Hardware program loading, ADC readout and sweep execution"
     url: "https://github.com/openquantumhardware/qick/blob/b2abda7b8ad092aca0b9c0ba5f28f429be32efe8/qick_lib/qick/averager_program.py"
+  - id: adc-interrupt-integration
+    title: "November 20 RF board driver and ADC interrupt handling integration"
+    url: "https://github.com/openquantumhardware/qick/commit/c5134cd935fa45df16565c4dc6a80f7cb371f435"
+  - id: adc-interrupt-api
+    title: "Retained ADC interrupt inspection and clearing implementation"
+    url: "https://github.com/openquantumhardware/qick/blob/b2abda7b8ad092aca0b9c0ba5f28f429be32efe8/qick_lib/qick/qick.py"
+  - id: filter-fix
+    title: "November 20 RF filter frequency validation syntax repair"
+    url: "https://github.com/openquantumhardware/qick/commit/b2abda7b8ad092aca0b9c0ba5f28f429be32efe8"
+  - id: filter-retained
+    title: "Retained RF hardware driver and frequency validation"
+    url: "https://github.com/openquantumhardware/qick/blob/b2abda7b8ad092aca0b9c0ba5f28f429be32efe8/qick_lib/qick/drivers/hardware.py"
 ---
 
 ## Scope and limits
@@ -41,3 +53,7 @@ The main application is quantum instrumentation; other RF experiments require ap
 ## Reviewed maintenance
 
 October 2026 adds compile-time guards for oversized tone tables, envelopes and delays. November adds gain limits and corrects ADC reference-clock metadata to use the ADC tile's parameter rather than the DAC parameter. These substantive compiler and configuration changes follow prior hardware and software releases. [Pulse limits](#source-pulse-limits) · [Gain validation](#source-gain-check) · [Reference clock correction](#source-activity).
+
+## Reviewed implementation and retention, November 25, 2026
+
+November 20 integrates RF-board driver restructuring and an ADC interrupt-handling API that inspects converter interrupts, attempts bounded clearing, and can raise an error for observed or persistent interrupts. The driver explicitly identifies overrange and overvoltage indications as relevant to the supported RFSoC path. A same-day follow-up repairs invalid Python syntax in the RF filter frequency validation branch. These are concrete hardware-control and driver correctness changes; the interrupt API is not an independent protection interlock, a guarantee against overvoltage damage or evidence of calibrated ADC performance. The final same-day correction supersedes the November 12 ADC reference-clock metadata checkpoint. No physical RFSoC acquisition or driver test was independently executed. [Integration](#source-adc-interrupt-integration) · [Interrupt API](#source-adc-interrupt-api) · [Correction](#source-filter-fix) · [Retained driver](#source-filter-retained).

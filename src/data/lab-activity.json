@@ -692,7 +692,8 @@
       ],
       "lastCommitAt": "2026-11-19",
       "lastMeaningfulCommitAt": "2026-09-05",
-      "lastMeaningfulCommitSha": "fbb5f33be7117613cc4557390c869ad7ec2bd9cc"
+      "lastMeaningfulCommitSha": "b5f54a2323496d189119383948cc8cdfc493080c",
+      "notes": "September 5 persistent native macOS serial-session integration with tests is the selected source checkpoint. November 19 publishes updated FPGA binary images and documentation; no corresponding source change is established by those binary commits."
     },
     "oscillatord": {
       "kind": "github",
@@ -1691,8 +1692,9 @@
         6
       ],
       "lastCommitAt": "2026-11-20",
-      "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "515933320587f32995573571451379c41f4e2c4c"
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "b2abda7b8ad092aca0b9c0ba5f28f429be32efe8",
+      "notes": "November 20 integrates RF board driver changes and bounded ADC interrupt clearing/reporting, then repairs RF filter frequency-validation syntax. These are driver changes, not physical calibration or protection qualification."
     },
     "metrolopy": {
       "kind": "github",
@@ -2144,31 +2146,6 @@
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "19ba082a10d42c901ade5f47d6e65281d1c2eb94"
-    },
-    "tinysa-ultra-phase-noise": {
-      "kind": "github",
-      "repository": "Hagtronics/tinySA-Ultra-Phase-Noise",
-      "repositoryId": 793597279,
-      "capturedAt": "2026-11-25T04:51:56.000Z",
-      "defaultBranch": "main",
-      "headSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444",
-      "commits": [
-        8,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-02-20",
-      "lastMeaningfulCommitAt": "2026-02-20",
-      "lastMeaningfulCommitSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444"
     },
     "lab-instrument-control": {
       "kind": "github",

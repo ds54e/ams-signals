@@ -5,7 +5,7 @@ description: "Python estimators for power and cross-spectral density from sample
 scope: {"analysis": {"ai": false}}
 access: "Public Python source and distribution; no live instrument driver or hardware calibration is implied."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -32,6 +32,18 @@ sources:
   - id: related-cpp-integration
     title: "Separate C++ measurement example with capture-device stubs"
     url: "https://github.com/lrd512/phase-noise-data-processor-lib/blob/ab9ef4b81fcb92e121478978da1657b4e718b66b/Examples/real_time_measurement.cpp"
+  - id: related-tinysa
+    title: "Related tinySA Ultra carrier-relative spectral sweep application"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise"
+  - id: related-tinysa-sweep
+    title: "Related instrument-specific sweep and fixed noise-bandwidth corrections"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/src/phase_noise.py"
+  - id: related-tinysa-maintenance
+    title: "Related February 20 NumPy smoothing compatibility correction"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/commit/45b3e6edad5cda34381014a1c6d9548ca63e4444"
+  - id: related-tinysa-limits
+    title: "Related application setup and measurement limitations"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/README.md"
 ---
 
 ### Scope and evidence
@@ -41,3 +53,7 @@ SpecKit estimates spectra from existing samples, rather than acquiring data or c
 PhaseNoiseDataProcessorLib is a separate C++ implementation worth examining when integrating multiband spectral or cross-correlation processing into native measurement software. Its own API also converts spectra using supplied calibration levels. Its binary reader does not reject short records, and its real-time example leaves capture-device hooks unimplemented, so input validation and device integration require application work. These are properties of that related project, not SpecKit features or validation. [C++ source](#source-related-cpp) · [Processing implementation](#source-related-cpp-processing) · [Device-integration example](#source-related-cpp-integration).
 
 SpecKit's Scope, provenance and activity are based only on its own repository. This reference adds neither a live acquisition path nor the C++ project's dBc calibration conversion to SpecKit.
+
+## Reviewed implementation and retention, November 25, 2026
+
+The separate MIT-licensed tinySA Ultra Phase Noise application controls a supported spectrum analyzer, estimates carrier-relative noise in offset bands from 1 kHz to 1 MHz, applies predetermined equivalent-noise-bandwidth corrections and saves CSV results. The instrument is configured for automatic RBW, so the actual selected bandwidth and normalization must be checked. A single spectrum measurement includes analyzer LO noise and amplitude-noise contributions and does not isolate DUT phase noise. Its latest public implementation change on February 20, 2026 replaces the removed NumPy matrix constructor in the smoothing routine; the reviewed public repository has no later change, additional branch, GitHub release or pull request. Retain the application as a related instrument-specific measurement example rather than an independent catalog entry under the narrower selection criteria. This is not a SpecKit acquisition feature, dependency, license or activity record, and the two implementations are independent. No hardware noise floor or numerical result was independently established. [Related application](#source-related-tinysa) · [Sweep](#source-related-tinysa-sweep) · [Maintenance](#source-related-tinysa-maintenance) · [Limits](#source-related-tinysa-limits).
