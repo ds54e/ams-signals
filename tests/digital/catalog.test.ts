@@ -510,7 +510,6 @@ test('Digital AI stages follow implemented decisions rather than MCP or project-
     coresmith: [['design', true], ['synthesis', true], ['verification', true], ['layout', true]],
     'icrtl-benchmark': [['design', true], ['synthesis', false], ['verification', false]],
     'cvdp-benchmark': [['design', true], ['verification', true]],
-    turtle: [['design', true], ['synthesis', false], ['verification', false], ['layout', false]],
     'rtlscout': [['design', true], ['synthesis', false], ['verification', true]],
     lace: [['design', true], ['verification', true]],
     // DesignWithPPA changes RTL through the model while mapped synthesis stays deterministic.

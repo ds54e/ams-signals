@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T04:39:08.000Z",
+  "capturedAt": "2026-11-25T08:02:41.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1130,31 +1130,6 @@
       "lastCommitAt": "2026-06-08",
       "lastMeaningfulCommitAt": "2026-06-08",
       "lastMeaningfulCommitSha": "657184d386b55a5253544d90e1ea1d48051db9ae"
-    },
-    "turtle": {
-      "kind": "github",
-      "repository": "HPAI-BSC/TuRTLe",
-      "repositoryId": 951227741,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
-      "defaultBranch": "main",
-      "headSha": "6a32467e79d7a6cfbf3a6c579c24f20662475101",
-      "commits": [
-        1,
-        0,
-        5,
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0,
-        0,
-        0
-      ],
-      "lastCommitAt": "2026-07-22",
-      "lastMeaningfulCommitAt": "2026-02-10",
-      "lastMeaningfulCommitSha": "3f4d7fc179ea0ef73acf055ca7872539bbc9dba3"
     },
     "naja": {
       "kind": "github",
@@ -2641,9 +2616,9 @@
       "kind": "github",
       "repository": "hudson-trading/wavetools",
       "repositoryId": 1209837307,
-      "capturedAt": "2026-11-24T06:50:55.278Z",
+      "capturedAt": "2026-11-25T08:02:41.000Z",
       "defaultBranch": "main",
-      "headSha": "406d127b490747e346ec2e0b56f180b621ed5e53",
+      "headSha": "ebbd304b6c62bc7390a3f8d06c0b699e0e8dcbfb",
       "commits": [
         0,
         0,
@@ -2656,11 +2631,11 @@
         0,
         1,
         7,
-        14
+        16
       ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-18",
-      "lastMeaningfulCommitSha": "5345b6bd6d377ec263c9bc5d0441d1a08fcf6142"
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "0c4d501f0273b2cd4d4b71a03f3d962737a79ca9"
     },
     "systemrdl-compiler": {
       "kind": "github",

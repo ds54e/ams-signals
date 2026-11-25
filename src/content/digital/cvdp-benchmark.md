@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public benchmark framework and dataset; Docker and model access are required for the documented workflows. Commercial rows require licensed EDA. The full public dataset omits reference solutions."
 addedAt: "2026-10-01"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: "code"
     title: "Canonical CVDP Benchmark repository"
@@ -48,6 +48,15 @@ sources:
   - id: "related-benchmt-evaluator"
     title: "Separate RTL-BenchMT original-versus-revised prompt evaluator"
     url: "https://github.com/hkust-zhiyao/RTL-BenchMT/blob/4a773170f80b80a216a6ecb6b5948f53684eee22/eval/evaluate.py"
+  - id: "related-turtle"
+    title: "Separate TuRTLe RTL evaluation framework"
+    url: "https://github.com/HPAI-BSC/TuRTLe"
+  - id: "related-notsotiny"
+    title: "TuRTLe NotSoTiny module-completion integration"
+    url: "https://github.com/HPAI-BSC/TuRTLe/commit/3f4d7fc179ea0ef73acf055ca7872539bbc9dba3"
+  - id: "related-notsotiny-evaluation"
+    title: "TuRTLe NotSoTiny evaluation implementation"
+    url: "https://github.com/HPAI-BSC/TuRTLe/blob/6a32467e79d7a6cfbf3a6c579c24f20662475101/turtle/metrics/eval_notsotiny.py"
 ---
 
 ### Benchmark and implementation
@@ -57,6 +66,8 @@ CVDP offers non-agentic prompt-based and agentic repository tasks. The reviewed 
 ### Related corpus corrections
 
 RTL-BenchMT publishes ambiguity analyses, revised prompts and an original-versus-revised evaluation CLI for CVDP subsets and other RTL benchmarks. It is retained as a related corpus-quality resource: the published comparison grader and maintenance outputs do not establish release of the complete SpecIR-guided agentic maintenance workflow. These are separate artifacts, not changes assumed to be integrated into canonical CVDP; their capabilities, AI roles and repository history are not merged into this entry. [Released artifacts](#source-related-benchmt) · [Comparison evaluator](#source-related-benchmt-evaluator).
+
+TuRTLe is a separate research framework covering RTL generation and completion, including its NotSoTiny collection derived from Tiny Tapeout designs. The February 10, 2026 integration remains its last reviewed substantive implementation change; July changes are documentation and citation updates. Retain it as a related evaluation resource rather than a separate current catalog row under the stricter maintenance review. Its task coverage, implementation and activity are not attributed to CVDP. [Related framework](#source-related-turtle) · [NotSoTiny integration](#source-related-notsotiny) · [Evaluation implementation](#source-related-notsotiny-evaluation).
 
 ### Scope classification
 
