@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "Apache-2.0; supported cables, target hardware and bitstreams are separate."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-25"
 sources:
   - id: website
     title: "Official project website or documentation"
@@ -30,6 +30,15 @@ sources:
   - id: development-retained
     title: "Retained Gowin zero-key parser correction"
     url: "https://github.com/trabucayre/openFPGALoader/blob/3c52ab1487ff759e1a3790346455ec7e92ba8c44/src/fsparser.cpp"
+  - id: ch347f-detection
+    title: "November 23 CH347F USB device detection correction"
+    url: "https://github.com/trabucayre/openFPGALoader/commit/0835ac88c80f851db06a80b7f80d6c409256271a"
+  - id: cmsis-dap-bulk
+    title: "November 23 CMSIS-DAP bulk transfer correction"
+    url: "https://github.com/trabucayre/openFPGALoader/commit/3c52ab1487ff759e1a3790346455ec7e92ba8c44"
+  - id: cmsis-dap-retained
+    title: "Retained CMSIS-DAP bulk write length handling"
+    url: "https://github.com/trabucayre/openFPGALoader/blob/3c52ab1487ff759e1a3790346455ec7e92ba8c44/src/cmsisDAP.cpp"
 ---
 
 ## Scope and limits
@@ -39,3 +48,9 @@ The reviewed Gowin compressed-bitstream parser fix follows v1.2.0. Parser regres
 [Reviewed upstream implementation](#source-implementation).
 
 Programming and any integrated verification of that programming are Control operations. Calling the loader in a fixture script does not assign it ownership of the test sequence or DUT verdict.
+
+## Reviewed implementation update, November 25, 2026
+
+November 23 adds CH347F device matching and corrects the CMSIS-DAP v2 USB bulk-transfer path. The retained code sends the actual command length rather than padding all bulk writes to 64 bytes, and removes the fixed delay after bulk reads. These are cable discovery and transport correctness changes after the earlier bitstream parser repair. They do not independently establish programming success or a board's functional result. [Device detection](#source-ch347f-detection) · [Bulk correction](#source-cmsis-dap-bulk) · [Retained driver](#source-cmsis-dap-retained).
+
+Source inspection only; no physical measurement, programming, service migration or upstream regression was independently executed.

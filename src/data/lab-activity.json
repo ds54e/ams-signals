@@ -842,8 +842,9 @@
         2
       ],
       "lastCommitAt": "2026-11-02",
-      "lastMeaningfulCommitAt": "2026-10-27",
-      "lastMeaningfulCommitSha": "8d378fa08f384df1c77622479bd3b5cd9855cd0b"
+      "lastMeaningfulCommitAt": "2026-10-29",
+      "lastMeaningfulCommitSha": "20c2dbc5d6c9db5fe7f49f351a9e17ab1fc9ebdd",
+      "notes": "October 29 isolates halt-on-reset state to the intended debug sequence, with explicit finally cleanup. November runner pinning remains raw activity."
     },
     "probe-rs": {
       "kind": "github",
@@ -892,8 +893,9 @@
         40
       ],
       "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "9412cc8ab0a82958815fa312e196f3eead2a2b92"
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "a556a0d016bd5eb8728e26d8bdb41cf952c151aa",
+      "notes": "November 21 corrects duplicate supplier matching with a retained inheritance regression; November 23 extends i.MX USB resource matching. Neither change establishes physical fixture or programming success."
     },
     "adctoolbox": {
       "kind": "github",
@@ -942,8 +944,9 @@
         37
       ],
       "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-20",
-      "lastMeaningfulCommitSha": "2aafd90208dc8c3142fb617d2a91522513107c17"
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "3c52ab1487ff759e1a3790346455ec7e92ba8c44",
+      "notes": "November 23 corrects CH347F device matching and CMSIS-DAP v2 USB bulk write lengths and polling. The final transport correction supersedes November 20."
     },
     "pyftdi": {
       "kind": "github",
@@ -1093,7 +1096,8 @@
       ],
       "lastCommitAt": "2026-10-19",
       "lastMeaningfulCommitAt": "2026-10-19",
-      "lastMeaningfulCommitSha": "9cdefc8421c1f133403a691717dbd69c8725a532"
+      "lastMeaningfulCommitSha": "87b809f871fa51750fbf25456077d0b17dfa8da0",
+      "notes": "October 19 archive correctness fixes are followed by removal of SigMFGenerator and its tests from 1.15.0 source. The API removal is the selected final same-day implementation checkpoint."
     },
     "pypicosdk": {
       "kind": "github",
@@ -2619,8 +2623,9 @@
         39
       ],
       "lastCommitAt": "2026-11-24",
-      "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "c6301e2dcdcefde365e767094527e3f4f8965d21"
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "438da00f2fb42c75db7b93dff4b11d5a800d840b",
+      "notes": "November 23 adds database migration/schema-equivalence checks; November 24 corrects the requested OAuth scopes to respect authenticator configuration. The later release-candidate version bump remains raw activity."
     }
   }
 }
