@@ -33,6 +33,9 @@ sources:
 - id: checkout-tests
   title: "Retained fresh-checkout CI and ngspice test setup"
   url: https://github.com/FengyanWong/gator/blob/3157d5373e074e022816b4e079a4984ad8493b7b/.github/workflows/tests.yml
+- id: related-analoggym-opt
+  title: "Separate GRPO sizing entry and PVT mode selection"
+  url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/main_AMP_grpo.py"
 summary: Reinforcement-learning sizing of fixed-topology analog circuits using a graph-based policy and simulator feedback.
 developmentEvidence:
   summary: The reviewed implementation commit credits Claude for connection-gating corrections and regression tests. The attributed executable changes are integrated and retained in the pinned source; this does not attribute unrelated project code.
@@ -40,9 +43,6 @@ developmentEvidence:
   - implementation
   - retained
   reviewedAt: '2026-11-16'
-- id: related-analoggym-opt
-  title: "Separate GRPO sizing entry and PVT mode selection"
-  url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/main_AMP_grpo.py"
 ---
 
 ### Implementation and selection
