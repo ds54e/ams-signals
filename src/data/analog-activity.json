@@ -203,9 +203,9 @@
       "kind": "github",
       "repository": "Arcadia-1/gmoverid-skill",
       "repositoryId": 1175725842,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "main",
-      "headSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
+      "headSha": "30ab431485ed9045d9df8a12bda545e163b6b1d8",
       "commits": [
         0,
         0,
@@ -218,12 +218,12 @@
         0,
         0,
         0,
-        0
+        2
       ],
-      "lastCommitAt": "2026-07-07",
-      "lastMeaningfulCommitAt": "2026-07-07",
-      "lastMeaningfulCommitSha": "8feb841f3684898d7aa44225b62e16263a501e3c",
-      "notes": "Substantive implementation/task/result activity reviewed at 8feb841f3684898d7aa44225b62e16263a501e3c: Reorganize Sky130 examples. Cosmetic and automated commits remain in the raw strip but do not establish freshness."
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "e9d829823eae6eac7a16613c2b78a9cfd38889d7",
+      "notes": "November 21 executable Spectre-style source converter extends PWL, TRRANDOM, TRNOISE and supported bsource forms; the subsequent documentation-only change is counted in raw activity but does not establish freshness."
     },
     "masala-chai": {
       "kind": "github",
