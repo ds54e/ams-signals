@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:15:36.000Z",
+  "capturedAt": "2026-11-28T07:39:06.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2766,6 +2766,31 @@
       "lastCommitAt": "2026-02-20",
       "lastMeaningfulCommitAt": "2026-02-20",
       "lastMeaningfulCommitSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444"
+    },
+    "rf-bench": {
+      "kind": "github",
+      "repository": "jfrancis42/rf-bench",
+      "repositoryId": 1248593624,
+      "capturedAt": "2026-11-28T07:39:06.000Z",
+      "defaultBranch": "master",
+      "headSha": "b36bd53bd64f92aff7e87929d6b9cf66b79dd6d4",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        72,
+        12,
+        2,
+        1,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-08",
+      "lastMeaningfulCommitAt": "2026-08-03",
+      "lastMeaningfulCommitSha": "521fbd95082304e1cf4fae76d5b599fd7bf762eb"
     }
   }
 }

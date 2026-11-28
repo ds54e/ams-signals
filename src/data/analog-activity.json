@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:15:36.000Z",
+  "capturedAt": "2026-11-28T07:39:06.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1893,9 +1893,9 @@
       "kind": "github",
       "repository": "potatobeanradio/circuitRF",
       "repositoryId": 1342066208,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T07:39:06.000Z",
       "defaultBranch": "main",
-      "headSha": "dbce6442936082712df79d34085b6c59ba11e12f",
+      "headSha": "518ba77e77535223aa56b1d619115c0846bea829",
       "commits": [
         0,
         0,
@@ -1908,12 +1908,12 @@
         210,
         697,
         518,
-        408
+        458
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "a963dd51431f4bb291c500faad5d8ee242c471d6",
-      "notes": "Meaningful review: integrated hierarchical IC/PCell component ports, pin-conductor resolution and mesh/run fixes in 1.8.4. Later head is README-only. Full first-parent committer-UTC history includes commits predating GitHub repository creation; dates are not verified public landing times. Side-branch contributions count only at their first-parent merge."
+      "lastCommitAt": "2026-11-26",
+      "lastMeaningfulCommitAt": "2026-11-26",
+      "lastMeaningfulCommitSha": "dc60fd73233439694cc8fedeee6a253b350b7d19",
+      "notes": "November 24 load-termination-aware LC mask search, measured-wave loadpull metrics and labeled off-grid interpolation; November 26 integrated multi-trace marker table with regressions. First-parent extension verified to previous captured head; older imported history is not a verified public landing timeline."
     },
     "orca": {
       "kind": "github",
