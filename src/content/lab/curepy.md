@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "LGPL-3.0 repository license; requires a suitable user-defined measurement function, justified noise and correlation models, and appropriate priors where used."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical inverse-problem implementation"
@@ -39,3 +39,7 @@ The inverse workflow accepts recorded observations, a forward measurement functi
 ## Reviewed maintenance
 
 April 13 corrects the correlation calculation when retrieving results along selected dimensions. May 15 integrates revised correlation handling and whitening in the measurement and retrieval paths. Both operations are retained in the reviewed source. The displayed history includes earlier development from before the current repository creation; no later substantive change than May 15 was observed on the default branch. No numerical or physical result was independently reproduced. [April correction](#source-earlier) · [May integration](#source-activity) · [Retained measurement handling](#source-measurement).
+
+## November 28, 2026 retention review
+
+The retained correlation preparation attempts a Cholesky factorization and constructs a whitening matrix; on factorization failure it substitutes a nearby positive-definite correlation matrix before retrying. The resulting uncertainty estimate therefore can depend on the regularization of the supplied correlation, rather than exactly preserving the original matrix. The May integration also fixes the optimal-estimation minimizer to pass a callable negative log probability. These are substantive numerical corrections supporting continued maintenance of the inverse-retrieval workflow. [Measurement handling](#source-measurement) · [Optimal estimation](#source-oe) · [May integration](#source-activity).

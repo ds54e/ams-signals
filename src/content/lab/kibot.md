@@ -6,7 +6,7 @@ scope:
   design: { ai: false }
 access: "AGPL-3.0; requires KiCad, with separate terms for optional tools."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical project source"
@@ -39,6 +39,12 @@ sources:
   - id: release
     title: "KiBot v1.9.1 release and integrated development branch"
     url: "https://github.com/INTI-CMNB/KiBot/releases/tag/v1.9.1"
+  - id: dev-variant-refactor
+    title: "November 27 development-branch variant layer handling"
+    url: "https://github.com/INTI-CMNB/KiBot/commit/901c707c0bc43d2527635e345ae5c7b29e4035a0"
+  - id: dev-variant-retained
+    title: "Development-branch paste and mask removal implementation"
+    url: "https://github.com/INTI-CMNB/KiBot/blob/901c707c0bc43d2527635e345ae5c7b29e4035a0/kibot/out_base.py"
 ---
 
 ## Scope and limits
@@ -52,3 +58,7 @@ Design describes the manufacturing and assembly outputs, including their configu
 ## Reviewed maintenance
 
 The July 2026 PDF correction preserves every input page and was followed by the v1.9.1 release. November work on `master` repairs configuration-schema validation. The `dev` branch also corrects the legacy schematic `compute_dnp` signature for variant handling; that development-branch fix is separate from the reviewed `master` activity and the July release. Branch and tag selection determine which changes are available. [PDF correction](#source-maintenance-earlier) · [Release](#source-release) · [Master schema](#source-activity) · [Development fix](#source-development-fix).
+
+## November 28, 2026 retention review
+
+The maintained fork's dev branch has later executable development than master: November 27 refactors the paste, mask and adhesive removal operations for unpopulated parts and introduces layer-list adapter functions. The retained removal path still rejects the configuration without the legacy pcbnew API, so this is not evidence that variant paste removal is already implemented for the new API. Keep the November 10 master checkpoint and captured history unchanged; this branch evidence supports continued development, not released functionality. [Development change](#source-dev-variant-refactor) · [Retained code](#source-dev-variant-retained).

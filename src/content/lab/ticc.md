@@ -28,6 +28,12 @@ sources:
   - id: related-ddmtd
     title: "GPSDO-PYNQ-Z2 multi-reference beat timestamp capture"
     url: "https://github.com/gallicchio/GPSDO-PYNQ-Z2/blob/e9a8cf672b9b81e043ad0ebc21af506e4cf04257/gateware/driver/dmtd.py"
+  - id: restart-integration
+    title: "November 2 no-save restart menu integration"
+    url: "https://github.com/TAPR/TICC/commit/f1ae30c0a47d1b6f884c2a8135ab51bcd5414485"
+  - id: restart-menu
+    title: "Retained configuration exit and restart path"
+    url: "https://github.com/TAPR/TICC/blob/25adafebc603ebc511429f53c547951fa8999efd/TICC/config_menu.cpp"
 ---
 
 ## Scope and limits
@@ -41,3 +47,7 @@ The December 2025 release records rewritten timestamp handling, paired and binar
 ## November 28, 2026 implementation review
 
 The change history documents reduced decimal timestamp precision and configurable wrapping to mitigate host floating-point loss on long series. A decimal output step of 10 ps is representation precision, not a measured counter noise floor; wrapped records need an appropriate host reconstruction before stability estimation. GPSDO-PYNQ-Z2 instead compares multiple reference signals using beat-edge displacement and optional PPS cycle resolution. The two capture architectures are distinct and neither inherits the other's reported resolution or calibration. [Timestamp format](#source-changes) · [Related DDMTD driver](#source-related-ddmtd).
+
+## November 28, 2026 retention review
+
+A later November 2 implementation adds a no-save restart option to the configuration menu, clearing the change flag and requesting a restart instead of rewriting defaults. The path is retained in the current source. Advance the same-day meaningful checkpoint to that integrated change; the subsequent binary upload and file deletion do not independently establish further firmware implementation. [Restart change](#source-restart-integration) · [Menu implementation](#source-restart-menu).

@@ -1490,7 +1490,7 @@
       ],
       "lastCommitAt": "2026-11-02",
       "lastMeaningfulCommitAt": "2026-11-02",
-      "lastMeaningfulCommitSha": "3a716c3a61d29f275bc55544fcd67a0a1463efe0"
+      "lastMeaningfulCommitSha": "f1ae30c0a47d1b6f884c2a8135ab51bcd5414485"
     },
     "semi-auto-probe": {
       "kind": "github",
@@ -1864,8 +1864,8 @@
         0
       ],
       "lastCommitAt": "2026-10-30",
-      "lastMeaningfulCommitAt": "2026-10-23",
-      "lastMeaningfulCommitSha": "c8441c1029aa25652627a1f67cbfff5b852ade18"
+      "lastMeaningfulCommitAt": "2026-10-30",
+      "lastMeaningfulCommitSha": "607cfaecd58869b876d19cf30c52566a4f490cc6"
     },
     "origen-o2": {
       "kind": "github",

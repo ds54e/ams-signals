@@ -7,7 +7,7 @@ scope:
   test: { ai: false }
 access: "BSD-2-Clause; requires compatible labscript device definitions and execution software for physical experiments."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -28,6 +28,12 @@ sources:
   - id: blacs
     title: "Related shot execution and queue implementation"
     url: "https://github.com/labscript-suite/blacs"
+  - id: example-correction
+    title: "October 30 integration of executable example and compiler usage corrections"
+    url: "https://github.com/labscript-suite/labscript/commit/607cfaecd58869b876d19cf30c52566a4f490cc6"
+  - id: compiler-error
+    title: "Retained HDF5 shot generation and overwrite diagnostic"
+    url: "https://github.com/labscript-suite/labscript/blob/607cfaecd58869b876d19cf30c52566a4f490cc6/labscript/labscript.py"
 ---
 
 ## Scope and limits
@@ -37,3 +43,7 @@ The compiler generates hardware programming instructions from a Python experimen
 ## Reviewed maintenance
 
 March 2026 changes the connection-table path so devices without a BLACS connection are represented appropriately, including variable-length string handling. October invokes shared-trigger checks for secondary pseudoclocks and removes implicit pylab imports from compiler paths. The trigger check remains in the reviewed revision. These are separate compatibility and compiler-correctness changes, not independent evidence of hardware timing accuracy. [Connection table](#source-connection-table) · [Trigger correction](#source-activity).
+
+## November 28, 2026 retention review
+
+The October 30 integration includes a corrected executable custom ramp in the shared experiment example, using time since the start of the ramp, duration and initial/final values to generate a cubic ramp. It also corrects the compiler's existing-shot diagnostic to identify the actual labscript_init arguments rather than an obsolete command-line switch. This is maintenance of the usable experiment authoring path, not just prose, and advances the checkpoint to the canonical integration. The maintenance/3.5.x and master heads coincide at review; their histories are not counted twice. [Integration](#source-example-correction) · [Example](#source-example) · [Compiler](#source-compiler-error).
