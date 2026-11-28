@@ -6,7 +6,7 @@ scope:
     ai: false
 access: Public Python/C++/SystemVerilog implementation; simulator, UVM version and DPI/VPI support determine compatibility.
 addedAt: '2026-10-18'
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
 - id: code
   title: Canonical public implementation
@@ -36,6 +36,18 @@ sources:
 - id: vpi-probes
   title: "Retained VPI probes and skip handling"
   url: "https://github.com/Dragon-Git/uvm_bridge/blob/6882e7142c5391d830d5a7d84a57c457b71cfc22/test/base_test/base_test.py"
+- id: review-20261128-activity
+  title: "November 25 capability probing and bridge robustness corrections"
+  url: "https://github.com/Dragon-Git/uvm_bridge/commit/bc7f7cb18de270c52e309341a826c4fc9508071a"
+- id: review-20261128-vpi
+  title: "November 24 VPI value, time and callback regressions"
+  url: "https://github.com/Dragon-Git/uvm_bridge/commit/a622764e8991ccca9c0cc5d859283870f8da559b"
+- id: review-20261128-capabilities
+  title: "Retained symbol and time API probing"
+  url: "https://github.com/Dragon-Git/uvm_bridge/blob/34c501606971f056cca60431b7ecd84789c41e6a/src/svuvm/simulator_capabilities.cpp"
+- id: review-20261128-ci
+  title: "November 26 cocotb backend and Xezim runner contract test integration"
+  url: "https://github.com/Dragon-Git/uvm_bridge/commit/28cd000450689f551e83483cdd8994c4cc0e5d37"
 ---
 
 ### Implementation and boundaries
@@ -50,4 +62,8 @@ The earlier meaningful checkpoint was `2ac3b4656f6cab28b7bcc9781b64e7c89c3a6dca`
 
 November 13 restores time-consuming exported UVM operations on sufficiently recent Verilator builds using suspendable DPI tasks. The bridge separates function-phase and task entry points and releases the Python GIL across potentially suspending exported calls. Function-phase callbacks still cannot invoke time-consuming exports. November 19 extends VPI tests for control, callbacks, assertions and covergroup objects, probing or skipping unsupported simulator operations. The tests do not establish universal VPI compatibility. [DPI integration](#source-suspendable-dpi) · [Retained bridge](#source-dpi-retained) · [VPI tests](#source-vpi-tests) · [Probe behavior](#source-vpi-probes).
 
-The reviewed meaningful checkpoint within the existing capture is 2026-11-19 UTC. The source and retained tests were inspected, not independently executed.
+At the November 25 review the saved meaningful checkpoint was 2026-11-19 UTC. The source and retained tests were inspected, not independently executed.
+
+### November 28, 2026 source review
+
+November 24 extends value-format, NULL-handle global-time and callback checks, with backend-specific unsupported cases kept explicit. November 25 corrects native data-buffer handling, adds a simulator symbol capability observation layer and dispatches supported time APIs according to available symbols. Observation of a symbol alone does not establish correct simulator semantics. November 26 wires selected cocotb backends and a vendored Xezim runner contract test into CI. This maintains Python/UVM and VPI interoperability; it does not demonstrate complete VPI support or identical results across simulators. No upstream test run was independently reproduced. [VPI regression integration](#source-review-20261128-vpi) · [Bridge implementation](#source-review-20261128-activity) · [Retained probing](#source-review-20261128-capabilities) · [CI integration](#source-review-20261128-ci).

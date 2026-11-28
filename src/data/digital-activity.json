@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:52:20.000Z",
+  "capturedAt": "2026-11-28T07:57:19.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -572,9 +572,9 @@
       "kind": "github",
       "repository": "Tencent/wave-mcp",
       "repositoryId": 1313770200,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-28T07:57:19.000Z",
       "defaultBranch": "main",
-      "headSha": "04afe72ca02fdca0301350a8ea218cc54d389c91",
+      "headSha": "c1fdbf0a9b3b66c5251b94351943031e3132d97a",
       "commits": [
         0,
         0,
@@ -587,11 +587,11 @@
         44,
         51,
         5,
-        1
+        2
       ],
-      "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-11-16",
-      "lastMeaningfulCommitSha": "04afe72ca02fdca0301350a8ea218cc54d389c91"
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "c1fdbf0a9b3b66c5251b94351943031e3132d97a"
     },
     "what": {
       "kind": "github",
@@ -1260,9 +1260,9 @@
       "kind": "github",
       "repository": "Dragon-Git/uvm_bridge",
       "repositoryId": 813642194,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-28T07:57:19.000Z",
       "defaultBranch": "main",
-      "headSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22",
+      "headSha": "34c501606971f056cca60431b7ecd84789c41e6a",
       "commits": [
         2,
         0,
@@ -1275,11 +1275,11 @@
         4,
         14,
         19,
-        5
+        35
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "6882e7142c5391d830d5a7d84a57c457b71cfc22"
+      "lastCommitAt": "2026-11-26",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "bc7f7cb18de270c52e309341a826c4fc9508071a"
     },
     "verilua": {
       "kind": "github",
@@ -2316,9 +2316,9 @@
       "kind": "github",
       "repository": "celox-sim/celox",
       "repositoryId": 1169247221,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T07:57:19.000Z",
       "defaultBranch": "master",
-      "headSha": "608562de74ccd547763a197b1a71ff141e1dcd6c",
+      "headSha": "d4e1d96204fd8d50c4b57ac3cdb32253595e63ff",
       "commits": [
         0,
         0,
@@ -2331,11 +2331,11 @@
         182,
         128,
         866,
-        854
+        1024
       ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "c6ba61f671aa694725853f88ba48bd3130f46b62"
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "456f4e7b4e18d9641808ae90f0fd6be6ec0ee133"
     },
     "autombist": {
       "kind": "github",
@@ -3161,6 +3161,31 @@
       "lastCommitAt": "2026-11-03",
       "lastMeaningfulCommitAt": "2026-11-03",
       "lastMeaningfulCommitSha": "e3ffd4dbc3c4c823ac5697fe0b95fb7951ea63c2"
+    },
+    "mivon": {
+      "kind": "github",
+      "repository": "mivonsim/mivon",
+      "repositoryId": 1273978726,
+      "capturedAt": "2026-11-28T07:57:19.000Z",
+      "defaultBranch": "main",
+      "headSha": "ae67f17c7b57906c3b09fa4d93b51c3e6e06b09a",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10,
+        61,
+        100,
+        210,
+        533,
+        225
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "ae67f17c7b57906c3b09fa4d93b51c3e6e06b09a"
     }
   }
 }

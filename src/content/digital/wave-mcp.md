@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Python source with pyslang and pylibfst. VCD conversion uses GTKWave vcd2fst; the optional FSDB converter needs a compatible Linux FsdbReader runtime."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Canonical wave-mcp repository"
@@ -74,6 +74,10 @@ Bit/part-select support and exact FST timestamp conversion are concrete correctn
 
 ### Reviewed implementation update, November 25, 2026
 
-November 16 fixes clock sampling over long histories, including held and sparse values. Generated FST regressions exercise 220,003 clock edges and explicit completeness assertions. November 20 separately fixes the lifetime of the cffi buffer used for aggregated-bus point reads, preventing a native-read lifetime error. That later change lies outside the saved November 19 capture and is not included in its counts or meaningful checkpoint. [Clock sampling](#source-long-wave-fix) · [Regression](#source-long-wave-regression) · [Buffer correction](#source-bus-buffer-fix) · [Retained implementation](#source-bus-buffer-retained).
+November 16 fixes clock sampling over long histories, including held and sparse values. Generated FST regressions exercise 220,003 clock edges and explicit completeness assertions. November 20 separately fixes the lifetime of the cffi buffer used for aggregated-bus point reads, preventing a native-read lifetime error. That later change lay outside the November 19 capture and is included in the November 28 recapture. [Clock sampling](#source-long-wave-fix) · [Regression](#source-long-wave-regression) · [Buffer correction](#source-bus-buffer-fix) · [Retained implementation](#source-bus-buffer-retained).
 
-The reviewed meaningful checkpoint within the existing capture is 2026-11-16 UTC. The source and retained tests were inspected, not independently executed.
+At the November 25 review the saved meaningful checkpoint was 2026-11-16 UTC. The source and retained tests were inspected, not independently executed.
+
+### November 28 activity recapture
+
+The canonical first-parent history now includes the November 20 aggregated-bus buffer correction. The local cffi allocation stays alive until the returned native value has been decoded. The meaningful activity checkpoint advances to that commit; no description or scope change is needed. This is a source-inspected correctness repair, not a new numerical accuracy result. [Correction](#source-bus-buffer-fix) · [Retained code](#source-bus-buffer-retained).

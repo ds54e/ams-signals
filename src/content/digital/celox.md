@@ -1,7 +1,7 @@
 ---
 name: "Celox"
 aliases: []
-description: "Compiler-based RTL simulator for Veryl and a supported subset of SystemVerilog. It exposes a typed TypeScript API for Veryl tests with Vitest, runs supported SystemVerilog testbenches through its Rust CLI, and connects to cocotb through VPI. It is not a gate-level timing or analog simulator."
+description: "Compiler-based RTL simulator for Veryl and a supported subset of SystemVerilog, with typed TypeScript tests, native CLI and cocotb/VPI. It implements selected SystemVerilog covergroups including interface declarations and JSON coverage reporting; it is not a gate-level timing or analog simulator."
 scope:
   verification:
     ai: false
@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-20"
 access: "Public Rust and TypeScript source under Apache-2.0 or MIT. The Veryl test workflow uses the Celox npm and Vite packages; the native CLI is available via Cargo, and the VPI workflow additionally needs cocotb."
 addedAt: "2026-11-20"
-reviewedAt: '2026-11-23'
+reviewedAt: "2026-11-28"
 sources:
   - id: "official"
     title: "Official project website"
@@ -37,6 +37,21 @@ sources:
   - id: review-20261123
     title: "Event-keyed state-update scheduling"
     url: "https://github.com/celox-sim/celox/commit/c6ba61f671aa694725853f88ba48bd3130f46b62"
+  - id: review-20261128-activity
+    title: "November 27 interface-declared covergroups"
+    url: "https://github.com/celox-sim/celox/commit/456f4e7b4e18d9641808ae90f0fd6be6ec0ee133"
+  - id: review-20261128-cli
+    title: "November 27 native CLI covergroup reporting"
+    url: "https://github.com/celox-sim/celox/commit/1a0a2485c70c6b4bd9c0fd1ad0eada256b85efa5"
+  - id: review-20261128-coverage-tests
+    title: "Retained covergroup execution and report tests"
+    url: "https://github.com/celox-sim/celox/blob/d4e1d96204fd8d50c4b57ac3cdb32253595e63ff/crates/celox/tests/frontends/systemverilog/covergroup.rs"
+  - id: review-20261128-cli-tests
+    title: "Retained JSON report and failure-path regression"
+    url: "https://github.com/celox-sim/celox/blob/d4e1d96204fd8d50c4b57ac3cdb32253595e63ff/crates/celox/tests/run_cli.rs"
+  - id: review-20261128-limits
+    title: "Current conformance-suite limitations"
+    url: "https://github.com/celox-sim/celox/blob/d4e1d96204fd8d50c4b57ac3cdb32253595e63ff/crates/celox-test-suite/LIMITATIONS.md"
 ---
 
 ### Implementation and scope
@@ -54,3 +69,7 @@ A credited Claude Opus contribution added executable clock/reset option plumbing
 ### November 23 source review
 
 The native simulator groups state updates by event and distinguishes transition, sample and publish work. This is an internal simulation change after v0.13.0, not added HDL coverage or an independently measured speedup. [Reviewed implementation](#source-review-20261123).
+
+### November 28, 2026 source review
+
+November 27 integrates covergroups declared in interfaces with instance-specific bindings, sampling and explicit restrictions on references outside the interface. The native CLI also writes JSON covergroup coverage through --coverage-report, with regressions for successful and failed simulation runs. The implemented report and selected language cases are concrete verification functionality; they do not establish full clause 19 or UVM conformance, UCIS interoperability or AMS support. These are reviewed default-branch changes, not claims about a tagged release. The source and tests were inspected, not run. [Interface implementation](#source-review-20261128-activity) · [Coverage execution tests](#source-review-20261128-coverage-tests) · [CLI integration](#source-review-20261128-cli) · [CLI regression](#source-review-20261128-cli-tests) · [Limitations](#source-review-20261128-limits).
