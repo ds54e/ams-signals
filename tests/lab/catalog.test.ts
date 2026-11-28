@@ -49,7 +49,9 @@ test('Lab distinguishes live capture, recorded data and test execution from rela
   assert.deepEqual(scopes('stabilizer'), ['acquisition', 'control', 'test']);
   assert.deepEqual(scopes('diode-pcb'), ['design']);
   assert.deepEqual(scopes('kibot'), ['design']);
-  assert.deepEqual(scopes('gpcam'), ['analysis']);
+  // The implemented objective-callback optimization loop selects and executes repeatable trials.
+  assert.deepEqual(scopes('gpcam'), ['analysis', 'test']);
+  assert.equal(lab.find(({ id }) => id === 'gpcam')!.data.scope.test.ai, true);
   assert.deepEqual(scopes('origen-o2'), ['test']);
   assert.deepEqual(scopes('probe-rs'), ['control', 'test']);
   assert.deepEqual(scopes('pyvisa-sim'), ['test']);
