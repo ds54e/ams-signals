@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:59:21.000Z",
+  "capturedAt": "2026-11-28T07:09:30.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3462,6 +3462,81 @@
       "lastCommitAt": "2026-09-22",
       "lastMeaningfulCommitAt": "2026-09-21",
       "lastMeaningfulCommitSha": "94c5f097399fe2fdd152f7082e8cdb7e6c6b7a9a"
+    },
+    "kirimaspice": {
+      "kind": "github",
+      "repository": "kurochan001/kirimaspice",
+      "repositoryId": 1456769971,
+      "capturedAt": "2026-11-28T07:09:30.000Z",
+      "defaultBranch": "main",
+      "headSha": "1ed73318150dec94a0a1d57c8a7a6e5cf022c560",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        475
+      ],
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "10a07a968364483019289eb008dfc0b5971ed006"
+    },
+    "sindr": {
+      "kind": "github",
+      "repository": "steffendybvik/sindr-rs",
+      "repositoryId": 1232143873,
+      "capturedAt": "2026-11-28T07:09:30.000Z",
+      "defaultBranch": "main",
+      "headSha": "2205aa6d923d98f7bf834dadf782e6ffde4d7f04",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        17,
+        1,
+        0,
+        0,
+        0,
+        0,
+        6
+      ],
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "2205aa6d923d98f7bf834dadf782e6ffde4d7f04"
+    },
+    "repath": {
+      "kind": "github",
+      "repository": "Agustin-Delgado/repath",
+      "repositoryId": 1319733079,
+      "capturedAt": "2026-11-28T07:09:30.000Z",
+      "defaultBranch": "main",
+      "headSha": "be973dba0e7af3e16b731f536b2b07d91d6af253",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        95,
+        87,
+        0,
+        15
+      ],
+      "lastCommitAt": "2026-11-21",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "be973dba0e7af3e16b731f536b2b07d91d6af253"
     }
   }
 }

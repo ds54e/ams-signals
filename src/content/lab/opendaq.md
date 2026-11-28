@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "Apache-2.0 SDK. Physical measurements require a compatible device module, DAQ hardware and any separately licensed drivers; bundled reference devices can generate synthetic signals. WAV replay uses the optional audio module and a working miniaudio playback backend."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: official
     title: "openDAQ project"
@@ -58,6 +58,15 @@ sources:
   - id: discovery
     title: "Retained mDNS service-thread stop"
     url: "https://github.com/openDAQ/openDAQ/blob/1fa4ad074e21a6532893d4c843139c74c01e2916/core/opendaq/modulemanager/src/mdns_discovery_server_impl.cpp"
+  - id: review-20261128-activity
+    title: "November 24 native streaming-client packet processing improvements"
+    url: "https://github.com/openDAQ/openDAQ/commit/909627dde7ac91e1485d6a3f65abee404efedd13"
+  - id: review-20261128-stream
+    title: "Retained native streaming packet queue interface"
+    url: "https://github.com/openDAQ/openDAQ/blob/0da5c6d3109381f11288c4c7e926009b6d5f8141/modules/native_streaming_client_module/include/native_streaming_client_module/native_streaming_impl.h"
+  - id: review-20261128-stream-tests
+    title: "Native streaming protocol regression source"
+    url: "https://github.com/openDAQ/openDAQ/blob/0da5c6d3109381f11288c4c7e926009b6d5f8141/shared/libraries/native_streaming_protocol/tests/test_streaming_protocol.cpp"
 ---
 
 ### Scope and operating boundaries
@@ -71,3 +80,7 @@ The optional audio module reads recorded WAV samples into typed signal packets, 
 Separate substantive changes correct packet-cache reuse in July 2026 and configuration deadlocks, event handling and streaming-device lifetime in November 2026. These are retained implementation and regression-test changes, not activity inferred from dependency updates. No physical DAQ or synchronization experiment was reproduced for this review. [Earlier maintenance](#source-earlier-maintenance); [Current maintenance](#source-activity).
 
 The September discovery-shutdown commit explicitly co-credits Claude, changes executable lifetime management and is an ancestor of the reviewed default branch. The current instance destructor clears the discovery servers' root-device references before releasing the device, and the mDNS implementation stops its service thread in that path. This establishes AI-ASSISTED development for that repair; the reviewed runtime operations remain conventional. [Attributed repair](#source-development); [Retained instance logic](#source-instance); [Retained service stop](#source-discovery).
+
+### November 28, 2026 source review
+
+The November 24 native-streaming integration collects packets on the transport thread and transfers bursts to the processing thread, resolving each signal once per burst and forwarding packets in arrival order. It also introduces shared ownership for external packet memory. This is an implemented acquisition-path efficiency improvement, not independently measured throughput, losslessness or timing accuracy. The later November 25 commits remain in the raw activity capture; the reviewed streaming implementation is the meaningful checkpoint. Existing Scope and development attribution are unchanged. [Integration](#source-review-20261128-activity) · [Queue interface](#source-review-20261128-stream) · [Protocol tests](#source-review-20261128-stream-tests).

@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:59:21.000Z",
+  "capturedAt": "2026-11-28T07:09:30.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -622,9 +622,9 @@
       "kind": "github",
       "repository": "aionhw/xezim",
       "repositoryId": 1215528740,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T07:09:30.000Z",
       "defaultBranch": "main",
-      "headSha": "2c343a352d2f31779d71131ec9fcfb135e8296f1",
+      "headSha": "a9782f6f7176ba3d45d7f89ef0fce70b6324470c",
       "commits": [
         0,
         0,
@@ -637,11 +637,11 @@
         509,
         160,
         995,
-        1458
+        1727
       ],
-      "lastCommitAt": "2026-11-22",
-      "lastMeaningfulCommitAt": "2026-11-22",
-      "lastMeaningfulCommitSha": "2c343a352d2f31779d71131ec9fcfb135e8296f1"
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "a9782f6f7176ba3d45d7f89ef0fce70b6324470c"
     },
     "yosys": {
       "kind": "github",
@@ -3011,6 +3011,56 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "14c4fef849de8f2faa9f46dbb77e3a77ebc41855"
+    },
+    "vyges-syn": {
+      "kind": "github",
+      "repository": "vyges-tools/syn",
+      "repositoryId": 1431865496,
+      "capturedAt": "2026-11-28T07:09:30.000Z",
+      "defaultBranch": "main",
+      "headSha": "032a7b8bc71868c1238cf69bd5ec0e66fb8f894e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        30,
+        30
+      ],
+      "lastCommitAt": "2026-11-22",
+      "lastMeaningfulCommitAt": "2026-11-21",
+      "lastMeaningfulCommitSha": "29ac691c68c0a38c6dfd8fb7bad4a1a798be4135"
+    },
+    "waveq": {
+      "kind": "github",
+      "repository": "IshaanDugar/waveq",
+      "repositoryId": 1299717570,
+      "capturedAt": "2026-11-28T07:09:30.000Z",
+      "defaultBranch": "main",
+      "headSha": "eeb88e9045244e4816d18b0aa3d4ca1688baf0a1",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        14
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "eeb88e9045244e4816d18b0aa3d4ca1688baf0a1"
     }
   }
 }

@@ -1,20 +1,20 @@
 [
   {
-    "project": "mosplot",
+    "project": "kirimaspice",
     "date": "2026-11-28",
     "kind": "added",
-    "summary": "Residual-equation gm/ID multicorner sizing with simulator-generated lookup tables and verification netlist export."
+    "summary": "C++23 SPICE simulator with KLU, compact-model comparisons and newly integrated source-referred noise analysis."
   },
   {
-    "project": "analog-canvas",
+    "project": "sindr",
     "date": "2026-11-28",
-    "kind": "updated",
-    "summary": "Six new schematic ERC checks and electrical-waveform, unit parsing and exporter corrections."
+    "kind": "added",
+    "summary": "Embeddable Rust circuit solver with externally stepped transient sessions and model-boundary evidence."
   },
   {
-    "project": "rnl",
+    "project": "repath",
     "date": "2026-11-28",
-    "kind": "updated",
-    "summary": "Viewer 0.6.3 large-design opening improvements and explicit solve and removed-include handling."
+    "kind": "added",
+    "summary": "Browser-local schematic and mixed-signal circuit simulation with threshold and finite-transition bridges."
   }
 ]

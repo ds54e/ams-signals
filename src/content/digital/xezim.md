@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-12"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: '2026-11-23'
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Canonical xezim repository"
@@ -126,6 +126,15 @@ sources:
   - id: review-20261123
     title: "Interpreter implementation changes exercised on DDR workloads"
     url: "https://github.com/aionhw/xezim/commit/2c343a352d2f31779d71131ec9fcfb135e8296f1"
+  - id: review-20261128-activity
+    title: "November 28 restored Chapter 7 array regression cases"
+    url: "https://github.com/aionhw/xezim/commit/a9782f6f7176ba3d45d7f89ef0fce70b6324470c"
+  - id: review-20261128-collections
+    title: "Chapter 7 array reads, traversal and reduction implementation"
+    url: "https://github.com/aionhw/xezim/commit/7b87d792ed91261bf58b1f349b2c0c72e3cf6d36"
+  - id: review-20261128-tests
+    title: "Retained Chapter 7 aggregate regression expectations"
+    url: "https://github.com/aionhw/xezim/blob/a9782f6f7176ba3d45d7f89ef0fce70b6324470c/tests/lrm/ch07_aggregates.rs"
 ---
 
 ### Implementation context
@@ -200,3 +209,7 @@ The reviewed simulator regression covers real-valued source expressions includin
 ### November 23 source review
 
 The interpreter changes reference lookup, integer-expression fast paths and short-circuit evaluation. These upstream changes do not establish broader SystemVerilog conformance or independently measured performance. [Reviewed implementation](#source-review-20261123).
+
+### November 28, 2026 source review
+
+The November 28 implementation recognizes additional fixed multidimensional array storage, corrects traversal and reduction dispatch, and handles omitted parentheses for applicable reduction iterator methods. The following regression commit restores previously omitted Chapter 7 aggregate expectations. This is specific SystemVerilog array-semantics correctness work, not proof of complete Chapter 7 or IEEE 1800 conformance. The reviewed main integration is not a release claim; upstream tests were inspected without independent execution. Scope and development provenance remain unchanged. [Implementation](#source-review-20261128-collections) · [Regression integration](#source-review-20261128-activity) · [Retained tests](#source-review-20261128-tests).

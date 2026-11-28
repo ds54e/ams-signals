@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:59:21.000Z",
+  "capturedAt": "2026-11-28T07:09:30.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -596,9 +596,9 @@
       "kind": "github",
       "repository": "analogdevicesinc/libiio",
       "repositoryId": 16914258,
-      "capturedAt": "2026-11-24T05:48:48.931Z",
+      "capturedAt": "2026-11-28T07:09:30.000Z",
       "defaultBranch": "main",
-      "headSha": "081fd1380feb6fbfae106ef189a90a37b3fb3939",
+      "headSha": "e6064c815710edce1f0870c401f96de2d12f9840",
       "commits": [
         28,
         10,
@@ -611,11 +611,11 @@
         36,
         113,
         28,
-        57
+        73
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "30d16e7c9549d1181d71e3c91232a8f7c2c629dd"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "e6064c815710edce1f0870c401f96de2d12f9840"
     },
     "pymodaq": {
       "kind": "github",
@@ -1196,9 +1196,9 @@
       "kind": "github",
       "repository": "openDAQ/openDAQ",
       "repositoryId": 705721336,
-      "capturedAt": "2026-11-24T10:04:27.276Z",
+      "capturedAt": "2026-11-28T07:09:30.000Z",
       "defaultBranch": "main",
-      "headSha": "1fa4ad074e21a6532893d4c843139c74c01e2916",
+      "headSha": "0da5c6d3109381f11288c4c7e926009b6d5f8141",
       "commits": [
         18,
         17,
@@ -1211,11 +1211,11 @@
         15,
         34,
         27,
-        22
+        25
       ],
-      "lastCommitAt": "2026-11-24",
+      "lastCommitAt": "2026-11-25",
       "lastMeaningfulCommitAt": "2026-11-24",
-      "lastMeaningfulCommitSha": "1e78a058d84823a8b363b3f5fafc0a6528ecc345"
+      "lastMeaningfulCommitSha": "909627dde7ac91e1485d6a3f65abee404efedd13"
     },
     "crucible": {
       "kind": "github",
