@@ -1,11 +1,13 @@
 ---
 name: "GPSDO-PYNQ-Z2"
 aliases: ["DDMTD", "Digital dual-mixer time difference"]
-description: "Open-hardware front end for comparing thirteen 10 MHz frequency references and twelve 1 PPS inputs using digital dual-mixer time difference. KiCad fabrication data, FPGA timestamp capture, a Python driver and stability-analysis scripts form a measurement workflow; revision A has reported bench measurements, while revision B remains untested."
+description: "Open-hardware front end for comparing thirteen 10 MHz frequency references and twelve 1 PPS inputs using digital dual-mixer time difference (DDMTD). KiCad fabrication data, FPGA timestamp capture, board configuration, bring-up self-tests and stability-analysis scripts form a measurement workflow. Revision A has reported bench measurements; revision B remains untested."
 scope:
   design: { ai: false }
+  control: { ai: false }
   acquisition: { ai: false }
   analysis: { ai: false }
+  test: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
   summary: "Claude Opus is co-credited for revisions to the board generator that protect terminals during routing and add channel probe access, and for subsequent helper-clock routing corrections. The revised generator and board are retained."
@@ -13,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-11-25"
 access: "Hardware CERN-OHL-P-2.0; software MIT, with separately licensed library material. Requires a compatible fabricated front end, PYNQ-Z2, Vivado and separately obtained board support files."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical published hardware, gateware and driver"
@@ -55,6 +57,9 @@ sources:
   - id: license
     title: "Hardware, software and third-party licensing"
     url: "https://github.com/gallicchio/GPSDO-PYNQ-Z2/blob/e9a8cf672b9b81e043ad0ebc21af506e4cf04257/LICENSE"
+  - id: bringup
+    title: "Retained board configuration and physical input self-test workflow"
+    url: "https://github.com/gallicchio/GPSDO-PYNQ-Z2/blob/e9a8cf672b9b81e043ad0ebc21af506e4cf04257/gateware/board/bringup.py"
 ---
 
 ## Scope and limits
@@ -66,3 +71,7 @@ The nominal input-referred quantization step is 12.34 ps. The author reports 5.4
 ## Reviewed maintenance and provenance
 
 The standalone repository published the design and imported its earlier September–November development history on November 18. The imported October changes show concrete follow-through from bench revision A to revised routing and channel access, including Claude-credited generator changes retained in the source. The current first-parent chain contains six November commits; imported side-history commits are not added to the monthly counts. The substantive public integration is November 18, not the earlier private commit dates or subsequent photo edits. [Import](#source-activity) · [Probe routing](#source-probe-routing) · [Helper routing](#source-helper-routing) · [Retained generator](#source-generator). [License](#source-license).
+
+## November 28, 2026 implementation review
+
+Control is supported by the bring-up script's Si5351 clock configuration, reference-input detection and programming retries, not by a claim that the front end disciplines every connected oscillator. Test is grounded in the executable instrument bring-up procedure: the driver checks core identity, helper-clock frequency and cycle slips, expected beat channels and PPS edge counts, with separate pass, fail and not-testable outcomes. The CLI returns nonzero for reported failures. Missing PPS observations, chatter and some unconnected channels can be skipped, so zero failures does not establish full coverage or calibrated timing accuracy. Mock-register regressions exercise these distinctions. [Bring-up](#source-bringup) · [Self-test](#source-driver) · [Driver tests](#source-driver-tests).

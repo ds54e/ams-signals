@@ -5,7 +5,7 @@ description: "Python estimators for power and cross-spectral density from sample
 scope: {"analysis": {"ai": false}}
 access: "Public Python source and distribution; no live instrument driver or hardware calibration is implied."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -44,6 +44,12 @@ sources:
   - id: related-tinysa-limits
     title: "Related application setup and measurement limitations"
     url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/README.md"
+  - id: spectral-contract
+    title: "One-sided PSD scaling and cross-spectrum orientation"
+    url: "https://github.com/mdovale/SpecKit/blob/8c1d1070d6a6c752482f4a0bfdaa87e30878c6df/docs/reference/spectral-contract.md"
+  - id: related-allantools
+    title: "AllanTools stability and approximate fractional-frequency PSD reconstruction"
+    url: "https://github.com/aewallin/allantools/blob/32ad8fce6be9f51dda4ab407931f71503c50d101/allantools/allantools.py"
 ---
 
 ### Scope and evidence
@@ -56,4 +62,8 @@ SpecKit's Scope, provenance and activity are based only on its own repository. T
 
 ## Reviewed implementation and retention, November 25, 2026
 
-The separate MIT-licensed tinySA Ultra Phase Noise application controls a supported spectrum analyzer, estimates carrier-relative noise in offset bands from 1 kHz to 1 MHz, applies predetermined equivalent-noise-bandwidth corrections and saves CSV results. The instrument is configured for automatic RBW, so the actual selected bandwidth and normalization must be checked. A single spectrum measurement includes analyzer LO noise and amplitude-noise contributions and does not isolate DUT phase noise. Its latest public implementation change on February 20, 2026 replaces the removed NumPy matrix constructor in the smoothing routine; the reviewed public repository has no later change, additional branch, GitHub release or pull request. Retain the application as a related instrument-specific measurement example rather than an independent catalog entry under the narrower selection criteria. This is not a SpecKit acquisition feature, dependency, license or activity record, and the two implementations are independent. No hardware noise floor or numerical result was independently established. [Related application](#source-related-tinysa) · [Sweep](#source-related-tinysa-sweep) · [Maintenance](#source-related-tinysa-maintenance) · [Limits](#source-related-tinysa-limits).
+The separate MIT-licensed tinySA Ultra Phase Noise application controls a supported spectrum analyzer, estimates carrier-relative noise in offset bands from 1 kHz to 1 MHz, applies predetermined equivalent-noise-bandwidth corrections and saves CSV results. The instrument is configured for automatic RBW, so the actual selected bandwidth and normalization must be checked. A single spectrum measurement includes analyzer LO noise and amplitude-noise contributions and does not isolate DUT phase noise. Its latest public implementation change on February 20, 2026 replaces the removed NumPy matrix constructor in the smoothing routine; the reviewed public repository has no later change, additional branch, GitHub release or pull request. The application is a separately cataloged instrument-specific measurement workflow; this cross-reference does not merge its implementation with SpecKit. This is not a SpecKit acquisition feature, dependency, license or activity record, and the two implementations are independent. No hardware noise floor or numerical result was independently established. [Related application](#source-related-tinysa) · [Sweep](#source-related-tinysa-sweep) · [Maintenance](#source-related-tinysa-maintenance) · [Limits](#source-related-tinysa-limits).
+
+## November 28, 2026 implementation review
+
+The reviewed source contract uses one-sided densities and defines Gxy as X times the complex conjugate of Y, opposite the scipy.signal.csd(x, y) orientation. It documents uniform factor-of-two normalization even at DC and Nyquist. A caller must account for those conventions when comparing complex cross spectra or integrating spectral bins. The estimator is distinct from AllanTools' stability statistics and constrained ADEV-to-PSD reconstruction. Applying it to oscillator phase or frequency records requires the appropriate input units, phase/frequency conversion and measurement calibration; no instrument floor or integrated timing-jitter accuracy follows from a general PSD estimate. [Spectral contract](#source-spectral-contract) · [Related stability estimators](#source-related-allantools).

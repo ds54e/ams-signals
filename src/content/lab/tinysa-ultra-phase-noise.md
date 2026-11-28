@@ -6,6 +6,7 @@ scope:
   control: { ai: false }
   acquisition: { ai: false }
   analysis: { ai: false }
+  test: { ai: false }
 access: "MIT Python source; requires a compatible tinySA Ultra and USB serial connection. Hardware and firmware coverage is limited to the documented setup."
 addedAt: "2026-11-28"
 reviewedAt: "2026-11-28"
@@ -35,6 +36,9 @@ sources:
   - id: related-rf-bench
     title: "Separate Siglent zero-span noise measurement procedure"
     url: "https://github.com/jfrancis42/rf-bench/blob/b36bd53bd64f92aff7e87929d6b9cf66b79dd6d4/projects/radio/phase-noise/phase_noise.py"
+  - id: result-export
+    title: "User-facing measurement execution and optional CSV result export"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/src/tinysa_ultra_phase_noise_app.py"
 ---
 
 ## Scope and limits
@@ -48,3 +52,7 @@ The spectrum-analyzer method cannot distinguish phase noise from all amplitude-n
 ## Selection boundary
 
 Retain the specialized instrument procedure alongside rf-bench rather than consolidate it into the latter. The tinySA implementation joins swept offset bands using documented measured equivalent-noise-bandwidth factors; rf-bench implements a separate Siglent zero-span procedure using nominal RBW. Device compatibility and numerical/physical assumptions differ, so a shared category is not a duplicate implementation. The reviewed low-frequency compatibility maintenance supports retention without implying frequent active development. [tinySA procedure](#source-measurement) · [RF bench procedure](#source-related-rf-bench).
+
+## November 28, 2026 implementation review
+
+Test covers the repeatable characterization sequence, which measures a carrier reference, orchestrates six offset bands, optionally recenters on the carrier between bands and combines normalized results for optional CSV export. This is more than an incidental driver read loop and does not imply an automated pass/fail verdict. The reviewed source sets automatic RBW and applies fixed per-band corrections, so check the actual instrument bandwidth against the assumed factors. The output is a carrier-relative noise estimate limited by the analyzer and setup, not a separately validated DUT-only phase-noise result. [Measurement sequence](#source-measurement) · [Result export](#source-result-export).

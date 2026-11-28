@@ -50,6 +50,9 @@ sources:
   - id: review-20261128-fixtures
     title: "Retained one-port and two-port fixture correction"
     url: "https://github.com/mede-erik/Open-Lab-Automation/blob/e9104a584fae25eddd2cfb47e5164f0992d1afd2/ola/fixtures.py"
+  - id: related-rf-bvd
+    title: "rf-bench two-resonance extraction and SPICE subcircuit output"
+    url: "https://github.com/jfrancis42/rf-bench/blob/b36bd53bd64f92aff7e87929d6b9cf66b79dd6d4/projects/vna/crystal-bvd-pdf/crystal_bvd_pdf.py"
 ---
 
 ## Scope and limits
@@ -65,3 +68,7 @@ August 2026 adds library-driven oscilloscope trigger configuration. November add
 ## November 28, 2026 source review
 
 November 27 adds a series-through VNA measurement for quartz crystals and ceramic resonators. The implementation estimates the Butterworth–Van Dyke parameters from complex S21, including motional R/L/C, Q, and C0 when antiresonance is in the sweep. Optional load capacitance gives estimated loaded frequency and pulling using a small-separation approximation. The algorithm needs sufficient samples around resonance and is tested against a simulated crystal. It is not a general broadband BVD fit or a measurement of oscillator phase noise. Later integration unifies one- and two-port fixture correction; full corrections require the corresponding measured complex S-parameters and suitable calibration. This extends the existing Lab measurement procedure, not a second Analog listing. Upstream hardware measurements and tests were not independently reproduced. [Crystal integration](#source-review-20261128-crystal) · [Parameter extraction](#source-review-20261128-bvd) · [Tests](#source-review-20261128-crystal-tests) · [Fixtures](#source-review-20261128-fixtures) · [Integration](#source-review-20261128-activity).
+
+## November 28, 2026 implementation review
+
+The series-through estimator selects a rising reactance zero near the S21 magnitude peak, interpolates the real impedance there and estimates Lm from half the local reactance slope with respect to angular frequency. Cm and Q follow from the local resonance; if the higher falling crossing is absent, fp and C0 remain unset. Its optional load-capacitance calculation is a small-separation BVD approximation, not a direct loaded-oscillator measurement. rf-bench instead requires two crossings and estimates C0 from off-resonance admittance with iterative motional correction. These are distinct measurement and parameter-extraction workflows; neither is a general complex least-squares BVD fit or independently established accuracy reference. [Local estimator](#source-review-20261128-bvd) · [Related estimator](#source-related-rf-bvd).

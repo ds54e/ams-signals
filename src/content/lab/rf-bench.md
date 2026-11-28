@@ -1,7 +1,7 @@
 ---
 name: "rf-bench"
 aliases: ["rf_bench"]
-description: "Python RF measurement framework with SCPI and GPIB instrument drivers and repeatable characterization procedures. Includes crystal equivalent-circuit parameter extraction from complex S21, oscillator frequency tracking and Allan deviation, and spectrum-analyzer noise measurements; physical validation and calibration vary by procedure."
+description: "Python RF measurement framework with SCPI and GPIB instrument drivers and repeatable characterization procedures. Includes crystal equivalent-circuit parameter extraction from complex S21 with SPICE subcircuit export, oscillator frequency tracking and Allan deviation, and spectrum-analyzer noise measurements; physical validation and calibration vary by procedure."
 scope:
   control: { ai: false }
   acquisition: { ai: false }
@@ -51,6 +51,9 @@ sources:
   - id: related-tinysa
     title: "Separate tinySA measurement and ENBW-correction implementation"
     url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/src/phase_noise.py"
+  - id: related-ola-crystal
+    title: "Open Lab Automation resonance-slope and load-capacitance estimation"
+    url: "https://github.com/mede-erik/Open-Lab-Automation/blob/e9104a584fae25eddd2cfb47e5164f0992d1afd2/ola/crystal.py"
 ---
 
 ## Implementation and selection
@@ -66,3 +69,7 @@ The BVD estimator requires a suitable calibrated series fixture, both resonances
 ## Selection boundary
 
 The narrower tinySA Ultra application remains a separate measurement workflow: its instrument-specific swept offsets and recorded equivalent-noise-bandwidth factors differ from rf-bench's Siglent zero-span procedure using nominal RBW. The two are not interchangeable calibration implementations. Neither procedure establishes a qualified phase-noise measurement independently of the selected analyzer and setup. [RF bench noise procedure](#source-phase-noise) · [tinySA implementation](#source-related-tinysa).
+
+## November 28, 2026 implementation review
+
+The crystal CLI accepts a live VNA sweep or saved Touchstone v1 S2P input and emits a PDF report and SPICE BVD subcircuit. Its estimator uses both reactance crossings and off-resonance admittance, unlike Open Lab Automation's local reactance slope and optional antiresonance-based capacitance estimate. In the reviewed implementation the S2P parser reads the reference impedance but the CLI discards it, while series impedance conversion uses a fixed 50-ohm Z0; non-50-ohm data must be renormalized before using this path. The opening fixture prose also discusses a shunt fixture while the conversion is series-through. Use the implemented topology rather than assuming the two formulas are interchangeable. Exporting parameters for circuit simulation does not establish a separate Analog design workflow or validate model fidelity. [BVD and SPICE implementation](#source-crystal) · [Related estimator](#source-related-ola-crystal).
