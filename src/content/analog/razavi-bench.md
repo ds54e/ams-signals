@@ -17,7 +17,7 @@ targets: "MOS devices, small-signal circuits, feedback, oscillators, comparators
 access: "Prompts, figures, reference answers, grading guidance, evaluator scripts, model outputs, and supporting netlists are public. Answer and judge models are supplied separately; code and benchmark materials have different usage terms."
 notice: "Reference-assisted netlists are curation artifacts, not permitted inputs to official runs."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "site"
     title: "Official project website"
@@ -69,6 +69,12 @@ sources:
   - id: review-20261118-contract
     title: "Agent workspace and separate verifier contract"
     url: https://github.com/Arcadia-1/razavi-bench/blob/4820fe4ff4ea9d7de20c762a2c3461873f0fa44e/agentic/README.md
+  - id: review-20261128-export-retained
+    title: "Retained prompt-only Harbor export"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/30e6a5e3657f9f7db2992c94d9bd88186e0fbd31/tools/export_harbor_tasks.py"
+  - id: review-20261128-tests-retained
+    title: "Retained all-task prompt and verifier-separation regression"
+    url: "https://github.com/Arcadia-1/razavi-bench/blob/30e6a5e3657f9f7db2992c94d9bd88186e0fbd31/tests/test_harbor_export.py"
 ---
 ### Inputs and modes
 
@@ -107,3 +113,7 @@ The reviewed patch implements the model-results view and its data/navigation/pri
 Source review and targeted activity capture: November 18, 2026. Earlier meaningful-activity checkpoints are retained separately from the newer implementation evidence below.
 
 The Harbor exporter now supplies the question prompt without the task title or source-article figure numbers, and renames figures sequentially in the agent workspace. Regression tests check all task exports; reference answers and the grading rubric remain in the separate verifier. This tightens the documented input boundary, but does not establish a newly reproduced agentic score or eliminate every possible source of benchmark contamination. Upstream tests were inspected, not executed; the existing direct-QA leaderboard and simulator-treatment boundaries remain applicable. [Exporter change](#source-review-20261118-inputs) · [Regression cases](#source-review-20261118-tests) · [Workspace/verifier contract](#source-review-20261118-contract).
+
+### November 28 activity review
+
+The November 10 prompt-only Harbor export and its regression are on the first-parent path to the captured main head and remain in that tree. This supersedes the earlier November 5 reasoning-trace probe as the meaningful implementation checkpoint, without changing the already captured history. Subsequent leaderboard and display edits do not establish new execution capability. The exporter limits title and figure-name leakage but cannot by itself establish freedom from benchmark contamination. [Implementation](#source-review-20261118-inputs) · [Retained exporter](#source-review-20261128-export-retained) · [Retained tests](#source-review-20261128-tests-retained).

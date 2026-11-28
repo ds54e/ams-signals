@@ -1,5 +1,11 @@
 [
   {
+    "project": "circuitgenome",
+    "date": "2026-11-28",
+    "kind": "updated",
+    "summary": "Reviewed the open-loop model refactor and new executable RNMC damping and nulling-resistor reference regressions."
+  },
+  {
     "project": "espice",
     "date": "2026-11-28",
     "kind": "updated",
@@ -10,11 +16,5 @@
     "date": "2026-11-28",
     "kind": "updated",
     "summary": "Dual-Dirac jitter separation, clock-triggered multi-level eyes and improved integrated-noise result handling."
-  },
-  {
-    "project": "circuitrf",
-    "date": "2026-11-28",
-    "kind": "updated",
-    "summary": "LC ladder synthesis with load-aware mask checks, wave-derived loadpull metrics and labeled off-grid interpolation, and integrated marker tables."
   }
 ]

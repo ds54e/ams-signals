@@ -12,7 +12,7 @@ targets: "LDO constraint calculations, diagnosis, workflow planning, and SKY130 
 access: "Task packages, structured answer contracts, graders, and runners are public. Tool tracks additionally require a fixed SKY130 revision, ngspice, and an evaluator isolated from the model workspace."
 notice: "The reasoning track does not run SPICE. This is a public development benchmark; formal rankings still require hidden isomorphic variants and independent expert review."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Public repository"
@@ -27,6 +27,9 @@ sources:
   - id: "meaningful-implementation"
     title: "Reviewed substantive implementation or technical maintenance"
     url: "https://github.com/jialinlu/ldo_benchmark_for_agent/commit/fa54a6615dd0dc26ea19fd28d7ae3433f92768ff"
+  - id: related-mismatch-evaluator
+    title: "Separate ASAP7 mismatch-aware sizing evaluator"
+    url: "https://github.com/jialinlu/opensource-analog-circuits/blob/e8308aa273c1a6737a5dee89178c4d48270ff87e/benchmark/mc_benchmark.py"
 ---
 ### Reasoning track
 
@@ -45,3 +48,7 @@ Developers report native ngspice 46 replay of reference candidates; this is not 
 LDO reasoning, diagnosis and sizing/planning are the main tasks. Simulation covers the separate SKY130/ngspice tool track, which explicitly tests circuit closure and simulator operation; the reasoning track remains tool-free. [Reviewed source](#source-review).
 
 Model inference answers the central circuit-reasoning tasks, giving AI Design. In the separate tool-agent track, the model repairs simulation configuration, diagnoses evidence-bound failures and selects controlled runs; that limited track justifies AI Simulation without changing the reasoning-only contract. [Reasoning runner](#source-review) · [Tool-agent diagnosis contract](#source-tools).
+
+### Selection boundary
+
+The reviewed tool-track contract grades diagnosis and repair of a circuit and run configuration through bounded tools and hidden qualification. The related ASAP7 sizing benchmark instead evaluates a normalized parameter vector with repeated mismatch simulations and a separate validation seed. Despite shared LDO subject matter and authorship, these are different task and acceptance contracts; do not combine their scores, task counts or repository histories. [Tool contract](#source-tools) · [Related mismatch evaluator](#source-related-mismatch-evaluator).

@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "MIT. Python 3.10+, PyTorch, torch-geometric and ngspice; bundled SKY130 model resources and the documented environment must be configured. Claude skills and MCP wrappers are optional integration paths, not substitutes for the numerical engine."
 addedAt: "2026-10-11"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Canonical public implementation"
@@ -49,6 +49,12 @@ sources:
   - id: "development-audit-retained"
     title: "Retained implementation at the reviewed repository head"
     url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/LdoEnv.py"
+  - id: review-20261128-grpo-entry
+    title: "Retained GRPO training and PVT mode selection"
+    url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/main_AMP_grpo.py"
+  - id: related-gator
+    title: "Separate SAC workbench and nominal-simulation limitations"
+    url: "https://github.com/FengyanWong/gator/blob/3157d5373e074e022816b4e079a4984ad8493b7b/README.md"
 ---
 
 ## Implementation and Scope
@@ -70,3 +76,7 @@ The meaningful checkpoint is 860c3e4996ff28d30205ecca433846313941341a (2026-09-1
 ### Development provenance
 
 The inspected patch contains executable category-specific evaluation and environment integration in addition to imported circuits and documentation. Attribution is bounded to this implemented expansion, including LDO transient/load/regulation measurements, rather than inferred from the optional MCP interface or restored upstream RL sources. [Implementation](#source-development-audit-implementation) · [Retained code](#source-development-audit-retained)
+
+## Selection boundary
+
+The GRPO entry point selects TT, proxy or full PVT operation and constructs circuit-specific environments from AnalogGym-derived configurations. The upstream README identifies the circuit lineage rather than claiming independently generated topology tasks. GATOR instead supplies a separate graph-policy SAC workbench with nominal Spectre/ngspice evaluation. Preserve both listings for their distinct training/evaluation and simulator workflows; do not treat imported topologies, historical datasets or upstream model results as independent SKY130 design successes. [Project and circuit lineage](#source-readme) · [Training entry point](#source-review-20261128-grpo-entry) · [Related SAC workflow](#source-related-gator).

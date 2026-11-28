@@ -6,7 +6,7 @@ description: "Parameterized analog circuit sizing benchmark with ngspice evaluat
 scope: {"design":{"ai":true},"simulation":{"ai":false}}
 access: "Public Python and circuit source; no repository-wide license was established in the reviewed tree. ngspice is required; ASAP7 tasks use the documented OSDI/Docker setup, and optional Bayesian comparisons require separately installed TuRBO or HEBO."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -33,6 +33,9 @@ sources:
   - id: overview
     title: "Reviewed benchmark coverage and setup"
     url: "https://github.com/jialinlu/opensource-analog-circuits/blob/e8308aa273c1a6737a5dee89178c4d48270ff87e/README.md"
+  - id: related-evol-do
+    title: "Separate LDO reasoning and controlled tool-agent task contract"
+    url: "https://github.com/jialinlu/ldo_benchmark_for_agent/blob/fa54a6615dd0dc26ea19fd28d7ae3433f92768ff/docs/EDA_TOOL_AGENT_TRACK_ZH.md"
 ---
 
 ## Scope and limits
@@ -44,3 +47,7 @@ The five ASAP7 LDO tasks generate independent threshold-voltage mismatch draws w
 ## Reviewed maintenance
 
 July 25 migrated five LDO benchmarks to ASAP7 and added a simulator setup. August 5 added the executable mismatch benchmark driver following the August 4 testbench changes. The later documentation edits remain the raw activity checkpoint. No numerical benchmark result was independently reproduced; repository-wide licensing and qualifying AI-development attribution were not established in the reviewed source. [July migration](#source-earlier) · [August implementation](#source-activity).
+
+## Selection boundary
+
+Retain the numerical mismatch-aware sizing benchmark independently of EvoLDO-Bench. The evaluator accepts normalized design variables, recomputes size-dependent mismatch sigmas and scores sampled specification margins, with a separate validation seed. EvoLDO-Bench additionally grades tool diagnosis, circuit/configuration repair and evidence-linked submission against hidden qualification. Neither workflow supplies a transferable score for the other. The 500-sample validation and assumed mismatch coefficients do not establish foundry production yield. [Evaluator](#source-driver) · [Related tool-agent contract](#source-related-evol-do).

@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T08:19:12.000Z",
+  "capturedAt": "2026-11-28T08:26:34.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -39,9 +39,9 @@
         0
       ],
       "lastCommitAt": "2026-09-26",
-      "lastMeaningfulCommitAt": "2026-09-26",
-      "lastMeaningfulCommitSha": "9a3113c3a94b4212e4dcc62b001b8f6c141c833e",
-      "notes": "The current public release contains 50 task directories. September 26 corrects the published telescopic OTA power specification; the later dataset-link documentation commit remains the raw latest date. Publication history does not establish when private development occurred."
+      "lastMeaningfulCommitAt": "2026-09-15",
+      "lastMeaningfulCommitSha": "83f7b8780add7b00ee9204c78811411f15de73e9",
+      "notes": "September 15 publishes the executable 50-task V2 benchmark package. September 26 corrects a reference-result power-limit label without changing the task, verifier or score; the later dataset link is documentation. Preserve both as raw history, not a new engineering checkpoint."
     },
     "analogcoder-pro": {
       "kind": "github",
@@ -273,9 +273,9 @@
         42
       ],
       "lastCommitAt": "2026-11-10",
-      "lastMeaningfulCommitAt": "2026-11-05",
-      "lastMeaningfulCommitSha": "5c650c6338a11e6860735f345c08d6741d741b2d",
-      "notes": "The reviewed November 5 head implements a separate reasoning-trace/timing probe and publishes its results. Active leaderboard scoring is independently documented in the project notes; no upstream model run or reported measurement was reproduced."
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "4820fe4ff4ea9d7de20c762a2c3461873f0fa44e",
+      "notes": "November 10 corrects the Harbor export input boundary and adds executable regressions. The later leaderboard and presentation commits remain raw activity. The checkpoint is inside the existing capture; no independent agent evaluation was performed."
     },
     "vcli": {
       "kind": "github",
@@ -1868,9 +1868,9 @@
       "kind": "github",
       "repository": "analog-ml/CircuitGenome",
       "repositoryId": 1263686326,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T08:26:34.000Z",
       "defaultBranch": "main",
-      "headSha": "8571bf9689a837a9519e89a3c2ded821af5bc667",
+      "headSha": "001ed4c4a897cd6f6a7fdf263a305e346699f3ab",
       "commits": [
         0,
         0,
@@ -1883,11 +1883,12 @@
         17,
         16,
         29,
-        0
+        7
       ],
-      "lastCommitAt": "2026-10-31",
-      "lastMeaningfulCommitAt": "2026-10-31",
-      "lastMeaningfulCommitSha": "cb8ccdd341802a933a9c9c17d9f2d6dc18b79122"
+      "lastCommitAt": "2026-11-26",
+      "lastMeaningfulCommitAt": "2026-11-26",
+      "lastMeaningfulCommitSha": "8011e46ad3dd7f9c872ac92a36b07abe65d08314",
+      "notes": "November 25 separates the existing open-loop model from analytical equations. November 26 adds executable RNMC damping and nulling-resistor reference regressions. The later RnmcLoop API refactor is recorded as raw activity; no new solver or measured optimization result is inferred."
     },
     "circuitrf": {
       "kind": "github",

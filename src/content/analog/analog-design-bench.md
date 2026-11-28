@@ -50,6 +50,15 @@ sources:
   - id: related-code-a-chip
     title: "Code-a-Chip companion notebook and author-reported results"
     url: "https://github.com/Arcadia-1/analog-design-bench-code-a-chip/blob/fecc6d1b681648f5695d579d280bd341c05d7c37/README.md"
+  - id: review-20261128-full-release
+    title: "September 15 complete executable V2 task release"
+    url: "https://github.com/Arcadia-1/analog-design-bench/commit/83f7b8780add7b00ee9204c78811411f15de73e9"
+  - id: review-20261128-ota-contract
+    title: "Telescopic OTA specification and PVT acceptance contract"
+    url: "https://github.com/Arcadia-1/analog-design-bench/blob/972f7cd7c95381134387b250edf18f3bd23bdd25/tasks/sky130-telescopic-cascode-ota-pvt-fix/instruction.md"
+  - id: review-20261128-ota-reference
+    title: "Corrected reference-result record"
+    url: "https://github.com/Arcadia-1/analog-design-bench/blob/972f7cd7c95381134387b250edf18f3bd23bdd25/tasks/sky130-telescopic-cascode-ota-pvt-fix/results/reference.json"
 ---
 ### Task contract
 
@@ -74,3 +83,9 @@ Runnable ngspice benches and isolated verifiers provide conventional electrical 
 ### November 28, 2026 source review
 
 The separate example repository describes four Harbor task packages across SKY130, IHP SG13G2 and GF180MCU using ngspice, Xyce and VACASK. Its README reserves use to authorized people; it is not a freely licensed addition to the original 50-task release. The companion toolchain repository supplies pinned simulator/PDK environments, while the Code-a-Chip notebook reports later benchmark evaluations. These are related artifacts rather than separate catalog implementations or evidence of activity in the original benchmark's default branch. The original public release task count and meaningful checkpoint remain unchanged. [Example tasks](#source-related-example-tasks) · [Toolchains](#source-related-toolchains) · [Companion notebook](#source-related-code-a-chip).
+
+### Selection and checkpoint review
+
+The September 15 full V2 package is the substantive public implementation checkpoint: the retained frozen manifest lists 50 SKY130 tasks with executable task collateral, following the earlier August release. The September 26 telescopic OTA edit corrects only a reference-result power-limit label from 600 uW to below 1 mW; the task already specifies the latter and the recorded reference passes both. The grading rule and score did not change. Retain the correction as factual result evidence, but not a later executable implementation milestone. [Full release](#source-review-20261128-full-release) · [Manifest](#source-manifest) · [Task contract](#source-review-20261128-ota-contract) · [Reference correction](#source-activity-refresh) · [Reference record](#source-review-20261128-ota-reference).
+
+The telescopic OTA task includes 27 declared PVT combinations and separate range, settling and common-mode recovery checks. It explicitly excludes mismatch, noise, CMRR, PSRR and extracted-layout effects from graded coverage. Coverage varies by task; do not interpret the suite as a uniform analog-IP qualification flow. No simulation or model evaluation was independently performed.

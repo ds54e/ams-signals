@@ -9,7 +9,7 @@ scope:
   aiDevelopment: assisted
 access: Public source; runs require a supported simulator and circuit models. Cloned training starts without pretrained weights; Spectre use additionally requires licensed Cadence access.
 addedAt: '2026-11-16'
-reviewedAt: '2026-11-25'
+reviewedAt: "2026-11-28"
 sources:
 - id: code
   title: Canonical public implementation
@@ -40,6 +40,9 @@ developmentEvidence:
   - implementation
   - retained
   reviewedAt: '2026-11-16'
+- id: related-analoggym-opt
+  title: "Separate GRPO sizing entry and PVT mode selection"
+  url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/main_AMP_grpo.py"
 ---
 
 ### Implementation and selection
@@ -57,3 +60,7 @@ The credited Claude identity, executable diff, canonical integration and retaine
 ### Continued verification maintenance
 
 The November 12 first-parent integration adds fresh-checkout CI that installs ngspice, builds the browser workbench and runs its Python tests, with a serial retry of initially failed tests and a warning when a retry is needed. Tests requiring absent recorded evidence remain skipped; this does not qualify learned sizing performance, PDK coverage or a full Spectre workflow. The same integration repairs a filesystem fixture's dependence on an existing local path. This is substantive test maintenance after the November 6 connection-gating repair and supersedes that earlier checkpoint within the saved capture. [Integrated changes](#source-november-test-integration) · [Retained workflow](#source-checkout-tests).
+
+### Selection boundary
+
+The current source documents Soft Actor-Critic with a graph-transformer policy by default, a local workbench and nominal schematic runs in Spectre or ngspice. Its supplied repository does not include trained weights or PVT/Monte Carlo evaluation. AnalogGym-Opt uses a distinct GRPO policy and configured SKY130 amplifier/LDO environments with separate PVT modes. The fixed-topology sizing goal alone does not make the implementations duplicates. No claim of comparative optimizer superiority or independently reproduced performance is made. [Workflows and limitations](#source-readme) · [Related GRPO workflow](#source-related-analoggym-opt).

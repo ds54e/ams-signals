@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-11-15"
 access: "MIT toolkit; requires Python >=3.9, PyYAML>=6.0, OR-Tools>=9.8 and NumPy>=1.21. Electrical verification requires an external ngspice executable and compatible technology/model data. Bundled GF180/SKY130 material retains upstream notices; optional visualization requires Streamlit and PyVis."
 addedAt: "2026-11-15"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-28"
 sources:
   - id: "official"
     title: "CircuitGenome documentation"
@@ -76,13 +76,31 @@ sources:
   - id: "release"
     title: "CircuitGenome v0.3.0, August 24, 2026"
     url: "https://github.com/analog-ml/CircuitGenome/releases/tag/v0.3.0"
+  - id: review-20261128-activity
+    title: "November 26 compensation-rule regression integration"
+    url: "https://github.com/analog-ml/CircuitGenome/commit/8011e46ad3dd7f9c872ac92a36b07abe65d08314"
+  - id: review-20261128-open-loop
+    title: "Retained nodal open-loop response implementation"
+    url: "https://github.com/analog-ml/CircuitGenome/blob/001ed4c4a897cd6f6a7fdf263a305e346699f3ab/circuitgenome/sizer/physics/open_loop_response.py"
+  - id: review-20261128-rnmc
+    title: "Retained bounded RNMC sizing search"
+    url: "https://github.com/analog-ml/CircuitGenome/blob/001ed4c4a897cd6f6a7fdf263a305e346699f3ab/circuitgenome/sizer/physics/rnmc.py"
+  - id: review-20261128-tests
+    title: "Retained numerical compensation-design regressions"
+    url: "https://github.com/analog-ml/CircuitGenome/blob/001ed4c4a897cd6f6a7fdf263a305e346699f3ab/tests/test_rnmc.py"
+  - id: review-20261128-refactor
+    title: "November 26 RnmcLoop input restructuring"
+    url: "https://github.com/analog-ml/CircuitGenome/commit/001ed4c4a897cd6f6a7fdf263a305e346699f3ab"
+  - id: related-grpo
+    title: "Separate fixed-topology learned GRPO sizing workflow"
+    url: "https://github.com/Computing-Intelligent-Decision-Team/AnalogGym-Opt/blob/10093e3496ef2c7d06494d91d131b0cc5de6c25b/main_AMP_grpo.py"
 ---
 
 ### Implementation and selection
 
 The public code assembles compatible module variants into op-amp netlists, recognizes structures through explicit patterns, sizes devices and runs an end-to-end measured-specification acceptance loop. This is executable implementation rather than the papers listed as references. Design covers topology, recognition and sizing; Simulation covers external ngspice benches and measurement. The project is independently implemented in its own canonical repository, not an activity alias for the cited papers or another catalog tool. [Enumerator](#source-synthesizer) · [Recognizer](#source-recognizer) · [Designer](#source-designer) · [Reference context](#source-overview)
 
-Selection rests on continued technical iteration, including two distinct October 31 integrations. The CMRR repair sizes against the same nodal CMRR reported by the circuit model, with bounded re-sizing and tests guarding other specifications. The separate slew-rate repair remeasures fast edges at finer resolution and rejects sustained oscillation, with regression coverage. The selected CMRR integration, not the later documentation-only head, is the meaningful checkpoint. [CMRR integration and tests](#source-activity) · [Retained algorithm](#source-cmrr-implementation) · [Slew-measurement integration](#source-slew-integration)
+Selection rests on continued technical iteration, including two distinct October 31 integrations. The CMRR repair sizes against the same nodal CMRR reported by the circuit model, with bounded re-sizing and tests guarding other specifications. The separate slew-rate repair remeasures fast edges at finer resolution and rejects sustained oscillation, with regression coverage. The selected CMRR integration, not the later documentation-only head, was the meaningful checkpoint in the earlier capture. [CMRR integration and tests](#source-activity) · [Retained algorithm](#source-cmrr-implementation) · [Slew-measurement integration](#source-slew-integration)
 
 ### Classification and operating limits
 
@@ -103,3 +121,9 @@ Commit c47bb8a explicitly coauthors Claude and changes executable field defaults
 ### Activity capture
 
 The activity record pins the actual main head and counts UTC committer dates along its complete 178-commit first-parent chain to the root, reconstructed from public GitHub metadata. The meaningful SHA cb8ccdd occurs on that chain with UTC date October 31. Merges count once, side branches are excluded, and commit dates are not independently verified push times. November is partial. [Canonical repository](#source-code) · [Meaningful integration](#source-activity)
+
+### November 28 source review
+
+November 25 separates the existing nodal open-loop model from the closed-form equations. November 26 adds executable tests for the RNMC damping-floor calculation, including the second-stage parasitic capacitance, and the effect of nulling resistors in two-stage and RNMC responses. The retained regression checks distinct values of damping and phase margin; a resistor that cancels an output pole in a simplified two-stage model need not improve RNMC stability. The later RnmcLoop refactor groups model inputs and retains the bounded search. These are maintenance and reference-test additions, not a newly implemented RNMC solver or new measured sizing performance. [Regression integration](#source-review-20261128-activity) · [Nodal model](#source-review-20261128-open-loop) · [Search](#source-review-20261128-rnmc) · [Tests](#source-review-20261128-tests) · [API refactor](#source-review-20261128-refactor).
+
+Retain this listing separately from learned fixed-topology optimizers: modular topology enumeration, pattern recognition and analytical/gm/Id sizing provide a distinct conventional workflow. The related GRPO policy does not supply CircuitGenome's implementation or establish AI within it. The new tests use the reduced small-signal model; they do not establish transistor-level signoff or demonstrate new ngspice accuracy. No upstream tests or simulations were independently run. [Related sizing approach](#source-related-grpo).
