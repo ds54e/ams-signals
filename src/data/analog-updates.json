@@ -1,5 +1,11 @@
 [
   {
+    "project": "rspice",
+    "date": "2026-11-28",
+    "kind": "updated",
+    "summary": "Dual-Dirac jitter separation, clock-triggered multi-level eyes and improved integrated-noise result handling."
+  },
+  {
     "project": "circuitrf",
     "date": "2026-11-28",
     "kind": "updated",
@@ -10,11 +16,5 @@
     "date": "2026-11-28",
     "kind": "updated",
     "summary": "Wire-coordinate boundary correction, stronger wire-grid trim regressions and attribute-processing optimization."
-  },
-  {
-    "project": "kirimaspice",
-    "date": "2026-11-28",
-    "kind": "added",
-    "summary": "C++23 SPICE simulator with KLU, compact-model comparisons and newly integrated source-referred noise analysis."
   }
 ]

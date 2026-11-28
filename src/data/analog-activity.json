@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:39:06.000Z",
+  "capturedAt": "2026-11-28T07:40:45.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -938,9 +938,9 @@
       "kind": "github",
       "repository": "JaimeHW/RSpice",
       "repositoryId": 1136014493,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T07:40:45.000Z",
       "defaultBranch": "main",
-      "headSha": "3ea2b0fd1068e5e9376a1d6af94ed8c00db3c6ed",
+      "headSha": "e6af33b1312b44df70ff7807509a5b509497aba3",
       "commits": [
         0,
         385,
@@ -953,12 +953,12 @@
         2192,
         2942,
         3933,
-        4659
+        5539
       ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "e2dd8f1102f2f87bd4056d8b80baf731000c685c",
-      "notes": "The deck editor now pulls supported model and instance parameter completions from the simulator tables. Completion is limited by those tables; the update is not evidence of wider SPICE or Verilog-A compatibility."
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "937adda8c1df82364d0c8b88221c4a4ffedd742e",
+      "notes": "November 24 crossing-histogram dual-Dirac jitter fit and clock-triggered multi-level eye measurements; November 28 integrated retained spectral densities when summaries omit integrated noise and clarified absent metrics. First-parent delta verified; raw counts include refactoring and tests."
     },
     "revolution-eda": {
       "kind": "github",

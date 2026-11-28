@@ -1,7 +1,7 @@
 ---
 name: RSpice
 summary: Rust circuit simulator with schematic editing, SPICE netlist execution and waveform analysis through desktop, browser, CLI and Python interfaces.
-description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, circuit assertions and autonomous PSS oscillator phase-noise analysis. SystemVerilog remains a subset without custom real-net resolution functions; its personal-use license restricts commercial evaluation, prototyping and redistribution without separate permission."
+description: "Rust SPICE and mixed-signal simulator with schematic editing, Verilog-AMS/wreal, circuit assertions, autonomous PSS phase-noise and eye/jitter analysis. SystemVerilog lacks custom real-net resolution functions; dual-Dirac BER estimates are extrapolated, and its personal-use license restricts commercial evaluation, prototyping and redistribution."
 scope:
   design:
     ai: false
@@ -16,7 +16,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source under RSpice Personal Use License v1.1. Commercial evaluation, prototyping and redistribution are prohibited without express written permission; Rust builds and device/model support remain interface- and platform-specific."
 addedAt: '2026-10-18'
-reviewedAt: '2026-11-25'
+reviewedAt: '2026-11-28'
 sources:
 - id: "official"
   title: "Official project website"
@@ -110,6 +110,27 @@ sources:
 - id: review-20261125-license
   title: "Personal Use License v1.1 at the reviewed revision"
   url: "https://github.com/JaimeHW/RSpice/blob/86be28d360cae4d5df30dd7542f5f30984e7f218/LICENSE"
+- id: review-20261128-eye
+  title: "November 24 dual-Dirac jitter and multi-level eye implementation"
+  url: "https://github.com/JaimeHW/RSpice/commit/75780f9b49d994386e2965454f649ab9a7648cdb"
+- id: review-20261128-jitter
+  title: "Retained dual-Dirac tail fit and seeded jitter regressions"
+  url: "https://github.com/JaimeHW/RSpice/blob/e6af33b1312b44df70ff7807509a5b509497aba3/crates/rspice-core/src/analysis/signal_integrity/jitter_fit.rs"
+- id: review-20261128-eye-measurements
+  title: "Retained eye measurement and BER applicability logic"
+  url: "https://github.com/JaimeHW/RSpice/blob/e6af33b1312b44df70ff7807509a5b509497aba3/crates/rspice-core/src/analysis/signal_integrity/eye_measurements.rs"
+- id: review-20261128-activity
+  title: "November 28 integration of retained noise spectra and absent-result handling"
+  url: "https://github.com/JaimeHW/RSpice/commit/937adda8c1df82364d0c8b88221c4a4ffedd742e"
+- id: review-20261128-hbnoise
+  title: "November 28 HBNOISE viewer routing correction"
+  url: "https://github.com/JaimeHW/RSpice/commit/27098b296419addadd59112ef0f022607632b0f4"
+- id: review-20261128-model-hub
+  title: "November 28 deletion of unused Model Hub client"
+  url: "https://github.com/JaimeHW/RSpice/commit/906e64c5cdebdc4f6c821a11f4c81afe0e88f8f9"
+- id: review-20261128-license
+  title: "Retained Personal Use License v1.1"
+  url: "https://github.com/JaimeHW/RSpice/blob/e6af33b1312b44df70ff7807509a5b509497aba3/LICENSE"
 ---
 
 ### Implementation and boundaries
@@ -162,3 +183,9 @@ The deck editor now pulls supported model and instance parameter completions fro
 ### November 25 oscillator phase-noise review
 
 The current source distinguishes driven conversion noise from phase noise computed on an autonomous shooting PSS orbit. The oscillator regression invokes the autonomous PSS and noise engine, compares the negative-resistance LC tank with the analytical Demir phase-diffusion result, checks the phase-noise result variant from an authored autonomous deck, and includes sampled-noise cases. This is materially different from a driven periodic-noise analysis or a waveform FFT. These upstream regression sources were inspected, not executed; they do not establish general transistor-model coverage, silicon correlation or tagged-release availability. The Personal Use License v1.1 still restricts commercial evaluation, development, redistribution and derivative works for distribution. This is a capability review, not an activity recapture or a license recommendation. [Analysis contract](#source-review-20261125-oscillator-api) · [Oscillator regressions](#source-review-20261125-oscillator-tests) · [License](#source-review-20261125-license).
+
+### November 28, 2026 source review
+
+The November 24 signal-integrity implementation separates random and deterministic jitter by fitting the crossing histogram's tails on a Q scale, with a shared Gaussian tail weight. It derives total jitter at a chosen BER and separates counted bathtub points from extrapolated curves; fewer than 400 crossings do not establish a tail fit. The retained seeded regressions cover Gaussian, sinusoidal and mixed jitter, including insufficient samples. Clock-triggered acquisitions and two- to four-level eye measurements extend the simulated-waveform workflow. The eye logic declines to report a noise-derived BER when level spread does not support the random-noise assumption. These are modeled-waveform statistics and extrapolations, not measured BER or independently established compliance. [Eye implementation](#source-review-20261128-eye) · [Fit and regressions](#source-review-20261128-jitter) · [Measurement logic](#source-review-20261128-eye-measurements).
+
+November 28 corrects the results path to integrate retained output and input-referred spectral densities over the analysis band when run summaries lack those figures, distinguish absent data from numeric zero, and admit HBNOISE to the existing spectrum viewer. These changes are result handling, not evidence of a newly implemented noise solver. The same day's source removes the now-unused Model Hub client and associated storage/transport code; this is not evidence that separately configured local device models have been removed. The Personal Use License v1.1 continues to restrict commercial evaluation, prototyping and redistribution. Existing conventional Design/Simulation and separately evidenced AI-ASSISTED development classifications remain unchanged. Upstream code and regression cases were inspected but not executed. [Noise integration](#source-review-20261128-activity) · [HBNOISE routing](#source-review-20261128-hbnoise) · [Client removal](#source-review-20261128-model-hub) · [Current license](#source-review-20261128-license).
