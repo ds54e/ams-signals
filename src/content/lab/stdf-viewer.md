@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "GPL-3.0."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical project source"
@@ -33,6 +33,9 @@ sources:
   - id: tagged-release
     title: "STDF-Viewer V4.0.0 tagged binary release from December 2022"
     url: "https://github.com/noonchen/STDF-Viewer/releases/tag/V4.0.0"
+  - id: related-stdfreader-summary
+    title: "Separate Python bin summaries and cross-file mean comparisons"
+    url: "https://github.com/showjim/STDFReader/blob/e5639bab63f20b11243dd4a43353c7390eef4834/stdf_reader/analysis.py"
 ---
 
 ## Scope and limits
@@ -46,3 +49,7 @@ FTR records have no numeric measurement result: the plotting data path substitut
 June 2026 maintenance fixes GDR/DTR exports that yielded no rows when the query fit in the initial batch. October work adds file-ID selection and carries the selected files through plots and file information. These dated changes establish continued work on the application. [Export correction](#source-maintenance-earlier) · [File selection](#source-activity).
 
 This review follows the October 2026 source. The inspected GitHub V4.0.0 binary release dates from December 2022 and predates these changes; verify the revision of a downloaded build or build the required source revision. [Tagged release](#source-tagged-release) · [Build and usage documentation](#source-workflow).
+
+## November 28, 2026 implementation review
+
+The wafer statistics display counts for pass, fail, unknown and superseded DUTs separately. Its displayed yield divides pass count by pass plus fail count, whereas the displayed total sums all four counts. A stacked wafer map aggregates failures over selected files but is excluded from this per-wafer statistics table. The data interface can hide infinite values as NaN or replace them by finite float32 extrema for display before calculating descriptive statistics. Verify those settings and denominators when comparing reports. STDFReader uses a separate parser lineage and its own retest and site-mean reporting workflow; the two applications do not necessarily aggregate the same population. [Data interface](#source-data-interface) · [Related reports](#source-related-stdfreader-summary).

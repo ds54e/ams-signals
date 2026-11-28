@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "Apache-2.0; requires appropriately ordered and grouped measurement data and independently specified engineering limits."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -24,6 +24,9 @@ sources:
   - id: capability
     title: "Retained capability and window-specific variation estimation"
     url: "https://github.com/cnicholas/processbehavior/blob/d28e8d15fcabc3485f7c47e0e983b6dffe0d2f17/processbehavior/capability.py"
+  - id: related-capability-app
+    title: "Related distribution-fit capability and performance implementation"
+    url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/app/capability/nonnormal.py"
 ---
 
 ## Scope and limits
@@ -33,3 +36,7 @@ The library analyzes recorded measurements using time and subgroup structure rat
 ## Reviewed maintenance
 
 October 2026 corrects subgroup labels and counts in Xbar/S tables so the displayed count corresponds to the aggregation used for limits. November corrects signal-rule definitions and adds regressions for points beyond the limits and rule lengths. The revised detector remains in the reviewed tree. These are technical changes after an existing analysis implementation rather than documentation-only updates. [Subgroup correction](#source-subgroups) · [Rule correction](#source-activity).
+
+## November 28, 2026 implementation review
+
+The capability window is an observation subset, not a new fitted study: its current statistics and potential centering use the selected time interval, but its potential capability continues to use the full study's R2 residual variation. The code also reports the window's own residual variation separately when available. Potential capability requires the corresponding factorial/time study residuals; the implementation rejects windows with fewer than eight observations and warns below thirty. These details distinguish the structured study workflow from the separate capability application's distribution-fitted Pp/Ppk and expected-tail estimates. [Capability implementation](#source-capability) · [Related distribution methods](#source-related-capability-app).

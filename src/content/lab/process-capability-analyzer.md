@@ -1,12 +1,12 @@
 ---
 name: "Process Capability Analyzer"
 aliases: ["DailyDana process-capability-analyzer", "Gage R&R", "Type-1 gauge study"]
-description: "Python and Streamlit application for measurement-system analysis, statistical process control and capability reporting. Implements crossed Gage R&R with ANOVA and Average and Range methods, Type-1 reference measurements, and downloadable reports with calculation details."
+description: "Python and Streamlit application for measurement-system analysis, statistical process control and capability reporting. Implements crossed Gage R&R, Type-1 reference studies, nonnormal Pp/Ppk estimation, attribute control charts and fixed baseline control limits, with downloadable calculation reports."
 scope:
   analysis: { ai: false }
 access: "Apache-2.0; requires suitable recorded measurements, balanced crossed studies for the Gage R&R methods, and justified reference values and tolerances."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -24,6 +24,21 @@ sources:
   - id: reference-tests
     title: "Retained Gage R&R comparison against published examples"
     url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/tests/test_msa_published.py"
+  - id: nonnormal
+    title: "Retained percentile and Box-Cox performance estimators"
+    url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/app/capability/nonnormal.py"
+  - id: phase-limits
+    title: "Retained Phase I baseline estimation and Phase II application"
+    url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/app/spc/phases.py"
+  - id: attribute-charts
+    title: "Retained p, np, c and u attribute control charts"
+    url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/app/spc/attribute.py"
+  - id: phase-integration
+    title: "November 19 baseline limit implementation"
+    url: "https://github.com/DailyDana/process-capability-analyzer/commit/0c81c8996d8e6786d958168f70b6e26bd03cf2d7"
+  - id: attribute-integration
+    title: "November 19 attribute chart implementation"
+    url: "https://github.com/DailyDana/process-capability-analyzer/commit/b2f5b098e47cea2a7f59348c098e877691f80c9a"
 ---
 
 ## Scope and limits
@@ -33,3 +48,7 @@ The application processes saved measurements and exposes crossed-study variance 
 ## Reviewed maintenance
 
 The October Type-1 integration follows the September initial application and October crossed Gage R&R implementation; it adds a new measurement-study workflow and reports. November adds explicit arithmetic derivations and attaches them to reports, including tests that compare the displayed derivations with the analysis outputs. This establishes follow-through across separate implementation periods. [October integration](#source-type-one) · [November change](#source-activity).
+
+## November 28, 2026 implementation review
+
+The application additionally computes nonnormal Pp/Ppk from fitted distribution percentiles or Box-Cox-transformed observations and limits. Its fitted-distribution PPM is a modeled tail probability, not an observed defective-part count; strictly positive data are required for Box-Cox. November 19 adds attribute charts and a separate Phase I/II workflow that exports baseline limits to CSV and reapplies them to later observations, with moving ranges crossing excluded baseline observations omitted from the estimate. This is a useful distinction from recalculating limits over every plotted observation. The crossed ANOVA path defaults to an interaction pooling threshold of 0.25; the selected convention and measurement design affect the result. No hardware or numerical study was independently reproduced. [Nonnormal methods](#source-nonnormal) · [Baseline implementation](#source-phase-limits) · [Attribute charts](#source-attribute-charts) · [ANOVA](#source-anova).

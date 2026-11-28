@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "BSD-3-Clause; requires appropriately designed studies, suitable reference values and independently justified uncertainty inputs and engineering tolerances."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -24,6 +24,9 @@ sources:
   - id: tests
     title: "Retained uncertainty and variance-component comparison tests"
     url: "https://github.com/j4ggr/DaSPi/blob/186cb5ce348fca4f214742cf92c11634415a985e/tests/anova_model_test.py"
+  - id: related-capability-anova
+    title: "Related crossed-study ANOVA reporting application"
+    url: "https://github.com/DailyDana/process-capability-analyzer/blob/b71d69e126454484aba5a1ed89125449e94a26a1/app/msa/anova.py"
 ---
 
 ## Scope and limits
@@ -33,3 +36,7 @@ The reusable Python models evaluate recorded measurements, including repeated ob
 ## Reviewed maintenance
 
 January 2026 changes GageRnRModel to return both measurement-system and measurement-process uncertainty components; the combined result is retained at the reviewed head. November exposes configurable control-limit strategy and agreement defaults across estimation and plotting, including corresponding test changes. These are changes to existing usable analysis code rather than documentation-only activity. [January change](#source-earlier) · [November change](#source-activity).
+
+## November 28, 2026 implementation review
+
+GageStudyModel constructs separate calibration, resolution, bias, linearity and repeatability uncertainty components and combines them into measurement-system uncertainty. GageRnRModel separately constructs measurement-process uncertainty using study and application components, including appraiser, interaction, temperature and stability contributions. This is a reusable uncertainty-budget and model API, beyond a report of crossed ANOVA variance components. The related capability application exposes a different, report-oriented entry point and an explicit interaction pooling convention. A site or fixture variation component is not automatically a complete measurement uncertainty budget. [Study and R&R models](#source-models) · [Related ANOVA](#source-related-capability-anova).

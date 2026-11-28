@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "MIT; underlying dependencies have separate terms."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Project documentation"
@@ -37,6 +37,12 @@ sources:
   - id: wafermap-api
     title: "Independent package exports for embedding the shared engine"
     url: "https://github.com/wafertools/wafermap/blob/28a2479e67ba601aff3a70a6809a8c7d46f5fe0c/package.json"
+  - id: stdf-verdicts
+    title: "Retained STDF result flags, wafer summary and part-record extraction"
+    url: "https://github.com/wafertools/tsmap/blob/d343fe9bd609a080184c3bfdbd512ed7a50cbbb0/packages/parsers/src/parse_stdf.rs"
+  - id: test-identity
+    title: "Generated test identities for mapped CSV and JSON records"
+    url: "https://github.com/wafertools/tsmap/blob/d343fe9bd609a080184c3bfdbd512ed7a50cbbb0/packages/parsers/src/test_identity.rs"
 ---
 
 ## Scope and limits
@@ -52,3 +58,7 @@ August 2026 work preserves dies without reported coordinates across the STDF, AT
 ## Related workflow
 
 The wafermap package can be embedded in other applications through its separate core, statistics and rendering exports. It is the shared rendering and analysis engine, not a separate end-to-end wafer-file review application. Keep this alternative integration path linked here rather than counting the same analysis implementation as a second independent listing. Engine maintenance is not included in the tsmap repository's activity. [Package exports](#source-wafermap-api).
+
+## November 28, 2026 implementation review
+
+The native STDF parser preserves tester-recorded pass/fail separately from numeric PTR values and propagates superseding-part flags. It also reads WRR part and good counts as separate wafer metadata, leaving absent sentinel counts unset. These fields are not automatically equivalent to a recomputed bin yield for a selected population. Long-format CSV/JSON imports generate deterministic numbers from test identities and probe occupied numbers on collisions within a parse; native STDF and ATDF test numbers are not generated this way. Cross-file test matching still depends on consistent identities and record semantics. [STDF parser](#source-stdf-verdicts) · [Mapped test identities](#source-test-identity).

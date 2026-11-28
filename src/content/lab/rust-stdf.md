@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "MIT."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical project source"
@@ -42,6 +42,9 @@ sources:
   - id: stdfreader
     title: "Related independent Python parser lineage and record extraction"
     url: "https://github.com/showjim/STDFReader/blob/e5639bab63f20b11243dd4a43353c7390eef4834/stdf_reader/FileRead.py"
+  - id: stdf-convert-python
+    title: "Related record-specific Arrow schemas and batch iteration"
+    url: "https://github.com/davidmathers/stdf-convert/blob/4d902aa71d81857a52c9d98b4b893a4eb2996df0/python/README.md"
 ---
 
 ## Scope and limits
@@ -59,3 +62,7 @@ The August 2026 integration adds typed writing, raw passthrough and validation t
 The related [stdf-convert](#source-stdf-convert) uses rust-stdf to produce JSON Lines and Arrow tables, and implements its own handling for an alternative Version Update Record layout found in some files. That separate conversion and parsing extension is not a feature or an independent validation of rust-stdf; its activity and provenance are not counted here. [VUR implementation](#source-stdf-convert-vur).
 
 The related STDFReader application uses a PySTDF-derived parser rather than this Rust implementation. Its record extraction provides a separate implementation path for interoperability comparisons. Agreement on a selected file does not establish conformance for all record types, optional fields or vendor extensions. [Python extraction](#source-stdfreader).
+
+## November 28, 2026 implementation review
+
+The linked converter exposes Python Arrow tables and batch iteration with sequence numbers and decompressed byte offsets, and its separate VUR decoder validates both the single-name and counted-name payload layouts. The latter is a compatibility extension, not evidence that rust-stdf's typed reader implements the alternate layout. Retain the converter as a linked integration path: its current parser dependency and output adapters overlap the listed library, and its reviewed default head has not changed since the previous selection review. For record-preserving transformations, the library's typed writer and same-byte-order raw-copy interface remain distinct from conversion into columnar or JSON records. [Converter API](#source-stdf-convert-python) · [VUR decoder](#source-stdf-convert-vur) · [Reader and writer](#source-reader-writer).

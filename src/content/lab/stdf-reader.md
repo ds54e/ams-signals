@@ -1,12 +1,12 @@
 ---
 name: "STDFReader"
 aliases: ["stdf-reader","PySTDF-based test data analysis"]
-description: "Python command-line and graphical application for converting semiconductor STDF records to CSV or spreadsheets and analyzing production test data. It uses a PySTDF-derived parser and provides test-result extraction, cross-file correlation and site-to-site correlation reports."
+description: "Python command-line and graphical application for converting semiconductor STDF records to CSV or spreadsheets and analyzing production test data. Uses a PySTDF-derived parser and reports test statistics, bins, wafer maps and cross-file or site-to-site mean shifts."
 scope:
   analysis: { ai: false }
 access: "GPL-2.0-only; graphical operation requires the optional GUI dependencies. File compatibility depends on the implemented record handling."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -33,3 +33,7 @@ STDFReader processes saved production-test records, with a command-line record e
 ## Reviewed maintenance
 
 May 2026 corrects the first multiple-result record's test-number lookup. October generalizes record-type resolution and extraction to additional STDF records, including MIR, through the command-line and graphical entry points. Both changes remain in the reviewed source. These are changes to an existing usable file-processing workflow; no vendor file coverage or hardware results were independently reproduced. [MPR correction](#source-earlier) · [Record extraction](#source-activity).
+
+## November 28, 2026 implementation review
+
+The named correlation reports compare per-test means rather than calculating paired-observation correlation coefficients. The site-to-site path computes the range of site means; the cross-file path computes the second file's mean minus the first file's mean even when more than two files are loaded and labels that column as a maximum-minus-minimum difference. Its normalized comparisons divide by the specification span or first-file mean without an explicit zero-denominator guard. The bin summary removes first-pass rows at coordinates with a retest row, while the wafer-map pivot selects the last value at each coordinate; multiple retests are not reduced to a single row by the bin-summary filter. These are specific implementation limits to account for before using the reports for site matching or yield decisions. [Report implementation](#source-correlation).

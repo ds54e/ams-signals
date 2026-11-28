@@ -6,7 +6,7 @@ scope:
   analysis: { ai: false }
 access: "MIT; requires appropriate test or simulated data, justified stress-life assumptions and failure mechanisms. Statistical fits do not qualify a physical device."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -27,6 +27,12 @@ sources:
   - id: likelihood
     title: "Retained censored and truncated likelihood implementation"
     url: "https://github.com/derrynknife/SurPyval/blob/6fbca35252d6ec7c1b72f7e557c118dc5a7c6d48/surpyval/bayes/likelihood.py"
+  - id: docs-only-integration
+    title: "November 27 documentation publishing integration"
+    url: "https://github.com/derrynknife/SurPyval/commit/9e38633ff27dfcc379062d9adfb5d246b257fe60"
+  - id: reviewed-head-delta
+    title: "Changes since the captured implementation checkpoint"
+    url: "https://github.com/derrynknife/SurPyval/compare/6fbca35252d6ec7c1b72f7e557c118dc5a7c6d48...9e38633ff27dfcc379062d9adfb5d246b257fe60"
 ---
 
 ## Scope and limits
@@ -36,3 +42,7 @@ The library fits life distributions from failure and censoring observations and 
 ## Reviewed maintenance
 
 July 2026 corrects the exponential accelerated-life parameter mapping and adds regression tests; the corrected mapping is retained in the reviewed source. November's v0.29 integration refactors the censored and truncated likelihood implementation and adds pointwise likelihood and sampler-gradient support, with reference-comparison tests. The reviewed implementation contains the new likelihood paths. This demonstrates continued numerical-method development after earlier usable releases. [Accelerated-life correction](#source-earlier) · [November integration](#source-activity) · [Retained likelihood](#source-likelihood).
+
+## November 28, 2026 implementation review
+
+The destructive degradation model accepts one destructive measurement per unit, fits a time-dependent location-scale distribution and derives failure probability from its threshold tail, with separate increasing and decreasing degradation directions and support for censored responses. This is distinct from repeated-measurement degradation trajectories. Its lifetime interpretation assumes preserved population ordering over time and a suitable fitted distribution; it does not establish a semiconductor failure mechanism or qualification result. The reviewed November 27 default head differs from the saved November 22 head only in documentation build and publication workflow files. No numerical implementation checkpoint is advanced on that evidence. [Degradation model](#source-degradation) · [Head comparison](#source-reviewed-head-delta).
