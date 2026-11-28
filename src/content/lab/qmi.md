@@ -5,6 +5,7 @@ description: "Python services and RPC-based drivers for distributed instrument c
 scope:
   control: { ai: false }
   acquisition: { ai: false }
+  analysis: { ai: false }
   test: { ai: false }
   aiDevelopment: assisted
 developmentEvidence:
@@ -13,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "MIT; some instrument drivers require separate vendor DLLs or SDKs."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical implementation"
@@ -47,3 +48,7 @@ The distinct use here is operating instrument services from separate client cont
 Test is grounded in the bundled calibration client: it configures the meter, sweeps laser drive current through 81 settings, reads power, selects the fitting region and reports linear-fit coefficients. This is a specific executable measurement procedure, not a general fixture or pass/fail test system. It requires the stated instruments and setup; the example switches the laser off only on its normal completion path. [Calibration procedure](#source-calibration-procedure).
 
 The generic task lifecycle and periodic scheduler provide application infrastructure. Their measurement callbacks are supplied by the application, so those abstractions alone do not establish Test. [Task implementation](#source-task-execution).
+
+## November 28, 2026 implementation review
+
+Analysis is grounded narrowly in the published calibration client: it selects measured powers above 2 mW, fits a first-order current-to-power relation, reports its slope and intercept-derived current offset, and draws the fitted curve over measured points. This is a user-facing calibration result distinct from RPC transport or acquisition; it does not establish general offline analysis, fit uncertainty, optical calibration traceability or automatic application of the fitted coefficients. The example does not define a fit-quality acceptance gate. [Calibration procedure](#source-calibration-procedure).

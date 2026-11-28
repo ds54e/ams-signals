@@ -739,8 +739,8 @@
         2
       ],
       "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "730214258a49eca4eb213ee70d2b43a19de70aae"
+      "lastMeaningfulCommitAt": "2026-11-17",
+      "lastMeaningfulCommitSha": "61af41a2c49560c6363c5d32d63aafa30189517e"
     },
     "tm-data-types": {
       "kind": "github",
@@ -764,8 +764,8 @@
         3
       ],
       "lastCommitAt": "2026-11-16",
-      "lastMeaningfulCommitAt": "2026-09-30",
-      "lastMeaningfulCommitSha": "6d135b97d8eb2b1289c4b4fd7b03b2814e16f9e0"
+      "lastMeaningfulCommitAt": "2026-11-10",
+      "lastMeaningfulCommitSha": "8e07d77899854856e1edcce46cfe1283640c32c1"
     },
     "nptdms": {
       "kind": "github",
