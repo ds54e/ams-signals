@@ -6,7 +6,7 @@ scope:
   test: { ai: false }
 access: "Apache-2.0; no physical instrument required. VXI-11 discovery requires permission to bind UDP port 111."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Official Crucible user manual"
@@ -55,6 +55,12 @@ sources:
   - id: release
     title: "Crucible v0.1.0 release published in September 2026"
     url: "https://github.com/anlaco/Crucible/releases/tag/v0.1.0"
+  - id: related-lewis-stream
+    title: "Lewis asynchronous network protocol adapter"
+    url: "https://github.com/ISISComputingGroup/lewis/blob/1b2086d6ce5eda9a46c264067f3e6d66d15ac8cf/lewis/adapters/stream.py"
+  - id: related-lewis-model
+    title: "Lewis user-authored state-machine device model"
+    url: "https://github.com/ISISComputingGroup/lewis/blob/1b2086d6ce5eda9a46c264067f3e6d66d15ac8cf/lewis/devices/julabo/devices/device.py"
 ---
 
 ## Selection and scope
@@ -76,3 +82,7 @@ VXI-11 discovery needs a portmapper on UDP 111 and the necessary host permission
 An August 2026 correction replaces per-connection device clones with shared state and adds a reconnection regression to the existing TCP runtime. September VXI-11 work is followed by named-device routing, partial-read completion and pending-response corrections with socket regressions. These changes show follow-through on implemented transport behavior. [TCP correction](#source-maintenance-earlier) · [VXI-11 implementation](#source-prior-vxi11) · [VXI-11 corrections](#source-activity).
 
 The observed implementation work spans August–September 2026, and the reviewed release history contains v0.1.0 from September. This remains a short maintenance record; longer-term support continuity has not yet been established. [Release](#source-release).
+
+## November 28, 2026 implementation review
+
+Lewis supplies programmable device behavior through Python state-machine and protocol adapters. Crucible instead supplies YAML-profiled SCPI network instruments including VXI-11 link operations and portmapper discovery. These enable different regression integrations; neither extends the other's model or protocol support. The current default branch and release remain at September 2026, with no open pull request observed during this review. Retain on the basis of the August state correction and September network implementation and follow-up, not a claim of ongoing high-frequency development. [VXI-11 code](#source-vxi11-core) · [Related network adapter](#source-related-lewis-stream) · [Related state model](#source-related-lewis-model).

@@ -13,7 +13,7 @@ developmentEvidence:
   reviewedAt: "2026-11-25"
 access: "Public Python source; no repository-wide reuse license was found. The separate BINDER driver repository states MIT. Requires compatible chamber, serial adapter and bench instruments with the appropriate VISA backend."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical lab instrument and thermal test implementation"
@@ -55,6 +55,12 @@ sources:
   - id: related-espec-release
     title: "Related ESPEC UI v1.1 release"
     url: "https://github.com/vincesum/ESPEC-Temperature-Control-UI/releases/tag/v1.1"
+  - id: mirror-policy
+    title: "Maintainer declaration and one-way lab organization mirroring"
+    url: "https://github.com/daskals/lab-instrument-control/commit/601a287e3c1fa6d1022b01bf8a6030a6f377479a"
+  - id: organization-mirror
+    title: "Lab organization copy of the canonical project"
+    url: "https://github.com/Microwave-Antenna-Engineering-Group-HWU/lab-instrument-control"
 ---
 
 ## Scope and limits
@@ -70,3 +76,7 @@ June 24 adds the LCR driver and extends the powered DUT test with attributed Cla
 A separate ESPEC Temperature Control UI project provides SH241 serial control, temperature monitoring, soak scheduling and two-temperature cycling. The March cycling implementation and April connection corrections demonstrate real follow-through, but the reviewed public history has no further technical change after April 27, no other branch or PR, and v1.1 was published April 29. The narrow chamber-only workflow has limited additional discovery value alongside this broader temperature-conditioned DUT measurement entry, so it is retained as a related implementation rather than an independent catalog row. It does not acquire DUT electrical characteristics or establish qualification verdicts. The ESPEC code, license status, device support and activity are separate from Lab Instrument Control; the two projects do not depend on one another. No repository-wide reuse license was established for the ESPEC code. [Chamber control](#source-related-espec) · [Cycling](#source-related-espec-cycling) · [Serial interface](#source-related-espec-serial) · [Release](#source-related-espec-release).
 
 Source inspection only; no physical test, regression or instrument run was independently reproduced.
+
+## November 28, 2026 implementation review
+
+The latest master commit documents the maintainer's repository as the issue and contribution destination and configures a one-way push to the lab organization copy. Both reviewed default heads are the same commit. Keep only the maintainer repository as the canonical implementation; the mirror is not another project or independent activity record. The September driver repairs remain the meaningful checkpoint. [Mirror policy](#source-mirror-policy) · [Organization copy](#source-organization-mirror).

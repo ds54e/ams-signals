@@ -9,7 +9,7 @@ scope:
   test: { ai: false }
 access: "GPL-3.0-or-later source; beta software. Physical operation requires supported instruments or boards and matching firmware."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical implementation"
@@ -30,6 +30,18 @@ sources:
   - id: capture-format
     title: "Saved capture input and export implementation"
     url: "https://github.com/dekajoule/openSciLab/blob/49bf5ad6e3b8e5103138dfae6e62ac1b279991ec/openscilab/core/capture_io.py"
+  - id: rf-source-integration
+    title: "October 28 canonical HT008 instrument-driver integration"
+    url: "https://github.com/dekajoule/openSciLab/commit/49bf5ad6e3b8e5103138dfae6e62ac1b279991ec"
+  - id: rf-source-driver
+    title: "Retained HT008 generator and instrument settings"
+    url: "https://github.com/dekajoule/openSciLab/blob/49bf5ad6e3b8e5103138dfae6e62ac1b279991ec/openscilab/driver/htool/instrument.py"
+  - id: rf-source-tests
+    title: "Retained HT008 protocol and driver regressions"
+    url: "https://github.com/dekajoule/openSciLab/blob/49bf5ad6e3b8e5103138dfae6e62ac1b279991ec/tests/test_htool.py"
+  - id: development-branch
+    title: "Unmerged November pre-trigger and circuit-simulation development"
+    url: "https://github.com/dekajoule/openSciLab/pull/13"
 ---
 
 ## Scope and limits
@@ -41,3 +53,7 @@ The project describes the application as beta and distinguishes its reported har
 ## Reviewed maintenance
 
 October 9 repairs the Rigol capture completion, trigger, bridge-channel and timeout-resynchronization paths, with simulator tests. October 27 preserves named state-capture clocks in session data and the UI. The retained capture serializer reads and writes the clock name. These changes follow the initial logic-analyzer port and early releases; a longer maintenance record is not yet established. [Driver corrections](#source-driver-corrections) · [Clock metadata](#source-activity).
+
+## November 28, 2026 implementation review
+
+October 28 integrates an HT008 RF-generator driver with serial frequency and discrete output-level settings, acknowledgments and regression tests. This is a substantive Control extension after the October 27 checkpoint. The returned settings describe the last command, not instrument readback; the driver cannot turn the carrier off. This application operates external instruments, unlike OOS's replacement software running on a Rigol scope itself. An open November development branch also contains pre-trigger capture and W65C02 simulation changes, but those are not integrated default-branch features or activity. No hardware operation was independently reproduced. [Driver integration](#source-rf-source-integration) · [Implementation](#source-rf-source-driver) · [Tests](#source-rf-source-tests) · [Development branch](#source-development-branch).
