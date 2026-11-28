@@ -32,6 +32,9 @@ sources:
   - id: filter
     title: "Retained smoothing implementation"
     url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/src/savitzky_golay_filter.py"
+  - id: related-rf-bench
+    title: "Separate Siglent zero-span noise measurement procedure"
+    url: "https://github.com/jfrancis42/rf-bench/blob/b36bd53bd64f92aff7e87929d6b9cf66b79dd6d4/projects/radio/phase-noise/phase_noise.py"
 ---
 
 ## Scope and limits
@@ -41,3 +44,7 @@ The application configures analyzer sweeps over offset bands from 1 kHz to 1 MHz
 A September 2025 GUI dependency migration and a February 2026 replacement of the removed NumPy matrix constructor are concrete compatibility maintenance after the original implementation. The latter retains the numerical smoothing path; it is not an improvement in the analyzer's noise floor. This is low-cadence maintenance, not evidence of active new feature development. [Earlier change](#source-earlier) · [Activity](#source-activity) · [Filter](#source-filter).
 
 The spectrum-analyzer method cannot distinguish phase noise from all amplitude-noise contributions and cannot measure below the instrument's own oscillator noise floor. The documented carrier-frequency band transition, drift, AM/FM and calibration limitations matter; smoothing does not improve physical sensitivity. No hardware measurements or numerical comparisons were independently reproduced. [Measurement limits](#source-readme).
+
+## Selection boundary
+
+Retain the specialized instrument procedure alongside rf-bench rather than consolidate it into the latter. The tinySA implementation joins swept offset bands using documented measured equivalent-noise-bandwidth factors; rf-bench implements a separate Siglent zero-span procedure using nominal RBW. Device compatibility and numerical/physical assumptions differ, so a shared category is not a duplicate implementation. The reviewed low-frequency compatibility maintenance supports retention without implying frequent active development. [tinySA procedure](#source-measurement) · [RF bench procedure](#source-related-rf-bench).

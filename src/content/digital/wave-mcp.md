@@ -56,6 +56,12 @@ sources:
   - id: bus-buffer-retained
     title: "Retained FST point-read implementation"
     url: "https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/wave_mcp/sources/fst_source.py"
+  - id: related-traceweave-attribution
+    title: "Declared TraceWeave implementation references and design influence"
+    url: "https://github.com/Tencent/wave-mcp/blob/c1fdbf0a9b3b66c5251b94351943031e3132d97a/docs/THIRD_PARTY.md"
+  - id: related-traceweave-workflow
+    title: "TraceWeave log and waveform debugging workflow"
+    url: "https://github.com/gokeshenzhen/TraceWeave/blob/b4a18c1c50786ec1cc674d9e249c4bf00ec6026e/README.md"
 ---
 
 ### Implemented workflow and selection
@@ -81,3 +87,7 @@ At the November 25 review the saved meaningful checkpoint was 2026-11-16 UTC. Th
 ### November 28 activity recapture
 
 The canonical first-parent history now includes the November 20 aggregated-bus buffer correction. The local cffi allocation stays alive until the returned native value has been decoded. The meaningful activity checkpoint advances to that commit; no description or scope change is needed. This is a source-inspected correctness repair, not a new numerical accuracy result. [Correction](#source-bus-buffer-fix) · [Retained code](#source-bus-buffer-retained).
+
+### Selection and shared implementation boundary
+
+The third-party notices identify the TraceWeave references in the FSDB-to-FST converter, including time-scale parsing, reader interface/build details and bit-array and time-tag interpretation. The notices separately credit its influence on first-divergence feature priority and describe the wave-mcp converter and comparison implementation boundaries. This is not a wholly independent FSDB reader implementation. Retain wave-mcp for its own pyslang-based static elaboration, FST session queries, pass/fail comparison and browser waveform handoff; TraceWeave supplies a distinct log-centered and failure-replay workflow. Do not attribute either project's complete functionality, compatibility results or history to the other. [Declared attribution](#source-related-traceweave-attribution) · [Related workflow](#source-related-traceweave-workflow).

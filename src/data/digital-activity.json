@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:57:19.000Z",
+  "capturedAt": "2026-11-28T08:01:36.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -1335,9 +1335,9 @@
       "kind": "github",
       "repository": "gokeshenzhen/TraceWeave",
       "repositoryId": 1168662293,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-28T08:01:36.000Z",
       "defaultBranch": "main",
-      "headSha": "a2654bcba727bc8676dde84d230a3d3871f6defc",
+      "headSha": "b4a18c1c50786ec1cc674d9e249c4bf00ec6026e",
       "commits": [
         0,
         0,
@@ -1349,12 +1349,12 @@
         35,
         136,
         96,
-        59,
-        0
+        365,
+        27
       ],
-      "lastCommitAt": "2026-10-13",
-      "lastMeaningfulCommitAt": "2026-10-13",
-      "lastMeaningfulCommitSha": "a2654bcba727bc8676dde84d230a3d3871f6defc"
+      "lastCommitAt": "2026-11-25",
+      "lastMeaningfulCommitAt": "2026-11-25",
+      "lastMeaningfulCommitSha": "182493760e4557d17229f7bcc9306ebd50d661de"
     },
     "booley": {
       "kind": "github",
@@ -2260,9 +2260,9 @@
       "kind": "github",
       "repository": "kleverhq/wavepeek",
       "repositoryId": 1146435912,
-      "capturedAt": "2026-11-19T23:03:09.211Z",
+      "capturedAt": "2026-11-28T08:01:36.000Z",
       "defaultBranch": "main",
-      "headSha": "a4451a222e2971404cce574d89fcfb991b160521",
+      "headSha": "c77432cf201d10d45983a0ce4554c92507f5d2db",
       "commits": [
         0,
         4,
@@ -2275,11 +2275,11 @@
         13,
         2,
         9,
-        8
+        45
       ],
-      "lastCommitAt": "2026-11-15",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "c5db17bb852bae9dd2a44563512268a100253e90"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-26",
+      "lastMeaningfulCommitSha": "e55d1f417117344ef2171deba3c40beba23cd358"
     },
     "xlsynth": {
       "kind": "github",

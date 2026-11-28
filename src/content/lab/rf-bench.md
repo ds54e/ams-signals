@@ -48,6 +48,9 @@ sources:
   - id: license
     title: "Repository root GPL version 3 license"
     url: "https://github.com/jfrancis42/rf-bench/blob/b36bd53bd64f92aff7e87929d6b9cf66b79dd6d4/LICENSE"
+  - id: related-tinysa
+    title: "Separate tinySA measurement and ENBW-correction implementation"
+    url: "https://github.com/Hagtronics/tinySA-Ultra-Phase-Noise/blob/45b3e6edad5cda34381014a1c6d9548ca63e4444/src/phase_noise.py"
 ---
 
 ## Implementation and selection
@@ -59,3 +62,7 @@ The RF characterization procedures add a specific discovery path alongside gener
 ## Limits
 
 The BVD estimator requires a suitable calibrated series fixture, both resonances and adequate off-resonance samples; it is not a general nonlinear impedance fit. Oscillator and phase-noise procedure READMEs explicitly state that physical hardware has not been tested. The frequency tracker can skip failed sweeps and calculates a single average sample interval from the first and last timestamps; the Allan computation assumes uniformly spaced frequency samples and does not correct these gaps. The README and helper docstring give inconsistent and incorrect ADEV slope-to-noise identifications; the conventional white FM, flicker FM and random-walk FM slopes are -1/2, 0 and +1/2 respectively. The spectrum-analyzer procedure normalizes to nominal RBW, not independently measured equivalent noise bandwidth, and does not isolate phase noise from amplitude noise or the analyzer's residual noise. These paths are exploratory bench procedures, not qualified oscillator measurements. No upstream software tests or hardware measurements were independently executed. [Stability limits](#source-stability-limits) · [ADEV helper](#source-adev) · [Noise limits](#source-phase-noise-limits) · [License](#source-license).
+
+## Selection boundary
+
+The narrower tinySA Ultra application remains a separate measurement workflow: its instrument-specific swept offsets and recorded equivalent-noise-bandwidth factors differ from rf-bench's Siglent zero-span procedure using nominal RBW. The two are not interchangeable calibration implementations. Neither procedure establishes a qualified phase-noise measurement independently of the selected analyzer and setup. [RF bench noise procedure](#source-phase-noise) · [tinySA implementation](#source-related-tinysa).
