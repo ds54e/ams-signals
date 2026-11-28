@@ -6,7 +6,7 @@ scope:
   test: { ai: false }
 access: "Apache-2.0."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical project source"
@@ -30,6 +30,9 @@ sources:
   - id: graph-example-retained
     title: "Retained concurrent sequence and group example"
     url: "https://github.com/google/openhtf/blob/9f7371af4e210fddbba1cd9afdd62700b57d74a2/examples/phase_graph.py"
+  - id: related-benchloom-graph
+    title: "Benchloom graph-to-Lua compiler"
+    url: "https://github.com/criscrafter/benchloom/blob/c06716087f54d39a499e8c433eb32e9634762487/src/benchloom/graph.py"
 ---
 
 ## Scope and limits
@@ -43,3 +46,7 @@ The [implementation checkpoint](#source-activity) records a substantive upstream
 The October 23 concurrent PhaseGraph executor is extended on October 29 to support named sequences, phase groups and nested graphs. Its cancellation path stops unstarted nodes and active non-teardown work while allowing teardown to complete unless forced to stop; retained tests exercise nested execution, sibling failure and abort. November 13 adds topology export without executing phases and a runnable multi-lane example demonstrating state sharing and teardown. Parallel phases remain a beta feature with an evolving API; a software teardown guarantee does not establish safe instrument cleanup or synchronized physical stimulus. [Nested execution](#source-phase-graph-collections) · [Tests](#source-phase-graph-tests) · [Example integration](#source-phase-graph-example) · [Topology export](#source-recipe-visualization) · [Example](#source-graph-example-retained).
 
 The selected meaningful checkpoint in the saved capture is 2026-11-13 UTC. Source inspection only; no physical test, regression or instrument run was independently reproduced.
+
+## Selection boundary
+
+OpenHTF's PhaseGraph example composes Python test phases with dependency edges, shared plug state and teardown. It is not a visual test-program compiler: Benchloom separately compiles user-authored execution and data-flow graphs into Lua. The two provide different test-authoring entry points, even though both use graphs. [Phase graph example](#source-graph-example-retained) · [Benchloom compiler](#source-related-benchloom-graph).

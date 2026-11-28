@@ -8,7 +8,7 @@ scope:
   test: { ai: false }
 access: "MIT-style source license; requires compatible NI STS software, native instrument drivers and .NET Framework. Physical testing requires the corresponding instruments and tester configuration."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -29,6 +29,9 @@ sources:
   - id: nimi-python
     title: "Related modular instrument Python binding implementation"
     url: "https://github.com/ni/nimi-python/blob/56d2479f12043923eb29201a1d6dd975264f2aa8/generated/nidigital/nidigital/session.py"
+  - id: related-semi-ate-sequencer
+    title: "Semi-ATE site-oriented test application sequencer"
+    url: "https://github.com/Semi-ATE/Semi-ATE/blob/a906e5ba78101c065877c48bb1bbccf5eb45d453/src/Apps/test_app/ate_test_app/sequencers/Sequencer.py"
 ---
 
 ## Scope and limits
@@ -44,3 +47,7 @@ August 2026 corrects how DC power getters return results for ganged and merged p
 ## Related workflow
 
 The separate nimi-python project generates direct modular-instrument Python bindings, including digital pattern and PPMU operations. This library instead provides a higher-level C# abstraction for pin/site results and STS test sequences. Both depend on NI native instrument drivers; they are not independent evidence of hardware behavior. [Python digital session](#source-nimi-python).
+
+## Selection boundary
+
+The NI library maps native DC power measurements to pin/site results and exposes aperture and compliance settings. Semi-ATE's separate project generator and site-specific test sequencer organize test execution and bins rather than implementing these NI-specific instrument extensions. The entries describe different engineering integration layers, not equivalent tester backends. [NI DC measurement](#source-dc-measure) · [Semi-ATE sequencer](#source-related-semi-ate-sequencer).

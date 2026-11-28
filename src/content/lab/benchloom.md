@@ -32,6 +32,9 @@ sources:
   - id: tests
     title: "Executable test runner and driver-coverage tests"
     url: "https://github.com/criscrafter/benchloom/blob/c06716087f54d39a499e8c433eb32e9634762487/tests/test_engine.py"
+  - id: related-openhtf-phases
+    title: "OpenHTF dependency-linked Python test phase example"
+    url: "https://github.com/google/openhtf/blob/9f7371af4e210fddbba1cd9afdd62700b57d74a2/examples/phase_graph.py"
 ---
 
 ### Scope and selection
@@ -41,3 +44,7 @@ Benchloom provides user-authored visual control-flow/data-flow graphs and Lua te
 ### Limits
 
 The project is young; support depends on specific instruments and transports. Driver metadata and tests distinguish hardware-tested, partly tested and untested devices. Simulated device checks and software shutdown behavior do not guarantee bench accuracy or replace hardware protection. Stored waveforms and automated checks do not by themselves establish a general measured-data analysis workbench. [Overview](#source-readme) · [Tests](#source-tests).
+
+## Selection boundary
+
+The graph representation contains distinct execution and data wires and a compiler that emits Lua; OpenHTF's PhaseGraph instead schedules Python phase functions with dependencies and teardown. Benchloom's graph compiler and its common Lua execution path justify separate discovery, not an inference of equivalent parallel execution or fixture safety. [Graph compiler](#source-graph) · [OpenHTF example](#source-related-openhtf-phases).

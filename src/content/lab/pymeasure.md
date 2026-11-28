@@ -9,7 +9,7 @@ scope:
   test: { ai: false }
 access: "MIT; usable interfaces depend on installed adapters and instruments."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Project documentation"
@@ -28,6 +28,9 @@ sources:
   - id: instro-publisher
     title: "Optional Instro integration for publishing PyMeasure instrument traffic"
     url: "https://github.com/nominal-io/instro/blob/6fa91f45f5d178ab0013d9146143603e9df0a505/packages/instro-pymeasure/instro/pymeasure/wrapper.py"
+  - id: related-qcodes-dond
+    title: "QCoDeS parameter sweep and dataset orchestration"
+    url: "https://github.com/microsoft/Qcodes/blob/a8443cda5f1df38fd4c8d5403104e89de7ace42a/src/qcodes/dataset/dond/do_nd.py"
 ---
 
 ## Scope and limits
@@ -41,3 +44,7 @@ Analysis follows `open_experiment`: it reads saved Results, recreates experiment
 ## Related workflow
 
 Instro can wrap PyMeasure instruments and publish property reads and writes through its own publishers. The wrapper provides a distinct measurement/command publishing operation, but the wrapped driver remains the PyMeasure implementation. Instro's provenance, activity and driver coverage are separate from this entry. [Publishing integration](#source-instro-publisher).
+
+## Selection boundary
+
+The managed window operates on Procedure, Experiment and Results objects and reloads saved result files for plot reconstruction. QCoDeS doNd instead composes parameter sweeps with its measurement dataset contract. Keep the independent procedure-centered and parameter-centered workflows rather than consolidating them solely because both automate measurements. [Managed window](#source-saved-experiments) · [QCoDeS doNd](#source-related-qcodes-dond).

@@ -7,7 +7,7 @@ scope:
   test: { ai: false }
 access: "GPL-2.0 repository license; requires a compatible Python/Spyder environment and the configured tester, instrument and messaging components."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -28,6 +28,9 @@ sources:
   - id: pylab
     title: "Related instrument and register access library"
     url: "https://github.com/Semi-ATE/PyLab-ML/blob/4ecca841c3a0fdd1400d5452a105c276772ca720/README.md"
+  - id: related-ni-pin-site
+    title: "NI STS pin/site-aware DC measurement extensions"
+    url: "https://github.com/ni/semi-test-library-dotnet/blob/361110d9019ee6f976ea78e22f4ef1d4d8854c94/SemiconductorTestLibrary.Extensions/source/InstrumentAbstraction/DCPower/Measure.cs"
 ---
 
 ## Scope and limits
@@ -39,3 +42,7 @@ PyLab-ML is a related instrument library with device classes and register access
 ## Reviewed maintenance
 
 January 2026 changes flow-local input parameters and list-result handling. November corrects lab-control plugin exceptions and Spyder integration after reported problems. These are implementation and compatibility changes following earlier usable test-project and execution workflows. [January change](#source-earlier) · [November correction](#source-activity).
+
+## Selection boundary
+
+Semi-ATE's sequencer accepts test-app commands for initialization, progression, parameters and bin mapping in its site-oriented execution workflow. NI Semiconductor Test Library instead exposes instrument-specific pin/site data operations within NI STS software. The generated test-project and execution framework is not a substitute for the NI measurement extensions; neither establishes a complete independently validated tester. [Sequencer](#source-sequencer) · [NI measurement extensions](#source-related-ni-pin-site).

@@ -54,6 +54,9 @@ sources:
   - id: review-20261128-visa-tests
     title: "Mocked connection-error regression cases"
     url: "https://github.com/microsoft/Qcodes/blob/073585beeb2b4031a75491cee0bad79f8fcdd8d1/tests/test_visa.py"
+  - id: related-pymeasure-window
+    title: "PyMeasure managed procedure and saved experiment interface"
+    url: "https://github.com/pymeasure/pymeasure/blob/02da8edb7d7a22d3662911f842dfe4c433631b4c/pymeasure/display/windows/managed_window.py"
 ---
 
 ## Scope and limits
@@ -69,3 +72,7 @@ Test follows the reusable doNd procedure: it coordinates multiple parameter swee
 ### November 28, 2026 source review
 
 The November 27 integration adds specific diagnostic notes for a VISA interface number not configured on the host and an instrument resource not found, preserving the underlying error code. Mocked tests check both notes. This is Control reliability/diagnostics, not an additional acquisition or measurement capability, and does not imply real instrument validation. The upstream tests were inspected, not executed; functional Scope and development attribution remain unchanged. [Integration](#source-review-20261128-activity) · [Implementation](#source-review-20261128-visa) · [Tests](#source-review-20261128-visa-tests).
+
+## Selection boundary
+
+QCoDeS doNd builds sweeps from Parameter objects and records their setpoints and results in its dataset model. PyMeasure's managed experiment interface instead works with Procedure and Results objects, an experiment manager and saved-experiment plots. Retain the distinct parameter/dataset and procedure/experiment entry points; neither framework's instrument coverage is inherited by the other. [Sweep procedure](#source-sweep-procedure) · [PyMeasure interface](#source-related-pymeasure-window).

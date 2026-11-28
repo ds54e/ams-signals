@@ -8,7 +8,7 @@ scope:
   acquisition: { ai: false }
 access: "MPL-2.0 for the core; plugins can have separate terms."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Project documentation"
@@ -33,6 +33,9 @@ sources:
   - id: package-versioning
     title: "November 11 managed package-version calculation integration"
     url: "https://github.com/opentap/opentap/commit/fd7f46928aa94e5bc17e66e5eb89a45d73c04e91"
+  - id: related-openhtf-phases
+    title: "OpenHTF dependency-linked Python test phase example"
+    url: "https://github.com/google/openhtf/blob/9f7371af4e210fddbba1cd9afdd62700b57d74a2/examples/phase_graph.py"
 ---
 
 ## Scope and limits
@@ -48,3 +51,7 @@ Control and Acquisition are grounded in the same-repository SCPI step's command 
 November 11 corrects asynchronous artifact publication to use the return value of the atomic reference-count decrement for last-reader stream disposal and completion signaling, rather than reading the shared count in a separate step. This is a test-result delivery correctness repair. The same day replaces the libgit2-based package versioning implementation with the managed calculator; the native library remains in test setup for constructing histories, not the production calculator. Later pipeline/build changes do not establish new instrument functionality. [Artifact correction](#source-artifact-race) · [Retained logic](#source-artifact-retained) · [Package maintenance](#source-package-versioning).
 
 The selected meaningful checkpoint in the saved capture is 2026-11-11 UTC. Source inspection only; no physical test, regression or instrument run was independently reproduced.
+
+## Selection boundary
+
+OpenTAP's built-in SCPI step exposes configurable command/query actions, response matching, verdict rules and result publication within its plugin-oriented test plans. OpenHTF instead defines Python test phases and plug interfaces; its parallel phase example is not a replacement for the OpenTAP step and plugin contracts. Retain both without treating a shared test-sequencing goal as equivalent instrument coverage. [SCPI step](#source-scpi-step) · [OpenHTF example](#source-related-openhtf-phases).

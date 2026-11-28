@@ -8,7 +8,7 @@ scope:
   test: { ai: false }
 access: "MIT runner source; requires compatible Testomatic fixture hardware, testomatic-io and any selected external programming tools."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -26,6 +26,9 @@ sources:
   - id: fixture
     title: "Related Testomatic physical fixture design"
     url: "https://github.com/SuperHouse/Testomatic"
+  - id: related-fixate-switching
+    title: "Fixate virtual multiplexer and relay-matrix implementation"
+    url: "https://github.com/PyFixate/Fixate/blob/657713fd5e7b0c416ad8c3293a4e8e1e3114823f/src/fixate/_switching.py"
 ---
 
 ## Scope and limits
@@ -35,3 +38,7 @@ Testomatic Runner executes packaged PCB test definitions on compatible fixture m
 ## Reviewed maintenance
 
 After extraction into its separate repository in August 2026, September adds executable firmware-upload steps in place of stubs. November replaces the LED spectral-reading stub that always passed with sensor acquisition, per-channel limit checking and tests for failures and interface errors. The change remains in the current runner source and provides concrete evidence of follow-through after the initial release. [Firmware steps](#source-earlier) · [Sensor verdict implementation](#source-activity).
+
+## Selection boundary
+
+The runner dispatches parsed suite steps and records their outcomes using the Testomatic execution context. Fixate separately exposes a reusable signal-to-pin switching abstraction for fixture programs. The packaged-suite execution path remains independently useful; it does not imply that Testomatic implements the Fixate routing model. [Runner](#source-runner) · [Fixate switching](#source-related-fixate-switching).

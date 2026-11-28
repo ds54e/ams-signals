@@ -8,7 +8,7 @@ scope:
   test: { ai: false }
 access: "MIT; requires supported or custom instrument drivers and a configured physical test fixture."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical implementation"
@@ -23,6 +23,9 @@ sources:
   - id: acquisition-driver
     title: "Bundled Fluke DMM measurement and readout implementation"
     url: "https://github.com/PyFixate/Fixate/blob/657713fd5e7b0c416ad8c3293a4e8e1e3114823f/src/fixate/drivers/dmm/fluke_8846a.py"
+  - id: related-testomatic-runner
+    title: "Testomatic packaged PCB test runner"
+    url: "https://github.com/SuperHouse/testomatic-runner/blob/a45170a754cc2a04f9071649acfc11b1911abbf9/testomatic/runner.py"
 ---
 
 ## Scope and limits
@@ -36,3 +39,7 @@ Additional context: [Reviewed switching and reset implementation](#source-switch
 Relay and multiplexer routing is fixture Control; the framework provides runnable checks and records under Test. Its switch model is not itself a board design or a fabrication and assembly artifact.
 
 Acquisition follows the bundled DMM driver's `measurement`, `measurements` and live SCPI readout methods, rather than a capability assumed from external test code. [Instrument readout](#source-acquisition-driver).
+
+## Selection boundary
+
+The VirtualMux and relay-matrix abstractions map requested fixture signals to pin sets and route them through switching callbacks. Testomatic Runner instead dispatches predefined step types from a packaged PCB test suite against its fixture interface. Both support production-oriented test, but the reusable fixture-routing model and the packaged-suite runner solve different integration tasks. [Switching implementation](#source-switching) · [Testomatic runner](#source-related-testomatic-runner).
