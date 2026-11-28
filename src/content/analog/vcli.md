@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "SKILL, schematics, Maestro ADE, Spectre jobs, and PSF results"
 access: "Rust implementation and setup guides are public. Users provide licensed Cadence tools, circuit assets, a PDK, and local or SSH access; Maestro commands target IC23.1+ Explorer views."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Public virtuoso-cli repository"
@@ -75,6 +75,15 @@ sources:
   - id: "evidence-report-integration"
     title: "Default-branch integration of the Candidates review report"
     url: "https://github.com/deanyou/virtuoso-cli/commit/66119da2460b0b92534c7f89a2c9b1bb5993c72d"
+  - id: review-20261128-readme
+    title: "Current CLI overview and illustrative-session disclosure"
+    url: "https://github.com/deanyou/virtuoso-cli/blob/59bee999f6a2a636797ca8924cba5ae871edb22e/README.md"
+  - id: review-20261128-governance
+    title: "November 23 comment-governance and CI integration"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/8a09e7dbaf61d9ac9d3da49701de0e508a77ceed"
+  - id: review-20261128-toolchain
+    title: "November 28 Rust toolchain and dependency-age pinning"
+    url: "https://github.com/deanyou/virtuoso-cli/commit/59bee999f6a2a636797ca8924cba5ae871edb22e"
 ---
 ### Implementation and lineage
 
@@ -107,3 +116,7 @@ The skills require a source checkout and model host; they are excluded from the 
 ### Development provenance review
 
 Reviewed 2026-09-07: **AI-ASSISTED**. The credited campaign adds actual Rust OCEAN code generation and setup/run/measurement/sweep/corner commands, with current CLI calls. These retained Rust CLI and simulation implementations support AI-assisted development. [CLI/simulation campaign](#source-development-1); [Current implementation](#source-development-2).
+
+### November 28 activity review
+
+Five additional first-parent merges cover comment-governance CI, documentation changes and toolchain/dependency-age pinning. The current README labels its animated session illustrative rather than a real capture. These changes do not establish new EDA operations or an independently demonstrated Evidence Loop outcome; retain the October 6 functional checkpoint. The Rust session/GUI workflow and evidence-candidate review remain distinct from the Python bridge and the closed-loop circuit optimizer. [Current overview](#source-review-20261128-readme) · [Governance](#source-review-20261128-governance) · [Toolchain](#source-review-20261128-toolchain).

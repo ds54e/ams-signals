@@ -7,7 +7,7 @@ scope:
     ai: false
 access: "Public Apache-2.0 simulator code; bundled models have their own terms, including CC BY-NC 4.0 for models/bsim4va.va. Source builds require pinned Zig/VerA dependencies, and GPU execution requires the documented driver/runtime; no binary release is published in the reviewed README."
 addedAt: '2026-10-31'
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
 - id: "official"
   title: "Official project website"
@@ -35,6 +35,27 @@ sources:
 - id: review-20261124-model-license
   title: "Bundled BSIM4 Verilog-A model retains noncommercial license terms"
   url: https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/models/bsim4va.va
+- id: review-20261128-activity
+  title: "November 5 HSPICE line continuation and sweep diagnostics"
+  url: "https://github.com/Scouren/ESpice/commit/9578555f68b1af9cdc252113beffdc5f3ae55d4e"
+- id: review-20261128-determinism
+  title: "November 3 deterministic stamping and worker progress integration"
+  url: "https://github.com/Scouren/ESpice/commit/39aa1823c6421cf2cdc5689d24c8ecd0e468f1dc"
+- id: review-20261128-parallel
+  title: "Retained parallel device stamping"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/src/analysis/par_eval.zig"
+- id: review-20261128-parallel-tests
+  title: "Retained tied-terminal and worker progress regressions"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/src/analysis/tests/circuit.zig"
+- id: review-20261128-parser-tests
+  title: "Retained supported and refused HSPICE DC sweep forms"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/src/frontend/tests/cards.zig"
+- id: review-20261128-readme
+  title: "Current workflow and absence of a published binary release"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/README.md"
+- id: related-conformance
+  title: "Related suite and imported fixture lineage"
+  url: "https://github.com/Scouren/Conformance-Suite/blob/06226fa7632f12d05c0d055ac4fcf0179b3e9381/README.md"
 ---
 
 ### Simulator and model integration
@@ -52,3 +73,9 @@ The November 2 rename changes the canonical Code location from EGSpice to ESPice
 ### Current canonical owner and model terms
 
 The current canonical repository is Scouren/ESpice and retains repository ID 1436380592 and the prior implementation history. The simulator license does not override bundled model licenses: the BSIM4 Verilog-A header explicitly retains CC BY-NC 4.0 terms. Source availability alone does not establish unrestricted commercial use of that model. [Canonical repository](#source-code) · [Model license](#source-review-20261124-model-license).
+
+### November 28 source review
+
+November 3 integrates work-item-based barriers for parallel device stamps and a serial-bypass correction for tied device terminals. Staging contributions and reducing in tape order aim to preserve serial summation order; regressions compare selected serial/parallel results and exercise a pass without scheduled workers. This is a correctness and progress improvement, not an independently measured speedup or proof of determinism for every backend. November 5 corrects continuation of quoted HSPICE expressions and rejects ambiguous bare MONTE=/DATA= following a swept DC source rather than attempting to resolve them as source names. The already captured head contains both integrations, so the meaningful checkpoint advances without changing the capture or its counts. [Parallel integration](#source-review-20261128-determinism) · [Implementation](#source-review-20261128-parallel) · [Regressions](#source-review-20261128-parallel-tests) · [HSPICE correction](#source-review-20261128-activity) · [Parser regressions](#source-review-20261128-parser-tests).
+
+Retain the simulator separately from its model compiler and the standalone conformance harness. The netlist corpus is shared through the conformance submodule; the suite documents importing ESPice fixtures. Agreement against shared fixtures is not independent coverage of all device models or proof of numerical signoff. No upstream build, tests or GPU runs were performed. The current source still documents no published binary release. [Current workflow](#source-review-20261128-readme) · [Suite lineage](#source-related-conformance).

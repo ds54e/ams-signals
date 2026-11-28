@@ -127,6 +127,9 @@ sources:
   - id: review-20261128-maestro
     title: "Maestro lifecycle and result-handling fixes"
     url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/84b11a192298a45880a511f12f01eaf4ba979551"
+  - id: related-netlist-crawler
+    title: "Independent continuation of the parasitic netlist crawler"
+    url: "https://github.com/Arcadia-1/netlist-crawler/blob/73dfdd49a51b86dd1822af91811f756ded05d8e2/README.md"
 ---
 ### Implemented interfaces
 
@@ -172,7 +175,7 @@ EDA Agent is a related application over this bridge: it retrieves API/design con
 
 Analog_MCP is a separate alternative integration, not a component of this repository. It exposes Virtuoso SKILL/shell transport, Eldo batch/interactive execution and waveform plotting. Those implemented adapter operations remain discoverable as related sources, while their additional catalog value does not justify a separate entry in this review. This consolidation does not add Eldo or Calibre support, runtime AI, development attribution or repository activity to virtuoso-bridge-lite. [Analog_MCP interfaces](#source-related-analog-mcp) · [Eldo execution](#source-related-analog-mcp-eldo).
 
-analog-agents is a separate role-oriented analog design and verification skill framework from the same organization, with this bridge and ADCToolbox declared as submodules. Its independent parasitic-netlist crawl CLI reads Calibre and Spectre extractions, ranks coupling, and computes resistive paths; retain those implementation references rather than implying the bridge supplies those operations. The May 2, 2026 model-order-reduction simplification is its last reviewed substantive change; the July 2 integration adds an installation link, not further numerical or agent implementation. Under the stricter retention review, consolidate its discovery reference here instead of keeping a separate catalog row. Its workflow, AI stages, attribution and repository activity are not inherited by the bridge. [Related project](#source-related-analog-agents) · [Dependencies](#source-related-analog-agents-submodules) · [Pipeline](#source-related-analog-agents-pipeline) · [Analysis CLI](#source-related-analog-agents-crawl) · [Resistance kernel](#source-related-analog-agents-resistance) · [Maintenance](#source-related-analog-agents-maintenance).
+analog-agents is a separate role-oriented analog design and verification skill framework from the same organization, with this bridge and ADCToolbox declared as submodules. Its earlier parasitic-netlist crawl CLI reads Calibre and Spectre extractions, ranks coupling, and computes resistive paths. The separately listed Netlist Crawler explicitly extends that implementation; the bridge remains the EDA session and execution layer, not a second owner of the crawler operation. [Independent continuation](#source-related-netlist-crawler). The May 2, 2026 model-order-reduction simplification is its last reviewed substantive change; the July 2 integration adds an installation link, not further numerical or agent implementation. Under the stricter retention review, consolidate its discovery reference here instead of keeping a separate catalog row. Its workflow, AI stages, attribution and repository activity are not inherited by the bridge. [Related project](#source-related-analog-agents) · [Dependencies](#source-related-analog-agents-submodules) · [Pipeline](#source-related-analog-agents-pipeline) · [Analysis CLI](#source-related-analog-agents-crawl) · [Resistance kernel](#source-related-analog-agents-resistance) · [Maintenance](#source-related-analog-agents-maintenance).
 
 ### November 28, 2026 source review
 

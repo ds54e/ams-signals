@@ -1,7 +1,7 @@
 ---
 name: "virtuoso-agent"
 summary: "Runs an LLM parameter-tuning loop for existing circuits using specification checks from Maestro/Spectre or remote HSpice."
-description: "Uses an LLM to tune existing circuit parameters from Virtuoso/Maestro/Spectre measurements or remote HSpice results. An optional Maestro path also applies model-authored analyses, outputs and corners; the spec-derived path computes setup and pass/fail conventionally, with stopping controlled by specification checks or an iteration limit."
+description: "LLM-driven parameter optimization for existing analog circuits using Virtuoso/Maestro/Spectre or remote HSpice. The Maestro path supports configured PVT corners and worst-verdict gating with separate per-corner evidence; optional model-authored simulation setup and spec-derived evaluation have distinct execution contracts."
 scope:
   design:
     ai: true
@@ -15,7 +15,7 @@ developmentEvidence:
 targets: "Existing analog/AMS circuits; public specification examples use LC VCOs"
 access: "Agent, spec evaluator, execution wrappers, and configuration examples are public. Users supply EDA licenses, PDK, DUT, testbench, specification, host access, and model."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Public repository"
@@ -42,6 +42,18 @@ sources:
   - id: "meaningful-implementation"
     title: "Reviewed substantive implementation or technical maintenance"
     url: "https://github.com/lixunqi12/virtuoso-agent/commit/54974c33c5f5a6d380b216ea12750aff6ee8bc99"
+  - id: review-20261128-pvt
+    title: "Retained PVT corner loading and input validation"
+    url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/src/pvt_corners.py"
+  - id: review-20261128-reducer
+    title: "Retained per-metric worst-verdict reduction"
+    url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/src/spec_evaluator.py#L1223-L1275"
+  - id: review-20261128-pvt-tests
+    title: "Mocked end-to-end PVT orchestration regressions"
+    url: "https://github.com/lixunqi12/virtuoso-agent/blob/54974c33c5f5a6d380b216ea12750aff6ee8bc99/tests/test_pvt_e2e.py"
+  - id: related-bridge
+    title: "Separate underlying Virtuoso transport"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/2cc3d066b27455258bd0517f4e24e4fc9f710d8d/README.md"
 ---
 ### Execution contract
 
@@ -60,3 +72,9 @@ When a machine-readable evaluation block is present, the current path ignores mo
 ### Development provenance review
 
 Reviewed 2026-09-07: **AI-ASSISTED**. The credited T1–T8 implementation and main-branch merge add a complete alternate backend, including SSH worker, measure parser/resolver, scrubbing and netlist rewriting. Current CLI wiring retains it alongside the existing Spectre flow. [HSpice backend implementation](#source-development-1); [Backend integration into main](#source-development-2); [Current backend selection](#source-development-3).
+
+### SABLE source review and selection
+
+The July 3 SABLE snapshot adds a configured multi-corner Maestro path to the existing agent. The retained loop runs and evaluates each corner before the next can overwrite a shared PSF path. The conventional reducer ranks missing/unknown, FAIL, UNMEASURABLE and PASS verdicts and retains per-corner measurements. Its projected scalar is selected by worst verdict severity, not necessarily by minimum numerical specification margin among equally ranked corners. Mocked end-to-end cases exercise failing and converging multi-corner rounds and shared-result-path handling. They do not demonstrate real multi-PVT design closure. [Snapshot](#source-meaningful-implementation) · [Loop](#source-simulation-setup) · [Corner loader](#source-review-20261128-pvt) · [Reducer](#source-review-20261128-reducer) · [Tests](#source-review-20261128-pvt-tests).
+
+The separately implemented specification evaluator, remote HSpice backend and model feedback loop distinguish this project from the underlying Virtuoso bridge and from vcli's GUI intervention/evidence review workflow. The snapshot adds configured safeguards and redaction, not a security certification or authorization to expose licensed PDK information. Live EDA and model calls were not reproduced. The July snapshot remains the previously captured meaningful checkpoint; this review does not imply a newer release. [Underlying bridge](#source-related-bridge).

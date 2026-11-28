@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:40:45.000Z",
+  "capturedAt": "2026-11-28T08:19:12.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -281,9 +281,9 @@
       "kind": "github",
       "repository": "deanyou/virtuoso-cli",
       "repositoryId": 1200455454,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T08:19:12.000Z",
       "defaultBranch": "main",
-      "headSha": "74a9fbcebdd38524b9dca3a6643e17974b6d5cf0",
+      "headSha": "59bee999f6a2a636797ca8924cba5ae871edb22e",
       "commits": [
         0,
         0,
@@ -296,12 +296,12 @@
         74,
         394,
         10,
-        13
+        18
       ],
-      "lastCommitAt": "2026-11-17",
+      "lastCommitAt": "2026-11-28",
       "lastMeaningfulCommitAt": "2026-10-06",
       "lastMeaningfulCommitSha": "66119da2460b0b92534c7f89a2c9b1bb5993c72d",
-      "notes": "The reviewed October 5 implementation records GUI interventions, verification provenance and deterministic rule candidates with snapshot-bound decisions. October 6 integrates the Candidates review report. Adoption records a human decision without changing runtime policy; the later raw history is separate from this meaningful checkpoint."
+      "notes": "October 5 Evidence Loop and October 6 Candidates review report remain the meaningful engineering checkpoint. November 23 comment-governance gate, November 25 documentation and November 28 toolchain/dependency-age pinning are recorded in raw activity, not new circuit-design capabilities. First-parent extension verified to the previous head."
     },
     "virtuoso-agent": {
       "kind": "github",
@@ -1632,9 +1632,9 @@
         5
       ],
       "lastCommitAt": "2026-11-05",
-      "lastMeaningfulCommitAt": "2026-10-25",
-      "lastMeaningfulCommitSha": "bc0018f23026646bf38d8529fc8fce64a35ae05b",
-      "notes": "Canonical repository renamed EGSpice to ESPice with numeric identity unchanged. The rename is not a meaningful-activity renewal; the reviewed implementation checkpoint is retained."
+      "lastMeaningfulCommitAt": "2026-11-05",
+      "lastMeaningfulCommitSha": "9578555f68b1af9cdc252113beffdc5f3ae55d4e",
+      "notes": "November 3 deterministic parallel device stamping, tied-terminal bypass replay and worker progress regressions; November 5 HSPICE line continuation and .dc sweep diagnostic fixes. Both are integrated in the already captured head. No bucket or captured-head change."
     },
     "shapeic": {
       "kind": "github",

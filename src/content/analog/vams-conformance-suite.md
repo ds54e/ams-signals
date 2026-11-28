@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public C harness, Python adapters and HDL/SPICE fixtures; external tools and pinned submodules must be installed separately. Imported VerA and ESPice fixture trees are identified as Apache-2.0; upstream submodules retain their own terms.
 addedAt: '2026-10-31'
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
 - id: code
   title: Canonical public implementation
@@ -46,6 +46,15 @@ sources:
 - id: review-20261125-fft-deck
   title: "Retained FFT reference deck"
   url: https://github.com/Scouren/Conformance-Suite/blob/06226fa7632f12d05c0d055ac4fcf0179b3e9381/tests/netlist/hspice/fft_rect_ngspice.sp
+- id: review-20261128-lineage
+  title: "Current harness and imported VerA/ESPice fixture provenance"
+  url: "https://github.com/Scouren/Conformance-Suite/blob/06226fa7632f12d05c0d055ac4fcf0179b3e9381/README.md"
+- id: related-vera
+  title: "Compiler using the related model fixture workflow"
+  url: "https://github.com/Scouren/VerA/blob/d26fe7f1144d2e0fbcff4a3618adadc2f794454b/README.md"
+- id: related-espice
+  title: "Circuit simulator consuming the conformance netlist corpus"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/README.md"
 ---
 
 ### Executable verification infrastructure
@@ -61,3 +70,7 @@ A compile-only tool does not receive execution credit for runtime tests. Missing
 The November 15 integration revises selected ngspice-specific expectations rather than assuming agreement with another SPICE dialect. For example, the retained EXP source oracle records an observed default rise delay of TSTEP for ngspice 44.2/45, distinct from the manual's stated zero-delay default. The cross-checker records an unbounded relative error as null, not Infinity, and serializes strict JSON. The FFT twin regression changes a complex sine-bin expectation to the cosine-referenced value (0, -1); the current rectangular-window JSON still describes sine phase in its prose while its numeric expectation and deck use the cosine reference. Review both the numerical oracle and the convention before reuse. These are upstream reference fixtures and reports, not independently reproduced results or general guarantees of simulator equivalence. [Dialect change](#source-review-20261115-ngspice) · [EXP oracle](#source-review-20261125-exp) · [JSON correction](#source-review-20261115-json) · [Cross-checker](#source-review-20261125-xcheck) · [FFT integration](#source-review-20261115-fft) · [FFT oracle](#source-review-20261125-fft-oracle) · [FFT deck](#source-review-20261125-fft-deck).
 
 The current canonical repository ID matches the prior capture, but the earlier captured head is not on the current first-parent chain. The current 41-commit chain was walked back to its root; the monthly counts describe only that chain, with no imported counts from the older history. The latest reviewed implementation is the November 15 FFT integration, while November 23 result-only activity is the raw last date.
+
+### Selection and shared corpus boundary
+
+The current suite documentation identifies the VerA origin of the HDL fixture tree and the ESPice origin of the netlist fixture tree. Retain this project for its separate C verdict harness, tool adapters and numerical comparison operation, not as a third independent simulator or an independent validation dataset. Related upstream fixture counts and author-reported test passes cannot be added together as independent evidence. The default-branch result-only updates do not change the meaningful checkpoint. [Harness and lineage](#source-review-20261128-lineage) · [Compiler](#source-related-vera) · [Simulator](#source-related-espice).

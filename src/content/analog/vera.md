@@ -7,7 +7,7 @@ scope:
     ai: false
 access: Public Apache-2.0 Zig source; device builds require the pinned Zig development toolchain. OSDI output needs an OSDI 0.4 host and cannot carry every native device-contract feature.
 addedAt: '2026-10-31'
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
 - id: "official"
   title: "Official project website"
@@ -41,6 +41,12 @@ sources:
 - id: review-20261103-changelog
   title: "Version-specific conformance and performance account"
   url: https://github.com/Scouren/VerA/blob/d26fe7f1144d2e0fbcff4a3618adadc2f794454b/CHANGELOG.md
+- id: related-conformance
+  title: "Separate tool-neutral harness and imported VerA fixtures"
+  url: "https://github.com/Scouren/Conformance-Suite/blob/06226fa7632f12d05c0d055ac4fcf0179b3e9381/README.md"
+- id: related-espice
+  title: "Distinct host circuit simulator using VerA device kernels"
+  url: "https://github.com/Scouren/ESpice/blob/9578555f68b1af9cdc252113beffdc5f3ae55d4e/README.md"
 ---
 
 ### Compiler, runner and host boundary
@@ -56,3 +62,7 @@ The October 25 first-parent integration includes discipline/access resolution, r
 ### Selection and current source review
 
 The current v0.23.0 release follows substantive frontend, elaboration and host-contract iteration. Inspected code/tests correct mixed-domain port discovery through paramset/array/generate children and reduce repeated constant-folding, macro-expansion and connect-chain work. The changelog reports 6,818/6,818 selected fixtures, including corrected expected outcomes; this is an author-reported suite result, not independent proof of full Verilog-AMS conformance. VerA still emits OSDI 0.4 for that backend; OpenVAF's interface change is not transferred to it. The declared-time-grid runner and adaptive-host boundary remain. [Integrated implementation and tests](#source-review-20261103-implementation) · [Release](#source-review-20261103-release) · [Version-specific account](#source-review-20261103-changelog).
+
+### Selection boundary
+
+Retain VerA for the independently usable model compiler and native device contract. ESPice consumes those models in its circuit-solve workflow, while the separate VAMS Conformance Suite runs tool adapters against shared and imported fixtures. The suite explicitly identifies the VerA origin of its HDL fixture tree. Consequently these are distinct engineering operations but not independent numerical or language-validation corpora. Do not combine the repositories' activity, fixture totals or development provenance. [Suite lineage](#source-related-conformance) · [Host workflow](#source-related-espice).

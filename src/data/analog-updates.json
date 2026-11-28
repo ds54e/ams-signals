@@ -1,5 +1,11 @@
 [
   {
+    "project": "espice",
+    "date": "2026-11-28",
+    "kind": "updated",
+    "summary": "Reviewed deterministic parallel device stamping, tied-terminal bypass replay and HSPICE continuation and sweep-diagnostic corrections."
+  },
+  {
     "project": "rspice",
     "date": "2026-11-28",
     "kind": "updated",
@@ -10,11 +16,5 @@
     "date": "2026-11-28",
     "kind": "updated",
     "summary": "LC ladder synthesis with load-aware mask checks, wave-derived loadpull metrics and labeled off-grid interpolation, and integrated marker tables."
-  },
-  {
-    "project": "xschem",
-    "date": "2026-11-28",
-    "kind": "updated",
-    "summary": "Wire-coordinate boundary correction, stronger wire-grid trim regressions and attribute-processing optimization."
   }
 ]

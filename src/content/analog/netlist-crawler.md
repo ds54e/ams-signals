@@ -35,6 +35,15 @@ sources:
   - id: prescription
     title: "Effective-resistance and coupling-capacitance model construction"
     url: "https://github.com/Arcadia-1/netlist-crawler/blob/73dfdd49a51b86dd1822af91811f756ded05d8e2/src/netlist_crawler/parasitics/prescribe.py"
+  - id: predecessor-crawl
+    title: "Original analog-agents parasitic netlist CLI"
+    url: "https://github.com/Arcadia-1/analog-agents/blob/4d6bd218ceff60624d7ee62887787aa83daecdb4/skills/analog-netlist-crawl/scripts/scan.py"
+  - id: reduction-kernel
+    title: "Retained resistance-network and joint coupling-reduction kernels"
+    url: "https://github.com/Arcadia-1/netlist-crawler/blob/73dfdd49a51b86dd1822af91811f756ded05d8e2/src/netlist_crawler/parasitics/kernels/r_network.py"
+  - id: injection
+    title: "Retained reduced-netlist injection implementation"
+    url: "https://github.com/Arcadia-1/netlist-crawler/blob/73dfdd49a51b86dd1822af91811f756ded05d8e2/src/netlist_crawler/parasitics/inject.py"
 ---
 
 ### Implementation and selection
@@ -46,3 +55,9 @@ The June parser maintenance and August translation implementation, including exe
 ### Scope and limits
 
 Structural circuit understanding and netlist transformations support conventional Design. The parasitic prescription computes per-pin driving-point resistance and coupling distributions from already extracted data, supporting conventional electrical model evaluation in Simulation. It does not run SPICE or extract parasitics from layout geometry. The presence of agent-readable JSON does not establish model-driven operations in the tool itself. [Prescription](#source-prescription). Source and tests were reviewed without running the upstream suite; no qualifying AI development attribution was established.
+
+### Selection and reduction boundary
+
+The canonical Netlist Crawler README explicitly identifies the earlier analog-netlist-crawl foundation; the older CLI remains documented as a related implementation under analog-agents, not a separate catalog row or a function of the Virtuoso transport. This listing retains the expanded structural and translation operations and its own repository activity. [Predecessor](#source-predecessor-crawl) · [Current overview](#source-readme).
+
+The joint prescription path omits internal coupling within a prescribed resistive mesh as a low-frequency first-order approximation. Between distinct prescribed nets it splits coupling by estimated positions to avoid double-counting total capacitance; the legacy star reduction estimates shared resistance and clamps branch values. The resulting injected compact network is not a general multiport electrical equivalence proof or a replacement for distributed extracted-netlist verification, particularly at high frequency. These are reviewed numerical methods, not an independently qualified reduction accuracy claim. [Reduction kernel](#source-reduction-kernel) · [Injection](#source-injection).
