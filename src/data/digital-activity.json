@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:09:30.000Z",
+  "capturedAt": "2026-11-28T07:52:20.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -3061,6 +3061,106 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "eeb88e9045244e4816d18b0aa3d4ca1688baf0a1"
+    },
+    "enzan": {
+      "kind": "github",
+      "repository": "kenobi314159/Enzan-RTL-Simulator",
+      "repositoryId": 1376830229,
+      "capturedAt": "2026-11-28T07:52:20.000Z",
+      "defaultBranch": "main",
+      "headSha": "ab59b19be2138d7ad02457ad09d886b933805f57",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        8,
+        27
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "ea6eea14e886a51a707dab2aaac63855fcc91947"
+    },
+    "lyra": {
+      "kind": "github",
+      "repository": "hankhsu1996/lyra",
+      "repositoryId": 970502420,
+      "capturedAt": "2026-11-28T07:52:20.000Z",
+      "defaultBranch": "main",
+      "headSha": "8984c1560790fdc691d6932f1a4dde9fe87aa644",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        30,
+        64,
+        199,
+        89,
+        37,
+        152,
+        224,
+        113
+      ],
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "8984c1560790fdc691d6932f1a4dde9fe87aa644"
+    },
+    "dau-sim": {
+      "kind": "github",
+      "repository": "dau-dev/dau-sim",
+      "repositoryId": 1188386534,
+      "capturedAt": "2026-11-28T07:52:20.000Z",
+      "defaultBranch": "main",
+      "headSha": "445092d91404652136ea5f45db8cb1ddecf69dad",
+      "commits": [
+        0,
+        0,
+        0,
+        6,
+        12,
+        8,
+        5,
+        16,
+        9,
+        11,
+        15,
+        12
+      ],
+      "lastCommitAt": "2026-11-23",
+      "lastMeaningfulCommitAt": "2026-11-23",
+      "lastMeaningfulCommitSha": "b9ce73a2160fec5304fd7771508bdbede1596ef8"
+    },
+    "cocotbext-interface": {
+      "kind": "github",
+      "repository": "RasmusGOlsen/cocotbext-interface",
+      "repositoryId": 1167872427,
+      "capturedAt": "2026-11-28T07:52:20.000Z",
+      "defaultBranch": "main",
+      "headSha": "05ab6211813b5cac876a0553087dc3cd565d2c6b",
+      "commits": [
+        0,
+        0,
+        3,
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "lastCommitAt": "2026-11-03",
+      "lastMeaningfulCommitAt": "2026-11-03",
+      "lastMeaningfulCommitSha": "e3ffd4dbc3c4c823ac5697fe0b95fb7951ea63c2"
     }
   }
 }
