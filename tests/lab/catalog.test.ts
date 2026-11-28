@@ -23,7 +23,9 @@ test('catalogs list each canonical implementation once except the reviewed domai
   validateCatalog(lab);
   const domains = { analog: await load('analog'), digital: await load('digital'), lab };
   const byCode = new Map<string, string[]>();
+  const byRepositoryId = new Map<number, string[]>();
   for (const [domain, entries] of Object.entries(domains)) {
+    const activity = domain === 'lab' ? snapshot : JSON.parse(await readFile(new URL(`../../src/data/${domain}-activity.json`, import.meta.url), 'utf8'));
     for (const { id, data } of entries) {
       const url = data.sources.find((source) => source.purpose === 'code')?.url;
       assert(url, `${domain}/${id} needs its canonical implementation`);
@@ -31,11 +33,20 @@ test('catalogs list each canonical implementation once except the reviewed domai
       const instances = byCode.get(key) ?? [];
       instances.push(`${domain}/${id}`);
       byCode.set(key, instances);
+      const record = activity.projects[id];
+      if (record?.kind === 'github' && typeof record.repositoryId === 'number') {
+        const identities = byRepositoryId.get(record.repositoryId) ?? [];
+        identities.push(`${domain}/${id}`);
+        byRepositoryId.set(record.repositoryId, identities);
+      }
     }
   }
-  assert.deepEqual([...byCode.values()].filter((instances) => instances.length > 1)
-    .map((instances) => instances.sort()).sort((a, b) => a[0].localeCompare(b[0])),
-    [['analog/openada', 'digital/openada'], ['analog/vibe-ic', 'digital/vibe-ic']]);
+  const duplicates = (index: Map<string | number, string[]>) => [...index.values()].filter((instances) => instances.length > 1)
+    .map((instances) => instances.sort()).sort((a, b) => a[0].localeCompare(b[0]));
+  const reviewedPairs = [['analog/openada', 'digital/openada'], ['analog/vibe-ic', 'digital/vibe-ic']];
+  assert.deepEqual(duplicates(byCode), reviewedPairs);
+  // Numeric repository identity also detects renamed or transferred repositories.
+  assert.deepEqual(duplicates(byRepositoryId), reviewedPairs);
   assert.equal(Object.keys(validateActivity(lab, snapshot).projects).length, lab.length);
 });
 
@@ -55,6 +66,24 @@ test('Lab distinguishes live capture, recorded data and test execution from rela
   assert.deepEqual(scopes('origen-o2'), ['test']);
   assert.deepEqual(scopes('probe-rs'), ['control', 'test']);
   assert.deepEqual(scopes('pyvisa-sim'), ['test']);
+  assert.deepEqual(scopes('multiline-trl-calibration'), ['analysis']);
+  assert.deepEqual(scopes('tinytapeout-demo-pcb'), ['design']);
+});
+
+test('Lab separates implemented characterization, virtual benches and adaptive procedures from AI development', () => {
+  const check = (id: string, expected: Record<string, { ai: boolean }>) => {
+    const project = lab.find((p) => p.id === id);
+    assert(project, id);
+    const { aiDevelopment: _, ...functional } = project.data.scope;
+    assert.deepEqual(functional, expected, id);
+  };
+  const conventional = { ai: false };
+  const bench = { control: conventional, acquisition: conventional, analysis: conventional, test: conventional };
+  for (const id of ['agentic-web-instrument-control', 'qmi', 'rf-bench', 'open-lab-automation', 'tinysa-ultra-phase-noise', 'laboneq', 'openscope-2c53t']) check(id, bench);
+  for (const id of ['gpsdo-pynq-z2', 'openpauw']) check(id, { design: conventional, ...bench });
+  check('optimaldesign-jl', { analysis: conventional, test: conventional });
+  check('gpcam', { analysis: { ai: true }, test: { ai: true } });
+  check('qibocal-mcp', Object.fromEntries(Object.keys(bench).map((stage) => [stage, { ai: true }])));
 });
 
 test('Lab Scope stays functional and strict; development provenance requires real source IDs', () => {
