@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:09:30.000Z",
+  "capturedAt": "2026-11-28T07:15:36.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -411,9 +411,9 @@
       "kind": "github",
       "repository": "StefanSchippers/xschem",
       "repositoryId": 286048835,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T07:15:36.000Z",
       "defaultBranch": "master",
-      "headSha": "f36d748b25c2892bd2ad7629c016984a08441e1f",
+      "headSha": "8d8999f9f6fd73cd14ed34e4d61b613f69e88574",
       "commits": [
         4,
         19,
@@ -426,12 +426,12 @@
         38,
         106,
         115,
-        27
+        34
       ],
-      "lastCommitAt": "2026-11-21",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "beb7bcba4519ea92e1268f3feef36f043d51f50f",
-      "notes": "Netlisting loads additional symbols before descending hierarchy and respects stop attributes. Reviewed default-branch development; no release assignment or new numerical solver is established."
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "8d8999f9f6fd73cd14ed34e4d61b613f69e88574",
+      "notes": "November 25 wire-coordinate boundary and wire-trim regressions plus November 27 executable attribute/comparison optimization reviewed."
     },
     "openvaf-reloaded": {
       "kind": "github",

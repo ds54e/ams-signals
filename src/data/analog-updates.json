@@ -1,5 +1,11 @@
 [
   {
+    "project": "xschem",
+    "date": "2026-11-28",
+    "kind": "updated",
+    "summary": "Wire-coordinate boundary correction, stronger wire-grid trim regressions and attribute-processing optimization."
+  },
+  {
     "project": "kirimaspice",
     "date": "2026-11-28",
     "kind": "added",
@@ -10,11 +16,5 @@
     "date": "2026-11-28",
     "kind": "added",
     "summary": "Embeddable Rust circuit solver with externally stepped transient sessions and model-boundary evidence."
-  },
-  {
-    "project": "repath",
-    "date": "2026-11-28",
-    "kind": "added",
-    "summary": "Browser-local schematic and mixed-signal circuit simulation with threshold and finite-transition bridges."
   }
 ]

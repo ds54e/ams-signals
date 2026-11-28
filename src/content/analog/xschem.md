@@ -15,7 +15,7 @@ developmentEvidence:
   reviewedAt: "2026-10-18"
 access: "Public C/Tcl implementation and examples; X11/Tcl-Tk and the selected simulator/PDK are configured separately."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-28"
 sources:
   - id: "site"
     title: "Official project documentation"
@@ -73,6 +73,15 @@ sources:
   - id: "smith-review-20261115"
     title: "Current retained Smith plotting and complex-expression code"
     url: "https://github.com/StefanSchippers/xschem/blob/beb7bcba4519ea92e1268f3feef36f043d51f50f/src/draw.c"
+  - id: review-20261128-activity
+    title: "November 27 attribute and Boolean/string handling optimization"
+    url: "https://github.com/StefanSchippers/xschem/commit/8d8999f9f6fd73cd14ed34e4d61b613f69e88574"
+  - id: review-20261128-wire
+    title: "November 25 wire coordinate boundary and trim-regression correction"
+    url: "https://github.com/StefanSchippers/xschem/commit/0f0ada2985f6dccbe4431d622f3650f14e85981e"
+  - id: review-20261128-wire-tests
+    title: "Retained wire-grid trim tests"
+    url: "https://github.com/StefanSchippers/xschem/blob/8d8999f9f6fd73cd14ed34e4d61b613f69e88574/tests/xschemtest.tcl"
 ---
 
 ### Scope
@@ -106,3 +115,7 @@ The merged Smith-chart PR explicitly discloses that opencode implemented the fea
 The November 14 repair loads additional symbols before incrementing the schematic hierarchy level and suppresses additional-symbol loading for stopped SPICE, Spectre and Verilog blocks. The reviewed diff also corrects call ordering in the VHDL and tEDAx netlisters. This maintains schematic/netlist correctness within existing Design and Simulation coverage; it supplies no numerical solver or runtime AI. [Reviewed repair](#source-activity-review-20261115) · [Retained SPICE implementation](#source-implementation-review-20261115).
 
 The existing regression driver exercises SPICE, Verilog, VHDL and tEDAx netlisting; the repair adds no targeted test. The Smith-chart implementation and its expression regressions remain present. Tests were read, not run, and the new repair is treated as master-branch development. The current README still identifies GitHub and Codeberg as exact mirrors; only GitHub history is captured. [Netlisting tests](#source-tests-review-20261115) · [Retained Smith code](#source-smith-review-20261115) · [Mirror notice](#source-readme-review-20261115).
+
+## November 28, 2026 source review
+
+November 25 corrects the wire-coordinate index boundary to accept index zero and extends wire-grid trim checks to include segment lengths. November 27 changes executable Boolean/string comparison and property-access paths used throughout schematic operations. These are correctness and implementation-efficiency changes, not a measured editor speedup or new simulation engine. Existing Scope and development evidence remain unchanged. Tests were inspected, not run. [Wire correction](#source-review-20261128-wire) · [Retained tests](#source-review-20261128-wire-tests) · [Activity](#source-review-20261128-activity).

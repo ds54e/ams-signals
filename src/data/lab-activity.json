@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T07:09:30.000Z",
+  "capturedAt": "2026-11-28T07:15:36.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -321,9 +321,9 @@
       "kind": "github",
       "repository": "analogdevicesinc/scopy",
       "repositoryId": 68070804,
-      "capturedAt": "2026-11-24T04:32:08.978Z",
+      "capturedAt": "2026-11-28T07:15:36.000Z",
       "defaultBranch": "main",
-      "headSha": "b26aeea11227f3a3f301d960fbe9b70aed7dce7e",
+      "headSha": "0727ff34bd01d008d05ee9b38052362555842a1f",
       "commits": [
         40,
         70,
@@ -336,11 +336,11 @@
         55,
         49,
         144,
-        116
+        117
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-19",
-      "lastMeaningfulCommitSha": "b26aeea11227f3a3f301d960fbe9b70aed7dce7e"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "0727ff34bd01d008d05ee9b38052362555842a1f"
     },
     "smuview": {
       "kind": "github",
@@ -1646,9 +1646,9 @@
       "kind": "github",
       "repository": "mede-erik/Open-Lab-Automation",
       "repositoryId": 1066492108,
-      "capturedAt": "2026-11-25T01:41:04.761Z",
+      "capturedAt": "2026-11-28T07:15:36.000Z",
       "defaultBranch": "main",
-      "headSha": "3bde6534b97bb6ff1d00d1a584b7350b939c1357",
+      "headSha": "e9104a584fae25eddd2cfb47e5164f0992d1afd2",
       "commits": [
         0,
         4,
@@ -1661,11 +1661,11 @@
         6,
         0,
         0,
-        99
+        116
       ],
-      "lastCommitAt": "2026-11-24",
-      "lastMeaningfulCommitAt": "2026-11-24",
-      "lastMeaningfulCommitSha": "3bde6534b97bb6ff1d00d1a584b7350b939c1357"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "e9104a584fae25eddd2cfb47e5164f0992d1afd2"
     },
     "qick": {
       "kind": "github",
@@ -2666,6 +2666,106 @@
       "lastCommitAt": "2026-11-26",
       "lastMeaningfulCommitAt": "2026-11-17",
       "lastMeaningfulCommitSha": "cfc19eb0dd4ca6a088e0d70f5fcb2d76b11bc5f8"
+    },
+    "scpi-instrument-control": {
+      "kind": "github",
+      "repository": "little-did-I-know/SCPI-Instrument-Control",
+      "repositoryId": 1122949604,
+      "capturedAt": "2026-11-28T07:15:36.000Z",
+      "defaultBranch": "main",
+      "headSha": "f0fd42134c1ef30e5de9bd39b052069316e9e931",
+      "commits": [
+        48,
+        24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        94,
+        36,
+        2,
+        1,
+        1
+      ],
+      "lastCommitAt": "2026-11-09",
+      "lastMeaningfulCommitAt": "2026-10-04",
+      "lastMeaningfulCommitSha": "e252a04dd33d57a543f5a65280cadfbaa634a4a5"
+    },
+    "agentic-web-instrument-control": {
+      "kind": "github",
+      "repository": "mrn2se/AgenticWebInstrumentControl",
+      "repositoryId": 1414320857,
+      "capturedAt": "2026-11-28T07:15:36.000Z",
+      "defaultBranch": "main",
+      "headSha": "961a9886084f02d2759bdf94503de5532837099a",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        16,
+        15
+      ],
+      "lastCommitAt": "2026-11-20",
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "961a9886084f02d2759bdf94503de5532837099a"
+    },
+    "openscope-2c53t": {
+      "kind": "github",
+      "repository": "DavidClawson/OpenScope-2C53T",
+      "repositoryId": 1187657478,
+      "capturedAt": "2026-11-28T07:15:36.000Z",
+      "defaultBranch": "main",
+      "headSha": "e5fdee06679deaed0de69b648381786263055cce",
+      "commits": [
+        0,
+        0,
+        0,
+        59,
+        51,
+        8,
+        41,
+        0,
+        167,
+        80,
+        26,
+        18
+      ],
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "e5fdee06679deaed0de69b648381786263055cce"
+    },
+    "tinysa-ultra-phase-noise": {
+      "kind": "github",
+      "repository": "Hagtronics/tinySA-Ultra-Phase-Noise",
+      "repositoryId": 793597279,
+      "capturedAt": "2026-11-28T07:15:36.000Z",
+      "defaultBranch": "main",
+      "headSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444",
+      "commits": [
+        8,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-02-20",
+      "lastMeaningfulCommitAt": "2026-02-20",
+      "lastMeaningfulCommitSha": "45b3e6edad5cda34381014a1c6d9548ca63e4444"
     }
   }
 }
