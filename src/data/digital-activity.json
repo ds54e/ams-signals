@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:51:22.000Z",
+  "capturedAt": "2026-11-28T06:59:21.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -672,9 +672,9 @@
       "kind": "github",
       "repository": "veryl-lang/veryl",
       "repositoryId": 575770340,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T06:59:21.000Z",
       "defaultBranch": "master",
-      "headSha": "7fb66f40f7bbbf6ea3503bf9b335b128bc3a174c",
+      "headSha": "4d67bdf383d2c8fa3045166dc00acf451b66b7f3",
       "commits": [
         33,
         47,
@@ -687,11 +687,11 @@
         155,
         131,
         123,
-        67
+        97
       ],
-      "lastCommitAt": "2026-11-20",
-      "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "c839d68384a55adc250391d87e8829a69ea33bb4"
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "4d67bdf383d2c8fa3045166dc00acf451b66b7f3"
     },
     "xls": {
       "kind": "github",
@@ -2961,6 +2961,56 @@
       "lastCommitAt": "2026-11-06",
       "lastMeaningfulCommitAt": "2026-11-06",
       "lastMeaningfulCommitSha": "658641ee0233a240fedfd0d8c7e39697a0192287"
+    },
+    "kirimasim": {
+      "kind": "github",
+      "repository": "kurochan001/kirimasim",
+      "repositoryId": 1419000061,
+      "capturedAt": "2026-11-28T06:59:21.000Z",
+      "defaultBranch": "main",
+      "headSha": "0106ed7d34f9864bb7b143fdc6418e38e63ad22e",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1062,
+        658
+      ],
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "70785f19b018e4c105f31d549970bbf981d834b5"
+    },
+    "openserdes-bfm": {
+      "kind": "github",
+      "repository": "chili-chips/openSERDES_BFM",
+      "repositoryId": 1458253421,
+      "capturedAt": "2026-11-28T06:59:21.000Z",
+      "defaultBranch": "main",
+      "headSha": "14c4fef849de8f2faa9f46dbb77e3a77ebc41855",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15
+      ],
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "14c4fef849de8f2faa9f46dbb77e3a77ebc41855"
     }
   }
 }

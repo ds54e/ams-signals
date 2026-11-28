@@ -1,20 +1,20 @@
 [
   {
-    "project": "ams-skills",
+    "project": "mosplot",
     "date": "2026-11-28",
     "kind": "added",
-    "summary": "Domain-specific agent skills, Verilog-A models and Spectre testbenches for ten AMS circuit domains."
+    "summary": "Residual-equation gm/ID multicorner sizing with simulator-generated lookup tables and verification netlist export."
   },
   {
-    "project": "netlist-crawler",
+    "project": "analog-canvas",
     "date": "2026-11-28",
-    "kind": "added",
-    "summary": "Structural netlist analysis, dialect translation and effective-resistance/coupling model prescriptions."
+    "kind": "updated",
+    "summary": "Six new schematic ERC checks and electrical-waveform, unit parsing and exporter corrections."
   },
   {
-    "project": "tt-vco-adc",
+    "project": "rnl",
     "date": "2026-11-28",
-    "kind": "added",
-    "summary": "SKY130 second-order VCO ADC reference design with behavioral, extracted transient and physical implementation assets."
+    "kind": "updated",
+    "summary": "Viewer 0.6.3 large-design opening improvements and explicit solve and removed-include handling."
   }
 ]

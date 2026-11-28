@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-10-12"
 access: "Public AGPL-3.0 source. Browser SKY130/ngspice execution needs no simulation server account; hosted execution is team-restricted. Local headless authoring and external EDA adapters have separate Node.js, service, simulator and PDK requirements."
 addedAt: '2026-10-01'
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
 - id: code
   title: Canonical Analog Canvas repository
@@ -105,6 +105,15 @@ sources:
 - id: review-20261124-browser
   title: "Implemented browser ngspice execution and waveform routing"
   url: https://github.com/cascode-ai/analog-canvas/blob/0fb4f24e86ffbea6b430127290edce4c004ec4bd/apps/editor/src/features/simulation/browser-ngspice/browser-ngspice-executor.ts
+- id: review-20261128-activity
+  title: "November 28 editor, electrical simulation and exporter corrections"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/214540fe612c1e67807af6d05e09c28c00454343"
+- id: review-20261128-erc
+  title: "November 25 six non-blocking ERC checks and tests"
+  url: "https://github.com/cascode-ai/analog-canvas/commit/0b4fd35b199ce5d789bea5be05863e769975360b"
+- id: review-20261128-erc-tests
+  title: "Retained device and drafting diagnostic tests"
+  url: "https://github.com/cascode-ai/analog-canvas/blob/214540fe612c1e67807af6d05e09c28c00454343/packages/derived/src/diagnostics/device-and-drafting-checks.test.ts"
 ---
 
 ### Authoring and stage boundaries
@@ -126,3 +135,7 @@ Hierarchical cell binding checks ports and supplies before netlist extraction; i
 Claude-credited executable changes added hosted cell-library binding and integrated coupled-inductor editing, transactions and netlist export. The current edit engine retains the coupling transaction, supporting AI-ASSISTED independently of runtime AI stages. [Credited implementation](#source-development-audit-implementation) · [Coupling implementation](#source-development-audit-extension) · [Retained code](#source-development-audit-retained).
 
 Source review on November 24, 2026 checked current capabilities and canonical history. The activity snapshot remains separate; current-head access corrections do not silently replace the recorded meaningful checkpoint. Historical SG13G2 qualification and RNL implementation sources remain evidence of their specific reviewed revisions. [Recorded implementation activity](#source-activity) · [Historical qualification](#source-review-20261103-qualification).
+
+### November 28, 2026 source review
+
+The November 25 implementation adds six non-blocking ERC diagnostics, including shorted MOS channels with exclusions for MOS capacitors and dummies, stacked instances, unresolved parameters, drafting imitations and floating custom supplies. November 28 changes address large-waveform reductions, AC phasor magnitudes, SPICE mil parsing and exporter/rendering reliability, with executable regression additions. These are schematic and electrical-workflow improvements, not physical IC layout or automatic aesthetic schematic placement. Existing Scope, access boundaries and development provenance remain unchanged; upstream tests were inspected, not run. [ERC integration](#source-review-20261128-erc) · [ERC tests](#source-review-20261128-erc-tests) · [November 28 integration](#source-review-20261128-activity).

@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: '2026-11-24'
 access: "Public Rust, WASM and web-viewer code. The browser viewer loads a separate solver for schematic solving. MIT covers the implementation; specifications, data and fonts have separate licenses."
 addedAt: "2026-10-20"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: Canonical RNL implementation
@@ -106,6 +106,18 @@ sources:
   - id: review-20261119-activity
     title: "Core 0.6.0 restricts parsing and writing to RNL 0.4"
     url: https://github.com/rich-netlist/rnl/commit/67d68f18e0bfc0496f43aaef213b3d7afc9ef7d8
+  - id: review-20261128-activity
+    title: "November 28 separate Solve control and browser regression"
+    url: "https://github.com/rich-netlist/rnl/commit/d9b0b70aa87c7f52d5b3f914ed709b136919b193"
+  - id: review-20261128-release
+    title: "Viewer 0.6.3 release and large-design opening results"
+    url: "https://github.com/rich-netlist/rnl/releases/tag/viewer-v0.6.3"
+  - id: review-20261128-include
+    title: "November 25 exclude removed includes from solve and saved copies"
+    url: "https://github.com/rich-netlist/rnl/commit/f9ce0b2ded3ee33f7a7f8751e76d63903cf757ab"
+  - id: review-20261128-unplaced-tests
+    title: "Retained explicit solve and unplaced-view behavior tests"
+    url: "https://github.com/rich-netlist/rnl/blob/25a7c9f2cf81374839bae59db116ac9b2d0555cd/tests/viewer/specs/unplaced-bar.spec.js"
 ---
 
 ### Implementation and scope
@@ -154,3 +166,7 @@ The November 12 native implementation introduces an independent rnl-solver execu
 Core and Viewer 0.6.0 were reviewed. The Viewer loads a WASM Worker on first solve for placement and routing, with progress and cancellation. Solving on file open previews the result without changing the input. This is schematic Design, not physical IC Layout or SPICE simulation. Core 0.6 reads and writes RNL 0.4 only; the last legacy-compatible CLI, core 0.5.7, converts 0.2/0.3 files with `rnl upgrade`, while the frozen legacy web viewer can still display them. [Core](#source-review-20261119-core) · [Viewer](#source-review-20261119-viewer) · [Language implementation](#source-review-20261119-activity).
 
 The November 24 retention review distinguishes the surviving executable package-path assertion from superseded optional-package expectations. The retained contribution supports AI-ASSISTED under the same isolated-test standard used elsewhere; it does not claim that every historical test or package still ships. [Credited package/test change](#source-development-implementation) · [Current library-publication test](#source-development-retained).
+
+### November 28, 2026 source review
+
+Viewer 0.6.3 reports faster opening of large multifile designs by drawing from a smaller initial response, reusing readings and avoiding duplicate reads; its timing measurements are author-reported. The November 25 web-viewer fix prevents a removed include from being solved or saved with a reopened entry. Current main displays a Not drawn control and a separate Solve (F9) action for unplaced objects, without asking on file open; the November 28 integration distinguishes the solve control in executable tests. This solves authored schematic constraints, not general aesthetic placement from an arbitrary unannotated electrical netlist. The later localization change remains the raw head. Existing Design and development provenance remain unchanged; tests were not independently executed. [Release](#source-review-20261128-release) · [Include correction](#source-review-20261128-include) · [Solve action](#source-review-20261128-activity) · [Tests](#source-review-20261128-unplaced-tests).

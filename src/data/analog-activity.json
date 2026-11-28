@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:51:22.000Z",
+  "capturedAt": "2026-11-28T06:59:21.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -755,9 +755,9 @@
       "kind": "github",
       "repository": "cascode-ai/analog-canvas",
       "repositoryId": 1325418450,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T06:59:21.000Z",
       "defaultBranch": "main",
-      "headSha": "f290362e3a80d9cc9dca36ccf0b27ba8a0211861",
+      "headSha": "214540fe612c1e67807af6d05e09c28c00454343",
       "commits": [
         0,
         0,
@@ -770,12 +770,12 @@
         668,
         642,
         364,
-        286
+        473
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "b02d4184ac2ab6ddb810bddb7068ce6b807b3256",
-      "notes": "Reviewed implementation/validation at b02d4184ac2ab6ddb810bddb7068ce6b807b3256. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "214540fe612c1e67807af6d05e09c28c00454343",
+      "notes": "November 25 ERC integration and November 28 simulation/renderer corrections reviewed in source and tests; meaningful checkpoint is the November 28 integrated implementation."
     },
     "vibe-ic": {
       "kind": "github",
@@ -1121,9 +1121,9 @@
       "kind": "github",
       "repository": "rich-netlist/rnl",
       "repositoryId": 1382051453,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T06:59:21.000Z",
       "defaultBranch": "main",
-      "headSha": "ed81564938f9f9e06e6fb1af0ed6032c10b51bf8",
+      "headSha": "25a7c9f2cf81374839bae59db116ac9b2d0555cd",
       "commits": [
         0,
         0,
@@ -1136,12 +1136,12 @@
         0,
         9,
         328,
-        439
+        588
       ],
-      "lastCommitAt": "2026-11-19",
-      "lastMeaningfulCommitAt": "2026-11-18",
-      "lastMeaningfulCommitSha": "67d68f18e0bfc0496f43aaef213b3d7afc9ef7d8",
-      "notes": "Verified first-parent change restricts RNL to language 0.4; tagged Core/Viewer release notes separately establish migration and browser WASM."
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "d9b0b70aa87c7f52d5b3f914ed709b136919b193",
+      "notes": "November 25 stale-include solve/save repair and November 28 explicit Solve-control regression reviewed. Viewer 0.6.3 release establishes only its documented released capabilities."
     },
     "cace": {
       "kind": "github",
@@ -3437,6 +3437,31 @@
       "lastMeaningfulCommitAt": "2026-11-28",
       "lastMeaningfulCommitSha": "69998f2aaabf1f16d9d853119a80cfc1e8912636",
       "notes": "Raw first-parent history includes inherited Tiny Tapeout template commits; only the November 28 V2 ADC implementation is the reviewed meaningful checkpoint."
+    },
+    "mosplot": {
+      "kind": "github",
+      "repository": "medwatt/gmid",
+      "repositoryId": 571324622,
+      "capturedAt": "2026-11-28T06:59:21.000Z",
+      "defaultBranch": "main",
+      "headSha": "6c4c5e164295c60a8b996f9dff8a79c64456ddaf",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        18,
+        1,
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-09-22",
+      "lastMeaningfulCommitAt": "2026-09-21",
+      "lastMeaningfulCommitSha": "94c5f097399fe2fdd152f7082e8cdb7e6c6b7a9a"
     }
   }
 }

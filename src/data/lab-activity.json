@@ -1,6 +1,6 @@
 {
   "reviewedAt": "2026-11-28",
-  "capturedAt": "2026-11-28T06:51:22.000Z",
+  "capturedAt": "2026-11-28T06:59:21.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -2616,6 +2616,56 @@
       "lastCommitAt": "2026-11-24",
       "lastMeaningfulCommitAt": "2026-11-24",
       "lastMeaningfulCommitSha": "438da00f2fb42c75db7b93dff4b11d5a800d840b"
+    },
+    "openpauw": {
+      "kind": "github",
+      "repository": "nanosystemslab/OpenPauw",
+      "repositoryId": 1103392749,
+      "capturedAt": "2026-11-28T06:59:21.000Z",
+      "defaultBranch": "main",
+      "headSha": "563906aa9345e9c15f73874f94a6aa72f52834f5",
+      "commits": [
+        3,
+        6,
+        18,
+        2,
+        3,
+        0,
+        6,
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "lastCommitAt": "2026-10-10",
+      "lastMeaningfulCommitAt": "2026-08-07",
+      "lastMeaningfulCommitSha": "178a8378f8fb783db921fa65c41693dd89dda9d4"
+    },
+    "benchloom": {
+      "kind": "github",
+      "repository": "criscrafter/benchloom",
+      "repositoryId": 1453324779,
+      "capturedAt": "2026-11-28T06:59:21.000Z",
+      "defaultBranch": "main",
+      "headSha": "c06716087f54d39a499e8c433eb32e9634762487",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        60
+      ],
+      "lastCommitAt": "2026-11-26",
+      "lastMeaningfulCommitAt": "2026-11-17",
+      "lastMeaningfulCommitSha": "cfc19eb0dd4ca6a088e0d70f5fcb2d76b11bc5f8"
     }
   }
 }
