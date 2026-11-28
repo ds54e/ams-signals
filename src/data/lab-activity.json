@@ -2365,7 +2365,7 @@
       ],
       "lastCommitAt": "2026-11-25",
       "lastMeaningfulCommitAt": "2026-11-25",
-      "lastMeaningfulCommitSha": "5ce31f276c36d8ef8d9b6079704e04e001fd848b"
+      "lastMeaningfulCommitSha": "94d23263f65e2012d32b402183fc352526ac6159"
     },
     "bluesky-adaptive": {
       "kind": "github",
@@ -2489,8 +2489,8 @@
         2
       ],
       "lastCommitAt": "2026-11-20",
-      "lastMeaningfulCommitAt": "2026-11-06",
-      "lastMeaningfulCommitSha": "92ea1d61a1cea92fb8d874ebd061e126ed9b4ed0"
+      "lastMeaningfulCommitAt": "2026-11-20",
+      "lastMeaningfulCommitSha": "289b184d24d183cc08c7c2127ab1a823c568981c"
     },
     "msl-equipment": {
       "kind": "github",

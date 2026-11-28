@@ -9,7 +9,7 @@ scope:
   test: { ai: false }
 access: "Apache-2.0; physical experiments require a compatible Qibolab platform, instrument drivers and hardware. The supplied mock platforms and fitted models are not hardware calibration evidence."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public calibration implementation"
@@ -36,6 +36,15 @@ sources:
   - id: qibolab
     title: "Related pulse execution and instrument platform"
     url: "https://github.com/qiboteam/qibolab"
+  - id: qubit-fit
+    title: "Retained IQ rotation and empirical threshold estimator"
+    url: "https://github.com/qiboteam/qibocal/blob/06764d4c1d097f35832fc23be4d819b933441570/src/qibocal/fitting/classifier/qubit_fit.py"
+  - id: qblox-fit
+    title: "Retained midpoint threshold and IQ rotation"
+    url: "https://github.com/qiboteam/qibocal/blob/06764d4c1d097f35832fc23be4d819b933441570/src/qibocal/fitting/classifier/qblox_fit.py"
+  - id: release-version
+    title: "November 26 release version bump"
+    url: "https://github.com/qiboteam/qibocal/commit/6f5c51f48e703d3d2ac788d240b1ffa62ccc770d"
 ---
 
 ## Scope and limits
@@ -47,3 +56,7 @@ The implemented measurement and analysis protocols are specific to quantum hardw
 ## Reviewed maintenance
 
 July 8 separates qubit spectroscopy fitting and data types from resonator spectroscopy. November 17 introduces explicit rectangular probes and range specifications for punchout experiments, including a separately stored starting amplitude rather than indiscriminately replacing other measurements. The current implementation retains the separate acquisition, fit and update paths. No physical calibration, instrument execution or upstream tests were independently reproduced. [July integration](#source-earlier) · [November integration](#source-activity).
+
+## November 28, 2026 implementation review
+
+The supplied single-shot classifiers implement two specific calibration estimators: QubitFit rotates the IQ plane according to the two state means and chooses a threshold from empirical cumulative distributions; QbloxFit uses a rotated midpoint threshold. These are conventional state-discrimination calibration operations, not evidence of a separate machine-learning surrogate or LLM-selected calibration workflow. The November 26 default-branch changes bump the package version and lockfile, without a new numerical protocol implementation in those commits. The saved activity checkpoint is retained. [QubitFit](#source-qubit-fit) · [QbloxFit](#source-qblox-fit) · [Version change](#source-release-version).

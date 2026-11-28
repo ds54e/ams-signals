@@ -12,7 +12,7 @@ developmentEvidence:
   reviewedAt: "2026-11-25"
 access: "MIT; requires Julia, a differentiable or otherwise compatible user-supplied model, appropriate prior and noise assumptions, and a measurement callback for live acquisition."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -36,6 +36,12 @@ sources:
   - id: example
     title: "Simulated periodic-model design comparison"
     url: "https://github.com/waudbylab/OptimalDesign.jl/blob/453c6f4b3b0f546b43492b11f649f13eef24c62b/examples/9_cos_eig_vs_dopt.jl"
+  - id: parameter-selection-example
+    title: "Damped-cosine D and Ds optimal design comparison"
+    url: "https://github.com/waudbylab/OptimalDesign.jl/blob/453c6f4b3b0f546b43492b11f649f13eef24c62b/examples/11_cos_selection_criteria.jl"
+  - id: related-gpcam-optimizer
+    title: "Related learned GP surrogate and objective-callback optimizer"
+    url: "https://github.com/lbl-camera/gpCAM/blob/94d23263f65e2012d32b402183fc352526ac6159/gpcam/gp_optimizer_base.py"
 ---
 
 ## Scope and limits
@@ -45,3 +51,7 @@ The primary outcome is a design for estimating parameters of a specified model a
 ## Reviewed maintenance and provenance
 
 March corrects allocation in adaptive batch mode. May adds an expected-information-gain criterion, examples and tests, followed by pluggable Gaussian-mixture resampling with BIC-guided component selection and diagnostics. The latter has an explicit Claude credit and is retained at the reviewed head. These changes follow an initial usable design package in March; the most recent implementation checkpoint is May 22, with later example/documentation maintenance. No upstream tests or physical measurement were independently run. [March correction](#source-earlier) · [Information-gain change](#source-eig) · [Resampling change](#source-activity).
+
+## November 28, 2026 implementation review
+
+The retained May example compares D-optimal and parameter-subset Ds-optimal designs for a damped cosine with amplitude, angular frequency and decay-rate parameters. It checks design optimality and evaluates synthetic noisy observations using the supplied model. This is a parameter-estimation experiment, unlike gpCAM's learned response surrogate and general black-box objective optimization. A numerical posterior over parameters of a user-supplied physical model does not imply a learned response model, autonomous agent or physical instrument integration. The May example illustrates existing criteria rather than advancing the reviewed core implementation checkpoint. [Selection example](#source-parameter-selection-example) · [Related GP optimizer](#source-related-gpcam-optimizer).

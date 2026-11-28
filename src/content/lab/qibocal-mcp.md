@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-11-25"
 access: "Apache-2.0; requires a compatible Qibocal runtime and model access for agent operation. Live operation requires appropriate hardware limits, operator-approved budgets and a compatible platform; the project is not a hardware safety layer."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical MCP and calibration agent implementation"
@@ -41,6 +41,12 @@ sources:
   - id: instructions
     title: "Calibration instructions, inspection and approval boundaries"
     url: "https://github.com/qiboteam/qibocal-mcp/blob/8efde09e88d72d956412cd5b6bd7c5d652033169/packages/mcp/src/qibocal_mcp/calibration.py"
+  - id: related-protocol
+    title: "Underlying numerical spectroscopy protocol"
+    url: "https://github.com/qiboteam/qibocal/blob/06764d4c1d097f35832fc23be4d819b933441570/src/qibocal/protocols/resonator_spectroscopies/resonator_spectroscopy.py"
+  - id: citation-update
+    title: "November 26 citation metadata change"
+    url: "https://github.com/qiboteam/qibocal-mcp/commit/74148de92c8745c593532173db54f1a74a67f736"
 ---
 
 ## Scope and limits
@@ -52,3 +58,7 @@ The project explicitly describes itself as a single-platform draft rather than a
 ## Reviewed maintenance and provenance
 
 October 23 integrates platform listing, differences, saving and checkout. November 5 adds compact model-facing images with textual axes and trace metadata and exports multiple images in one rendering call; the original report figures remain available. This is substantive follow-through beyond the initial October release. The latter commit explicitly credits Claude Opus and the implementation remains at the reviewed head. November 24 adds license declarations rather than advancing meaningful implementation activity. No agent, model, instrument or upstream suite was independently executed. [Version integration](#source-version-integration) · [Image change](#source-activity) · [Retained image code](#source-images).
+
+## November 28, 2026 implementation review
+
+Session creation can use the accepted state, initial baseline, saved snapshot or a completed run's execution platform with its fitted results applied. The last path applies results to the run's original platform checkpoint rather than automatically merging with later calibration edits. This is state management around model-selected protocols and does not make the underlying numerical spectroscopy implementation a second AI-developed measurement algorithm. The November 26 default-branch change adds citation metadata only; it does not advance the saved implementation checkpoint. [Runtime](#source-runtime) · [Underlying protocol](#source-related-protocol) · [Citation update](#source-citation-update).

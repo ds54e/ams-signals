@@ -9,7 +9,7 @@ scope:
   test: { ai: false }
 access: "Apache-2.0 public source; instrument execution requires a compatible Zurich Instruments setup and LabOne software. Device capabilities and measurement accuracy depend on the installed hardware and calibration."
 addedAt: "2026-11-25"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: code
     title: "Canonical public implementation"
@@ -36,6 +36,24 @@ sources:
   - id: fitting
     title: "Retained numerical analysis and fitting utilities"
     url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/src/python/laboneq/analysis/fitting.py"
+  - id: beta-implementation
+    title: "November 20 integration of LabOne Q 27.1.0 beta 1"
+    url: "https://github.com/zhinst/laboneq/commit/289b184d24d183cc08c7c2127ab1a823c568981c"
+  - id: beta-release-notes
+    title: "Retained 27.1.0b1 release notes"
+    url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/CHANGELOG.md"
+  - id: round-robin
+    title: "Retained client-queue round-robin worker"
+    url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/src/python/laboneq/controller/round_robin_worker.py"
+  - id: near-time
+    title: "Retained near-time callback error handling"
+    url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/src/python/laboneq/controller/near_time_runner.py"
+  - id: raw-results
+    title: "Retained raw sampling-rate metadata and execution error fields"
+    url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/src/python/laboneq/data/experiment_results/__init__.py"
+  - id: emulated-rabi
+    title: "Emulated heterogeneous-control Rabi tune-up example"
+    url: "https://github.com/zhinst/laboneq/blob/289b184d24d183cc08c7c2127ab1a823c568981c/examples/09_heterogeneous_control_system/00_bayesian_rabi_tuneup_emulation.ipynb"
 ---
 
 ## Scope and limits
@@ -46,4 +64,8 @@ The workflow can encode calibration dependencies; it does not guarantee that a p
 
 ## Reviewed maintenance
 
-The April 29 release revises graph and layer execution, grouped node keys and parameter management. The November 6 release corrects acquired result handling for a handle without a chunked axis or a single-chunk result; the branch remains in the reviewed result builder. The November 20 beta is present in the captured history, but is not used as the meaningful checkpoint for these claims. No hardware execution, compiled timing or upstream test results were independently reproduced. [April automation change](#source-automation-release) · [November result correction](#source-activity).
+The April 29 release revises graph and layer execution, grouped node keys and parameter management. The November 6 release corrects acquired result handling for a handle without a chunked axis or a single-chunk result; the branch remains in the reviewed result builder. The November 20 beta adds substantive controller and acquisition-result changes, as described below; these are source-level beta capabilities rather than stable-release claims. No hardware execution, compiled timing or upstream test results were independently reproduced. [April automation change](#source-automation-release) · [November result correction](#source-activity).
+
+## November 28, 2026 implementation review
+
+The November 20 source integration of 27.1.0b1 implements per-client round-robin experiment queues while still executing one experiment at a time. It records errors from some individual near-time steps and retains other results, while errors before instrument submission can still stop the run. Raw acquired results now expose sampling-rate metadata. These substantive changes advance the reviewed implementation checkpoint; they do not establish physical concurrency, timing or acquisition accuracy. The new Bayesian Rabi tune-up notebook emulates the instrument and coprocessor: its placeholder estimator selects a predetermined amplitude sequence independently of measured values and never applies waveform updates in emulation. It demonstrates the streaming interface rather than an implemented Bayesian calibration algorithm; the existing conventional Scope attributes are unchanged. [Beta source](#source-beta-implementation) · [Release notes](#source-beta-release-notes) · [Queue worker](#source-round-robin) · [Callback errors](#source-near-time) · [Results](#source-raw-results) · [Emulated example](#source-emulated-rabi).
