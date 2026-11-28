@@ -1,7 +1,7 @@
 ---
 name: "Celox"
 aliases: []
-description: "Compiler-based RTL simulator for Veryl and a supported subset of SystemVerilog, with typed TypeScript tests, native CLI and cocotb/VPI. It implements selected SystemVerilog covergroups including interface declarations and JSON coverage reporting; it is not a gate-level timing or analog simulator."
+description: "Compiler-based RTL simulator for Veryl and a supported subset of SystemVerilog, with typed TypeScript/Vitest tests, native CLI and cocotb/VPI. It implements selected SystemVerilog covergroups including interface declarations and JSON coverage reporting; it is not a gate-level timing or analog simulator."
 scope:
   verification:
     ai: false
