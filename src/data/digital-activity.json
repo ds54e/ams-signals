@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T08:02:41.000Z",
+  "reviewedAt": "2026-11-28",
+  "capturedAt": "2026-11-28T06:51:22.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -296,9 +296,9 @@
       "kind": "github",
       "repository": "MikePopoloski/slang",
       "repositoryId": 80874333,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "master",
-      "headSha": "87e38f8cc678c3d0a21a437b479e262c134b6bbe",
+      "headSha": "8970e0b1e3a9a142817e62079ea3c3b22ac3def0",
       "commits": [
         38,
         24,
@@ -311,11 +311,11 @@
         24,
         43,
         98,
-        220
+        267
       ],
-      "lastCommitAt": "2026-11-22",
-      "lastMeaningfulCommitAt": "2026-11-14",
-      "lastMeaningfulCommitSha": "6d677aecd5ad4febec25f0c2632caec42ea6d361"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "8970e0b1e3a9a142817e62079ea3c3b22ac3def0"
     },
     "surelog-uhdm": {
       "kind": "github",
@@ -522,9 +522,9 @@
       "kind": "github",
       "repository": "verilator/verilator",
       "repositoryId": 191842184,
-      "capturedAt": "2026-11-23T03:31:49.760Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "master",
-      "headSha": "a53cbcd6f79aa609d39a049ea1c6b7072fe0a7e1",
+      "headSha": "50b2d6fd0d97af716ba1536e86395d9c40d4c0e2",
       "commits": [
         130,
         106,
@@ -537,11 +537,11 @@
         178,
         285,
         386,
-        359
+        431
       ],
-      "lastCommitAt": "2026-11-22",
-      "lastMeaningfulCommitAt": "2026-11-15",
-      "lastMeaningfulCommitSha": "9ed03126f55c7f2295f81dd9415c75d0527e8423"
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "d986a209210fccb4071f9f04694333eba7b6e8bf"
     },
     "vitamin": {
       "kind": "github",

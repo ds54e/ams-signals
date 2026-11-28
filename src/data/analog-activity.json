@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T07:03:20.000Z",
+  "reviewedAt": "2026-11-28",
+  "capturedAt": "2026-11-28T06:51:22.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -333,9 +333,9 @@
       "kind": "github",
       "repository": "Arcadia-1/virtuoso-bridge-lite",
       "repositoryId": 1199185047,
-      "capturedAt": "2026-11-19T23:05:25.745Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "main",
-      "headSha": "4e3025b461e5491d73741999bfb80a2f2e66fec9",
+      "headSha": "2cc3d066b27455258bd0517f4e24e4fc9f710d8d",
       "commits": [
         0,
         0,
@@ -348,12 +348,12 @@
         23,
         28,
         103,
-        26
+        52
       ],
-      "lastCommitAt": "2026-11-18",
-      "lastMeaningfulCommitAt": "2026-11-05",
-      "lastMeaningfulCommitSha": "e2a69fca2fc8295a35674451a1e0aec2d52b308f",
-      "notes": "Reviewed implementation/validation at e2a69fca2fc8295a35674451a1e0aec2d52b308f. Project Markdown records the inspected code, regression evidence and limitations; upstream EDA/model results were not independently reproduced. Raw counts retain cosmetic and automated commits without promoting them into meaningful activity."
+      "lastCommitAt": "2026-11-26",
+      "lastMeaningfulCommitAt": "2026-11-26",
+      "lastMeaningfulCommitSha": "2cc3d066b27455258bd0517f4e24e4fc9f710d8d",
+      "notes": "November 26 remote transport and wrapper reliability integration is the reviewed meaningful first-parent checkpoint; technical source changes inspected, not independently run."
     },
     "ngspice-openvaf-enhancements": {
       "kind": "github",
@@ -3361,6 +3361,82 @@
       "lastMeaningfulCommitAt": "2026-09-23",
       "lastMeaningfulCommitSha": "65cb17b2403a692f99757b8fa6f11da031b61bad",
       "notes": "July 10 adds wire-bond profiles, rendering and test infrastructure; August 5 adds package DRC; September 17 adds stacked die checks and September 23 adds GDS pad selection. Later September 23 stack visualization is the raw checkpoint. Related DesignStudio and non-default branches are excluded from the count."
+    },
+    "ams-skills": {
+      "kind": "github",
+      "repository": "Arcadia-1/ams-skills",
+      "repositoryId": 1179637821,
+      "capturedAt": "2026-11-28T06:51:22.000Z",
+      "defaultBranch": "main",
+      "headSha": "2c0fb0cd1f504db87b41c70dbc5d32f025065499",
+      "commits": [
+        0,
+        0,
+        0,
+        2,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "2c0fb0cd1f504db87b41c70dbc5d32f025065499"
+    },
+    "netlist-crawler": {
+      "kind": "github",
+      "repository": "Arcadia-1/netlist-crawler",
+      "repositoryId": 1273922957,
+      "capturedAt": "2026-11-28T06:51:22.000Z",
+      "defaultBranch": "main",
+      "headSha": "73dfdd49a51b86dd1822af91811f756ded05d8e2",
+      "commits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        25,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "lastCommitAt": "2026-08-03",
+      "lastMeaningfulCommitAt": "2026-08-03",
+      "lastMeaningfulCommitSha": "73dfdd49a51b86dd1822af91811f756ded05d8e2"
+    },
+    "tt-vco-adc": {
+      "kind": "github",
+      "repository": "Arcadia-1/tt-vco-adc",
+      "repositoryId": 1465160857,
+      "capturedAt": "2026-11-28T06:51:22.000Z",
+      "defaultBranch": "main",
+      "headSha": "69998f2aaabf1f16d9d853119a80cfc1e8912636",
+      "commits": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        1,
+        0,
+        15
+      ],
+      "lastCommitAt": "2026-11-28",
+      "lastMeaningfulCommitAt": "2026-11-28",
+      "lastMeaningfulCommitSha": "69998f2aaabf1f16d9d853119a80cfc1e8912636",
+      "notes": "Raw first-parent history includes inherited Tiny Tapeout template commits; only the November 28 V2 ADC implementation is the reviewed meaningful checkpoint."
     }
   }
 }

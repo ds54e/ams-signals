@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: '2026-10-18'
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Canonical slang repository"
@@ -69,6 +69,12 @@ sources:
   - id: review-20261115-parser-tests
     title: "Misplaced-new parser diagnostics and constructor-call regressions"
     url: https://github.com/MikePopoloski/slang/blob/2664c559c78c150e8b144c8be2cfc1871a66304f/tests/unittests/parsing/ExpressionParsingTests.cpp
+  - id: review-20261128-activity
+    title: "Correct simulation time-unit contributions from compilation units and packages"
+    url: "https://github.com/MikePopoloski/slang/commit/8970e0b1e3a9a142817e62079ea3c3b22ac3def0"
+  - id: review-20261128-timescale-tests
+    title: "Simulation time-unit semantic regressions"
+    url: "https://github.com/MikePopoloski/slang/blob/8970e0b1e3a9a142817e62079ea3c3b22ac3def0/tests/unittests/ast/SystemFuncTests.cpp"
 ---
 
 ### Implementation and scope
@@ -105,3 +111,7 @@ The November 14 correction diagnoses class construction, dynamic-array allocatio
 The compilation regression expects 13 MisplacedNew diagnostics across return expressions, a default argument, nonblocking assignments, conditional/parenthesized expressions, assignment patterns, a nested assignment and a call argument. It also includes accepted variable initializers, blocking assignments, scoped construction, shallow copies, dynamic-array initialization, for-loop variable initialization and a valid derived-class super.new call. The parser regression expects 13 MisplacedNew diagnostics plus one InvalidSuperNew, including for-loop assignment and delayed-assignment cases; earlier tests are adjusted to use legal contexts. [Compilation cases](#source-review-20261115-ast-tests); [parser cases](#source-review-20261115-parser-tests); [complete diff](#source-review-20261115-activity).
 
 The repair and regressions remain at master head `2664c559c78c150e8b144c8be2cfc1871a66304f` and the reviewed commit is on its first-parent chain. This is frontend syntax/diagnostic correctness, not new simulation, synthesis or runtime-AI coverage, and it supplies no new AI implementation attribution. Existing Design/Verification and the separately evidenced AI-ASSISTED label remain unchanged. Tests were inspected, not executed; integration does not establish a released version or comprehensive LRM conformance.
+
+### November 28, 2026 source review
+
+The November 27 implementation makes the global simulation time unit consider compilation units and packages only when they declare or use a time scale, with regressions for time-unit queries and scopes that do not participate. This is frontend semantic correctness, not an added event-driven simulator capability. The reviewed master integration and executable tests do not establish a tagged release or comprehensive LRM compliance; upstream tests were inspected, not run. Existing Scope and development provenance are unchanged. [Integration](#source-review-20261128-activity) · [Regressions](#source-review-20261128-timescale-tests).

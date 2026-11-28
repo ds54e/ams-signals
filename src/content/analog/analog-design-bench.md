@@ -12,7 +12,7 @@ targets: "References, LDOs, amplifiers, ADCs, DACs, oscillators, RF blocks and m
 access: "All 50 task directories, development benches, verifiers and environment definitions are public, with a Hugging Face dataset mirror. Tasks require ngspice, SKY130 models and the specified container environment; software is Apache-2.0 and benchmark content is CC BY-NC 4.0."
 notice: "Paper and website results are author-reported. Public task availability does not establish independent reproduction of the reported agent evaluations."
 addedAt: "2026-09-05"
-reviewedAt: "2026-10-18"
+reviewedAt: "2026-11-28"
 sources:
   - id: "site"
     title: "Official V2 task count and author-reported results"
@@ -41,6 +41,15 @@ sources:
   - id: "activity-refresh"
     title: "Correct the published telescopic OTA reference power specification"
     url: "https://github.com/Arcadia-1/analog-design-bench/commit/9a3113c3a94b4212e4dcc62b001b8f6c141c833e"
+  - id: related-example-tasks
+    title: "Separate four-task Harbor examples and authorization terms"
+    url: "https://github.com/Arcadia-1/analog-design-bench-examples/blob/e7c8e9d182cebec37e147a7a5d0426eda7ef217a/README.md"
+  - id: related-toolchains
+    title: "Pinned shared simulator and PDK container toolchains"
+    url: "https://github.com/Arcadia-1/circuit-bench-toolchains/blob/f28d9590d995778589287ba830d8c76d3a7dc2cb/README.md"
+  - id: related-code-a-chip
+    title: "Code-a-Chip companion notebook and author-reported results"
+    url: "https://github.com/Arcadia-1/analog-design-bench-code-a-chip/blob/fecc6d1b681648f5695d579d280bd341c05d7c37/README.md"
 ---
 ### Task contract
 
@@ -61,3 +70,7 @@ Some tasks include PVT or fixed-seed Monte Carlo checks, with task-specific limi
 Tasks explicitly evaluate AI agents that edit circuit netlists to meet electrical specifications, supporting AI Design for this benchmark. The tag describes the evaluated design operation, not an autonomous designer inside the task package. [Task contract](#source-contract) · [Benchmark purpose](#source-paper)
 
 Runnable ngspice benches and isolated verifiers provide conventional electrical evaluation, including task-specific PVT checks. Their support for AI design does not itself establish AI Simulation. [Task contract](#source-contract)
+
+### November 28, 2026 source review
+
+The separate example repository describes four Harbor task packages across SKY130, IHP SG13G2 and GF180MCU using ngspice, Xyce and VACASK. Its README reserves use to authorized people; it is not a freely licensed addition to the original 50-task release. The companion toolchain repository supplies pinned simulator/PDK environments, while the Code-a-Chip notebook reports later benchmark evaluations. These are related artifacts rather than separate catalog implementations or evidence of activity in the original benchmark's default branch. The original public release task count and meaningful checkpoint remain unchanged. [Example tasks](#source-related-example-tasks) · [Toolchains](#source-related-toolchains) · [Companion notebook](#source-related-code-a-chip).

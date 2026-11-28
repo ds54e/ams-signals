@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-11-15"
 access: "Public source implementation; tool and environment requirements are documented by the project."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-15"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Canonical Verilator repository"
@@ -69,6 +69,15 @@ sources:
   - id: review-20261115-tests
     title: "Retained assertion-action-block executable coverage regressions"
     url: https://github.com/verilator/verilator/blob/81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308/test_regress/t/t_cover_line.v
+  - id: review-20261128-activity
+    title: "Executable VPI driver regressions"
+    url: "https://github.com/verilator/verilator/commit/d986a209210fccb4071f9f04694333eba7b6e8bf"
+  - id: review-20261128-sva
+    title: "SVA disjunction failure propagation and regressions"
+    url: "https://github.com/verilator/verilator/commit/bfef4a1ff9f64c0216a62cb87745ad97308435b4"
+  - id: review-20261128-vpi-test
+    title: "Retained VPI driver test implementation"
+    url: "https://github.com/verilator/verilator/blob/50b2d6fd0d97af716ba1536e86395d9c40d4c0e2/test_regress/t/t_vpi_drivers.cpp"
 ---
 
 ### Implementation and scope
@@ -100,3 +109,7 @@ The November 11 implementation extracts constant FSM targets guarded by nested c
 The coverage visitor saves and restores its state around each assertion/cover node, so a terminating task in an assertion action block no longer disables coverage of subsequent statements outside that assertion. Executable regressions exercise $error followed by if/else and $stop/$fatal in case items followed by assignments; updated expected outputs cover line, branch, LCOV and trace output. This corrects coverage instrumentation, not the execution semantics of failed assertions or all coverage defects. [Integrated repair and expected outputs](#source-review-20261115-activity); [retained implementation](#source-review-20261115-retained); [executable cases](#source-review-20261115-tests).
 
 The reviewed master head is `81c7a56e16bbd937bfd9dbedb9e40f3fd4a12308`; its later commentary-only change is ordering history, while the November 15 repair is the meaningful checkpoint on that first-parent chain. Default-branch integration is not a stable-release claim. Source and regression inspection did not include an upstream test run.
+
+### November 28, 2026 source review
+
+On November 27 the SVA NFA builder was corrected to propagate Boolean-leaf context into nested disjunction operands, with regressions for three-term disjunctions after delayed antecedents. The November 28 VPI driver regression adds executable C++ and SystemVerilog cases for read/write access across driver shapes. The reviewed meaningful checkpoint is the test integration; the later bit-builtin wrapper commit remains the raw head. These changes support existing Verification rather than a new Scope or runtime AI classification. Tests were inspected, not executed; master integration is not a stable-release claim. [SVA repair](#source-review-20261128-sva) · [VPI integration](#source-review-20261128-activity) · [Retained regression](#source-review-20261128-vpi-test).

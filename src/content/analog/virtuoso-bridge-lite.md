@@ -18,7 +18,7 @@ developmentEvidence:
 targets: "Schematics, layout, Maestro, Spectre, PSF, and remote sessions"
 access: "Bridge, Python APIs, CLI, and operating guides are public. Users supply licensed Virtuoso or Spectre installations and the required PDK and circuit assets."
 addedAt: "2026-09-05"
-reviewedAt: "2026-11-25"
+reviewedAt: "2026-11-28"
 sources:
   - id: "code"
     title: "Public repository"
@@ -118,6 +118,15 @@ sources:
   - id: related-analog-agents-maintenance
     title: "May 2 model-order-reduction implementation change"
     url: "https://github.com/Arcadia-1/analog-agents/commit/771d27d3b0b939b916f819ae375469cda892eb24"
+  - id: review-20261128-activity
+    title: "November 26 remote transport, path and transfer reliability fixes"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/2cc3d066b27455258bd0517f4e24e4fc9f710d8d"
+  - id: review-20261128-transport
+    title: "Retained persistent SSH transport"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/blob/2cc3d066b27455258bd0517f4e24e4fc9f710d8d/src/virtuoso_bridge/transport/paramiko_backend.py"
+  - id: review-20261128-maestro
+    title: "Maestro lifecycle and result-handling fixes"
+    url: "https://github.com/Arcadia-1/virtuoso-bridge-lite/commit/84b11a192298a45880a511f12f01eaf4ba979551"
 ---
 ### Implemented interfaces
 
@@ -164,3 +173,7 @@ EDA Agent is a related application over this bridge: it retrieves API/design con
 Analog_MCP is a separate alternative integration, not a component of this repository. It exposes Virtuoso SKILL/shell transport, Eldo batch/interactive execution and waveform plotting. Those implemented adapter operations remain discoverable as related sources, while their additional catalog value does not justify a separate entry in this review. This consolidation does not add Eldo or Calibre support, runtime AI, development attribution or repository activity to virtuoso-bridge-lite. [Analog_MCP interfaces](#source-related-analog-mcp) · [Eldo execution](#source-related-analog-mcp-eldo).
 
 analog-agents is a separate role-oriented analog design and verification skill framework from the same organization, with this bridge and ADCToolbox declared as submodules. Its independent parasitic-netlist crawl CLI reads Calibre and Spectre extractions, ranks coupling, and computes resistive paths; retain those implementation references rather than implying the bridge supplies those operations. The May 2, 2026 model-order-reduction simplification is its last reviewed substantive change; the July 2 integration adds an installation link, not further numerical or agent implementation. Under the stricter retention review, consolidate its discovery reference here instead of keeping a separate catalog row. Its workflow, AI stages, attribution and repository activity are not inherited by the bridge. [Related project](#source-related-analog-agents) · [Dependencies](#source-related-analog-agents-submodules) · [Pipeline](#source-related-analog-agents-pipeline) · [Analysis CLI](#source-related-analog-agents-crawl) · [Resistance kernel](#source-related-analog-agents-resistance) · [Maintenance](#source-related-analog-agents-maintenance).
+
+### November 28, 2026 source review
+
+The November 26 integrations harden remote Paramiko I/O, scratch path handling and downloads, including changes to the transport, transfer and wrapper regression suites. A separate same-day integration addresses Maestro lifecycle, history and result-handling edge cases. These are reliability improvements to existing operations; the functional Scope and development attribution remain unchanged. Source changes were inspected without executing licensed EDA tests. [Transport integration](#source-review-20261128-activity) · [Retained transport](#source-review-20261128-transport) · [Maestro integration](#source-review-20261128-maestro).

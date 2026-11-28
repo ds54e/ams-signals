@@ -1,20 +1,20 @@
 [
   {
-    "project": "gf180-efuse-otp",
-    "date": "2026-11-25",
+    "project": "ams-skills",
+    "date": "2026-11-28",
     "kind": "added",
-    "summary": "GF180 eFuse array reference design, sense-margin verification benches and layout generation with explicit signoff gaps."
+    "summary": "Domain-specific agent skills, Verilog-A models and Spectre testbenches for ten AMS circuit domains."
   },
   {
-    "project": "mna-simulator",
-    "date": "2026-11-25",
+    "project": "netlist-crawler",
+    "date": "2026-11-28",
     "kind": "added",
-    "summary": "Selected-output Krylov and nonlinear TPWL/POD reduction with full-order comparison tests."
+    "summary": "Structural netlist analysis, dialect translation and effective-resistance/coupling model prescriptions."
   },
   {
-    "project": "gspice",
-    "date": "2026-11-25",
+    "project": "tt-vco-adc",
+    "date": "2026-11-28",
     "kind": "added",
-    "summary": "Experimental circuit solver with residual-Jacobian and charge-conservation auditing."
+    "summary": "SKY130 second-order VCO ADC reference design with behavioral, extracted transient and physical implementation assets."
   }
 ]

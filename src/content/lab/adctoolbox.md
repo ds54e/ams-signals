@@ -11,7 +11,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "MIT with an academic citation notice; synthetic checks do not require an ADC."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Official project website or documentation"
@@ -36,6 +36,15 @@ sources:
   - id: development-retained
     title: "Retained sampling-jitter correction"
     url: "https://github.com/Arcadia-1/ADCToolbox/blob/b96e033af30a49d87a29e3c8900cd19c61e6a8a3/python/src/adctoolbox/siggen/nonidealities.py"
+  - id: review-20261128-activity
+    title: "Python and MATLAB algorithm audit fixes and regression integration"
+    url: "https://github.com/Arcadia-1/ADCToolbox/commit/9340460d483b76f420338a9fc1bad72f60329437"
+  - id: review-20261128-solver
+    title: "Retained least-squares calibration implementation"
+    url: "https://github.com/Arcadia-1/ADCToolbox/blob/9340460d483b76f420338a9fc1bad72f60329437/python/src/adctoolbox/calibration/_lstsq_solver.py"
+  - id: review-20261128-tests
+    title: "Executable calibration regression tests"
+    url: "https://github.com/Arcadia-1/ADCToolbox/blob/9340460d483b76f420338a9fc1bad72f60329437/python/tests/unit/calibration/test_verify_lstsq_solver.py"
 ---
 
 ## Scope and limits
@@ -47,3 +56,7 @@ The reviewed Python chained-jitter repair follows the v0.9.3 tag, although sourc
 Additional context: [Public v0.9.3 predates the reviewed change](#source-release).
 
 Analysis includes the optional learned correction implemented by `fit_calibration_mlp` and `apply_calibration`. The MLP learns a residual to a fixed affine baseline and selects an iterate on separate validation records. Its coefficients are digital correction parameters, not identified physical ADC parameters; correction quality depends on reference quality and training coverage. This capability is verified in the pinned Python source, not inferred from the older release label. [Foreground calibration](#source-foreground-calibration).
+
+### November 28, 2026 source review
+
+The November 24 integration audits algorithms across Python and MATLAB. The calibration least-squares path now excludes identically zero harmonic columns, including out-of-band harmonics masked for oversampling, and restores the coefficient vector after fitting. The regression exercises sine-basis selection with a residual bound; MATLAB spectrum input validation also accepts zero cutoff. This improves existing Analysis rather than adding physical acquisition or online adaptation. The integration is newer than the previous captured head, not a new release claim; source and tests were inspected without independent execution. [Integration](#source-review-20261128-activity) · [Solver](#source-review-20261128-solver) · [Tests](#source-review-20261128-tests).

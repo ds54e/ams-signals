@@ -1,6 +1,6 @@
 {
-  "reviewedAt": "2026-11-25",
-  "capturedAt": "2026-11-25T06:12:42.038Z",
+  "reviewedAt": "2026-11-28",
+  "capturedAt": "2026-11-28T06:51:22.000Z",
   "method": "first-parent-committer-utc",
   "months": [
     "2025-12",
@@ -21,9 +21,9 @@
       "kind": "github",
       "repository": "microsoft/Qcodes",
       "repositoryId": 37137879,
-      "capturedAt": "2026-11-24T04:32:08.978Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "main",
-      "headSha": "1583027138ef8d1b45370c56c2aba65fa2d119fd",
+      "headSha": "073585beeb2b4031a75491cee0bad79f8fcdd8d1",
       "commits": [
         64,
         70,
@@ -36,11 +36,11 @@
         83,
         83,
         118,
-        105
+        118
       ],
-      "lastCommitAt": "2026-11-23",
-      "lastMeaningfulCommitAt": "2026-11-23",
-      "lastMeaningfulCommitSha": "1583027138ef8d1b45370c56c2aba65fa2d119fd"
+      "lastCommitAt": "2026-11-27",
+      "lastMeaningfulCommitAt": "2026-11-27",
+      "lastMeaningfulCommitSha": "073585beeb2b4031a75491cee0bad79f8fcdd8d1"
     },
     "openhtf": {
       "kind": "github",
@@ -896,9 +896,9 @@
       "kind": "github",
       "repository": "Arcadia-1/ADCToolbox",
       "repositoryId": 1044123662,
-      "capturedAt": "2026-11-24T05:48:48.931Z",
+      "capturedAt": "2026-11-28T06:51:22.000Z",
       "defaultBranch": "main",
-      "headSha": "b96e033af30a49d87a29e3c8900cd19c61e6a8a3",
+      "headSha": "9340460d483b76f420338a9fc1bad72f60329437",
       "commits": [
         115,
         3,
@@ -911,11 +911,11 @@
         0,
         8,
         1,
-        16
+        17
       ],
-      "lastCommitAt": "2026-11-21",
-      "lastMeaningfulCommitAt": "2026-11-12",
-      "lastMeaningfulCommitSha": "cb3636cd3b68ba3a6ec321a6b5c71e244d9a85d3"
+      "lastCommitAt": "2026-11-24",
+      "lastMeaningfulCommitAt": "2026-11-24",
+      "lastMeaningfulCommitSha": "9340460d483b76f420338a9fc1bad72f60329437"
     },
     "openfpgaloader": {
       "kind": "github",

@@ -14,7 +14,7 @@ developmentEvidence:
   reviewedAt: "2026-11-24"
 access: "MIT; some drivers require vendor libraries or instruments."
 addedAt: "2026-11-24"
-reviewedAt: "2026-11-24"
+reviewedAt: "2026-11-28"
 sources:
   - id: website
     title: "Project documentation"
@@ -45,6 +45,15 @@ sources:
   - id: saved-run-analysis
     title: "Saved-run loading and complex-data plotting"
     url: "https://github.com/microsoft/Qcodes/blob/a8443cda5f1df38fd4c8d5403104e89de7ace42a/src/qcodes/dataset/plotting.py"
+  - id: review-20261128-activity
+    title: "VISA connection-error diagnostics and regression tests"
+    url: "https://github.com/microsoft/Qcodes/commit/073585beeb2b4031a75491cee0bad79f8fcdd8d1"
+  - id: review-20261128-visa
+    title: "Retained VISA instrument implementation"
+    url: "https://github.com/microsoft/Qcodes/blob/073585beeb2b4031a75491cee0bad79f8fcdd8d1/src/qcodes/instrument/visa.py"
+  - id: review-20261128-visa-tests
+    title: "Mocked connection-error regression cases"
+    url: "https://github.com/microsoft/Qcodes/blob/073585beeb2b4031a75491cee0bad79f8fcdd8d1/tests/test_visa.py"
 ---
 
 ## Scope and limits
@@ -56,3 +65,7 @@ The [implementation checkpoint](#source-activity) records a substantive upstream
 The measurement context can record an exception and still mark a dataset completed. Completion describes closure, not successful acquisition of every planned point or a DUT verdict. Snapshots can also use cached values. [Measurement context](#source-measurement-state). The reviewed repository license is MIT. [License](#source-license).
 
 Test follows the reusable doNd procedure: it coordinates multiple parameter sweeps, settling delays, measurements, dataset writes, entry/exit actions and interruption handling. Analysis follows `plot_by_id`, which reloads a saved run and supports real/imaginary or magnitude/phase inspection. These are distinct implemented operations, beyond a scriptable driver or an internal read loop. [Sweep procedure](#source-sweep-procedure) · [Saved-run analysis](#source-saved-run-analysis).
+
+### November 28, 2026 source review
+
+The November 27 integration adds specific diagnostic notes for a VISA interface number not configured on the host and an instrument resource not found, preserving the underlying error code. Mocked tests check both notes. This is Control reliability/diagnostics, not an additional acquisition or measurement capability, and does not imply real instrument validation. The upstream tests were inspected, not executed; functional Scope and development attribution remain unchanged. [Integration](#source-review-20261128-activity) · [Implementation](#source-review-20261128-visa) · [Tests](#source-review-20261128-visa-tests).
